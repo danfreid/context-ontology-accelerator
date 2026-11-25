@@ -4,6 +4,7 @@
 
 """Interactive demo for the Ontology Induction Platform."""
 
+import argparse
 import json
 import sys
 import time
@@ -21,18 +22,37 @@ from rich.table import Table
 
 console = Console()
 
-CONFIG_PATH = Path(__file__).parent / "config.yaml"
+_DEFAULT_CONFIG_PATH = Path(__file__).parent / "config.yaml"
 
 
-def _load_config() -> dict:
-    if not CONFIG_PATH.exists():
-        console.print(f"[red]Config not found: {CONFIG_PATH}[/]")
+def _parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(description="Ontology Induction Platform — Demo")
+    p.add_argument(
+        "--config",
+        type=Path,
+        default=None,
+        metavar="FILE",
+        help=(
+            "Path to a YAML config file (default: config.yaml next to this script). "
+            "Example: --config config-fsi-commodity.yaml"
+        ),
+    )
+    return p.parse_args()
+
+
+def _load_config(config_path: Path | None = None) -> dict:
+    path = config_path or _DEFAULT_CONFIG_PATH
+    # A bare name like ``config-fsi-commodity.yaml`` also resolves next to this script.
+    if not path.exists() and not path.is_absolute() and (Path(__file__).parent / path).exists():
+        path = Path(__file__).parent / path
+    if not path.exists():
+        console.print(f"[red]Config not found: {path}[/]")
         console.print("  cp config-example.yaml config.yaml")
         sys.exit(1)
-    return yaml.safe_load(CONFIG_PATH.read_text())
+    return yaml.safe_load(path.read_text())
 
 
-_cfg = _load_config()
+_cfg = _load_config(_parse_args().config)
 _svc = _cfg.get("services", {})
 _defaults = _cfg.get("induction_defaults", {})
 

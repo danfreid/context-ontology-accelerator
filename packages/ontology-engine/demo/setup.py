@@ -54,6 +54,7 @@ Exit codes:
   2  one or more ontologies failed to register (partial run)
 """
 
+import argparse
 import os
 import sys
 import time
@@ -69,20 +70,41 @@ from rich.table import Table
 
 # ── Config loading ───────────────────────────────────────────────
 
-CONFIG_PATH = Path(__file__).parent / "config.yaml"
+_DEFAULT_CONFIG_PATH = Path(__file__).parent / "config.yaml"
 console = Console()
 
 
-def load_config() -> dict:
-    if not CONFIG_PATH.exists():
-        console.print(f"[red]Config not found: {CONFIG_PATH}[/]")
-        console.print("  Run: cp demo/config-example.yaml demo/config.yaml")
+def _parse_args() -> argparse.Namespace:
+    p = argparse.ArgumentParser(description="Ontology Induction Platform — Setup")
+    p.add_argument(
+        "--config",
+        type=Path,
+        default=None,
+        metavar="FILE",
+        help=(
+            "Path to a YAML config file (default: config.yaml next to this script). "
+            "Use this to load different ontology packs without overwriting your default config. "
+            "Example: --config config-fsi-commodity.yaml"
+        ),
+    )
+    return p.parse_args()
+
+
+def load_config(config_path: Path | None = None) -> dict:
+    path = config_path or _DEFAULT_CONFIG_PATH
+    # A bare name like ``config-fsi-commodity.yaml`` also resolves next to this script.
+    if not path.exists() and not path.is_absolute() and (Path(__file__).parent / path).exists():
+        path = Path(__file__).parent / path
+    if not path.exists():
+        console.print(f"[red]Config not found: {path}[/]")
+        if config_path is None:
+            console.print("  Run: cp demo/config-example.yaml demo/config.yaml")
         sys.exit(1)
-    with open(CONFIG_PATH) as f:
+    with open(path) as f:
         return yaml.safe_load(f)
 
 
-_cfg = load_config()
+_cfg = load_config(_parse_args().config)
 _svc = _cfg.get("services", {})
 CATALOG_URL = _svc.get("ontology-catalog", "http://localhost:8001")
 ENGINE_URL = _svc.get("ontology-inducer", CATALOG_URL)  # consolidated: same URL
@@ -665,7 +687,7 @@ def main():
         console.print("[red]Bedrock check failed. Fix credentials/region and retry.[/]")
         sys.exit(1)
 
-    config = load_config()
+    config = load_config(_parse_args().config)
 
     if not Confirm.ask("Proceed with foundational ontology registration?", default=True):
         console.print("Aborted.")

@@ -27,6 +27,19 @@ python setup.py
 python demo.py
 ```
 
+Both scripts take `--config FILE` to load a different ontology pack instead of
+`config.yaml`. A bare filename also resolves inside `demo/`:
+
+```bash
+python setup.py --config config-fsi-commodity.yaml
+python demo.py  --config config-fsi-commodity.yaml
+```
+
+| Pack | Domain |
+|---|---|
+| `config-example.yaml` | P&C insurance (the default example) |
+| `config-fsi-commodity.yaml` | FSI and commodity trading: GLEIF LEI, FIBO, UN/CEFACT, GS1 EPCIS, PROV-O. Its header lists the domains no published ontology covers. |
+
 ## setup.py
 
 Walks you through:

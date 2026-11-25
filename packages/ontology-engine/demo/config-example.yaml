@@ -156,7 +156,7 @@ foundational_ontologies:
     format: rdf-xml
     license: CC-BY-1.0
     license_tier: attribution
-    source_url: http://xmlns.com/foaf/spec/index.rdf
+    source_url: https://xmlns.com/foaf/spec/index.rdf
     domain_tags: [social, people]
     sample_classes:
       - class_uri: "http://xmlns.com/foaf/0.1/Person"
@@ -181,7 +181,7 @@ foundational_ontologies:
     format: turtle
     license: W3C
     license_tier: unrestricted
-    source_url: http://www.w3.org/ns/prov-o
+    source_url: https://www.w3.org/ns/prov-o
     domain_tags: [provenance, lineage]
     sample_classes:
       - class_uri: "http://www.w3.org/ns/prov#Entity"
@@ -326,27 +326,28 @@ customer_ontologies:
     source_url: https://raw.githubusercontent.com/swigroup/P-C-Ontology/master/p-c-ontology.owl
     domain_tags: [insurance, p_and_c, claims, customer]
     sample_classes:
-      - class_uri: "http://www.swigroup.org/ontologies/p-c-ontology#Claim"
+      - class_uri: "http://www.hpclab.ceid.upatras.gr/omg#Claim"
         labels: [Claim]
         comments: [A request for payment by an insured party under an insurance policy]
-      - class_uri: "http://www.swigroup.org/ontologies/p-c-ontology#Policy"
+      - class_uri: "http://www.hpclab.ceid.upatras.gr/omg#Policy"
         labels: [Policy]
         comments: [An insurance policy — contract between insurer and insured]
-      - class_uri: "http://www.swigroup.org/ontologies/p-c-ontology#Coverage"
+      - class_uri: "http://www.hpclab.ceid.upatras.gr/omg#Coverage"
         labels: [Coverage]
         comments: [The scope of protection provided under a policy]
-      - class_uri: "http://www.swigroup.org/ontologies/p-c-ontology#Premium"
+      - class_uri: "http://www.hpclab.ceid.upatras.gr/omg#Premium"
         labels: [Premium]
         comments: [Amount paid for insurance coverage]
-      - class_uri: "http://www.swigroup.org/ontologies/p-c-ontology#ClaimPayment"
+      - class_uri: "http://www.hpclab.ceid.upatras.gr/omg#ClaimPayment"
         labels: [Claim Payment]
         comments: [Payment made in settlement of a claim]
-      - class_uri: "http://www.swigroup.org/ontologies/p-c-ontology#ClaimReserve"
+      - class_uri: "http://www.hpclab.ceid.upatras.gr/omg#ClaimReserve"
         labels: [Claim Reserve]
         comments: [Accounting reserve held against expected claim payments]
-      - class_uri: "http://www.swigroup.org/ontologies/p-c-ontology#ClaimExpense"
+      - class_uri: "http://www.hpclab.ceid.upatras.gr/omg#ClaimExpense"
         labels: [Claim Expense]
         comments: [Expense associated with processing a claim]
-      - class_uri: "http://www.swigroup.org/ontologies/p-c-ontology#Insured"
-        labels: [Insured]
-        comments: [Party covered by an insurance policy]
+      # The ontology has no Insured class; the insured is a Party linked via omg:hasInsured.
+      - class_uri: "http://www.hpclab.ceid.upatras.gr/omg#Party"
+        labels: [Party, Insured]
+        comments: [A person, organization, or group in an insurance role — including the party covered by a policy]
