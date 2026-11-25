@@ -17,7 +17,12 @@ import {
   namespaceTagKey,
   guardrailProfileResources,
   resolvePreferIpv4BuildArgs,
+  resolveBackendFlags,
 } from "../../context";
+import {
+  auroraSearchEnv,
+  grantAuroraDataApi,
+} from "../../utils/aurora-search";
 import { agentCoreSupportedSubnets } from "../../utils/agentcore-az";
 import { retainAgentCoreSecurityGroup } from "../../utils/agentcore-teardown";
 import { brandEnv } from "../../utils/brand-env";
@@ -136,6 +141,7 @@ export class ServeStack extends SCLStack {
     const region = cdk.Stack.of(this).region;
     const account = cdk.Stack.of(this).account;
     const { prefix, ssmPrefix } = resolveContext(this.node);
+    const flags = resolveBackendFlags(this.node);
 
     // ── Resolve OpenSearch config via SSM (decoupled from storage stack exports) ──
     const opensearchEndpoint = ssm.StringParameter.valueForStringParameter(
@@ -533,6 +539,7 @@ export class ServeStack extends SCLStack {
           OPENSEARCH_ENDPOINT: opensearchEndpoint,
           // TODO(aoss-proxy): Remove when AgentCore supports AOSS directly
           OPENSEARCH_PROXY_LAMBDA_ARN: aossProxyFn.functionArn,
+          ...auroraSearchEnv(ssmPrefix, flags),
           ATHENA_OUTPUT_S3: `s3://${props.athenaResultsBucketName ?? this.prefixed("athena-results")}/`,
           // Platform bucket that holds UPLOADED documents (<namespaceId>/raw/<uploadId>/...).
           // Upload sources carry no bucket of their own, so Deep Reasoning's document
@@ -758,6 +765,10 @@ export class ServeStack extends SCLStack {
       this.queryEndpoint = runtime.agentRuntimeArn;
 
       // ── Add service-specific IAM policies to the L2's auto-created role ──
+
+      if (flags.vectorBackend === "pgvector") {
+        grantAuroraDataApi(this, runtime.role!, ssmPrefix);
+      }
 
       // ECR image pull
       runtime.addToRolePolicy(

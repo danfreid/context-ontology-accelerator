@@ -416,3 +416,42 @@ describe("NamespaceDeletionPipeline GraphRAG index teardown", () => {
     );
   });
 });
+
+describe("NamespaceDeletionPipeline - Aurora search backend", () => {
+  function render(context: Record<string, unknown>): string {
+    const app = new cdk.App({ context });
+    const stack = new cdk.Stack(app, "TestStack");
+    const vpc = new ec2.Vpc(stack, "Vpc");
+    const table = (id: string) =>
+      new dynamodb.Table(stack, id, {
+        partitionKey: { name: "PK", type: dynamodb.AttributeType.STRING },
+      });
+    new NamespaceDeletionPipeline(stack, "DeletionPipeline", {
+      prefixed: (name: string) => `coa-dev-${name}`,
+      aossName: (name: string) => `coa-dev-${name}`,
+      lambdaCode: lambda.Code.fromInline("def handler(event, context): pass"),
+      vpc,
+      vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+      namespacesTable: table("Namespaces"),
+      resourceRoleMappingsTable: table("RRM"),
+      rolesTable: table("Roles"),
+      sourcesApiFnName: "coa-dev-sources-api",
+      metricApiFnName: "coa-dev-metric-api",
+      resourcePrefix: "coa-dev-",
+    });
+    return JSON.stringify(Template.fromStack(stack).toJSON());
+  }
+
+  test("aoss: no Aurora env and no rds-data statement", () => {
+    const s = render({});
+    expect(s).not.toContain("HYBRID_SEARCH_BACKEND");
+    expect(s).not.toContain("rds-data:ExecuteStatement");
+  });
+
+  test("pgvector: DeleteSources gets the env and Data API grants", () => {
+    const s = render({ vector_backend: "pgvector" });
+    expect(s).toContain("HYBRID_SEARCH_BACKEND");
+    expect(s).toContain("rds-data:ExecuteStatement");
+    expect(s).toContain("secretsmanager:GetSecretValue");
+  });
+});

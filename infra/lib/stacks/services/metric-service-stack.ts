@@ -24,7 +24,11 @@ import { SCLStack } from "../../constructs/scl-stack";
 import { AccessLogsBucket, SclMonitoring } from "../../constructs";
 import { Paths, fromRoot } from "../../paths";
 import type { IAlarmActionStrategy } from "cdk-monitoring-constructs/lib/common/alarm/action";
-import { resolveContext } from "../../context";
+import { resolveBackendFlags, resolveContext } from "../../context";
+import {
+  auroraSearchEnv,
+  grantAuroraDataApi,
+} from "../../utils/aurora-search";
 import {
   DEFAULT_EVENT_BUS_NAME,
   DEFAULT_BEDROCK_MODEL_ID,
@@ -73,6 +77,7 @@ export class MetricServiceStack extends SCLStack {
     super(scope, id, props);
 
     const { ssmPrefix } = resolveContext(this.node);
+    const flags = resolveBackendFlags(this.node);
     const eventBusName = props.eventBusName ?? DEFAULT_EVENT_BUS_NAME;
     const bedrockModelId = props.bedrockModelId ?? DEFAULT_BEDROCK_MODEL_ID;
 
@@ -173,6 +178,7 @@ export class MetricServiceStack extends SCLStack {
         NDB_GRAPH_URI_BASE: DEFAULT_GRAPH_URI_BASE,
         OPENSEARCH_ENDPOINT: opensearchEndpoint,
         OSS_INDEX_PREFIX: opensearchCollectionName,
+        ...auroraSearchEnv(ssmPrefix, flags),
         EVENTBRIDGE_BUS_NAME: eventBusName,
         BEDROCK_MODEL_ID: bedrockModelId,
         BEDROCK_REGION: this.region,
@@ -185,6 +191,10 @@ export class MetricServiceStack extends SCLStack {
         PROJECT_ACCESS_ROLE_ARN: projectAccessRoleArn,
       },
     });
+
+    if (flags.vectorBackend === "pgvector") {
+      grantAuroraDataApi(this, this.metricApiFn, ssmPrefix);
+    }
 
     // CreateMetric / ImportOsi are retry-safe with a caller-supplied clientToken.
     grantIdempotencyTable(this, this.metricApiFn);
@@ -330,6 +340,7 @@ export class MetricServiceStack extends SCLStack {
         NDB_GRAPH_URI_BASE: DEFAULT_GRAPH_URI_BASE,
         OPENSEARCH_ENDPOINT: opensearchEndpoint,
         OSS_INDEX_PREFIX: opensearchCollectionName,
+        ...auroraSearchEnv(ssmPrefix, flags),
         BEDROCK_MODEL_ID: bedrockModelId,
         BEDROCK_REGION: this.region,
         OSI_BUCKET_NAME: osiBucket.bucketName,
@@ -386,6 +397,9 @@ export class MetricServiceStack extends SCLStack {
     // Read only namespace-scoped import sources and checkpoints. The broader
     // imports prefix is retained for in-flight legacy jobs whose source keys
     // predate the dedicated imports/jobs sub-prefix.
+    if (flags.vectorBackend === "pgvector") {
+      grantAuroraDataApi(this, importWorkerFn, ssmPrefix);
+    }
     importWorkerFn.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ["s3:GetObject", "s3:GetObjectVersion"],

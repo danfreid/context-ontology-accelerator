@@ -799,3 +799,33 @@ describe("OntologyStack Lambda compute path", () => {
     });
   });
 });
+
+describe("OntologyStack Aurora search backend", () => {
+  const json = (t: Template) => JSON.stringify(t.toJSON());
+
+  test("aoss (default): no HYBRID_SEARCH_BACKEND and no rds-data statement", () => {
+    const t = renderOntology({}, "AuroraSearchOff");
+    expect(envValue(t, "HYBRID_SEARCH_BACKEND")).toBeUndefined();
+    expect(json(t)).not.toContain("rds-data:ExecuteStatement");
+  });
+
+  test("pgvector: env on the container and Data API statements granted", () => {
+    const t = renderOntology({}, "AuroraSearchOn", {
+      vector_backend: "pgvector",
+    });
+    expect(envValue(t, "HYBRID_SEARCH_BACKEND")).toBe("pgvector+tsvector");
+    expect(envValue(t, "AURORA_SSM_PREFIX")).toBeDefined();
+    const s = json(t);
+    expect(s).toContain("rds-data:ExecuteStatement");
+    expect(s).toContain("rds-data:BatchExecuteStatement");
+    expect(s).toContain("secretsmanager:GetSecretValue");
+  });
+
+  test("pgvector on the Lambda path: env on the engine function", () => {
+    const t = renderOntology({}, "AuroraSearchLambda", {
+      vector_backend: "pgvector",
+      compute_backend: "lambda",
+    });
+    expect(json(t)).toContain("pgvector+tsvector");
+  });
+});

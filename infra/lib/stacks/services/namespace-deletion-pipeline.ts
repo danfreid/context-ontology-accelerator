@@ -37,6 +37,12 @@ import * as sfn from "aws-cdk-lib/aws-stepfunctions";
 import * as tasks from "aws-cdk-lib/aws-stepfunctions-tasks";
 import { Construct } from "constructs";
 
+import { resolveBackendFlags, resolveContext } from "../../context";
+import {
+  auroraSearchEnv,
+  grantAuroraDataApi,
+} from "../../utils/aurora-search";
+
 export interface NamespaceDeletionPipelineProps {
   /** Prefixed name helper from SCLStack. */
   readonly prefixed: (name: string) => string;
@@ -110,6 +116,8 @@ export class NamespaceDeletionPipeline extends Construct {
 
     const region = cdk.Stack.of(this).region;
     const account = cdk.Stack.of(this).account;
+    const { ssmPrefix } = resolveContext(this.node);
+    const flags = resolveBackendFlags(this.node);
 
     const commonLambdaProps = {
       runtime: lambda.Runtime.PYTHON_3_12,
@@ -132,8 +140,13 @@ export class NamespaceDeletionPipeline extends Construct {
         ...(props.opensearchEndpoint && {
           OSS_ENDPOINT: props.opensearchEndpoint,
         }),
+        ...auroraSearchEnv(ssmPrefix, flags),
       },
     });
+    // Aurora scope deletion (coa_control_plane cleanup) runs in this Lambda.
+    if (flags.vectorBackend === "pgvector") {
+      grantAuroraDataApi(this, deleteSourcesFn, ssmPrefix);
+    }
     deleteSourcesFn.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ["lambda:InvokeFunction"],

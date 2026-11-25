@@ -32,6 +32,10 @@ import {
   GRAPH_SOURCES_ENV,
   graphSourcesEnabled,
 } from "../../utils/graph-sources";
+import {
+  auroraSearchEnv,
+  grantAuroraDataApi,
+} from "../../utils/aurora-search";
 import { grantIdempotencyTable } from "../../utils/idempotency";
 import { grantGuardDutyAgentPull } from "../../utils/guardduty-agent";
 import { NetworkStack } from "../foundation/network-stack";
@@ -225,6 +229,8 @@ export class OntologyStack extends SCLStack {
       OSS_REGION: cdk.Aws.REGION,
       OSS_INDEX: opensearchCollectionName,
       OSS_DIMENSIONS: embedDimensions,
+      // Aurora search backend config; empty unless vector_backend=pgvector.
+      ...auroraSearchEnv(ssmPrefix, flags),
       ONTOLOGY_ARTIFACTS_BUCKET: props.ontologyArtifactsBucket.bucketName,
       DYNAMODB_TABLE: this.table.tableName,
       DYNAMODB_REGION: cdk.Aws.REGION,
@@ -478,6 +484,12 @@ export class OntologyStack extends SCLStack {
           ],
         }),
       );
+    }
+
+    // vector_backend=pgvector without the full Aurora flag set: the search code
+    // still calls the Data API, which the Aurora branch above does not grant.
+    if (flags.vectorBackend === "pgvector" && !useAurora) {
+      grantAuroraDataApi(this, workloadRole, ssmPrefix);
     }
 
     // DynamoDB — full access to own table

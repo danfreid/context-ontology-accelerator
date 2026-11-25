@@ -684,3 +684,35 @@ describe("MetricServiceStack with a long resource_prefix", () => {
     expectValidAossNames(template);
   });
 });
+
+describe("MetricServiceStack - Aurora search backend", () => {
+  function render(context: Record<string, unknown>): string {
+    const app = new cdk.App({ context: { ...TEST_CONTEXT, ...context } });
+    const network = new NetworkStack(app, "TestNetwork", { env: TEST_ENV });
+    const stack = new MetricServiceStack(app, "TestMetricService", {
+      vpc: network.vpc,
+      lambdaSecurityGroup: network.lambdaSecurityGroup,
+      aossSecurityGroup: network.aossSecurityGroup,
+      neptuneEndpoint:
+        "test-neptune.cluster-abc.us-east-1.neptune.amazonaws.com",
+      neptuneClusterArn:
+        "arn:aws:neptune-db:us-east-1:123456789012:cluster-abc123/*",
+      env: TEST_ENV,
+    });
+    return JSON.stringify(Template.fromStack(stack).toJSON());
+  }
+
+  test("aoss: no Aurora env and no rds-data statement", () => {
+    const s = render({});
+    expect(s).not.toContain("HYBRID_SEARCH_BACKEND");
+    expect(s).not.toContain("rds-data:ExecuteStatement");
+  });
+
+  test("pgvector: env on both Lambdas and Data API grants", () => {
+    const s = render({ vector_backend: "pgvector" });
+    expect(s.split("HYBRID_SEARCH_BACKEND").length - 1).toBe(2);
+    expect(s).toContain("rds-data:ExecuteStatement");
+    expect(s).toContain("rds-data:BatchExecuteStatement");
+    expect(s).toContain("secretsmanager:GetSecretValue");
+  });
+});

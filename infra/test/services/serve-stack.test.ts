@@ -1144,3 +1144,22 @@ describe("ServeStack - RDF_SPARQL graph sources", () => {
     });
   });
 });
+
+describe("ServeStack - Aurora search backend", () => {
+  const json = (t: Template) => JSON.stringify(t.toJSON());
+
+  it("adds no Aurora env or rds-data statements with vector_backend=aoss", () => {
+    const s = json(createStack());
+    expect(s).not.toContain("HYBRID_SEARCH_BACKEND");
+    expect(s).not.toContain("rds-data:ExecuteStatement");
+  });
+
+  it("sets the env and grants the Data API with vector_backend=pgvector", () => {
+    const s = json(createStack({ vector_backend: "pgvector" }));
+    expect(s).toContain("HYBRID_SEARCH_BACKEND");
+    expect(s).toContain("pgvector+tsvector");
+    expect(s).toContain("rds-data:ExecuteStatement");
+    expect(s).toContain("rds-data:BatchExecuteStatement");
+    expect(s).toContain("secretsmanager:GetSecretValue");
+  });
+});
