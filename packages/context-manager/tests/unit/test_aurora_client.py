@@ -31,6 +31,34 @@ def _hit(score: float = 0.5, **meta) -> SearchHit:
     )
 
 
+def test_concurrent_first_use_builds_the_index_once(monkeypatch):
+    import threading
+    import time
+
+    from coa_serve.clients import aurora
+
+    built = []
+    cfg = MagicMock(cluster_arn="c", secret_arn="s", database="d", dimensions=8)
+    monkeypatch.setattr(aurora.AuroraConfig, "from_env", lambda *a, **k: cfg)
+    monkeypatch.setattr(aurora, "AuroraDataApiClient", lambda *a, **k: MagicMock())
+
+    def slow_index(client, dimensions):
+        time.sleep(0.05)
+        built.append(dimensions)
+        return MagicMock()
+
+    monkeypatch.setattr(aurora, "AuroraSearchIndex", slow_index)
+    client = AuroraVectorClient()
+    seen = []
+    threads = [threading.Thread(target=lambda: seen.append(client._aurora())) for _ in range(6)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert built == [8]
+    assert len({id(i) for i in seen}) == 1
+
+
 def test_is_vector_client():
     assert isinstance(AuroraVectorClient(search_index=MagicMock()), VectorClient)
 

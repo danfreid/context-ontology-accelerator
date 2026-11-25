@@ -31,8 +31,8 @@ from pydantic import ValidationError
 from .clients.athena import AthenaQueryExecutor
 from .clients.bedrock import BedrockLLMClient
 from .clients.composite_executor import CompositeQueryExecutor
+from .clients.factory import build_vector_client
 from .clients.neptune import NeptuneGraphClient
-from .clients.opensearch import OpenSearchVectorClient
 from .clients.sparql_clients import SparqlClientCache
 from .config import ServiceConfig, load_config
 from .exceptions import (
@@ -229,7 +229,7 @@ async def _ensure_initialized():
 
         # Build client layer
         neptune_client = NeptuneGraphClient(endpoint=config.neptune_endpoint)
-        opensearch_client = OpenSearchVectorClient(endpoint=config.opensearch_endpoint)
+        opensearch_client = build_vector_client(config.opensearch_endpoint)
         bedrock_client = BedrockLLMClient(model_id=config.bedrock_model_id, region=config.bedrock_region)
         # Imports llama-index (about 1s): off the event loop, and a broken install fails init.
         await asyncio.to_thread(bedrock_client.prime)

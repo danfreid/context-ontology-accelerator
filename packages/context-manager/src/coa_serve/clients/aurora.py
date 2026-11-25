@@ -15,6 +15,7 @@ against the AOSS ``cosinesimil`` score in ``[0, 1]`` keep their meaning.
 from __future__ import annotations
 
 import asyncio
+import threading
 from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
@@ -62,13 +63,17 @@ class AuroraVectorClient(VectorClient):
         self._index = index
         self._search_index = search_index
         self._client: Any = getattr(search_index, "_client", None)
+        self._build_lock = threading.Lock()
 
     def _aurora(self) -> AuroraSearchIndex:
         """Lazily build the shared search index so construction needs no AWS access."""
         if self._search_index is None:
-            cfg = AuroraConfig.from_env()
-            self._client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
-            self._search_index = AuroraSearchIndex(self._client, cfg.dimensions)
+            with self._build_lock:
+                if self._search_index is None:
+                    cfg = AuroraConfig.from_env()
+                    client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
+                    self._client = client
+                    self._search_index = AuroraSearchIndex(client, cfg.dimensions)
         return self._search_index
 
     async def _run(self, fn, *args, **kwargs):

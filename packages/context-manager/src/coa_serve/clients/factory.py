@@ -95,19 +95,27 @@ def build_clients() -> ClientSet:
     return _build_default_clients()
 
 
-def _build_default_clients() -> ClientSet:
-    from .bedrock import BedrockLLMClient
-    from .neptune import NeptuneGraphClient
-    from .opensearch import OpenSearchVectorClient
-    from .source_db import SourceDBQueryExecutor
+def build_vector_client(opensearch_endpoint: str | None = None) -> VectorClient:
+    """Return the vector client for the configured search backend.
 
-    vector: VectorClient
+    ``AuroraVectorClient`` when ``HYBRID_SEARCH_BACKEND=pgvector+tsvector``,
+    otherwise ``OpenSearchVectorClient`` bound to ``opensearch_endpoint``.
+    """
     if resolve_search_backend() == SearchBackend.PGVECTOR:
         from .aurora import AuroraVectorClient
 
-        vector = AuroraVectorClient()
-    else:
-        vector = OpenSearchVectorClient()
+        return AuroraVectorClient()
+    from .opensearch import OpenSearchVectorClient
+
+    return OpenSearchVectorClient(endpoint=opensearch_endpoint)
+
+
+def _build_default_clients() -> ClientSet:
+    from .bedrock import BedrockLLMClient
+    from .neptune import NeptuneGraphClient
+    from .source_db import SourceDBQueryExecutor
+
+    vector = build_vector_client()
 
     return ClientSet(
         graph=NeptuneGraphClient(),

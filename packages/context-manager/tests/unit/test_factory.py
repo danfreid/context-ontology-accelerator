@@ -91,6 +91,41 @@ class TestVectorBackendSelection:
 
 
 @pytest.mark.unit
+class TestBuildVectorClient:
+    """build_vector_client is what serve startup (coa_serve.main) uses for the vector client."""
+
+    def test_pgvector_tsvector_builds_aurora_client(self, monkeypatch):
+        from coa_serve.clients.aurora import AuroraVectorClient
+        from coa_serve.clients.factory import build_vector_client
+
+        monkeypatch.setenv("HYBRID_SEARCH_BACKEND", "pgvector+tsvector")
+        assert isinstance(build_vector_client("ignored.aoss.amazonaws.com"), AuroraVectorClient)
+
+    def test_default_builds_opensearch_client_for_the_given_endpoint(self, monkeypatch):
+        from coa_serve.clients.factory import build_vector_client
+        from coa_serve.clients.opensearch import OpenSearchVectorClient
+
+        monkeypatch.delenv("HYBRID_SEARCH_BACKEND", raising=False)
+        monkeypatch.delenv("WORKBENCH_BACKEND", raising=False)
+        client = build_vector_client("test.aoss.amazonaws.com")
+        assert isinstance(client, OpenSearchVectorClient)
+        assert client._endpoint == "test.aoss.amazonaws.com"
+
+    def test_main_wires_the_vector_client_through_the_factory(self):
+        # main imports bedrock_agentcore, so inspect its source instead of importing it.
+        import ast
+        from pathlib import Path
+
+        import coa_serve
+
+        tree = ast.parse((Path(coa_serve.__file__).parent / "main.py").read_text(encoding="utf-8"))
+        imported = {a.name for n in ast.walk(tree) if isinstance(n, ast.ImportFrom) for a in n.names}
+        called = {n.func.id for n in ast.walk(tree) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)}
+        assert "build_vector_client" in imported and "build_vector_client" in called
+        assert "OpenSearchVectorClient" not in imported | called
+
+
+@pytest.mark.unit
 class TestClientSet:
     async def test_close_calls_client_close_methods(self):
         mock_graph = AsyncMock()
