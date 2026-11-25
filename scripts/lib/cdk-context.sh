@@ -41,6 +41,10 @@
 [ -n "${SCL_PREFER_IPV4:-}" ] && CONTEXT+=(--context "prefer_ipv4=$SCL_PREFER_IPV4")
 [ -n "${SCL_SMUS_ADMIN_ARNS:-}" ] && CONTEXT+=(--context "smus_admin_principal_arns=$SCL_SMUS_ADMIN_ARNS")
 [ -n "${SCL_GRAPH_SOURCES:-}" ] && CONTEXT+=(--context "graph_sources=$SCL_GRAPH_SOURCES")
+[ -n "${SCL_GRAPH_BACKEND:-}" ] && CONTEXT+=(--context "graph_backend=$SCL_GRAPH_BACKEND")
+[ -n "${SCL_VECTOR_BACKEND:-}" ] && CONTEXT+=(--context "vector_backend=$SCL_VECTOR_BACKEND")
+[ -n "${SCL_METADATA_BACKEND:-}" ] && CONTEXT+=(--context "metadata_backend=$SCL_METADATA_BACKEND")
+[ -n "${SCL_COMPUTE_BACKEND:-}" ] && CONTEXT+=(--context "compute_backend=$SCL_COMPUTE_BACKEND")
 # SCL_SERVE_SPARQL_STRATEGY was replaced by SCL_GRAPH_SOURCES and is no longer read.
 [ -n "${SCL_SERVE_SPARQL_STRATEGY:-}" ] && echo "WARNING: SCL_SERVE_SPARQL_STRATEGY is no longer read; graph sources are now turned on with SCL_GRAPH_SOURCES=on." >&2
 # Optional: enables the OoPS! pitfall scan, which sends the serialised ontology to this endpoint.

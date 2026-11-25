@@ -1,4 +1,4 @@
-.PHONY: setup generate format lint test test-unit test-integ build load-test load-test-slow load-test-teardown deploy-dev deploy-serve deploy-example-connector deploy-databricks-connector destroy-dev gc-assets preflight docs web-dev vkg-dev version version-check
+.PHONY: setup generate format lint test test-unit test-integ build load-test load-test-slow load-test-teardown deploy-dev deploy-dev-neptune deploy-dev-aurora deploy-serve deploy-example-connector deploy-databricks-connector destroy-dev gc-assets preflight docs web-dev vkg-dev version version-check
 
 # smithy-generate.sh needs pnpm, and setup-dev.sh needs the members it generates,
 # so setup first installs the pnpm version .mise.toml pins when pnpm is missing.
@@ -97,6 +97,14 @@ preflight:
 ## the platform deploy on an update (the order ci/mainline.yml models with a blocking job).
 deploy-dev:
 	./scripts/deploy-all.sh dev
+
+## Deploy dev with the original COA services (Neptune/AOSS/DynamoDB/Fargate).
+deploy-dev-neptune:
+	SCL_GRAPH_BACKEND=neptune SCL_VECTOR_BACKEND=aoss SCL_METADATA_BACKEND=dynamodb SCL_COMPUTE_BACKEND=fargate ./scripts/deploy-all.sh dev
+
+## Deploy dev with the lower-cost Aurora/pgvector/Aurora/Lambda backends.
+deploy-dev-aurora:
+	SCL_GRAPH_BACKEND=aurora SCL_VECTOR_BACKEND=pgvector SCL_METADATA_BACKEND=aurora SCL_COMPUTE_BACKEND=lambda ./scripts/deploy-all.sh dev
 
 deploy-serve:
 	./scripts/deploy-serve.sh dev

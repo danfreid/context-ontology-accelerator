@@ -254,3 +254,9 @@ terraform/**/.terraform/
 *.tfstate
 *.tfstate.*
 *.tfplan
+
+# Local Python runtime (embedded distribution installed by tooling, e.g. CDK setup)
+infra/Python/
+
+# Agent orchestration task trees (ephemeral workflow state)
+.agents/

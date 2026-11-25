@@ -15,6 +15,10 @@ import {
   CTX_GUARDRAIL_TIER,
   CTX_GUARDRAIL_PROFILE,
   CTX_PREFER_IPV4,
+  CTX_GRAPH_BACKEND,
+  CTX_VECTOR_BACKEND,
+  CTX_METADATA_BACKEND,
+  CTX_COMPUTE_BACKEND,
   DEFAULT_RESOURCE_PREFIX,
   DEFAULT_ENV,
   DEFAULT_PROJECT_TAG,
@@ -234,6 +238,78 @@ export function resolveGuardrailTier(node: Node): GuardrailTier {
   return {
     tierName: tier === "standard" ? "STANDARD" : "CLASSIC",
     ...(profile ? { profileId: profile } : {}),
+  };
+}
+
+/**
+ * Resolved switchable-backend selections for a deployment.
+ * All fields default to the original COA services so an unmodified deploy
+ * produces the same infrastructure as before.
+ */
+export interface BackendFlags {
+  /** Graph store: "neptune" (default) | "aurora". */
+  readonly graphBackend: "neptune" | "aurora";
+  /** Vector store: "aoss" (default) | "pgvector". */
+  readonly vectorBackend: "aoss" | "pgvector";
+  /** Metadata store: "dynamodb" (default) | "aurora". */
+  readonly metadataBackend: "dynamodb" | "aurora";
+  /** Compute: "fargate" (default) | "lambda". */
+  readonly computeBackend: "fargate" | "lambda";
+}
+
+/**
+ * Resolve the four switchable-backend context flags.
+ *
+ * Returns BackendFlags with defaults matching the original COA services
+ * (neptune/aoss/dynamodb/fargate). Throws at synth time when any flag is set
+ * to an unrecognised value, following the same guard pattern as
+ * {@link resolveGuardrailTier}.
+ */
+export function resolveBackendFlags(node: Node): BackendFlags {
+  const rawGraph: unknown = node.tryGetContext(CTX_GRAPH_BACKEND);
+  const rawVector: unknown = node.tryGetContext(CTX_VECTOR_BACKEND);
+  const rawMetadata: unknown = node.tryGetContext(CTX_METADATA_BACKEND);
+  const rawCompute: unknown = node.tryGetContext(CTX_COMPUTE_BACKEND);
+
+  const graphBackend = String(rawGraph ?? "neptune")
+    .trim()
+    .toLowerCase();
+  const vectorBackend = String(rawVector ?? "aoss")
+    .trim()
+    .toLowerCase();
+  const metadataBackend = String(rawMetadata ?? "dynamodb")
+    .trim()
+    .toLowerCase();
+  const computeBackend = String(rawCompute ?? "fargate")
+    .trim()
+    .toLowerCase();
+
+  if (graphBackend !== "neptune" && graphBackend !== "aurora") {
+    throw new Error(
+      `${CTX_GRAPH_BACKEND} must be "neptune" or "aurora", got: ${String(rawGraph)}`,
+    );
+  }
+  if (vectorBackend !== "aoss" && vectorBackend !== "pgvector") {
+    throw new Error(
+      `${CTX_VECTOR_BACKEND} must be "aoss" or "pgvector", got: ${String(rawVector)}`,
+    );
+  }
+  if (metadataBackend !== "dynamodb" && metadataBackend !== "aurora") {
+    throw new Error(
+      `${CTX_METADATA_BACKEND} must be "dynamodb" or "aurora", got: ${String(rawMetadata)}`,
+    );
+  }
+  if (computeBackend !== "fargate" && computeBackend !== "lambda") {
+    throw new Error(
+      `${CTX_COMPUTE_BACKEND} must be "fargate" or "lambda", got: ${String(rawCompute)}`,
+    );
+  }
+
+  return {
+    graphBackend: graphBackend as "neptune" | "aurora",
+    vectorBackend: vectorBackend as "aoss" | "pgvector",
+    metadataBackend: metadataBackend as "dynamodb" | "aurora",
+    computeBackend: computeBackend as "fargate" | "lambda",
   };
 }
 

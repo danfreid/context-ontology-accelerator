@@ -37,6 +37,14 @@ export const CTX_GUARDRAIL_TIER = "guardrail_tier";
 /** System-defined guardrail profile for the Standard tier, e.g. "apac.guardrail.v1:0". */
 export const CTX_GUARDRAIL_PROFILE = "guardrail_profile";
 export const CTX_PREFER_IPV4 = "prefer_ipv4";
+/** Switchable-backends: graph store backend — "neptune" (default) or "aurora". */
+export const CTX_GRAPH_BACKEND = "graph_backend";
+/** Switchable-backends: vector store backend — "aoss" (default) or "pgvector". */
+export const CTX_VECTOR_BACKEND = "vector_backend";
+/** Switchable-backends: metadata store backend — "dynamodb" (default) or "aurora". */
+export const CTX_METADATA_BACKEND = "metadata_backend";
+/** Switchable-backends: compute backend — "fargate" (default) or "lambda". */
+export const CTX_COMPUTE_BACKEND = "compute_backend";
 
 /** Default values when context keys are not provided. */
 export const DEFAULT_PROJECT_TAG = "semantic-context";
