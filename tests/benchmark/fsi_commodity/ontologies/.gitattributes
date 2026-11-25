@@ -1,0 +1,2 @@
+# Snapshots are pinned by SHA-256 in manifest.yaml; keep the bytes identical regardless of core.autocrlf.
+*.ttl -text

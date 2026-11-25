@@ -1,0 +1,479 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<http://purl.obolibrary.org/obo/BFO_0000009> a owl:Class ;
+    rdfs:label "two-dimensional spatial region" ;
+    rdfs:comment "(Elucidation) A two-dimensional spatial region is a spatial region that is a whole consisting of a surface together with zero or more surfaces which may have spatial regions of lower dimension as parts" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000006> .
+
+<http://purl.obolibrary.org/obo/BFO_0000018> a owl:Class ;
+    rdfs:label "zero-dimensional spatial region" ;
+    rdfs:comment "(Elucidation) A zero-dimensional spatial region is one or a collection of more than one spatially disjoint points in space" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000006> .
+
+<http://purl.obolibrary.org/obo/BFO_0000023> a owl:Class ;
+    rdfs:label "role" ;
+    rdfs:comment "(Elucidation) A role b is a realizable entity such that b exists because there is some single bearer that is in some special physical, social, or institutional set of circumstances in which this bearer does not have to be & b is not such that, if it ceases to exist, then the physical make-up of the bearer is thereby changed" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000017> ;
+    skos:altLabel "externally-grounded realizable entity" .
+
+<http://purl.obolibrary.org/obo/BFO_0000024> a owl:Class ;
+    rdfs:label "fiat object part" ;
+    rdfs:comment "(Elucidation) A fiat object part b is a material entity & such that if b exists then it is continuant part of some object c & demarcated from the remainder of c by one or more fiat surfaces" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+<http://purl.obolibrary.org/obo/BFO_0000026> a owl:Class ;
+    rdfs:label "one-dimensional spatial region" ;
+    rdfs:comment "(Elucidation) A one-dimensional spatial region is a whole consisting of a line together with zero or more lines which may have points as parts" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000006> .
+
+<http://purl.obolibrary.org/obo/BFO_0000027> a owl:Class ;
+    rdfs:label "object aggregate" ;
+    rdfs:comment "(Elucidation) An object aggregate is a material entity consisting exactly of a plurality (≥1) of objects as member parts which together form a unit" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+<http://purl.obolibrary.org/obo/BFO_0000028> a owl:Class ;
+    rdfs:label "three-dimensional spatial region" ;
+    rdfs:comment "(Elucidation) A three-dimensional spatial region is a whole consisting of a spatial volume together with zero or more spatial volumes which may have spatial regions of lower dimension as parts" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000006> .
+
+<http://purl.obolibrary.org/obo/BFO_0000029> a owl:Class ;
+    rdfs:label "site" ;
+    rdfs:comment "(Elucidation) A site is a three-dimensional immaterial entity whose boundaries either (partially or wholly) coincide with the boundaries of one or more material entities or have locations determined in relation to some material entity" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000141> .
+
+<http://purl.obolibrary.org/obo/BFO_0000030> a owl:Class ;
+    rdfs:label "object" ;
+    rdfs:comment "(Elucidation) An object is a material entity which manifests causal unity & is of a type instances of which are maximal relative to the sort of causal unity manifested" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+<http://purl.obolibrary.org/obo/BFO_0000034> a owl:Class ;
+    rdfs:label "function" ;
+    rdfs:comment "(Elucidation) A function is a disposition that exists in virtue of its bearer's physical make-up & this physical make-up is something the bearer possesses because it came into being either through evolution (in the case of natural biological entities) or through intentional design (in the case of artefacts) in order to realize processes of a certain sort" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000016> .
+
+<http://purl.obolibrary.org/obo/BFO_0000035> a owl:Class ;
+    rdfs:label "process boundary" ;
+    rdfs:comment "p is a process boundary =Def p is a temporal part of a process & p has no proper temporal parts" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000054> a owl:ObjectProperty ;
+    rdfs:label "has realization" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000017> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000015> .
+
+<http://purl.obolibrary.org/obo/BFO_0000055> a owl:ObjectProperty ;
+    rdfs:label "realizes" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000015> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000017> .
+
+<http://purl.obolibrary.org/obo/BFO_0000056> a owl:ObjectProperty ;
+    rdfs:label "participates in" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000015> .
+
+<http://purl.obolibrary.org/obo/BFO_0000057> a owl:ObjectProperty ;
+    rdfs:label "has participant" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000015> .
+
+<http://purl.obolibrary.org/obo/BFO_0000058> a owl:ObjectProperty ;
+    rdfs:label "is concretized by" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000031> .
+
+<http://purl.obolibrary.org/obo/BFO_0000059> a owl:ObjectProperty ;
+    rdfs:label "concretizes" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000031> .
+
+<http://purl.obolibrary.org/obo/BFO_0000062> a owl:ObjectProperty ;
+    rdfs:label "preceded by" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000063> a owl:ObjectProperty ;
+    rdfs:label "precedes" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000066> a owl:ObjectProperty ;
+    rdfs:label "occurs in" .
+
+<http://purl.obolibrary.org/obo/BFO_0000082> a owl:ObjectProperty ;
+    rdfs:label "located in at all times" .
+
+<http://purl.obolibrary.org/obo/BFO_0000084> a owl:ObjectProperty ;
+    rdfs:label "generically depends on" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000031> .
+
+<http://purl.obolibrary.org/obo/BFO_0000101> a owl:ObjectProperty ;
+    rdfs:label "is carrier of" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000031> .
+
+<http://purl.obolibrary.org/obo/BFO_0000108> a owl:ObjectProperty ;
+    rdfs:label "exists at" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000001> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000008> .
+
+<http://purl.obolibrary.org/obo/BFO_0000110> a owl:ObjectProperty ;
+    rdfs:label "has continuant part at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000002> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000002> .
+
+<http://purl.obolibrary.org/obo/BFO_0000111> a owl:ObjectProperty ;
+    rdfs:label "has proper continuant part at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000002> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000002> .
+
+<http://purl.obolibrary.org/obo/BFO_0000113> a owl:ObjectProperty ;
+    rdfs:label "has material basis at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000016> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+<http://purl.obolibrary.org/obo/BFO_0000115> a owl:ObjectProperty ;
+    rdfs:label "has member part" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000040> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+<http://purl.obolibrary.org/obo/BFO_0000117> a owl:ObjectProperty ;
+    rdfs:label "has occurrent part" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000118> a owl:ObjectProperty ;
+    rdfs:label "has proper occurrent part" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000121> a owl:ObjectProperty ;
+    rdfs:label "has temporal part" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000124> a owl:ObjectProperty ;
+    rdfs:label "location of" .
+
+<http://purl.obolibrary.org/obo/BFO_0000127> a owl:ObjectProperty ;
+    rdfs:label "material basis of" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000040> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000016> .
+
+<http://purl.obolibrary.org/obo/BFO_0000129> a owl:ObjectProperty ;
+    rdfs:label "member part of" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000040> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+<http://purl.obolibrary.org/obo/BFO_0000132> a owl:ObjectProperty ;
+    rdfs:label "occurrent part of" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000136> a owl:ObjectProperty ;
+    rdfs:label "proper temporal part of" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000137> a owl:ObjectProperty ;
+    rdfs:label "proper continuant part of at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000002> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000002> .
+
+<http://purl.obolibrary.org/obo/BFO_0000138> a owl:ObjectProperty ;
+    rdfs:label "proper occurrent part of" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000139> a owl:ObjectProperty ;
+    rdfs:label "temporal part of" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000142> a owl:Class ;
+    rdfs:label "fiat line" ;
+    rdfs:comment "(Elucidation) A fiat line is a one-dimensional continuant fiat boundary that is continuous" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000140> .
+
+<http://purl.obolibrary.org/obo/BFO_0000145> a owl:Class ;
+    rdfs:label "relational quality" ;
+    rdfs:comment "b is a relational quality =Def b is a quality & there exists c and d such that c and d are not identical & b specifically depends on c & b specifically depends on d" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000019> .
+
+<http://purl.obolibrary.org/obo/BFO_0000146> a owl:Class ;
+    rdfs:label "fiat surface" ;
+    rdfs:comment "(Elucidation) A fiat surface is a two-dimensional continuant fiat boundary that is self-connected" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000140> .
+
+<http://purl.obolibrary.org/obo/BFO_0000147> a owl:Class ;
+    rdfs:label "fiat point" ;
+    rdfs:comment "(Elucidation) A fiat point is a zero-dimensional continuant fiat boundary that consists of a single point" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000140> .
+
+<http://purl.obolibrary.org/obo/BFO_0000153> a owl:ObjectProperty ;
+    rdfs:label "temporally projects onto" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000011> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000008> .
+
+<http://purl.obolibrary.org/obo/BFO_0000163> a owl:ObjectProperty ;
+    rdfs:label "material basis of at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000040> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000016> .
+
+<http://purl.obolibrary.org/obo/BFO_0000164> a owl:ObjectProperty ;
+    rdfs:label "concretizes at all times" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000031> .
+
+<http://purl.obolibrary.org/obo/BFO_0000165> a owl:ObjectProperty ;
+    rdfs:label "is concretized by at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000031> .
+
+<http://purl.obolibrary.org/obo/BFO_0000166> a owl:ObjectProperty ;
+    rdfs:label "participates in at all times" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000015> .
+
+<http://purl.obolibrary.org/obo/BFO_0000167> a owl:ObjectProperty ;
+    rdfs:label "has participant at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000015> .
+
+<http://purl.obolibrary.org/obo/BFO_0000170> a owl:ObjectProperty ;
+    rdfs:label "location of at all times" .
+
+<http://purl.obolibrary.org/obo/BFO_0000171> a owl:ObjectProperty ;
+    rdfs:label "located in" .
+
+<http://purl.obolibrary.org/obo/BFO_0000172> a owl:ObjectProperty ;
+    rdfs:label "has member part at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000040> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+<http://purl.obolibrary.org/obo/BFO_0000173> a owl:ObjectProperty ;
+    rdfs:label "member part of at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000040> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+<http://purl.obolibrary.org/obo/BFO_0000174> a owl:ObjectProperty ;
+    rdfs:label "has proper continuant part at some time" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000002> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000002> .
+
+<http://purl.obolibrary.org/obo/BFO_0000175> a owl:ObjectProperty ;
+    rdfs:label "proper continuant part of at some time" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000002> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000002> .
+
+<http://purl.obolibrary.org/obo/BFO_0000176> a owl:ObjectProperty ;
+    rdfs:label "continuant part of" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000002> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000002> .
+
+<http://purl.obolibrary.org/obo/BFO_0000177> a owl:ObjectProperty ;
+    rdfs:label "continuant part of at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000002> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000002> .
+
+<http://purl.obolibrary.org/obo/BFO_0000178> a owl:ObjectProperty ;
+    rdfs:label "has continuant part" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000002> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000002> .
+
+<http://purl.obolibrary.org/obo/BFO_0000181> a owl:ObjectProperty ;
+    rdfs:label "has proper temporal part" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000183> a owl:ObjectProperty ;
+    rdfs:label "environs" .
+
+<http://purl.obolibrary.org/obo/BFO_0000184> a owl:ObjectProperty ;
+    rdfs:label "history of" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000182> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+<http://purl.obolibrary.org/obo/BFO_0000185> a owl:ObjectProperty ;
+    rdfs:label "has history" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000040> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000182> .
+
+<http://purl.obolibrary.org/obo/BFO_0000194> a owl:ObjectProperty ;
+    rdfs:label "specifically depended on by" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000020> .
+
+<http://purl.obolibrary.org/obo/BFO_0000195> a owl:ObjectProperty ;
+    rdfs:label "specifically depends on" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000020> .
+
+<http://purl.obolibrary.org/obo/BFO_0000196> a owl:ObjectProperty ;
+    rdfs:label "bearer of" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000020> .
+
+<http://purl.obolibrary.org/obo/BFO_0000197> a owl:ObjectProperty ;
+    rdfs:label "inheres in" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000020> .
+
+<http://purl.obolibrary.org/obo/BFO_0000199> a owl:ObjectProperty ;
+    rdfs:label "occupies temporal region" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000008> .
+
+<http://purl.obolibrary.org/obo/BFO_0000200> a owl:ObjectProperty ;
+    rdfs:label "occupies spatiotemporal region" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000011> .
+
+<http://purl.obolibrary.org/obo/BFO_0000202> a owl:Class ;
+    rdfs:label "temporal interval" ;
+    rdfs:comment "(Elucidation) A temporal interval is a one-dimensional temporal region that is continuous, thus without gaps or breaks" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000038> .
+
+<http://purl.obolibrary.org/obo/BFO_0000210> a owl:ObjectProperty ;
+    rdfs:label "occupies spatial region" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000006> .
+
+<http://purl.obolibrary.org/obo/BFO_0000211> a owl:ObjectProperty ;
+    rdfs:label "occupies spatial region at all times" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000006> .
+
+<http://purl.obolibrary.org/obo/BFO_0000216> a owl:ObjectProperty ;
+    rdfs:label "spatially projects onto" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000011> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000006> .
+
+<http://purl.obolibrary.org/obo/BFO_0000217> a owl:ObjectProperty ;
+    rdfs:label "spatially projects onto at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000011> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000006> .
+
+<http://purl.obolibrary.org/obo/BFO_0000218> a owl:ObjectProperty ;
+    rdfs:label "has material basis" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000016> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000040> .
+
+<http://purl.obolibrary.org/obo/BFO_0000219> a owl:ObjectProperty ;
+    rdfs:label "generically depends on at all times" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000031> .
+
+<http://purl.obolibrary.org/obo/BFO_0000220> a owl:ObjectProperty ;
+    rdfs:label "is carrier of at all times" ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000031> .
+
+<http://purl.obolibrary.org/obo/BFO_0000221> a owl:ObjectProperty ;
+    rdfs:label "first instant of" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000203> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000008> .
+
+<http://purl.obolibrary.org/obo/BFO_0000222> a owl:ObjectProperty ;
+    rdfs:label "has first instant" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000008> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000203> .
+
+<http://purl.obolibrary.org/obo/BFO_0000223> a owl:ObjectProperty ;
+    rdfs:label "last instant of" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000203> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000008> .
+
+<http://purl.obolibrary.org/obo/BFO_0000224> a owl:ObjectProperty ;
+    rdfs:label "has last instant" ;
+    rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000008> ;
+    rdfs:range <http://purl.obolibrary.org/obo/BFO_0000203> .
+
+<http://purl.obolibrary.org/obo/bfo.owl> a owl:Ontology ;
+    rdfs:label "Basic Formal Ontology 2020" ;
+    owl:versionInfo "1" .
+
+<http://purl.obolibrary.org/obo/BFO_0000019> a owl:Class ;
+    rdfs:label "quality" ;
+    rdfs:comment "(Elucidation) A quality is a specifically dependent continuant that, in contrast to roles and dispositions, does not require any further process in order to be realized" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000020> .
+
+<http://purl.obolibrary.org/obo/BFO_0000038> a owl:Class ;
+    rdfs:label "one-dimensional temporal region" ;
+    rdfs:comment "(Elucidation) A one-dimensional temporal region is a temporal region that is a whole that has a temporal interval and zero or more temporal intervals and temporal instants as parts" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000008> .
+
+<http://purl.obolibrary.org/obo/BFO_0000148> a owl:Class ;
+    rdfs:label "zero-dimensional temporal region" ;
+    rdfs:comment "(Elucidation) A zero-dimensional temporal region is a temporal region that is a whole consisting of one or more separated temporal instants as parts" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000008> .
+
+<http://purl.obolibrary.org/obo/BFO_0000004> a owl:Class ;
+    rdfs:label "independent continuant" ;
+    rdfs:comment "b is an independent continuant =Def b is a continuant & there is no c such that b specifically depends on c or b generically depends on c" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000002> .
+
+<http://purl.obolibrary.org/obo/BFO_0000182> a owl:Class ;
+    rdfs:label "history" ;
+    rdfs:comment "(Elucidation) A history is a process that is the sum of the totality of processes taking place in the spatiotemporal region occupied by the material part of a material entity" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> .
+
+<http://purl.obolibrary.org/obo/BFO_0000001> a owl:Class ;
+    rdfs:label "entity" ;
+    rdfs:comment "(Elucidation) An entity is anything that exists or has existed or will exist" .
+
+<http://purl.obolibrary.org/obo/BFO_0000140> a owl:Class ;
+    rdfs:label "continuant fiat boundary" ;
+    rdfs:comment "(Elucidation) A continuant fiat boundary b is an immaterial entity that is of zero, one or two dimensions & such that there is no time t when b has a spatial region as continuant part & whose location is determined in relation to some material entity" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000141> .
+
+<http://purl.obolibrary.org/obo/BFO_0000141> a owl:Class ;
+    rdfs:label "immaterial entity" ;
+    rdfs:comment "b is an immaterial entity =Def b is an independent continuant which is such that there is no time t when it has a material entity as continuant part" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000004> .
+
+<http://purl.obolibrary.org/obo/BFO_0000011> a owl:Class ;
+    rdfs:label "spatiotemporal region" ;
+    rdfs:comment "(Elucidation) A spatiotemporal region is an occurrent that is an occurrent part of spacetime" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000017> a owl:Class ;
+    rdfs:label "realizable entity" ;
+    rdfs:comment "(Elucidation) A realizable entity is a specifically dependent continuant that inheres in some independent continuant which is not a spatial region & which is of a type some instances of which are realized in processes of a correlated type" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000020> .
+
+<http://purl.obolibrary.org/obo/BFO_0000203> a owl:Class ;
+    rdfs:label "temporal instant" ;
+    rdfs:comment "(Elucidation) A temporal instant is a zero-dimensional temporal region that has no proper temporal part" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000148> .
+
+<http://purl.obolibrary.org/obo/BFO_0000016> a owl:Class ;
+    rdfs:label "disposition" ;
+    rdfs:comment "(Elucidation) A disposition b is a realizable entity such that if b ceases to exist then its bearer is physically changed & b's realization occurs when and because this bearer is in some special physical circumstances & this realization occurs in virtue of the bearer's physical make-up" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000017> ;
+    skos:altLabel "internally-grounded realizable entity" .
+
+<http://purl.obolibrary.org/obo/BFO_0000020> a owl:Class ;
+    rdfs:label "specifically dependent continuant" ;
+    rdfs:comment "b is a specifically dependent continuant =Def b is a continuant & there is some independent continuant c which is not a spatial region & which is such that b specifically depends on c" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000002> .
+
+<http://purl.obolibrary.org/obo/BFO_0000015> a owl:Class ;
+    rdfs:label "process" ;
+    rdfs:comment "(Elucidation) p is a process means p is an occurrent that has some temporal proper part and for some time t, p has some material entity as participant" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000003> ;
+    skos:altLabel "event" .
+
+<http://purl.obolibrary.org/obo/BFO_0000006> a owl:Class ;
+    rdfs:label "spatial region" ;
+    rdfs:comment "(Elucidation) A spatial region is a continuant entity that is a continuant part of the spatial projection of a portion of spacetime at a given time" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000141> .
+
+<http://purl.obolibrary.org/obo/BFO_0000031> a owl:Class ;
+    rdfs:label "generically dependent continuant" ;
+    rdfs:comment "(Elucidation) A generically dependent continuant is an entity that exists in virtue of the fact that there is at least one of what may be multiple copies which is the content or the pattern that multiple copies would share" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000002> ;
+    skos:altLabel "g-dependent continuant" .
+
+<http://purl.obolibrary.org/obo/BFO_0000008> a owl:Class ;
+    rdfs:label "temporal region" ;
+    rdfs:comment "(Elucidation) A temporal region is an occurrent over which processes can unfold" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000003> .
+
+<http://purl.obolibrary.org/obo/BFO_0000040> a owl:Class ;
+    rdfs:label "material entity" ;
+    rdfs:comment "(Elucidation) A material entity is an independent continuant has some portion of matter as continuant part" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000004> .
+
+<http://purl.obolibrary.org/obo/BFO_0000002> a owl:Class ;
+    rdfs:label "continuant" ;
+    rdfs:comment "(Elucidation) A continuant is an entity that persists, endures, or continues to exist through time while maintaining its identity" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000001> .
+
+<http://purl.obolibrary.org/obo/BFO_0000003> a owl:Class ;
+    rdfs:label "occurrent" ;
+    rdfs:comment "(Elucidation) An occurrent is an entity that unfolds itself in time or it is the start or end of such an entity or it is a temporal or spatiotemporal region" ;
+    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000001> .
+

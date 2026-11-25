@@ -1,0 +1,618 @@
+@prefix ns: <https://www.gleif.org/ontology/L1#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://www.gleif.org/ontology/Base/LegalPerson> a owl:Class ;
+    rdfs:label "legal person" ;
+    rdfs:comment "Any entity which can incur legal obligation and can be sued at law." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/Entity> .
+
+<https://www.gleif.org/ontology/Base/RegistrationAuthority> a owl:Class ;
+    rdfs:label "registration authority" ;
+    rdfs:comment "An organization that is responsible for maintaining a registry and provides registration services." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/Entity> ;
+    skos:altLabel "RA" .
+
+<https://www.gleif.org/ontology/Base/hasAbbreviation> a owl:DatatypeProperty ;
+    rdfs:label "has abbreviation" .
+
+<https://www.gleif.org/ontology/Base/hasAbbreviationLocal> a owl:DatatypeProperty ;
+    rdfs:label "has abbreviation local" .
+
+<https://www.gleif.org/ontology/Base/hasAbbreviationTransliterated> a owl:DatatypeProperty ;
+    rdfs:label "has abbreviation transliterated" .
+
+<https://www.gleif.org/ontology/Base/hasAdditionalAddressLine> a owl:DatatypeProperty ;
+    rdfs:label "has additional address line" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasAddress> a owl:ObjectProperty ;
+    rdfs:label "has address" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasAddressHeadquarters> a owl:ObjectProperty ;
+    rdfs:label "has address headquarters" .
+
+<https://www.gleif.org/ontology/Base/hasAddressLegal> a owl:ObjectProperty ;
+    rdfs:label "has address legal" .
+
+<https://www.gleif.org/ontology/Base/hasAddressLine1> a owl:DatatypeProperty ;
+    rdfs:label "has address line 1" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasAddressLine2> a owl:DatatypeProperty ;
+    rdfs:label "has address line 2" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasAddressLine3> a owl:DatatypeProperty ;
+    rdfs:label "has address line 3" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasAddressLine4> a owl:DatatypeProperty ;
+    rdfs:label "has address line 4" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasAddressNumber> a owl:DatatypeProperty ;
+    rdfs:label "has address number" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasAddressNumberWithinBuilding> a owl:DatatypeProperty ;
+    rdfs:label "has address number within building" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasAddressTransliterated> a owl:ObjectProperty ;
+    rdfs:label "has address transliterated" ;
+    rdfs:range <https://www.gleif.org/ontology/Base/PhysicalAddressASCII> .
+
+<https://www.gleif.org/ontology/Base/hasCity> a owl:DatatypeProperty ;
+    rdfs:label "has city" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasCountry> a owl:ObjectProperty ;
+    rdfs:label "has country" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> ;
+    rdfs:range <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/Country> .
+
+<https://www.gleif.org/ontology/Base/hasCoverageArea> a owl:ObjectProperty ;
+    rdfs:label "has coverage area" ;
+    rdfs:range <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/GeographicRegion> .
+
+<https://www.gleif.org/ontology/Base/hasEnd> a owl:DatatypeProperty ;
+    rdfs:label "has end" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Period> ;
+    rdfs:range xsd:dateTime .
+
+<https://www.gleif.org/ontology/Base/hasEntityExpirationDate> a owl:DatatypeProperty ;
+    rdfs:label "has entity expiration date" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> ;
+    rdfs:range xsd:dateTime .
+
+<https://www.gleif.org/ontology/Base/hasEntityExpirationReason> a owl:ObjectProperty ;
+    rdfs:label "has entity expiration reason" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/EntityExpirationReason> .
+
+<https://www.gleif.org/ontology/Base/hasEntityStatus> a owl:ObjectProperty ;
+    rdfs:label "has entity status" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/EntityStatus> .
+
+<https://www.gleif.org/ontology/Base/hasFirstAddressLine> a owl:DatatypeProperty ;
+    rdfs:label "has first address line" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasGeographicRegion> a owl:ObjectProperty ;
+    rdfs:label "has geographic region" ;
+    rdfs:range <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/GeographicRegion> .
+
+<https://www.gleif.org/ontology/Base/hasInitialRegistrationDate> a owl:DatatypeProperty ;
+    rdfs:label "has initial registration date" ;
+    rdfs:range xsd:dateTime .
+
+<https://www.gleif.org/ontology/Base/hasLastUpdateDate> a owl:DatatypeProperty ;
+    rdfs:label "has last modification date" ;
+    rdfs:range xsd:dateTime .
+
+<https://www.gleif.org/ontology/Base/hasLegalJurisdiction> a owl:ObjectProperty ;
+    rdfs:label "has legal jurisdiction" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> ;
+    rdfs:range <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/GeographicRegion> .
+
+<https://www.gleif.org/ontology/Base/hasMailRouting> a owl:DatatypeProperty ;
+    rdfs:label "mail routing" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasName> a owl:DatatypeProperty ;
+    rdfs:label "has name" .
+
+<https://www.gleif.org/ontology/Base/hasNameASCII> a owl:DatatypeProperty ;
+    rdfs:label "has name ASCII" .
+
+<https://www.gleif.org/ontology/Base/hasNameASCIIAutomatic> a owl:DatatypeProperty ;
+    rdfs:label "has name ASCII automatic" .
+
+<https://www.gleif.org/ontology/Base/hasNameASCIIPreferred> a owl:DatatypeProperty ;
+    rdfs:label "has name ASCII preferred" .
+
+<https://www.gleif.org/ontology/Base/hasNameAdditional> a owl:DatatypeProperty ;
+    rdfs:label "has name additional" .
+
+<https://www.gleif.org/ontology/Base/hasNameAdditionalLocal> a owl:DatatypeProperty ;
+    rdfs:label "has name additional local" .
+
+<https://www.gleif.org/ontology/Base/hasNameLegal> a owl:DatatypeProperty ;
+    rdfs:label "has name legal" .
+
+<https://www.gleif.org/ontology/Base/hasNameLegalLocal> a owl:DatatypeProperty ;
+    rdfs:label "has name legal local" .
+
+<https://www.gleif.org/ontology/Base/hasNameLocal> a owl:DatatypeProperty ;
+    rdfs:label "has name local" .
+
+<https://www.gleif.org/ontology/Base/hasNamePreviousLegal> a owl:DatatypeProperty ;
+    rdfs:label "has name previous legal" .
+
+<https://www.gleif.org/ontology/Base/hasNameTradingOrOperating> a owl:DatatypeProperty ;
+    rdfs:label "has name trading or operating" .
+
+<https://www.gleif.org/ontology/Base/hasNameTranslatedEnglish> a owl:DatatypeProperty ;
+    rdfs:label "has name translated English" .
+
+<https://www.gleif.org/ontology/Base/hasNameTransliterated> a owl:DatatypeProperty ;
+    rdfs:label "has name transliterated" .
+
+<https://www.gleif.org/ontology/Base/hasNextRenewalDate> a owl:DatatypeProperty ;
+    rdfs:label "has next renewal date" ;
+    rdfs:range xsd:dateTime .
+
+<https://www.gleif.org/ontology/Base/hasPostalCode> a owl:DatatypeProperty ;
+    rdfs:label "has postal code" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/Base/hasRegion> a owl:ObjectProperty ;
+    rdfs:label "has region" ;
+    rdfs:range <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/CountrySubdivision> .
+
+<https://www.gleif.org/ontology/Base/hasRegistrationStatus> a owl:ObjectProperty ;
+    rdfs:label "has registration status" ;
+    rdfs:range <https://www.gleif.org/ontology/Base/RegistrationStatus> .
+
+<https://www.gleif.org/ontology/Base/hasSource> a owl:ObjectProperty ;
+    rdfs:label "has source" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/LegalEntityRelationship> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/Entity> .
+
+<https://www.gleif.org/ontology/Base/hasStart> a owl:DatatypeProperty ;
+    rdfs:label "has start" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Period> ;
+    rdfs:range xsd:dateTime .
+
+<https://www.gleif.org/ontology/Base/hasSuccessor> a owl:ObjectProperty ;
+    rdfs:label "has successor" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/Entity> .
+
+<https://www.gleif.org/ontology/Base/hasSuccessorName> a owl:DatatypeProperty ;
+    rdfs:label "has successor name" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> .
+
+<https://www.gleif.org/ontology/Base/hasTag> a owl:DatatypeProperty ;
+    rdfs:label "has tag" ;
+    rdfs:range xsd:string .
+
+<https://www.gleif.org/ontology/Base/hasTarget> a owl:ObjectProperty ;
+    rdfs:label "has target" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/LegalEntityRelationship> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/Entity> .
+
+<https://www.gleif.org/ontology/Base/hasWebsite> a owl:DatatypeProperty ;
+    rdfs:label "has website" ;
+    rdfs:range xsd:anyURI .
+
+<https://www.gleif.org/ontology/Base/identifies> a owl:ObjectProperty ;
+    rdfs:label "identifies" .
+
+<https://www.gleif.org/ontology/Base/isManagedBy> a owl:ObjectProperty ;
+    rdfs:label "is managed by" .
+
+<https://www.gleif.org/ontology/Base/isQualifiedBy> a owl:ObjectProperty ;
+    rdfs:label "is qualified by" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/LegalEntityRelationship> .
+
+<https://www.gleif.org/ontology/Base/isQuantifiedBy> a owl:DatatypeProperty ;
+    rdfs:label "is quantified by" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/LegalEntityRelationship> ;
+    rdfs:range xsd:decimal .
+
+<https://www.gleif.org/ontology/Base/isRegisteredIn> a owl:ObjectProperty ;
+    rdfs:label "is registered in" ;
+    rdfs:range <https://www.gleif.org/ontology/Base/Registry> .
+
+<https://www.gleif.org/ontology/Base/records> a owl:ObjectProperty ;
+    rdfs:label "records" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/RegistryEntry> .
+
+<https://www.gleif.org/ontology/EntityLegalForm/EntityLegalFormIdentifier> a owl:Class ;
+    rdfs:label "entity legal form identifier" ;
+    rdfs:comment "A current code from the GLEIF-maintained list MUST be used. Values of the LegalFormEnum code list are maintained by GLEIF on behalf of ISO through the Entity Legal Form (ELF) as defined in ISO 20275." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/Identifier> .
+
+<https://www.gleif.org/ontology/L1/> a owl:Ontology ;
+    rdfs:label "GLEIF LEI" ;
+    owl:versionInfo "1" .
+
+<https://www.gleif.org/ontology/L1/Branch> a owl:Class ;
+    rdfs:label "branch" ;
+    rdfs:comment "The entity is a branch of another legal entity." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/L1/RegisteredEntity> .
+
+<https://www.gleif.org/ontology/L1/LEI> a owl:DatatypeProperty ;
+    rdfs:label "LEI" ;
+    rdfs:range xsd:string .
+
+<https://www.gleif.org/ontology/L1/LegalEntityIdentifier> a owl:Class ;
+    rdfs:label "legal entity identifier" ;
+    rdfs:comment "The ISO 17442 compatible identifier for the legal entity referenced." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/Identifier> .
+
+<https://www.gleif.org/ontology/L1/LegalEntityIdentifierRegistryEntry> a owl:Class ;
+    rdfs:label "legal entity identifier registry entry" ;
+    rdfs:comment "The Registration container element which contains all information on the legal entity's LEI registration with the Managing LOU." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/RegistryEntry> .
+
+<https://www.gleif.org/ontology/L1/RegistrationStatus> a owl:Class ;
+    rdfs:label "legal entity identifier registration status" ;
+    rdfs:comment "The status of the legal entity's LEI registration with the Managing LOU." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/RegistrationStatus> .
+
+<https://www.gleif.org/ontology/L1/SoleProprietor> a owl:Class ;
+    rdfs:label "sole proprietor" ;
+    rdfs:comment "The legal entity represents an individual acting in a business capacity" ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/L1/LegalEntity> .
+
+<https://www.gleif.org/ontology/L1/hasAlternativeLanguageHeadquartersAddress> a owl:ObjectProperty ;
+    rdfs:label "has alternative language headquarters address" .
+
+<https://www.gleif.org/ontology/L1/hasAlternativeLanguageLegalAddress> a owl:ObjectProperty ;
+    rdfs:label "has alternative language legal address" .
+
+<https://www.gleif.org/ontology/L1/hasAlternativeLanguageLegalName> a owl:DatatypeProperty ;
+    rdfs:label "has other entity names" .
+
+<https://www.gleif.org/ontology/L1/hasAssociatedEntity> a owl:ObjectProperty ;
+    rdfs:label "has associated entity" ;
+    rdfs:domain <https://www.gleif.org/ontology/L1/RegisteredEntity> ;
+    rdfs:range <https://www.gleif.org/ontology/L1/RegisteredEntity> .
+
+<https://www.gleif.org/ontology/L1/hasAssociatedEntityName> a owl:DatatypeProperty ;
+    rdfs:label "has associated entity name" ;
+    rdfs:domain <https://www.gleif.org/ontology/L1/RegisteredEntity> .
+
+<https://www.gleif.org/ontology/L1/hasAutoASCIITransliteratedHeadquartersAddress> a owl:ObjectProperty ;
+    rdfs:label "has auto ASCII transliterated headquarters address" .
+
+<https://www.gleif.org/ontology/L1/hasAutoASCIITransliteratedLegalAddress> a owl:ObjectProperty ;
+    rdfs:label "has auto ASCII transliterated legal address" .
+
+<https://www.gleif.org/ontology/L1/hasAutoASCIITransliteratedLegalName> a owl:DatatypeProperty ;
+    rdfs:label "has auto ASCII transliterated legal name" .
+
+<https://www.gleif.org/ontology/L1/hasEntityID> a owl:DatatypeProperty ;
+    rdfs:label "has entity id" ;
+    rdfs:domain <https://www.gleif.org/ontology/L1/BusinessRegistryIdentifier> ;
+    rdfs:range xsd:string .
+
+<https://www.gleif.org/ontology/L1/hasFundFamily> a owl:ObjectProperty ;
+    rdfs:label "has fund family" ;
+    rdfs:domain <https://www.gleif.org/ontology/L1/Fund> ;
+    rdfs:range <https://www.gleif.org/ontology/L1/FundFamily> .
+
+<https://www.gleif.org/ontology/L1/hasFundFamilyName> a owl:DatatypeProperty ;
+    rdfs:label "has fund family name" ;
+    rdfs:domain <https://www.gleif.org/ontology/L1/Fund> .
+
+<https://www.gleif.org/ontology/L1/hasHeadquartersAddress> a owl:ObjectProperty ;
+    rdfs:label "has headquarters address" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/L1/hasLegalAddress> a owl:ObjectProperty ;
+    rdfs:label "has legal address" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/L1/hasLegalForm> a owl:ObjectProperty ;
+    rdfs:label "has legal form" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> ;
+    rdfs:range <https://www.gleif.org/ontology/EntityLegalForm/EntityLegalForm> .
+
+<https://www.gleif.org/ontology/L1/hasLegalFormText> a owl:DatatypeProperty ;
+    rdfs:label "has legal form" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/Entity> .
+
+<https://www.gleif.org/ontology/L1/hasLegalName> a owl:DatatypeProperty ;
+    rdfs:label "has legal name" .
+
+<https://www.gleif.org/ontology/L1/hasManagingLOU> a owl:ObjectProperty ;
+    rdfs:label "has managing LOU" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/RegistryEntry> ;
+    rdfs:range <https://www.gleif.org/ontology/L1/LocalOperatingUnit> .
+
+<https://www.gleif.org/ontology/L1/hasOtherAddresses> a owl:ObjectProperty ;
+    rdfs:label "has other addresses" .
+
+<https://www.gleif.org/ontology/L1/hasOtherAuthority> a owl:DatatypeProperty ;
+    rdfs:label "has other authority" ;
+    rdfs:domain <https://www.gleif.org/ontology/RegistrationAuthority/BusinessRegistryIdentifier> .
+
+<https://www.gleif.org/ontology/L1/hasOtherEntityNames> a owl:DatatypeProperty ;
+    rdfs:label "has other entity names" .
+
+<https://www.gleif.org/ontology/L1/hasOtherValidationIdentifier> a owl:ObjectProperty ;
+    rdfs:label "has other validation identifier" ;
+    rdfs:range <https://www.gleif.org/ontology/Base/RegistryIdentifier> .
+
+<https://www.gleif.org/ontology/L1/hasPreferredASCIITransliteratedHeadquartersAddress> a owl:ObjectProperty ;
+    rdfs:label "has preferred ASCII transliterated headquarters address" .
+
+<https://www.gleif.org/ontology/L1/hasPreferredASCIITransliteratedLegalAddress> a owl:ObjectProperty ;
+    rdfs:label "has preferred ASCII transliterated legal address" .
+
+<https://www.gleif.org/ontology/L1/hasPreferredASCIITransliteratedLegalName> a owl:DatatypeProperty ;
+    rdfs:label "has preferred ASCII transliterated legal name" .
+
+<https://www.gleif.org/ontology/L1/hasPreviousLegalName> a owl:DatatypeProperty ;
+    rdfs:label "has previous legal name" .
+
+<https://www.gleif.org/ontology/L1/hasRegisteredAuthority> a owl:ObjectProperty ;
+    rdfs:label "has registered authority" ;
+    rdfs:domain <https://www.gleif.org/ontology/RegistrationAuthority/BusinessRegistryIdentifier> ;
+    rdfs:range <https://www.gleif.org/ontology/RegistrationAuthority/BusinessRegistry> .
+
+<https://www.gleif.org/ontology/L1/hasRegistrationIdentifier> a owl:ObjectProperty ;
+    rdfs:label "has registration identifier" ;
+    rdfs:range <https://www.gleif.org/ontology/Base/RegistryIdentifier> .
+
+<https://www.gleif.org/ontology/L1/hasTradingOrOperatingName> a owl:DatatypeProperty ;
+    rdfs:label "has trading or operating name" .
+
+<https://www.gleif.org/ontology/L1/hasTransliteratedHeadquartersAddress> a owl:ObjectProperty ;
+    rdfs:label "has transliterated headquarters address" .
+
+<https://www.gleif.org/ontology/L1/hasTransliteratedLegalAddress> a owl:ObjectProperty ;
+    rdfs:label "has transliterated legal address" .
+
+<https://www.gleif.org/ontology/L1/hasTransliteratedOtherAddresses> a owl:ObjectProperty ;
+    rdfs:label "has transliterated other addresses" .
+
+<https://www.gleif.org/ontology/L1/hasTransliteratedOtherEntityNames> a owl:DatatypeProperty ;
+    rdfs:label "has transliterated other entity names" .
+
+<https://www.gleif.org/ontology/L1/hasValidationIdentifier> a owl:ObjectProperty ;
+    rdfs:label "has validation identifier" ;
+    rdfs:range <https://www.gleif.org/ontology/L1/BusinessRegistryIdentifier> .
+
+<https://www.gleif.org/ontology/L1/hasValidationSources> a owl:ObjectProperty ;
+    rdfs:label "has validation sources" ;
+    rdfs:range <https://www.gleif.org/ontology/L1/ValidationSourceKind> .
+
+<https://www.gleif.org/ontology/L1/identifiesAndRecords> a owl:ObjectProperty ;
+    rdfs:label "identifies and records" ;
+    rdfs:range <https://www.gleif.org/ontology/L1/RegisteredEntity> .
+
+<https://www.gleif.org/ontology/L2/DirectConsolidation> a owl:Class ;
+    rdfs:label "direct consolidation" ;
+    rdfs:comment "The 'child' entity has its accounts fully consolidated by the 'parent' entity, in the sense given by the accounting standard(s) specified; the parent entity is the closest fully consolidating parent to the child entity in any applicable hierarchical ownership structure." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/L2/AccountingConsolidation> ;
+    skos:altLabel "is directly consolidated by" .
+
+<https://www.gleif.org/ontology/L2/InternationalBranchRelationship> a owl:Class ;
+    rdfs:label "international branch relationship" ;
+    rdfs:comment "Child is a lead international branch or international branch network outside of the head office’s jurisdiction. The Parent is the Head Office and MUST have an LEI." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/LegalEntityRelationship> ;
+    skos:altLabel "is international branch of" .
+
+<https://www.gleif.org/ontology/L2/RegistrationStatus> a owl:Class ;
+    rdfs:label "relationship registration status" ;
+    rdfs:comment "The status of the legal entity's relationship record registration with the Managing LOU." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/RegistrationStatus> .
+
+<https://www.gleif.org/ontology/L2/UltimateConsolidation> a owl:Class ;
+    rdfs:label "ultimate consolidation" ;
+    rdfs:comment "The 'child' entity has its accounts fully consolidated by the 'parent' entity, in the sense given by the accounting standard(s) specified; the child entity is the most distant fully consolidating parent from the child entity in any applicable hierarchical ownership structure." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/L2/AccountingConsolidation> ;
+    skos:altLabel "is ultimately consolidated by" .
+
+<https://www.gleif.org/ontology/L2/hasAccountingPeriod> a owl:ObjectProperty ;
+    rdfs:label "has accounting period" ;
+    rdfs:domain <https://www.gleif.org/ontology/L2/LegalEntityRelationshipRecord> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/Period> .
+
+<https://www.gleif.org/ontology/L2/hasAccountingStandard> a owl:ObjectProperty ;
+    rdfs:label "has accounting standard" ;
+    rdfs:domain <https://www.gleif.org/ontology/L2/AccountingConsolidation> ;
+    rdfs:range <https://www.gleif.org/ontology/L2/AccountingStandard> .
+
+<https://www.gleif.org/ontology/L2/hasChild> a owl:ObjectProperty ;
+    rdfs:label "has child" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/LegalEntityRelationship> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/Entity> .
+
+<https://www.gleif.org/ontology/L2/hasDocumentFilingPeriod> a owl:ObjectProperty ;
+    rdfs:label "has document filing period" ;
+    rdfs:domain <https://www.gleif.org/ontology/L2/LegalEntityRelationshipRecord> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/Period> .
+
+<https://www.gleif.org/ontology/L2/hasParent> a owl:ObjectProperty ;
+    rdfs:label "has parent" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/LegalEntityRelationship> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/Entity> .
+
+<https://www.gleif.org/ontology/L2/hasRelationshipPeriod> a owl:ObjectProperty ;
+    rdfs:label "has relationship period" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/LegalEntityRelationship> ;
+    rdfs:range <https://www.gleif.org/ontology/Base/Period> .
+
+<https://www.gleif.org/ontology/L2/hasRelationshipStatus> a owl:ObjectProperty ;
+    rdfs:label "has relationship status" ;
+    rdfs:domain <https://www.gleif.org/ontology/Base/LegalEntityRelationship> ;
+    rdfs:range <https://www.gleif.org/ontology/L2/RelationshipStatus> .
+
+<https://www.gleif.org/ontology/L2/hasValidationDocuments> a owl:ObjectProperty ;
+    rdfs:label "has validation documents" ;
+    rdfs:domain <https://www.gleif.org/ontology/L2/LegalEntityRelationshipRecord> ;
+    rdfs:range <https://www.gleif.org/ontology/L2/RelationshipValidationDocumentsKind> .
+
+<https://www.gleif.org/ontology/L2/hasValidationReference> a owl:DatatypeProperty ;
+    rdfs:label "has validation reference" ;
+    rdfs:domain <https://www.gleif.org/ontology/L2/LegalEntityRelationshipRecord> .
+
+<https://www.gleif.org/ontology/L2/hasValidationSources> a owl:ObjectProperty ;
+    rdfs:label "has validation sources" ;
+    rdfs:domain <https://www.gleif.org/ontology/L2/LegalEntityRelationshipRecord> ;
+    rdfs:range <https://www.gleif.org/ontology/L1/ValidationSourceKind> .
+
+<https://www.gleif.org/ontology/RegistrationAuthority/RegistrationAuthorityCode> a owl:Class ;
+    rdfs:label "registration authority code" ;
+    rdfs:comment "The reference code of the registration authority, taken from the Registration Authorities Code List maintained by GLEIF." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/Identifier> .
+
+<https://www.gleif.org/ontology/Base/EntityExpirationReason> a owl:Class ;
+    rdfs:label "entity expiration reason" ;
+    rdfs:comment "The reason that an entity ceased to exist and/or operate." ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/Base/EntityStatus> a owl:Class ;
+    rdfs:label "entity status" ;
+    rdfs:comment "The operational and/or legal registration status of the entity (may be ACTIVE or INACTIVE)" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/Base/PhysicalAddressASCII> a owl:Class ;
+    rdfs:label "physical address ASCII" ;
+    rdfs:comment "An address transliterated to ASCII characters." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/PhysicalAddress> .
+
+<https://www.gleif.org/ontology/EntityLegalForm/EntityLegalForm> a owl:Class ;
+    rdfs:label "entity legal form" ;
+    rdfs:comment "The legal form of the entity, taken from the ISO Entity Legal Form (ELF) code list maintained by GLEIF. " ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/L1/FundFamily> a owl:Class ;
+    rdfs:label "fund family" ;
+    rdfs:comment "The entity that is the manager of one or more funds." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/L1/LegalEntity> .
+
+<https://www.gleif.org/ontology/L1/LocalOperatingUnit> a owl:Class ;
+    rdfs:label "local operating unit" ;
+    rdfs:comment "An entity that supplies registration, renewal and other services, and acts as the primary interface for legal entities wishing to obtain an LEI. Only organizations duly accredited by the Global Legal Entity Identifier Foundation (GLEIF) are authorized to issue LEIs." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/L1/LegalEntity> ;
+    skos:altLabel "LEI issuer",
+        "LOU" .
+
+<https://www.gleif.org/ontology/L2/AccountingStandard> a owl:Class ;
+    rdfs:label "accounting standard" ;
+    rdfs:comment "the type of accounting standard used to source consolidation information, which is based on reported accounting roll-ups" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/L2/RelationshipStatus> a owl:Class ;
+    rdfs:label "relationship status" ;
+    rdfs:comment "The status of the legal entities' relationship itself: active or inactive." ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/L2/RelationshipValidationDocumentsKind> a owl:Class ;
+    rdfs:label "relationship validation documents kind" ;
+    rdfs:comment "Type of source document(s) used for validating the relationship." ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/RegistrationAuthority/BusinessRegistry> a owl:Class ;
+    rdfs:label "business registry" ;
+    rdfs:comment "a registry for registering and maintaining information about business entities" ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/Registry> .
+
+<https://www.gleif.org/ontology/Base/Registry> a owl:Class ;
+    rdfs:label "registry" ;
+    rdfs:comment "A system, typically an information system, that records the registration of items." ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/L1/BusinessRegistryIdentifier> a owl:Class ;
+    rdfs:label "business registry identifier" ;
+    rdfs:comment "The legal entity is a branch of another legal entity." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/RegistryIdentifier> .
+
+<https://www.gleif.org/ontology/L1/Fund> a owl:Class ;
+    rdfs:label "fund" ;
+    rdfs:comment "The legal entity is a fund." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/L1/RegisteredEntity> .
+
+<https://www.gleif.org/ontology/L1/ValidationSourceKind> a owl:Class ;
+    rdfs:label "LEI validation source kind" ;
+    rdfs:comment "The level of validation of the reference data provided by the registrant." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/RegistrationStatus> .
+
+<https://www.gleif.org/ontology/Base/RegistryIdentifier> a owl:Class ;
+    rdfs:label "registry identifier" ;
+    rdfs:comment "An identifier associated with an entry in a registry, i.e., one that provides an index to the registry for the recorded item." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/Identifier> .
+
+<https://www.gleif.org/ontology/L1/LegalEntity> a owl:Class ;
+    rdfs:label "legal entity" ;
+    rdfs:comment "LEI-registered entities that are legally or financially responsible for the performance of financial transactions or have the legal right in their jurisdiction to enter independently into legal contracts, regardless of whether they are incorporated or constituted in some other way (e.g. trust, partnership, contractual). It excludes natural persons, but includes governmental organizations and supranationals." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/L1/RegisteredEntity> .
+
+<https://www.gleif.org/ontology/L2/AccountingConsolidation> a owl:Class ;
+    rdfs:label "accounting consolidation" ;
+    rdfs:comment "Accounting consolidation holds when '[in the] financial statements of a group [...] the assets, liabilities, equity, income, expenses and cash flows of the parent and its subsidiaries are presented as those of a single economic entity'." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/LegalEntityRelationship> .
+
+<https://www.gleif.org/ontology/Base/Identifier> a owl:Class ;
+    rdfs:label "identifier" ;
+    rdfs:comment "Sequence of characters, capable of uniquely identifying that with which it is associated, within a specified context." ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/Base/RegistrationStatus> a owl:Class ;
+    rdfs:label "registration status" ;
+    rdfs:comment "A lifecycle stage indicating the status of a given registration of something, such as a business or legal entity." ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/Base/RegistryEntry> a owl:Class ;
+    rdfs:label "registry entry" ;
+    rdfs:comment "An entry in a registry that specifies something about the thing that is recorded." ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/Base/Period> a owl:Class ;
+    rdfs:label "period" ;
+    rdfs:comment "A period of time, with at least a start time, and possibly an end." ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/L2/LegalEntityRelationshipRecord> a owl:Class ;
+    rdfs:label "legal entity relationship record" ;
+    rdfs:comment "The Registration container element contains information specifying the LOU's administration of the relationship record." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/RegistryEntry> .
+
+<https://www.gleif.org/ontology/L1/RegisteredEntity> a owl:Class ;
+    rdfs:label "registered entity" ;
+    rdfs:comment "LEI-registered entities including, but not limited to, unique parties that are legally or financially responsible for the performance of financial transactions or have the legal right in their jurisdiction to enter independently into legal contracts, regardless of whether they are incorporated or constituted in some other way (e.g. trust, partnership, contractual). It excludes natural persons, but includes governmental organizations and supranationals." ;
+    rdfs:subClassOf <https://www.gleif.org/ontology/Base/Entity> .
+
+<https://www.gleif.org/ontology/Base/LegalEntityRelationship> a owl:Class ;
+    rdfs:label "legal entity relationship" ;
+    rdfs:comment "abstract superclass to represent a reified directed relationship" ;
+    rdfs:subClassOf ns:Thing .
+
+ns:Thing a owl:Class ;
+    rdfs:label "Thing" ;
+    rdfs:comment "Synthesized root class" .
+
+<https://www.gleif.org/ontology/Base/PhysicalAddress> a owl:Class ;
+    rdfs:label "physical address" ;
+    rdfs:comment "a physical address where communications can be addressed, papers served or representatives located for any kind of organization or person" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.gleif.org/ontology/Base/Entity> a owl:Class ;
+    rdfs:label "entity" ;
+    rdfs:comment "A partnership, corporation, or other organization having the capacity to negotiate contracts, assume financial obligations, and pay off debts, organized under the laws of some jurisdiction." ;
+    rdfs:subClassOf ns:Thing .
+

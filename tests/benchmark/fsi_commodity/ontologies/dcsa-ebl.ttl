@@ -1,0 +1,3921 @@
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:dcsa:ebl:> a owl:Ontology ;
+    rdfs:label "DCSA eBL" ;
+    owl:versionInfo "2" .
+
+<urn:dcsa:ebl:ActiveReeferSettings.airExchangeSetpoint> a owl:DatatypeProperty ;
+    rdfs:label "airExchangeSetpoint" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:ActiveReeferSettings.airExchangeUnit> a owl:DatatypeProperty ;
+    rdfs:label "airExchangeUnit" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ActiveReeferSettings.co2Setpoint> a owl:DatatypeProperty ;
+    rdfs:label "co2Setpoint" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:ActiveReeferSettings.humiditySetpoint> a owl:DatatypeProperty ;
+    rdfs:label "humiditySetpoint" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:ActiveReeferSettings.isBulbMode> a owl:DatatypeProperty ;
+    rdfs:label "isBulbMode" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ActiveReeferSettings.isColdTreatmentRequired> a owl:DatatypeProperty ;
+    rdfs:label "isColdTreatmentRequired" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ActiveReeferSettings.isControlledAtmosphereRequired> a owl:DatatypeProperty ;
+    rdfs:label "isControlledAtmosphereRequired" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ActiveReeferSettings.isDrainholesOpen> a owl:DatatypeProperty ;
+    rdfs:label "isDrainholesOpen" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ActiveReeferSettings.isVentilationOpen> a owl:DatatypeProperty ;
+    rdfs:label "isVentilationOpen" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ActiveReeferSettings.o2Setpoint> a owl:DatatypeProperty ;
+    rdfs:label "o2Setpoint" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:ActiveReeferSettings.temperatureSetpoint> a owl:DatatypeProperty ;
+    rdfs:label "temperatureSetpoint" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:ActiveReeferSettings.temperatureUnit> a owl:DatatypeProperty ;
+    rdfs:label "temperatureUnit" ;
+    rdfs:domain <urn:dcsa:ebl:ActiveReeferSettings> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Address.POBox> a owl:DatatypeProperty ;
+    rdfs:label "POBox" ;
+    rdfs:domain <urn:dcsa:ebl:Address> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Address.city> a owl:DatatypeProperty ;
+    rdfs:label "city" ;
+    rdfs:domain <urn:dcsa:ebl:Address> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Address.countryCode> a owl:DatatypeProperty ;
+    rdfs:label "countryCode" ;
+    rdfs:domain <urn:dcsa:ebl:Address> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Address.floor> a owl:DatatypeProperty ;
+    rdfs:label "floor" ;
+    rdfs:domain <urn:dcsa:ebl:Address> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Address.postCode> a owl:DatatypeProperty ;
+    rdfs:label "postCode" ;
+    rdfs:domain <urn:dcsa:ebl:Address> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Address.stateRegion> a owl:DatatypeProperty ;
+    rdfs:label "stateRegion" ;
+    rdfs:domain <urn:dcsa:ebl:Address> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Address.street> a owl:DatatypeProperty ;
+    rdfs:label "street" ;
+    rdfs:domain <urn:dcsa:ebl:Address> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Address.streetNumber> a owl:DatatypeProperty ;
+    rdfs:label "streetNumber" ;
+    rdfs:domain <urn:dcsa:ebl:Address> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:AdvanceManifestFiling.advanceManifestFilingsHouseBLPerformedBy> a owl:DatatypeProperty ;
+    rdfs:label "advanceManifestFilingsHouseBLPerformedBy" ;
+    rdfs:domain <urn:dcsa:ebl:AdvanceManifestFiling> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:AdvanceManifestFiling.countryCode> a owl:DatatypeProperty ;
+    rdfs:label "countryCode" ;
+    rdfs:domain <urn:dcsa:ebl:AdvanceManifestFiling> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:AdvanceManifestFiling.identificationNumber> a owl:DatatypeProperty ;
+    rdfs:label "identificationNumber" ;
+    rdfs:domain <urn:dcsa:ebl:AdvanceManifestFiling> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:AdvanceManifestFiling.manifestTypeCode> a owl:DatatypeProperty ;
+    rdfs:label "manifestTypeCode" ;
+    rdfs:domain <urn:dcsa:ebl:AdvanceManifestFiling> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:AdvanceManifestFiling.selfFilerCode> a owl:DatatypeProperty ;
+    rdfs:label "selfFilerCode" ;
+    rdfs:domain <urn:dcsa:ebl:AdvanceManifestFiling> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ApproveTransportDocument.transportDocumentStatus> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentStatus" ;
+    rdfs:domain <urn:dcsa:ebl:ApproveTransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Buyer.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:Buyer> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:Buyer.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:Buyer> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:Buyer.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:Buyer> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetailWithPattern> .
+
+<urn:dcsa:ebl:Buyer.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:Buyer> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Buyer.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:Buyer> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:Buyer.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:Buyer> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:BuyerHBL.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:BuyerHBL> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:BuyerHBL.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:BuyerHBL> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:BuyerHBL.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:BuyerHBL> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetailHBL> .
+
+<urn:dcsa:ebl:BuyerHBL.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:BuyerHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:BuyerHBL.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:BuyerHBL> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:BuyerHBL.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:BuyerHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CancelShippingInstructionsUpdate.updatedShippingInstructionsStatus> a owl:DatatypeProperty ;
+    rdfs:label "updatedShippingInstructionsStatus" ;
+    rdfs:domain <urn:dcsa:ebl:CancelShippingInstructionsUpdate> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CargoGrossVolume.unit> a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    rdfs:domain <urn:dcsa:ebl:CargoGrossVolume> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CargoGrossVolume.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:CargoGrossVolume> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:CargoGrossWeight.unit> a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    rdfs:domain <urn:dcsa:ebl:CargoGrossWeight> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CargoGrossWeight.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:CargoGrossWeight> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:CargoItem.cargoGrossVolume> a owl:ObjectProperty ;
+    rdfs:label "cargoGrossVolume" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItem> ;
+    rdfs:range <urn:dcsa:ebl:CargoGrossVolume> .
+
+<urn:dcsa:ebl:CargoItem.cargoGrossWeight> a owl:ObjectProperty ;
+    rdfs:label "cargoGrossWeight" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItem> ;
+    rdfs:range <urn:dcsa:ebl:CargoGrossWeight> .
+
+<urn:dcsa:ebl:CargoItem.cargoNetVolume> a owl:ObjectProperty ;
+    rdfs:label "cargoNetVolume" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItem> ;
+    rdfs:range <urn:dcsa:ebl:CargoNetVolume> .
+
+<urn:dcsa:ebl:CargoItem.cargoNetWeight> a owl:ObjectProperty ;
+    rdfs:label "cargoNetWeight" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItem> ;
+    rdfs:range <urn:dcsa:ebl:CargoNetWeight> .
+
+<urn:dcsa:ebl:CargoItem.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItem> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:CargoItem.equipmentReference> a owl:DatatypeProperty ;
+    rdfs:label "equipmentReference" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItem> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CargoItem.exportLicense> a owl:ObjectProperty ;
+    rdfs:label "exportLicense" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItem> ;
+    rdfs:range <urn:dcsa:ebl:ExportLicense> .
+
+<urn:dcsa:ebl:CargoItem.importLicense> a owl:ObjectProperty ;
+    rdfs:label "importLicense" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItem> ;
+    rdfs:range <urn:dcsa:ebl:ImportLicense> .
+
+<urn:dcsa:ebl:CargoItem.nationalCommodityCodes> a owl:ObjectProperty ;
+    rdfs:label "nationalCommodityCodes" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItem> ;
+    rdfs:range <urn:dcsa:ebl:NationalCommodityCode> .
+
+<urn:dcsa:ebl:CargoItem.outerPackaging> a owl:ObjectProperty ;
+    rdfs:label "outerPackaging" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItem> ;
+    rdfs:range <urn:dcsa:ebl:OuterPackaging> .
+
+<urn:dcsa:ebl:CargoItemHBL.cargoGrossWeight> a owl:ObjectProperty ;
+    rdfs:label "cargoGrossWeight" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemHBL> ;
+    rdfs:range <urn:dcsa:ebl:CargoGrossWeight> .
+
+<urn:dcsa:ebl:CargoItemHBL.equipmentReference> a owl:DatatypeProperty ;
+    rdfs:label "equipmentReference" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CargoItemHBL.outerPackaging> a owl:ObjectProperty ;
+    rdfs:label "outerPackaging" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemHBL> ;
+    rdfs:range <urn:dcsa:ebl:OuterPackagingHBL> .
+
+<urn:dcsa:ebl:CargoItemShipper.cargoGrossVolume> a owl:ObjectProperty ;
+    rdfs:label "cargoGrossVolume" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:CargoGrossVolume> .
+
+<urn:dcsa:ebl:CargoItemShipper.cargoGrossWeight> a owl:ObjectProperty ;
+    rdfs:label "cargoGrossWeight" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:CargoGrossWeight> .
+
+<urn:dcsa:ebl:CargoItemShipper.cargoNetVolume> a owl:ObjectProperty ;
+    rdfs:label "cargoNetVolume" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:CargoNetVolume> .
+
+<urn:dcsa:ebl:CargoItemShipper.cargoNetWeight> a owl:ObjectProperty ;
+    rdfs:label "cargoNetWeight" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:CargoNetWeight> .
+
+<urn:dcsa:ebl:CargoItemShipper.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:CargoItemShipper.equipmentReference> a owl:DatatypeProperty ;
+    rdfs:label "equipmentReference" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CargoItemShipper.exportLicense> a owl:ObjectProperty ;
+    rdfs:label "exportLicense" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:ExportLicenseShipper> .
+
+<urn:dcsa:ebl:CargoItemShipper.houseBillOfLadingReference> a owl:DatatypeProperty ;
+    rdfs:label "houseBillOfLadingReference" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CargoItemShipper.importLicense> a owl:ObjectProperty ;
+    rdfs:label "importLicense" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:ImportLicenseShipper> .
+
+<urn:dcsa:ebl:CargoItemShipper.nationalCommodityCodes> a owl:ObjectProperty ;
+    rdfs:label "nationalCommodityCodes" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:NationalCommodityCode> .
+
+<urn:dcsa:ebl:CargoItemShipper.outerPackaging> a owl:ObjectProperty ;
+    rdfs:label "outerPackaging" ;
+    rdfs:domain <urn:dcsa:ebl:CargoItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:OuterPackagingShipper> .
+
+<urn:dcsa:ebl:CargoNetVolume.unit> a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    rdfs:domain <urn:dcsa:ebl:CargoNetVolume> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CargoNetVolume.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:CargoNetVolume> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:CargoNetWeight.unit> a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    rdfs:domain <urn:dcsa:ebl:CargoNetWeight> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CargoNetWeight.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:CargoNetWeight> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:CarriersAgentAtDestination.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:CarriersAgentAtDestination> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:CarriersAgentAtDestination.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:CarriersAgentAtDestination> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:CarriersAgentAtDestination.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:CarriersAgentAtDestination> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Charge.calculationBasis> a owl:DatatypeProperty ;
+    rdfs:label "calculationBasis" ;
+    rdfs:domain <urn:dcsa:ebl:Charge> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Charge.chargeName> a owl:DatatypeProperty ;
+    rdfs:label "chargeName" ;
+    rdfs:domain <urn:dcsa:ebl:Charge> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Charge.currencyAmount> a owl:DatatypeProperty ;
+    rdfs:label "currencyAmount" ;
+    rdfs:domain <urn:dcsa:ebl:Charge> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:Charge.currencyCode> a owl:DatatypeProperty ;
+    rdfs:label "currencyCode" ;
+    rdfs:domain <urn:dcsa:ebl:Charge> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Charge.paymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "paymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:Charge> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Charge.quantity> a owl:DatatypeProperty ;
+    rdfs:label "quantity" ;
+    rdfs:domain <urn:dcsa:ebl:Charge> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:Charge.unitPrice> a owl:DatatypeProperty ;
+    rdfs:label "unitPrice" ;
+    rdfs:domain <urn:dcsa:ebl:Charge> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:City.city> a owl:DatatypeProperty ;
+    rdfs:label "city" ;
+    rdfs:domain <urn:dcsa:ebl:City> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:City.countryCode> a owl:DatatypeProperty ;
+    rdfs:label "countryCode" ;
+    rdfs:domain <urn:dcsa:ebl:City> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:City.stateRegion> a owl:DatatypeProperty ;
+    rdfs:label "stateRegion" ;
+    rdfs:domain <urn:dcsa:ebl:City> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Consignee.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:Consignee> ;
+    rdfs:range <urn:dcsa:ebl:PartyAddress> .
+
+<urn:dcsa:ebl:Consignee.displayedAddress> a owl:DatatypeProperty ;
+    rdfs:label "displayedAddress" ;
+    rdfs:domain <urn:dcsa:ebl:Consignee> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Consignee.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:Consignee> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:Consignee.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:Consignee> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:Consignee.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:Consignee> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Consignee.purchaseOrderReferences> a owl:DatatypeProperty ;
+    rdfs:label "purchaseOrderReferences" ;
+    rdfs:domain <urn:dcsa:ebl:Consignee> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Consignee.reference> a owl:DatatypeProperty ;
+    rdfs:label "reference" ;
+    rdfs:domain <urn:dcsa:ebl:Consignee> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Consignee.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:Consignee> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:Consignee.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:Consignee> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsigneeHBL.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeHBL> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:ConsigneeHBL.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeHBL> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:ConsigneeHBL.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeHBL> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetailHBL> .
+
+<urn:dcsa:ebl:ConsigneeHBL.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsigneeHBL.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeHBL> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:ConsigneeHBL.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsigneeShipper.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeShipper> ;
+    rdfs:range <urn:dcsa:ebl:PartyAddress> .
+
+<urn:dcsa:ebl:ConsigneeShipper.displayedAddress> a owl:DatatypeProperty ;
+    rdfs:label "displayedAddress" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsigneeShipper.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeShipper> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:ConsigneeShipper.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeShipper> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:ConsigneeShipper.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsigneeShipper.purchaseOrderReferences> a owl:DatatypeProperty ;
+    rdfs:label "purchaseOrderReferences" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsigneeShipper.reference> a owl:DatatypeProperty ;
+    rdfs:label "reference" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsigneeShipper.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeShipper> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:ConsigneeShipper.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:ConsigneeShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsignmentItem.HSCodes> a owl:DatatypeProperty ;
+    rdfs:label "HSCodes" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItem> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsignmentItem.cargoItems> a owl:ObjectProperty ;
+    rdfs:label "cargoItems" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItem> ;
+    rdfs:range <urn:dcsa:ebl:CargoItem> .
+
+<urn:dcsa:ebl:ConsignmentItem.carrierBookingReference> a owl:DatatypeProperty ;
+    rdfs:label "carrierBookingReference" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItem> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsignmentItem.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItem> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:ConsignmentItem.descriptionOfGoods> a owl:DatatypeProperty ;
+    rdfs:label "descriptionOfGoods" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItem> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsignmentItem.exportLicense> a owl:ObjectProperty ;
+    rdfs:label "exportLicense" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItem> ;
+    rdfs:range <urn:dcsa:ebl:ExportLicense> .
+
+<urn:dcsa:ebl:ConsignmentItem.importLicense> a owl:ObjectProperty ;
+    rdfs:label "importLicense" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItem> ;
+    rdfs:range <urn:dcsa:ebl:ImportLicense> .
+
+<urn:dcsa:ebl:ConsignmentItem.nationalCommodityCodes> a owl:ObjectProperty ;
+    rdfs:label "nationalCommodityCodes" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItem> ;
+    rdfs:range <urn:dcsa:ebl:NationalCommodityCode> .
+
+<urn:dcsa:ebl:ConsignmentItem.references> a owl:ObjectProperty ;
+    rdfs:label "references" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItem> ;
+    rdfs:range <urn:dcsa:ebl:ReferenceConsignmentItem> .
+
+<urn:dcsa:ebl:ConsignmentItem.shippingMarks> a owl:DatatypeProperty ;
+    rdfs:label "shippingMarks" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItem> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsignmentItemHBL.cargoItems> a owl:ObjectProperty ;
+    rdfs:label "cargoItems" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemHBL> ;
+    rdfs:range <urn:dcsa:ebl:CargoItemHBL> .
+
+<urn:dcsa:ebl:ConsignmentItemHBL.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemHBL> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:ConsignmentItemHBL.descriptionOfGoods> a owl:DatatypeProperty ;
+    rdfs:label "descriptionOfGoods" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsignmentItemHBL.nationalCommodityCode> a owl:ObjectProperty ;
+    rdfs:label "nationalCommodityCode" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemHBL> ;
+    rdfs:range <urn:dcsa:ebl:NationalCommodityCode> .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.HSCodes> a owl:DatatypeProperty ;
+    rdfs:label "HSCodes" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.cargoItems> a owl:ObjectProperty ;
+    rdfs:label "cargoItems" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:CargoItemShipper> .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.carrierBookingReference> a owl:DatatypeProperty ;
+    rdfs:label "carrierBookingReference" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.commoditySubReference> a owl:DatatypeProperty ;
+    rdfs:label "commoditySubReference" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.descriptionOfGoods> a owl:DatatypeProperty ;
+    rdfs:label "descriptionOfGoods" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.exportLicense> a owl:ObjectProperty ;
+    rdfs:label "exportLicense" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:ExportLicenseShipper> .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.importLicense> a owl:ObjectProperty ;
+    rdfs:label "importLicense" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:ImportLicenseShipper> .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.nationalCommodityCodes> a owl:ObjectProperty ;
+    rdfs:label "nationalCommodityCodes" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:NationalCommodityCode> .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.references> a owl:ObjectProperty ;
+    rdfs:label "references" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range <urn:dcsa:ebl:ReferenceConsignmentItem> .
+
+<urn:dcsa:ebl:ConsignmentItemShipper.shippingMarks> a owl:DatatypeProperty ;
+    rdfs:label "shippingMarks" ;
+    rdfs:domain <urn:dcsa:ebl:ConsignmentItemShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CreateShippingInstructions.advanceManifestFilings> a owl:ObjectProperty ;
+    rdfs:label "advanceManifestFilings" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:AdvanceManifestFiling> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.consignmentItems> a owl:ObjectProperty ;
+    rdfs:label "consignmentItems" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:ConsignmentItemShipper> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.destinationChargesPaymentTerm> a owl:ObjectProperty ;
+    rdfs:label "destinationChargesPaymentTerm" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:DestinationChargesPaymentTerm> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.displayedNameForPlaceOfDelivery> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPlaceOfDelivery" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CreateShippingInstructions.displayedNameForPlaceOfReceipt> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPlaceOfReceipt" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CreateShippingInstructions.displayedNameForPortOfDischarge> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPortOfDischarge" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CreateShippingInstructions.displayedNameForPortOfLoad> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPortOfLoad" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CreateShippingInstructions.documentParties> a owl:ObjectProperty ;
+    rdfs:label "documentParties" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:DocumentPartiesShippingInstructions> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.exportLicense> a owl:ObjectProperty ;
+    rdfs:label "exportLicense" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:ExportLicenseShipper> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.freightPaymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "freightPaymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CreateShippingInstructions.houseBillOfLadings> a owl:ObjectProperty ;
+    rdfs:label "houseBillOfLadings" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:HouseBillOfLading> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.importLicense> a owl:ObjectProperty ;
+    rdfs:label "importLicense" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:ImportLicenseShipper> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.invoicePayableAt> a owl:ObjectProperty ;
+    rdfs:label "invoicePayableAt" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:InvoicePayableAtShippingInstructions> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.isCargoDeliveredInICS2Zone> a owl:DatatypeProperty ;
+    rdfs:label "isCargoDeliveredInICS2Zone" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:CreateShippingInstructions.isCarriersAgentAtDestinationRequired> a owl:DatatypeProperty ;
+    rdfs:label "isCarriersAgentAtDestinationRequired" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:CreateShippingInstructions.isElectronic> a owl:DatatypeProperty ;
+    rdfs:label "isElectronic" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:CreateShippingInstructions.isHouseBillOfLadingsIssued> a owl:DatatypeProperty ;
+    rdfs:label "isHouseBillOfLadingsIssued" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:CreateShippingInstructions.isShippedOnBoardType> a owl:DatatypeProperty ;
+    rdfs:label "isShippedOnBoardType" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:CreateShippingInstructions.isToOrder> a owl:DatatypeProperty ;
+    rdfs:label "isToOrder" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:CreateShippingInstructions.numberOfCopiesWithCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfCopiesWithCharges" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:CreateShippingInstructions.numberOfCopiesWithoutCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfCopiesWithoutCharges" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:CreateShippingInstructions.numberOfOriginalsWithCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfOriginalsWithCharges" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:CreateShippingInstructions.numberOfOriginalsWithoutCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfOriginalsWithoutCharges" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:CreateShippingInstructions.originChargesPaymentTerm> a owl:ObjectProperty ;
+    rdfs:label "originChargesPaymentTerm" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:OriginChargesPaymentTerm> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.placeOfIssue> a owl:ObjectProperty ;
+    rdfs:label "placeOfIssue" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:PlaceOfIssue> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.references> a owl:ObjectProperty ;
+    rdfs:label "references" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:Reference> .
+
+<urn:dcsa:ebl:CreateShippingInstructions.requestedCarrierCertificates> a owl:DatatypeProperty ;
+    rdfs:label "requestedCarrierCertificates" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CreateShippingInstructions.requestedCarrierClauses> a owl:DatatypeProperty ;
+    rdfs:label "requestedCarrierClauses" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CreateShippingInstructions.transportDocumentTypeCode> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentTypeCode" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CreateShippingInstructions.utilizedTransportEquipments> a owl:ObjectProperty ;
+    rdfs:label "utilizedTransportEquipments" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:UtilizedTransportEquipmentShipper> .
+
+<urn:dcsa:ebl:CreateShippingInstructionsResponse.shippingInstructionsReference> a owl:DatatypeProperty ;
+    rdfs:label "shippingInstructionsReference" ;
+    rdfs:domain <urn:dcsa:ebl:CreateShippingInstructionsResponse> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CustomsReference.countryCode> a owl:DatatypeProperty ;
+    rdfs:label "countryCode" ;
+    rdfs:domain <urn:dcsa:ebl:CustomsReference> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CustomsReference.type> a owl:DatatypeProperty ;
+    rdfs:label "type" ;
+    rdfs:domain <urn:dcsa:ebl:CustomsReference> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:CustomsReference.values> a owl:DatatypeProperty ;
+    rdfs:label "values" ;
+    rdfs:domain <urn:dcsa:ebl:CustomsReference> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DangerousGoods.EMSNumber> a owl:DatatypeProperty ;
+    rdfs:label "EMSNumber" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DangerousGoods.codedVariantList> a owl:DatatypeProperty ;
+    rdfs:label "codedVariantList" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DangerousGoods.competentAuthorityApproval> a owl:DatatypeProperty ;
+    rdfs:label "competentAuthorityApproval" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DangerousGoods.emergencyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "emergencyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range <urn:dcsa:ebl:EmergencyContactDetails> .
+
+<urn:dcsa:ebl:DangerousGoods.endOfHoldingTime> a owl:DatatypeProperty ;
+    rdfs:label "endOfHoldingTime" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:DangerousGoods.fumigationDateTime> a owl:DatatypeProperty ;
+    rdfs:label "fumigationDateTime" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:dateTime .
+
+<urn:dcsa:ebl:DangerousGoods.grossWeight> a owl:ObjectProperty ;
+    rdfs:label "grossWeight" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range <urn:dcsa:ebl:GrossWeight> .
+
+<urn:dcsa:ebl:DangerousGoods.imoClass> a owl:DatatypeProperty ;
+    rdfs:label "imoClass" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DangerousGoods.inhalationZone> a owl:DatatypeProperty ;
+    rdfs:label "inhalationZone" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DangerousGoods.innerPackagings> a owl:ObjectProperty ;
+    rdfs:label "innerPackagings" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range <urn:dcsa:ebl:InnerPackaging> .
+
+<urn:dcsa:ebl:DangerousGoods.isCompetentAuthorityApprovalRequired> a owl:DatatypeProperty ;
+    rdfs:label "isCompetentAuthorityApprovalRequired" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:DangerousGoods.isEmptyUncleanedResidue> a owl:DatatypeProperty ;
+    rdfs:label "isEmptyUncleanedResidue" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:DangerousGoods.isExceptedQuantity> a owl:DatatypeProperty ;
+    rdfs:label "isExceptedQuantity" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:DangerousGoods.isHot> a owl:DatatypeProperty ;
+    rdfs:label "isHot" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:DangerousGoods.isLimitedQuantity> a owl:DatatypeProperty ;
+    rdfs:label "isLimitedQuantity" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:DangerousGoods.isMarinePollutant> a owl:DatatypeProperty ;
+    rdfs:label "isMarinePollutant" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:DangerousGoods.isReportableQuantity> a owl:DatatypeProperty ;
+    rdfs:label "isReportableQuantity" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:DangerousGoods.isSalvagePackings> a owl:DatatypeProperty ;
+    rdfs:label "isSalvagePackings" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:DangerousGoods.isWaste> a owl:DatatypeProperty ;
+    rdfs:label "isWaste" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:DangerousGoods.limits> a owl:ObjectProperty ;
+    rdfs:label "limits" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range <urn:dcsa:ebl:Limits> .
+
+<urn:dcsa:ebl:DangerousGoods.netExplosiveContent> a owl:ObjectProperty ;
+    rdfs:label "netExplosiveContent" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range <urn:dcsa:ebl:NetExplosiveContent> .
+
+<urn:dcsa:ebl:DangerousGoods.netVolume> a owl:ObjectProperty ;
+    rdfs:label "netVolume" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range <urn:dcsa:ebl:NetVolume> .
+
+<urn:dcsa:ebl:DangerousGoods.netWeight> a owl:ObjectProperty ;
+    rdfs:label "netWeight" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range <urn:dcsa:ebl:NetWeight> .
+
+<urn:dcsa:ebl:DangerousGoods.packingGroup> a owl:DatatypeProperty ;
+    rdfs:label "packingGroup" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:DangerousGoods.properShippingName> a owl:DatatypeProperty ;
+    rdfs:label "properShippingName" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DangerousGoods.segregationGroups> a owl:DatatypeProperty ;
+    rdfs:label "segregationGroups" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DangerousGoods.subsidiaryRisk1> a owl:DatatypeProperty ;
+    rdfs:label "subsidiaryRisk1" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DangerousGoods.subsidiaryRisk2> a owl:DatatypeProperty ;
+    rdfs:label "subsidiaryRisk2" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DangerousGoods.technicalName> a owl:DatatypeProperty ;
+    rdfs:label "technicalName" ;
+    rdfs:domain <urn:dcsa:ebl:DangerousGoods> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DestinationChargesPaymentTerm.haulageChargesPaymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "haulageChargesPaymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:DestinationChargesPaymentTerm> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DestinationChargesPaymentTerm.otherChargesPaymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "otherChargesPaymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:DestinationChargesPaymentTerm> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DestinationChargesPaymentTerm.portChargesPaymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "portChargesPaymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:DestinationChargesPaymentTerm> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DetailedError.errorCode> a owl:DatatypeProperty ;
+    rdfs:label "errorCode" ;
+    rdfs:domain <urn:dcsa:ebl:DetailedError> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:DetailedError.errorCodeMessage> a owl:DatatypeProperty ;
+    rdfs:label "errorCodeMessage" ;
+    rdfs:domain <urn:dcsa:ebl:DetailedError> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DetailedError.errorCodeText> a owl:DatatypeProperty ;
+    rdfs:label "errorCodeText" ;
+    rdfs:domain <urn:dcsa:ebl:DetailedError> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DetailedError.jsonPath> a owl:DatatypeProperty ;
+    rdfs:label "jsonPath" ;
+    rdfs:domain <urn:dcsa:ebl:DetailedError> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DetailedError.property> a owl:DatatypeProperty ;
+    rdfs:label "property" ;
+    rdfs:domain <urn:dcsa:ebl:DetailedError> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DetailedError.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:DetailedError> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:DocumentParties.carriersAgentAtDestination> a owl:ObjectProperty ;
+    rdfs:label "carriersAgentAtDestination" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentParties> ;
+    rdfs:range <urn:dcsa:ebl:CarriersAgentAtDestination> .
+
+<urn:dcsa:ebl:DocumentParties.consignee> a owl:ObjectProperty ;
+    rdfs:label "consignee" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentParties> ;
+    rdfs:range <urn:dcsa:ebl:Consignee> .
+
+<urn:dcsa:ebl:DocumentParties.endorsee> a owl:ObjectProperty ;
+    rdfs:label "endorsee" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentParties> ;
+    rdfs:range <urn:dcsa:ebl:Endorsee> .
+
+<urn:dcsa:ebl:DocumentParties.issuingParty> a owl:ObjectProperty ;
+    rdfs:label "issuingParty" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentParties> ;
+    rdfs:range <urn:dcsa:ebl:IssuingParty> .
+
+<urn:dcsa:ebl:DocumentParties.notifyParties> a owl:ObjectProperty ;
+    rdfs:label "notifyParties" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentParties> ;
+    rdfs:range <urn:dcsa:ebl:NotifyParty> .
+
+<urn:dcsa:ebl:DocumentParties.other> a owl:ObjectProperty ;
+    rdfs:label "other" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentParties> ;
+    rdfs:range <urn:dcsa:ebl:OtherDocumentParty> .
+
+<urn:dcsa:ebl:DocumentParties.shipper> a owl:ObjectProperty ;
+    rdfs:label "shipper" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentParties> ;
+    rdfs:range <urn:dcsa:ebl:Shipper> .
+
+<urn:dcsa:ebl:DocumentPartiesHouseBL.buyer> a owl:ObjectProperty ;
+    rdfs:label "buyer" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesHouseBL> ;
+    rdfs:range <urn:dcsa:ebl:BuyerHBL> .
+
+<urn:dcsa:ebl:DocumentPartiesHouseBL.consignee> a owl:ObjectProperty ;
+    rdfs:label "consignee" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesHouseBL> ;
+    rdfs:range <urn:dcsa:ebl:ConsigneeHBL> .
+
+<urn:dcsa:ebl:DocumentPartiesHouseBL.notifyParty> a owl:ObjectProperty ;
+    rdfs:label "notifyParty" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesHouseBL> ;
+    rdfs:range <urn:dcsa:ebl:NotifyPartyHBL> .
+
+<urn:dcsa:ebl:DocumentPartiesHouseBL.other> a owl:ObjectProperty ;
+    rdfs:label "other" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesHouseBL> ;
+    rdfs:range <urn:dcsa:ebl:OtherDocumentPartyHBL> .
+
+<urn:dcsa:ebl:DocumentPartiesHouseBL.seller> a owl:ObjectProperty ;
+    rdfs:label "seller" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesHouseBL> ;
+    rdfs:range <urn:dcsa:ebl:SellerHBL> .
+
+<urn:dcsa:ebl:DocumentPartiesHouseBL.shipper> a owl:ObjectProperty ;
+    rdfs:label "shipper" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesHouseBL> ;
+    rdfs:range <urn:dcsa:ebl:ShipperHBL> .
+
+<urn:dcsa:ebl:DocumentPartiesShippingInstructions.buyer> a owl:ObjectProperty ;
+    rdfs:label "buyer" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:Buyer> .
+
+<urn:dcsa:ebl:DocumentPartiesShippingInstructions.consignee> a owl:ObjectProperty ;
+    rdfs:label "consignee" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:ConsigneeShipper> .
+
+<urn:dcsa:ebl:DocumentPartiesShippingInstructions.endorsee> a owl:ObjectProperty ;
+    rdfs:label "endorsee" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:EndorseeShipper> .
+
+<urn:dcsa:ebl:DocumentPartiesShippingInstructions.issueTo> a owl:ObjectProperty ;
+    rdfs:label "issueTo" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:IssueToParty> .
+
+<urn:dcsa:ebl:DocumentPartiesShippingInstructions.notifyParties> a owl:ObjectProperty ;
+    rdfs:label "notifyParties" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:NotifyParty> .
+
+<urn:dcsa:ebl:DocumentPartiesShippingInstructions.other> a owl:ObjectProperty ;
+    rdfs:label "other" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:OtherDocumentParty> .
+
+<urn:dcsa:ebl:DocumentPartiesShippingInstructions.seller> a owl:ObjectProperty ;
+    rdfs:label "seller" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:Seller> .
+
+<urn:dcsa:ebl:DocumentPartiesShippingInstructions.shipper> a owl:ObjectProperty ;
+    rdfs:label "shipper" ;
+    rdfs:domain <urn:dcsa:ebl:DocumentPartiesShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:Shipper> .
+
+<urn:dcsa:ebl:EmergencyContactDetails.contact> a owl:DatatypeProperty ;
+    rdfs:label "contact" ;
+    rdfs:domain <urn:dcsa:ebl:EmergencyContactDetails> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:EmergencyContactDetails.phone> a owl:DatatypeProperty ;
+    rdfs:label "phone" ;
+    rdfs:domain <urn:dcsa:ebl:EmergencyContactDetails> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:EmergencyContactDetails.provider> a owl:DatatypeProperty ;
+    rdfs:label "provider" ;
+    rdfs:domain <urn:dcsa:ebl:EmergencyContactDetails> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:EmergencyContactDetails.referenceNumber> a owl:DatatypeProperty ;
+    rdfs:label "referenceNumber" ;
+    rdfs:domain <urn:dcsa:ebl:EmergencyContactDetails> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Endorsee.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:Endorsee> ;
+    rdfs:range <urn:dcsa:ebl:PartyAddress> .
+
+<urn:dcsa:ebl:Endorsee.displayedAddress> a owl:DatatypeProperty ;
+    rdfs:label "displayedAddress" ;
+    rdfs:domain <urn:dcsa:ebl:Endorsee> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Endorsee.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:Endorsee> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:Endorsee.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:Endorsee> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:Endorsee.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:Endorsee> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Endorsee.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:Endorsee> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:EndorseeShipper.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:EndorseeShipper> ;
+    rdfs:range <urn:dcsa:ebl:PartyAddress> .
+
+<urn:dcsa:ebl:EndorseeShipper.displayedAddress> a owl:DatatypeProperty ;
+    rdfs:label "displayedAddress" ;
+    rdfs:domain <urn:dcsa:ebl:EndorseeShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:EndorseeShipper.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:EndorseeShipper> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:EndorseeShipper.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:EndorseeShipper> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:EndorseeShipper.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:EndorseeShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:EndorseeShipper.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:EndorseeShipper> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:Equipment.ISOEquipmentCode> a owl:DatatypeProperty ;
+    rdfs:label "ISOEquipmentCode" ;
+    rdfs:domain <urn:dcsa:ebl:Equipment> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Equipment.equipmentReference> a owl:DatatypeProperty ;
+    rdfs:label "equipmentReference" ;
+    rdfs:domain <urn:dcsa:ebl:Equipment> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Equipment.tareWeight> a owl:ObjectProperty ;
+    rdfs:label "tareWeight" ;
+    rdfs:domain <urn:dcsa:ebl:Equipment> ;
+    rdfs:range <urn:dcsa:ebl:TareWeight> .
+
+<urn:dcsa:ebl:ErrorResponse.errorDateTime> a owl:DatatypeProperty ;
+    rdfs:label "errorDateTime" ;
+    rdfs:domain <urn:dcsa:ebl:ErrorResponse> ;
+    rdfs:range xsd:dateTime .
+
+<urn:dcsa:ebl:ErrorResponse.errors> a owl:ObjectProperty ;
+    rdfs:label "errors" ;
+    rdfs:domain <urn:dcsa:ebl:ErrorResponse> ;
+    rdfs:range <urn:dcsa:ebl:DetailedError> .
+
+<urn:dcsa:ebl:ErrorResponse.httpMethod> a owl:DatatypeProperty ;
+    rdfs:label "httpMethod" ;
+    rdfs:domain <urn:dcsa:ebl:ErrorResponse> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ErrorResponse.providerCorrelationReference> a owl:DatatypeProperty ;
+    rdfs:label "providerCorrelationReference" ;
+    rdfs:domain <urn:dcsa:ebl:ErrorResponse> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ErrorResponse.requestUri> a owl:DatatypeProperty ;
+    rdfs:label "requestUri" ;
+    rdfs:domain <urn:dcsa:ebl:ErrorResponse> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ErrorResponse.statusCode> a owl:DatatypeProperty ;
+    rdfs:label "statusCode" ;
+    rdfs:domain <urn:dcsa:ebl:ErrorResponse> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:ErrorResponse.statusCodeMessage> a owl:DatatypeProperty ;
+    rdfs:label "statusCodeMessage" ;
+    rdfs:domain <urn:dcsa:ebl:ErrorResponse> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ErrorResponse.statusCodeText> a owl:DatatypeProperty ;
+    rdfs:label "statusCodeText" ;
+    rdfs:domain <urn:dcsa:ebl:ErrorResponse> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ExportLicense.expiryDate> a owl:DatatypeProperty ;
+    rdfs:label "expiryDate" ;
+    rdfs:domain <urn:dcsa:ebl:ExportLicense> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:ExportLicense.isRequired> a owl:DatatypeProperty ;
+    rdfs:label "isRequired" ;
+    rdfs:domain <urn:dcsa:ebl:ExportLicense> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ExportLicense.issueDate> a owl:DatatypeProperty ;
+    rdfs:label "issueDate" ;
+    rdfs:domain <urn:dcsa:ebl:ExportLicense> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:ExportLicense.reference> a owl:DatatypeProperty ;
+    rdfs:label "reference" ;
+    rdfs:domain <urn:dcsa:ebl:ExportLicense> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ExportLicenseShipper.expiryDate> a owl:DatatypeProperty ;
+    rdfs:label "expiryDate" ;
+    rdfs:domain <urn:dcsa:ebl:ExportLicenseShipper> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:ExportLicenseShipper.isRequired> a owl:DatatypeProperty ;
+    rdfs:label "isRequired" ;
+    rdfs:domain <urn:dcsa:ebl:ExportLicenseShipper> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ExportLicenseShipper.issueDate> a owl:DatatypeProperty ;
+    rdfs:label "issueDate" ;
+    rdfs:domain <urn:dcsa:ebl:ExportLicenseShipper> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:ExportLicenseShipper.reference> a owl:DatatypeProperty ;
+    rdfs:label "reference" ;
+    rdfs:domain <urn:dcsa:ebl:ExportLicenseShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Facility.facilityCode> a owl:DatatypeProperty ;
+    rdfs:label "facilityCode" ;
+    rdfs:domain <urn:dcsa:ebl:Facility> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Facility.facilityCodeListProvider> a owl:DatatypeProperty ;
+    rdfs:label "facilityCodeListProvider" ;
+    rdfs:domain <urn:dcsa:ebl:Facility> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Feedback.code> a owl:DatatypeProperty ;
+    rdfs:label "code" ;
+    rdfs:domain <urn:dcsa:ebl:Feedback> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Feedback.jsonPath> a owl:DatatypeProperty ;
+    rdfs:label "jsonPath" ;
+    rdfs:domain <urn:dcsa:ebl:Feedback> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Feedback.message> a owl:DatatypeProperty ;
+    rdfs:label "message" ;
+    rdfs:domain <urn:dcsa:ebl:Feedback> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Feedback.property> a owl:DatatypeProperty ;
+    rdfs:label "property" ;
+    rdfs:domain <urn:dcsa:ebl:Feedback> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Feedback.severity> a owl:DatatypeProperty ;
+    rdfs:label "severity" ;
+    rdfs:domain <urn:dcsa:ebl:Feedback> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:GeoCoordinate.latitude> a owl:DatatypeProperty ;
+    rdfs:label "latitude" ;
+    rdfs:domain <urn:dcsa:ebl:GeoCoordinate> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:GeoCoordinate.longitude> a owl:DatatypeProperty ;
+    rdfs:label "longitude" ;
+    rdfs:domain <urn:dcsa:ebl:GeoCoordinate> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:GrossWeight.unit> a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    rdfs:domain <urn:dcsa:ebl:GrossWeight> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:GrossWeight.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:GrossWeight> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:HouseBillOfLading.consignmentItems> a owl:ObjectProperty ;
+    rdfs:label "consignmentItems" ;
+    rdfs:domain <urn:dcsa:ebl:HouseBillOfLading> ;
+    rdfs:range <urn:dcsa:ebl:ConsignmentItemHBL> .
+
+<urn:dcsa:ebl:HouseBillOfLading.documentParties> a owl:ObjectProperty ;
+    rdfs:label "documentParties" ;
+    rdfs:domain <urn:dcsa:ebl:HouseBillOfLading> ;
+    rdfs:range <urn:dcsa:ebl:DocumentPartiesHouseBL> .
+
+<urn:dcsa:ebl:HouseBillOfLading.houseBillOfLadingReference> a owl:DatatypeProperty ;
+    rdfs:label "houseBillOfLadingReference" ;
+    rdfs:domain <urn:dcsa:ebl:HouseBillOfLading> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:HouseBillOfLading.isCargoDeliveredInICS2Zone> a owl:DatatypeProperty ;
+    rdfs:label "isCargoDeliveredInICS2Zone" ;
+    rdfs:domain <urn:dcsa:ebl:HouseBillOfLading> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:HouseBillOfLading.isToOrder> a owl:DatatypeProperty ;
+    rdfs:label "isToOrder" ;
+    rdfs:domain <urn:dcsa:ebl:HouseBillOfLading> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:HouseBillOfLading.methodOfPayment> a owl:DatatypeProperty ;
+    rdfs:label "methodOfPayment" ;
+    rdfs:domain <urn:dcsa:ebl:HouseBillOfLading> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:HouseBillOfLading.placeOfAcceptance> a owl:ObjectProperty ;
+    rdfs:label "placeOfAcceptance" ;
+    rdfs:domain <urn:dcsa:ebl:HouseBillOfLading> ;
+    rdfs:range <urn:dcsa:ebl:PlaceOfAcceptance> .
+
+<urn:dcsa:ebl:HouseBillOfLading.placeOfFinalDelivery> a owl:ObjectProperty ;
+    rdfs:label "placeOfFinalDelivery" ;
+    rdfs:domain <urn:dcsa:ebl:HouseBillOfLading> ;
+    rdfs:range <urn:dcsa:ebl:PlaceOfFinalDelivery> .
+
+<urn:dcsa:ebl:HouseBillOfLading.routingOfConsignmentCountries> a owl:DatatypeProperty ;
+    rdfs:label "routingOfConsignmentCountries" ;
+    rdfs:domain <urn:dcsa:ebl:HouseBillOfLading> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:HouseBillOfLading.utilizedTransportEquipments> a owl:ObjectProperty ;
+    rdfs:label "utilizedTransportEquipments" ;
+    rdfs:domain <urn:dcsa:ebl:HouseBillOfLading> ;
+    rdfs:range <urn:dcsa:ebl:UtilizedTransportEquipmentHBL> .
+
+<urn:dcsa:ebl:IdentifyingCode.codeListName> a owl:DatatypeProperty ;
+    rdfs:label "codeListName" ;
+    rdfs:domain <urn:dcsa:ebl:IdentifyingCode> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:IdentifyingCode.codeListProvider> a owl:DatatypeProperty ;
+    rdfs:label "codeListProvider" ;
+    rdfs:domain <urn:dcsa:ebl:IdentifyingCode> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:IdentifyingCode.partyCode> a owl:DatatypeProperty ;
+    rdfs:label "partyCode" ;
+    rdfs:domain <urn:dcsa:ebl:IdentifyingCode> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ImportLicense.expiryDate> a owl:DatatypeProperty ;
+    rdfs:label "expiryDate" ;
+    rdfs:domain <urn:dcsa:ebl:ImportLicense> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:ImportLicense.isRequired> a owl:DatatypeProperty ;
+    rdfs:label "isRequired" ;
+    rdfs:domain <urn:dcsa:ebl:ImportLicense> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ImportLicense.issueDate> a owl:DatatypeProperty ;
+    rdfs:label "issueDate" ;
+    rdfs:domain <urn:dcsa:ebl:ImportLicense> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:ImportLicense.reference> a owl:DatatypeProperty ;
+    rdfs:label "reference" ;
+    rdfs:domain <urn:dcsa:ebl:ImportLicense> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ImportLicenseShipper.expiryDate> a owl:DatatypeProperty ;
+    rdfs:label "expiryDate" ;
+    rdfs:domain <urn:dcsa:ebl:ImportLicenseShipper> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:ImportLicenseShipper.isRequired> a owl:DatatypeProperty ;
+    rdfs:label "isRequired" ;
+    rdfs:domain <urn:dcsa:ebl:ImportLicenseShipper> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ImportLicenseShipper.issueDate> a owl:DatatypeProperty ;
+    rdfs:label "issueDate" ;
+    rdfs:domain <urn:dcsa:ebl:ImportLicenseShipper> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:ImportLicenseShipper.reference> a owl:DatatypeProperty ;
+    rdfs:label "reference" ;
+    rdfs:domain <urn:dcsa:ebl:ImportLicenseShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:InnerPackaging.description> a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:domain <urn:dcsa:ebl:InnerPackaging> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:InnerPackaging.material> a owl:DatatypeProperty ;
+    rdfs:label "material" ;
+    rdfs:domain <urn:dcsa:ebl:InnerPackaging> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:InnerPackaging.quantity> a owl:DatatypeProperty ;
+    rdfs:label "quantity" ;
+    rdfs:domain <urn:dcsa:ebl:InnerPackaging> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:InvoicePayableAtShippingInstructions.UNLocationCode> a owl:DatatypeProperty ;
+    rdfs:label "UNLocationCode" ;
+    rdfs:domain <urn:dcsa:ebl:InvoicePayableAtShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:IssueToParty.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:IssueToParty> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:IssueToParty.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:IssueToParty> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:IssueToParty.sendToPlatform> a owl:DatatypeProperty ;
+    rdfs:label "sendToPlatform" ;
+    rdfs:domain <urn:dcsa:ebl:IssueToParty> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:IssueToParty.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:IssueToParty> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:IssuingParty.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:IssuingParty> ;
+    rdfs:range <urn:dcsa:ebl:PartyAddress> .
+
+<urn:dcsa:ebl:IssuingParty.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:IssuingParty> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:IssuingParty.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:IssuingParty> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:IssuingParty.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:IssuingParty> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:IssuingParty.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:IssuingParty> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:Limits.SADT> a owl:DatatypeProperty ;
+    rdfs:label "SADT" ;
+    rdfs:domain <urn:dcsa:ebl:Limits> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:Limits.SAPT> a owl:DatatypeProperty ;
+    rdfs:label "SAPT" ;
+    rdfs:domain <urn:dcsa:ebl:Limits> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:Limits.flashPoint> a owl:DatatypeProperty ;
+    rdfs:label "flashPoint" ;
+    rdfs:domain <urn:dcsa:ebl:Limits> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:Limits.temperatureUnit> a owl:DatatypeProperty ;
+    rdfs:label "temperatureUnit" ;
+    rdfs:domain <urn:dcsa:ebl:Limits> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Limits.transportControlTemperature> a owl:DatatypeProperty ;
+    rdfs:label "transportControlTemperature" ;
+    rdfs:domain <urn:dcsa:ebl:Limits> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:Limits.transportEmergencyTemperature> a owl:DatatypeProperty ;
+    rdfs:label "transportEmergencyTemperature" ;
+    rdfs:domain <urn:dcsa:ebl:Limits> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:NationalCommodityCode.countryCode> a owl:DatatypeProperty ;
+    rdfs:label "countryCode" ;
+    rdfs:domain <urn:dcsa:ebl:NationalCommodityCode> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NationalCommodityCode.type> a owl:DatatypeProperty ;
+    rdfs:label "type" ;
+    rdfs:domain <urn:dcsa:ebl:NationalCommodityCode> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NationalCommodityCode.values> a owl:DatatypeProperty ;
+    rdfs:label "values" ;
+    rdfs:domain <urn:dcsa:ebl:NationalCommodityCode> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NetExplosiveContent.unit> a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    rdfs:domain <urn:dcsa:ebl:NetExplosiveContent> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NetExplosiveContent.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:NetExplosiveContent> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:NetVolume.unit> a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    rdfs:domain <urn:dcsa:ebl:NetVolume> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NetVolume.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:NetVolume> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:NetWeight.unit> a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    rdfs:domain <urn:dcsa:ebl:NetWeight> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NetWeight.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:NetWeight> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:NotifyParty.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyParty> ;
+    rdfs:range <urn:dcsa:ebl:PartyAddress> .
+
+<urn:dcsa:ebl:NotifyParty.displayedAddress> a owl:DatatypeProperty ;
+    rdfs:label "displayedAddress" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyParty> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NotifyParty.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyParty> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:NotifyParty.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyParty> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:NotifyParty.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyParty> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NotifyParty.reference> a owl:DatatypeProperty ;
+    rdfs:label "reference" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyParty> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NotifyParty.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyParty> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:NotifyParty.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyParty> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NotifyPartyHBL.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyPartyHBL> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:NotifyPartyHBL.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyPartyHBL> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:NotifyPartyHBL.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyPartyHBL> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetailHBL> .
+
+<urn:dcsa:ebl:NotifyPartyHBL.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyPartyHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:NotifyPartyHBL.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyPartyHBL> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:NotifyPartyHBL.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:NotifyPartyHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OnwardInlandRouting.UNLocationCode> a owl:DatatypeProperty ;
+    rdfs:label "UNLocationCode" ;
+    rdfs:domain <urn:dcsa:ebl:OnwardInlandRouting> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OnwardInlandRouting.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:OnwardInlandRouting> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:OnwardInlandRouting.facility> a owl:ObjectProperty ;
+    rdfs:label "facility" ;
+    rdfs:domain <urn:dcsa:ebl:OnwardInlandRouting> ;
+    rdfs:range <urn:dcsa:ebl:Facility> .
+
+<urn:dcsa:ebl:OnwardInlandRouting.locationName> a owl:DatatypeProperty ;
+    rdfs:label "locationName" ;
+    rdfs:domain <urn:dcsa:ebl:OnwardInlandRouting> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OriginChargesPaymentTerm.haulageChargesPaymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "haulageChargesPaymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:OriginChargesPaymentTerm> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OriginChargesPaymentTerm.otherChargesPaymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "otherChargesPaymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:OriginChargesPaymentTerm> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OriginChargesPaymentTerm.portChargesPaymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "portChargesPaymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:OriginChargesPaymentTerm> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OtherDocumentParty.party> a owl:ObjectProperty ;
+    rdfs:label "party" ;
+    rdfs:domain <urn:dcsa:ebl:OtherDocumentParty> ;
+    rdfs:range <urn:dcsa:ebl:Party> .
+
+<urn:dcsa:ebl:OtherDocumentParty.partyFunction> a owl:DatatypeProperty ;
+    rdfs:label "partyFunction" ;
+    rdfs:domain <urn:dcsa:ebl:OtherDocumentParty> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OtherDocumentPartyHBL.party> a owl:ObjectProperty ;
+    rdfs:label "party" ;
+    rdfs:domain <urn:dcsa:ebl:OtherDocumentPartyHBL> ;
+    rdfs:range <urn:dcsa:ebl:PartyHBL> .
+
+<urn:dcsa:ebl:OtherDocumentPartyHBL.partyFunction> a owl:DatatypeProperty ;
+    rdfs:label "partyFunction" ;
+    rdfs:domain <urn:dcsa:ebl:OtherDocumentPartyHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OuterPackaging.dangerousGoods> a owl:ObjectProperty ;
+    rdfs:label "dangerousGoods" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackaging> ;
+    rdfs:range <urn:dcsa:ebl:DangerousGoods> .
+
+<urn:dcsa:ebl:OuterPackaging.description> a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackaging> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OuterPackaging.imoPackagingCode> a owl:DatatypeProperty ;
+    rdfs:label "imoPackagingCode" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackaging> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OuterPackaging.numberOfPackages> a owl:DatatypeProperty ;
+    rdfs:label "numberOfPackages" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackaging> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:OuterPackaging.packageCode> a owl:DatatypeProperty ;
+    rdfs:label "packageCode" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackaging> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OuterPackaging.woodDeclaration> a owl:DatatypeProperty ;
+    rdfs:label "woodDeclaration" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackaging> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OuterPackagingHBL.UNNumber> a owl:DatatypeProperty ;
+    rdfs:label "UNNumber" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackagingHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OuterPackagingHBL.numberOfPackages> a owl:DatatypeProperty ;
+    rdfs:label "numberOfPackages" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackagingHBL> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:OuterPackagingHBL.packageCode> a owl:DatatypeProperty ;
+    rdfs:label "packageCode" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackagingHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OuterPackagingHBL.shippingMarks> a owl:DatatypeProperty ;
+    rdfs:label "shippingMarks" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackagingHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OuterPackagingShipper.description> a owl:DatatypeProperty ;
+    rdfs:label "description" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackagingShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OuterPackagingShipper.numberOfPackages> a owl:DatatypeProperty ;
+    rdfs:label "numberOfPackages" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackagingShipper> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:OuterPackagingShipper.packageCode> a owl:DatatypeProperty ;
+    rdfs:label "packageCode" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackagingShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:OuterPackagingShipper.woodDeclaration> a owl:DatatypeProperty ;
+    rdfs:label "woodDeclaration" ;
+    rdfs:domain <urn:dcsa:ebl:OuterPackagingShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Party.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:Party> ;
+    rdfs:range <urn:dcsa:ebl:PartyAddress> .
+
+<urn:dcsa:ebl:Party.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:Party> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:Party.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:Party> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:Party.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:Party> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Party.reference> a owl:DatatypeProperty ;
+    rdfs:label "reference" ;
+    rdfs:domain <urn:dcsa:ebl:Party> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Party.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:Party> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:PartyAddress.POBox> a owl:DatatypeProperty ;
+    rdfs:label "POBox" ;
+    rdfs:domain <urn:dcsa:ebl:PartyAddress> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyAddress.UNLocationCode> a owl:DatatypeProperty ;
+    rdfs:label "UNLocationCode" ;
+    rdfs:domain <urn:dcsa:ebl:PartyAddress> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyAddress.city> a owl:DatatypeProperty ;
+    rdfs:label "city" ;
+    rdfs:domain <urn:dcsa:ebl:PartyAddress> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyAddress.countryCode> a owl:DatatypeProperty ;
+    rdfs:label "countryCode" ;
+    rdfs:domain <urn:dcsa:ebl:PartyAddress> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyAddress.floor> a owl:DatatypeProperty ;
+    rdfs:label "floor" ;
+    rdfs:domain <urn:dcsa:ebl:PartyAddress> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyAddress.postCode> a owl:DatatypeProperty ;
+    rdfs:label "postCode" ;
+    rdfs:domain <urn:dcsa:ebl:PartyAddress> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyAddress.stateRegion> a owl:DatatypeProperty ;
+    rdfs:label "stateRegion" ;
+    rdfs:domain <urn:dcsa:ebl:PartyAddress> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyAddress.street> a owl:DatatypeProperty ;
+    rdfs:label "street" ;
+    rdfs:domain <urn:dcsa:ebl:PartyAddress> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyAddress.streetNumber> a owl:DatatypeProperty ;
+    rdfs:label "streetNumber" ;
+    rdfs:domain <urn:dcsa:ebl:PartyAddress> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyContactDetail.name> a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:domain <urn:dcsa:ebl:PartyContactDetail> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyContactDetailHBL.name> a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:domain <urn:dcsa:ebl:PartyContactDetailHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyContactDetailWithPattern.name> a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    rdfs:domain <urn:dcsa:ebl:PartyContactDetailWithPattern> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyHBL.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:PartyHBL> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:PartyHBL.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:PartyHBL> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:PartyHBL.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:PartyHBL> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetailHBL> .
+
+<urn:dcsa:ebl:PartyHBL.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:PartyHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyHBL.reference> a owl:DatatypeProperty ;
+    rdfs:label "reference" ;
+    rdfs:domain <urn:dcsa:ebl:PartyHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PartyHBL.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:PartyHBL> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:PlaceOfAcceptance.UNLocationCode> a owl:DatatypeProperty ;
+    rdfs:label "UNLocationCode" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfAcceptance> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PlaceOfAcceptance.countryCode> a owl:DatatypeProperty ;
+    rdfs:label "countryCode" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfAcceptance> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PlaceOfAcceptance.locationName> a owl:DatatypeProperty ;
+    rdfs:label "locationName" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfAcceptance> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PlaceOfDelivery.UNLocationCode> a owl:DatatypeProperty ;
+    rdfs:label "UNLocationCode" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfDelivery> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PlaceOfDelivery.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfDelivery> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:PlaceOfDelivery.facility> a owl:ObjectProperty ;
+    rdfs:label "facility" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfDelivery> ;
+    rdfs:range <urn:dcsa:ebl:Facility> .
+
+<urn:dcsa:ebl:PlaceOfDelivery.geoCoordinate> a owl:ObjectProperty ;
+    rdfs:label "geoCoordinate" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfDelivery> ;
+    rdfs:range <urn:dcsa:ebl:GeoCoordinate> .
+
+<urn:dcsa:ebl:PlaceOfDelivery.locationName> a owl:DatatypeProperty ;
+    rdfs:label "locationName" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfDelivery> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PlaceOfFinalDelivery.UNLocationCode> a owl:DatatypeProperty ;
+    rdfs:label "UNLocationCode" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfFinalDelivery> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PlaceOfFinalDelivery.countryCode> a owl:DatatypeProperty ;
+    rdfs:label "countryCode" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfFinalDelivery> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PlaceOfFinalDelivery.locationName> a owl:DatatypeProperty ;
+    rdfs:label "locationName" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfFinalDelivery> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PlaceOfIssue.locationName> a owl:DatatypeProperty ;
+    rdfs:label "locationName" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfIssue> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PlaceOfReceipt.UNLocationCode> a owl:DatatypeProperty ;
+    rdfs:label "UNLocationCode" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfReceipt> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PlaceOfReceipt.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfReceipt> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:PlaceOfReceipt.facility> a owl:ObjectProperty ;
+    rdfs:label "facility" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfReceipt> ;
+    rdfs:range <urn:dcsa:ebl:Facility> .
+
+<urn:dcsa:ebl:PlaceOfReceipt.geoCoordinate> a owl:ObjectProperty ;
+    rdfs:label "geoCoordinate" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfReceipt> ;
+    rdfs:range <urn:dcsa:ebl:GeoCoordinate> .
+
+<urn:dcsa:ebl:PlaceOfReceipt.locationName> a owl:DatatypeProperty ;
+    rdfs:label "locationName" ;
+    rdfs:domain <urn:dcsa:ebl:PlaceOfReceipt> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PortOfDischarge.UNLocationCode> a owl:DatatypeProperty ;
+    rdfs:label "UNLocationCode" ;
+    rdfs:domain <urn:dcsa:ebl:PortOfDischarge> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PortOfDischarge.city> a owl:ObjectProperty ;
+    rdfs:label "city" ;
+    rdfs:domain <urn:dcsa:ebl:PortOfDischarge> ;
+    rdfs:range <urn:dcsa:ebl:City> .
+
+<urn:dcsa:ebl:PortOfDischarge.locationName> a owl:DatatypeProperty ;
+    rdfs:label "locationName" ;
+    rdfs:domain <urn:dcsa:ebl:PortOfDischarge> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PortOfLoading.UNLocationCode> a owl:DatatypeProperty ;
+    rdfs:label "UNLocationCode" ;
+    rdfs:domain <urn:dcsa:ebl:PortOfLoading> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:PortOfLoading.city> a owl:ObjectProperty ;
+    rdfs:label "city" ;
+    rdfs:domain <urn:dcsa:ebl:PortOfLoading> ;
+    rdfs:range <urn:dcsa:ebl:City> .
+
+<urn:dcsa:ebl:PortOfLoading.locationName> a owl:DatatypeProperty ;
+    rdfs:label "locationName" ;
+    rdfs:domain <urn:dcsa:ebl:PortOfLoading> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Reference.type> a owl:DatatypeProperty ;
+    rdfs:label "type" ;
+    rdfs:domain <urn:dcsa:ebl:Reference> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Reference.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:Reference> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ReferenceConsignmentItem.type> a owl:DatatypeProperty ;
+    rdfs:label "type" ;
+    rdfs:domain <urn:dcsa:ebl:ReferenceConsignmentItem> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ReferenceConsignmentItem.values> a owl:DatatypeProperty ;
+    rdfs:label "values" ;
+    rdfs:domain <urn:dcsa:ebl:ReferenceConsignmentItem> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:RequiredEquipment.ISOEquipmentCode> a owl:DatatypeProperty ;
+    rdfs:label "ISOEquipmentCode" ;
+    rdfs:domain <urn:dcsa:ebl:RequiredEquipment> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:RequiredEquipment.equipmentReference> a owl:DatatypeProperty ;
+    rdfs:label "equipmentReference" ;
+    rdfs:domain <urn:dcsa:ebl:RequiredEquipment> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:RequiredEquipment.tareWeight> a owl:ObjectProperty ;
+    rdfs:label "tareWeight" ;
+    rdfs:domain <urn:dcsa:ebl:RequiredEquipment> ;
+    rdfs:range <urn:dcsa:ebl:TareWeight> .
+
+<urn:dcsa:ebl:Seal.number> a owl:DatatypeProperty ;
+    rdfs:label "number" ;
+    rdfs:domain <urn:dcsa:ebl:Seal> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Seal.source> a owl:DatatypeProperty ;
+    rdfs:label "source" ;
+    rdfs:domain <urn:dcsa:ebl:Seal> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Seller.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:Seller> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:Seller.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:Seller> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:Seller.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:Seller> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetailWithPattern> .
+
+<urn:dcsa:ebl:Seller.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:Seller> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Seller.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:Seller> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:Seller.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:Seller> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:SellerHBL.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:SellerHBL> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:SellerHBL.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:SellerHBL> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:SellerHBL.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:SellerHBL> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetailHBL> .
+
+<urn:dcsa:ebl:SellerHBL.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:SellerHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:SellerHBL.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:SellerHBL> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:SellerHBL.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:SellerHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Shipper.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:Shipper> ;
+    rdfs:range <urn:dcsa:ebl:PartyAddress> .
+
+<urn:dcsa:ebl:Shipper.displayedAddress> a owl:DatatypeProperty ;
+    rdfs:label "displayedAddress" ;
+    rdfs:domain <urn:dcsa:ebl:Shipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Shipper.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:Shipper> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:Shipper.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:Shipper> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:Shipper.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:Shipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Shipper.purchaseOrderReferences> a owl:DatatypeProperty ;
+    rdfs:label "purchaseOrderReferences" ;
+    rdfs:domain <urn:dcsa:ebl:Shipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Shipper.reference> a owl:DatatypeProperty ;
+    rdfs:label "reference" ;
+    rdfs:domain <urn:dcsa:ebl:Shipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Shipper.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:Shipper> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:Shipper.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:Shipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShipperHBL.address> a owl:ObjectProperty ;
+    rdfs:label "address" ;
+    rdfs:domain <urn:dcsa:ebl:ShipperHBL> ;
+    rdfs:range <urn:dcsa:ebl:Address> .
+
+<urn:dcsa:ebl:ShipperHBL.identifyingCodes> a owl:ObjectProperty ;
+    rdfs:label "identifyingCodes" ;
+    rdfs:domain <urn:dcsa:ebl:ShipperHBL> ;
+    rdfs:range <urn:dcsa:ebl:IdentifyingCode> .
+
+<urn:dcsa:ebl:ShipperHBL.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:ShipperHBL> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetailHBL> .
+
+<urn:dcsa:ebl:ShipperHBL.partyName> a owl:DatatypeProperty ;
+    rdfs:label "partyName" ;
+    rdfs:domain <urn:dcsa:ebl:ShipperHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShipperHBL.taxLegalReferences> a owl:ObjectProperty ;
+    rdfs:label "taxLegalReferences" ;
+    rdfs:domain <urn:dcsa:ebl:ShipperHBL> ;
+    rdfs:range <urn:dcsa:ebl:TaxLegalReference> .
+
+<urn:dcsa:ebl:ShipperHBL.typeOfPerson> a owl:DatatypeProperty ;
+    rdfs:label "typeOfPerson" ;
+    rdfs:domain <urn:dcsa:ebl:ShipperHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.advanceManifestFilings> a owl:ObjectProperty ;
+    rdfs:label "advanceManifestFilings" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:AdvanceManifestFiling> .
+
+<urn:dcsa:ebl:ShippingInstructions.consignmentItems> a owl:ObjectProperty ;
+    rdfs:label "consignmentItems" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:ConsignmentItemShipper> .
+
+<urn:dcsa:ebl:ShippingInstructions.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:ShippingInstructions.destinationChargesPaymentTerm> a owl:ObjectProperty ;
+    rdfs:label "destinationChargesPaymentTerm" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:DestinationChargesPaymentTerm> .
+
+<urn:dcsa:ebl:ShippingInstructions.displayedNameForPlaceOfDelivery> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPlaceOfDelivery" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.displayedNameForPlaceOfReceipt> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPlaceOfReceipt" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.displayedNameForPortOfDischarge> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPortOfDischarge" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.displayedNameForPortOfLoad> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPortOfLoad" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.documentParties> a owl:ObjectProperty ;
+    rdfs:label "documentParties" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:DocumentPartiesShippingInstructions> .
+
+<urn:dcsa:ebl:ShippingInstructions.exportLicense> a owl:ObjectProperty ;
+    rdfs:label "exportLicense" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:ExportLicenseShipper> .
+
+<urn:dcsa:ebl:ShippingInstructions.feedbacks> a owl:ObjectProperty ;
+    rdfs:label "feedbacks" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:Feedback> .
+
+<urn:dcsa:ebl:ShippingInstructions.freightPaymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "freightPaymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.houseBillOfLadings> a owl:ObjectProperty ;
+    rdfs:label "houseBillOfLadings" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:HouseBillOfLading> .
+
+<urn:dcsa:ebl:ShippingInstructions.importLicense> a owl:ObjectProperty ;
+    rdfs:label "importLicense" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:ImportLicenseShipper> .
+
+<urn:dcsa:ebl:ShippingInstructions.invoicePayableAt> a owl:ObjectProperty ;
+    rdfs:label "invoicePayableAt" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:InvoicePayableAtShippingInstructions> .
+
+<urn:dcsa:ebl:ShippingInstructions.isCargoDeliveredInICS2Zone> a owl:DatatypeProperty ;
+    rdfs:label "isCargoDeliveredInICS2Zone" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ShippingInstructions.isCarriersAgentAtDestinationRequired> a owl:DatatypeProperty ;
+    rdfs:label "isCarriersAgentAtDestinationRequired" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ShippingInstructions.isElectronic> a owl:DatatypeProperty ;
+    rdfs:label "isElectronic" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ShippingInstructions.isHouseBillOfLadingsIssued> a owl:DatatypeProperty ;
+    rdfs:label "isHouseBillOfLadingsIssued" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ShippingInstructions.isShippedOnBoardType> a owl:DatatypeProperty ;
+    rdfs:label "isShippedOnBoardType" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ShippingInstructions.isToOrder> a owl:DatatypeProperty ;
+    rdfs:label "isToOrder" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:ShippingInstructions.numberOfCopiesWithCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfCopiesWithCharges" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:ShippingInstructions.numberOfCopiesWithoutCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfCopiesWithoutCharges" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:ShippingInstructions.numberOfOriginalsWithCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfOriginalsWithCharges" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:ShippingInstructions.numberOfOriginalsWithoutCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfOriginalsWithoutCharges" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:ShippingInstructions.originChargesPaymentTerm> a owl:ObjectProperty ;
+    rdfs:label "originChargesPaymentTerm" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:OriginChargesPaymentTerm> .
+
+<urn:dcsa:ebl:ShippingInstructions.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:ShippingInstructions.placeOfIssue> a owl:ObjectProperty ;
+    rdfs:label "placeOfIssue" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:PlaceOfIssue> .
+
+<urn:dcsa:ebl:ShippingInstructions.references> a owl:ObjectProperty ;
+    rdfs:label "references" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:Reference> .
+
+<urn:dcsa:ebl:ShippingInstructions.requestedCarrierCertificates> a owl:DatatypeProperty ;
+    rdfs:label "requestedCarrierCertificates" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.requestedCarrierClauses> a owl:DatatypeProperty ;
+    rdfs:label "requestedCarrierClauses" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.shippingInstructionsReference> a owl:DatatypeProperty ;
+    rdfs:label "shippingInstructionsReference" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.shippingInstructionsStatus> a owl:DatatypeProperty ;
+    rdfs:label "shippingInstructionsStatus" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.transportDocumentReference> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentReference" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.transportDocumentTypeCode> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentTypeCode" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.updatedShippingInstructionsStatus> a owl:DatatypeProperty ;
+    rdfs:label "updatedShippingInstructionsStatus" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructions.utilizedTransportEquipments> a owl:ObjectProperty ;
+    rdfs:label "utilizedTransportEquipments" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:UtilizedTransportEquipmentShipper> .
+
+<urn:dcsa:ebl:ShippingInstructionsData.feedbacks> a owl:ObjectProperty ;
+    rdfs:label "feedbacks" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsData> ;
+    rdfs:range <urn:dcsa:ebl:Feedback> .
+
+<urn:dcsa:ebl:ShippingInstructionsData.shippingInstructions> a owl:ObjectProperty ;
+    rdfs:label "shippingInstructions" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsData> ;
+    rdfs:range <urn:dcsa:ebl:ShippingInstructionsFullNotification> .
+
+<urn:dcsa:ebl:ShippingInstructionsData.shippingInstructionsReference> a owl:DatatypeProperty ;
+    rdfs:label "shippingInstructionsReference" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsData> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructionsData.shippingInstructionsStatus> a owl:DatatypeProperty ;
+    rdfs:label "shippingInstructionsStatus" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsData> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructionsData.transportDocumentReference> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentReference" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsData> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructionsData.updatedShippingInstructions> a owl:ObjectProperty ;
+    rdfs:label "updatedShippingInstructions" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsData> ;
+    rdfs:range <urn:dcsa:ebl:UpdatedShippingInstructionsFullNotification> .
+
+<urn:dcsa:ebl:ShippingInstructionsData.updatedShippingInstructionsStatus> a owl:DatatypeProperty ;
+    rdfs:label "updatedShippingInstructionsStatus" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsData> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructionsNotification.data> a owl:ObjectProperty ;
+    rdfs:label "data" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsNotification> ;
+    rdfs:range <urn:dcsa:ebl:ShippingInstructionsData> .
+
+<urn:dcsa:ebl:ShippingInstructionsNotification.datacontenttype> a owl:DatatypeProperty ;
+    rdfs:label "datacontenttype" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructionsNotification.id> a owl:DatatypeProperty ;
+    rdfs:label "id" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructionsNotification.source> a owl:DatatypeProperty ;
+    rdfs:label "source" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructionsNotification.specversion> a owl:DatatypeProperty ;
+    rdfs:label "specversion" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructionsNotification.subscriptionReference> a owl:DatatypeProperty ;
+    rdfs:label "subscriptionReference" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ShippingInstructionsNotification.time> a owl:DatatypeProperty ;
+    rdfs:label "time" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsNotification> ;
+    rdfs:range xsd:dateTime .
+
+<urn:dcsa:ebl:ShippingInstructionsNotification.type> a owl:DatatypeProperty ;
+    rdfs:label "type" ;
+    rdfs:domain <urn:dcsa:ebl:ShippingInstructionsNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TareWeight.unit> a owl:DatatypeProperty ;
+    rdfs:label "unit" ;
+    rdfs:domain <urn:dcsa:ebl:TareWeight> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TareWeight.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:TareWeight> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:TaxLegalReference.countryCode> a owl:DatatypeProperty ;
+    rdfs:label "countryCode" ;
+    rdfs:domain <urn:dcsa:ebl:TaxLegalReference> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TaxLegalReference.type> a owl:DatatypeProperty ;
+    rdfs:label "type" ;
+    rdfs:domain <urn:dcsa:ebl:TaxLegalReference> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TaxLegalReference.value> a owl:DatatypeProperty ;
+    rdfs:label "value" ;
+    rdfs:domain <urn:dcsa:ebl:TaxLegalReference> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.cargoMovementTypeAtDestination> a owl:DatatypeProperty ;
+    rdfs:label "cargoMovementTypeAtDestination" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.cargoMovementTypeAtOrigin> a owl:DatatypeProperty ;
+    rdfs:label "cargoMovementTypeAtOrigin" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.carrierClauses> a owl:DatatypeProperty ;
+    rdfs:label "carrierClauses" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.carrierCode> a owl:DatatypeProperty ;
+    rdfs:label "carrierCode" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.carrierCodeListProvider> a owl:DatatypeProperty ;
+    rdfs:label "carrierCodeListProvider" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.charges> a owl:ObjectProperty ;
+    rdfs:label "charges" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:Charge> .
+
+<urn:dcsa:ebl:TransportDocument.consignmentItems> a owl:ObjectProperty ;
+    rdfs:label "consignmentItems" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:ConsignmentItem> .
+
+<urn:dcsa:ebl:TransportDocument.contractQuotationReference> a owl:DatatypeProperty ;
+    rdfs:label "contractQuotationReference" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:TransportDocument.declaredValue> a owl:DatatypeProperty ;
+    rdfs:label "declaredValue" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:decimal .
+
+<urn:dcsa:ebl:TransportDocument.declaredValueCurrency> a owl:DatatypeProperty ;
+    rdfs:label "declaredValueCurrency" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.deliveryTypeAtDestination> a owl:DatatypeProperty ;
+    rdfs:label "deliveryTypeAtDestination" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.displayedNameForPlaceOfDelivery> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPlaceOfDelivery" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.displayedNameForPlaceOfReceipt> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPlaceOfReceipt" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.displayedNameForPortOfDischarge> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPortOfDischarge" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.displayedNameForPortOfLoad> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPortOfLoad" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.displayedShippedOnBoardReceivedForShipment> a owl:DatatypeProperty ;
+    rdfs:label "displayedShippedOnBoardReceivedForShipment" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.documentParties> a owl:ObjectProperty ;
+    rdfs:label "documentParties" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:DocumentParties> .
+
+<urn:dcsa:ebl:TransportDocument.exportLicense> a owl:ObjectProperty ;
+    rdfs:label "exportLicense" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:ExportLicense> .
+
+<urn:dcsa:ebl:TransportDocument.freightPaymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "freightPaymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.importLicense> a owl:ObjectProperty ;
+    rdfs:label "importLicense" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:ImportLicense> .
+
+<urn:dcsa:ebl:TransportDocument.invoicePayableAt> a owl:ObjectProperty ;
+    rdfs:label "invoicePayableAt" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:InvoicePayableAt> .
+
+<urn:dcsa:ebl:TransportDocument.isElectronic> a owl:DatatypeProperty ;
+    rdfs:label "isElectronic" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:TransportDocument.isShippedOnBoardType> a owl:DatatypeProperty ;
+    rdfs:label "isShippedOnBoardType" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:TransportDocument.isToOrder> a owl:DatatypeProperty ;
+    rdfs:label "isToOrder" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:TransportDocument.issueDate> a owl:DatatypeProperty ;
+    rdfs:label "issueDate" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:TransportDocument.numberOfCopiesWithCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfCopiesWithCharges" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:TransportDocument.numberOfCopiesWithoutCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfCopiesWithoutCharges" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:TransportDocument.numberOfOriginalsWithCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfOriginalsWithCharges" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:TransportDocument.numberOfOriginalsWithoutCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfOriginalsWithoutCharges" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:TransportDocument.numberOfRiderPages> a owl:DatatypeProperty ;
+    rdfs:label "numberOfRiderPages" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:TransportDocument.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:TransportDocument.placeOfIssue> a owl:ObjectProperty ;
+    rdfs:label "placeOfIssue" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:PlaceOfIssue> .
+
+<urn:dcsa:ebl:TransportDocument.receiptTypeAtOrigin> a owl:DatatypeProperty ;
+    rdfs:label "receiptTypeAtOrigin" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.receivedForShipmentDate> a owl:DatatypeProperty ;
+    rdfs:label "receivedForShipmentDate" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:TransportDocument.references> a owl:ObjectProperty ;
+    rdfs:label "references" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:Reference> .
+
+<urn:dcsa:ebl:TransportDocument.serviceContractReference> a owl:DatatypeProperty ;
+    rdfs:label "serviceContractReference" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.shippedOnBoardDate> a owl:DatatypeProperty ;
+    rdfs:label "shippedOnBoardDate" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:TransportDocument.shippingInstructionsReference> a owl:DatatypeProperty ;
+    rdfs:label "shippingInstructionsReference" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.termsAndConditions> a owl:DatatypeProperty ;
+    rdfs:label "termsAndConditions" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.transportDocumentReference> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentReference" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.transportDocumentStatus> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentStatus" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.transportDocumentSubReference> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentSubReference" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.transportDocumentTypeCode> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentTypeCode" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocument.transports> a owl:ObjectProperty ;
+    rdfs:label "transports" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:Transports> .
+
+<urn:dcsa:ebl:TransportDocument.utilizedTransportEquipments> a owl:ObjectProperty ;
+    rdfs:label "utilizedTransportEquipments" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocument> ;
+    rdfs:range <urn:dcsa:ebl:UtilizedTransportEquipment> .
+
+<urn:dcsa:ebl:TransportDocumentData.feedbacks> a owl:ObjectProperty ;
+    rdfs:label "feedbacks" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentData> ;
+    rdfs:range <urn:dcsa:ebl:Feedback> .
+
+<urn:dcsa:ebl:TransportDocumentData.shippingInstructionsReference> a owl:DatatypeProperty ;
+    rdfs:label "shippingInstructionsReference" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentData> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocumentData.transportDocument> a owl:ObjectProperty ;
+    rdfs:label "transportDocument" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentData> ;
+    rdfs:range <urn:dcsa:ebl:TransportDocumentFullNotification> .
+
+<urn:dcsa:ebl:TransportDocumentData.transportDocumentReference> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentReference" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentData> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocumentData.transportDocumentStatus> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentStatus" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentData> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocumentNotification.data> a owl:ObjectProperty ;
+    rdfs:label "data" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentNotification> ;
+    rdfs:range <urn:dcsa:ebl:TransportDocumentData> .
+
+<urn:dcsa:ebl:TransportDocumentNotification.datacontenttype> a owl:DatatypeProperty ;
+    rdfs:label "datacontenttype" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocumentNotification.id> a owl:DatatypeProperty ;
+    rdfs:label "id" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocumentNotification.source> a owl:DatatypeProperty ;
+    rdfs:label "source" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocumentNotification.specversion> a owl:DatatypeProperty ;
+    rdfs:label "specversion" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocumentNotification.subscriptionReference> a owl:DatatypeProperty ;
+    rdfs:label "subscriptionReference" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:TransportDocumentNotification.time> a owl:DatatypeProperty ;
+    rdfs:label "time" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentNotification> ;
+    rdfs:range xsd:dateTime .
+
+<urn:dcsa:ebl:TransportDocumentNotification.type> a owl:DatatypeProperty ;
+    rdfs:label "type" ;
+    rdfs:domain <urn:dcsa:ebl:TransportDocumentNotification> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Transports.onCarriageBy> a owl:DatatypeProperty ;
+    rdfs:label "onCarriageBy" ;
+    rdfs:domain <urn:dcsa:ebl:Transports> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Transports.onwardInlandRouting> a owl:ObjectProperty ;
+    rdfs:label "onwardInlandRouting" ;
+    rdfs:domain <urn:dcsa:ebl:Transports> ;
+    rdfs:range <urn:dcsa:ebl:OnwardInlandRouting> .
+
+<urn:dcsa:ebl:Transports.placeOfDelivery> a owl:ObjectProperty ;
+    rdfs:label "placeOfDelivery" ;
+    rdfs:domain <urn:dcsa:ebl:Transports> ;
+    rdfs:range <urn:dcsa:ebl:PlaceOfDelivery> .
+
+<urn:dcsa:ebl:Transports.placeOfReceipt> a owl:ObjectProperty ;
+    rdfs:label "placeOfReceipt" ;
+    rdfs:domain <urn:dcsa:ebl:Transports> ;
+    rdfs:range <urn:dcsa:ebl:PlaceOfReceipt> .
+
+<urn:dcsa:ebl:Transports.plannedArrivalDate> a owl:DatatypeProperty ;
+    rdfs:label "plannedArrivalDate" ;
+    rdfs:domain <urn:dcsa:ebl:Transports> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:Transports.plannedDepartureDate> a owl:DatatypeProperty ;
+    rdfs:label "plannedDepartureDate" ;
+    rdfs:domain <urn:dcsa:ebl:Transports> ;
+    rdfs:range xsd:date .
+
+<urn:dcsa:ebl:Transports.portOfDischarge> a owl:ObjectProperty ;
+    rdfs:label "portOfDischarge" ;
+    rdfs:domain <urn:dcsa:ebl:Transports> ;
+    rdfs:range <urn:dcsa:ebl:PortOfDischarge> .
+
+<urn:dcsa:ebl:Transports.portOfLoading> a owl:ObjectProperty ;
+    rdfs:label "portOfLoading" ;
+    rdfs:domain <urn:dcsa:ebl:Transports> ;
+    rdfs:range <urn:dcsa:ebl:PortOfLoading> .
+
+<urn:dcsa:ebl:Transports.preCarriageBy> a owl:DatatypeProperty ;
+    rdfs:label "preCarriageBy" ;
+    rdfs:domain <urn:dcsa:ebl:Transports> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:Transports.vesselVoyages> a owl:ObjectProperty ;
+    rdfs:label "vesselVoyages" ;
+    rdfs:domain <urn:dcsa:ebl:Transports> ;
+    rdfs:range <urn:dcsa:ebl:VesselVoyage> .
+
+<urn:dcsa:ebl:UTEquipment.equipment> a owl:ObjectProperty ;
+    rdfs:label "equipment" ;
+    rdfs:domain <urn:dcsa:ebl:UTEquipment> ;
+    rdfs:range <urn:dcsa:ebl:RequiredEquipment> .
+
+<urn:dcsa:ebl:UTEquipment.isShipperOwned> a owl:DatatypeProperty ;
+    rdfs:label "isShipperOwned" ;
+    rdfs:domain <urn:dcsa:ebl:UTEquipment> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UTEquipmentReference.equipmentReference> a owl:DatatypeProperty ;
+    rdfs:label "equipmentReference" ;
+    rdfs:domain <urn:dcsa:ebl:UTEquipmentReference> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UTEquipmentReference.isShipperOwned> a owl:DatatypeProperty ;
+    rdfs:label "isShipperOwned" ;
+    rdfs:domain <urn:dcsa:ebl:UTEquipmentReference> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.advanceManifestFilings> a owl:ObjectProperty ;
+    rdfs:label "advanceManifestFilings" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:AdvanceManifestFiling> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.consignmentItems> a owl:ObjectProperty ;
+    rdfs:label "consignmentItems" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:ConsignmentItemShipper> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.destinationChargesPaymentTerm> a owl:ObjectProperty ;
+    rdfs:label "destinationChargesPaymentTerm" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:DestinationChargesPaymentTerm> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.displayedNameForPlaceOfDelivery> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPlaceOfDelivery" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.displayedNameForPlaceOfReceipt> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPlaceOfReceipt" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.displayedNameForPortOfDischarge> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPortOfDischarge" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.displayedNameForPortOfLoad> a owl:DatatypeProperty ;
+    rdfs:label "displayedNameForPortOfLoad" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.documentParties> a owl:ObjectProperty ;
+    rdfs:label "documentParties" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:DocumentPartiesShippingInstructions> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.exportLicense> a owl:ObjectProperty ;
+    rdfs:label "exportLicense" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:ExportLicenseShipper> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.freightPaymentTermCode> a owl:DatatypeProperty ;
+    rdfs:label "freightPaymentTermCode" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.houseBillOfLadings> a owl:ObjectProperty ;
+    rdfs:label "houseBillOfLadings" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:HouseBillOfLading> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.importLicense> a owl:ObjectProperty ;
+    rdfs:label "importLicense" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:ImportLicenseShipper> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.invoicePayableAt> a owl:ObjectProperty ;
+    rdfs:label "invoicePayableAt" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:InvoicePayableAtShippingInstructions> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.isCargoDeliveredInICS2Zone> a owl:DatatypeProperty ;
+    rdfs:label "isCargoDeliveredInICS2Zone" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.isCarriersAgentAtDestinationRequired> a owl:DatatypeProperty ;
+    rdfs:label "isCarriersAgentAtDestinationRequired" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.isElectronic> a owl:DatatypeProperty ;
+    rdfs:label "isElectronic" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.isHouseBillOfLadingsIssued> a owl:DatatypeProperty ;
+    rdfs:label "isHouseBillOfLadingsIssued" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.isShippedOnBoardType> a owl:DatatypeProperty ;
+    rdfs:label "isShippedOnBoardType" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.isToOrder> a owl:DatatypeProperty ;
+    rdfs:label "isToOrder" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.numberOfCopiesWithCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfCopiesWithCharges" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.numberOfCopiesWithoutCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfCopiesWithoutCharges" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.numberOfOriginalsWithCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfOriginalsWithCharges" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.numberOfOriginalsWithoutCharges> a owl:DatatypeProperty ;
+    rdfs:label "numberOfOriginalsWithoutCharges" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:integer .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.originChargesPaymentTerm> a owl:ObjectProperty ;
+    rdfs:label "originChargesPaymentTerm" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:OriginChargesPaymentTerm> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.partyContactDetails> a owl:ObjectProperty ;
+    rdfs:label "partyContactDetails" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:PartyContactDetail> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.placeOfIssue> a owl:ObjectProperty ;
+    rdfs:label "placeOfIssue" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:PlaceOfIssue> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.references> a owl:ObjectProperty ;
+    rdfs:label "references" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:Reference> .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.requestedCarrierCertificates> a owl:DatatypeProperty ;
+    rdfs:label "requestedCarrierCertificates" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.requestedCarrierClauses> a owl:DatatypeProperty ;
+    rdfs:label "requestedCarrierClauses" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.shippingInstructionsReference> a owl:DatatypeProperty ;
+    rdfs:label "shippingInstructionsReference" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.transportDocumentTypeCode> a owl:DatatypeProperty ;
+    rdfs:label "transportDocumentTypeCode" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UpdateShippingInstructions.utilizedTransportEquipments> a owl:ObjectProperty ;
+    rdfs:label "utilizedTransportEquipments" ;
+    rdfs:domain <urn:dcsa:ebl:UpdateShippingInstructions> ;
+    rdfs:range <urn:dcsa:ebl:UtilizedTransportEquipmentShipper> .
+
+<urn:dcsa:ebl:UtilizedTransportEquipment.activeReeferSettings> a owl:ObjectProperty ;
+    rdfs:label "activeReeferSettings" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipment> ;
+    rdfs:range <urn:dcsa:ebl:ActiveReeferSettings> .
+
+<urn:dcsa:ebl:UtilizedTransportEquipment.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipment> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:UtilizedTransportEquipment.equipment> a owl:ObjectProperty ;
+    rdfs:label "equipment" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipment> ;
+    rdfs:range <urn:dcsa:ebl:Equipment> .
+
+<urn:dcsa:ebl:UtilizedTransportEquipment.isNonOperatingReefer> a owl:DatatypeProperty ;
+    rdfs:label "isNonOperatingReefer" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipment> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UtilizedTransportEquipment.isShipperOwned> a owl:DatatypeProperty ;
+    rdfs:label "isShipperOwned" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipment> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UtilizedTransportEquipment.references> a owl:ObjectProperty ;
+    rdfs:label "references" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipment> ;
+    rdfs:range <urn:dcsa:ebl:Reference> .
+
+<urn:dcsa:ebl:UtilizedTransportEquipment.seals> a owl:ObjectProperty ;
+    rdfs:label "seals" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipment> ;
+    rdfs:range <urn:dcsa:ebl:Seal> .
+
+<urn:dcsa:ebl:UtilizedTransportEquipment.shippingMarks> a owl:DatatypeProperty ;
+    rdfs:label "shippingMarks" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipment> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentHBL.ISOEquipmentCode> a owl:DatatypeProperty ;
+    rdfs:label "ISOEquipmentCode" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipmentHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentHBL.emptyIndicatorCode> a owl:DatatypeProperty ;
+    rdfs:label "emptyIndicatorCode" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipmentHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentHBL.equipmentReference> a owl:DatatypeProperty ;
+    rdfs:label "equipmentReference" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipmentHBL> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentHBL.isShipperOwned> a owl:DatatypeProperty ;
+    rdfs:label "isShipperOwned" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipmentHBL> ;
+    rdfs:range xsd:boolean .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentHBL.seals> a owl:ObjectProperty ;
+    rdfs:label "seals" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipmentHBL> ;
+    rdfs:range <urn:dcsa:ebl:Seal> .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentShipper.customsReferences> a owl:ObjectProperty ;
+    rdfs:label "customsReferences" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipmentShipper> ;
+    rdfs:range <urn:dcsa:ebl:CustomsReference> .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentShipper.emptyIndicatorCode> a owl:DatatypeProperty ;
+    rdfs:label "emptyIndicatorCode" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipmentShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentShipper.references> a owl:ObjectProperty ;
+    rdfs:label "references" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipmentShipper> ;
+    rdfs:range <urn:dcsa:ebl:Reference> .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentShipper.seals> a owl:ObjectProperty ;
+    rdfs:label "seals" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipmentShipper> ;
+    rdfs:range <urn:dcsa:ebl:Seal> .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentShipper.shippingMarks> a owl:DatatypeProperty ;
+    rdfs:label "shippingMarks" ;
+    rdfs:domain <urn:dcsa:ebl:UtilizedTransportEquipmentShipper> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:VesselVoyage.carrierExportVoyageNumber> a owl:DatatypeProperty ;
+    rdfs:label "carrierExportVoyageNumber" ;
+    rdfs:domain <urn:dcsa:ebl:VesselVoyage> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:VesselVoyage.universalExportVoyageReference> a owl:DatatypeProperty ;
+    rdfs:label "universalExportVoyageReference" ;
+    rdfs:domain <urn:dcsa:ebl:VesselVoyage> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:VesselVoyage.vesselName> a owl:DatatypeProperty ;
+    rdfs:label "vesselName" ;
+    rdfs:domain <urn:dcsa:ebl:VesselVoyage> ;
+    rdfs:range xsd:string .
+
+<urn:dcsa:ebl:ApproveTransportDocument> a owl:Class ;
+    rdfs:label "Approve Transport Document" ;
+    skos:altLabel "ApproveTransportDocument",
+        "approve transport document" .
+
+<urn:dcsa:ebl:CancelShippingInstructionsUpdate> a owl:Class ;
+    rdfs:label "Cancel Shipping Instructions Update" ;
+    skos:altLabel "CancelShippingInstructionsUpdate",
+        "cancel shipping instructions update" .
+
+<urn:dcsa:ebl:CreateShippingInstructionsResponse> a owl:Class ;
+    rdfs:label "Create Shipping Instructions Response" ;
+    rdfs:comment "**Only** the `shippingInstructionsReference` is returned." ;
+    skos:altLabel "CreateShippingInstructionsResponse",
+        "create shipping instructions response" .
+
+<urn:dcsa:ebl:InvoicePayableAt> a owl:Class ;
+    rdfs:label "Invoice Payable At" ;
+    rdfs:comment """Location where payment of ocean freight and charges for the main transport will take place by the customer.
+
+The location can be provided as a `UN Location Code` or as a fallback - a `freeText` field""" ;
+    skos:altLabel "InvoicePayableAt",
+        "invoice payable at" .
+
+<urn:dcsa:ebl:ShippingInstructionsFullNotification> a owl:Class ;
+    rdfs:label "Shipping Instructions Full Notification" ;
+    rdfs:comment """This property contains the shippingInstructions in case the subscriber is subscribing to the `Full State Transfer` of the Shipping Instructions.
+
+In case the subscriber does not subscribe to the `Full State Transfer` of the Shipping Instructions then the content in this property can be ignored.""" ;
+    rdfs:subClassOf <urn:dcsa:ebl:ShippingInstructions> ;
+    skos:altLabel "ShippingInstructionsFullNotification",
+        "shipping instructions full notification" .
+
+<urn:dcsa:ebl:TransportDocumentFullNotification> a owl:Class ;
+    rdfs:label "Transport Document Full Notification" ;
+    rdfs:comment """This property contains the `transportDocument` in case the subscriber is subscribing to the `Full State Transfer` of the `Transport Document`.
+
+In case the subscriber does not subscribe to the `Full State Transfer` of the `Transport Document` then the content in this property can be ignored.
+
+**Condition:** Once the `Transport Document` has been Issued (`transportDocumentStatus='ISSUED'`) - the order of **ALL** lists/arrays in this property **MUST** be aligned with the order of the
+
+    GET /v3/transport-documents/{transportDocumentReference}
+
+payload implemented by the provider of the **Shipping Instructions and Transport Document** API.""" ;
+    rdfs:subClassOf <urn:dcsa:ebl:TransportDocument> ;
+    skos:altLabel "TransportDocumentFullNotification",
+        "transport document full notification" .
+
+<urn:dcsa:ebl:UpdatedShippingInstructionsFullNotification> a owl:Class ;
+    rdfs:label "Updated Shipping Instructions" ;
+    rdfs:comment """This property contains the updated shipping instructions in case:
+  - an update is currently active
+  - the subscriber is subscribing to the `Full State Transfer` of the Shipping Instructions
+
+In case the subscriber does not subscribe to the `Full State Transfer` of the Shipping Instructions or no update is active - then the content in this property can be ignored.""" ;
+    rdfs:subClassOf <urn:dcsa:ebl:ShippingInstructions> ;
+    skos:altLabel "UpdatedShippingInstructionsFullNotification",
+        "updated shipping instructions full notification" .
+
+<urn:dcsa:ebl:UTEquipment> a owl:Class ;
+    rdfs:label "Shipper Owned Equipment (SoC)" ;
+    rdfs:comment "To be used for SoC (Shipper owned Containers). If `isShipperOwned` is true then the equipment used needs to be specified" ;
+    skos:altLabel "UTEquipment",
+        "utequipment" .
+
+<urn:dcsa:ebl:UTEquipmentReference> a owl:Class ;
+    rdfs:label "Carrier Owned Equipment" ;
+    rdfs:comment "To be used when referring to carrier owned containers (`isShipperOwned` is false). In this case it is only necessary to provide `equipmentReference`" ;
+    skos:altLabel "UTEquipmentReference",
+        "utequipment reference" .
+
+<urn:dcsa:ebl:GrossWeight> a owl:Class ;
+    rdfs:label "Gross Weight" ;
+    rdfs:comment "Total weight of the goods carried, including packaging." ;
+    skos:altLabel "GrossWeight",
+        "gross weight" .
+
+<urn:dcsa:ebl:NetExplosiveContent> a owl:Class ;
+    rdfs:label "Net Explosive Content" ;
+    rdfs:comment "The total weight of the explosive substances, without the packaging’s, casings, etc." ;
+    skos:altLabel "NetExplosiveContent",
+        "net explosive content" .
+
+<urn:dcsa:ebl:NetVolume> a owl:Class ;
+    rdfs:label "Net Volume" ;
+    rdfs:comment """The volume of the referenced dangerous goods.
+
+**Condition:** only applicable to liquids and gas.""" ;
+    skos:altLabel "NetVolume",
+        "net volume" .
+
+<urn:dcsa:ebl:NetWeight> a owl:Class ;
+    rdfs:label "Net Weight" ;
+    rdfs:comment "Total weight of the goods carried, excluding packaging." ;
+    skos:altLabel "NetWeight",
+        "net weight" .
+
+<urn:dcsa:ebl:OtherDocumentPartyHBL> a owl:Class ;
+    rdfs:label "Other Document Party (House B/L)" ;
+    rdfs:comment "A list of document parties that can be optionally provided in the `Shipping Instructions` and `Transport Document`." ;
+    skos:altLabel "OtherDocumentPartyHBL",
+        "other document party hbl" .
+
+<urn:dcsa:ebl:PartyContactDetailWithPattern> a owl:Class ;
+    rdfs:label "Party Contact Detail (with phone pattern)" ;
+    rdfs:comment "The contact details of the person to contact. It is mandatory to provide either `phone` and/or `email` along with the `name`, both can be provided." ;
+    skos:altLabel "PartyContactDetailWithPattern",
+        "party contact detail with pattern" .
+
+<urn:dcsa:ebl:CargoGrossVolume> a owl:Class ;
+    rdfs:label "Cargo Gross Volume" ;
+    rdfs:comment "Calculated by multiplying the width, height, and length of the packed cargo." ;
+    skos:altLabel "CargoGrossVolume",
+        "cargo gross volume" .
+
+<urn:dcsa:ebl:CargoItemHBL> a owl:Class ;
+    rdfs:label "Cargo Item (House B/L)" ;
+    rdfs:comment "A `cargoItem` is the smallest unit used by stuffing. A `cargoItem` cannot be split across containers." ;
+    skos:altLabel "CargoItemHBL",
+        "cargo item hbl" .
+
+<urn:dcsa:ebl:CargoNetVolume> a owl:Class ;
+    rdfs:label "Cargo Net Volume" ;
+    rdfs:comment "Calculated by multiplying the width, height, and length of the cargo, excluding packaging." ;
+    skos:altLabel "CargoNetVolume",
+        "cargo net volume" .
+
+<urn:dcsa:ebl:CargoNetWeight> a owl:Class ;
+    rdfs:label "Cargo Net Weight" ;
+    rdfs:comment "The weight of the cargo item excluding packaging being carried in the container. Excludes the tare weight of the container." ;
+    skos:altLabel "CargoNetWeight",
+        "cargo net weight" .
+
+<urn:dcsa:ebl:CarriersAgentAtDestination> a owl:Class ;
+    rdfs:label "Carrier's Agent At Destination" ;
+    rdfs:comment "The party on the import side assigned by the carrier to whom the customer need to reach out to for cargo release." ;
+    skos:altLabel "CarriersAgentAtDestination",
+        "carriers agent at destination" .
+
+<urn:dcsa:ebl:Equipment> a owl:Class ;
+    rdfs:label "Equipment" ;
+    rdfs:comment "Used for storing cargo in/on during transport. The equipment size/type is defined by the ISO 6346 code. The most common equipment size/type is 20'/40'/45' DRY Freight Container, but several different versions exist." ;
+    skos:altLabel "equipment" .
+
+<urn:dcsa:ebl:GeoCoordinate> a owl:Class ;
+    rdfs:label "Geo Coordinate" ;
+    rdfs:comment "An object used to express a location using `latitude` and `longitude`." ;
+    skos:altLabel "GeoCoordinate",
+        "geo coordinate" .
+
+<urn:dcsa:ebl:InnerPackaging> a owl:Class ;
+    rdfs:label "Inner Packaging" ;
+    rdfs:comment "Object for inner packaging specification" ;
+    skos:altLabel "InnerPackaging",
+        "inner packaging" .
+
+<urn:dcsa:ebl:InvoicePayableAtShippingInstructions> a owl:Class ;
+    rdfs:label "Invoice Payable At (Shipping Instructions)" ;
+    rdfs:comment """Location where payment of ocean freight and charges for the main transport will take place by the customer.
+
+The location must be provided as a `UN Location Code`""" ;
+    skos:altLabel "InvoicePayableAtShippingInstructions",
+        "invoice payable at shipping instructions" .
+
+<urn:dcsa:ebl:OtherDocumentParty> a owl:Class ;
+    rdfs:label "Other Document Party" ;
+    rdfs:comment "A list of document parties that can be optionally provided in the `Shipping Instructions` and `Transport Document`." ;
+    skos:altLabel "OtherDocumentParty",
+        "other document party" .
+
+<urn:dcsa:ebl:PlaceOfAcceptance> a owl:Class ;
+    rdfs:label "Place of Acceptance" ;
+    rdfs:comment """An object to capture `Place of Acceptance` location specified as: identification of the seaport, freight terminal or other place at which the goods are taken over from the shipper by the Ocean Transport Intermediary (OTI) issuing the `House Bill of Lading`.
+
+**Condition:** Mandatory if different from `Place of Receipt` or `Port of Loading` at the `Master Transport Document` level.
+
+**Condition:** The location can be specified either using `UN Location Code` and/or (`Location Name` together with `Country Code`), all three properties can be specified.""" ;
+    skos:altLabel "PlaceOfAcceptance",
+        "place of acceptance" .
+
+<urn:dcsa:ebl:PlaceOfFinalDelivery> a owl:Class ;
+    rdfs:label "Place of Final Delivery" ;
+    rdfs:comment """An object to capture `Place of Final Delivery` location specified as: Identification of the seaport, freight terminal or other place at which the goods are handed over from the `Ocean Transport Intermediary` (OTI) issuing the `House Bill of Lading` to the `Consignee`.
+
+**Condition:** Mandatory if different from `Place of Delivery` at the `Master Transport Document` level.
+
+**Condition:** The location can be specified either using `UN Location Code` and/or (`Location Name` together with `Country Code`), all three properties can be specified.""" ;
+    skos:altLabel "PlaceOfFinalDelivery",
+        "place of final delivery" .
+
+<urn:dcsa:ebl:PortOfDischarge> a owl:Class ;
+    rdfs:label "Port of Discharge" ;
+    rdfs:comment """An object to capture `Port of Discharge` location specified as: the location where the cargo is discharged from the last sea-going vessel.
+
+The location can be specified in **any** of the following ways: `UN Location Code` or `City and Country`.
+
+**Condition:** It is expected that if a location is specified in multiple ways (e.g. both as an `UN Location Code` and as a `City and Country`) that both ways point to the same location.""" ;
+    skos:altLabel "PortOfDischarge",
+        "port of discharge" .
+
+<urn:dcsa:ebl:PortOfLoading> a owl:Class ;
+    rdfs:label "Port of Loading" ;
+    rdfs:comment """An object to capture `Port of Loading` location specified as: the location where the cargo is loaded onto a first sea-going vessel for water transportation.
+
+The location can be specified in **any** of the following ways: `UN Location Code` or `City and Country`.
+
+**Condition:** It is expected that if a location is specified in multiple ways (e.g. both as an `UN Location Code` and as a `City and Country`) that both ways point to the same location.""" ;
+    skos:altLabel "PortOfLoading",
+        "port of loading" .
+
+<urn:dcsa:ebl:ReferenceConsignmentItem> a owl:Class ;
+    rdfs:label "Reference (Consignment Item)" ;
+    rdfs:comment "References provided by the shipper or freight forwarder at the time of `Booking` or at the time of providing `Shipping Instructions`. Carriers share it back when providing `Track & Trace` event updates, some are also printed on the B/L. Customers can use these references to track shipments in their internal systems." ;
+    skos:altLabel "ReferenceConsignmentItem",
+        "reference consignment item" .
+
+<urn:dcsa:ebl:RequiredEquipment> a owl:Class ;
+    rdfs:label "Equipment (Required Properties)" ;
+    rdfs:comment "Used for storing cargo in/on during transport. The equipment size/type is defined by the ISO 6346 code. The most common equipment size/type is 20'/40'/45' DRY Freight Container, but several different versions exist." ;
+    skos:altLabel "RequiredEquipment",
+        "required equipment" .
+
+<urn:dcsa:ebl:TareWeight> a owl:Class ;
+    rdfs:label "Tare Weight" ;
+    rdfs:comment "The weight of an empty container (gross container weight)." ;
+    skos:altLabel "TareWeight",
+        "tare weight" .
+
+<urn:dcsa:ebl:VesselVoyage> a owl:Class ;
+    rdfs:label "Vessel/Voyage" ;
+    rdfs:comment "Vessel and export voyage" ;
+    skos:altLabel "VesselVoyage",
+        "vessel voyage" .
+
+<urn:dcsa:ebl:CargoGrossWeight> a owl:Class ;
+    rdfs:label "Cargo Gross Weight" ;
+    rdfs:comment "The weight of the cargo item including packaging being carried in the container. Excludes the tare weight of the container." ;
+    skos:altLabel "CargoGrossWeight",
+        "cargo gross weight" .
+
+<urn:dcsa:ebl:City> a owl:Class ;
+    rdfs:label "City" ;
+    rdfs:comment "An object for storing city, state/region and country related information" ;
+    skos:altLabel "city" .
+
+<urn:dcsa:ebl:ConsignmentItemHBL> a owl:Class ;
+    rdfs:label "Consignment Item (House B/L)" ;
+    rdfs:comment "Defines a list of `CargoItems` belonging together in the same consignment. A `ConsignmentItem` can be split across multiple containers (`UtilizedTransportEquipment`) by referencing multiple `CargoItems`" ;
+    skos:altLabel "ConsignmentItemHBL",
+        "consignment item hbl" .
+
+<urn:dcsa:ebl:EmergencyContactDetails> a owl:Class ;
+    rdfs:label "Emergency Contact Details" ;
+    rdfs:comment "24 hr emergency contact details" ;
+    skos:altLabel "EmergencyContactDetails",
+        "emergency contact details" .
+
+<urn:dcsa:ebl:Facility> a owl:Class ;
+    rdfs:label "Facility" ;
+    rdfs:comment "An object used to express a location using a `Facility`. The facility can be expressed using one of `BIC` code or `SMDG` code. The `facilityCode` does not contain the `UNLocationCode` - this should be provided in the `UnLocationCode` attribute." ;
+    skos:altLabel "facility" .
+
+<urn:dcsa:ebl:IssueToParty> a owl:Class ;
+    rdfs:label "Issue To Party" ;
+    rdfs:comment "The party to whom the `Bill of Lading` must be issued." ;
+    skos:altLabel "IssueToParty",
+        "issue to party" .
+
+<urn:dcsa:ebl:OnwardInlandRouting> a owl:Class ;
+    rdfs:label "Onward Inland Routing" ;
+    rdfs:comment """An object to capture `Onward Inland Routing` location specified as the end location of the inland movement that takes place after the container(s) being delivered to the port of discharge/place of delivery for account and risk of merchant (merchant haulage).
+
+The location can be specified in **any** of the following ways: `UN Location Code`, `Facility` or an `Address`.
+
+**Condition:** It is expected that if a location is specified in multiple ways (e.g. both as an `Address` and as a `Facility`) that both ways point to the same location.""" ;
+    skos:altLabel "OnwardInlandRouting",
+        "onward inland routing" .
+
+<urn:dcsa:ebl:OuterPackagingHBL> a owl:Class ;
+    rdfs:label "Outer Packaging (House B/L)" ;
+    rdfs:comment "Object for outer packaging/overpack specification. Examples of overpacks are a number of packages stacked on to a pallet and secured by strapping or placed in a protective outer packaging such as a box or crate to form one unit for the convenience of handling and stowage during transport." ;
+    skos:altLabel "OuterPackagingHBL",
+        "outer packaging hbl" .
+
+<urn:dcsa:ebl:OuterPackagingShipper> a owl:Class ;
+    rdfs:label "Outer Packaging (Shipper)" ;
+    rdfs:comment """Object for outer packaging/overpack specification. Examples of overpacks are a number of packages stacked on to a pallet and secured by strapping or placed in a protective outer packaging such as a box or crate to form one unit for the convenience of handling and stowage during transport.
+
+**Condition:** Mandatory for non-dangerous goods cargo.""" ;
+    skos:altLabel "OuterPackagingShipper",
+        "outer packaging shipper" .
+
+<urn:dcsa:ebl:PlaceOfIssue> a owl:Class ;
+    rdfs:label "Place of Issue" ;
+    rdfs:comment """An object to capture where the original Transport Document (`Bill of Lading`) will be issued.
+
+**Condition:** The location can be specified as one of `UN Location Code` or `CountryCode`, but not both.""" ;
+    skos:altLabel "PlaceOfIssue",
+        "place of issue" .
+
+<urn:dcsa:ebl:Seal> a owl:Class ;
+    rdfs:label "Seal" ;
+    rdfs:comment "Addresses the seal-related information associated with the shipment equipment. A seal is put on a shipment equipment once it is loaded. This `Seal` is meant to stay on until the shipment equipment reaches its final destination." ;
+    skos:altLabel "seal" .
+
+<urn:dcsa:ebl:DestinationChargesPaymentTerm> a owl:Class ;
+    rdfs:label "Destination Charges Payment Term" ;
+    rdfs:comment "An indicator of whether destination charges are prepaid (`PRE`) or collect (`COL`). When prepaid, the charges are the responsibility of the shipper or the Invoice payer on behalf of the shipper (if provided). When collect, the charges are the responsibility of the consignee or the Invoice payer on behalf of the consignee (if provided)." ;
+    skos:altLabel "DestinationChargesPaymentTerm",
+        "destination charges payment term" .
+
+<urn:dcsa:ebl:IssuingParty> a owl:Class ;
+    rdfs:label "Issuing Party" ;
+    rdfs:comment "The company or a legal entity issuing the `Transport Document`." ;
+    skos:altLabel "IssuingParty",
+        "issuing party" .
+
+<urn:dcsa:ebl:OriginChargesPaymentTerm> a owl:Class ;
+    rdfs:label "Origin Charges Payment Term" ;
+    rdfs:comment "An indicator of whether origin charges are prepaid (`PRE`) or collect (`COL`). When prepaid, the charges are the responsibility of the shipper or the Invoice payer on behalf of the shipper (if provided). When collect, the charges are the responsibility of the consignee or the Invoice payer on behalf of the consignee (if provided)." ;
+    skos:altLabel "OriginChargesPaymentTerm",
+        "origin charges payment term" .
+
+<urn:dcsa:ebl:PlaceOfDelivery> a owl:Class ;
+    rdfs:label "Place of Delivery" ;
+    rdfs:comment """An object to capture `Place of Delivery` location specified as: the location where the cargo is handed over to the consignee, or his agent, by the shipping line and where responsibility of the shipping line ceases.
+
+**Condition:** Only when onward transport is done by the carrier
+
+The location can be specified in **any** of the following ways: `UN Location Code`, `Facility`, `Address` or a `Geo Coordinate`.
+
+**Condition:** It is expected that if a location is specified in multiple ways (e.g. both as an `Address` and as a `Facility`) that both ways point to the same location.""" ;
+    skos:altLabel "PlaceOfDelivery",
+        "place of delivery" .
+
+<urn:dcsa:ebl:PlaceOfReceipt> a owl:Class ;
+    rdfs:label "Place of Receipt" ;
+    rdfs:comment """An object to capture `Place of Receipt` location specified as: the location where the cargo is handed over by the shipper, or his agent, to the shipping line. This indicates the point at which the shipping line takes on responsibility for carriage of the container.
+
+**Condition:** Only when pre-carriage is done by the carrier.
+
+The location can be specified in **any** of the following ways: `UN Location Code`, `Facility`, `Address` or a `Geo Coordinate`.
+
+**Condition:** It is expected that if a location is specified in multiple ways (e.g. both as an `Address` and as a `Facility`) that both ways point to the same location.""" ;
+    skos:altLabel "PlaceOfReceipt",
+        "place of receipt" .
+
+<urn:dcsa:ebl:TransportDocumentData> a owl:Class ;
+    rdfs:label "Transport Document Data" ;
+    rdfs:comment "`Transport Document` specific properties for the `Notification`" ;
+    skos:altLabel "TransportDocumentData",
+        "transport document data" .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentHBL> a owl:Class ;
+    rdfs:label "Utilized Transport Equipment (House B/L)" ;
+    rdfs:comment "Specifies the container (`Equipment`), `Seals` and `References`" ;
+    skos:altLabel "UtilizedTransportEquipmentHBL",
+        "utilized transport equipment hbl" .
+
+<urn:dcsa:ebl:Buyer> a owl:Class ;
+    rdfs:label "Buyer" ;
+    rdfs:comment """The buyer is the last known entity to whom the goods are sold or agreed to be sold. If the goods are to be imported otherwise than in pursuance of a purchase, the details of the owner of the goods shall be provided.
+
+**Condition:** Buyer and Seller are mandatory if `isCargoDeliveredInICS2Zone=true` and `manifesttypecode='ENS'` and `advancedManifestFilingPerformedBy='CARRIER'` and `isHouseBillofLadingsIssued=false`.""" ;
+    skos:altLabel "buyer" .
+
+<urn:dcsa:ebl:BuyerHBL> a owl:Class ;
+    rdfs:label "Buyer (House B/L)" ;
+    rdfs:comment """The buyer is the last known entity to whom the goods are sold or agreed to be sold. If the goods are to be imported otherwise than in pursuance of a purchase, the details of the owner of the goods shall be provided.
+
+**Condition:** Buyer and Seller are mandatory if `isCargoDeliveredInICS2Zone=true` (on House B/L level) and `manifesttypecode='ENS'` and `advancedManifestFilingPerformedBy='CARRIER'`.""" ;
+    skos:altLabel "BuyerHBL",
+        "buyer hbl" .
+
+<urn:dcsa:ebl:ConsigneeHBL> a owl:Class ;
+    rdfs:label "Consignee (House B/L)" ;
+    rdfs:comment "The ultimate recipient of the cargo. It must be different from the freight forwarder, (de)consolidator, postal operator, or customs agent." ;
+    skos:altLabel "ConsigneeHBL",
+        "consignee hbl" .
+
+<urn:dcsa:ebl:DetailedError> a owl:Class ;
+    rdfs:label "Detailed Error" ;
+    rdfs:comment "A detailed description of what has caused the error." ;
+    skos:altLabel "DetailedError",
+        "detailed error" .
+
+<urn:dcsa:ebl:DocumentPartiesHouseBL> a owl:Class ;
+    rdfs:label "Document Parties (House B/L)" ;
+    rdfs:comment """All `Parties` with associated roles for this `House Bill of Lading`.
+
+**Condition:** `Buyer` and `Seller` are mandatory if `isCargoDeliveredInICS2Zone=true` (on House B/L level) **and** `advancedManifestFilingPerformedBy=CARRIER`""" ;
+    skos:altLabel "DocumentPartiesHouseBL",
+        "document parties house bl" .
+
+<urn:dcsa:ebl:Endorsee> a owl:Class ;
+    rdfs:label "Endorsee" ;
+    rdfs:comment """The party to whom the title to the goods is transferred by means of endorsement.
+
+**Condition:** Can only be provided for negotiable BLs (`isToOrder=true`). If a negotiable BL does not have an `Endorsee`, the BL is said to be "blank endorsed". Note `Consignee` and `Endorsee` are mutually exclusive.
+
+**Condition:** If a `displayedAddress` is provided, it must be included in the `Transport Document` instead of the `address`.""" ;
+    skos:altLabel "endorsee" .
+
+<urn:dcsa:ebl:EndorseeShipper> a owl:Class ;
+    rdfs:label "Endorsee (Shipper provided)" ;
+    rdfs:comment """The party to whom the title to the goods is transferred by means of endorsement.
+
+**Condition:** Can only be provided for negotiable BLs (`isToOrder=true`). If a negotiable BL does not have an `Endorsee`, the BL is said to be "blank endorsed". Note `Consignee` and `Endorsee` are mutually exclusive.
+
+**Condition:** Either the `address` or a party `identifyingCode` must be provided in the `Shipping Instructions`. If a `displayedAddress` is provided, it must be included in the `Transport Document` instead of the `address`.""" ;
+    skos:altLabel "EndorseeShipper",
+        "endorsee shipper" .
+
+<urn:dcsa:ebl:ExportLicense> a owl:Class ;
+    rdfs:label "Export License" ;
+    rdfs:comment """`Export License` requirements
+
+**Condition:** Included if the property is provided in the `Shipping Instructions.`""" ;
+    skos:altLabel "ExportLicense",
+        "export license" .
+
+<urn:dcsa:ebl:ImportLicense> a owl:Class ;
+    rdfs:label "Import License" ;
+    rdfs:comment """`Import License` requirements
+
+**Condition:** Included if the property is provided in the `Shipping Instructions.`""" ;
+    skos:altLabel "ImportLicense",
+        "import license" .
+
+<urn:dcsa:ebl:Limits> a owl:Class ;
+    rdfs:label "Limits" ;
+    rdfs:comment "Limits for the `Dangerous Goods`. The same `Temperature Unit` needs to apply to all attributes in this structure." ;
+    skos:altLabel "limits" .
+
+<urn:dcsa:ebl:NotifyPartyHBL> a owl:Class ;
+    rdfs:label "Notify Party (House B/L)" ;
+    rdfs:comment """The person to be notified when a shipment arrives at its destination.
+
+**Condition:** Mandatory for To Order HBLs (HouseBL `isToOrder=true`)""" ;
+    skos:altLabel "NotifyPartyHBL",
+        "notify party hbl" .
+
+<urn:dcsa:ebl:OuterPackaging> a owl:Class ;
+    rdfs:label "Outer Packaging" ;
+    rdfs:comment "Object for outer packaging/overpack specification. Examples of overpacks are a number of packages stacked on to a pallet and secured by strapping or placed in a protective outer packaging such as a box or crate to form one unit for the convenience of handling and stowage during transport." ;
+    skos:altLabel "OuterPackaging",
+        "outer packaging" .
+
+<urn:dcsa:ebl:Party> a owl:Class ;
+    rdfs:label "Party" ;
+    rdfs:comment """Refers to a company or a legal entity.
+
+**Condition:** Either the `address` or a party `identifyingCode` must be provided in the `Shipping Instructions`.""" ;
+    skos:altLabel "party" .
+
+<urn:dcsa:ebl:PartyContactDetailHBL> a owl:Class ;
+    rdfs:label "Party Contact Detail (House B/L)" ;
+    rdfs:comment "The contact details of the person to contact. It is mandatory to provide either `phone` and/or `email` along with the `name`, both can be provided." ;
+    skos:altLabel "PartyContactDetailHBL",
+        "party contact detail hbl" .
+
+<urn:dcsa:ebl:PartyHBL> a owl:Class ;
+    rdfs:label "Party (House B/L)" ;
+    rdfs:comment "Refers to a company or a legal entity." ;
+    skos:altLabel "PartyHBL",
+        "party hbl" .
+
+<urn:dcsa:ebl:Seller> a owl:Class ;
+    rdfs:label "Seller" ;
+    rdfs:comment """The seller is the last known entity by whom the goods are sold or agreed to be sold to the buyer. If the goods are to be imported otherwise than in pursuance of a purchase, the details of the owner of the goods shall be provided.
+
+**Condition:** Buyer and Seller are mandatory if `isCargoDeliveredInICS2Zone=true` and `manifesttypecode='ENS'` and `advancedManifestFilingPerformedBy='CARRIER'` and `isHouseBillofLadingsIssued=false`.""" ;
+    skos:altLabel "seller" .
+
+<urn:dcsa:ebl:SellerHBL> a owl:Class ;
+    rdfs:label "Seller (House B/L)" ;
+    rdfs:comment """The seller is the last known entity by whom the goods are sold or agreed to be sold to the buyer. If the goods are to be imported otherwise than in pursuance of a purchase, the details of the owner of the goods shall be provided.
+
+**Condition:** Buyer and Seller are mandatory if `isCargoDeliveredInICS2Zone=true` (on House B/L level) and `manifesttypecode='ENS'` and `advancedManifestFilingPerformedBy='CARRIER'`.""" ;
+    skos:altLabel "SellerHBL",
+        "seller hbl" .
+
+<urn:dcsa:ebl:ShipperHBL> a owl:Class ;
+    rdfs:label "Shipper (House B/L)" ;
+    rdfs:comment "The `Shipper` on the `House Bill of Lading`." ;
+    skos:altLabel "ShipperHBL",
+        "shipper hbl" .
+
+<urn:dcsa:ebl:AdvanceManifestFiling> a owl:Class ;
+    rdfs:label "Advance Manifest Filing" ;
+    rdfs:comment """An Advance Manifest Filing defined by a Manifest type code in combination with a country code.
+
+A small list of **potential** examples:
+
+| manifestTypeCode | countryCode | Description |
+|-----------------------|:-------------:|-------------|
+|ACI|EG|Advance Cargo Information in Egypt|
+|ACE|US|Automated Commercial Environment in the United States|
+|AFR|JP|Cargo Summary Notification (CSN)|
+|ENS|NL|Entry Summary Declaration|""" ;
+    skos:altLabel "AdvanceManifestFiling",
+        "advance manifest filing" .
+
+<urn:dcsa:ebl:Charge> a owl:Class ;
+    rdfs:label "Charge" ;
+    rdfs:comment "Addresses the monetary value of freight and other service charges for a `Booking`." ;
+    skos:altLabel "charge" .
+
+<urn:dcsa:ebl:DocumentParties> a owl:Class ;
+    rdfs:label "Document Parties" ;
+    rdfs:comment "All `Parties` with associated roles." ;
+    skos:altLabel "DocumentParties",
+        "document parties" .
+
+<urn:dcsa:ebl:ErrorResponse> a owl:Class ;
+    rdfs:label "Error Response" ;
+    rdfs:comment "Unexpected error" ;
+    skos:altLabel "ErrorResponse",
+        "error response" .
+
+<urn:dcsa:ebl:Feedback> a owl:Class ;
+    rdfs:label "Feedback" ;
+    rdfs:comment """Feedback that can be provided includes, but is not limited to:
+- unsupported properties
+- changed values
+- removed properties
+- general information""" ;
+    skos:altLabel "feedback" .
+
+<urn:dcsa:ebl:NationalCommodityCode> a owl:Class ;
+    rdfs:label "National Commodity Code" ;
+    rdfs:comment """The national commodity classification code linked to a country with a value.
+
+An example could look like this:
+
+| Type  | Country | Value |
+|-------|:-------:|-------------|
+|NCM|BR|['1515', '2106', '2507', '2512']|""" ;
+    skos:altLabel "NationalCommodityCode",
+        "national commodity code" .
+
+<urn:dcsa:ebl:Reference> a owl:Class ;
+    rdfs:label "Reference" ;
+    rdfs:comment "References provided by the shipper or freight forwarder at the time of `Booking` or at the time of providing `Shipping Instructions`. Carriers share it back when providing `Track & Trace` event updates, some are also printed on the B/L. Customers can use these references to track shipments in their internal systems." ;
+    skos:altLabel "reference" .
+
+<urn:dcsa:ebl:ShippingInstructionsData> a owl:Class ;
+    rdfs:label "Shipping Instructions Data" ;
+    rdfs:comment "`Shipping Instructions` specific properties for the `Notification`" ;
+    skos:altLabel "ShippingInstructionsData",
+        "shipping instructions data" .
+
+<urn:dcsa:ebl:ShippingInstructionsNotification> a owl:Class ;
+    rdfs:label "Shipping Instructions Notification" ;
+    rdfs:comment "`CloudEvent` specific properties for the `Notification`." ;
+    skos:altLabel "ShippingInstructionsNotification",
+        "shipping instructions notification" .
+
+<urn:dcsa:ebl:TransportDocumentNotification> a owl:Class ;
+    rdfs:label "Transport Document Notification" ;
+    rdfs:comment "`CloudEvent` specific properties for the `Notification`." ;
+    skos:altLabel "TransportDocumentNotification",
+        "transport document notification" .
+
+<urn:dcsa:ebl:UtilizedTransportEquipmentShipper> a owl:Class ;
+    rdfs:label "Utilized Transport Equipment (Shipper)" ;
+    rdfs:comment "Specifies the container (`Equipment`), `Seals` and `References`" ;
+    skos:altLabel "UtilizedTransportEquipmentShipper",
+        "utilized transport equipment shipper" .
+
+<urn:dcsa:ebl:ExportLicenseShipper> a owl:Class ;
+    rdfs:label "Export License (Shipper)" ;
+    rdfs:comment """`Export License` requirements
+
+**Condition:** Subject to local customs requirements and commodity.""" ;
+    skos:altLabel "ExportLicenseShipper",
+        "export license shipper" .
+
+<urn:dcsa:ebl:ImportLicenseShipper> a owl:Class ;
+    rdfs:label "Import License (Shipper)" ;
+    rdfs:comment """`Import License` requirements
+
+**Condition:** Subject to local customs requirements and commodity.""" ;
+    skos:altLabel "ImportLicenseShipper",
+        "import license shipper" .
+
+<urn:dcsa:ebl:UtilizedTransportEquipment> a owl:Class ;
+    rdfs:label "Utilized Transport Equipment" ;
+    rdfs:comment "Specifies the container (`equipment`), the total `weight`, total `volume`, possible `ActiveReeferSettings`, `seals` and `references`" ;
+    skos:altLabel "UtilizedTransportEquipment",
+        "utilized transport equipment" .
+
+<urn:dcsa:ebl:Consignee> a owl:Class ;
+    rdfs:label "Consignee" ;
+    rdfs:comment """The party to which goods are consigned in the `Master Bill of Lading`.
+
+**Condition:** Mandatory for non-negotiable BL (`isToOrder=false`)
+
+**Condition:** If a `displayedAddress` is provided, it must be included in the `Transport Document` instead of the `address`.""" ;
+    skos:altLabel "consignee" .
+
+<urn:dcsa:ebl:ConsigneeShipper> a owl:Class ;
+    rdfs:label "Consignee (Shipper provided)" ;
+    rdfs:comment """The party to which goods are consigned in the `Master Bill of Lading`.
+
+**Condition:** Mandatory for non-negotiable BL (`isToOrder=false`)
+
+**Condition:** Either the `address` or a party `identifyingCode` must be provided in the `Shipping Instructions`. If a `displayedAddress` is provided, it must be included in the `Transport Document` instead of the `address`.""" ;
+    skos:altLabel "ConsigneeShipper",
+        "consignee shipper" .
+
+<urn:dcsa:ebl:NotifyParty> a owl:Class ;
+    rdfs:label "Notify Party" ;
+    rdfs:comment """The person to be notified when a shipment arrives at its destination.
+
+**Condition:** Either the `address` or a party `identifyingCode` must be provided in the `Shipping Instructions`. If a `displayedAddress` is provided, it must be included in the `Transport Document` instead of the `address`.""" ;
+    skos:altLabel "NotifyParty",
+        "notify party" .
+
+<urn:dcsa:ebl:CargoItem> a owl:Class ;
+    rdfs:label "Cargo Item" ;
+    rdfs:comment "A `cargoItem` is the smallest unit used by stuffing. A `cargoItem` cannot be split across containers." ;
+    skos:altLabel "CargoItem",
+        "cargo item" .
+
+<urn:dcsa:ebl:ConsignmentItem> a owl:Class ;
+    rdfs:label "Consignment Item" ;
+    rdfs:comment "Defines a list of `CargoItems` belonging together and the associated `Booking`. A `ConsignmentItem` can be split across multiple containers (`UtilizedTransportEquipment`) by referencing multiple `CargoItems`" ;
+    skos:altLabel "ConsignmentItem",
+        "consignment item" .
+
+<urn:dcsa:ebl:DocumentPartiesShippingInstructions> a owl:Class ;
+    rdfs:label "Document Parties (Shipping Instructions)" ;
+    rdfs:comment """All `Parties` with associated roles.
+
+**Condition:** `Buyer` and `Seller` are mandatory if `isCargoDeliveredInICS2Zone=true` **and** `advancedManifestFilingPerformedBy=CARRIER` and `isHouseBillOfLadingsIssued=false`""" ;
+    skos:altLabel "DocumentPartiesShippingInstructions",
+        "document parties shipping instructions" .
+
+<urn:dcsa:ebl:Shipper> a owl:Class ;
+    rdfs:label "Shipper" ;
+    rdfs:comment """The party by whom or in whose name or on whose behalf a contract of carriage of goods by sea has been concluded with a carrier, or the party by whom or in whose name, or on whose behalf, the goods are actually delivered to the carrier in relation to the contract of carriage by sea.
+
+**Condition:** Either the `address` or a party `identifyingCode` must be provided in the `Shipping Instructions`. If a `displayedAddress` is provided, it must be included in the `Transport Document` instead of the `address`.""" ;
+    skos:altLabel "shipper" .
+
+<urn:dcsa:ebl:Transports> a owl:Class ;
+    rdfs:label "Transports" ;
+    skos:altLabel "transports" .
+
+<urn:dcsa:ebl:CargoItemShipper> a owl:Class ;
+    rdfs:label "Cargo Item (Shipper)" ;
+    rdfs:comment "A `cargoItem` is the smallest unit used by stuffing. A `cargoItem` cannot be split across containers." ;
+    skos:altLabel "CargoItemShipper",
+        "cargo item shipper" .
+
+<urn:dcsa:ebl:ActiveReeferSettings> a owl:Class ;
+    rdfs:label "Active Reefer Settings" ;
+    rdfs:comment """The specifications for a Reefer equipment.
+
+**Condition:** Only applicable when `isNonOperatingReefer` is set to `false`""" ;
+    skos:altLabel "ActiveReeferSettings",
+        "active reefer settings" .
+
+<urn:dcsa:ebl:HouseBillOfLading> a owl:Class ;
+    rdfs:label "House Bill of Lading" ;
+    rdfs:comment "A legal contract between the Ocean Transport Intermediary (OTI), such as a Non-Vessel Operating Common Carrier (NVOCC) or a freight forwarder, and the shipper that acknowledges the receipt of goods and outlines the terms of shipment." ;
+    skos:altLabel "HouseBillOfLading",
+        "house bill of lading" .
+
+<urn:dcsa:ebl:ConsignmentItemShipper> a owl:Class ;
+    rdfs:label "Consignment Item (Shipper)" ;
+    rdfs:comment "Defines a list of `CargoItems` belonging together and the associated `Booking`. A `ConsignmentItem` can be split across multiple containers (`UtilizedTransportEquipment`) by referencing multiple `CargoItems`" ;
+    skos:altLabel "ConsignmentItemShipper",
+        "consignment item shipper" .
+
+<urn:dcsa:ebl:CustomsReference> a owl:Class ;
+    rdfs:label "Customs Reference" ;
+    rdfs:comment """Reference associated with customs and/or excise purposes required by the relevant authorities for the import, export, or transit of the goods.
+
+A small list of **potential** examples:
+
+| Type  | Country | Description |
+|-------|:-------:|-------------|
+|UCR|NL|Unique Consignment Reference|
+|CUS|NL|Customs Union and Statistics|
+|ACID|EG|Advance Cargo Information Declaration in Egypt|
+|CERS|CA|Canadian Export Reporting System|
+|ITN|US|Internal Transaction Number in US|
+|PEB|ID|PEB reference number|
+|CSN|IN|Cargo Summary Notification (CSN)|""" ;
+    skos:altLabel "CustomsReference",
+        "customs reference" .
+
+<urn:dcsa:ebl:PartyContactDetail> a owl:Class ;
+    rdfs:label "Party Contact Detail" ;
+    rdfs:comment "The contact details of the person to contact. It is mandatory to provide either `phone` and/or `email` along with the `name`, both can be provided." ;
+    skos:altLabel "PartyContactDetail",
+        "party contact detail" .
+
+<urn:dcsa:ebl:PartyAddress> a owl:Class ;
+    rdfs:label "Party Address" ;
+    rdfs:comment "Address where the party is located. It is an object of the attributes below." ;
+    skos:altLabel "PartyAddress",
+        "party address" .
+
+<urn:dcsa:ebl:Address> a owl:Class ;
+    rdfs:label "Address" ;
+    rdfs:comment "An object for storing address related information" ;
+    skos:altLabel "address" .
+
+<urn:dcsa:ebl:IdentifyingCode> a owl:Class ;
+    rdfs:label "Identifying Code" ;
+    skos:altLabel "IdentifyingCode",
+        "identifying code" .
+
+<urn:dcsa:ebl:TaxLegalReference> a owl:Class ;
+    rdfs:label "Tax & Legal Reference" ;
+    rdfs:comment """Reference that uniquely identifies a party for tax and/or legal purposes in accordance with the relevant jurisdiction.
+
+A small list of **potential** examples:
+
+| Type  | Country | Description |
+|-------|:-------:|-------------|
+|EORI|NL|Economic Operators Registration and Identification|
+|PAN|IN|Goods and Services Tax Identification Number in India|
+|GSTIN|IN|Goods and Services Tax Identification Number in India|
+|IEC|IN|Importer-Exported Code in India|
+|RUC|EC|Registro Único del Contribuyente in Ecuador|
+|RUC|PE|Registro Único del Contribuyente in Peru|
+|NIF|MG|Numéro d'Identification Fiscal in Madagascar|
+|NIF|DZ|Numéro d'Identification Fiscal in Algeria|""" ;
+    skos:altLabel "TaxLegalReference",
+        "tax legal reference" .
+
+<urn:dcsa:ebl:DangerousGoods> a owl:Class ;
+    rdfs:label "Dangerous Goods" ;
+    rdfs:comment "Specification for `Dangerous Goods`. It is mandatory to provide one of `UNNumber` or `NANumber`. Dangerous Goods is based on **IMDG Amendment Version 41-22**." ;
+    skos:altLabel "DangerousGoods",
+        "dangerous goods" .
+
+<urn:dcsa:ebl:CreateShippingInstructions> a owl:Class ;
+    rdfs:label "Create Shipping Instructions" ;
+    rdfs:comment "The `Shipping Instructions` is an enrichment to the original booking shared by the Shipper to the Carrier. The information given by the Shipper through the `Shipping Instructions` is the information required to create a `Draft Transport Document`." ;
+    skos:altLabel "CreateShippingInstructions",
+        "create shipping instructions" .
+
+<urn:dcsa:ebl:UpdateShippingInstructions> a owl:Class ;
+    rdfs:label "Update Shipping Instructions" ;
+    rdfs:comment "The `Shipping Instructions` to update." ;
+    skos:altLabel "UpdateShippingInstructions",
+        "update shipping instructions" .
+
+<urn:dcsa:ebl:ShippingInstructions> a owl:Class ;
+    rdfs:label "Shipping Instructions" ;
+    rdfs:comment "The `Shipping Instructions` as provided by the Shipper." ;
+    skos:altLabel "ShippingInstructions",
+        "shipping instructions" .
+
+<urn:dcsa:ebl:TransportDocument> a owl:Class ;
+    rdfs:label "Transport Document" ;
+    rdfs:comment """The document that governs the terms of carriage between shipper and carrier for maritime transportation. Two distinct types of transport documents exist:
+- Bill of Lading
+- Sea Waybill.""" ;
+    skos:altLabel "TransportDocument",
+        "transport document" .
+

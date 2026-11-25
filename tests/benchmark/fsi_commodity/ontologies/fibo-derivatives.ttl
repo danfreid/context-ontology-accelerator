@@ -1,0 +1,2205 @@
+@prefix ns: <https://w3id.org/ontology-registry/fibo-derivatives#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/GovernmentEntities/GovernmentEntities/GovernmentBody> a owl:Class ;
+    rdfs:label "government body" ;
+    rdfs:comment "formal organization that is an agency, instrumentality, or other body of a supranational, national, federal, state, or local government, including certain multijurisdictional agencies and departments that carry out the business of government" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Organizations/FormalOrganization> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/CorporateBodies/hasSharesAuthorized> a owl:DatatypeProperty ;
+    rdfs:label "has shares authorized" ;
+    rdfs:range xsd:nonNegativeInteger .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/FormalBusinessOrganizations/hasRegisteredAddress> a owl:ObjectProperty ;
+    rdfs:label "has registered address" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/Party> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/ConventionalStreetAddress> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/EntityLegalForm> a owl:Class ;
+    rdfs:label "entity legal form" ;
+    rdfs:comment "a classifier for a legal entity that indicates the nature of that entity as defined from a legal or regulatory perspective, in the jurisdiction in which it was established" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/EntityLegalFormIdentifier> a owl:Class ;
+    rdfs:label "entity legal form identifier" ;
+    rdfs:comment "code that denotes an entity legal form as defined in ISO 20275" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeElement> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/EntityLegalFormScheme> a owl:Class ;
+    rdfs:label "entity legal form scheme" ;
+    rdfs:comment "scheme that specifies the elements of the codes for entity legal forms, such as those that are sanctioned in a given jurisdiction as defined in ISO 20725" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeSet> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/LEIRegisteredEntity> a owl:Class ;
+    rdfs:label "LEI registered entity" ;
+    rdfs:comment "a legal person that has registered for and is identified by a legal entity identifier" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Organizations/LegalPerson> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/LegalEntityIdentifier> a owl:Class ;
+    rdfs:label "legal entity identifier" ;
+    rdfs:comment "an organization identifier that uniquely identifies a legal person as defined in ISO 17442" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Organizations/OrganizationIdentifier> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/LegalEntityIdentifierScheme> a owl:Class ;
+    rdfs:label "legal entity identifier scheme" ;
+    rdfs:comment "a scheme that specifies the elements of an unambiguous legal entity identifier (LEI) scheme to identify the legal entities relevant to any financial transaction" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Organizations/OrganizationIdentificationScheme> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/RelationshipStatus> a owl:Class ;
+    rdfs:label "relationship status" ;
+    rdfs:comment "a classifier that specifies the status of the relationship between consolidated entities during the reporting period (active or inactive)" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LEIEntities/hasLegalAddress> a owl:ObjectProperty ;
+    rdfs:label "has legal address" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/Organizations/LegalEntity> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/ConventionalStreetAddress> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/Authorization> a owl:Class ;
+    rdfs:label "Authorization" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/AuthorizedParty> a owl:Class ;
+    rdfs:label "AuthorizedParty" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/AuthorizingParty> a owl:Class ;
+    rdfs:label "AuthorizingParty" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/authorizesThrough> a owl:ObjectProperty ;
+    rdfs:label "authorizesThrough" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/hasAuthorizedParty> a owl:ObjectProperty ;
+    rdfs:label "hasAuthorizedParty" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/hasAuthorizingParty> a owl:ObjectProperty ;
+    rdfs:label "hasAuthorizingParty" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/Executives/isAuthorizedThrough> a owl:ObjectProperty ;
+    rdfs:label "isAuthorizedThrough" .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/CreditDerivative> a owl:Class ;
+    rdfs:label "credit derivative" ;
+    rdfs:comment "derivative instrument that is a privately held, negotiable bilateral contract traded over-the-counter (OTC) between two parties in a creditor/debtor relationship, enabling the creditor to effectively transfer some or all of the risk of a debtor defaulting to a third party" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/InterestRateDerivative> a owl:Class ;
+    rdfs:label "interest rate derivative" ;
+    rdfs:comment "rate-based derivative whose underlier is an interest rate" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/RateBasedDerivative> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/ObservableValue> a owl:Class ;
+    rdfs:label "observable value" ;
+    rdfs:comment "specification for the value for something discernible and for which evidence can be obtained" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/UnderlyingAssetValuation> a owl:Class ;
+    rdfs:label "underlying asset valuation" ;
+    rdfs:comment "assessment activity to estimate the value of an underlying asset of a derivative" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/ValueAssessment> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/hasSettlementTerms> a owl:ObjectProperty ;
+    rdfs:label "has settlement terms" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/SettlementTerms> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/hasValuationTerms> a owl:ObjectProperty ;
+    rdfs:label "has valuation terms" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/ValuationTerms> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/specifiesValueOf> a owl:ObjectProperty ;
+    rdfs:label "specifies value of" .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/FuturesAndForwards/FinancialFuture> a owl:Class ;
+    rdfs:label "financial future" ;
+    rdfs:comment "futures contract based on underlying assets excluding commodities" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Future> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/FuturesAndForwards/Forward> a owl:Class ;
+    rdfs:label "forward" ;
+    rdfs:comment "derivative instrument that is privately negotiated between parties to buy the underlier at a specified future date at the price specified in the contract" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument> ;
+    skos:altLabel "forward contract" .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/CallOption> a owl:Class ;
+    rdfs:label "call option" ;
+    rdfs:comment "option giving the buyer (holder) the right, but not the obligation, to buy the assets specified at a fixed price or formula, on or before a specified date" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Option> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/Moneyness> a owl:Class ;
+    rdfs:label "moneyness" ;
+    rdfs:comment "classifier for a derivative relating its strike price to the price of its underlying asset" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/PutOption> a owl:Class ;
+    rdfs:label "put option" ;
+    rdfs:comment "option giving the buyer (holder) the right, but not the obligation, to sell the assets specified at a fixed price or formula, on or before a specified date" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Option> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/VanillaOption> a owl:Class ;
+    rdfs:label "vanilla option" ;
+    rdfs:comment "common option giving the buyer (holder) the right, but not the obligation, to buy (via a call option) or sell (via a put option) the underlying assets specified at a pre-determined price (i.e., the strike price, fixed or calculated), on or before a specified date (the expiration date)" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Option> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/hasExercisePrice> a owl:ObjectProperty ;
+    rdfs:label "has exercise price" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/StrikePrice> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/hasExerciseSchedule> a owl:ObjectProperty ;
+    rdfs:label "has exercise schedule" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Option> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Schedule> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/hasExerciseStyle> a owl:ObjectProperty ;
+    rdfs:label "has exercise style" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Option> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/ExerciseConventions/ExerciseConvention> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/hasOptionWriter> a owl:ObjectProperty ;
+    rdfs:label "has option writer" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Option> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/OptionIssuer> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/FixedLeg> a owl:Class ;
+    rdfs:label "fixed leg" ;
+    rdfs:comment "swap leg whose paying party is obligated to make payments from time to time over the term of a swap calculated by reference to a fixed annual rate or consisting of at least one payment of a fixed amount" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/SwapLeg> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/FloatingLeg> a owl:Class ;
+    rdfs:label "floating leg" ;
+    rdfs:comment "swap leg whose paying party is obligated to make payments from time to time over the term of a swap calculated by reference to some variable rate, calculated based on the change in value of some underlying asset, or consisting of at least one payment of some floating amount" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/SwapLeg> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/SwapParty> a owl:Class ;
+    rdfs:label "swap party" ;
+    rdfs:comment "party to a swap and therefore a legal party to the contract that embodies that transaction" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractParty> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/SwapPayingParty> a owl:Class ;
+    rdfs:label "swap paying party" ;
+    rdfs:comment "swap party responsible for making payments for a given leg of the transaction as defined in the contract" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/PayingParty> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/SwapReceivingParty> a owl:Class ;
+    rdfs:label "swap receiving party" ;
+    rdfs:comment "swap party that receives payments for a given leg of the transaction as defined in the contract" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/ReceivingParty> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/SwapTerms> a owl:Class ;
+    rdfs:label "swap terms" ;
+    rdfs:comment "legal contractual terms of a swap transaction" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeTerms> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/hasLeg> a owl:ObjectProperty ;
+    rdfs:label "has leg" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/Swap> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/SwapLeg> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/isLegOf> a owl:ObjectProperty ;
+    rdfs:label "is leg of" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/SwapLeg> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/Swap> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/CreditAgreement> a owl:Class ;
+    rdfs:label "credit agreement" ;
+    rdfs:comment "contractual agreement in which a debtor receives something of value and typically agrees to repay the creditor by some date in the future, in some form (e.g., cash, securities, etc.), generally with interest" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/WrittenContract> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/DayCountConvention> a owl:Class ;
+    rdfs:label "day-count convention" ;
+    rdfs:comment "a business recurrence interval convention that is used to calculate the number of days in an interest payment, which applies to the amount of accrued interest or the present value for debt instruments" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/BusinessDates/BusinessRecurrenceIntervalConvention> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/DebtTerms> a owl:Class ;
+    rdfs:label "debt terms" ;
+    rdfs:comment "contract terms that specify the formal rights and obligations of borrower and lender under a contract in which funds are lent from the one party to the other" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractualCommitment> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/FixedInterestRate> a owl:Class ;
+    rdfs:label "fixed interest rate" ;
+    rdfs:comment "interest rate that does not fluctuate over the lifetime of a loan or other debt instrument" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/InterestRate> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/isOwed> a owl:ObjectProperty ;
+    rdfs:label "is owed" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Creditor> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Debt> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/isOwedBy> a owl:ObjectProperty ;
+    rdfs:label "is owed by" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Debt> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Debtor> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/isOwedTo> a owl:ObjectProperty ;
+    rdfs:label "is owed to" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Debt> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Creditor> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/owes> a owl:ObjectProperty ;
+    rdfs:label "owes" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Debtor> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Debt> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/hasUnderlier> a owl:ObjectProperty ;
+    rdfs:label "has underlier" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Underlier> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/isDenominatedIn> a owl:ObjectProperty ;
+    rdfs:label "is denominated in" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/isLegallyRecordedIn> a owl:ObjectProperty ;
+    rdfs:label "is legally recorded in" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument> ;
+    rdfs:range <https://www.omg.org/spec/Commons/RegulatoryAgencies/Jurisdiction> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/isNegotiable> a owl:DatatypeProperty ;
+    rdfs:label "is negotiable" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument> ;
+    rdfs:range xsd:boolean .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/InstrumentPricing/hasLotSize> a owl:DatatypeProperty ;
+    rdfs:label "has lot size" ;
+    rdfs:range xsd:decimal .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/InstrumentPricing/hasPriceDeterminationMethod> a owl:ObjectProperty ;
+    rdfs:label "has price determination method" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/InstrumentPricing/PriceDeterminationMethod> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/BusinessRegistries/EntityExpirationReason> a owl:Class ;
+    rdfs:label "entity expiration reason" ;
+    rdfs:comment "code for the reason that a legal entity ceased to exist and/or operate" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeElement> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/BusinessRegistries/EntityStatus> a owl:Class ;
+    rdfs:label "entity status" ;
+    rdfs:comment "lifecycle stage indicating the operational and/or legal status of an entity" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStage> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/BusinessRegistries/EntityValidationLevel> a owl:Class ;
+    rdfs:label "entity validation level" ;
+    rdfs:comment "code for the level of validation performed by the GLEIF or LOU with respect to the reference data provided by the registrant" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeElement> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/BusinessRegistries/RegistrationStatus> a owl:Class ;
+    rdfs:label "registration status" ;
+    rdfs:comment "lifecycle stage indicating the status of a given registration of something, such as a business or legal entity, as specified by the registration authority" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStage> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/Markets/CryptoAssetServicesProvider> a owl:Class ;
+    rdfs:label "crypto asset services provider" ;
+    rdfs:comment "financial services provider that provides services for crypto assets that enable the control of crypto assets, and participate in, or provide, financial services for issuers' offers, or sale, of crypto assets" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/FinancialServiceProvider> ;
+    skos:altLabel "CASP" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/Markets/DataReportingServicesProvider> a owl:Class ;
+    rdfs:label "data reporting services provider" ;
+    rdfs:comment "market data provider and reporting party that reports and/or publishes data on securities transactions, including required regulatory reporting for such transactions, and as such is subject to regulatory supervision" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/Publishers/MarketDataProvider> ;
+    skos:altLabel "DRSP" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/Markets/Exchange> a owl:Class ;
+    rdfs:label "exchange" ;
+    rdfs:comment "any organization, association, or group of persons, whether incorporated or unincorporated, which constitutes, maintains, or provides a facility for bringing together purchasers and sellers of financial instruments, commodities, or other products, services, or goods, and includes the market place and facilities maintained by such exchange" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "market" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/Markets/MarketCategoryClassifier> a owl:Class ;
+    rdfs:label "market category classifier" ;
+    rdfs:comment "classifier representing the controlled vocabulary that delineates the nature of the exchange or data reporting services provider where possible" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/Markets/MarketIdentifierCodeStatus> a owl:Class ;
+    rdfs:label "market indicator code status" ;
+    rdfs:comment "lifecycle stage indicating the status of the MIC code, as specified by the registration authority" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStage> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/Markets/MarketLevelClassifier> a owl:Class ;
+    rdfs:label "market level classifier" ;
+    rdfs:comment "classifier that indicates whether the exchange or data reporting services provider is an operating level or market segment level facility" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/Markets/TradeReportingFacility> a owl:Class ;
+    rdfs:label "trade reporting facility" ;
+    rdfs:comment "facility that provides a mechanism for the reporting of transactions effected otherwise than on an exchange" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "TRF" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/Markets/operatesInCountry> a owl:ObjectProperty ;
+    rdfs:label "operates in country" ;
+    rdfs:range <https://www.omg.org/spec/Commons/Locations/Country> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FunctionalEntities/Markets/operatesInMunicipality> a owl:ObjectProperty ;
+    rdfs:label "operates in municipality" ;
+    rdfs:range <https://www.omg.org/spec/Commons/Locations/Municipality> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/AccountProvider> a owl:Class ;
+    rdfs:label "account provider" ;
+    rdfs:comment "party that provides and services an account" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Organizations/ServiceProvider> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LedgerAccount> a owl:Class ;
+    rdfs:label "ledger account" ;
+    rdfs:comment "individual record for one element or sub-element in a ledger that records and summarizes increases, decreases, and balances associated with that specific element" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LedgerAccountClassifier> a owl:Class ;
+    rdfs:label "ledger account classifier" ;
+    rdfs:comment "classifier used to organize an entity's financial accounts in accordance with applicable legal, regulatory, and reporting requirements" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasBalance> a owl:ObjectProperty ;
+    rdfs:label "has balance" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Balance> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/hasOpenDate> a owl:ObjectProperty ;
+    rdfs:label "has open date" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/OpenDate> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/Trade> a owl:Class ;
+    rdfs:label "trade" ;
+    rdfs:comment "situation that realizes an agreement between parties participating in a voluntary action of buying and selling goods and services" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/TradeLifecycle> a owl:Class ;
+    rdfs:label "trade lifecycle" ;
+    rdfs:comment "lifecycle that defines the evolution of a trade, from initiation through settlement" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/Lifecycle> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/TradeLifecycleEvent> a owl:Class ;
+    rdfs:label "trade lifecycle event" ;
+    rdfs:comment "kind of event that occurs during one or more stages of the lifecycle of a trade" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleEvent> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/TradeLifecycleStage> a owl:Class ;
+    rdfs:label "trade lifecycle stage" ;
+    rdfs:comment "phase in the lifecycle of a trade" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStage> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/isEmbodiedIn> a owl:ObjectProperty ;
+    rdfs:label "is embodied in" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/CurrencyIdentifier> a owl:Class ;
+    rdfs:label "currency identifier" ;
+    rdfs:comment "sequence of characters representing some currency" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeElement> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Funds> a owl:Class ;
+    rdfs:label "funds" ;
+    rdfs:comment "artificial currency used as calculation basis for another currency(s) and accounting purposes" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/FundsIdentifier> a owl:Class ;
+    rdfs:label "funds identifier" ;
+    rdfs:comment "sequence of characters that can be used to uniquely identify funds" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeElement> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/PreciousMetal> a owl:Class ;
+    rdfs:label "precious metal" ;
+    rdfs:comment "metal that is considered to be rare and/or have a high economic value" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/NegotiableCommodity> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/PreciousMetalIdentifier> a owl:Class ;
+    rdfs:label "precious metal identifier" ;
+    rdfs:comment "sequence of characters uniquely identifying the precious metal in some context" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeElement> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/UnitOfAccount> a owl:Class ;
+    rdfs:label "unit of account" ;
+    rdfs:comment "nominal monetary unit of measure used to represent the real value (or cost) of any economic item; i.e. goods, services, assets, liabilities, income, expenses" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/UnitOfAccountIdentifier> a owl:Class ;
+    rdfs:label "unit of account identifier" ;
+    rdfs:comment "sequence of characters that can be used to uniquely identify a nominal monetary unit" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeElement> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasAmount> a owl:DatatypeProperty ;
+    rdfs:label "has amount" ;
+    rdfs:range xsd:decimal .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasBaseCurrency> a owl:ObjectProperty ;
+    rdfs:label "has base currency" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasCurrency> a owl:ObjectProperty ;
+    rdfs:label "has currency" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasDealtCurrency> a owl:ObjectProperty ;
+    rdfs:label "has dealt currency" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasMinorUnit> a owl:DatatypeProperty ;
+    rdfs:label "has minor unit" ;
+    rdfs:range xsd:string .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasMonetaryAmount> a owl:ObjectProperty ;
+    rdfs:label "has monetary amount" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasNotionalAmount> a owl:ObjectProperty ;
+    rdfs:label "has notional amount" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasNumericCode> a owl:DatatypeProperty ;
+    rdfs:label "has numeric code" ;
+    rdfs:range xsd:string .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasPrice> a owl:ObjectProperty ;
+    rdfs:label "has price" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Price> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/hasRateValue> a owl:DatatypeProperty ;
+    rdfs:label "has rate value" ;
+    rdfs:range xsd:decimal .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/isPriceFor> a owl:ObjectProperty ;
+    rdfs:label "is price for" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Price> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/hasObligation> a owl:ObjectProperty ;
+    rdfs:label "has obligation" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligor> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/isObligationOf> a owl:ObjectProperty ;
+    rdfs:label "is obligation of" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligor> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasContractDuration> a owl:ObjectProperty ;
+    rdfs:label "has contract duration" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract> ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/Duration> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasContractParty> a owl:ObjectProperty ;
+    rdfs:label "has contract party" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractParty> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasContractualElement> a owl:ObjectProperty ;
+    rdfs:label "has contractual element" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractualElement> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasCounterparty> a owl:ObjectProperty ;
+    rdfs:label "has counterparty" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Counterparty> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasEffectiveDate> a owl:ObjectProperty ;
+    rdfs:label "has effective date" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/Date> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasGoverningJurisdiction> a owl:ObjectProperty ;
+    rdfs:label "has governing jurisdiction" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract> ;
+    rdfs:range <https://www.omg.org/spec/Commons/RegulatoryAgencies/Jurisdiction> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasPrincipalParty> a owl:ObjectProperty ;
+    rdfs:label "has principal party" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractPrincipal> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/hasTerm> a owl:ObjectProperty ;
+    rdfs:label "has term" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/Duration> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/isAssignable> a owl:DatatypeProperty ;
+    rdfs:label "is assignable" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract> ;
+    rdfs:range xsd:boolean .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/isEvidenceFor> a owl:ObjectProperty ;
+    rdfs:label "is evidence for" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/isEvidencedBy> a owl:ObjectProperty ;
+    rdfs:label "is evidenced by" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/AssessmentActivity> a owl:Class ;
+    rdfs:label "assessment activity" ;
+    rdfs:comment "activity involving the evaluation or estimation of the nature, quality, ability, or value of someone or something" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/OccurrenceKind> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/Opinion> a owl:Class ;
+    rdfs:label "opinion" ;
+    rdfs:comment "judgement, appraisal, or view about something" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/hasAppraiser> a owl:ObjectProperty ;
+    rdfs:label "has appraiser" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/hasDateOfAssessment> a owl:ObjectProperty ;
+    rdfs:label "has date of assessment" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/ClassificationSchemes/IndustrySectorClassificationScheme> a owl:Class ;
+    rdfs:label "industry sector classification scheme" ;
+    rdfs:comment "system for allocating classifiers to organizations by industry sector" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/ClassificationSchemes/IndustrySectorClassifier> a owl:Class ;
+    rdfs:label "industry sector classifier" ;
+    rdfs:comment "standardized classification or delineation for an organization, or possibly for a security representing an interest in a given organization, per some scheme for such delineation, by industry" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/hasExpirationDate> a owl:ObjectProperty ;
+    rdfs:label "has expiration date" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/Date> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Documents/hasReportingPeriod> a owl:ObjectProperty ;
+    rdfs:label "has reporting period" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDatePeriod> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/IdentifiersAndIndices/IndexingScheme> a owl:Class ;
+    rdfs:label "indexing scheme" ;
+    rdfs:comment "system for indexing values, data, information, or knowledge" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/IdentifiersAndIndices/isIndexTo> a owl:ObjectProperty ;
+    rdfs:label "is index to" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/IdentifiersAndIndices/Index> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleEventOccurrence> a owl:Class ;
+    rdfs:label "lifecycle event occurrence" ;
+    rdfs:comment "realization of an event in a stage of a lifecycle" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/Occurrence> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleOccurrence> a owl:Class ;
+    rdfs:label "lifecycle occurrence" ;
+    rdfs:comment "realization of a lifecycle" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/Occurrence> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStageOccurrence> a owl:Class ;
+    rdfs:label "lifecycle stage occurrence" ;
+    rdfs:comment "realization of a phase in a given lifecycle" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/Occurrence> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/hasLifecycle> a owl:ObjectProperty ;
+    rdfs:label "has lifecycle" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/Lifecycle> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/hasStage> a owl:ObjectProperty ;
+    rdfs:label "has stage" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/isLifecycleOf> a owl:ObjectProperty ;
+    rdfs:label "is lifecycle of" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/Lifecycle> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/isStageOf> a owl:ObjectProperty ;
+    rdfs:label "is stage of" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Reporting/Report> a owl:Class ;
+    rdfs:label "report" ;
+    rdfs:comment "document that provides a structured description of something, prepared on ad hoc, periodic, recurring, regular, or as required basis" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Reporting/ReportingParty> a owl:Class ;
+    rdfs:label "reporting party" ;
+    rdfs:comment "party providing a report, typically in response to some contractual, legal, regulatory or other business requirement" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Reporting/isReportedTo> a owl:ObjectProperty ;
+    rdfs:label "is reported to" ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/BusinessDates/BusinessDayConvention> a owl:Class ;
+    rdfs:label "business day convention" ;
+    rdfs:comment "convention that enumerates the possible ways to handle a date that falls on a weekend or holiday" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/BusinessDates/BusinessRecurrenceIntervalConvention> ;
+    skos:altLabel "business day adjustment" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/BusinessDates/DayOfWeek> a owl:Class ;
+    rdfs:label "day of the week" ;
+    rdfs:comment "specific, recurring day of the week" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/BusinessDates/BusinessRecurrenceInterval> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/BusinessDates/hasBusinessRecurrenceIntervalConvention> a owl:ObjectProperty ;
+    rdfs:label "has business recurrence interval convention" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/BusinessDates/BusinessRecurrenceIntervalConvention> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DatedCollectionConstituent> a owl:Class ;
+    rdfs:label "dated collection constituent" ;
+    rdfs:comment "element of a collection that is associated with a date and time" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/DatedStructuredCollection> a owl:Class ;
+    rdfs:label "dated structured collection" ;
+    rdfs:comment "structured collection whose elements are required to have a date and time" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/ExplicitRecurrenceInterval> a owl:Class ;
+    rdfs:label "explicit recurrence interval" ;
+    rdfs:comment "recurrence interval defined via an explicit duration" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasAcquisitionDate> a owl:DatatypeProperty ;
+    rdfs:label "has acquisition date" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/CombinedDateTime> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasOverallPeriod> a owl:ObjectProperty ;
+    rdfs:label "has overall period" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Schedule> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/hasSchedule> a owl:ObjectProperty ;
+    rdfs:label "has schedule" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Schedule> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/hasEventDate> a owl:ObjectProperty ;
+    rdfs:label "has event date" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/Date> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/hasEventDateValue> a owl:DatatypeProperty ;
+    rdfs:label "has event date value" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/CombinedDateTime> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/hasOutput> a owl:ObjectProperty ;
+    rdfs:label "has output" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/isOutputFrom> a owl:ObjectProperty ;
+    rdfs:label "is output from" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/GoalsAndObjectives/Objectives/hasStrategy> a owl:ObjectProperty ;
+    rdfs:label "has strategy" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCapacity/ContractualObligation> a owl:Class ;
+    rdfs:label "contractual obligation" ;
+    rdfs:comment "legally binding obligation that arises from the terms of a contract" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCapacity/LegalObligation> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCapacity/ContractualRight> a owl:Class ;
+    rdfs:label "contractual right" ;
+    rdfs:comment "legally enforceable benefit or entitlement granted to a party within a binding agreement" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCapacity/Regulation> a owl:Class ;
+    rdfs:label "regulation" ;
+    rdfs:comment "a rule used to carry out a law" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCapacity/implies> a owl:ObjectProperty ;
+    rdfs:label "implies" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCapacity/isImpliedBy> a owl:ObjectProperty ;
+    rdfs:label "is implied by" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCore/StatuteLaw> a owl:Class ;
+    rdfs:label "statute law" ;
+    rdfs:comment "law enacted by a legislature" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCore/Law> ;
+    skos:altLabel "statutory law" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCore/hasInForce> a owl:ObjectProperty ;
+    rdfs:label "has in force" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCore/Law> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCore/isInForceIn> a owl:ObjectProperty ;
+    rdfs:label "is in force in" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCore/Law> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/FinancialAsset> a owl:Class ;
+    rdfs:label "financial asset" ;
+    rdfs:comment "non-physical, tangible asset whose value is derived from a contractual claim, such as bank deposits, bonds, stocks, rights, certificates, and bank balances" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/TangibleAsset> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/ShareholdersEquity> a owl:Class ;
+    rdfs:label "shareholders' equity" ;
+    rdfs:comment "equity that is manifested in the form of shares in an entity, fund or structured product" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/hasOwnedAsset> a owl:ObjectProperty ;
+    rdfs:label "has owned asset" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Ownership> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Asset> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/hasOwningParty> a owl:ObjectProperty ;
+    rdfs:label "has owning party" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Ownership> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Owner> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/isAssetOf> a owl:ObjectProperty ;
+    rdfs:label "is asset of" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Asset> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Owner> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/isOwnedAsset> a owl:ObjectProperty ;
+    rdfs:label "is owned asset" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Asset> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Ownership> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/isOwningParty> a owl:ObjectProperty ;
+    rdfs:label "is owning party" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Owner> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Ownership> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/ownsAsset> a owl:ObjectProperty ;
+    rdfs:label "owns asset" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Owner> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Asset> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/SecondaryUnitDesignator> a owl:Class ;
+    rdfs:label "secondary unit designator" ;
+    rdfs:comment "classifier for a smaller structure or component within a larger facility, such as an apartment, office, mail stop, or other similar designation" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/hasAddress> a owl:ObjectProperty ;
+    rdfs:label "has address" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/Address> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/requiresSecondaryUnitRange> a owl:DatatypeProperty ;
+    rdfs:label "requires secondary unit range" ;
+    rdfs:range xsd:boolean .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/Payee> a owl:Class ;
+    rdfs:label "payee" ;
+    rdfs:comment "a party to whom a debt should be paid, or to whose order a bill of exchange, note, or check is made payable, or who receives or will receive a payment from a payer in partial or complete fulfillment of an obligation" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligee> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/Payer> a owl:Class ;
+    rdfs:label "payer" ;
+    rdfs:comment "a party who pays a bill or fees, or who makes payments to a payee in partial or complete fulfillment of an obligation" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligor> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/PaymentsAndSchedules/PaymentObligation> a owl:Class ;
+    rdfs:label "payment obligation" ;
+    rdfs:comment "legally enforceable duty to pay a sum of money according to the terms stated in a contract" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Commitment> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/buys> a owl:ObjectProperty ;
+    rdfs:label "buys" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Buyer> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Product> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/hasBuyer> a owl:ObjectProperty ;
+    rdfs:label "has buyer" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Buyer> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/hasSeller> a owl:ObjectProperty ;
+    rdfs:label "has seller" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Seller> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/sells> a owl:ObjectProperty ;
+    rdfs:label "sells" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Seller> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Product> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/confers> a owl:ObjectProperty ;
+    rdfs:label "confers" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/embodies> a owl:ObjectProperty ;
+    rdfs:label "embodies" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/evaluates> a owl:ObjectProperty ;
+    rdfs:label "evaluates" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/exchanges> a owl:ObjectProperty ;
+    rdfs:label "exchanges" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/exemplifies> a owl:ObjectProperty ;
+    rdfs:label "exemplifies" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/generates> a owl:ObjectProperty ;
+    rdfs:label "generates" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasDesignation> a owl:ObjectProperty ;
+    rdfs:label "hasDesignation" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/hasTag> a owl:DatatypeProperty ;
+    rdfs:label "hasTag" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/involves> a owl:ObjectProperty ;
+    rdfs:label "involves" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/isConferredBy> a owl:ObjectProperty ;
+    rdfs:label "is conferred by" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/isEvaluatedBy> a owl:ObjectProperty ;
+    rdfs:label "is evaluated by" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/isExemplifiedBy> a owl:ObjectProperty ;
+    rdfs:label "is exemplified by" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/isGeneratedBy> a owl:ObjectProperty ;
+    rdfs:label "is generated by" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/isIssuedBy> a owl:ObjectProperty ;
+    rdfs:label "is issued by" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/isMandatedBy> a owl:ObjectProperty ;
+    rdfs:label "is mandated by" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/issues> a owl:ObjectProperty ;
+    rdfs:label "issues" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Relations/Relations/mandates> a owl:ObjectProperty ;
+    rdfs:label "mandates" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/StatisticalAreaIdentifier> a owl:Class ;
+    rdfs:label "statistical area identifier" ;
+    rdfs:comment "identifier for a physical location that is defined per a nationally consistent program for designating geographic regions for the purposes of tabulating and presenting statistical data" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Locations/GeographicRegionIdentifier> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/WeightingFunction> a owl:Class ;
+    rdfs:label "weighting function" ;
+    rdfs:comment "expression or function that determines the relative importance or influence of a given element of a set with respect to the whole" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/StatisticalMeasure> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/hasWeight> a owl:DatatypeProperty ;
+    rdfs:label "has weight" ;
+    rdfs:range xsd:decimal .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/isEstimate> a owl:DatatypeProperty ;
+    rdfs:label "is estimate" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/StatisticalMeasure> ;
+    rdfs:range xsd:boolean .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/AnnotationVocabulary/MaturityLevel> a owl:Class ;
+    rdfs:label "maturity level" ;
+    rdfs:comment "classifier used to indicate the state of an artifact with respect to its development lifecycle" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStage> .
+
+<https://spec.edmcouncil.org/fibo/ontology/IND/EconomicIndicators/EconomicIndicators/EconomicIndicator> a owl:Class ;
+    rdfs:label "economic indicator" ;
+    rdfs:comment "statistical measure of economic activity that is regular and comparable in the context of a statistical area (region), used for analysis of economic performance and predictions of future performance" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/ScopedMeasure> .
+
+<https://spec.edmcouncil.org/fibo/ontology/IND/EconomicIndicators/EconomicIndicators/GovernmentSpecifiedStatisticalArea> a owl:Class ;
+    rdfs:label "government-specified statistical area" ;
+    rdfs:comment "statistical area defined by a government agency" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/StatisticalArea> .
+
+<https://spec.edmcouncil.org/fibo/ontology/IND/ForeignExchange/ForeignExchange/QuotedExchangeRate> a owl:Class ;
+    rdfs:label "quoted exchange rate" ;
+    rdfs:comment "exchange rate quoted at a specific point in time, for a given block amount of currency as quoted against another (base) currency" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/ExchangeRate> .
+
+<https://spec.edmcouncil.org/fibo/ontology/IND/ForeignExchange/ForeignExchange/hasExchangeRateQuotationSource> a owl:ObjectProperty ;
+    rdfs:label "has exchange rate quotation source" .
+
+<https://spec.edmcouncil.org/fibo/ontology/IND/ForeignExchange/ForeignExchange/hasQuoteCurrency> a owl:ObjectProperty ;
+    rdfs:label "has quote currency" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency> .
+
+<https://spec.edmcouncil.org/fibo/ontology/IND/Indicators/Indicators/MarketRate> a owl:Class ;
+    rdfs:label "market rate" ;
+    rdfs:comment "value of a rate established in the marketplace for a set of instruments or that describes the economic climate for an industry and/or political region (e.g., SOFR, Prime)" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/QuantitiesAndUnits/Ratio> .
+
+<https://spec.edmcouncil.org/fibo/ontology/IND/InterestRates/InterestRates/InterestRateBenchmark> a owl:Class ;
+    rdfs:label "interest rate benchmark" ;
+    rdfs:comment "classifier for regularly updated interest rates that are publicly accessible, typically set by a central bank or group of financial institutions" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/QuantitiesAndUnits/QuantityKind> .
+
+<https://spec.edmcouncil.org/fibo/ontology/IND/InterestRates/InterestRates/ReferenceInterestRate> a owl:Class ;
+    rdfs:label "reference interest rate" ;
+    rdfs:comment "market rate that is a rate of interest paid by or agreed among some bank or set of banks" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/InterestRate> .
+
+<https://spec.edmcouncil.org/fibo/ontology/IND/InterestRates/InterestRates/hasReferenceCurrency> a owl:ObjectProperty ;
+    rdfs:label "has reference currency" ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency> .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/PartialRedemptionAllocationConvention> a owl:Class ;
+    rdfs:label "partial redemption allocation convention" ;
+    rdfs:comment "convention used to determine how the partial call will be actioned with respect to bond selection" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/Bonds/RateBasisConvention> a owl:Class ;
+    rdfs:label "rate basis convention" ;
+    rdfs:comment "basis for a percentage quoted rate as used in specifying bond call percentage amounts" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/DebtInstruments/RelativePrice> a owl:Class ;
+    rdfs:label "relative price" ;
+    rdfs:comment "security price specified in comparison with either a stated or market value for a debt instrument at some point in time" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/InstrumentPricing/SecurityPrice> .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Equities/EquityInstruments/confersNumberOfVotesPerShare> a owl:DatatypeProperty ;
+    rdfs:label "number of votes per share" ;
+    rdfs:range xsd:decimal .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Equities/EquityInstruments/confersOwnershipOf> a owl:ObjectProperty ;
+    rdfs:label "confers ownership of" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract> .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Equities/EquityInstruments/hasSharePaymentStatus> a owl:ObjectProperty ;
+    rdfs:label "has share payment status" ;
+    rdfs:domain <https://spec.edmcouncil.org/fibo/ontology/SEC/Equities/EquityInstruments/Share> ;
+    rdfs:range <https://spec.edmcouncil.org/fibo/ontology/SEC/Equities/EquityInstruments/SharePaymentStatus> .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/Baskets/BasketOfIndices> a owl:Class ;
+    rdfs:label "market basket" ;
+    rdfs:comment "basket composed of market indices" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/WeightedBasket> .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/Baskets/BasketOfIndicesConstituent> a owl:Class ;
+    rdfs:label "basket Of indices constituent" ;
+    rdfs:comment "single constituent of a basket of indices" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/WeightedBasketConstituent> .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesClassification/ClassificationOfFinancialInstrumentsCodeScheme> a owl:Class ;
+    rdfs:label "classification of financial instruments code scheme" ;
+    rdfs:comment "classification scheme for set of codes for financial instruments that can be used globally for straight-through processing by all involved participants in an electronic data processing environment" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesClassification/FinancialInstrumentClassificationScheme> ;
+    skos:altLabel "CFI code scheme" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesClassification/FinancialInstrumentClassificationCode> a owl:Class ;
+    rdfs:label "financial instrument classification code" ;
+    rdfs:comment "classifier and code for a financial instrument defined in the ISO 10962 Classification of Financial Instruments (CFI) Code Scheme" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesClassification/FinancialInstrumentClassifier> ;
+    skos:altLabel "CFI code" .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesIssuance/SecurityForm> a owl:Class ;
+    rdfs:label "security form" ;
+    rdfs:comment "nature of the proof of ownership of a security" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractDocument> .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesListings/ListingService> a owl:Class ;
+    rdfs:label "listing service" ;
+    rdfs:comment "service provided by an exchange to facilitate securities trading" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/FinancialService> .
+
+<https://w3id.org/ontology-registry/fibo-derivatives> a owl:Ontology ;
+    rdfs:label "FIBO Derivatives" ;
+    owl:versionInfo "1" .
+
+<https://www.omg.org/spec/Commons/BusinessAuthorizations/authorizesThrough> a owl:ObjectProperty ;
+    rdfs:label "authorizes through" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/BusinessAuthorizations/AuthorizingParty> ;
+    rdfs:range <https://www.omg.org/spec/Commons/BusinessAuthorizations/Authorization> .
+
+<https://www.omg.org/spec/Commons/BusinessAuthorizations/hasAuthorizedParty> a owl:ObjectProperty ;
+    rdfs:label "has authorized party" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/BusinessAuthorizations/Authorization> ;
+    rdfs:range <https://www.omg.org/spec/Commons/BusinessAuthorizations/AuthorizedParty> .
+
+<https://www.omg.org/spec/Commons/BusinessAuthorizations/hasAuthorizingParty> a owl:ObjectProperty ;
+    rdfs:label "has authorizing party" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/BusinessAuthorizations/Authorization> ;
+    rdfs:range <https://www.omg.org/spec/Commons/BusinessAuthorizations/AuthorizingParty> .
+
+<https://www.omg.org/spec/Commons/BusinessAuthorizations/isAuthorizedThrough> a owl:ObjectProperty ;
+    rdfs:label "is authorized through" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/BusinessAuthorizations/AuthorizedParty> ;
+    rdfs:range <https://www.omg.org/spec/Commons/BusinessAuthorizations/Authorization> .
+
+<https://www.omg.org/spec/Commons/Classifiers/classifies> a owl:ObjectProperty ;
+    rdfs:label "classifies" .
+
+<https://www.omg.org/spec/Commons/Classifiers/isClassifiedBy> a owl:ObjectProperty ;
+    rdfs:label "is classified by" .
+
+<https://www.omg.org/spec/Commons/Collections/compliesWith> a owl:ObjectProperty ;
+    rdfs:label "complies with" .
+
+<https://www.omg.org/spec/Commons/Collections/comprises> a owl:ObjectProperty ;
+    rdfs:label "comprises" .
+
+<https://www.omg.org/spec/Commons/Collections/hasConstituent> a owl:ObjectProperty ;
+    rdfs:label "has constituent" .
+
+<https://www.omg.org/spec/Commons/Collections/hasMember> a owl:ObjectProperty ;
+    rdfs:label "has member" .
+
+<https://www.omg.org/spec/Commons/Collections/hasPart> a owl:ObjectProperty ;
+    rdfs:label "has part" .
+
+<https://www.omg.org/spec/Commons/Collections/isConstituentOf> a owl:ObjectProperty ;
+    rdfs:label "is constituent of" .
+
+<https://www.omg.org/spec/Commons/Collections/isIncludedIn> a owl:ObjectProperty ;
+    rdfs:label "is included in" .
+
+<https://www.omg.org/spec/Commons/Collections/isMemberOf> a owl:ObjectProperty ;
+    rdfs:label "is member of" .
+
+<https://www.omg.org/spec/Commons/Collections/isPartOf> a owl:ObjectProperty ;
+    rdfs:label "is part of" .
+
+<https://www.omg.org/spec/Commons/ContextualDesignators/appliesTo> a owl:ObjectProperty ;
+    rdfs:label "applies to" .
+
+<https://www.omg.org/spec/Commons/ContextualDesignators/hasApplicablePeriod> a owl:ObjectProperty ;
+    rdfs:label "has applicable period" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/DatePeriod> .
+
+<https://www.omg.org/spec/Commons/ContextualDesignators/isApplicableIn> a owl:ObjectProperty ;
+    rdfs:label "is applicable in" .
+
+<https://www.omg.org/spec/Commons/ContextualDesignators/isUsedBy> a owl:ObjectProperty ;
+    rdfs:label "is used by" .
+
+<https://www.omg.org/spec/Commons/ContextualDesignators/uses> a owl:ObjectProperty ;
+    rdfs:label "uses" .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDuration> a owl:Class ;
+    rdfs:label "explicit duration" ;
+    rdfs:comment "duration for which the 'has duration value' property must have a value" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/DatesAndTimes/Duration> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/ProperInterval> a owl:Class ;
+    rdfs:label "proper interval" ;
+    rdfs:comment "time interval with a non-zero extent or duration" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasDate> a owl:ObjectProperty ;
+    rdfs:label "has date" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/Date> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasDatePeriod> a owl:ObjectProperty ;
+    rdfs:label "has date period" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/DatePeriod> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasDateValue> a owl:DatatypeProperty ;
+    rdfs:label "has date value" ;
+    rdfs:range xsd:string .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasDuration> a owl:ObjectProperty ;
+    rdfs:label "has duration" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/Duration> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasDurationValue> a owl:DatatypeProperty ;
+    rdfs:label "has duration value" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/DatesAndTimes/Duration> ;
+    rdfs:range xsd:string .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasEnd> a owl:ObjectProperty ;
+    rdfs:label "has end" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/TimeInstant> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasEndDate> a owl:ObjectProperty ;
+    rdfs:label "has end date" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/Date> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasExplicitDate> a owl:ObjectProperty ;
+    rdfs:label "has explicit date" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasObservedDateTime> a owl:DatatypeProperty ;
+    rdfs:label "has observed date and time" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/CombinedDateTime> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasStart> a owl:ObjectProperty ;
+    rdfs:label "has start" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/TimeInstant> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/hasStartDate> a owl:ObjectProperty ;
+    rdfs:label "has start date" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/Date> .
+
+<https://www.omg.org/spec/Commons/Designators/defines> a owl:ObjectProperty ;
+    rdfs:label "defines" .
+
+<https://www.omg.org/spec/Commons/Designators/denotes> a owl:ObjectProperty ;
+    rdfs:label "denotes" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/Designators/Designation> .
+
+<https://www.omg.org/spec/Commons/Designators/hasTag> a owl:DatatypeProperty ;
+    rdfs:label "has tag" ;
+    rdfs:range xsd:string .
+
+<https://www.omg.org/spec/Commons/Designators/isDefinedIn> a owl:ObjectProperty ;
+    rdfs:label "is defined in" .
+
+<https://www.omg.org/spec/Commons/Designators/isSignifiedBy> a owl:ObjectProperty ;
+    rdfs:label "is signified by" ;
+    rdfs:range <https://www.omg.org/spec/Commons/Designators/Designation> .
+
+<https://www.omg.org/spec/Commons/Documents/records> a owl:ObjectProperty ;
+    rdfs:label "records" .
+
+<https://www.omg.org/spec/Commons/Identifiers/identifies> a owl:ObjectProperty ;
+    rdfs:label "identifies" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/Identifiers/Identifier> .
+
+<https://www.omg.org/spec/Commons/Identifiers/isIdentifiedBy> a owl:ObjectProperty ;
+    rdfs:label "is identified by" ;
+    rdfs:range <https://www.omg.org/spec/Commons/Identifiers/Identifier> .
+
+<https://www.omg.org/spec/Commons/Locations/GeographicRegionIdentificationScheme> a owl:Class ;
+    rdfs:label "geographic region identification scheme" ;
+    rdfs:comment "identification scheme dedicated to the unique identification of geographic regions" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/Locations/GeographicRegionKind> a owl:Class ;
+    rdfs:label "geographic region kind" ;
+    rdfs:comment "classifier for a geographic region, including but not limited to a subdivision of a geopolitical entity, (noting that there may be more than one kind for a given country or other entity)" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/Locations/Location> a owl:Class ;
+    rdfs:label "location" ;
+    rdfs:comment "place or position in time and/or space, including a virtual place" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/Locations/hasCountry> a owl:ObjectProperty ;
+    rdfs:label "has country" ;
+    rdfs:range <https://www.omg.org/spec/Commons/Locations/Country> .
+
+<https://www.omg.org/spec/Commons/Locations/hasCoverageArea> a owl:ObjectProperty ;
+    rdfs:label "has coverage area" ;
+    rdfs:range <https://www.omg.org/spec/Commons/Locations/GeographicRegion> .
+
+<https://www.omg.org/spec/Commons/Locations/hasMunicipality> a owl:ObjectProperty ;
+    rdfs:label "has municipality" ;
+    rdfs:range <https://www.omg.org/spec/Commons/Locations/Municipality> .
+
+<https://www.omg.org/spec/Commons/Locations/hasRegion> a owl:ObjectProperty ;
+    rdfs:label "has region" ;
+    rdfs:range <https://www.omg.org/spec/Commons/Locations/GeographicRegion> .
+
+<https://www.omg.org/spec/Commons/Locations/hasSubdivision> a owl:ObjectProperty ;
+    rdfs:label "has subdivision" ;
+    rdfs:range <https://www.omg.org/spec/Commons/Locations/CountrySubdivision> .
+
+<https://www.omg.org/spec/Commons/Locations/isIndependent> a owl:DatatypeProperty ;
+    rdfs:label "is independent" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/Locations/GeopoliticalEntity> ;
+    rdfs:range xsd:boolean .
+
+<https://www.omg.org/spec/Commons/Organizations/designates> a owl:ObjectProperty ;
+    rdfs:label "designates" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://www.omg.org/spec/Commons/Organizations/isDesignatedBy> a owl:ObjectProperty ;
+    rdfs:label "is designated by" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://www.omg.org/spec/Commons/Organizations/isManagedBy> a owl:ObjectProperty ;
+    rdfs:label "is managed by" ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://www.omg.org/spec/Commons/Organizations/isProvidedBy> a owl:ObjectProperty ;
+    rdfs:label "is provided by" .
+
+<https://www.omg.org/spec/Commons/Organizations/manages> a owl:ObjectProperty ;
+    rdfs:label "manages" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://www.omg.org/spec/Commons/Organizations/provides> a owl:ObjectProperty ;
+    rdfs:label "provides" .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/actsIn> a owl:ObjectProperty ;
+    rdfs:label "acts in" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/Actor> ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/hasActor> a owl:ObjectProperty ;
+    rdfs:label "has actor" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/Actor> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/hasObjectRole> a owl:ObjectProperty ;
+    rdfs:label "has object role" ;
+    rdfs:range <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/hasParty> a owl:ObjectProperty ;
+    rdfs:label "has party" ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/Party> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/hasPartyRole> a owl:ObjectProperty ;
+    rdfs:label "has party role" ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/hasRelatedPartyRole> a owl:ObjectProperty ;
+    rdfs:label "has related party role" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/hasSubjectRole> a owl:ObjectProperty ;
+    rdfs:label "has subject role" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> ;
+    rdfs:range <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/hasUndergoer> a owl:ObjectProperty ;
+    rdfs:label "has undergoer" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/Undergoer> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/holdsDuring> a owl:ObjectProperty ;
+    rdfs:label "holds during" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/DatePeriod> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/isAPartyTo> a owl:ObjectProperty ;
+    rdfs:label "is a party to" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/Party> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/isObjectRoleIn> a owl:ObjectProperty ;
+    rdfs:label "is object role in" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/isSubjectRoleIn> a owl:ObjectProperty ;
+    rdfs:label "is subject role in" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/undergoes> a owl:ObjectProperty ;
+    rdfs:label "undergoes" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/PartiesAndSituations/Undergoer> ;
+    rdfs:range <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/hasDenominator> a owl:ObjectProperty ;
+    rdfs:label "has denominator" .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/hasDimension> a owl:ObjectProperty ;
+    rdfs:label "has dimension" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/QuantitiesAndUnits/QuantityKind> ;
+    rdfs:range <https://www.omg.org/spec/Commons/QuantitiesAndUnits/QuantityDimension> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/hasExpression> a owl:ObjectProperty ;
+    rdfs:label "has expression" .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/hasMeasurementUnit> a owl:ObjectProperty ;
+    rdfs:label "has measurement unit" ;
+    rdfs:range <https://www.omg.org/spec/Commons/QuantitiesAndUnits/MeasurementUnit> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/hasNumerator> a owl:ObjectProperty ;
+    rdfs:label "has numerator" .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/hasNumericValue> a owl:DatatypeProperty ;
+    rdfs:label "has numeric value" ;
+    rdfs:range xsd:decimal .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/hasQuantityKind> a owl:ObjectProperty ;
+    rdfs:label "has quantity kind" ;
+    rdfs:range <https://www.omg.org/spec/Commons/QuantitiesAndUnits/QuantityKind> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/hasQuantityValue> a owl:ObjectProperty ;
+    rdfs:label "has quantity value" ;
+    rdfs:range <https://www.omg.org/spec/Commons/QuantitiesAndUnits/ScalarQuantityValue> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/isDimensionOf> a owl:ObjectProperty ;
+    rdfs:label "is dimension of" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/QuantitiesAndUnits/QuantityDimension> ;
+    rdfs:range <https://www.omg.org/spec/Commons/QuantitiesAndUnits/QuantityKind> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/isValueOf> a owl:ObjectProperty ;
+    rdfs:label "is value of" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/QuantitiesAndUnits/ScalarQuantityValue> .
+
+<https://www.omg.org/spec/Commons/RegistrationAuthorities/RegisteredIdentifier> a owl:Class ;
+    rdfs:label "registered identifier" ;
+    rdfs:comment "contextual identifier that is registered in a registry by, or on behalf of, a registration authority according to some registration scheme" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/ContextualIdentifiers/ContextualIdentifier> .
+
+<https://www.omg.org/spec/Commons/RegistrationAuthorities/RegistrationAuthority> a owl:Class ;
+    rdfs:label "registration authority" ;
+    rdfs:comment "service provider that is officially responsible for maintaining a registry and providing registration services and/or for delegating of some or all of these roles to a registrar" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/BusinessAuthorizations/AuthorizingParty> ;
+    skos:altLabel "RA" .
+
+<https://www.omg.org/spec/Commons/RegistrationAuthorities/RegistrationScheme> a owl:Class ;
+    rdfs:label "registration scheme" ;
+    rdfs:comment "scheme for organizing information in a registry and allocating identifiers to registered items" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/RegistrationAuthorities/hasRegistrationDate> a owl:DatatypeProperty ;
+    rdfs:label "has registration date" ;
+    rdfs:range <https://www.omg.org/spec/Commons/DatesAndTimes/CombinedDateTime> .
+
+<https://www.omg.org/spec/Commons/RegistrationAuthorities/isRegisteredBy> a owl:ObjectProperty ;
+    rdfs:label "is registered by" ;
+    rdfs:range <https://www.omg.org/spec/Commons/RegistrationAuthorities/Registrar> .
+
+<https://www.omg.org/spec/Commons/RegistrationAuthorities/isRegisteredIn> a owl:ObjectProperty ;
+    rdfs:label "is registered in" ;
+    rdfs:range <https://www.omg.org/spec/Commons/RegistrationAuthorities/Registry> .
+
+<https://www.omg.org/spec/Commons/RegistrationAuthorities/registers> a owl:ObjectProperty ;
+    rdfs:label "registers" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/RegistrationAuthorities/Registrar> .
+
+<https://www.omg.org/spec/Commons/RegulatoryAgencies/governs> a owl:ObjectProperty ;
+    rdfs:label "governs" .
+
+<https://www.omg.org/spec/Commons/RegulatoryAgencies/hasReach> a owl:ObjectProperty ;
+    rdfs:label "has reach" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/RegulatoryAgencies/Jurisdiction> ;
+    rdfs:range <https://www.omg.org/spec/Commons/Locations/GeographicRegion> .
+
+<https://www.omg.org/spec/Commons/RegulatoryAgencies/isGovernedBy> a owl:ObjectProperty ;
+    rdfs:label "is governed by" .
+
+<https://www.omg.org/spec/Commons/RegulatoryAgencies/isOrganizedIn> a owl:ObjectProperty ;
+    rdfs:label "is organized in" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/Organizations/LegalEntity> ;
+    rdfs:range <https://www.omg.org/spec/Commons/RegulatoryAgencies/Jurisdiction> .
+
+<https://www.omg.org/spec/Commons/RegulatoryAgencies/isRecognizedIn> a owl:ObjectProperty ;
+    rdfs:label "is recognized in" ;
+    rdfs:range <https://www.omg.org/spec/Commons/RegulatoryAgencies/Jurisdiction> .
+
+<https://www.omg.org/spec/Commons/RolesAndCompositions/Composition> a owl:Class ;
+    rdfs:label "composition" ;
+    rdfs:comment "distinct thing resulting from bringing together other things, possibly in specific roles, for a particular purpose" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/RolesAndCompositions/hasRole> a owl:ObjectProperty ;
+    rdfs:label "has role" ;
+    rdfs:range <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> .
+
+<https://www.omg.org/spec/Commons/RolesAndCompositions/isPlayedBy> a owl:ObjectProperty ;
+    rdfs:label "is played by" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> .
+
+<https://www.omg.org/spec/Commons/RolesAndCompositions/isRoleIn> a owl:ObjectProperty ;
+    rdfs:label "is role in" ;
+    rdfs:domain <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> .
+
+<https://www.omg.org/spec/Commons/RolesAndCompositions/playsRole> a owl:ObjectProperty ;
+    rdfs:label "plays role" ;
+    rdfs:range <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/Alpha2Code> a owl:Class ;
+    rdfs:label "alpha-2 code" ;
+    rdfs:comment "a digraph representing a country or geographic region" ;
+    rdfs:subClassOf <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/GeographicRegionIdentifier> .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/Alpha3Code> a owl:Class ;
+    rdfs:label "alpha-3 code" ;
+    rdfs:comment "a trigraph representing a country or geographic region" ;
+    rdfs:subClassOf <https://www.omg.org/spec/LCC/Countries/CountryRepresentation/GeographicRegionIdentifier> .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/Country> a owl:Class ;
+    rdfs:label "country" ;
+    rdfs:comment "a geopolitical entity representing a country or dependent territory" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/hasEnglishFullName> a owl:DatatypeProperty ;
+    rdfs:label "has English full name" .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/hasEnglishShortName> a owl:DatatypeProperty ;
+    rdfs:label "has English short name" .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/hasEnglishShortNameInCapitals> a owl:DatatypeProperty ;
+    rdfs:label "has English short name in capitals" .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/hasFrenchFullName> a owl:DatatypeProperty ;
+    rdfs:label "has French full name" .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/hasFrenchShortName> a owl:DatatypeProperty ;
+    rdfs:label "has French short name" .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/hasFrenchShortNameInCapitals> a owl:DatatypeProperty ;
+    rdfs:label "has French short name in capitals" .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/hasNumericRegionCode> a owl:DatatypeProperty ;
+    rdfs:label "has numeric region code" ;
+    rdfs:range xsd:string .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/hasRemarks> a owl:DatatypeProperty ;
+    rdfs:label "has remarks" ;
+    rdfs:range xsd:string .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/isIndependent> a owl:DatatypeProperty ;
+    rdfs:label "is independent" ;
+    rdfs:range xsd:boolean .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/CodeSet> a owl:Class ;
+    rdfs:label "code set" ;
+    rdfs:comment "a system of alpha-numeric symbols, or combinations of symbols, that stand for specified values in some context" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "coding scheme" .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/IdentificationScheme> a owl:Class ;
+    rdfs:label "identification scheme" ;
+    rdfs:comment "a system for allocating identifiers to objects" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/Identifier> a owl:Class ;
+    rdfs:label "identifier" ;
+    rdfs:comment "a sequence of characters uniquely identifying something that it is associated with for some purpose and within a specified context" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/IndividualLanguageIdentifier> a owl:Class ;
+    rdfs:label "individual language identifier" ;
+    rdfs:comment "a language identifier whose scope is that of an individual (distinct) language" ;
+    rdfs:subClassOf <https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/LanguageIdentifier> .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/denotes> a owl:ObjectProperty ;
+    rdfs:label "denotes" .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/hasDenotation> a owl:ObjectProperty ;
+    rdfs:label "has denotation" .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/hasMember> a owl:ObjectProperty ;
+    rdfs:label "has member" .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/hasTag> a owl:DatatypeProperty ;
+    rdfs:label "has tag" ;
+    rdfs:range xsd:string .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/isMemberOf> a owl:ObjectProperty ;
+    rdfs:label "is member of" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/FunctionalEntities/FunctionalBusinessEntity> a owl:Class ;
+    rdfs:label "functional business entity" ;
+    rdfs:comment "functional entity defined in terms of the nature of the commercial activity it conducts" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/FunctionalEntities/FunctionalEntity> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/Publishers/MarketDataProvider> a owl:Class ;
+    rdfs:label "market data provider" ;
+    rdfs:comment "publisher that supplies financial information, reference data, analytics, or related datasets used in financial markets" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/Publishers/Publisher> .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/Publishers/Publisher> a owl:Class ;
+    rdfs:label "publisher" ;
+    rdfs:comment "role of person(s) or organization(s) responsible for the printing or distribution of an item, whether in digital or print (physical) form" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/CashflowTerms> a owl:Class ;
+    rdfs:label "cashflow terms" ;
+    rdfs:comment "terms setting out a cashflow structure of payments committed to by one party to a contract" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeTerms> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument> a owl:Class ;
+    rdfs:label "over-the-counter derivative instrument" ;
+    rdfs:comment "derivative instrument that is not listed on an organized exchange" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterInstrument> ;
+    skos:altLabel "OTC derivative instrument" .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterInstrument> a owl:Class ;
+    rdfs:label "over-the-counter instrument" ;
+    rdfs:comment "financial instrument and bilateral contract that is not listed on an organized exchange" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument> ;
+    skos:altLabel "OTC instrument" .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/PayingParty> a owl:Class ;
+    rdfs:label "paying party" ;
+    rdfs:comment "party responsible for making payments in a transaction specified in a contract" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractParty> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/RateBasedDerivative> a owl:Class ;
+    rdfs:label "rate-based derivative" ;
+    rdfs:comment "derivative instrument where the holder has the right but may not have the obligation, depending on the nature of the instrument, to enter into the underlying contract, or pay or receive payment related to the underlying financial rate (or rate contract) on a specified future date based on a specified future rate and term" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/ReceivingParty> a owl:Class ;
+    rdfs:label "receiving counterparty" ;
+    rdfs:comment "party that receives payments in a transaction specified in a contract" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractParty> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/ValuationTerms> a owl:Class ;
+    rdfs:label "valuation terms" ;
+    rdfs:comment "contract terms specific to valuation of the underlying asset(s)" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeTerms> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/OptionIssuer> a owl:Class ;
+    rdfs:label "option issuer" ;
+    rdfs:comment "issuer granting the rights defined in the option in exchange for some consideration" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Issuer> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Options/StrikePrice> a owl:Class ;
+    rdfs:label "strike price" ;
+    rdfs:comment "price at which a lot of the underlying asset may be bought or sold when the contract is exercised" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryPrice> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/EquityInstrument> a owl:Class ;
+    rdfs:label "equity instrument" ;
+    rdfs:comment "financial instrument representing an ownership interest in an entity or pool of assets" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Security> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Future> a owl:Class ;
+    rdfs:label "future" ;
+    rdfs:comment "derivative instrument that obligates the buyer to receive and the seller to deliver the assets specified at an agreed price, at some later point in time" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument> ;
+    skos:altLabel "futures contract" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Issuer> a owl:Class ;
+    rdfs:label "issuer" ;
+    rdfs:comment "role of a party that makes (or proposes to make) one or more financial instruments available in some well-defined, typically formal way" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractPrincipal> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Security> a owl:Class ;
+    rdfs:label "security" ;
+    rdfs:comment "financial instrument that can be bought or sold" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Underlier> a owl:Class ;
+    rdfs:label "underlier" ;
+    rdfs:comment "something that can be assigned a value in the marketplace that forms the basis for a derivative or pool-backed instrument" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Undergoer> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/InstrumentPricing/PriceDeterminationMethod> a owl:Class ;
+    rdfs:label "price determination method" ;
+    rdfs:comment "strategy for calculating or otherwise establishing a price for something" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/InstrumentPricing/SecurityPrice> a owl:Class ;
+    rdfs:label "security price" ;
+    rdfs:comment "monetary price for a financial instrument at some point in time" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryPrice> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account> a owl:Class ;
+    rdfs:label "account" ;
+    rdfs:comment "container for records associated with a business arrangement for regular transactions and services" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Balance> a owl:Class ;
+    rdfs:label "balance" ;
+    rdfs:comment "amount of money available or owed" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/OpenDate> a owl:Class ;
+    rdfs:label "open date" ;
+    rdfs:comment "date on which something was created" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/Basket> a owl:Class ;
+    rdfs:label "basket" ;
+    rdfs:comment "collection of goods, services, or other things (e.g., financial contracts) that can be purchased and sold in some marketplace" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/BasketConstituent> a owl:Class ;
+    rdfs:label "basket constituent" ;
+    rdfs:comment "component of a basket" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/FinancialService> a owl:Class ;
+    rdfs:label "financial service" ;
+    rdfs:comment "service provided to consumers and businesses by financial institutions such as banks, insurance companies, brokerage firms, consumer finance companies, and investment companies" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Organizations/Service> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/FinancialServiceProvider> a owl:Class ;
+    rdfs:label "financial service provider" ;
+    rdfs:comment "functional entity either licensed to provide financial services to consumers and/or businesses or established by law to provide financial services, such as a central bank" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/FunctionalEntities/FunctionalBusinessEntity> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/SettlementTerms> a owl:Class ;
+    rdfs:label "settlement terms" ;
+    rdfs:comment "contract terms that define the commitment to and mechanism for settling one or more sides of a transaction" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractualCommitment> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/WeightedBasket> a owl:Class ;
+    rdfs:label "weighted basket" ;
+    rdfs:comment "basket whose constituents have some relative importance with respect to one another" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/Basket> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/WeightedBasketConstituent> a owl:Class ;
+    rdfs:label "weighted basket constituent" ;
+    rdfs:comment "component of a basket whose relative importance with respect to other basket constituents is known" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/FinancialProductsAndServices/BasketConstituent> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/ExchangeRate> a owl:Class ;
+    rdfs:label "exchange rate" ;
+    rdfs:comment "rate at which one currency can be exchanged for another" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/QuantitiesAndUnits/Ratio> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/PercentageMonetaryAmount> a owl:Class ;
+    rdfs:label "percentage monetary amount" ;
+    rdfs:comment "measure of some amount of money expressed as a percentage of some other amount, some notional amount or some concrete money amount" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/QuantitiesAndUnits/Percentage> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractDocument> a owl:Class ;
+    rdfs:label "contract document" ;
+    rdfs:comment "legal document that records the formal terms and conditions of some contract" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Counterparty> a owl:Class ;
+    rdfs:label "counterparty" ;
+    rdfs:comment "party to a contract with whom one negotiates on a given agreement" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractParty> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/AssessmentEvent> a owl:Class ;
+    rdfs:label "assessment event" ;
+    rdfs:comment "event involving the evaluation or estimation of the nature, quality, or ability of someone or something" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/Occurrence> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/ValueAssessment> a owl:Class ;
+    rdfs:label "value assessment" ;
+    rdfs:comment "assessment event to estimate the value of something" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Assessments/AssessmentEvent> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleEvent> a owl:Class ;
+    rdfs:label "lifecycle event" ;
+    rdfs:comment "kind of event that occurs during one or more stages of a lifecycle" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/OccurrenceKind> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStatus> a owl:Class ;
+    rdfs:label "lifecycle status" ;
+    rdfs:comment "classifier indicating the position or state of something at a particular point in its life-cycle" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/BusinessDates/BusinessRecurrenceInterval> a owl:Class ;
+    rdfs:label "business recurrence interval" ;
+    rdfs:comment "recurrence interval that is defined per a specific convention that determines how recurring days should be handled" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCapacity/LegalObligation> a owl:Class ;
+    rdfs:label "legal obligation" ;
+    rdfs:comment "an obligation or duty that is enforceable by a court" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/TangibleAsset> a owl:Class ;
+    rdfs:label "tangible asset" ;
+    rdfs:comment "asset that is a physical, measurable resource, i.e., one that takes a physical form" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Asset> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/PhysicalAddress> a owl:Class ;
+    rdfs:label "physical address" ;
+    rdfs:comment "physical address where communications can be addressed, papers served or representatives located for any kind of organization or person" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/Address> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Commodity> a owl:Class ;
+    rdfs:label "commodity" ;
+    rdfs:comment "material resource used in commerce that is interchangeable with other commodities of the same type" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Good> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Good> a owl:Class ;
+    rdfs:label "good" ;
+    rdfs:comment "physical, produced item over which ownership rights can be established, whose ownership can be passed from one party to another by engaging in transactions, and that is not money or real estate" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/NegotiableCommodity> a owl:Class ;
+    rdfs:label "negotiable commodity" ;
+    rdfs:comment "commodity that can be bought or sold in some marketplace" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Commodity> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/QualifiedMeasure> a owl:Class ;
+    rdfs:label "qualified measure" ;
+    rdfs:comment "statistical measure that is constrained by features, quantity kinds or units that refine how it is calculated" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/StatisticalMeasure> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/ScopedMeasure> a owl:Class ;
+    rdfs:label "scoped measure" ;
+    rdfs:comment "qualified measure that is constrained by filters on the statistical population to which it applies" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/QualifiedMeasure> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/StatisticalArea> a owl:Class ;
+    rdfs:label "statistical area" ;
+    rdfs:comment "physical location that is defined per some program for designating geographic regions for the purposes of tabulating and presenting statistical data" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Locations/GeographicRegion> .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Debt/ExerciseConventions/ExerciseConvention> a owl:Class ;
+    rdfs:label "exercise convention" ;
+    rdfs:comment "convention that determines when the holder or future holder of an option can implement the rights defined in the option" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Equities/EquityInstruments/Share> a owl:Class ;
+    rdfs:label "share" ;
+    rdfs:comment "financial instrument that signifies a unit of equity ownership in a corporation, or a unit of ownership in a mutual fund, or interest in a general or limited partnership, or a unit of ownership in a structured product, such as a real estate investment trust" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/EquityInstrument> .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Equities/EquityInstruments/SharePaymentStatus> a owl:Class ;
+    rdfs:label "share payment status" ;
+    rdfs:comment "classifier that specifies the overall payment status for shares issued" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStatus> .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesClassification/FinancialInstrumentClassificationScheme> a owl:Class ;
+    rdfs:label "financial instrument classification scheme" ;
+    rdfs:comment "classification scheme defining a set of classifiers for financial instruments" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/SEC/Securities/SecuritiesClassification/FinancialInstrumentClassifier> a owl:Class ;
+    rdfs:label "financial instrument classifier" ;
+    rdfs:comment "classifier for a financial instrument based on its type and features" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeSet> a owl:Class ;
+    rdfs:label "code set" ;
+    rdfs:comment "system of alpha-numeric symbols, or combinations of symbols, that stand for specified values in some context" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "coding scheme" .
+
+<https://www.omg.org/spec/Commons/ContextualDesignators/Context> a owl:Class ;
+    rdfs:label "context" ;
+    rdfs:comment "situation or frame of reference in which something applies, exists, happens, or is used and that helps to illustrate or explain it" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/ContextualDesignators/ContextualDesignation> a owl:Class ;
+    rdfs:label "contextual designation" ;
+    rdfs:comment "designation that applies to something in some context" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Designators/Designation> .
+
+<https://www.omg.org/spec/Commons/ContextualIdentifiers/ContextualIdentifier> a owl:Class ;
+    rdfs:label "contextual identifier" ;
+    rdfs:comment "sequence of characters uniquely identifying that with which it is associated, within a specified context" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/ContextualDesignators/ContextualDesignation> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDatePeriod> a owl:Class ;
+    rdfs:label "explicit date period" ;
+    rdfs:comment "date period for which the start date, end date, and/or duration are required" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/DatesAndTimes/DatePeriod> .
+
+<https://www.omg.org/spec/Commons/Locations/GeographicRegionIdentifier> a owl:Class ;
+    rdfs:label "geographic region identifier" ;
+    rdfs:comment "string of letters that indicates a code or other identifier for geographical region, assigned for the purpose of uniquely identifying it within some context" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeElement> .
+
+<https://www.omg.org/spec/Commons/Organizations/LegalPerson> a owl:Class ;
+    rdfs:label "legal person" ;
+    rdfs:comment "party that is recognized as having rights and obligations under the law, including but not limited to the right to sue and be sued, enter into contracts, own property, and incur financial and other obligations" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Party> .
+
+<https://www.omg.org/spec/Commons/Organizations/Organization> a owl:Class ;
+    rdfs:label "organisation" ;
+    rdfs:comment "framework of authority within which a person, persons, or groups of people act, or are designated to act, towards some purpose, such as to meet a need or pursue collective goals" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Party> .
+
+<https://www.omg.org/spec/Commons/Organizations/OrganizationIdentificationScheme> a owl:Class ;
+    rdfs:label "organization identification scheme" ;
+    rdfs:comment "identification scheme dedicated to the unique identification of organizations" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/Organizations/OrganizationIdentifier> a owl:Class ;
+    rdfs:label "organisation identifier" ;
+    rdfs:comment "identifier assigned to an organization within an organization identification scheme, and unique within that scheme" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Identifiers/Identifier> .
+
+<https://www.omg.org/spec/Commons/Organizations/Service> a owl:Class ;
+    rdfs:label "service" ;
+    rdfs:comment "intangible activity performed by some party for the benefit of another party" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/Agent> a owl:Class ;
+    rdfs:label "agent" ;
+    rdfs:comment "something autonomous that can adapt to and interact with its environment" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/AgentRole> a owl:Class ;
+    rdfs:label "agent role" ;
+    rdfs:comment "role played by any agent" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/Percentage> a owl:Class ;
+    rdfs:label "percentage" ;
+    rdfs:comment "ratio value expressed as a fraction of 100, i.e., in which the denominator is fixed rather than variable and equal to 100" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/QuantitiesAndUnits/Ratio> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/ScalarQuantity> a owl:Class ;
+    rdfs:label "scalar quantity" ;
+    rdfs:comment "property of a phenomenon, body, or substance, where the property has a magnitude that can be expressed by means of a number and a reference" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/RegistrationAuthorities/Registry> a owl:Class ;
+    rdfs:label "registry" ;
+    rdfs:comment "authoritative record or collection of records relating to something" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/LanguageIdentifier> a owl:Class ;
+    rdfs:label "language identifier" ;
+    rdfs:comment "a string of characters that uniquely identifies a linguistic entity" ;
+    rdfs:subClassOf <https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/CodeElement> ;
+    skos:altLabel "language symbol" .
+
+<https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/FunctionalEntities/FunctionalEntity> a owl:Class ;
+    rdfs:label "functional entity" ;
+    rdfs:comment "party defined in terms of a function they or it performs" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/RolesAndCompositions/FunctionalRole> .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/Swap> a owl:Class ;
+    rdfs:label "swap" ;
+    rdfs:comment "derivative instrument whereby counterparties agree to exchange periodic streams of cash flows or liabilities from two different financial instruments with each other" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Creditor> a owl:Class ;
+    rdfs:label "creditor" ;
+    rdfs:comment "a party to whom an obligation, such as an amount of money, or good, or performance of some service exists" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligee> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Debtor> a owl:Class ;
+    rdfs:label "debtor" ;
+    rdfs:comment "a party that owes a debt or other obligation to another party" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligor> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/InterestRate> a owl:Class ;
+    rdfs:label "interest rate" ;
+    rdfs:comment "amount charged, expressed as a percentage of principal, in exchange for the use of assets" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/PercentageMonetaryAmount> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryPrice> a owl:Class ;
+    rdfs:label "monetary price" ;
+    rdfs:comment "price that that is expressed as a monetary amount" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Price> a owl:Class ;
+    rdfs:label "price" ;
+    rdfs:comment "amount of money, goods, or services requested, expected, required, or given in exchange for something else" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/QuantitiesAndUnits/ScalarQuantityValue> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement> a owl:Class ;
+    rdfs:label "agreement" ;
+    rdfs:comment "negotiated understanding between two or more parties, reflecting the offer and acceptance of commitments on the part of either party" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Commitment> a owl:Class ;
+    rdfs:label "commitment" ;
+    rdfs:comment "promise made by some party to act or refrain from acting in some manner" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligee> a owl:Class ;
+    rdfs:label "obligee" ;
+    rdfs:comment "party to whom some commitment or obligation is owed, either legally or per the terms of an agreement" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractPrincipal> a owl:Class ;
+    rdfs:label "contract principal" ;
+    rdfs:comment "party that originates a contract and is identified as the first party to that contract, in the event that the contract distinguishes any party as such" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractParty> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractualElement> a owl:Class ;
+    rdfs:label "contractual element" ;
+    rdfs:comment "element, such as an arrangement, provision, requirement, rule, specification, and standard that forms an integral part of an agreement" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/WrittenContract> a owl:Class ;
+    rdfs:label "written contract" ;
+    rdfs:comment "formal contract that is written and signed by the parties thereto" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/IdentifiersAndIndices/Index> a owl:Class ;
+    rdfs:label "index" ;
+    rdfs:comment "indirect shortcut derived from and pointing into, a greater volume of values, data, information or knowledge" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/OccurrenceKind> a owl:Class ;
+    rdfs:label "occurrence kind" ;
+    rdfs:comment "classifier that specifies the general nature of an occurrence (event)" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/Address> a owl:Class ;
+    rdfs:label "address" ;
+    rdfs:comment "index to a location to which communications may be delivered" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/IdentifiersAndIndices/Index> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/ConventionalStreetAddress> a owl:Class ;
+    rdfs:label "conventional street address" ;
+    rdfs:comment "physical address that identifies a location on a street to which communications may be delivered" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Places/Addresses/PhysicalAddress> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Buyer> a owl:Class ;
+    rdfs:label "buyer" ;
+    rdfs:comment "party that purchases something in exchange for money or other consideration under a contract of sale" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> ;
+    skos:altLabel "buyer",
+        "purchaser" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Product> a owl:Class ;
+    rdfs:label "product" ;
+    rdfs:comment "commercially distributed good that is (1) tangible property, (2) the output or result of a fabrication, manufacturing, or production process, or (3) something that passes through a distribution channel before being consumed or used." ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/ProductsAndServices/ProductsAndServices/Seller> a owl:Class ;
+    rdfs:label "seller" ;
+    rdfs:comment "party that makes, offers or contracts to make a sale to an actual or potential buyer" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> ;
+    skos:altLabel "purveyor",
+        "vendor" .
+
+<https://www.omg.org/spec/Commons/BusinessAuthorizations/AuthorizedParty> a owl:Class ;
+    rdfs:label "authorised party" ;
+    rdfs:comment "party that has been given the ability to act on behalf of another party or to have specified capabilities under some set of guidelines for some period of time" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/RolesAndCompositions/FunctionalRole> .
+
+<https://www.omg.org/spec/Commons/Locations/Country> a owl:Class ;
+    rdfs:label "country" ;
+    rdfs:comment "geopolitical entity representing a distinct territorial body or political entity or dependent territory" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Locations/GeopoliticalEntity> .
+
+<https://www.omg.org/spec/Commons/Locations/CountrySubdivision> a owl:Class ;
+    rdfs:label "country subdivision" ;
+    rdfs:comment "geopolitical entity that is a legal division of a country, dependency, or other area of special geopolitical interest related to a country or other geopolitical entity" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Locations/GeopoliticalEntity> .
+
+<https://www.omg.org/spec/Commons/Locations/Municipality> a owl:Class ;
+    rdfs:label "municipality" ;
+    rdfs:comment "urban administrative division having corporate status and usually powers of self-government or jurisdiction" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Locations/CountrySubdivision> .
+
+<https://www.omg.org/spec/Commons/Organizations/FormalOrganization> a owl:Class ;
+    rdfs:label "formal organisation" ;
+    rdfs:comment "organization that is recognized in some legal jurisdiction, with associated rights and responsibilities" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Organizations/Organization> .
+
+<https://www.omg.org/spec/Commons/Organizations/LegalEntity> a owl:Class ;
+    rdfs:label "legal entity" ;
+    rdfs:comment "legal person that is a partnership, corporation, or other organization having the capacity to negotiate contracts, assume financial obligations, and pay off debts, organized under the laws of some jurisdiction" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Organizations/FormalOrganization> ;
+    skos:altLabel "artificial person",
+        "juridical entity",
+        "juridical person",
+        "juristic person" .
+
+<https://www.omg.org/spec/Commons/Organizations/ServiceProvider> a owl:Class ;
+    rdfs:label "service provider" ;
+    rdfs:comment "role of an agent that provides some service, including but not limited to commercial or professional services" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/BE/FunctionalEntities/FunctionalEntities/FunctionalEntity> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/MeasurementUnit> a owl:Class ;
+    rdfs:label "measurement unit" ;
+    rdfs:comment "real scalar quantity, defined and adopted by convention, with which any other quantity of the same kind can be compared to express the ratio of the second quantity to the first one as a number" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/QuantitiesAndUnits/ScalarQuantity> ;
+    skos:altLabel "unit of measurement" .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/QuantityDimension> a owl:Class ;
+    rdfs:label "quantity dimension" ;
+    rdfs:comment "expression of the dependence of a quantity on the base quantities of a system of quantities as a product of powers of factors corresponding to the base quantities, omitting any numerical factor" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "dimension",
+        "dimension of a quantity" .
+
+<https://www.omg.org/spec/Commons/RegistrationAuthorities/Registrar> a owl:Class ;
+    rdfs:label "registrar" ;
+    rdfs:comment "role of a party that acts as a representative of a registration authority to provide registration services, including official record keeping" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Organizations/ServiceProvider> .
+
+<https://www.omg.org/spec/Commons/RolesAndCompositions/FunctionalRole> a owl:Class ;
+    rdfs:label "functional role" ;
+    rdfs:comment "role representing an underlying functionality that something, such as a person, organization, process, or service, is expected to perform or deliver" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> .
+
+<https://www.omg.org/spec/LCC/Countries/CountryRepresentation/GeographicRegionIdentifier> a owl:Class ;
+    rdfs:label "geographic region identifier" ;
+    rdfs:comment "a string of letters assigned to a country or other geographic region for the purpose of uniquely representing it" ;
+    rdfs:subClassOf <https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/CodeElement> .
+
+<https://www.omg.org/spec/LCC/Languages/LanguageRepresentation/CodeElement> a owl:Class ;
+    rdfs:label "code element" ;
+    rdfs:comment "a sequence of characters denoting something that it is associated with for some purpose, within a specified context, according to some rule set" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeTerms> a owl:Class ;
+    rdfs:label "derivative terms" ;
+    rdfs:comment "contractual terms specific to derivative contracts, including terms related to payments and delivery between parties" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractualCommitment> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractualCommitment> a owl:Class ;
+    rdfs:label "contractual commitment" ;
+    rdfs:comment "provision specifying something that the contracting parties agree to, i.e., a promise or pledge made by one of the parties to perform some action or fulfill some duty" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractualElement> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/Lifecycle> a owl:Class ;
+    rdfs:label "lifecycle" ;
+    rdfs:comment "arrangement that compares the cyclical nature of families, organizations, processes, products, marketing, and order management, portfolio management or other systems with the cradle to grave life stages (birth, growth, maturity, decay, and death) of living organisms" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/BusinessDates/BusinessRecurrenceIntervalConvention> a owl:Class ;
+    rdfs:label "business recurrence interval convention" ;
+    rdfs:comment "convention that specifies how recurring days should be handled, such as the end of the month, a particular day of the month, a day of the week, or more specifically, a t-bill auction date" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/FinancialDates/Schedule> a owl:Class ;
+    rdfs:label "schedule" ;
+    rdfs:comment "collection of events, observations, or other occurrences and the associated dates and/or times when they will be done" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Law/LegalCore/Law> a owl:Class ;
+    rdfs:label "law" ;
+    rdfs:comment "rule recognized by some community as regulating the behavior of its members and that it may enforce through the imposition of penalties" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Utilities/Analytics/StatisticalMeasure> a owl:Class ;
+    rdfs:label "statistical measure" ;
+    rdfs:comment "summary (means, mode, total, index, etc.) of the individual quantitative variable values for the statistical units in a specific group (study domain)" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/BusinessAuthorizations/AuthorizingParty> a owl:Class ;
+    rdfs:label "authorising party" ;
+    rdfs:comment "party that delegates some role, authority, or control to another party" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Actor> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/ExplicitDate> a owl:Class ;
+    rdfs:label "explicit date" ;
+    rdfs:comment "date in which the 'has date value' property is required" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/DatesAndTimes/Date> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/TimeInstant> a owl:Class ;
+    rdfs:label "time instant" ;
+    rdfs:comment "temporal entity that is a member of a time scale, with no extent or duration" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "instant in time",
+        "time point" .
+
+<https://www.omg.org/spec/Commons/Identifiers/Identifier> a owl:Class ;
+    rdfs:label "identifier" ;
+    rdfs:comment "sequence of characters uniquely identifying that with which it is associated" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Designators/Designation> .
+
+<https://www.omg.org/spec/Commons/Locations/GeopoliticalEntity> a owl:Class ;
+    rdfs:label "geopolitical entity" ;
+    rdfs:comment "geographic area that represents a geophysical location associated with some form of political structure" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Locations/GeographicRegion> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/Ratio> a owl:Class ;
+    rdfs:label "ratio" ;
+    rdfs:comment "proportional relationship between two different quantity values that gives rise to a datum of a specific quantity kind" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "rate" .
+
+<https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/Swaps/SwapLeg> a owl:Class ;
+    rdfs:label "swap leg" ;
+    rdfs:comment "terms defining and the commitment to fulfill cashflow requirements (e.g., interest payments, coupon payments, etc.) for a component of a swap" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/CashflowTerms> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/DebtAndEquities/Debt/Debt> a owl:Class ;
+    rdfs:label "debt" ;
+    rdfs:comment "obligation to pay something, such as an amount of money, good, service, or instrument" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Commitment> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/MonetaryAmount> a owl:Class ;
+    rdfs:label "monetary amount" ;
+    rdfs:comment "measure that is an amount of money specified in monetary units" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/QuantitiesAndUnits/ScalarQuantityValue> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligor> a owl:Class ;
+    rdfs:label "obligor" ;
+    rdfs:comment "party that is bound legally or by agreement to repay a debt, make a payment, do something, or refrain from doing something" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> ;
+    skos:altLabel "obligated party",
+        "obligator" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/DatesAndTimes/Occurrences/Occurrence> a owl:Class ;
+    rdfs:label "occurrence" ;
+    rdfs:comment "happening of an OccurrenceKind, i.e., an event" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "event" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Owner> a owl:Class ;
+    rdfs:label "owner" ;
+    rdfs:comment "party that is legally recognized as having the right to possess, the privilege to use, and ability to transfer any rights or privileges associated with something, as permitted by law" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Actor> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Ownership> a owl:Class ;
+    rdfs:label "ownership" ;
+    rdfs:comment "situation in which some party holds the legal title to something (explicitly or implicitly) and has the right to transfer that title and/or possession" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> .
+
+<https://www.omg.org/spec/Commons/BusinessAuthorizations/Authorization> a owl:Class ;
+    rdfs:label "authorisation" ;
+    rdfs:comment "situation in which a party authorizes someone to act on their behalf or to have specific capabilities under certain conditions for some period of time" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/DatePeriod> a owl:Class ;
+    rdfs:label "date period" ;
+    rdfs:comment "time span over one or more calendar days" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/Actor> a owl:Class ;
+    rdfs:label "actor" ;
+    rdfs:comment "primary performer in a relationship between parties, i.e., the party that does something, causes something to happen, or otherwise plays an agentive role in the relationship" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/Undergoer> a owl:Class ;
+    rdfs:label "undergoer" ;
+    rdfs:comment "something that plays the role of the object or recipient in a situation, i.e., the thing (or party) that the situation impacts, affects, or that otherwise plays a passive recipient / patient or thematic role" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/RolesAndCompositions/Role> .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/QuantityKind> a owl:Class ;
+    rdfs:label "quantity kind" ;
+    rdfs:comment "aspect common to mutually comparable quantities" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "kind of quantity" .
+
+<https://www.omg.org/spec/Commons/QuantitiesAndUnits/ScalarQuantityValue> a owl:Class ;
+    rdfs:label "scalar quantity value" ;
+    rdfs:comment "number and reference together expressing the magnitude of a quantity" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "measurement",
+        "value of a quantity" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Arrangements/Lifecycles/LifecycleStage> a owl:Class ;
+    rdfs:label "lifecycle stage" ;
+    rdfs:comment "phase in a lifecycle" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/OwnershipAndControl/Ownership/Asset> a owl:Class ;
+    rdfs:label "asset" ;
+    rdfs:comment "something of monetary value that is owned or provides benefit to some party" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Undergoer> ;
+    skos:altLabel "economic resource" .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/Duration> a owl:Class ;
+    rdfs:label "duration" ;
+    rdfs:comment "interval of time of some specific length" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/Designators/Designation> a owl:Class ;
+    rdfs:label "designation" ;
+    rdfs:comment "representation for something, or for a conceptualization thereof, that denotes it in a domain or subject" ;
+    rdfs:subClassOf ns:Thing ;
+    skos:altLabel "designator" .
+
+<https://www.omg.org/spec/Commons/Locations/GeographicRegion> a owl:Class ;
+    rdfs:label "geographic region" ;
+    rdfs:comment "area of land that has common features" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/Party> a owl:Class ;
+    rdfs:label "party" ;
+    rdfs:comment "person or organization" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/Agent> ;
+    skos:altLabel "independent party" .
+
+<https://www.omg.org/spec/Commons/RegulatoryAgencies/Jurisdiction> a owl:Class ;
+    rdfs:label "jurisdiction" ;
+    rdfs:comment "power of a court or regulatory agency to adjudicate cases, issue orders, and interpret and apply the law with respect to some specific geographic area" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/ContextualDesignators/Context> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument> a owl:Class ;
+    rdfs:label "financial instrument" ;
+    rdfs:comment "written contract that gives rise to both a financial asset of one entity and a financial liability of another entity" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/WrittenContract> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Option> a owl:Class ;
+    rdfs:label "option" ;
+    rdfs:comment "derivative instrument that grants to the holder either the privilege to purchase or the privilege to sell the assets specified at a predetermined price or formula at or within a time period in the future" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/ContractParty> a owl:Class ;
+    rdfs:label "contract party" ;
+    rdfs:comment "legally competent party that has entered into a binding agreement, accepting and conceding obligations, responsibilities, and benefits as specified" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument> a owl:Class ;
+    rdfs:label "derivative instrument" ;
+    rdfs:comment "financial instrument that confers on its holders certain rights or obligations, whose value is derived from one or more underlying assets" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/FinancialInstrument> ;
+    skos:altLabel "derivative contract" .
+
+<https://www.omg.org/spec/Commons/DatesAndTimes/Date> a owl:Class ;
+    rdfs:label "date" ;
+    rdfs:comment "calendar day on some calendar" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/DatesAndTimes/TimeInstant> .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Accounting/CurrencyAmount/Currency> a owl:Class ;
+    rdfs:label "currency" ;
+    rdfs:comment "medium of exchange value, defined by reference to the geographical location of the monetary authorities responsible for it" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/QuantitiesAndUnits/MeasurementUnit> ;
+    skos:altLabel "currency unit",
+        "monetary unit" .
+
+<https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract> a owl:Class ;
+    rdfs:label "contract" ;
+    rdfs:comment "voluntary, deliberate agreement between competent parties to which the parties agree to be legally bound, and for which the parties provide valuable consideration" ;
+    rdfs:subClassOf <https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement> .
+
+<https://www.omg.org/spec/Commons/CodesAndCodeSets/CodeElement> a owl:Class ;
+    rdfs:label "code element" ;
+    rdfs:comment "sequence of characters denoting something for some purpose, within a specified context, according to some rule set" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/Designators/Designation> .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/Situation> a owl:Class ;
+    rdfs:label "situation" ;
+    rdfs:comment "setting, state of being, or relationship that is relatively stable for some period of time" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/RolesAndCompositions/Role> a owl:Class ;
+    rdfs:label "role" ;
+    rdfs:comment "named specific behavior of something participating in a particular context" ;
+    rdfs:subClassOf ns:Thing .
+
+<https://www.omg.org/spec/Commons/PartiesAndSituations/PartyRole> a owl:Class ;
+    rdfs:label "party role" ;
+    rdfs:comment "role played by an organization or individual that may be time bound" ;
+    rdfs:subClassOf <https://www.omg.org/spec/Commons/PartiesAndSituations/AgentRole> .
+
+ns:Thing a owl:Class ;
+    rdfs:label "Thing" ;
+    rdfs:comment "Synthesized root class" .
+

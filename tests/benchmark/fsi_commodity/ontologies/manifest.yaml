@@ -1,0 +1,265 @@
+# Pinned ontology snapshots for the FSI / commodity benchmark.
+#
+# These are Turtle snapshots generated from published sources. They are the
+# deterministic, offline counterpart to the live pack
+# (packages/ontology-engine/demo/config-fsi-commodity.yaml), whose source URLs
+# move with each upstream release. Load one or the other into a namespace, not
+# both, or the same classes are embedded twice.
+#
+# Fields
+#   key            short name; also the file stem
+#   file           snapshot file in this directory
+#   ontology_id    id the loader registers the snapshot under. A fixture URN, so
+#                  it never merges with an ontology the live pack registers.
+#   declared_iri   the owl:Ontology IRI written inside the file (informational)
+#   ontology_type  OntologyType value sent on ingest
+#   derived        true when the upstream publishes no OWL/RDF and the snapshot
+#                  was converted from another format; its class IRIs were minted
+#                  by the converter rather than the standards body
+#   license        upstream licence; license_verified false means it still has
+#                  to be read before this file is distributed outside the team
+#   source         where the upstream content comes from
+#   snapshot       version suffix of the generated file (-v1, -v2)
+#   sha256, bytes  pin the exact file; the unit test fails if either changes
+#   classes        owl:Class / rdfs:Class count at generation time
+#   optional       not committed (too large); the loader skips it unless the
+#                  file is present and --include-optional is given
+#   notes          anything a caller must know before loading
+
+ontologies:
+  - key: bfo-2020
+    file: bfo-2020.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:bfo-2020"
+    declared_iri: "http://purl.obolibrary.org/obo/bfo.owl"
+    title: Basic Formal Ontology 2020
+    ontology_type: foundational
+    derived: false
+    license: CC-BY-4.0
+    license_verified: false
+    source: "https://basic-formal-ontology.org/"
+    snapshot: v1
+    sha256: bf783f99e72479fd46cb8c17c204adfd43c9e43beea5f79c79bd61752d416aad
+    bytes: 26066
+    classes: 36
+    domain_tags: [upper-ontology]
+    notes: Upper ontology (ISO/IEC 21838-2). Class IRIs are opaque BFO_nnnnnnn codes; labels carry the meaning.
+
+  - key: fibo
+    file: fibo.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:fibo"
+    declared_iri: "https://spec.edmcouncil.org/fibo/ontology/LOAN/LoansGeneral/Loans/"
+    title: FIBO (combined subset)
+    ontology_type: foundational
+    derived: false
+    license: MIT
+    license_verified: true
+    source: "https://spec.edmcouncil.org/fibo/"
+    snapshot: v1
+    sha256: 0d6c0607493c0509fe67546bbc731f09e11d711ee8dfb8f1f528690e672e975b
+    bytes: 686457
+    classes: 1244
+    domain_tags: [finance, fibo]
+    notes: >
+      Combined FIBO subset across FND, FBC, BE, DER, SEC, IND, LOAN. Overlaps the
+      fibo-* module snapshots below; load either this file or the modules. The
+      declared owl:Ontology IRI is the LOAN module's, which is why ontology_id is set here.
+
+  - key: fibo-be
+    file: fibo-be.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:fibo-be"
+    declared_iri: "https://spec.edmcouncil.org/fibo/ontology/BE/OwnershipAndControl/OwnershipParties/"
+    title: FIBO Business Entities
+    ontology_type: foundational
+    derived: false
+    license: MIT
+    license_verified: true
+    source: "https://spec.edmcouncil.org/fibo/"
+    snapshot: v1
+    sha256: 2d1be9be5528d0dda4932312880d7e272f00cb1b1e87f4bc3d1441f386a9e652
+    bytes: 278573
+    classes: 492
+    domain_tags: [finance, fibo, counterparty, kyc]
+    notes: Legal entities, ownership and control, formal business organizations.
+
+  - key: fibo-debt
+    file: fibo-debt.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:fibo-debt"
+    declared_iri: "https://w3id.org/ontology-registry/fibo-debt"
+    title: FIBO Debt
+    ontology_type: foundational
+    derived: false
+    license: MIT
+    license_verified: true
+    source: "https://spec.edmcouncil.org/fibo/"
+    snapshot: v1
+    sha256: a5056fa3b520682090182c0d435652dcfa36948e0bb2a75cf404f947c1769ab8
+    bytes: 63286
+    classes: 114
+    domain_tags: [finance, fibo, credit]
+    notes: Credit agreements and debt terms.
+
+  - key: fibo-debt-instruments
+    file: fibo-debt-instruments.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:fibo-debt-instruments"
+    declared_iri: "https://w3id.org/ontology-registry/fibo-debt-instruments"
+    title: FIBO Debt Instruments
+    ontology_type: foundational
+    derived: false
+    license: MIT
+    license_verified: true
+    source: "https://spec.edmcouncil.org/fibo/"
+    snapshot: v1
+    sha256: 4a7dc22ed41ff3ce5aae3522f43a846ec1d4da6b4b95dd8363610e4ac5e1f277
+    bytes: 99036
+    classes: 178
+    domain_tags: [finance, fibo, securities]
+
+  - key: fibo-derivatives
+    file: fibo-derivatives.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:fibo-derivatives"
+    declared_iri: "https://w3id.org/ontology-registry/fibo-derivatives"
+    title: FIBO Derivatives
+    ontology_type: foundational
+    derived: false
+    license: MIT
+    license_verified: true
+    source: "https://spec.edmcouncil.org/fibo/"
+    snapshot: v1
+    sha256: 48863307122852968a7d32faee196a101519a9fe3ba63b45d8789790b61a2361
+    bytes: 140428
+    classes: 262
+    domain_tags: [finance, fibo, derivatives]
+
+  - key: fibo-loans
+    file: fibo-loans.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:fibo-loans"
+    declared_iri: "https://w3id.org/ontology-registry/fibo-loans"
+    title: FIBO Loans
+    ontology_type: foundational
+    derived: false
+    license: MIT
+    license_verified: true
+    source: "https://spec.edmcouncil.org/fibo/"
+    snapshot: v1
+    sha256: 86205cb14f4a3b7a89014604ee8e87389bd8e62e17677e6861187f265945b290
+    bytes: 83430
+    classes: 141
+    domain_tags: [finance, fibo, credit]
+
+  - key: fibo-securities
+    file: fibo-securities.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:fibo-securities"
+    declared_iri: "https://w3id.org/ontology-registry/fibo-securities"
+    title: FIBO Securities
+    ontology_type: foundational
+    derived: false
+    license: MIT
+    license_verified: true
+    source: "https://spec.edmcouncil.org/fibo/"
+    snapshot: v1
+    sha256: 5bb67b42ba3dcf91933a7cfa70079cb8685ea7a2990793785e975e432085f23d
+    bytes: 99928
+    classes: 180
+    domain_tags: [finance, fibo, securities, collateral]
+
+  - key: gleif-lei
+    file: gleif-lei.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:gleif-lei"
+    declared_iri: "https://www.gleif.org/ontology/L1/"
+    title: GLEIF LEI (Base, L1, L2)
+    ontology_type: foundational
+    derived: false
+    license: "GLEIF terms of use (https://www.gleif.org/en/meta/lei-data-terms-of-use/)"
+    license_verified: true
+    source: "https://www.gleif.org/ontology/"
+    snapshot: v1
+    sha256: f4d62ff963b167d67e699dc895e5abf5c816459a25b2a5b9e331b98ebc08dc66
+    bytes: 32399
+    classes: 40
+    domain_tags: [counterparty, lei, kyc, ownership]
+    notes: >
+      Base, L1 and L2 combined. The declared IRI equals the live pack's GLEIF L1
+      ontology, so the fixture URN keeps the two registry records apart. The file
+      also declares its own namespace (https://www.gleif.org/ontology/L1#) as a class;
+      that is a generator artifact.
+
+  - key: uncefact
+    file: uncefact.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:uncefact"
+    declared_iri: "https://vocabulary.uncefact.org/unece.jsonld"
+    title: UN/CEFACT Web Vocabulary (subset)
+    ontology_type: foundational
+    derived: false
+    license: "UNECE terms; no licence file in the source repository"
+    license_verified: false
+    source: "https://github.com/uncefact/vocabulary-outputs"
+    snapshot: v1
+    sha256: 46504be25a600261f1f23ae17b1cf6661f7dee4ae11d599e4ea55cd46a07089a
+    bytes: 832313
+    classes: 542
+    domain_tags: [trade, logistics, documents, settlement]
+    notes: >
+      542 of the vocabulary's classes, without the code lists' members. Also
+      declares the namespace (https://vocabulary.uncefact.org/unece.jsonld#) as a class.
+
+  - key: dcsa-ebl
+    file: dcsa-ebl.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:dcsa-ebl"
+    declared_iri: "urn:dcsa:ebl:"
+    title: DCSA Electronic Bill of Lading
+    ontology_type: foundational
+    derived: true
+    license: Apache-2.0
+    license_verified: true
+    source: "https://github.com/dcsaorg/DCSA-EBL (archived)"
+    snapshot: v2
+    sha256: 4094888d43b10b48a7ef5d46a834719910e53d6b527a2e37cd490f921d441208
+    bytes: 164068
+    classes: 106
+    domain_tags: [shipping, ebl, post-trade, logistics]
+    notes: >
+      Converted from DCSA's OpenAPI schemas; DCSA publishes no OWL, so the urn:dcsa:ebl:
+      IRIs were minted by the converter. Has TransportDocument, HouseBillOfLading,
+      Consignee, NotifyParty, CargoItem, Endorsee. No letter of indemnity class.
+
+  - key: isda-cdm
+    file: isda-cdm.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:isda-cdm"
+    declared_iri: "https://cdm.finos.org/model/"
+    title: ISDA / FINOS Common Domain Model
+    ontology_type: foundational
+    derived: true
+    license: Community Specification License 1.0
+    license_verified: true
+    source: "https://github.com/finos/common-domain-model"
+    snapshot: v2
+    sha256: 09823e12c6d94a716e36973a32dd6fdba72759a483fc2cb56da9df298db8813f
+    bytes: 725837
+    classes: 523
+    domain_tags: [derivatives, isda, csa, collateral, margin, trade-lifecycle]
+    notes: >
+      Converted from the CDM Rosetta model; class IRIs are the CDM qualified type names
+      under https://cdm.finos.org/model/. Covers Trade, TradeState, ISDA MasterAgreement
+      and clauses, CSA elections (threshold, IM/VM, eligible collateral), BrokerConfirmation.
+      Enum types are modelled as classes.
+
+  - key: folio
+    file: folio.ttl
+    optional: true
+    ontology_id: "urn:coa:fixture:fsi-commodity:folio"
+    declared_iri: "https://folio.openlegalstandard.org/"
+    title: FOLIO (Federated Open Legal Information Ontology)
+    ontology_type: foundational
+    derived: false
+    license: CC-BY-4.0
+    license_verified: true
+    source: "https://github.com/alea-institute/FOLIO"
+    snapshot: v1
+    sha256: 41801ad1b08dd8fbacc6452baef52e7c61930c46af03d68c65764708975254c7
+    bytes: 9659167
+    classes: 18327
+    domain_tags: [legal, contracts, clauses]
+    notes: >
+      Not committed (9.4 MB, 18k classes). Copy FOLIO-v1.ttl here as folio.ttl to load it.
+      Has Letter of Credit, Letter of Indemnity Clause, KYC and AML classes. Class IRIs are
+      opaque; labels carry the meaning.

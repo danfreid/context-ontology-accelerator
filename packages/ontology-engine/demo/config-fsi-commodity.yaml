@@ -15,13 +15,17 @@
 #   • Lot tracking / chain of custody (GS1 EPCIS)
 #   • Document and email provenance (PROV-O, Dublin Core)
 #
-# Gaps — no published, loadable OWL/RDF found; model in a customer ontology:
-#   • ISDA CDM (Rosetta DSL, not OWL), NAESB, EEI contract clauses
-#   • Electronic bill of lading / LOI (DCSA publishes OpenAPI only)
-#   • ACTUS contract types (JSON dictionary only)
+# Gaps — no published, loadable OWL/RDF exists, so the live pack cannot fetch them:
+#   • ISDA CDM (Rosetta DSL, not OWL) and DCSA eBL (OpenAPI only): converted
+#     snapshots are in tests/benchmark/fsi_commodity/ontologies/ (isda-cdm,
+#     dcsa-ebl) and load through the upload API, not this file.
+#   • NAESB and EEI contract clauses; ACTUS contract types (JSON dictionary only)
+#   • Letter of indemnity, letters of credit (UCP 600 / ISP98), netting sets.
+#     CDM covers CSA margin and thresholds; the optional FOLIO snapshot has
+#     Letter of Credit and Letter of Indemnity Clause classes.
 #   • Commodity price benchmarks (Platts, Argus, Henry Hub); commodity-specific
 #     CoQ/CoC fields (UN/CEFACT ProductCertificate covers the generic document)
-#   • Letters of credit (UCP 600 / ISP98), netting sets, margin calls
+# Anything still missing belongs in a customer ontology.
 #
 # Design: published ontologies are loaded in full; sample_classes bounds
 # embedding cost the same way config-example.yaml does for Schema.org.
@@ -182,7 +186,7 @@ foundational_ontologies:
       Global Legal Entity Identifier (LEI) ontology — legal entity identity,
       registration authority, ownership chain. Anchors KYC counterparty onboarding.
     format: turtle
-    license: CC-BY-4.0
+    license: "GLEIF terms of use (https://www.gleif.org/en/meta/lei-data-terms-of-use/)"
     license_tier: attribution
     source_url: https://www.gleif.org/ontology/v1.0/Base/ontology.ttl
     domain_tags: [counterparty, legal-entity, kyc, lei]
@@ -223,7 +227,7 @@ foundational_ontologies:
       LEI Level 1 data: registration status, managing LOU, legal address.
       Feeds directly into KYC/AML entity verification.
     format: turtle
-    license: CC-BY-4.0
+    license: "GLEIF terms of use (https://www.gleif.org/en/meta/lei-data-terms-of-use/)"
     license_tier: attribution
     source_url: https://www.gleif.org/ontology/v1.0/L1/ontology.ttl
     domain_tags: [counterparty, kyc, lei, registration]
@@ -269,7 +273,7 @@ foundational_ontologies:
       LEI Level 2 data: ownership and control relationships between legal entities.
       Used for beneficial ownership, group exposure, AML network analysis.
     format: turtle
-    license: CC-BY-4.0
+    license: "GLEIF terms of use (https://www.gleif.org/en/meta/lei-data-terms-of-use/)"
     license_tier: attribution
     source_url: https://www.gleif.org/ontology/v1.0/L2/ontology.ttl
     domain_tags: [counterparty, aml, ownership, lei]
@@ -541,7 +545,7 @@ foundational_ontologies:
       UN/CEFACT UNECE trade vocabulary — consignment, transport equipment,
       cargo item, logistics service. Covers physical commodity shipment chain.
     format: json-ld
-    license: CC-BY-4.0
+    license: "UNECE terms (no licence file in the source repository)"
     license_tier: attribution
     # Full vocabulary as JSON-LD (~8 MB), published from github.com/uncefact/vocabulary-outputs
     source_url: https://raw.githubusercontent.com/uncefact/vocabulary-outputs/main/unece.jsonld
@@ -591,12 +595,14 @@ foundational_ontologies:
         domain: "https://vocabulary.uncefact.org/TransportMovement"
         range: "xsd:string"
 
-  # ── Not loadable: DCSA eBL and ACTUS ───────────────────────────────────────
-  # DCSA (electronic bill of lading) publishes OpenAPI specs only
-  # (github.com/dcsaorg/DCSA-OpenAPI), not an OWL/RDF ontology. ACTUS publishes
-  # a JSON data dictionary, not OWL. Neither can be fetched by the engine.
-  # Bill of lading parties/cargo and ACTUS contract types are candidates for a
-  # customer ontology derived from those specs.
+  # ── Not fetchable: DCSA eBL, ISDA CDM, ACTUS ───────────────────────────────
+  # DCSA (electronic bill of lading) publishes OpenAPI specs only (for example
+  # github.com/dcsaorg/DCSA-EBL), and ISDA CDM is a Rosetta DSL model; neither
+  # is OWL/RDF at a URL. Converted snapshots of both live in
+  # tests/benchmark/fsi_commodity/ontologies/ and load through the upload API
+  # (tests/benchmark/fsi_commodity/load_ontologies.py). ACTUS publishes a JSON
+  # data dictionary only; no snapshot exists yet.
+
   # ── GS1 EPCIS — Physical Commodity Event Tracking ─────────────────────────
   # GS1 EPCIS (Electronic Product Code Information Services) is the standard
   # for event-based track-and-trace. Used for metals (London Metal Exchange
