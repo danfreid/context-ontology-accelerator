@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import logging
+import threading
 import time
 from collections.abc import Iterator
 from contextlib import contextmanager
@@ -23,6 +24,7 @@ logger = logging.getLogger(__name__)
 
 MAX_BATCH_SETS = 500
 MAX_BATCH_BYTES = 2 * 1024 * 1024
+_REQUEST_OVERHEAD_BYTES = 1024
 RESUME_MAX_WAIT_S = 60.0
 _RESUME_MAX_DELAY_S = 16.0
 
@@ -126,18 +128,31 @@ class AuroraDataApiClient:
         self.database = database
         self._region = region
         self._client = client
-        self._tx_id: str | None = None
+        self._local = threading.local()
+        self._client_lock = threading.Lock()
+
+    @property
+    def _tx_id(self) -> str | None:
+        """Transaction id of the calling thread. Each thread has its own transaction."""
+        value: str | None = getattr(self._local, "tx_id", None)
+        return value
+
+    @_tx_id.setter
+    def _tx_id(self, value: str | None) -> None:
+        self._local.tx_id = value
 
     @property
     def client(self) -> Any:
         """The ``rds-data`` boto3 client, created on first use."""
         if self._client is None:
-            import boto3
+            with self._client_lock:
+                if self._client is None:
+                    import boto3
 
-            kwargs: dict[str, Any] = {"config": sync_boto_config(read_timeout=60)}
-            if self._region:
-                kwargs["region_name"] = self._region
-            self._client = boto3.client("rds-data", **kwargs)
+                    kwargs: dict[str, Any] = {"config": sync_boto_config(read_timeout=60)}
+                    if self._region:
+                        kwargs["region_name"] = self._region
+                    self._client = boto3.client("rds-data", **kwargs)
         return self._client
 
     def _base(self) -> dict[str, Any]:
@@ -188,7 +203,8 @@ class AuroraDataApiClient:
         """Run one statement for many parameter sets. Returns the number of sets sent."""
         sent = 0
         chunk: list[list[dict[str, Any]]] = []
-        size = 0
+        overhead = _REQUEST_OVERHEAD_BYTES + len(sql) + len(self.cluster_arn) + len(self.secret_arn)
+        size = overhead
 
         def flush() -> None:
             nonlocal chunk, size, sent
@@ -205,11 +221,15 @@ class AuroraDataApiClient:
             self._call("batch_execute_statement", **kwargs)
             sent += len(chunk)
             chunk = []
-            size = 0
+            size = overhead
 
         for params in param_sets:
             bound = bind_parameters(params)
             bound_size = len(json.dumps(bound))
+            if overhead + bound_size > MAX_BATCH_BYTES:
+                raise AuroraQueryError(
+                    f"One parameter set is {bound_size} bytes; the request limit is {MAX_BATCH_BYTES} bytes"
+                )
             if chunk and (len(chunk) >= MAX_BATCH_SETS or size + bound_size > MAX_BATCH_BYTES):
                 flush()
             chunk.append(bound)
@@ -248,8 +268,12 @@ class AuroraDataApiClient:
     ) -> Iterator[list[dict[str, Any]]]:
         """Yield result pages for a caller-ordered statement using LIMIT/OFFSET.
 
-        Halves the page size and retries when the Data API response limit is hit.
+        The statement must end in a total ``ORDER BY`` (unique key last), otherwise pages can
+        overlap or skip rows. Halves the page size and retries when the Data API response
+        limit is hit.
         """
+        if "order by" not in sql.lower():
+            raise ValueError("iter_pages needs a statement with a total ORDER BY")
         offset = 0
         size = max(1, page_size)
         paged_sql = f"{sql.rstrip().rstrip(';')} LIMIT :_page_limit OFFSET :_page_offset"

@@ -122,6 +122,66 @@ def test_batch_execute_chunks_by_size() -> None:
         assert len(json.dumps(kw["parameterSets"])) <= data_api.MAX_BATCH_BYTES + 1024
 
 
+def test_batch_execute_rejects_single_oversized_parameter_set() -> None:
+    fake = FakeRds()
+    huge = "x" * data_api.MAX_BATCH_BYTES
+    with pytest.raises(AuroraQueryError, match="parameter set"):
+        make(fake).batch_execute("INSERT INTO t VALUES (:a)", [{"a": "ok"}, {"a": huge}])
+    assert fake.calls == []
+
+
+def test_batch_execute_counts_request_overhead() -> None:
+    fake = FakeRds()
+    almost = "x" * (data_api.MAX_BATCH_BYTES - 200)  # fits alone only if overhead is ignored
+    with pytest.raises(AuroraQueryError):
+        make(fake).batch_execute("INSERT INTO t VALUES (:a)", [{"a": almost}])
+
+
+def test_iter_pages_requires_order_by() -> None:
+    with pytest.raises(ValueError, match="ORDER BY"):
+        list(make(FakeRds()).iter_pages("SELECT i FROM t"))
+
+
+def test_each_thread_has_its_own_transaction_id() -> None:
+    import threading
+
+    class TxRds(FakeRds):
+        def __init__(self) -> None:
+            super().__init__()
+            self.counter = 0
+            self.lock = threading.Lock()
+
+        def begin_transaction(self, **kw: Any) -> dict[str, Any]:
+            with self.lock:
+                self.counter += 1
+                return {"transactionId": f"tx-{self.counter}"}
+
+    fake = TxRds()
+    c = make(fake)
+    both_open = threading.Barrier(2, timeout=10)
+    seen: dict[str, str | None] = {}
+
+    def worker(name: str) -> None:
+        with c.transaction():
+            both_open.wait()  # both threads are inside their transaction at the same time
+            c.execute(f"SELECT '{name}'")
+            seen[name] = c._tx_id
+        seen[f"{name}-after"] = c._tx_id
+
+    threads = [threading.Thread(target=worker, args=(n,)) for n in ("a", "b")]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join(timeout=20)
+
+    assert {seen["a"], seen["b"]} == {"tx-1", "tx-2"}
+    assert seen["a-after"] is None and seen["b-after"] is None
+    used = {kw["sql"]: kw["transactionId"] for m, kw in fake.calls if m == "execute_statement"}
+    assert used["SELECT 'a'"] == seen["a"]
+    assert used["SELECT 'b'"] == seen["b"]
+    assert c._tx_id is None  # the main thread never joined either transaction
+
+
 def test_batch_execute_empty_makes_no_call() -> None:
     fake = FakeRds()
     assert make(fake).batch_execute("INSERT INTO t VALUES (:a)", []) == 0
