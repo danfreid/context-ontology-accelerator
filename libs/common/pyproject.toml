@@ -24,13 +24,16 @@ dependencies = [
     "pydantic>=2.13.4",
 ]
 
+# Opt-in Aurora search integration test (libs/common/tests/integ), run against a local Postgres:
+# pip install -e "libs/common[integ]"
+[project.optional-dependencies]
+integ = ["psycopg[binary]>=3.2"]
+
 # coa_common.testing (moto-backed fixtures for the packages' unit tests) ships in
 # the wheel but is imported only from tests, so moto is a dev dependency.
 [dependency-groups]
 dev = [
     "moto[dynamodb]>=5.2.1",
-    # Opt-in Aurora search integration test (libs/common/tests/integ), run against a local Postgres.
-    "psycopg[binary]>=3.2",
 ]
 
 # deptry (ci/deptry.yml). Imported inside a function on purpose: llama_index (only kg-build and
