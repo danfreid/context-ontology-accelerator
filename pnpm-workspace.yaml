@@ -48,6 +48,10 @@ minimumReleaseAge: 10080
 # 4.6.6 ages past the quarantine (after 2026-10-18).
 minimumReleaseAgeExclude:
   - zod
+  # vite 6.4.5 (GHSA-8g5g-mxqh-grgj, server.fs.deny bypass) was published
+  # 2026-11-25, inside the quarantine window. Remove this entry once 6.4.5 ages past
+  # the quarantine (after 2026-12-02).
+  - vite
 
 overrides:
   # downlevel-dts depends on typescript@"next" — a dist-tag that resolves to
@@ -88,9 +92,14 @@ overrides:
   react-router: 7.18.4
   react-router-dom: 7.18.4
   tmp: 0.2.7
-  # vite 6.4.4 — launch-editor command-injection / fs.allow bypass fixes in the
+  # vite 6.4.5 — fixes the server.fs.deny query bypass (GHSA-8g5g-mxqh-grgj, MEDIUM);
+  # 6.4.4 carried the launch-editor command-injection / fs.allow bypass fixes in the
   # dev server (GHSA, HIGH). Same minor line as web-app's ^6.4.3.
-  vite: 6.4.4
+  vite: 6.4.5
+  # fast-xml-parser <5.12.0 — quadratic CPU use scanning unterminated stop-node tags
+  # (GHSA-474x-hrwr-fgx4, LOW). Transitive via the AWS SDK; 5.12.0 is the patched
+  # floor, same major.
+  "fast-xml-parser@<5.12.0": 5.12.0
   ws: 8.21.0
   # Dependabot CVE transitive bumps (upgrade-only; scoped to avoid cross-major downgrades)
   nanoid@3: 3.3.19
