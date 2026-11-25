@@ -529,6 +529,72 @@ describe("StorageStack Aurora path", () => {
     }
   });
 
+  it("publishes the per-role search secret parameters", () => {
+    const template = buildAurora();
+    for (const name of [
+      "/coa/aurora/search-rw-secret-arn",
+      "/coa/aurora/search-ro-secret-arn",
+    ]) {
+      template.hasResourceProperties("AWS::SSM::Parameter", { Name: name });
+    }
+  });
+
+  it("generates one secret per search role with a username and password key", () => {
+    const template = buildAurora();
+    for (const username of ["coa_search_rw", "coa_search_ro"]) {
+      template.hasResourceProperties("AWS::SecretsManager::Secret", {
+        GenerateSecretString: Match.objectLike({
+          GenerateStringKey: "password",
+          SecretStringTemplate: JSON.stringify({ username }),
+        }),
+      });
+    }
+  });
+
+  it("runs the migrator as a custom resource with the SQL hash and both roles", () => {
+    const template = buildAurora();
+    template.resourceCountIs("AWS::CloudFormation::CustomResource", 1);
+    template.hasResourceProperties("AWS::CloudFormation::CustomResource", {
+      Database: "postgres",
+      SqlHash: Match.stringLikeRegexp("^[0-9a-f]{64}$"),
+      Roles: [
+        Match.objectLike({ Name: "coa_search_rw" }),
+        Match.objectLike({ Name: "coa_search_ro" }),
+      ],
+    });
+  });
+
+  it("limits the migrator to the Data API on this cluster and the three secrets", () => {
+    const template = buildAurora();
+    const policies = Object.values(
+      template.findResources("AWS::IAM::Policy"),
+    ).filter((p) => JSON.stringify(p).includes("rds-data:ExecuteStatement"));
+    expect(policies).toHaveLength(1);
+    const statements = policies[0].Properties.PolicyDocument.Statement;
+    const secretStatement = statements.find(
+      (s: { Action: unknown }) =>
+        JSON.stringify(s.Action) === '"secretsmanager:GetSecretValue"',
+    );
+    expect(secretStatement.Resource).toHaveLength(3);
+    expect(JSON.stringify(statements)).not.toContain('"*"');
+  });
+
+  it("emits no migrator, role secrets or search parameters for pgvector alone", () => {
+    const app = new cdk.App({ context: { vector_backend: "pgvector" } });
+    const network = new NetworkStack(app, "PgOnlyNetwork", { env: TEST_ENV });
+    const storage = new StorageStack(app, "PgOnlyStorage", {
+      network,
+      env: TEST_ENV,
+    });
+    const template = Template.fromStack(storage);
+    template.resourceCountIs("AWS::RDS::DBCluster", 0);
+    template.resourceCountIs("AWS::CloudFormation::CustomResource", 0);
+    expect(JSON.stringify(template.toJSON())).not.toContain("/aurora/");
+    Annotations.fromStack(storage).hasWarning(
+      "*",
+      Match.stringLikeRegexp("needs graph_backend=aurora"),
+    );
+  });
   it("creates no Aurora cluster on the default path", () => {
     const { template } = buildStacks();
     template.resourceCountIs("AWS::RDS::DBCluster", 0);

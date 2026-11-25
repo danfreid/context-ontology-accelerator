@@ -139,3 +139,24 @@ CREATE INDEX IF NOT EXISTS entity_label_trgm_idx
 --   fuzzy:  SELECT entity_id, similarity(label, $1) AS s FROM entity_label
 --           WHERE label % $1 AND namespace = $2 ORDER BY s DESC LIMIT 50;
 --   prefix: to_tsquery('english', 'harb:*') matches partial words in search_doc.tsv.
+
+-- ── Search roles (least privilege) ─────────────────────────────────────────
+-- coa_search_rw: ingest, metric API, import worker, ontology, namespace deletion.
+-- coa_search_ro: serve (read-only search).
+-- Passwords are set by the migrator custom resource from each role's Secrets
+-- Manager secret, never from this file.
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'coa_search_rw') THEN
+        CREATE ROLE coa_search_rw LOGIN;
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'coa_search_ro') THEN
+        CREATE ROLE coa_search_ro LOGIN;
+    END IF;
+END
+$$;
+GRANT USAGE ON SCHEMA public TO coa_search_rw, coa_search_ro;
+GRANT SELECT, INSERT, UPDATE, DELETE
+    ON search_doc, search_corpus_stats, search_term_stats, entity_label TO coa_search_rw;
+GRANT SELECT
+    ON search_doc, search_corpus_stats, search_term_stats, entity_label TO coa_search_ro;
