@@ -2,6 +2,20 @@ packages:
   - "cdk-toolkit"
   - "*/cdk"
 
+# Supply chain hardening (same policy as the root pnpm-workspace.yaml). All three
+# are top-level settings; pnpm ignores unknown keys without warning.
+# minimumReleaseAge is in MINUTES (7 * 24 * 60), not a duration string.
+blockExoticSubdeps: true
+trustPolicy: no-downgrade
+minimumReleaseAge: 10080
+# These exact versions are pinned by the committed lockfile and predate the policy.
+# pnpm 11+ audits frozen lockfiles and reports them as trust downgrades because
+# their registry evidence is weaker than an earlier publish (same reviewed
+# exceptions as the root pnpm-workspace.yaml). Version-scoped so upgrades are
+# evaluated normally.
+trustPolicyExclude:
+  - semver@6.3.1
+  - undici-types@6.21.0
 # Security overrides for transitive dev/test dependencies (jest/ts-jest toolchain).
 # Range-scoped so each major stays on its own line and a blanket pin can't cross
 # majors. These projects are customer-facing CDK samples copied out and built on

@@ -32,6 +32,9 @@ dev = [
 # uv < 0.13.4 embeds roots that trust the compromised eMudhra/emSign intermediates
 # (GHSA-hq85-5cpj-mr62); refuse to run with an older uv instead of fetching wheels with it.
 required-version = ">=0.13.4"
+# Dependency cooldown: only resolve versions published at least 7 days ago, so a
+# freshly published (possibly malicious) release is not picked up by uv lock.
+exclude-newer = "7 days"
 # Pin transitive dependencies up to the patched floor for security advisories
 # in packages nothing here declares directly. The serve image installs from
 # uv.lock, so these floors reach it as well as dev/test tooling.

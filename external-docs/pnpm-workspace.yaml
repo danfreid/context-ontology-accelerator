@@ -8,6 +8,12 @@
 # upgrade; they are migrated here so they actually hold.
 packages: []
 
+# Supply chain hardening (same policy as the root pnpm-workspace.yaml). All three
+# are top-level settings; pnpm ignores unknown keys without warning.
+# minimumReleaseAge is in MINUTES (7 * 24 * 60), not a duration string.
+blockExoticSubdeps: true
+trustPolicy: no-downgrade
+minimumReleaseAge: 10080
 overrides:
   # Pre-existing pins, migrated from package.json so pnpm 12 honours them.
   postcss: 8.5.23
