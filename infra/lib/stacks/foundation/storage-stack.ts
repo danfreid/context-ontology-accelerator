@@ -10,9 +10,9 @@ import * as ssm from "aws-cdk-lib/aws-ssm";
 import { Construct } from "constructs";
 
 import { SCLStack } from "../../constructs/scl-stack";
-import { AccessLogsBucket } from "../../constructs";
+import { AccessLogsBucket, AuroraPg } from "../../constructs";
 import { VECTOR_COLLECTION_SUFFIX } from "../../constants";
-import { resolveContext } from "../../context";
+import { resolveBackendFlags, resolveContext } from "../../context";
 import { NetworkStack } from "./network-stack";
 
 /**
@@ -74,6 +74,12 @@ export class StorageStack extends SCLStack {
 
     const { network } = props;
 
+    const flags = resolveBackendFlags(this.node);
+    const useAurora =
+      flags.graphBackend === "aurora" &&
+      flags.vectorBackend === "pgvector" &&
+      flags.metadataBackend === "aurora";
+
     // ── Resolve private subnets ──────────────────────────────────────
     const privateSubnets = network.vpc.selectSubnets({
       subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
@@ -87,197 +93,218 @@ export class StorageStack extends SCLStack {
     //  if longer point-in-time recovery is needed.
     // =====================================================================
 
-    const neptuneSubnetGroup = new neptune.CfnDBSubnetGroup(
-      this,
-      "NeptuneSubnetGroup",
-      {
-        dbSubnetGroupName: this.prefixed("neptune-subnet-group"),
-        dbSubnetGroupDescription:
-          "Private subnets for the SemanticContext Neptune cluster",
-        subnetIds: privateSubnets.subnetIds,
-      },
-    );
+    if (!useAurora) {
+      const neptuneSubnetGroup = new neptune.CfnDBSubnetGroup(
+        this,
+        "NeptuneSubnetGroup",
+        {
+          dbSubnetGroupName: this.prefixed("neptune-subnet-group"),
+          dbSubnetGroupDescription:
+            "Private subnets for the SemanticContext Neptune cluster",
+          subnetIds: privateSubnets.subnetIds,
+        },
+      );
 
-    const neptuneCluster = new neptune.CfnDBCluster(this, "NeptuneCluster", {
-      dbClusterIdentifier: this.prefixed("neptune"),
-      engineVersion: "1.4.7.0",
-      dbSubnetGroupName: neptuneSubnetGroup.dbSubnetGroupName!,
-      vpcSecurityGroupIds: [network.neptuneSecurityGroup.securityGroupId],
-      iamAuthEnabled: true, // SigV4 auth - recommended for multi-component access
-      storageEncrypted: true,
-      deletionProtection: this.envName === "prod",
-      backupRetentionPeriod: 7,
-    });
-    neptuneCluster.addDependency(neptuneSubnetGroup);
-    neptuneCluster.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
+      const neptuneCluster = new neptune.CfnDBCluster(this, "NeptuneCluster", {
+        dbClusterIdentifier: this.prefixed("neptune"),
+        engineVersion: "1.4.7.0",
+        dbSubnetGroupName: neptuneSubnetGroup.dbSubnetGroupName!,
+        vpcSecurityGroupIds: [network.neptuneSecurityGroup.securityGroupId],
+        iamAuthEnabled: true, // SigV4 auth - recommended for multi-component access
+        storageEncrypted: true,
+        deletionProtection: this.envName === "prod",
+        backupRetentionPeriod: 7,
+      });
+      neptuneCluster.addDependency(neptuneSubnetGroup);
+      neptuneCluster.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
-    const neptuneInstance = new neptune.CfnDBInstance(
-      this,
-      "NeptunePrimaryInstance",
-      {
-        dbInstanceIdentifier: this.prefixed("neptune-primary"),
-        // Overridable via `--context neptune_instance_class=...` (local:
-        // `SCL_NEPTUNE_INSTANCE_CLASS`). The default is db.r8g.large.
-        dbInstanceClass:
-          (this.node.tryGetContext("neptune_instance_class") as string) ??
-          "db.r8g.large",
-        dbClusterIdentifier: neptuneCluster.dbClusterIdentifier!,
-      },
-    );
-    neptuneInstance.addDependency(neptuneCluster);
-    neptuneInstance.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
+      const neptuneInstance = new neptune.CfnDBInstance(
+        this,
+        "NeptunePrimaryInstance",
+        {
+          dbInstanceIdentifier: this.prefixed("neptune-primary"),
+          // Overridable via `--context neptune_instance_class=...` (local:
+          // `SCL_NEPTUNE_INSTANCE_CLASS`). The default is db.r8g.large.
+          dbInstanceClass:
+            (this.node.tryGetContext("neptune_instance_class") as string) ??
+            "db.r8g.large",
+          dbClusterIdentifier: neptuneCluster.dbClusterIdentifier!,
+        },
+      );
+      neptuneInstance.addDependency(neptuneCluster);
+      neptuneInstance.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
-    this.neptunePort = 8182;
-    this.neptuneClusterEndpoint = neptuneCluster.attrEndpoint;
-    this.neptuneClusterIdentifier = neptuneCluster.ref;
-    // Kept whatever the graph-sources switch says: a sources stack deployed from an
-    // earlier version imports it, and this stack is updated first.
-    this.exportValue(neptuneCluster.ref);
+      this.neptunePort = 8182;
+      this.neptuneClusterEndpoint = neptuneCluster.attrEndpoint;
+      this.neptuneClusterIdentifier = neptuneCluster.ref;
+      // Kept whatever the graph-sources switch says: a sources stack deployed from an
+      // earlier version imports it, and this stack is updated first.
+      this.exportValue(neptuneCluster.ref);
 
-    // Neptune IAM data-access ARN uses the cluster *resource* ID
-    // (e.g. cluster-ABCD1234...), NOT the cluster identifier.
-    // Format: arn:aws:neptune-db:{region}:{account}:{cluster-resource-id}/*
-    this.neptuneClusterArn = this.formatArn({
-      service: "neptune-db",
-      resource: neptuneCluster.attrClusterResourceId,
-      resourceName: "*",
-      arnFormat: cdk.ArnFormat.SLASH_RESOURCE_NAME,
-    });
+      // Neptune IAM data-access ARN uses the cluster *resource* ID
+      // (e.g. cluster-ABCD1234...), NOT the cluster identifier.
+      // Format: arn:aws:neptune-db:{region}:{account}:{cluster-resource-id}/*
+      this.neptuneClusterArn = this.formatArn({
+        service: "neptune-db",
+        resource: neptuneCluster.attrClusterResourceId,
+        resourceName: "*",
+        arnFormat: cdk.ArnFormat.SLASH_RESOURCE_NAME,
+      });
 
-    // OpenSearch Serverless — NEXTGEN Collection Group
-    //
-    // Uses NEXTGEN generation for improved indexing performance, lower latency,
-    // and support for larger vector dimensions. The Collection Group provides:
-    // - NEXTGEN generation: 2x indexing throughput, sub-100ms p99 search latency
-    // - Standby replicas: must be ENABLED for NEXTGEN (AWS rejects DISABLED).
-    //   NEXTGEN strict mode rejects knn_vector method blocks — catches regressions.
-    // - Capacity limits: min 2 OCU (default, override via `aoss_min_ocu`; set 0
+      // OpenSearch Serverless — NEXTGEN Collection Group
+      //
+      // Uses NEXTGEN generation for improved indexing performance, lower latency,
+      // and support for larger vector dimensions. The Collection Group provides:
+      // - NEXTGEN generation: 2x indexing throughput, sub-100ms p99 search latency
+      // - Standby replicas: must be ENABLED for NEXTGEN (AWS rejects DISABLED).
+      //   NEXTGEN strict mode rejects knn_vector method blocks — catches regressions.
+      // - Capacity limits: min 2 OCU (default, override via `aoss_min_ocu`; set 0
 
-    const collectionName = this.aossName(VECTOR_COLLECTION_SUFFIX);
+      const collectionName = this.aossName(VECTOR_COLLECTION_SUFFIX);
 
-    // Encryption policy - required before collection creation
-    const encryptionPolicy = new opensearchserverless.CfnSecurityPolicy(
-      this,
-      "OSSEncryptionPolicy",
-      {
-        name: this.aossName("encryption"),
-        type: "encryption",
-        policy: JSON.stringify({
+      // Encryption policy - required before collection creation
+      const encryptionPolicy = new opensearchserverless.CfnSecurityPolicy(
+        this,
+        "OSSEncryptionPolicy",
+        {
+          name: this.aossName("encryption"),
+          type: "encryption",
+          policy: JSON.stringify({
+            Rules: [
+              {
+                ResourceType: "collection",
+                Resource: [`collection/${collectionName}`],
+              },
+            ],
+            AWSOwnedKey: true,
+          }),
+        },
+      );
+
+      // Network policy — VPC-only on every stage: only the deployment's AOSS
+      // interface endpoint may reach the collection. No public rule, dev included.
+      const networkRules = [
+        {
           Rules: [
             {
               ResourceType: "collection",
               Resource: [`collection/${collectionName}`],
             },
+            {
+              ResourceType: "dashboard",
+              Resource: [`collection/${collectionName}`],
+            },
           ],
-          AWSOwnedKey: true,
-        }),
-      },
-    );
-
-    // Network policy — VPC-only on every stage: only the deployment's AOSS
-    // interface endpoint may reach the collection. No public rule, dev included.
-    const networkRules = [
-      {
-        Rules: [
-          {
-            ResourceType: "collection",
-            Resource: [`collection/${collectionName}`],
-          },
-          {
-            ResourceType: "dashboard",
-            Resource: [`collection/${collectionName}`],
-          },
-        ],
-        SourceVPCEs: [network.aossVpcEndpointId],
-      },
-    ];
-
-    const networkPolicy = new opensearchserverless.CfnSecurityPolicy(
-      this,
-      "OSSNetworkPolicy",
-      {
-        name: this.aossName("network"),
-        type: "network",
-        policy: JSON.stringify(networkRules),
-      },
-    );
-
-    const maxOcu = Number(this.node.tryGetContext("aoss_max_ocu") ?? 96);
-    const minOcu = Number(this.node.tryGetContext("aoss_min_ocu") ?? 2);
-
-    // Validate min/max OCU explicitly: an out-of-range `-c aoss_min_ocu` is otherwise only
-    // rejected by CloudFormation late, with an opaque error. minOcu=0 is valid but lets
-    // indexing capacity scale to zero, so under load the NEXTGEN circuit breaker sheds bulk
-    // writes with 429s. Valid min values are 0, 2, 4, 8, 16 or multiples of 16 up to 1696
-    // (collection-group capacity limit); max cannot be 0 (it is a ceiling).
-    const MAX_OCU_LIMIT = 1696;
-    const BASE_VALID_OCU = new Set([0, 2, 4, 8, 16]);
-    const isValidOcuValue = (v: number) =>
-      Number.isInteger(v) &&
-      v >= 0 &&
-      v <= MAX_OCU_LIMIT &&
-      (BASE_VALID_OCU.has(v) || (v > 16 && v % 16 === 0));
-    if (!isValidOcuValue(minOcu)) {
-      throw new Error(
-        `aoss_min_ocu=${this.node.tryGetContext("aoss_min_ocu")} is invalid. ` +
-          `NEXTGEN min OCU must be 0, 2, 4, 8, 16, or a multiple of 16, up to ${MAX_OCU_LIMIT}.`,
-      );
-    }
-    if (!isValidOcuValue(maxOcu) || maxOcu < 2) {
-      throw new Error(
-        `aoss_max_ocu=${this.node.tryGetContext("aoss_max_ocu")} is invalid. ` +
-          `NEXTGEN max OCU must be 2, 4, 8, 16, or a multiple of 16, up to ${MAX_OCU_LIMIT}.`,
-      );
-    }
-    if (minOcu > maxOcu) {
-      throw new Error(
-        `aoss_min_ocu (${minOcu}) cannot exceed aoss_max_ocu (${maxOcu}).`,
-      );
-    }
-    if (minOcu === 0) {
-      cdk.Annotations.of(this).addWarning(
-        `AOSS min OCU is 0: indexing capacity can scale to zero, so under load the ` +
-          `NEXTGEN circuit breaker sheds bulk writes with HTTP 429. Ingest re-submits and ` +
-          `now fails LOUD on unrecoverable partial writes, but 0 makes throttling ` +
-          `far more likely. Use a non-zero floor (e.g. 2) for ingest-heavy environments.`,
-      );
-    }
-
-    const cfnCollectionGroup = new opensearchserverless.CfnCollectionGroup(
-      this,
-      "VectorStoreGroup",
-      {
-        name: this.aossName("vector-store-group"),
-        standbyReplicas: "ENABLED",
-        generation: "NEXTGEN",
-        capacityLimits: {
-          maxIndexingCapacityInOcu: maxOcu,
-          maxSearchCapacityInOcu: maxOcu,
-          minIndexingCapacityInOcu: minOcu,
-          minSearchCapacityInOcu: minOcu,
+          SourceVPCEs: [network.aossVpcEndpointId],
         },
-        description:
-          "Group for SemanticContext vector store for embeddings and similarity search",
-      },
-    );
-    const collection = new opensearchserverless.CfnCollection(
-      this,
-      "VectorStore",
-      {
-        name: collectionName,
-        collectionGroupName: cfnCollectionGroup.name,
-        type: "VECTORSEARCH",
-        description:
-          "SemanticContext vector store for embeddings and similarity search",
-      },
-    );
-    collection.addDependency(cfnCollectionGroup);
-    collection.addDependency(encryptionPolicy);
-    collection.addDependency(networkPolicy);
+      ];
 
-    this.opensearchEndpoint = collection.attrCollectionEndpoint;
-    this.opensearchCollectionName = collectionName;
-    this.opensearchCollectionArn = collection.attrArn;
+      const networkPolicy = new opensearchserverless.CfnSecurityPolicy(
+        this,
+        "OSSNetworkPolicy",
+        {
+          name: this.aossName("network"),
+          type: "network",
+          policy: JSON.stringify(networkRules),
+        },
+      );
+
+      const maxOcu = Number(this.node.tryGetContext("aoss_max_ocu") ?? 96);
+      const minOcu = Number(this.node.tryGetContext("aoss_min_ocu") ?? 2);
+
+      // Validate min/max OCU explicitly: an out-of-range `-c aoss_min_ocu` is otherwise only
+      // rejected by CloudFormation late, with an opaque error. minOcu=0 is valid but lets
+      // indexing capacity scale to zero, so under load the NEXTGEN circuit breaker sheds bulk
+      // writes with 429s. Valid min values are 0, 2, 4, 8, 16 or multiples of 16 up to 1696
+      // (collection-group capacity limit); max cannot be 0 (it is a ceiling).
+      const MAX_OCU_LIMIT = 1696;
+      const BASE_VALID_OCU = new Set([0, 2, 4, 8, 16]);
+      const isValidOcuValue = (v: number) =>
+        Number.isInteger(v) &&
+        v >= 0 &&
+        v <= MAX_OCU_LIMIT &&
+        (BASE_VALID_OCU.has(v) || (v > 16 && v % 16 === 0));
+      if (!isValidOcuValue(minOcu)) {
+        throw new Error(
+          `aoss_min_ocu=${this.node.tryGetContext("aoss_min_ocu")} is invalid. ` +
+            `NEXTGEN min OCU must be 0, 2, 4, 8, 16, or a multiple of 16, up to ${MAX_OCU_LIMIT}.`,
+        );
+      }
+      if (!isValidOcuValue(maxOcu) || maxOcu < 2) {
+        throw new Error(
+          `aoss_max_ocu=${this.node.tryGetContext("aoss_max_ocu")} is invalid. ` +
+            `NEXTGEN max OCU must be 2, 4, 8, 16, or a multiple of 16, up to ${MAX_OCU_LIMIT}.`,
+        );
+      }
+      if (minOcu > maxOcu) {
+        throw new Error(
+          `aoss_min_ocu (${minOcu}) cannot exceed aoss_max_ocu (${maxOcu}).`,
+        );
+      }
+      if (minOcu === 0) {
+        cdk.Annotations.of(this).addWarning(
+          `AOSS min OCU is 0: indexing capacity can scale to zero, so under load the ` +
+            `NEXTGEN circuit breaker sheds bulk writes with HTTP 429. Ingest re-submits and ` +
+            `now fails LOUD on unrecoverable partial writes, but 0 makes throttling ` +
+            `far more likely. Use a non-zero floor (e.g. 2) for ingest-heavy environments.`,
+        );
+      }
+
+      const cfnCollectionGroup = new opensearchserverless.CfnCollectionGroup(
+        this,
+        "VectorStoreGroup",
+        {
+          name: this.aossName("vector-store-group"),
+          standbyReplicas: "ENABLED",
+          generation: "NEXTGEN",
+          capacityLimits: {
+            maxIndexingCapacityInOcu: maxOcu,
+            maxSearchCapacityInOcu: maxOcu,
+            minIndexingCapacityInOcu: minOcu,
+            minSearchCapacityInOcu: minOcu,
+          },
+          description:
+            "Group for SemanticContext vector store for embeddings and similarity search",
+        },
+      );
+      const collection = new opensearchserverless.CfnCollection(
+        this,
+        "VectorStore",
+        {
+          name: collectionName,
+          collectionGroupName: cfnCollectionGroup.name,
+          type: "VECTORSEARCH",
+          description:
+            "SemanticContext vector store for embeddings and similarity search",
+        },
+      );
+      collection.addDependency(cfnCollectionGroup);
+      collection.addDependency(encryptionPolicy);
+      collection.addDependency(networkPolicy);
+
+      this.opensearchEndpoint = collection.attrCollectionEndpoint;
+      this.opensearchCollectionName = collectionName;
+      this.opensearchCollectionArn = collection.attrArn;
+    } else {
+      // Aurora path: one cluster serves graph + vector + metadata. The Neptune and
+      // OpenSearch fields carry the Aurora equivalents so callers (serve, metric
+      // service, ontology) read them without change.
+      // TODO: IAM grants in those stacks still target neptune-db / aoss actions;
+      // switch them to rds-data on this path.
+      const aurora = new AuroraPg(this, "AuroraPg", {
+        vpc: network.vpc,
+        securityGroup: network.auroraSecurityGroup!,
+      });
+
+      this.neptunePort = 5432; // aurora-path: PostgreSQL port
+      this.neptuneClusterIdentifier = ""; // aurora-path: unused
+      this.neptuneClusterEndpoint = aurora.clusterEndpoint.hostname;
+      this.neptuneClusterArn = aurora.clusterArn;
+
+      this.opensearchEndpoint = aurora.clusterEndpoint.socketAddress; // pgvector endpoint
+      this.opensearchCollectionName = this.prefixed("pgvector");
+      this.opensearchCollectionArn = aurora.clusterArn;
+    }
 
     // =====================================================================
     //  Athena Query Buckets
@@ -403,15 +430,18 @@ export class StorageStack extends SCLStack {
     });
 
     // ── CfnOutputs ──────────────────────────────────────────────────
-    new cdk.CfnOutput(this, "NeptuneClusterEndpointOutput", {
-      value: this.neptuneClusterEndpoint,
-      description: "Neptune cluster writer endpoint",
-    });
+    // On the Aurora path AuroraPg publishes its own outputs.
+    if (!useAurora) {
+      new cdk.CfnOutput(this, "NeptuneClusterEndpointOutput", {
+        value: this.neptuneClusterEndpoint,
+        description: "Neptune cluster writer endpoint",
+      });
 
-    new cdk.CfnOutput(this, "NeptunePortOutput", {
-      value: String(this.neptunePort),
-      description: "Neptune port",
-    });
+      new cdk.CfnOutput(this, "NeptunePortOutput", {
+        value: String(this.neptunePort),
+        description: "Neptune port",
+      });
+    }
 
     new cdk.CfnOutput(this, "OpenSearchEndpointOutput", {
       value: this.opensearchEndpoint,

@@ -691,3 +691,62 @@ describe("validateVpcCidr", () => {
     ).not.toThrow();
   });
 });
+
+describe("NetworkStack Aurora path", () => {
+  const AURORA_CONTEXT = {
+    graph_backend: "aurora",
+    vector_backend: "pgvector",
+    metadata_backend: "aurora",
+  };
+
+  it("creates no NAT gateway", () => {
+    buildStack(AURORA_CONTEXT).resourceCountIs("AWS::EC2::NatGateway", 0);
+  });
+
+  it("adds an isolated subnet tier: Public, Private and Isolated in 2 AZs", () => {
+    buildStack(AURORA_CONTEXT).resourceCountIs("AWS::EC2::Subnet", 6);
+  });
+
+  it("creates no AOSS endpoints", () => {
+    const endpoints = buildStack(AURORA_CONTEXT).findResources(
+      "AWS::EC2::VPCEndpoint",
+    );
+    const services = Object.values(endpoints).map((e: any) =>
+      JSON.stringify(e.Properties.ServiceName),
+    );
+    expect(services.some((s) => /aoss/.test(s))).toBe(false);
+  });
+
+  it("creates an RDS Data API endpoint", () => {
+    const endpoints = buildStack(AURORA_CONTEXT).findResources(
+      "AWS::EC2::VPCEndpoint",
+    );
+    const services = Object.values(endpoints).map((e: any) =>
+      JSON.stringify(e.Properties.ServiceName),
+    );
+    expect(services.some((s) => /rds-data/.test(s))).toBe(true);
+  });
+
+  it("creates an Aurora security group that accepts 5432 from Lambda and ECS", () => {
+    const template = buildStack(AURORA_CONTEXT);
+    template.hasResourceProperties("AWS::EC2::SecurityGroup", {
+      GroupDescription: Match.stringLikeRegexp("Aurora"),
+    });
+    const ingress = Object.values(
+      template.findResources("AWS::EC2::SecurityGroupIngress", {
+        Properties: { FromPort: 5432, ToPort: 5432 },
+      }),
+    );
+    expect(ingress).toHaveLength(2);
+  });
+
+  it("keeps one NAT gateway and the AOSS endpoints on the default path", () => {
+    const template = buildStack();
+    template.resourceCountIs("AWS::EC2::NatGateway", 1);
+    const endpoints = template.findResources("AWS::EC2::VPCEndpoint");
+    const services = Object.values(endpoints).map((e: any) =>
+      JSON.stringify(e.Properties.ServiceName),
+    );
+    expect(services.some((s) => /aoss/.test(s))).toBe(true);
+  });
+});

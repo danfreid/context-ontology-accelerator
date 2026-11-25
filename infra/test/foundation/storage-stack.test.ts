@@ -472,3 +472,66 @@ describe("StorageStack", () => {
     });
   });
 });
+
+describe("StorageStack Aurora path", () => {
+  const AURORA_CONTEXT = {
+    graph_backend: "aurora",
+    vector_backend: "pgvector",
+    metadata_backend: "aurora",
+  };
+
+  function buildAurora(): Template {
+    const app = new cdk.App({ context: AURORA_CONTEXT });
+    const network = new NetworkStack(app, "TestNetwork", { env: TEST_ENV });
+    const storage = new StorageStack(app, "TestStorage", {
+      network,
+      env: TEST_ENV,
+    });
+    return Template.fromStack(storage);
+  }
+
+  it("creates no Neptune resources", () => {
+    const template = buildAurora();
+    template.resourceCountIs("AWS::Neptune::DBCluster", 0);
+    template.resourceCountIs("AWS::Neptune::DBInstance", 0);
+  });
+
+  it("creates no OpenSearch Serverless collection", () => {
+    buildAurora().resourceCountIs("AWS::OpenSearchServerless::Collection", 0);
+  });
+
+  it("creates an Aurora Serverless v2 cluster scaling 0 to 8 ACU with the Data API", () => {
+    buildAurora().hasResourceProperties("AWS::RDS::DBCluster", {
+      Engine: "aurora-postgresql",
+      StorageEncrypted: true,
+      EnableHttpEndpoint: true,
+      ServerlessV2ScalingConfiguration: { MinCapacity: 0, MaxCapacity: 8 },
+    });
+  });
+
+  it("loads pgvector, pg_search and pgrouting through the parameter group", () => {
+    buildAurora().hasResourceProperties("AWS::RDS::DBClusterParameterGroup", {
+      Parameters: Match.objectLike({
+        shared_preload_libraries:
+          "pg_stat_statements,pgvector,pg_search,pgrouting",
+      }),
+    });
+  });
+
+  it("publishes the Aurora SSM parameters", () => {
+    const template = buildAurora();
+    for (const name of [
+      "/coa/aurora/cluster-endpoint",
+      "/coa/aurora/cluster-arn",
+      "/coa/aurora/secret-arn",
+      "/coa/opensearch/hybrid-search-backend",
+    ]) {
+      template.hasResourceProperties("AWS::SSM::Parameter", { Name: name });
+    }
+  });
+
+  it("creates no Aurora cluster on the default path", () => {
+    const { template } = buildStacks();
+    template.resourceCountIs("AWS::RDS::DBCluster", 0);
+  });
+});

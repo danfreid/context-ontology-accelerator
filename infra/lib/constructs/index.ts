@@ -3,6 +3,8 @@
 
 export { AccessLogsBucket } from "./access-logs-bucket";
 export type { AccessLogsBucketProps } from "./access-logs-bucket";
+export { AuroraPg } from "./aurora-pg-construct";
+export type { AuroraPgProps } from "./aurora-pg-construct";
 export { DynamoDBTable } from "./dynamodb-table";
 export type { DynamoDBTableProps } from "./dynamodb-table";
 export { JdbcConnectivity } from "./jdbc-connectivity";

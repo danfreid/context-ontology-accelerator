@@ -8,7 +8,7 @@ import * as ssm from "aws-cdk-lib/aws-ssm";
 import { Construct } from "constructs";
 
 import { SCLStack } from "../../constructs";
-import { resolveContext } from "../../context";
+import { resolveBackendFlags, resolveContext } from "../../context";
 import { graphSourcesEnabled } from "../../utils/graph-sources";
 import {
   JdbcConnectivity,
@@ -98,6 +98,12 @@ export class NetworkStack extends SCLStack {
   /** EC2 Interface VPC Endpoint ID for AOSS (NextGen *.on.aws private DNS). */
   public readonly aossVpcEndpointId: string;
 
+  /**
+   * Security group for the Aurora cluster (port 5432 from Lambda and ECS).
+   * Undefined unless the Aurora backends are selected.
+   */
+  public readonly auroraSecurityGroup?: ec2.SecurityGroup;
+
   /** Shared Cloud Map private DNS namespace for service discovery. */
   public readonly serviceNamespace: servicediscovery.PrivateDnsNamespace;
 
@@ -107,6 +113,12 @@ export class NetworkStack extends SCLStack {
   constructor(scope: Construct, id: string, props?: NetworkStackProps) {
     super(scope, id, props);
     this.addComponentTag("foundation");
+
+    const flags = resolveBackendFlags(this.node);
+    const useAurora =
+      flags.graphBackend === "aurora" &&
+      flags.vectorBackend === "pgvector" &&
+      flags.metadataBackend === "aurora";
 
     const existingVpcId = this.node.tryGetContext("vpc_id") as
       | string
@@ -181,7 +193,9 @@ export class NetworkStack extends SCLStack {
         ...(azNames && azNames.length > 0
           ? { availabilityZones: azNames }
           : { maxAzs: 2 }),
-        natGateways: 1,
+        // Aurora path: no NAT gateway. AWS APIs are reached through the VPC
+        // endpoints below, and Aurora sits in PRIVATE_ISOLATED subnets.
+        natGateways: useAurora ? 0 : 1,
         subnetConfiguration: [
           {
             name: "Public",
@@ -193,6 +207,15 @@ export class NetworkStack extends SCLStack {
             subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
             cidrMask: 24,
           },
+          ...(useAurora
+            ? [
+                {
+                  name: "Isolated",
+                  subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
+                  cidrMask: 24,
+                },
+              ]
+            : []),
         ],
       });
     }
@@ -239,13 +262,22 @@ export class NetworkStack extends SCLStack {
         service: ec2.InterfaceVpcEndpointAwsService.SECRETS_MANAGER,
         privateDnsEnabled: true,
       });
-      const aossEndpoint = createdVpc.addInterfaceEndpoint("AossEndpoint", {
-        service: new ec2.InterfaceVpcEndpointService(
-          `com.amazonaws.${cdk.Stack.of(this).region}.aoss-data`,
-        ),
-        privateDnsEnabled: true,
-      });
-      this.aossVpcEndpointId = aossEndpoint.vpcEndpointId;
+      if (useAurora) {
+        // Lambda reaches Aurora through the RDS Data API; no AOSS on this path.
+        createdVpc.addInterfaceEndpoint("RdsDataEndpoint", {
+          service: ec2.InterfaceVpcEndpointAwsService.RDS_DATA,
+          privateDnsEnabled: true,
+        });
+        this.aossVpcEndpointId = ""; // aurora-path: unused
+      } else {
+        const aossEndpoint = createdVpc.addInterfaceEndpoint("AossEndpoint", {
+          service: new ec2.InterfaceVpcEndpointService(
+            `com.amazonaws.${cdk.Stack.of(this).region}.aoss-data`,
+          ),
+          privateDnsEnabled: true,
+        });
+        this.aossVpcEndpointId = aossEndpoint.vpcEndpointId;
+      }
 
       // Additional interface endpoints: keep AWS API traffic private so
       // egress can be scoped away from the public internet. These cover the
@@ -298,12 +330,14 @@ export class NetworkStack extends SCLStack {
       });
       // OpenSearch Serverless control plane (create/delete collection, policies).
       // No CDK constant exists; the data-plane endpoint above is separate.
-      createdVpc.addInterfaceEndpoint("AossControlPlaneEndpoint", {
-        service: new ec2.InterfaceVpcEndpointService(
-          `com.amazonaws.${region}.aoss`,
-        ),
-        privateDnsEnabled: true,
-      });
+      if (!useAurora) {
+        createdVpc.addInterfaceEndpoint("AossControlPlaneEndpoint", {
+          service: new ec2.InterfaceVpcEndpointService(
+            `com.amazonaws.${region}.aoss`,
+          ),
+          privateDnsEnabled: true,
+        });
+      }
     }
 
     // Neptune - allow inbound 8182 from the ECS + Lambda SGs only (not the
@@ -335,11 +369,13 @@ export class NetworkStack extends SCLStack {
       ec2.Port.tcp(443),
       "HTTPS to AWS APIs (interface endpoints + S3/DDB gateway prefix lists)",
     );
-    this.ecsSecurityGroup.addEgressRule(
-      this.neptuneSecurityGroup,
-      ec2.Port.tcp(8182),
-      "Neptune Gremlin/SPARQL",
-    );
+    if (!useAurora) {
+      this.ecsSecurityGroup.addEgressRule(
+        this.neptuneSecurityGroup,
+        ec2.Port.tcp(8182),
+        "Neptune Gremlin/SPARQL",
+      );
+    }
 
     // Internet-bound connector traffic can be narrowed to fixed NAT/proxy or
     // source ranges. The same peers must govern Snowflake OCSP from both the
@@ -380,11 +416,13 @@ export class NetworkStack extends SCLStack {
       ec2.Port.tcp(443),
       "HTTPS to AWS APIs (interface endpoints + S3/DDB gateway prefix lists)",
     );
-    this.lambdaSecurityGroup.addEgressRule(
-      this.neptuneSecurityGroup,
-      ec2.Port.tcp(8182),
-      "Neptune Gremlin/SPARQL",
-    );
+    if (!useAurora) {
+      this.lambdaSecurityGroup.addEgressRule(
+        this.neptuneSecurityGroup,
+        ec2.Port.tcp(8182),
+        "Neptune Gremlin/SPARQL",
+      );
+    }
     this.lambdaSecurityGroup.addEgressRule(
       this.ecsSecurityGroup,
       ec2.Port.tcp(8001),
@@ -471,16 +509,46 @@ export class NetworkStack extends SCLStack {
     }
 
     // Neptune ingress: scoped to the ECS + Lambda SGs (least privilege).
-    this.neptuneSecurityGroup.addIngressRule(
-      this.ecsSecurityGroup,
-      ec2.Port.tcp(8182),
-      "Allow Neptune Gremlin/SPARQL from ECS tasks",
-    );
-    this.neptuneSecurityGroup.addIngressRule(
-      this.lambdaSecurityGroup,
-      ec2.Port.tcp(8182),
-      "Allow Neptune Gremlin/SPARQL from Lambda functions",
-    );
+    // The group itself stays on the Aurora path (stacks may reference it) but
+    // carries no rules there.
+    if (!useAurora) {
+      this.neptuneSecurityGroup.addIngressRule(
+        this.ecsSecurityGroup,
+        ec2.Port.tcp(8182),
+        "Allow Neptune Gremlin/SPARQL from ECS tasks",
+      );
+      this.neptuneSecurityGroup.addIngressRule(
+        this.lambdaSecurityGroup,
+        ec2.Port.tcp(8182),
+        "Allow Neptune Gremlin/SPARQL from Lambda functions",
+      );
+    }
+
+    // Aurora: ingress 5432 from Lambda and ECS only. Both source SGs deny
+    // outbound by default, so each also needs a matching egress rule.
+    if (useAurora) {
+      this.auroraSecurityGroup = new ec2.SecurityGroup(this, "AuroraSG", {
+        vpc: this.vpc,
+        securityGroupName: this.prefixed("aurora-sg"),
+        description: "Aurora PostgreSQL cluster security group",
+        allowAllOutbound: false,
+      });
+      for (const [peer, label] of [
+        [this.lambdaSecurityGroup, "Lambda functions"],
+        [this.ecsSecurityGroup, "ECS tasks"],
+      ] as const) {
+        this.auroraSecurityGroup.addIngressRule(
+          peer,
+          ec2.Port.tcp(5432),
+          `Allow PostgreSQL from ${label}`,
+        );
+        peer.addEgressRule(
+          this.auroraSecurityGroup,
+          ec2.Port.tcp(5432),
+          "Aurora PostgreSQL",
+        );
+      }
+    }
 
     // Not attached to the aoss-data endpoint in either mode, so its ingress
     // rules have no effect: see the aossSecurityGroup field doc.
