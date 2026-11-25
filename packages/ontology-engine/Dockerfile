@@ -91,7 +91,7 @@ RUN python /tmp/image_import_check.py coa_ontology.main --optional llama_index
 COPY scripts/pip_sbom_check.py /tmp/
 RUN python /tmp/pip_sbom_check.py
 EXPOSE 8001
-# Container-level liveness probe against the service's /readiness route (python only: the minimal base has no curl).
-HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 CMD ["python", "-c", "import os, urllib.request as u; u.urlopen('http://127.0.0.1:' + os.environ.get('PORT', '8001') + '/readiness', timeout=4)"]
+# Container-level liveness probe against the service's /health route (not /readiness: it makes paid network calls) (python only: the minimal base has no curl).
+HEALTHCHECK --interval=30s --timeout=5s --start-period=60s --retries=3 CMD ["python", "-c", "import os, urllib.request as u; u.urlopen('http://127.0.0.1:' + os.environ.get('PORT', '8001') + '/health', timeout=4)"]
 
 CMD ["sh", "-c", "uvicorn coa_ontology.main:app --host 0.0.0.0 --port ${PORT:-8001}"]
