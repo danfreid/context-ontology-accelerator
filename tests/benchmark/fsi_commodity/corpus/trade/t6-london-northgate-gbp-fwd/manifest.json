@@ -1,0 +1,674 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "facts": {
+        "agreement": "Northgate Bank FX dealing terms",
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "deal_type": "outright forward",
+        "governing_law": "England and Wales",
+        "issued_by": "NewCo Trading London Limited",
+        "pair": "GBP/USD",
+        "rate": 1.2845,
+        "sell_amount": 5138000,
+        "sell_currency": "USD",
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08",
+        "version": 1
+      },
+      "filename": "NC-LON-26-0002-ticket-v1.pdf",
+      "kind": "deal-ticket",
+      "message": "ticket",
+      "path": "attachments/001-NC-LON-26-0002-ticket-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "graham.carr@newco-london.example",
+        "wasDerivedFrom": "<d2a58587943e444ae807@newco-london.example>"
+      },
+      "sha256": "21d9f70de371454ceb788f537301fce425ef8263a352fe3a1678cfe842a4e54d",
+      "size": 4566
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "facts": {
+        "agreement": "Northgate Bank FX dealing terms",
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "deal_type": "outright forward",
+        "governing_law": "England and Wales",
+        "issued_by": "Northgate Bank plc",
+        "pair": "GBP/USD",
+        "rate": 1.2845,
+        "sell_amount": 5138000,
+        "sell_currency": "USD",
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-09",
+        "version": 2
+      },
+      "filename": "NC-LON-26-0002-bank-ticket-v2.pdf",
+      "kind": "deal-ticket",
+      "message": "bank-ticket",
+      "path": "attachments/002-NC-LON-26-0002-bank-ticket-v2.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "valerie.smith@northgatebank.example",
+        "wasDerivedFrom": "<86db75b86aac38013f29@northgatebank.example>"
+      },
+      "sha256": "a0bf5e2c7ef11ffb101c1b36c567d47bfe057282c2793b91cd75046738dd028e",
+      "size": 4574
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "facts": {
+        "agreement": "Northgate Bank FX dealing terms",
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "deal_type": "outright forward",
+        "governing_law": "England and Wales",
+        "issued_by": "Northgate Bank plc",
+        "pair": "GBP/USD",
+        "rate": 1.2845,
+        "sell_amount": 5138000,
+        "sell_currency": "USD",
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08",
+        "version": 3
+      },
+      "filename": "NC-LON-26-0002-bank-ticket-v3.pdf",
+      "kind": "deal-ticket",
+      "message": "bank-corrected",
+      "path": "attachments/004-NC-LON-26-0002-bank-ticket-v3.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "valerie.smith@northgatebank.example",
+        "wasDerivedFrom": "<c47e91f616d76ba02963@northgatebank.example>"
+      },
+      "sha256": "e0d42bb58366e942c0f81a85b879d70fe00e5d4b7c8804b3a5ada757d367bdae",
+      "size": 4574
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [
+    {
+      "channel": "chat",
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument",
+      "deal": "NC-LON-26-0002",
+      "file": "chats/001-dealing.json",
+      "key": "dealing",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "buy_amount": 4000000,
+            "buy_currency": "GBP",
+            "pair": "GBP/USD",
+            "value_date": "2026-07-08"
+          },
+          "text": "I need to buy GBP 4,000,000 against USD for value 2026-07-08. Where is the forward?",
+          "timestamp": "2026-04-07T09:23:00+01:00"
+        },
+        {
+          "intent": "quote",
+          "speaker": {
+            "address": "valerie.smith@northgatebank.example",
+            "name": "Valerie Smith",
+            "org": "bank-northgate",
+            "role": "trade_finance"
+          },
+          "terms": {
+            "rate": 1.2838
+          },
+          "text": "1.2838.",
+          "timestamp": "2026-04-07T09:26:32+01:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {},
+          "text": "That has moved against me. Can you do better?",
+          "timestamp": "2026-04-07T09:29:08+01:00"
+        },
+        {
+          "intent": "quote",
+          "speaker": {
+            "address": "valerie.smith@northgatebank.example",
+            "name": "Valerie Smith",
+            "org": "bank-northgate",
+            "role": "trade_finance"
+          },
+          "terms": {
+            "rate": 1.2845
+          },
+          "text": "1.2845, last price.",
+          "timestamp": "2026-04-07T09:29:39+01:00"
+        },
+        {
+          "intent": "agree",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "buy_amount": 4000000,
+            "buy_currency": "GBP",
+            "deal_type": "outright forward",
+            "pair": "GBP/USD",
+            "rate": 1.2845,
+            "sell_amount": 5138000,
+            "sell_currency": "USD",
+            "value_date": "2026-07-08"
+          },
+          "text": "Done. I buy GBP 4,000,000 and sell USD 5,138,000 at 1.2845, value 2026-07-08.",
+          "timestamp": "2026-04-07T09:31:15+01:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        },
+        {
+          "address": "valerie.smith@northgatebank.example",
+          "name": "Valerie Smith",
+          "org": "bank-northgate",
+          "role": "trade_finance"
+        }
+      ],
+      "phase": "trade",
+      "seq": 1,
+      "tags": [
+        "agreed",
+        "negotiation"
+      ]
+    }
+  ],
+  "counts": {
+    "attachments": 3,
+    "chats": 1,
+    "emails": 6
+  },
+  "deals": [
+    {
+      "accounts": {
+        "gbp": "acct-newco-lon-gbp-operating",
+        "usd": "acct-newco-lon-usd-operating"
+      },
+      "agreed_in": "dealing",
+      "agreement": "Northgate Bank FX dealing terms",
+      "agreement_effective": "2026-03-20",
+      "chats": [
+        "dealing"
+      ],
+      "class_uris": {
+        "contract_type": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument",
+        "instrument": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+        "settlement_terms": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+      },
+      "counterparty": "bank-northgate",
+      "credit_check": null,
+      "entity": "newco-lon",
+      "governing_law": "England and Wales",
+      "inputs": {
+        "buy_amount": 4000000,
+        "rate": 1.2845
+      },
+      "kind": "fx-forward",
+      "mismatches": [
+        {
+          "agreed": "2026-07-08",
+          "caught": true,
+          "caught_by": "ops-query",
+          "field": "value_date",
+          "found": "2026-07-09",
+          "id": "t6-london-northgate-gbp-fwd:wrong-value-date",
+          "type": "wrong-value-date",
+          "where": [
+            "chat:dealing",
+            "bank-ticket",
+            "NC-LON-26-0002-bank-ticket-v2.pdf"
+          ]
+        }
+      ],
+      "notional": 5138000,
+      "onboarding_scenario": null,
+      "payment_days": null,
+      "scenario": "t6-london-northgate-gbp-fwd",
+      "side": "buy",
+      "status": "agreed",
+      "terms": {
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "deal_type": "outright forward",
+        "pair": "GBP/USD",
+        "rate": 1.2845,
+        "sell_amount": 5138000,
+        "sell_currency": "USD",
+        "value_date": "2026-07-08"
+      },
+      "tickets": [
+        {
+          "facts": {
+            "agreement": "Northgate Bank FX dealing terms",
+            "buy_amount": 4000000,
+            "buy_currency": "GBP",
+            "deal_type": "outright forward",
+            "governing_law": "England and Wales",
+            "issued_by": "NewCo Trading London Limited",
+            "pair": "GBP/USD",
+            "rate": 1.2845,
+            "sell_amount": 5138000,
+            "sell_currency": "USD",
+            "trade_id": "NC-LON-26-0002",
+            "value_date": "2026-07-08",
+            "version": 1
+          },
+          "filename": "NC-LON-26-0002-ticket-v1.pdf",
+          "issued_by": "NewCo Trading London Limited",
+          "message": "ticket",
+          "version": 1
+        },
+        {
+          "facts": {
+            "agreement": "Northgate Bank FX dealing terms",
+            "buy_amount": 4000000,
+            "buy_currency": "GBP",
+            "deal_type": "outright forward",
+            "governing_law": "England and Wales",
+            "issued_by": "Northgate Bank plc",
+            "pair": "GBP/USD",
+            "rate": 1.2845,
+            "sell_amount": 5138000,
+            "sell_currency": "USD",
+            "trade_id": "NC-LON-26-0002",
+            "value_date": "2026-07-09",
+            "version": 2
+          },
+          "filename": "NC-LON-26-0002-bank-ticket-v2.pdf",
+          "issued_by": "Northgate Bank plc",
+          "message": "bank-ticket",
+          "version": 2
+        },
+        {
+          "facts": {
+            "agreement": "Northgate Bank FX dealing terms",
+            "buy_amount": 4000000,
+            "buy_currency": "GBP",
+            "deal_type": "outright forward",
+            "governing_law": "England and Wales",
+            "issued_by": "Northgate Bank plc",
+            "pair": "GBP/USD",
+            "rate": 1.2845,
+            "sell_amount": 5138000,
+            "sell_currency": "USD",
+            "trade_id": "NC-LON-26-0002",
+            "value_date": "2026-07-08",
+            "version": 3
+          },
+          "filename": "NC-LON-26-0002-bank-ticket-v3.pdf",
+          "issued_by": "Northgate Bank plc",
+          "message": "bank-corrected",
+          "version": 3
+        }
+      ],
+      "tolerance_pct": null,
+      "trade_id": "NC-LON-26-0002"
+    }
+  ],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "ops-query",
+      "description": "Northgate's first confirmation shows a value date one business day after the date dealt.",
+      "id": "t6-london-northgate-gbp-fwd:wrong-value-date",
+      "type": "wrong-value-date",
+      "values": {
+        "agreed": "2026-07-08",
+        "field": "value_date",
+        "found": "2026-07-09"
+      },
+      "where": [
+        "chat:dealing",
+        "bank-ticket",
+        "NC-LON-26-0002-bank-ticket-v2.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-LON-26-0002-ticket-v1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "direction": "internal",
+      "facts": {
+        "rate": 1.2845,
+        "ticket_version": 1,
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08"
+      },
+      "files": {
+        "eml": "messages/001-ticket.eml",
+        "md": "messages/001-ticket.md"
+      },
+      "from": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "ticket",
+      "message_id": "<d2a58587943e444ae807@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "graham.carr@newco-london.example"
+      },
+      "seq": 1,
+      "subject": "Deal ticket NC-LON-26-0002",
+      "tags": [
+        "ticket"
+      ],
+      "thread": "ticket",
+      "timestamp": "2026-04-07T10:59:00+01:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0002-bank-ticket-v2.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "direction": "inbound",
+      "facts": {
+        "rate": 1.2845,
+        "ticket_version": 2,
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-09"
+      },
+      "files": {
+        "eml": "messages/002-bank-ticket.eml",
+        "md": "messages/002-bank-ticket.md"
+      },
+      "from": {
+        "address": "valerie.smith@northgatebank.example",
+        "name": "Valerie Smith",
+        "org": "bank-northgate",
+        "role": "trade_finance"
+      },
+      "in_reply_to": null,
+      "key": "bank-ticket",
+      "message_id": "<86db75b86aac38013f29@northgatebank.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "valerie.smith@northgatebank.example"
+      },
+      "seq": 2,
+      "subject": "Forward confirmation NC-LON-26-0002",
+      "tags": [
+        "planted",
+        "ticket"
+      ],
+      "thread": "bank-ticket",
+      "timestamp": "2026-04-08T09:20:00+01:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08"
+      },
+      "files": {
+        "eml": "messages/003-ops-query.eml",
+        "md": "messages/003-ops-query.md"
+      },
+      "from": {
+        "address": "tom.scott@newco-london.example",
+        "name": "Tom Scott",
+        "org": "newco-lon",
+        "role": "ops"
+      },
+      "in_reply_to": "bank-ticket",
+      "key": "ops-query",
+      "message_id": "<3612da54ec9399585456@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "Re: Forward confirmation NC-LON-26-0002",
+      "tags": [
+        "query",
+        "ticket"
+      ],
+      "thread": "bank-ticket",
+      "timestamp": "2026-04-09T09:02:00+01:00",
+      "to": [
+        {
+          "address": "valerie.smith@northgatebank.example",
+          "name": "Valerie Smith",
+          "org": "bank-northgate",
+          "role": "trade_finance"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0002-bank-ticket-v3.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "direction": "inbound",
+      "facts": {
+        "rate": 1.2845,
+        "ticket_version": 3,
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08"
+      },
+      "files": {
+        "eml": "messages/004-bank-corrected.eml",
+        "md": "messages/004-bank-corrected.md"
+      },
+      "from": {
+        "address": "valerie.smith@northgatebank.example",
+        "name": "Valerie Smith",
+        "org": "bank-northgate",
+        "role": "trade_finance"
+      },
+      "in_reply_to": "ops-query",
+      "key": "bank-corrected",
+      "message_id": "<c47e91f616d76ba02963@northgatebank.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "valerie.smith@northgatebank.example"
+      },
+      "seq": 4,
+      "subject": "Re: Forward confirmation NC-LON-26-0002",
+      "tags": [
+        "correction",
+        "ticket"
+      ],
+      "thread": "bank-ticket",
+      "timestamp": "2026-04-10T09:19:00+01:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "trade_id": "NC-LON-26-0002"
+      },
+      "files": {
+        "eml": "messages/005-booked.eml",
+        "md": "messages/005-booked.md"
+      },
+      "from": {
+        "address": "tom.scott@newco-london.example",
+        "name": "Tom Scott",
+        "org": "newco-lon",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "booked",
+      "message_id": "<64a37bb84a0efb089e66@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example"
+      },
+      "seq": 5,
+      "subject": "Booked NC-LON-26-0002",
+      "tags": [
+        "booking"
+      ],
+      "thread": "booked",
+      "timestamp": "2026-04-13T09:08:00+01:00",
+      "to": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "gbp_account": "acct-newco-lon-gbp-operating",
+        "trade_id": "NC-LON-26-0002",
+        "usd_account": "acct-newco-lon-usd-operating",
+        "value_date": "2026-07-08"
+      },
+      "files": {
+        "eml": "messages/006-settlement-instructions.eml",
+        "md": "messages/006-settlement-instructions.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "settlement-instructions",
+      "message_id": "<f254eab9aa9ed98ff8aa@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 6,
+      "subject": "Settlement instructions NC-LON-26-0002",
+      "tags": [
+        "settlement",
+        "ssi"
+      ],
+      "thread": "settlement-instructions",
+      "timestamp": "2026-04-14T09:18:00+01:00",
+      "to": [
+        {
+          "address": "amy.davies@northgatebank.example",
+          "name": "Amy Davies",
+          "org": "bank-northgate",
+          "role": "operations"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "result": "agreed",
+    "trade_id": "NC-LON-26-0002",
+    "usd_amount": 5138000,
+    "value_date": "2026-07-08"
+  },
+  "ownership_edges": [],
+  "phase": "trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 1.2845,
+      "id": "t6-london-northgate-gbp-fwd-q1",
+      "question": "At what rate did NewCo London buy GBP forward on NC-LON-26-0002?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": "2026-07-09",
+      "id": "t6-london-northgate-gbp-fwd-q2",
+      "question": "What value date did Northgate's first confirmation of NC-LON-26-0002 show?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 5138000,
+      "id": "t6-london-northgate-gbp-fwd-q3",
+      "question": "What USD amount settles NC-LON-26-0002?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "t6-london-northgate-gbp-fwd",
+  "title": "London buys GBP 4m forward from Northgate: the bank's first ticket has the wrong value date"
+}

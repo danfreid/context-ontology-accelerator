@@ -1,0 +1,16 @@
+# Credit check: BP Australia Pty Ltd Jet A-1 sale NC-SYD-26-0003
+
+- **Message-ID:** <1483259c2ec9844cea0c@newco-sydney.example>
+- **Date:** Tue, 24 Mar 2026 12:01:00 +1100
+- **From:** Aaron Heath <aaron.heath@newco-sydney.example>
+- **To:** Ricardo Crosby <ricardo.crosby@newco-sydney.example>
+
+## Body
+
+Hi Ricardo,
+
+We agreed to sell 30,000 mt of Jet A-1 to BP Australia Pty Ltd at USD 795.00 per mt, USD 23,850,000. Please check the Sydney sub-limit and the group limit.
+
+Regards,
+Aaron Heath
+NewCo Trading Sydney Pty Ltd

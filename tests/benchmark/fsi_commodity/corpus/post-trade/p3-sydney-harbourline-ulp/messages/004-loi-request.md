@@ -1,0 +1,18 @@
+# Re: Bill of lading BL-NC-SYD-26-0001-001
+
+- **Message-ID:** <e0a21f0b0aa41a6b1b56@newco-sydney.example>
+- **Date:** Fri, 17 Apr 2026 09:23:00 +1000
+- **From:** Rhonda Jimenez <rhonda.jimenez@newco-sydney.example>
+- **To:** Jessica Smith <jessica.smith@harbourline.example>
+- **In-Reply-To:** <794cc30cfb9cfd2d15b8@newco-sydney.example>
+- **References:** <794cc30cfb9cfd2d15b8@newco-sydney.example>
+
+## Body
+
+Hi Jessica,
+
+The originals of BL-NC-SYD-26-0001-001 will arrive after the vessel. To discharge on time, please send a letter of indemnity counter-signed by your bank for 125% of the cargo value.
+
+Regards,
+Rhonda Jimenez
+NewCo Trading Sydney Pty Ltd

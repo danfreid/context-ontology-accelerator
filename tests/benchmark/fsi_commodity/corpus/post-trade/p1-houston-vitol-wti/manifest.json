@@ -1,0 +1,956 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.",
+        "based_on": "NC-HOU-26-0001-ticket-v1.pdf",
+        "confirmation_date": "2026-03-18",
+        "currency": "USD",
+        "governing_law": "the State of Texas",
+        "incoterm": "FOB",
+        "issued_by": "NewCo Trading Houston LLC",
+        "loading_from": "2026-04-13",
+        "loading_to": "2026-04-22",
+        "location": "Corpus Christi",
+        "payment_days": 25,
+        "premium_usd_per_bbl": 0.85,
+        "pricing": "Platts WTI Midland, average of the five assessments around the loading date, plus premium",
+        "product": "WTI Midland",
+        "quantity": 250000,
+        "quantity_tolerance_pct": 5,
+        "trade_id": "NC-HOU-26-0001",
+        "unit": "bbl"
+      },
+      "filename": "NC-HOU-26-0001-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirmation",
+      "path": "attachments/001-NC-HOU-26-0001-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<6e5384066f45bff2e0e7@newco-houston.example>"
+      },
+      "sha256": "263ab251674b6955e58598678cacabce8ffc6a729ff72b3cf0900a89639cdf6a",
+      "size": 5620
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "facts": {
+        "laycan_from": "2026-04-13",
+        "laycan_to": "2026-04-22",
+        "nominated_by": "NewCo Trading Houston LLC",
+        "notice_date": "2026-03-30",
+        "port": "Corpus Christi",
+        "product": "WTI Midland",
+        "quantity": 250000,
+        "trade_id": "NC-HOU-26-0001",
+        "unit": "bbl",
+        "vessel": "MT Coastal Meridian"
+      },
+      "filename": "NC-HOU-26-0001-nomination.pdf",
+      "kind": "nomination",
+      "message": "nomination",
+      "path": "attachments/003-NC-HOU-26-0001-nomination.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<1cc2f52b78540f791e5f@newco-houston.example>"
+      },
+      "sha256": "b2d82394fbf7693ec9421efd22f538f00ea39fffcddc88cbdcb7015bd16151cb",
+      "size": 3435
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "facts": {
+        "bl_date": "2026-04-16",
+        "bl_number": "BL-NC-HOU-26-0001-001",
+        "class_uris": {
+          "cargo_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+          "consignee": "https://schema.org/Organization",
+          "consignment": "https://vocabulary.uncefact.org/Consignment",
+          "notify_party": "https://schema.org/Organization",
+          "shipper": "https://schema.org/Organization"
+        },
+        "consignee": "NewCo Trading Houston LLC",
+        "discharge_port": "Rotterdam",
+        "load_port": "Corpus Christi",
+        "notify_party": "NewCo Trading Houston LLC",
+        "product": "WTI Midland",
+        "quantity": 251381.194,
+        "shipper": "Vitol Inc.",
+        "trade_id": "NC-HOU-26-0001",
+        "unit": "bbl",
+        "vessel": "MT Coastal Meridian"
+      },
+      "filename": "NC-HOU-26-0001-bill-of-lading.pdf",
+      "kind": "bill-of-lading",
+      "message": "bill-of-lading",
+      "path": "attachments/005-NC-HOU-26-0001-bill-of-lading.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeff.guzman@vitol.example",
+        "wasDerivedFrom": "<9d1e3cbb57ad1593acaa@vitol.example>"
+      },
+      "sha256": "1c74b127184f0ff741f7bcd8eafab3ab09dc1a04bb144bddb7b005b567055cec",
+      "size": 3705
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "facts": {
+        "basis": "load-port",
+        "bl_number": "BL-NC-HOU-26-0001-001",
+        "class_uris": {
+          "event": "https://ref.gs1.org/epcis/ObjectEvent",
+          "quantity": "https://ref.gs1.org/epcis/QuantityElement"
+        },
+        "date": "2026-04-16",
+        "issued_by": "Cardinal Inspection Services",
+        "place": "Corpus Christi",
+        "quantity": 251381.194,
+        "trade_id": "NC-HOU-26-0001",
+        "unit": "bbl"
+      },
+      "filename": "NC-HOU-26-0001-quantity-certificate.pdf",
+      "kind": "quantity-certificate",
+      "message": "certificates",
+      "path": "attachments/006-NC-HOU-26-0001-quantity-certificate.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example",
+        "wasDerivedFrom": "<d6d22109632987a74be6@cardinalinspection.example>"
+      },
+      "sha256": "382676bf6dde96e094fa17da9306a0d767d78d33dd89da1f8771a1fa2dafaf20",
+      "size": 3068
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "facts": {
+        "api_gravity": 39.6,
+        "bl_number": "BL-NC-HOU-26-0001-001",
+        "class_uris": {
+          "event": "https://ref.gs1.org/epcis/ObjectEvent",
+          "quantity": "https://ref.gs1.org/epcis/QuantityElement"
+        },
+        "date": "2026-04-16",
+        "issued_by": "Cardinal Inspection Services",
+        "place": "Corpus Christi",
+        "sulphur_pct": 0.24,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "filename": "NC-HOU-26-0001-quality-certificate.pdf",
+      "kind": "quality-certificate",
+      "message": "certificates",
+      "path": "attachments/006-NC-HOU-26-0001-quality-certificate.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example",
+        "wasDerivedFrom": "<d6d22109632987a74be6@cardinalinspection.example>"
+      },
+      "sha256": "06ceaf9ffaf67ea479d5df30689fa25b0619bf43b31df1295285711d87a75f6f",
+      "size": 3051
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "billed_to": "NewCo Trading Houston LLC",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "currency": "USD",
+        "deductions": [],
+        "due_date": "2026-05-11",
+        "inputs": {
+          "average_price": 66.001,
+          "bl_number": "BL-NC-HOU-26-0001-001",
+          "premium": 0.95,
+          "quantity": 251381.194
+        },
+        "issue_date": "2026-04-20",
+        "issued_by": "Vitol Inc.",
+        "lines": [
+          {
+            "amount": 16591410.19,
+            "description": "WTI Midland, average of five Platts assessments",
+            "price": 66.001,
+            "quantity": 251381.194,
+            "unit": "bbl"
+          },
+          {
+            "amount": 238812.13,
+            "description": "Premium",
+            "price": 0.95,
+            "quantity": 251381.194,
+            "unit": "bbl"
+          }
+        ],
+        "number": "VIT-INV-NC-HOU-26-0001",
+        "pay_to": {
+          "aba": "101490438",
+          "account_id": "acct-cp-vitol-usd-operating",
+          "bank": "Hudson Meridian Trust Company",
+          "bic": "ZXSAUSEW",
+          "number": "3797790121"
+        },
+        "subtotal": 16830222.32,
+        "total_due": 16830222.32,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "filename": "NC-HOU-26-0001-invoice.pdf",
+      "kind": "invoice",
+      "message": "invoice",
+      "path": "attachments/008-NC-HOU-26-0001-invoice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "emily.gonzales@vitol.example",
+        "wasDerivedFrom": "<986499864a0ddf47300e@vitol.example>"
+      },
+      "sha256": "ce33bbdf8afed3435c9ac39a77881da7f0f7237654b4518dd194250d9be6d2aa",
+      "size": 6687
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "assessments": [
+          {
+            "date": "2026-04-14",
+            "price": 65.98
+          },
+          {
+            "date": "2026-04-15",
+            "price": 66.12
+          },
+          {
+            "date": "2026-04-16",
+            "price": 65.95
+          },
+          {
+            "date": "2026-04-17",
+            "price": 66.04
+          },
+          {
+            "date": "2026-04-20",
+            "price": 65.915
+          }
+        ],
+        "average": 66.001,
+        "source": "Platts WTI Midland",
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "filename": "NC-HOU-26-0001-platts-assessments.pdf",
+      "kind": "price-assessments",
+      "message": "invoice",
+      "path": "attachments/008-NC-HOU-26-0001-platts-assessments.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "emily.gonzales@vitol.example",
+        "wasDerivedFrom": "<986499864a0ddf47300e@vitol.example>"
+      },
+      "sha256": "3d48b477a07e0b41833823c4bc5348d43c137d2777e7e47a7e878c5410df213b",
+      "size": 3809
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "currency": "USD",
+        "invoice_number": "VIT-INV-NC-HOU-26-0001",
+        "prepared_by": "Steve Harris",
+        "rows": [
+          {
+            "difference": 0,
+            "expected": 16591410.19,
+            "invoiced": 16591410.19,
+            "line": "Platts average"
+          },
+          {
+            "difference": 25138.12,
+            "expected": 213674.01,
+            "invoiced": 238812.13,
+            "line": "Premium"
+          }
+        ],
+        "total_difference": 25138.12,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "filename": "NC-HOU-26-0001-invoice-check-sheet.pdf",
+      "kind": "invoice-check-sheet",
+      "message": "check",
+      "path": "attachments/009-NC-HOU-26-0001-invoice-check-sheet.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "steve.harris@newco-houston.example",
+        "wasDerivedFrom": "<474595819ce7dc4cc18d@newco-houston.example>"
+      },
+      "sha256": "f8907c3c47b9eb4e9d168fca8a27c3f91160d1ee2cdc77ccaf26d714281c0605",
+      "size": 4300
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "against_invoice": "VIT-INV-NC-HOU-26-0001",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "credit_lines": [
+          {
+            "amount": 25138.12,
+            "description": "Premium credit: charged less agreed",
+            "price": 0.1,
+            "quantity": 251381.194,
+            "unit": "bbl"
+          }
+        ],
+        "credit_total": 25138.12,
+        "currency": "USD",
+        "inputs": {
+          "agreed": 0.85,
+          "charged": 0.95,
+          "quantity": 251381.194
+        },
+        "invoice_total": 16830222.32,
+        "issue_date": "2026-04-22",
+        "issued_by": "Vitol Inc.",
+        "net_payable": 16805084.2,
+        "number": "VIT-CN-NC-HOU-26-0001",
+        "reason": "Premium invoiced above the agreed premium",
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "filename": "NC-HOU-26-0001-credit-note.pdf",
+      "kind": "credit-note",
+      "message": "credit-note",
+      "path": "attachments/011-NC-HOU-26-0001-credit-note.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "emily.gonzales@vitol.example",
+        "wasDerivedFrom": "<45b8de5fda00e23c65df@vitol.example>"
+      },
+      "sha256": "172d471faa56f773c661d02f75172f4bcbdfbca7368bb329a301f1f07af74662",
+      "size": 5064
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 9,
+    "chats": 0,
+    "emails": 12
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "check",
+      "description": "Vitol's invoice charges a premium of 0.95, the recap figure; the chat settled at 0.85. NewCo accounting caught it with the check sheet.",
+      "id": "p1-houston-vitol-wti:invoice-premium-overcharge",
+      "type": "invoice-vs-agreed",
+      "values": {
+        "agreed": 0.85,
+        "field": "premium_usd_per_bbl",
+        "found": 0.95,
+        "overcharge": 25138.12
+      },
+      "where": [
+        "chat:premium",
+        "NC-HOU-26-0001-invoice.pdf",
+        "NC-HOU-26-0001-invoice-check-sheet.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-HOU-26-0001-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "outbound",
+      "facts": {
+        "premium_usd_per_bbl": 0.85,
+        "ticket_version": 1,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/001-confirmation.eml",
+        "md": "messages/001-confirmation.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirmation",
+      "message_id": "<6e5384066f45bff2e0e7@newco-houston.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 1,
+      "subject": "Confirmation NC-HOU-26-0001: WTI Midland",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "confirmation",
+      "timestamp": "2026-03-18T09:58:00-05:00",
+      "to": [
+        {
+          "address": "jeff.guzman@vitol.example",
+          "name": "Jeff Guzman",
+          "org": "cp-vitol",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-confirmation-signed.eml",
+        "md": "messages/002-confirmation-signed.md"
+      },
+      "from": {
+        "address": "jeff.guzman@vitol.example",
+        "name": "Jeff Guzman",
+        "org": "cp-vitol",
+        "role": "ops"
+      },
+      "in_reply_to": "confirmation",
+      "key": "confirmation-signed",
+      "message_id": "<ae2c78664dd9a7d702ba@vitol.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeff.guzman@vitol.example"
+      },
+      "seq": 2,
+      "subject": "Re: Confirmation NC-HOU-26-0001: WTI Midland",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "confirmation",
+      "timestamp": "2026-03-19T09:05:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-nomination.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "direction": "outbound",
+      "facts": {
+        "trade_id": "NC-HOU-26-0001",
+        "vessel": "MT Coastal Meridian"
+      },
+      "files": {
+        "eml": "messages/003-nomination.eml",
+        "md": "messages/003-nomination.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "nomination",
+      "message_id": "<1cc2f52b78540f791e5f@newco-houston.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 3,
+      "subject": "Vessel nomination NC-HOU-26-0001",
+      "tags": [
+        "logistics",
+        "nomination"
+      ],
+      "thread": "nomination",
+      "timestamp": "2026-03-30T09:48:00-05:00",
+      "to": [
+        {
+          "address": "jeff.guzman@vitol.example",
+          "name": "Jeff Guzman",
+          "org": "cp-vitol",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/004-nomination-ack.eml",
+        "md": "messages/004-nomination-ack.md"
+      },
+      "from": {
+        "address": "jeff.guzman@vitol.example",
+        "name": "Jeff Guzman",
+        "org": "cp-vitol",
+        "role": "ops"
+      },
+      "in_reply_to": "nomination",
+      "key": "nomination-ack",
+      "message_id": "<3a6ec86e073c4bdc0e92@vitol.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeff.guzman@vitol.example"
+      },
+      "seq": 4,
+      "subject": "Re: Vessel nomination NC-HOU-26-0001",
+      "tags": [
+        "logistics"
+      ],
+      "thread": "nomination",
+      "timestamp": "2026-03-31T09:05:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-bill-of-lading.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "direction": "inbound",
+      "facts": {
+        "bl_number": "BL-NC-HOU-26-0001-001",
+        "quantity": 251381.194,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/005-bill-of-lading.eml",
+        "md": "messages/005-bill-of-lading.md"
+      },
+      "from": {
+        "address": "jeff.guzman@vitol.example",
+        "name": "Jeff Guzman",
+        "org": "cp-vitol",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "bill-of-lading",
+      "message_id": "<9d1e3cbb57ad1593acaa@vitol.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeff.guzman@vitol.example"
+      },
+      "seq": 5,
+      "subject": "Bill of lading BL-NC-HOU-26-0001-001",
+      "tags": [
+        "bill-of-lading",
+        "logistics"
+      ],
+      "thread": "bill-of-lading",
+      "timestamp": "2026-04-16T10:45:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-quantity-certificate.pdf",
+        "NC-HOU-26-0001-quality-certificate.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "direction": "inbound",
+      "facts": {
+        "quantity": 251381.194,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/006-certificates.eml",
+        "md": "messages/006-certificates.md"
+      },
+      "from": {
+        "address": "veronica.smith@cardinalinspection.example",
+        "name": "Veronica Smith",
+        "org": "svc-cardinal",
+        "role": "inspector"
+      },
+      "in_reply_to": null,
+      "key": "certificates",
+      "message_id": "<d6d22109632987a74be6@cardinalinspection.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example"
+      },
+      "seq": 6,
+      "subject": "Inspection certificates NC-HOU-26-0001",
+      "tags": [
+        "certificate",
+        "logistics"
+      ],
+      "thread": "certificates",
+      "timestamp": "2026-04-17T09:10:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/007-certificates-ack.eml",
+        "md": "messages/007-certificates-ack.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": "certificates",
+      "key": "certificates-ack",
+      "message_id": "<562308d0db5e2d05ccc9@newco-houston.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 7,
+      "subject": "Re: Inspection certificates NC-HOU-26-0001",
+      "tags": [
+        "logistics"
+      ],
+      "thread": "certificates",
+      "timestamp": "2026-04-20T09:29:00-05:00",
+      "to": [
+        {
+          "address": "jeff.guzman@vitol.example",
+          "name": "Jeff Guzman",
+          "org": "cp-vitol",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-invoice.pdf",
+        "NC-HOU-26-0001-platts-assessments.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "inbound",
+      "facts": {
+        "invoice_number": "VIT-INV-NC-HOU-26-0001",
+        "premium_usd_per_bbl": 0.95,
+        "total_due": 16830222.32,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/008-invoice.eml",
+        "md": "messages/008-invoice.md"
+      },
+      "from": {
+        "address": "emily.gonzales@vitol.example",
+        "name": "Emily Gonzales",
+        "org": "cp-vitol",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "invoice",
+      "message_id": "<986499864a0ddf47300e@vitol.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "emily.gonzales@vitol.example"
+      },
+      "seq": 8,
+      "subject": "Invoice VIT-INV-NC-HOU-26-0001: NC-HOU-26-0001",
+      "tags": [
+        "invoice",
+        "planted"
+      ],
+      "thread": "invoice",
+      "timestamp": "2026-04-20T10:51:00-05:00",
+      "to": [
+        {
+          "address": "steve.harris@newco-houston.example",
+          "name": "Steve Harris",
+          "org": "newco-hou",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-invoice-check-sheet.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "internal",
+      "facts": {
+        "overcharge": 25138.12,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/009-check.eml",
+        "md": "messages/009-check.md"
+      },
+      "from": {
+        "address": "steve.harris@newco-houston.example",
+        "name": "Steve Harris",
+        "org": "newco-hou",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "check",
+      "message_id": "<474595819ce7dc4cc18d@newco-houston.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "steve.harris@newco-houston.example"
+      },
+      "seq": 9,
+      "subject": "Check sheet VIT-INV-NC-HOU-26-0001",
+      "tags": [
+        "check",
+        "invoice"
+      ],
+      "thread": "check",
+      "timestamp": "2026-04-21T09:26:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "agreed": 0.85,
+        "charged": 0.95,
+        "overcharge": 25138.12,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/010-dispute.eml",
+        "md": "messages/010-dispute.md"
+      },
+      "from": {
+        "address": "steve.harris@newco-houston.example",
+        "name": "Steve Harris",
+        "org": "newco-hou",
+        "role": "accounting"
+      },
+      "in_reply_to": "invoice",
+      "key": "dispute",
+      "message_id": "<b5cdd087f2aac5b5969e@newco-houston.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "steve.harris@newco-houston.example"
+      },
+      "seq": 10,
+      "subject": "Re: Invoice VIT-INV-NC-HOU-26-0001: NC-HOU-26-0001",
+      "tags": [
+        "dispute",
+        "invoice"
+      ],
+      "thread": "invoice",
+      "timestamp": "2026-04-22T09:12:00-05:00",
+      "to": [
+        {
+          "address": "emily.gonzales@vitol.example",
+          "name": "Emily Gonzales",
+          "org": "cp-vitol",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-credit-note.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "inbound",
+      "facts": {
+        "credit_total": 25138.12,
+        "net_payable": 16805084.2,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/011-credit-note.eml",
+        "md": "messages/011-credit-note.md"
+      },
+      "from": {
+        "address": "emily.gonzales@vitol.example",
+        "name": "Emily Gonzales",
+        "org": "cp-vitol",
+        "role": "settlements"
+      },
+      "in_reply_to": "dispute",
+      "key": "credit-note",
+      "message_id": "<45b8de5fda00e23c65df@vitol.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "emily.gonzales@vitol.example"
+      },
+      "seq": 11,
+      "subject": "Re: Invoice VIT-INV-NC-HOU-26-0001: NC-HOU-26-0001",
+      "tags": [
+        "credit-note",
+        "invoice"
+      ],
+      "thread": "invoice",
+      "timestamp": "2026-04-23T09:07:00-05:00",
+      "to": [
+        {
+          "address": "steve.harris@newco-houston.example",
+          "name": "Steve Harris",
+          "org": "newco-hou",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "due": "2026-05-11",
+        "net_payable": 16805084.2,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/012-payable.eml",
+        "md": "messages/012-payable.md"
+      },
+      "from": {
+        "address": "steve.harris@newco-houston.example",
+        "name": "Steve Harris",
+        "org": "newco-hou",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "payable",
+      "message_id": "<6bab0aa8ed4d63ac88fd@newco-houston.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "steve.harris@newco-houston.example"
+      },
+      "seq": 12,
+      "subject": "Payment approval NC-HOU-26-0001",
+      "tags": [
+        "payment"
+      ],
+      "thread": "payable",
+      "timestamp": "2026-04-24T09:10:00-05:00",
+      "to": [
+        {
+          "address": "andrew.evans@newco-houston.example",
+          "name": "Andrew Evans",
+          "org": "newco-hou",
+          "role": "settlements"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "due": "2026-05-11",
+    "net_payable": 16805084.2,
+    "overcharge": 25138.12,
+    "result": "corrected",
+    "trade_id": "NC-HOU-26-0001"
+  },
+  "ownership_edges": [],
+  "phase": "post_trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 25138.12,
+      "id": "p1-houston-vitol-wti-q1",
+      "question": "By how much does Vitol's invoice for NC-HOU-26-0001 overcharge the premium?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 251381.194,
+      "id": "p1-houston-vitol-wti-q2",
+      "question": "What certified quantity is on the quantity certificate for NC-HOU-26-0001?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": 16805084.2,
+      "id": "p1-houston-vitol-wti-q3",
+      "question": "What is the amount payable for NC-HOU-26-0001 after the credit note?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "p1-houston-vitol-wti",
+  "title": "Houston buys WTI from Vitol: the invoice charges the recap premium, the check sheet finds it, a credit note fixes it"
+}

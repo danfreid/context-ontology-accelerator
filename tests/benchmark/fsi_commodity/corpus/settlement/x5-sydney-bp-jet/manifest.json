@@ -1,0 +1,482 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "billed_to": "NewCo Trading Sydney Pty Ltd",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "currency": "USD",
+        "deductions": [],
+        "due_date": "2026-05-25",
+        "inputs": {
+          "price": 781.5,
+          "quantity": 12000
+        },
+        "issue_date": "2026-05-05",
+        "issued_by": "BP Oil International Limited",
+        "lines": [
+          {
+            "amount": 9378000,
+            "description": "Jet A-1, 12,000 mt at 781.50",
+            "price": 781.5,
+            "quantity": 12000,
+            "unit": "mt"
+          }
+        ],
+        "number": "BPOI-INV-NC-LON-26-0003",
+        "pay_to": {
+          "account_id": "acct-cp-bp-usd-operating",
+          "bank": "Northgate Bank plc",
+          "bic": "ZIXWGBH6",
+          "iban": "GB12GKOB34656886733736",
+          "number": "86733736"
+        },
+        "subtotal": 9378000,
+        "total_due": 9378000,
+        "trade_id": "NC-LON-26-0003"
+      },
+      "filename": "NC-LON-26-0003-bp-invoice.pdf",
+      "kind": "supplier-invoice",
+      "message": "bp-invoice",
+      "path": "attachments/001-NC-LON-26-0003-bp-invoice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "oliver.tucker@bp.example",
+        "wasDerivedFrom": "<da93bdc080053c447c13@bp.example>"
+      },
+      "sha256": "5c507e1f22150de360592054742cf3ed5bdf04f6438998a8d5ac7999986d7791",
+      "size": 6046
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited",
+        "currency": "USD",
+        "items": [
+          {
+            "amount": 23859937.5,
+            "direction": "receivable",
+            "item": "Tax invoice NCS-TAX-NC-SYD-26-0003, trade NC-SYD-26-0003, due from BP Australia Pty Ltd"
+          },
+          {
+            "amount": 9378000,
+            "direction": "payable",
+            "item": "Invoice BPOI-INV-NC-LON-26-0003, trade NC-LON-26-0003, reissued to NewCo Trading London Limited"
+          }
+        ],
+        "net": 14481937.5,
+        "reference": "NET NC-SYD-26-0003 NC-LON-26-0003",
+        "value_date": "2026-05-25"
+      },
+      "filename": "NC-SYD-26-0003-netting-statement.pdf",
+      "kind": "netting-statement",
+      "message": "netting-statement",
+      "path": "attachments/005-NC-SYD-26-0003-netting-statement.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "oliver.tucker@bp.example",
+        "wasDerivedFrom": "<808b6959be96e003effb@bp.example>"
+      },
+      "sha256": "48f4935406c45bda2fb7a75e519cf34da23795e05b88ee95a0fb0e40993ddcae",
+      "size": 4621
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "account": {
+          "account_id": "acct-newco-syd-usd-operating",
+          "bank": "Bluegum Commercial Bank Ltd",
+          "bic": "ZDECAUQR",
+          "bsb": "868-150",
+          "number": "2926537255"
+        },
+        "amount": 14481937.5,
+        "bank": "Bluegum Commercial Bank Ltd",
+        "charges": 0,
+        "currency": "USD",
+        "instructed": 14481937.5,
+        "originator": "BP Australia Pty Ltd",
+        "reference": "NET NC-SYD-26-0003 NC-LON-26-0003",
+        "trade_id": "NC-SYD-26-0003",
+        "value_date": "2026-05-25"
+      },
+      "filename": "NC-SYD-26-0003-net-credit-advice.pdf",
+      "kind": "credit-advice",
+      "message": "net-credit-advice",
+      "path": "attachments/006-NC-SYD-26-0003-net-credit-advice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.schneider@bluegumbank.example",
+        "wasDerivedFrom": "<b0769d81814490e1928b@bluegumbank.example>"
+      },
+      "sha256": "0fd9e3f1008b72ec166e42a2afa80ba547c803b779b617e1c63cca5634e8d727",
+      "size": 3984
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 3,
+    "chats": 0,
+    "emails": 6
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "wrong-entity-notice",
+      "description": "BP Oil International invoiced NewCo Trading Sydney Pty Ltd for NC-LON-26-0003, which NewCo Trading London Limited dealt. Sydney has no ticket or confirmation for it.",
+      "id": "x5-sydney-bp-jet:invoice-wrong-entity",
+      "type": "invoice-vs-trade-record",
+      "values": {
+        "agreed": "newco-lon",
+        "field": "billed_entity",
+        "found": "newco-syd",
+        "trade_id": "NC-LON-26-0003"
+      },
+      "where": [
+        "NC-LON-26-0003-bp-invoice.pdf",
+        "NC-SYD-26-0003-tax-invoice.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-LON-26-0003-bp-invoice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "inbound",
+      "facts": {
+        "billed_to": "NewCo Trading Sydney Pty Ltd",
+        "invoice_number": "BPOI-INV-NC-LON-26-0003",
+        "total_due": 9378000,
+        "trade_id": "NC-LON-26-0003"
+      },
+      "files": {
+        "eml": "messages/001-bp-invoice.eml",
+        "md": "messages/001-bp-invoice.md"
+      },
+      "from": {
+        "address": "oliver.tucker@bp.example",
+        "name": "Oliver Tucker",
+        "org": "cp-bp",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "bp-invoice",
+      "message_id": "<da93bdc080053c447c13@bp.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "oliver.tucker@bp.example"
+      },
+      "seq": 1,
+      "subject": "Invoice BPOI-INV-NC-LON-26-0003: NC-LON-26-0003",
+      "tags": [
+        "invoice",
+        "planted"
+      ],
+      "thread": "bp-invoice",
+      "timestamp": "2026-05-05T09:06:00+01:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "invoice_number": "BPOI-INV-NC-LON-26-0003",
+        "trade_id": "NC-LON-26-0003"
+      },
+      "files": {
+        "eml": "messages/002-ask-london.eml",
+        "md": "messages/002-ask-london.md"
+      },
+      "from": {
+        "address": "gary.mata@newco-sydney.example",
+        "name": "Gary Mata",
+        "org": "newco-syd",
+        "role": "accounting"
+      },
+      "in_reply_to": "bp-invoice",
+      "key": "ask-london",
+      "message_id": "<a1dde08d4be97aa08ede@newco-sydney.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example"
+      },
+      "seq": 2,
+      "subject": "Re: Invoice BPOI-INV-NC-LON-26-0003: NC-LON-26-0003",
+      "tags": [
+        "invoice",
+        "query"
+      ],
+      "thread": "bp-invoice",
+      "timestamp": "2026-05-06T09:01:00+10:00",
+      "to": [
+        {
+          "address": "kathleen.garner@newco-london.example",
+          "name": "Kathleen Garner",
+          "org": "newco-lon",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "dealing_entity": "newco-lon",
+        "trade_id": "NC-LON-26-0003"
+      },
+      "files": {
+        "eml": "messages/003-london-confirms.eml",
+        "md": "messages/003-london-confirms.md"
+      },
+      "from": {
+        "address": "kathleen.garner@newco-london.example",
+        "name": "Kathleen Garner",
+        "org": "newco-lon",
+        "role": "accounting"
+      },
+      "in_reply_to": "ask-london",
+      "key": "london-confirms",
+      "message_id": "<4753681078f34634996d@newco-london.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathleen.garner@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "Re: Invoice BPOI-INV-NC-LON-26-0003: NC-LON-26-0003",
+      "tags": [
+        "invoice",
+        "query"
+      ],
+      "thread": "bp-invoice",
+      "timestamp": "2026-05-07T09:06:00+01:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "correct_entity": "newco-lon",
+        "receivable": 23859937.5,
+        "trade_id": "NC-LON-26-0003"
+      },
+      "files": {
+        "eml": "messages/004-wrong-entity-notice.eml",
+        "md": "messages/004-wrong-entity-notice.md"
+      },
+      "from": {
+        "address": "gary.mata@newco-sydney.example",
+        "name": "Gary Mata",
+        "org": "newco-syd",
+        "role": "accounting"
+      },
+      "in_reply_to": "bp-invoice",
+      "key": "wrong-entity-notice",
+      "message_id": "<4009f2942a0c311d8b67@newco-sydney.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example"
+      },
+      "seq": 4,
+      "subject": "Re: Invoice BPOI-INV-NC-LON-26-0003: NC-LON-26-0003",
+      "tags": [
+        "dispute",
+        "invoice",
+        "netting"
+      ],
+      "thread": "bp-invoice",
+      "timestamp": "2026-05-08T09:29:00+10:00",
+      "to": [
+        {
+          "address": "oliver.tucker@bp.example",
+          "name": "Oliver Tucker",
+          "org": "cp-bp",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0003-netting-statement.pdf"
+      ],
+      "cc": [
+        {
+          "address": "kathleen.garner@newco-london.example",
+          "name": "Kathleen Garner",
+          "org": "newco-lon",
+          "role": "accounting"
+        }
+      ],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "inbound",
+      "facts": {
+        "net": 14481937.5,
+        "payable": 9378000,
+        "receivable": 23859937.5,
+        "trade_ids": [
+          "NC-SYD-26-0003",
+          "NC-LON-26-0003"
+        ]
+      },
+      "files": {
+        "eml": "messages/005-netting-statement.eml",
+        "md": "messages/005-netting-statement.md"
+      },
+      "from": {
+        "address": "oliver.tucker@bp.example",
+        "name": "Oliver Tucker",
+        "org": "cp-bp",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "netting-statement",
+      "message_id": "<808b6959be96e003effb@bp.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "oliver.tucker@bp.example"
+      },
+      "seq": 5,
+      "subject": "Netting statement NC-SYD-26-0003 / NC-LON-26-0003",
+      "tags": [
+        "netting",
+        "payment"
+      ],
+      "thread": "netting-statement",
+      "timestamp": "2026-05-11T09:05:00+01:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0003-net-credit-advice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "inbound",
+      "facts": {
+        "amount": 14481937.5,
+        "trade_id": "NC-SYD-26-0003",
+        "value_date": "2026-05-25"
+      },
+      "files": {
+        "eml": "messages/006-net-credit-advice.eml",
+        "md": "messages/006-net-credit-advice.md"
+      },
+      "from": {
+        "address": "michael.schneider@bluegumbank.example",
+        "name": "Michael Schneider",
+        "org": "bank-bluegum",
+        "role": "operations"
+      },
+      "in_reply_to": null,
+      "key": "net-credit-advice",
+      "message_id": "<b0769d81814490e1928b@bluegumbank.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.schneider@bluegumbank.example"
+      },
+      "seq": 6,
+      "subject": "Credit advice NET NC-SYD-26-0003 NC-LON-26-0003",
+      "tags": [
+        "credit-advice",
+        "netting",
+        "payment"
+      ],
+      "thread": "net-credit-advice",
+      "timestamp": "2026-05-25T10:17:00+10:00",
+      "to": [
+        {
+          "address": "alicia.parsons@newco-sydney.example",
+          "name": "Alicia Parsons",
+          "org": "newco-syd",
+          "role": "settlements"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "london_trade_id": "NC-LON-26-0003",
+    "net_settled": 14481937.5,
+    "payable": 9378000,
+    "receivable": 23859937.5,
+    "result": "netted",
+    "trade_id": "NC-SYD-26-0003",
+    "value_date": "2026-05-25"
+  },
+  "ownership_edges": [],
+  "phase": "settlement",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 14481937.5,
+      "id": "x5-sydney-bp-jet-q1",
+      "question": "What net amount did BP settle with NewCo Sydney for NC-SYD-26-0003 and NC-LON-26-0003?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": "NewCo Trading London Limited",
+      "id": "x5-sydney-bp-jet-q2",
+      "question": "Which NewCo entity dealt NC-LON-26-0003, which BP invoiced to Sydney?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 9378000,
+      "id": "x5-sydney-bp-jet-q3",
+      "question": "What was the amount of BP invoice BPOI-INV-NC-LON-26-0003?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "x5-sydney-bp-jet",
+  "title": "BP invoices Sydney for a trade London dealt: wrong entity, netting statement under the MPTA, net settlement"
+}

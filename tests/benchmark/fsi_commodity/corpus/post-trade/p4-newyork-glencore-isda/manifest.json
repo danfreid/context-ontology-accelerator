@@ -1,0 +1,563 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "facts": {
+        "agreement": "ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited",
+        "based_on": "NC-NYC-26-0001-ticket-v2.pdf",
+        "confirmation_date": "2026-04-03",
+        "csa": "Credit Support Annex between NewCo Derivatives New York, Inc. and Glencore Limited",
+        "csa_threshold_usd": 2500000,
+        "currency": "USD",
+        "end": "2027-04-30",
+        "fixed_payer": "NewCo Derivatives New York, Inc.",
+        "fixed_price_usd_per_bbl": 68.04,
+        "fixed_receiver": "Glencore Ltd.",
+        "fixing": "last business day of each month",
+        "floating": "Platts WTI Cushing, monthly average",
+        "governing_law": "the State of New York",
+        "instrument": "WTI fixed-for-floating swap",
+        "issued_by": "NewCo Derivatives New York, Inc.",
+        "months": 12,
+        "notional_bbl_per_month": 50000,
+        "payment": "five business days after each fixing",
+        "settlement": "monthly, in cash",
+        "start": "2026-05-01",
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "filename": "NC-NYC-26-0001-confirmation-v1.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirmation",
+      "path": "attachments/001-NC-NYC-26-0001-confirmation-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kenneth.ashley@newco-newyork.example",
+        "wasDerivedFrom": "<71001540d9d9bbe2a9c7@newco-newyork.example>"
+      },
+      "sha256": "3064a332aab0fb0ab118632753af03a1ec20e216d1d95fd18a6301295c96a4e2",
+      "size": 6529
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "facts": {
+        "agreement": "ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited",
+        "based_on": "NC-NYC-26-0001-ticket-v2.pdf, fixed price corrected to the agreed 68.40",
+        "confirmation_date": "2026-04-06",
+        "csa": "Credit Support Annex between NewCo Derivatives New York, Inc. and Glencore Limited",
+        "csa_threshold_usd": 2500000,
+        "currency": "USD",
+        "end": "2027-04-30",
+        "fixed_payer": "NewCo Derivatives New York, Inc.",
+        "fixed_price_usd_per_bbl": 68.4,
+        "fixed_receiver": "Glencore Ltd.",
+        "fixing": "last business day of each month",
+        "floating": "Platts WTI Cushing, monthly average",
+        "governing_law": "the State of New York",
+        "instrument": "WTI fixed-for-floating swap",
+        "issued_by": "NewCo Derivatives New York, Inc.",
+        "months": 12,
+        "notional_bbl_per_month": 50000,
+        "payment": "five business days after each fixing",
+        "settlement": "monthly, in cash",
+        "start": "2026-05-01",
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "filename": "NC-NYC-26-0001-confirmation-v2.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirmation-corrected",
+      "path": "attachments/003-NC-NYC-26-0001-confirmation-v2.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kenneth.ashley@newco-newyork.example",
+        "wasDerivedFrom": "<730921aca236a496c77a@newco-newyork.example>"
+      },
+      "sha256": "50f47ddc0dffce3814c3e31f4e0c0f101804e291ce4e08307eb2ef436d7fa677",
+      "size": 6609
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "facts": {
+        "amount_called": 3120000,
+        "called_by": "Glencore Ltd.",
+        "called_from": "NewCo Derivatives New York, Inc.",
+        "class_uris": {
+          "agreement": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+          "contract_type": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement"
+        },
+        "collateral_held": 0,
+        "currency": "USD",
+        "exposure": 3120000,
+        "fixed_price": 68.4,
+        "forward_price": 63.2,
+        "min_transfer": 250000,
+        "number": "MC-NC-NYC-26-0001-1",
+        "revision": 1,
+        "threshold_applied": 0,
+        "trade_id": "NC-NYC-26-0001",
+        "transfer_by": "2026-05-01",
+        "valuation_date": "2026-04-30",
+        "volume_bbl": 600000
+      },
+      "filename": "NC-NYC-26-0001-margin-call-r1.pdf",
+      "kind": "margin-call",
+      "message": "margin-call",
+      "path": "attachments/004-NC-NYC-26-0001-margin-call-r1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "samuel.cowan@glencore.example",
+        "wasDerivedFrom": "<00266847a525b30c5e53@glencore.example>"
+      },
+      "sha256": "cddedf9e8d89039fa9c672a187065679af0525b531b463a3e53a397cf8b2b199",
+      "size": 4710
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "facts": {
+        "amount_called": 620000,
+        "called_by": "Glencore Ltd.",
+        "called_from": "NewCo Derivatives New York, Inc.",
+        "class_uris": {
+          "agreement": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+          "contract_type": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement"
+        },
+        "collateral_held": 0,
+        "currency": "USD",
+        "exposure": 3120000,
+        "fixed_price": 68.4,
+        "forward_price": 63.2,
+        "min_transfer": 250000,
+        "number": "MC-NC-NYC-26-0001-2",
+        "revision": 2,
+        "threshold_applied": 2500000,
+        "trade_id": "NC-NYC-26-0001",
+        "transfer_by": "2026-05-01",
+        "valuation_date": "2026-04-30",
+        "volume_bbl": 600000
+      },
+      "filename": "NC-NYC-26-0001-margin-call-r2.pdf",
+      "kind": "margin-call",
+      "message": "margin-call-revised",
+      "path": "attachments/006-NC-NYC-26-0001-margin-call-r2.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "samuel.cowan@glencore.example",
+        "wasDerivedFrom": "<fa948622bc24b966edc3@glencore.example>"
+      },
+      "sha256": "6a54513dd8988490dda486635d6db3211758f2bcd99b6d6aa61082c7d2083f11",
+      "size": 4716
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 4,
+    "chats": 0,
+    "emails": 7
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "confirmation-query",
+      "description": "NewCo's confirmation follows ticket v2 with fixed price 68.04; the agreed fixed price is 68.40. Glencore refused to sign.",
+      "id": "p4-newyork-glencore-isda:confirmation-on-mistyped-ticket",
+      "type": "confirmation-vs-agreement",
+      "values": {
+        "agreed": 68.4,
+        "field": "fixed_price_usd_per_bbl",
+        "found": 68.04
+      },
+      "where": [
+        "NC-NYC-26-0001-ticket-v2.pdf",
+        "NC-NYC-26-0001-confirmation-v1.pdf",
+        "chat:agreement"
+      ]
+    },
+    {
+      "caught": true,
+      "caught_by": "margin-call-query",
+      "description": "The first margin call applies no threshold: USD 3,120,000.00 called; the CSA threshold of USD 2,500,000.00 leaves USD 620,000.00.",
+      "id": "p4-newyork-glencore-isda:margin-call-ignores-threshold",
+      "type": "margin-call-vs-csa",
+      "values": {
+        "agreed": 620000,
+        "field": "amount_called",
+        "found": 3120000,
+        "threshold": 2500000
+      },
+      "where": [
+        "NC-NYC-26-0001-margin-call-r1.pdf",
+        "Credit Support Annex between NewCo Derivatives New York, Inc. and Glencore Limited"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-NYC-26-0001-confirmation-v1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "direction": "outbound",
+      "facts": {
+        "fixed_price_usd_per_bbl": 68.04,
+        "ticket_version": 2,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/001-confirmation.eml",
+        "md": "messages/001-confirmation.md"
+      },
+      "from": {
+        "address": "kenneth.ashley@newco-newyork.example",
+        "name": "Kenneth Ashley",
+        "org": "newco-nyc",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirmation",
+      "message_id": "<71001540d9d9bbe2a9c7@newco-newyork.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kenneth.ashley@newco-newyork.example"
+      },
+      "seq": 1,
+      "subject": "Swap confirmation NC-NYC-26-0001",
+      "tags": [
+        "confirmation",
+        "planted"
+      ],
+      "thread": "confirmation",
+      "timestamp": "2026-04-03T10:36:00-04:00",
+      "to": [
+        {
+          "address": "samuel.cowan@glencore.example",
+          "name": "Samuel Cowan",
+          "org": "cp-glencore",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "agreed": 68.4,
+        "confirmation": 68.04,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/002-confirmation-query.eml",
+        "md": "messages/002-confirmation-query.md"
+      },
+      "from": {
+        "address": "samuel.cowan@glencore.example",
+        "name": "Samuel Cowan",
+        "org": "cp-glencore",
+        "role": "ops"
+      },
+      "in_reply_to": "confirmation",
+      "key": "confirmation-query",
+      "message_id": "<1b08871e343e5b577fb6@glencore.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "samuel.cowan@glencore.example"
+      },
+      "seq": 2,
+      "subject": "Re: Swap confirmation NC-NYC-26-0001",
+      "tags": [
+        "confirmation",
+        "dispute"
+      ],
+      "thread": "confirmation",
+      "timestamp": "2026-04-06T09:11:00-04:00",
+      "to": [
+        {
+          "address": "kenneth.ashley@newco-newyork.example",
+          "name": "Kenneth Ashley",
+          "org": "newco-nyc",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-NYC-26-0001-confirmation-v2.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "direction": "outbound",
+      "facts": {
+        "fixed_price_usd_per_bbl": 68.4,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/003-confirmation-corrected.eml",
+        "md": "messages/003-confirmation-corrected.md"
+      },
+      "from": {
+        "address": "kenneth.ashley@newco-newyork.example",
+        "name": "Kenneth Ashley",
+        "org": "newco-nyc",
+        "role": "ops"
+      },
+      "in_reply_to": "confirmation-query",
+      "key": "confirmation-corrected",
+      "message_id": "<730921aca236a496c77a@newco-newyork.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kenneth.ashley@newco-newyork.example"
+      },
+      "seq": 3,
+      "subject": "Re: Swap confirmation NC-NYC-26-0001",
+      "tags": [
+        "confirmation",
+        "correction"
+      ],
+      "thread": "confirmation",
+      "timestamp": "2026-04-07T09:27:00-04:00",
+      "to": [
+        {
+          "address": "samuel.cowan@glencore.example",
+          "name": "Samuel Cowan",
+          "org": "cp-glencore",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-NYC-26-0001-margin-call-r1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "direction": "inbound",
+      "facts": {
+        "amount_called": 3120000,
+        "exposure": 3120000,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/004-margin-call.eml",
+        "md": "messages/004-margin-call.md"
+      },
+      "from": {
+        "address": "samuel.cowan@glencore.example",
+        "name": "Samuel Cowan",
+        "org": "cp-glencore",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "margin-call",
+      "message_id": "<00266847a525b30c5e53@glencore.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "samuel.cowan@glencore.example"
+      },
+      "seq": 4,
+      "subject": "Margin call MC-NC-NYC-26-0001-1",
+      "tags": [
+        "margin-call",
+        "planted"
+      ],
+      "thread": "margin-call",
+      "timestamp": "2026-04-30T10:41:00-04:00",
+      "to": [
+        {
+          "address": "kathryn.braun@newco-newyork.example",
+          "name": "Kathryn Braun",
+          "org": "newco-nyc",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "exposure": 3120000,
+        "threshold": 2500000,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/005-margin-call-query.eml",
+        "md": "messages/005-margin-call-query.md"
+      },
+      "from": {
+        "address": "kathryn.braun@newco-newyork.example",
+        "name": "Kathryn Braun",
+        "org": "newco-nyc",
+        "role": "settlements"
+      },
+      "in_reply_to": "margin-call",
+      "key": "margin-call-query",
+      "message_id": "<8d11fd5aabfc9bfd7946@newco-newyork.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathryn.braun@newco-newyork.example"
+      },
+      "seq": 5,
+      "subject": "Re: Margin call MC-NC-NYC-26-0001-1",
+      "tags": [
+        "dispute",
+        "margin-call"
+      ],
+      "thread": "margin-call",
+      "timestamp": "2026-05-01T09:20:00-04:00",
+      "to": [
+        {
+          "address": "samuel.cowan@glencore.example",
+          "name": "Samuel Cowan",
+          "org": "cp-glencore",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-NYC-26-0001-margin-call-r2.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "direction": "inbound",
+      "facts": {
+        "amount_called": 620000,
+        "exposure": 3120000,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/006-margin-call-revised.eml",
+        "md": "messages/006-margin-call-revised.md"
+      },
+      "from": {
+        "address": "samuel.cowan@glencore.example",
+        "name": "Samuel Cowan",
+        "org": "cp-glencore",
+        "role": "ops"
+      },
+      "in_reply_to": "margin-call-query",
+      "key": "margin-call-revised",
+      "message_id": "<fa948622bc24b966edc3@glencore.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "samuel.cowan@glencore.example"
+      },
+      "seq": 6,
+      "subject": "Re: Margin call MC-NC-NYC-26-0001-1",
+      "tags": [
+        "correction",
+        "margin-call"
+      ],
+      "thread": "margin-call",
+      "timestamp": "2026-05-04T09:17:00-04:00",
+      "to": [
+        {
+          "address": "kathryn.braun@newco-newyork.example",
+          "name": "Kathryn Braun",
+          "org": "newco-nyc",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "amount_called": 620000,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/007-margin-call-ack.eml",
+        "md": "messages/007-margin-call-ack.md"
+      },
+      "from": {
+        "address": "kathryn.braun@newco-newyork.example",
+        "name": "Kathryn Braun",
+        "org": "newco-nyc",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "margin-call-ack",
+      "message_id": "<e26c8f4aae1bbc004b96@newco-newyork.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathryn.braun@newco-newyork.example"
+      },
+      "seq": 7,
+      "subject": "Margin call NC-NYC-26-0001 accepted",
+      "tags": [
+        "margin-call"
+      ],
+      "thread": "margin-call-ack",
+      "timestamp": "2026-05-05T09:14:00-04:00",
+      "to": [
+        {
+          "address": "kenneth.ashley@newco-newyork.example",
+          "name": "Kenneth Ashley",
+          "org": "newco-nyc",
+          "role": "ops"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "amount_called": 620000,
+    "exposure": 3120000,
+    "first_call": 3120000,
+    "result": "corrected",
+    "trade_id": "NC-NYC-26-0001"
+  },
+  "ownership_edges": [],
+  "phase": "post_trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 68.04,
+      "id": "p4-newyork-glencore-isda-q1",
+      "question": "What fixed price did NewCo's first confirmation for NC-NYC-26-0001 state?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 620000,
+      "id": "p4-newyork-glencore-isda-q2",
+      "question": "What amount should the margin call for NC-NYC-26-0001 be after the CSA threshold?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 2500000,
+      "id": "p4-newyork-glencore-isda-q3",
+      "question": "What is the CSA threshold for NC-NYC-26-0001?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "p4-newyork-glencore-isda",
+  "title": "New York pays fixed on a WTI swap: confirmation on the mistyped ticket, margin call that ignores the CSA threshold"
+}

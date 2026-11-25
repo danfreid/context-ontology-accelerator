@@ -1,0 +1,7 @@
+document_number,trade_id,kind,issuer_org_id,payer_org_id,payee_org_id,currency,payable,due_date,payer_account_id,payee_account_id,filename
+VIT-CN-NC-HOU-26-0001,NC-HOU-26-0001,credit-note,cp-vitol,newco-hou,cp-vitol,USD,16805084.2,2026-05-11,acct-newco-hou-usd-settlement,acct-cp-vitol-usd-operating,NC-HOU-26-0001-credit-note.pdf
+NCL-INV-NC-LON-26-0001,NC-LON-26-0001,final-invoice,newco-lon,cp-kestrel,newco-lon,USD,46886.4,2026-04-27,acct-cp-kestrel-usd-operating,acct-newco-lon-usd-operating,NC-LON-26-0001-final-invoice.pdf
+NCS-CN-NC-SYD-26-0001,NC-SYD-26-0001,credit-note,newco-syd,cp-harbourline,newco-syd,USD,15203801.25,2026-06-01,acct-cp-harbourline-usd-operating,acct-newco-syd-usd-operating,NC-SYD-26-0001-credit-note.pdf
+MC-NC-NYC-26-0001-2,NC-NYC-26-0001,margin-call,cp-glencore,newco-nyc,cp-glencore,USD,620000,2026-05-01,acct-newco-nyc-usd-collateral,acct-cp-glencore-usd-operating,NC-NYC-26-0001-margin-call-r2.pdf
+NCS-TAX-NC-SYD-26-0003,NC-SYD-26-0003,tax-invoice,newco-syd,cp-bp-au,newco-syd,USD,23859937.5,2026-05-25,acct-cp-bp-au-usd-operating,acct-newco-syd-usd-operating,NC-SYD-26-0003-tax-invoice.pdf
+NC-LON-26-0002-V2,NC-LON-26-0002,bank-confirmation,bank-northgate,newco-lon,bank-northgate,USD,5138000,2026-07-08,acct-newco-lon-usd-operating,,NC-LON-26-0002-bank-confirmation-v2.pdf

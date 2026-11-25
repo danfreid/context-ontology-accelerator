@@ -1,0 +1,1877 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "incorporated": "2010-09-23",
+        "jurisdiction": "Delaware",
+        "legal_form": "Inc.",
+        "legal_name": "Vitol Inc.",
+        "registration_number": "18950464"
+      },
+      "filename": "vitol-inc-certificate-of-incorporation.pdf",
+      "kind": "certificate-of-incorporation",
+      "message": "kyc-docs-1",
+      "path": "attachments/004-vitol-inc-certificate-of-incorporation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "patrick.smith@vitol.example",
+        "wasDerivedFrom": "<b42d6f1a0862b7935f58@vitol.example>"
+      },
+      "sha256": "609aa151e093a226c5581b7f16e6a498c7db3f638c334b2fb061d160b4ab50a0",
+      "size": 2914
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "issued": "2026-01-14",
+        "legal_name": "Vitol Inc.",
+        "status": "in good standing",
+        "validity_months": 12
+      },
+      "filename": "vitol-inc-good-standing-2026-01-14.pdf",
+      "kind": "good-standing-certificate",
+      "message": "kyc-docs-1",
+      "path": "attachments/004-vitol-inc-good-standing-2026-01-14.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "patrick.smith@vitol.example",
+        "wasDerivedFrom": "<b42d6f1a0862b7935f58@vitol.example>"
+      },
+      "sha256": "756c7ba3e67374eb918915de3e0493835eae8f6ebd86389a1454e8399ec9d9c6",
+      "size": 2477
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "complete": true,
+        "declared_beneficial_owners": {},
+        "edges": [],
+        "entity": "Vitol Inc."
+      },
+      "filename": "vitol-inc-ownership-chart.pdf",
+      "kind": "ownership-chart",
+      "message": "kyc-docs-2",
+      "path": "attachments/006-vitol-inc-ownership-chart.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "patrick.smith@vitol.example",
+        "wasDerivedFrom": "<b00e4eb1b510e94cb192@vitol.example>"
+      },
+      "sha256": "d05be20528f003a9ffb74c70420c3c70a043e1a9ef33a2cedafd3625a41653ef",
+      "size": 2704
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntityIdentifierRegistryEntry",
+      "facts": {
+        "legal_name": "Vitol Inc.",
+        "lei": "SYNT00T81ISZ3ICZ9786",
+        "next_renewal": "2026-08-04",
+        "status": "ACTIVE"
+      },
+      "filename": "vitol-inc-lei-record.pdf",
+      "kind": "lei-record",
+      "message": "kyc-docs-2",
+      "path": "attachments/006-vitol-inc-lei-record.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "patrick.smith@vitol.example",
+        "wasDerivedFrom": "<b00e4eb1b510e94cb192@vitol.example>"
+      },
+      "sha256": "8e751eda5070d51000eda6fbb956d76d24377b3f2ba21e9733d95829ed7c331b",
+      "size": 2470
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/PartyRoleIdentifier",
+      "facts": {
+        "entity": "Vitol Inc.",
+        "signatories": [
+          {
+            "name": "Crystal King",
+            "role": "trader"
+          },
+          {
+            "name": "Roberto Rogers",
+            "role": "lawyer"
+          },
+          {
+            "name": "Emily Gonzales",
+            "role": "settlements"
+          }
+        ]
+      },
+      "filename": "vitol-inc-authorised-signatories.pdf",
+      "kind": "signatory-list",
+      "message": "kyc-docs-2",
+      "path": "attachments/006-vitol-inc-authorised-signatories.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "patrick.smith@vitol.example",
+        "wasDerivedFrom": "<b00e4eb1b510e94cb192@vitol.example>"
+      },
+      "sha256": "021a9124c2fa2bf02acc9625b90483ddcb1917090df8d7ffd738a13327c93c36",
+      "size": 3001
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "entity": "Vitol Inc.",
+        "fiscal_year": 2025,
+        "net_worth": 170000000,
+        "revenue": 2234000000
+      },
+      "filename": "vitol-inc-financial-statements-2025.pdf",
+      "kind": "financial-statements",
+      "message": "financials",
+      "path": "attachments/007-vitol-inc-financial-statements-2025.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amanda.adams@vitol.example",
+        "wasDerivedFrom": "<e153b5a821c8ae86f1ac@vitol.example>"
+      },
+      "sha256": "e7419d13eaf89ad5e23444e9fc0989c41e81d0b8d8f0a0edb0a686768361ab9c",
+      "size": 2497
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "entity": "Vitol Inc.",
+        "tax_id": "EIN 76-6181843"
+      },
+      "filename": "vitol-inc-tax-form.pdf",
+      "kind": "tax-form",
+      "message": "financials",
+      "path": "attachments/007-vitol-inc-tax-form.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amanda.adams@vitol.example",
+        "wasDerivedFrom": "<e153b5a821c8ae86f1ac@vitol.example>"
+      },
+      "sha256": "6ef137616f700d20534cf6fbe1993936c0e7f4f7d1d552d3cd1253a19084c7d4",
+      "size": 2312
+    },
+    {
+      "class_uri": "https://schema.org/Service",
+      "facts": {
+        "entity": "Vitol Inc.",
+        "hits": [],
+        "result": "clear",
+        "subjects": [
+          "Vitol Inc."
+        ]
+      },
+      "filename": "vitol-inc-screening-report.pdf",
+      "kind": "screening-report",
+      "message": "screen-result",
+      "path": "attachments/009-vitol-inc-screening-report.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example",
+        "wasDerivedFrom": "<cc34751d2b51cb0d2c1f@veridianscreening.example>"
+      },
+      "sha256": "d2735b28864b317a94be928b645360dc4f1a47b2fedcc1248ecc32afd4ec11f0",
+      "size": 2978
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "answers": {
+          "Does the entity trade with sanctioned jurisdictions?": "No",
+          "Is any owner or director a politically exposed person?": "No",
+          "Is the entity or any owner subject to sanctions?": "No"
+        },
+        "completed_by": "Patrick Smith",
+        "entity": "Vitol Inc."
+      },
+      "filename": "vitol-inc-kyc-questionnaire.pdf",
+      "kind": "kyc-questionnaire",
+      "message": "questionnaire",
+      "path": "attachments/010-vitol-inc-kyc-questionnaire.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "patrick.smith@vitol.example",
+        "wasDerivedFrom": "<ec14e004a09f6764e6b8@vitol.example>"
+      },
+      "sha256": "b88a3d726521297e3c346746b32e318a9ae171a3ec67c820cfda02b1c6e1216f",
+      "size": 3293
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "product": "WTI Midland",
+        "requested_limit": 60000000
+      },
+      "filename": "vitol-credit-application.pdf",
+      "kind": "credit-application",
+      "message": "credit-request",
+      "path": "attachments/012-vitol-credit-application.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "travis.ford@newco-houston.example",
+        "wasDerivedFrom": "<84ac863c100c1f6aed28@newco-houston.example>"
+      },
+      "sha256": "be392f2b638df12a7308eea7125d9d1be203543139982857f7444069929a36de",
+      "size": 2488
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "booking_entity": "NewCo Trading Houston LLC",
+        "bureau_score": 746,
+        "conditions": [],
+        "counterparty": "Vitol Inc.",
+        "exposure": 0,
+        "guaranteed": 0,
+        "headroom": 40000000,
+        "limit": 40000000,
+        "net_worth": 170000000,
+        "requested": 60000000,
+        "sblc": 0,
+        "security": "none",
+        "unsecured": 40000000
+      },
+      "filename": "vitol-inc-credit-memo.pdf",
+      "kind": "credit-memo",
+      "message": "credit-memo",
+      "path": "attachments/015-vitol-inc-credit-memo.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.hill@newco-houston.example",
+        "wasDerivedFrom": "<3adf96d1b5ee89eacfa3@newco-houston.example>"
+      },
+      "sha256": "20f86b6ef7e839e60ec86dfcdd67dbbcc25935f8b36ab766ba0a4f620f8bbd3e",
+      "size": 3970
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "booking_entity": "NewCo Trading Houston LLC",
+        "counterparty": "Vitol Inc.",
+        "effective": "2026-02-02",
+        "limit": 40000000
+      },
+      "filename": "vitol-inc-credit-limit-letter.pdf",
+      "kind": "credit-limit-letter",
+      "message": "limit-letter",
+      "path": "attachments/016-vitol-inc-credit-limit-letter.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.hill@newco-houston.example",
+        "wasDerivedFrom": "<60b16734aef2b73bdefe@newco-houston.example>"
+      },
+      "sha256": "0dbe1c288aee72c927a3917d9950803fd9964216d2c154ad4577283443c2af3b",
+      "size": 2490
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Roberto Rogers",
+        "changes": {
+          "late_interest": {
+            "rate": 5
+          },
+          "payment": {
+            "days": 20
+          }
+        },
+        "round": 1,
+        "tracked_changes": 4,
+        "values_after": {
+          "credit_support": {
+            "support": "the unsecured credit limit the Seller has approved"
+          },
+          "governing_law": {
+            "law": "the State of Texas",
+            "venue": "Harris County, Texas"
+          },
+          "late_interest": {
+            "rate": 5
+          },
+          "no_deductions": {
+            "exception": "taxes the law requires the payer to withhold"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 20
+          },
+          "quantity_basis": {
+            "basis": "load-port"
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "mpta-round-1.docx",
+      "kind": "agreement-redline",
+      "message": "mpta-r1",
+      "path": "attachments/019-mpta-round-1.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "roberto.rogers@vitol.example",
+        "wasDerivedFrom": "<0a229d0d4725383b07bb@vitol.example>"
+      },
+      "sha256": "e4a4d48db69d27259d32f94dbe2489b421c24307d156517ddf35a20f3f25e99d",
+      "size": 5652
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Louis Harvey",
+        "changes": {
+          "late_interest": {
+            "rate": 4
+          },
+          "payment": {
+            "days": 30
+          }
+        },
+        "round": 2,
+        "tracked_changes": 4,
+        "values_after": {
+          "credit_support": {
+            "support": "the unsecured credit limit the Seller has approved"
+          },
+          "governing_law": {
+            "law": "the State of Texas",
+            "venue": "Harris County, Texas"
+          },
+          "late_interest": {
+            "rate": 4
+          },
+          "no_deductions": {
+            "exception": "taxes the law requires the payer to withhold"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 30
+          },
+          "quantity_basis": {
+            "basis": "load-port"
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "mpta-round-2.docx",
+      "kind": "agreement-redline",
+      "message": "mpta-r2",
+      "path": "attachments/020-mpta-round-2.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "louis.harvey@newco-houston.example",
+        "wasDerivedFrom": "<adfe73c046d00cd90ad8@newco-houston.example>"
+      },
+      "sha256": "afafe3d8697e5c77d6f824e6590421903f5b950defafa60f401ae0406a7643ef",
+      "size": 5640
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Roberto Rogers",
+        "changes": {
+          "payment": {
+            "days": 25
+          },
+          "quantity_tolerance": {
+            "tolerance": 10
+          }
+        },
+        "round": 3,
+        "tracked_changes": 4,
+        "values_after": {
+          "credit_support": {
+            "support": "the unsecured credit limit the Seller has approved"
+          },
+          "governing_law": {
+            "law": "the State of Texas",
+            "venue": "Harris County, Texas"
+          },
+          "late_interest": {
+            "rate": 4
+          },
+          "no_deductions": {
+            "exception": "taxes the law requires the payer to withhold"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 25
+          },
+          "quantity_basis": {
+            "basis": "load-port"
+          },
+          "quantity_tolerance": {
+            "tolerance": 10
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "mpta-round-3.docx",
+      "kind": "agreement-redline",
+      "message": "mpta-r3",
+      "path": "attachments/021-mpta-round-3.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "roberto.rogers@vitol.example",
+        "wasDerivedFrom": "<2caef7bc92510e6a54ba@vitol.example>"
+      },
+      "sha256": "dfe7a9525ff7f82e3de26881ed10f7f299d54ea1222e086a264f1145fb940643",
+      "size": 5652
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Louis Harvey",
+        "changes": {
+          "quantity_tolerance": {
+            "tolerance": 5
+          }
+        },
+        "round": 4,
+        "tracked_changes": 2,
+        "values_after": {
+          "credit_support": {
+            "support": "the unsecured credit limit the Seller has approved"
+          },
+          "governing_law": {
+            "law": "the State of Texas",
+            "venue": "Harris County, Texas"
+          },
+          "late_interest": {
+            "rate": 4
+          },
+          "no_deductions": {
+            "exception": "taxes the law requires the payer to withhold"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 25
+          },
+          "quantity_basis": {
+            "basis": "load-port"
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "mpta-round-4.docx",
+      "kind": "agreement-redline",
+      "message": "mpta-r4",
+      "path": "attachments/022-mpta-round-4.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "louis.harvey@newco-houston.example",
+        "wasDerivedFrom": "<56ba1ed9d5a4e956efb7@newco-houston.example>"
+      },
+      "sha256": "80075535618b4f5cca3b33232728c19047cef682ecd88f88b036ea3864e35055",
+      "size": 5340
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "facts": {
+        "accounts": [
+          {
+            "aba": "041528729",
+            "bank": "bank-lonestar",
+            "bic": "ZGTWUSC9",
+            "bsb": null,
+            "currency": "USD",
+            "iban": null,
+            "id": "acct-newco-hou-usd-settlement",
+            "number": "7001138779"
+          }
+        ],
+        "entity": "NewCo Trading Houston LLC"
+      },
+      "filename": "newco-trading-houston-llc-settlement-instructions.pdf",
+      "kind": "ssi-letter",
+      "message": "ssi-send",
+      "path": "attachments/024-newco-trading-houston-llc-settlement-instructions.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "andrew.evans@newco-houston.example",
+        "wasDerivedFrom": "<21b9ced3133c7924b156@newco-houston.example>"
+      },
+      "sha256": "33a1c37da8e27e013340013ab21c653212c7a8e2b4968d4205adadd62700f6cd",
+      "size": 3346
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 17,
+    "chats": 0,
+    "emails": 26
+  },
+  "deals": [],
+  "expected_contradictions": [],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/001-intro.eml",
+        "md": "messages/001-intro.md"
+      },
+      "from": {
+        "address": "travis.ford@newco-houston.example",
+        "name": "Travis Ford",
+        "org": "newco-hou",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "intro",
+      "message_id": "<6eb4851fbdc1d76989e9@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "travis.ford@newco-houston.example"
+      },
+      "seq": 1,
+      "subject": "NewCo Houston and Vitol: crude relationship",
+      "tags": [
+        "intro"
+      ],
+      "thread": "intro",
+      "timestamp": "2026-01-12T09:29:00-06:00",
+      "to": [
+        {
+          "address": "jeremy.olson@vitol.example",
+          "name": "Jeremy Olson",
+          "org": "cp-vitol",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-intro-reply.eml",
+        "md": "messages/002-intro-reply.md"
+      },
+      "from": {
+        "address": "jeremy.olson@vitol.example",
+        "name": "Jeremy Olson",
+        "org": "cp-vitol",
+        "role": "marketer"
+      },
+      "in_reply_to": "intro",
+      "key": "intro-reply",
+      "message_id": "<71ddcfccd8b447213330@vitol.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeremy.olson@vitol.example"
+      },
+      "seq": 2,
+      "subject": "Re: NewCo Houston and Vitol: crude relationship",
+      "tags": [
+        "intro"
+      ],
+      "thread": "intro",
+      "timestamp": "2026-01-13T09:01:00-06:00",
+      "to": [
+        {
+          "address": "travis.ford@newco-houston.example",
+          "name": "Travis Ford",
+          "org": "newco-hou",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "outbound",
+      "facts": {
+        "requested_documents": 7
+      },
+      "files": {
+        "eml": "messages/003-kyc-request.eml",
+        "md": "messages/003-kyc-request.md"
+      },
+      "from": {
+        "address": "gina.finley@newco-houston.example",
+        "name": "Gina Finley",
+        "org": "newco-hou",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "kyc-request",
+      "message_id": "<1c30d6da7ca556f9e588@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gina.finley@newco-houston.example"
+      },
+      "seq": 3,
+      "subject": "KYC documents for NewCo Houston onboarding",
+      "tags": [
+        "kyc"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-14T09:20:00-06:00",
+      "to": [
+        {
+          "address": "patrick.smith@vitol.example",
+          "name": "Patrick Smith",
+          "org": "cp-vitol",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "vitol-inc-certificate-of-incorporation.pdf",
+        "vitol-inc-good-standing-2026-01-14.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {
+        "good_standing_issued": "2026-01-14"
+      },
+      "files": {
+        "eml": "messages/004-kyc-docs-1.eml",
+        "md": "messages/004-kyc-docs-1.md"
+      },
+      "from": {
+        "address": "patrick.smith@vitol.example",
+        "name": "Patrick Smith",
+        "org": "cp-vitol",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-request",
+      "key": "kyc-docs-1",
+      "message_id": "<b42d6f1a0862b7935f58@vitol.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "patrick.smith@vitol.example"
+      },
+      "seq": 4,
+      "subject": "Re: KYC documents for NewCo Houston onboarding",
+      "tags": [
+        "kyc"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-15T09:27:00-06:00",
+      "to": [
+        {
+          "address": "gina.finley@newco-houston.example",
+          "name": "Gina Finley",
+          "org": "newco-hou",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/005-kyc-ack.eml",
+        "md": "messages/005-kyc-ack.md"
+      },
+      "from": {
+        "address": "gina.finley@newco-houston.example",
+        "name": "Gina Finley",
+        "org": "newco-hou",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-docs-1",
+      "key": "kyc-ack",
+      "message_id": "<133ed2962c4a27d97a86@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gina.finley@newco-houston.example"
+      },
+      "seq": 5,
+      "subject": "Re: KYC documents for NewCo Houston onboarding",
+      "tags": [
+        "kyc"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-16T09:03:00-06:00",
+      "to": [
+        {
+          "address": "patrick.smith@vitol.example",
+          "name": "Patrick Smith",
+          "org": "cp-vitol",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "vitol-inc-ownership-chart.pdf",
+        "vitol-inc-lei-record.pdf",
+        "vitol-inc-authorised-signatories.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {
+        "declared_beneficial_owners": {}
+      },
+      "files": {
+        "eml": "messages/006-kyc-docs-2.eml",
+        "md": "messages/006-kyc-docs-2.md"
+      },
+      "from": {
+        "address": "patrick.smith@vitol.example",
+        "name": "Patrick Smith",
+        "org": "cp-vitol",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-ack",
+      "key": "kyc-docs-2",
+      "message_id": "<b00e4eb1b510e94cb192@vitol.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "patrick.smith@vitol.example"
+      },
+      "seq": 6,
+      "subject": "Re: KYC documents for NewCo Houston onboarding",
+      "tags": [
+        "kyc",
+        "ownership"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-20T09:26:00-06:00",
+      "to": [
+        {
+          "address": "gina.finley@newco-houston.example",
+          "name": "Gina Finley",
+          "org": "newco-hou",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "vitol-inc-financial-statements-2025.pdf",
+        "vitol-inc-tax-form.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "net_worth": 170000000
+      },
+      "files": {
+        "eml": "messages/007-financials.eml",
+        "md": "messages/007-financials.md"
+      },
+      "from": {
+        "address": "amanda.adams@vitol.example",
+        "name": "Amanda Adams",
+        "org": "cp-vitol",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "financials",
+      "message_id": "<e153b5a821c8ae86f1ac@vitol.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amanda.adams@vitol.example"
+      },
+      "seq": 7,
+      "subject": "Financial statements for Vitol Inc.",
+      "tags": [
+        "credit"
+      ],
+      "thread": "financials",
+      "timestamp": "2026-01-21T09:10:00-06:00",
+      "to": [
+        {
+          "address": "laura.hill@newco-houston.example",
+          "name": "Laura Hill",
+          "org": "newco-hou",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/008-screen-request.eml",
+        "md": "messages/008-screen-request.md"
+      },
+      "from": {
+        "address": "gina.finley@newco-houston.example",
+        "name": "Gina Finley",
+        "org": "newco-hou",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "screen-request",
+      "message_id": "<28a74c565cdeb46bb1c8@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gina.finley@newco-houston.example"
+      },
+      "seq": 8,
+      "subject": "Screening request: Vitol Inc.",
+      "tags": [
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-01-22T09:25:00-06:00",
+      "to": [
+        {
+          "address": "mohammed.byrne@veridianscreening.example",
+          "name": "Mohammed Byrne",
+          "org": "svc-veridian",
+          "role": "analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "vitol-inc-screening-report.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "result": "clear"
+      },
+      "files": {
+        "eml": "messages/009-screen-result.eml",
+        "md": "messages/009-screen-result.md"
+      },
+      "from": {
+        "address": "mohammed.byrne@veridianscreening.example",
+        "name": "Mohammed Byrne",
+        "org": "svc-veridian",
+        "role": "analyst"
+      },
+      "in_reply_to": "screen-request",
+      "key": "screen-result",
+      "message_id": "<cc34751d2b51cb0d2c1f@veridianscreening.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example"
+      },
+      "seq": 9,
+      "subject": "Re: Screening request: Vitol Inc.",
+      "tags": [
+        "clear",
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-01-23T09:17:00+00:00",
+      "to": [
+        {
+          "address": "gina.finley@newco-houston.example",
+          "name": "Gina Finley",
+          "org": "newco-hou",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "vitol-inc-kyc-questionnaire.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {
+        "answers": {
+          "Does the entity trade with sanctioned jurisdictions?": "No",
+          "Is any owner or director a politically exposed person?": "No",
+          "Is the entity or any owner subject to sanctions?": "No"
+        }
+      },
+      "files": {
+        "eml": "messages/010-questionnaire.eml",
+        "md": "messages/010-questionnaire.md"
+      },
+      "from": {
+        "address": "patrick.smith@vitol.example",
+        "name": "Patrick Smith",
+        "org": "cp-vitol",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-ack",
+      "key": "questionnaire",
+      "message_id": "<ec14e004a09f6764e6b8@vitol.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "patrick.smith@vitol.example"
+      },
+      "seq": 10,
+      "subject": "Re: KYC documents for NewCo Houston onboarding",
+      "tags": [
+        "kyc",
+        "questionnaire"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-26T09:29:00-06:00",
+      "to": [
+        {
+          "address": "gina.finley@newco-houston.example",
+          "name": "Gina Finley",
+          "org": "newco-hou",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [
+        {
+          "address": "travis.ford@newco-houston.example",
+          "name": "Travis Ford",
+          "org": "newco-hou",
+          "role": "marketer"
+        }
+      ],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/011-kyc-cleared.eml",
+        "md": "messages/011-kyc-cleared.md"
+      },
+      "from": {
+        "address": "gina.finley@newco-houston.example",
+        "name": "Gina Finley",
+        "org": "newco-hou",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "kyc-cleared",
+      "message_id": "<5e210d6e7ef74f098c31@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gina.finley@newco-houston.example"
+      },
+      "seq": 11,
+      "subject": "KYC cleared: Vitol Inc.",
+      "tags": [
+        "cleared",
+        "kyc"
+      ],
+      "thread": "kyc-cleared",
+      "timestamp": "2026-01-27T09:22:00-06:00",
+      "to": [
+        {
+          "address": "laura.hill@newco-houston.example",
+          "name": "Laura Hill",
+          "org": "newco-hou",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "vitol-credit-application.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "requested_limit": 60000000
+      },
+      "files": {
+        "eml": "messages/012-credit-request.eml",
+        "md": "messages/012-credit-request.md"
+      },
+      "from": {
+        "address": "travis.ford@newco-houston.example",
+        "name": "Travis Ford",
+        "org": "newco-hou",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "credit-request",
+      "message_id": "<84ac863c100c1f6aed28@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "travis.ford@newco-houston.example"
+      },
+      "seq": 12,
+      "subject": "Credit request: Vitol Inc.",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-01-28T09:04:00-06:00",
+      "to": [
+        {
+          "address": "laura.hill@newco-houston.example",
+          "name": "Laura Hill",
+          "org": "newco-hou",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/013-bureau-request.eml",
+        "md": "messages/013-bureau-request.md"
+      },
+      "from": {
+        "address": "laura.hill@newco-houston.example",
+        "name": "Laura Hill",
+        "org": "newco-hou",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "bureau-request",
+      "message_id": "<f37cd98d39c0c9531105@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.hill@newco-houston.example"
+      },
+      "seq": 13,
+      "subject": "Credit report request: Vitol Inc.",
+      "tags": [],
+      "thread": "bureau-request",
+      "timestamp": "2026-01-29T09:05:00-06:00",
+      "to": [
+        {
+          "address": "jeffrey.butler@ledgerline.example",
+          "name": "Jeffrey Butler",
+          "org": "svc-ledgerline",
+          "role": "analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "bureau_score": 746
+      },
+      "files": {
+        "eml": "messages/014-bureau-reply.eml",
+        "md": "messages/014-bureau-reply.md"
+      },
+      "from": {
+        "address": "jeffrey.butler@ledgerline.example",
+        "name": "Jeffrey Butler",
+        "org": "svc-ledgerline",
+        "role": "analyst"
+      },
+      "in_reply_to": "bureau-request",
+      "key": "bureau-reply",
+      "message_id": "<4a401a55aa4943f7d16e@ledgerline.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeffrey.butler@ledgerline.example"
+      },
+      "seq": 14,
+      "subject": "Re: Credit report request: Vitol Inc.",
+      "tags": [
+        "credit"
+      ],
+      "thread": "bureau-request",
+      "timestamp": "2026-01-30T09:15:00-05:00",
+      "to": [
+        {
+          "address": "laura.hill@newco-houston.example",
+          "name": "Laura Hill",
+          "org": "newco-hou",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "vitol-inc-credit-memo.pdf"
+      ],
+      "cc": [
+        {
+          "address": "gina.finley@newco-houston.example",
+          "name": "Gina Finley",
+          "org": "newco-hou",
+          "role": "compliance_analyst"
+        }
+      ],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "approved": 40000000,
+        "headroom": 40000000,
+        "requested": 60000000
+      },
+      "files": {
+        "eml": "messages/015-credit-memo.eml",
+        "md": "messages/015-credit-memo.md"
+      },
+      "from": {
+        "address": "laura.hill@newco-houston.example",
+        "name": "Laura Hill",
+        "org": "newco-hou",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "credit-memo",
+      "message_id": "<3adf96d1b5ee89eacfa3@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.hill@newco-houston.example"
+      },
+      "seq": 15,
+      "subject": "Credit approval: Vitol Inc.",
+      "tags": [
+        "approval",
+        "credit"
+      ],
+      "thread": "credit-memo",
+      "timestamp": "2026-02-02T09:13:00-06:00",
+      "to": [
+        {
+          "address": "travis.ford@newco-houston.example",
+          "name": "Travis Ford",
+          "org": "newco-hou",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "vitol-inc-credit-limit-letter.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "outbound",
+      "facts": {
+        "limit": 40000000
+      },
+      "files": {
+        "eml": "messages/016-limit-letter.eml",
+        "md": "messages/016-limit-letter.md"
+      },
+      "from": {
+        "address": "laura.hill@newco-houston.example",
+        "name": "Laura Hill",
+        "org": "newco-hou",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "limit-letter",
+      "message_id": "<60b16734aef2b73bdefe@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.hill@newco-houston.example"
+      },
+      "seq": 16,
+      "subject": "Credit limit advice",
+      "tags": [
+        "credit"
+      ],
+      "thread": "limit-letter",
+      "timestamp": "2026-02-03T09:02:00-06:00",
+      "to": [
+        {
+          "address": "amanda.adams@vitol.example",
+          "name": "Amanda Adams",
+          "org": "cp-vitol",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/017-limit-accept.eml",
+        "md": "messages/017-limit-accept.md"
+      },
+      "from": {
+        "address": "amanda.adams@vitol.example",
+        "name": "Amanda Adams",
+        "org": "cp-vitol",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "limit-letter",
+      "key": "limit-accept",
+      "message_id": "<06f7324be730862403c3@vitol.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amanda.adams@vitol.example"
+      },
+      "seq": 17,
+      "subject": "Re: Credit limit advice",
+      "tags": [
+        "credit"
+      ],
+      "thread": "limit-letter",
+      "timestamp": "2026-02-04T09:07:00-06:00",
+      "to": [
+        {
+          "address": "laura.hill@newco-houston.example",
+          "name": "Laura Hill",
+          "org": "newco-hou",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {
+        "late_interest": 3,
+        "payment_days": 30
+      },
+      "files": {
+        "eml": "messages/018-mpta-draft.eml",
+        "md": "messages/018-mpta-draft.md"
+      },
+      "from": {
+        "address": "louis.harvey@newco-houston.example",
+        "name": "Louis Harvey",
+        "org": "newco-hou",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "mpta-draft",
+      "message_id": "<0b62c30a40f30cd62458@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "louis.harvey@newco-houston.example"
+      },
+      "seq": 18,
+      "subject": "Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.: draft",
+      "tags": [
+        "legal",
+        "mpta"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-05T09:01:00-06:00",
+      "to": [
+        {
+          "address": "roberto.rogers@vitol.example",
+          "name": "Roberto Rogers",
+          "org": "cp-vitol",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-round-1.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "late_interest": 5,
+        "payment_days": 20
+      },
+      "files": {
+        "eml": "messages/019-mpta-r1.eml",
+        "md": "messages/019-mpta-r1.md"
+      },
+      "from": {
+        "address": "roberto.rogers@vitol.example",
+        "name": "Roberto Rogers",
+        "org": "cp-vitol",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-draft",
+      "key": "mpta-r1",
+      "message_id": "<0a229d0d4725383b07bb@vitol.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "roberto.rogers@vitol.example"
+      },
+      "seq": 19,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.: draft",
+      "tags": [
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-09T09:27:00-06:00",
+      "to": [
+        {
+          "address": "louis.harvey@newco-houston.example",
+          "name": "Louis Harvey",
+          "org": "newco-hou",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-round-2.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {
+        "late_interest": 4,
+        "payment_days": 30
+      },
+      "files": {
+        "eml": "messages/020-mpta-r2.eml",
+        "md": "messages/020-mpta-r2.md"
+      },
+      "from": {
+        "address": "louis.harvey@newco-houston.example",
+        "name": "Louis Harvey",
+        "org": "newco-hou",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-r1",
+      "key": "mpta-r2",
+      "message_id": "<adfe73c046d00cd90ad8@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "louis.harvey@newco-houston.example"
+      },
+      "seq": 20,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.: draft",
+      "tags": [
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-11T09:14:00-06:00",
+      "to": [
+        {
+          "address": "roberto.rogers@vitol.example",
+          "name": "Roberto Rogers",
+          "org": "cp-vitol",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-round-3.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "payment_days": 25,
+        "tolerance": 10
+      },
+      "files": {
+        "eml": "messages/021-mpta-r3.eml",
+        "md": "messages/021-mpta-r3.md"
+      },
+      "from": {
+        "address": "roberto.rogers@vitol.example",
+        "name": "Roberto Rogers",
+        "org": "cp-vitol",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-r2",
+      "key": "mpta-r3",
+      "message_id": "<2caef7bc92510e6a54ba@vitol.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "roberto.rogers@vitol.example"
+      },
+      "seq": 21,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.: draft",
+      "tags": [
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-13T09:28:00-06:00",
+      "to": [
+        {
+          "address": "louis.harvey@newco-houston.example",
+          "name": "Louis Harvey",
+          "org": "newco-hou",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-round-4.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {
+        "payment_days": 25,
+        "tolerance": 5
+      },
+      "files": {
+        "eml": "messages/022-mpta-r4.eml",
+        "md": "messages/022-mpta-r4.md"
+      },
+      "from": {
+        "address": "louis.harvey@newco-houston.example",
+        "name": "Louis Harvey",
+        "org": "newco-hou",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-r3",
+      "key": "mpta-r4",
+      "message_id": "<56ba1ed9d5a4e956efb7@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "louis.harvey@newco-houston.example"
+      },
+      "seq": 22,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.: draft",
+      "tags": [
+        "final",
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-18T09:05:00-06:00",
+      "to": [
+        {
+          "address": "roberto.rogers@vitol.example",
+          "name": "Roberto Rogers",
+          "org": "cp-vitol",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "payment_days": 25,
+        "tolerance": 5
+      },
+      "files": {
+        "eml": "messages/023-mpta-agreed.eml",
+        "md": "messages/023-mpta-agreed.md"
+      },
+      "from": {
+        "address": "roberto.rogers@vitol.example",
+        "name": "Roberto Rogers",
+        "org": "cp-vitol",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-r4",
+      "key": "mpta-agreed",
+      "message_id": "<f3aa4eb22074c35223b1@vitol.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "roberto.rogers@vitol.example"
+      },
+      "seq": 23,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.: draft",
+      "tags": [
+        "agreed",
+        "legal",
+        "mpta"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-19T09:07:00-06:00",
+      "to": [
+        {
+          "address": "louis.harvey@newco-houston.example",
+          "name": "Louis Harvey",
+          "org": "newco-hou",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "newco-trading-houston-llc-settlement-instructions.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "direction": "outbound",
+      "facts": {
+        "account": "acct-newco-hou-usd-settlement"
+      },
+      "files": {
+        "eml": "messages/024-ssi-send.eml",
+        "md": "messages/024-ssi-send.md"
+      },
+      "from": {
+        "address": "andrew.evans@newco-houston.example",
+        "name": "Andrew Evans",
+        "org": "newco-hou",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "ssi-send",
+      "message_id": "<21b9ced3133c7924b156@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "andrew.evans@newco-houston.example"
+      },
+      "seq": 24,
+      "subject": "Standard settlement instructions",
+      "tags": [
+        "ssi",
+        "static-data"
+      ],
+      "thread": "ssi-send",
+      "timestamp": "2026-02-20T09:18:00-06:00",
+      "to": [
+        {
+          "address": "emily.gonzales@vitol.example",
+          "name": "Emily Gonzales",
+          "org": "cp-vitol",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/025-ssi-confirm.eml",
+        "md": "messages/025-ssi-confirm.md"
+      },
+      "from": {
+        "address": "emily.gonzales@vitol.example",
+        "name": "Emily Gonzales",
+        "org": "cp-vitol",
+        "role": "settlements"
+      },
+      "in_reply_to": "ssi-send",
+      "key": "ssi-confirm",
+      "message_id": "<257ac637d2c5e7c74183@vitol.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "emily.gonzales@vitol.example"
+      },
+      "seq": 25,
+      "subject": "Re: Standard settlement instructions",
+      "tags": [
+        "ssi",
+        "static-data"
+      ],
+      "thread": "ssi-send",
+      "timestamp": "2026-02-23T09:02:00-06:00",
+      "to": [
+        {
+          "address": "andrew.evans@newco-houston.example",
+          "name": "Andrew Evans",
+          "org": "newco-hou",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [
+        {
+          "address": "laura.hill@newco-houston.example",
+          "name": "Laura Hill",
+          "org": "newco-hou",
+          "role": "credit_analyst"
+        }
+      ],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "effective": "2026-02-23"
+      },
+      "files": {
+        "eml": "messages/026-go-live.eml",
+        "md": "messages/026-go-live.md"
+      },
+      "from": {
+        "address": "louis.harvey@newco-houston.example",
+        "name": "Louis Harvey",
+        "org": "newco-hou",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "go-live",
+      "message_id": "<320c72313b2f90612902@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "louis.harvey@newco-houston.example"
+      },
+      "seq": 26,
+      "subject": "Vitol Inc. live for trading",
+      "tags": [
+        "go-live"
+      ],
+      "thread": "go-live",
+      "timestamp": "2026-02-24T09:25:00-06:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "agreement_effective": "2026-02-23",
+    "limit": 40000000,
+    "result": "approved"
+  },
+  "ownership_edges": [],
+  "phase": "onboarding",
+  "positions": [
+    {
+      "clause": "payment",
+      "message": "mpta-draft",
+      "proposer": "newco-hou",
+      "status": "superseded",
+      "value": 30,
+      "version": 0
+    },
+    {
+      "clause": "payment",
+      "message": "mpta-r1",
+      "proposer": "cp-vitol",
+      "status": "superseded",
+      "value": 20,
+      "version": 1
+    },
+    {
+      "clause": "payment",
+      "message": "mpta-r2",
+      "proposer": "newco-hou",
+      "status": "superseded",
+      "value": 30,
+      "version": 2
+    },
+    {
+      "clause": "payment",
+      "message": "mpta-r3",
+      "proposer": "cp-vitol",
+      "status": "agreed",
+      "value": 25,
+      "version": 3
+    },
+    {
+      "clause": "quantity_tolerance",
+      "message": "mpta-draft",
+      "proposer": "newco-hou",
+      "status": "superseded",
+      "value": 5,
+      "version": 0
+    },
+    {
+      "clause": "quantity_tolerance",
+      "message": "mpta-r3",
+      "proposer": "cp-vitol",
+      "status": "superseded",
+      "value": 10,
+      "version": 3
+    },
+    {
+      "clause": "quantity_tolerance",
+      "message": "mpta-r4",
+      "proposer": "newco-hou",
+      "status": "agreed",
+      "value": 5,
+      "version": 4
+    },
+    {
+      "clause": "quantity_basis",
+      "message": "mpta-draft",
+      "proposer": "newco-hou",
+      "status": "agreed",
+      "value": "load-port",
+      "version": 0
+    },
+    {
+      "clause": "no_deductions",
+      "message": "mpta-draft",
+      "proposer": "newco-hou",
+      "status": "agreed",
+      "value": "taxes the law requires the payer to withhold",
+      "version": 0
+    },
+    {
+      "clause": "late_interest",
+      "message": "mpta-draft",
+      "proposer": "newco-hou",
+      "status": "superseded",
+      "value": 3,
+      "version": 0
+    },
+    {
+      "clause": "late_interest",
+      "message": "mpta-r1",
+      "proposer": "cp-vitol",
+      "status": "superseded",
+      "value": 5,
+      "version": 1
+    },
+    {
+      "clause": "late_interest",
+      "message": "mpta-r2",
+      "proposer": "newco-hou",
+      "status": "agreed",
+      "value": 4,
+      "version": 2
+    },
+    {
+      "clause": "credit_support",
+      "message": "mpta-draft",
+      "proposer": "newco-hou",
+      "status": "agreed",
+      "value": "the unsecured credit limit the Seller has approved",
+      "version": 0
+    },
+    {
+      "clause": "termination",
+      "message": "mpta-draft",
+      "proposer": "newco-hou",
+      "status": "agreed",
+      "value": 30,
+      "version": 0
+    },
+    {
+      "clause": "governing_law",
+      "message": "mpta-draft",
+      "proposer": "newco-hou",
+      "status": "agreed",
+      "value": "the State of Texas",
+      "version": 0
+    }
+  ],
+  "questions": [
+    {
+      "expected": 40000000,
+      "id": "s1-houston-vitol-wti-q1",
+      "question": "What credit limit did NewCo Houston approve for Vitol Inc.?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": 4,
+      "id": "s1-houston-vitol-wti-q2",
+      "question": "In how many redline rounds was the Vitol master agreement negotiated?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": 25,
+      "id": "s1-houston-vitol-wti-q3",
+      "question": "What payment days did the final Vitol master agreement set?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "s1-houston-vitol-wti",
+  "title": "Houston onboards Vitol: clean KYC, USD 40m credit, MPTA in four rounds"
+}

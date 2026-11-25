@@ -1,0 +1,746 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "counterparty": "Kestrel Bunkering Limited",
+        "credit_used": 0,
+        "deal_value": 4360000,
+        "exposure_after": 0,
+        "exposure_before": 0,
+        "exposure_if_booked": 4360000,
+        "headroom_after": 0,
+        "headroom_before": 0,
+        "limit": 0,
+        "status": "prepayment_required",
+        "trade_id": "NC-LON-26-0001"
+      },
+      "filename": "NC-LON-26-0001-credit-check.pdf",
+      "kind": "credit-check",
+      "message": "credit-result",
+      "path": "attachments/002-NC-LON-26-0001-credit-check.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example",
+        "wasDerivedFrom": "<b2a39332e51a5ee28d45@newco-london.example>"
+      },
+      "sha256": "1df101a2544ec468eb0b5a05cc8bbc11c4ef204ea0cf514e0011a49584d572a3",
+      "size": 3484
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited",
+        "currency": "USD",
+        "governing_law": "England and Wales",
+        "incoterm": "FOB",
+        "issued_by": "NewCo Trading London Limited",
+        "loading_from": "2026-04-13",
+        "loading_to": "2026-04-17",
+        "location": "Rotterdam",
+        "payment": "prepayment of 100% of the cargo value before vessel nomination",
+        "payment_days": 12,
+        "price_usd_per_mt": 545,
+        "product": "VLSFO",
+        "quantity": 8000,
+        "quantity_tolerance_pct": 5,
+        "trade_id": "NC-LON-26-0001",
+        "unit": "mt",
+        "version": 1
+      },
+      "filename": "NC-LON-26-0001-ticket-v1.pdf",
+      "kind": "deal-ticket",
+      "message": "ticket",
+      "path": "attachments/003-NC-LON-26-0001-ticket-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "graham.carr@newco-london.example",
+        "wasDerivedFrom": "<b8f0500d12863da476b4@newco-london.example>"
+      },
+      "sha256": "e07a99f15f3a20f8d2218181e74375f09db6d76114984c1b505029b7337f3202",
+      "size": 5422
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "account": "acct-newco-lon-gbp-operating",
+        "amount": 4360000,
+        "currency": "GBP",
+        "due": "2026-03-23",
+        "trade_id": "NC-LON-26-0001"
+      },
+      "filename": "NC-LON-26-0001-prepayment-request.pdf",
+      "kind": "prepayment-request",
+      "message": "prepay-request",
+      "path": "attachments/005-NC-LON-26-0001-prepayment-request.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example",
+        "wasDerivedFrom": "<a59a2dab45dfb6cd7f1a@newco-london.example>"
+      },
+      "sha256": "d6d34833a1337d8b9bb8f37237842b37525cc26a2fa3594e97fefc63047f53e0",
+      "size": 3226
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [
+    {
+      "channel": "chat",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-LON-26-0001",
+      "file": "chats/001-enquiry.json",
+      "key": "enquiry",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "teresa.hammond@kestrel.example",
+            "name": "Teresa Hammond",
+            "org": "cp-kestrel",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Rotterdam",
+            "product": "VLSFO",
+            "quantity": 8000,
+            "unit": "mt"
+          },
+          "text": "I need 8,000 mt of VLSFO FOB Rotterdam for loading around 2026-04-13. What is your price?",
+          "timestamp": "2026-03-12T14:43:00+00:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "price_usd_per_mt": 552
+          },
+          "text": "USD 552.00 per mt.",
+          "timestamp": "2026-03-12T14:45:03+00:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "teresa.hammond@kestrel.example",
+            "name": "Teresa Hammond",
+            "org": "cp-kestrel",
+            "role": "trader"
+          },
+          "terms": {
+            "price_usd_per_mt": 538
+          },
+          "text": "I was thinking USD 538.00.",
+          "timestamp": "2026-03-12T14:46:04+00:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "teresa.hammond@kestrel.example",
+          "name": "Teresa Hammond",
+          "org": "cp-kestrel",
+          "role": "trader"
+        },
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 1,
+      "tags": [
+        "indication"
+      ]
+    },
+    {
+      "channel": "chat",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-LON-26-0001",
+      "file": "chats/002-price.json",
+      "key": "price",
+      "lines": [
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "price_usd_per_mt": 545
+          },
+          "text": "USD 545.00 per mt and I will keep it for the hour.",
+          "timestamp": "2026-03-12T16:00:00+00:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "teresa.hammond@kestrel.example",
+            "name": "Teresa Hammond",
+            "org": "cp-kestrel",
+            "role": "trader"
+          },
+          "terms": {
+            "price_usd_per_mt": 545
+          },
+          "text": "Done. Please send the recap.",
+          "timestamp": "2026-03-12T16:02:28+00:00"
+        },
+        {
+          "intent": "agree",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "currency": "USD",
+            "incoterm": "FOB",
+            "loading_from": "2026-04-13",
+            "loading_to": "2026-04-17",
+            "location": "Rotterdam",
+            "payment": "prepayment of 100% of the cargo value before vessel nomination",
+            "price_usd_per_mt": 545,
+            "product": "VLSFO",
+            "quantity": 8000,
+            "unit": "mt"
+          },
+          "text": "Agreed: 8,000 mt VLSFO FOB Rotterdam at USD 545.00 per mt, loading 2026-04-13 to 2026-04-17. You have no confirmed standby letter of credit yet, so payment is a prepayment of the full cargo value before nomination. Subject to our credit.",
+          "timestamp": "2026-03-12T16:02:48+00:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        },
+        {
+          "address": "teresa.hammond@kestrel.example",
+          "name": "Teresa Hammond",
+          "org": "cp-kestrel",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 2,
+      "tags": [
+        "agreed",
+        "negotiation",
+        "prepayment"
+      ]
+    }
+  ],
+  "counts": {
+    "attachments": 3,
+    "chats": 2,
+    "emails": 7
+  },
+  "deals": [
+    {
+      "agreed_in": "price",
+      "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited",
+      "agreement_effective": "2026-02-26",
+      "chats": [
+        "enquiry",
+        "price"
+      ],
+      "class_uris": {
+        "line_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+        "order": "https://schema.org/Order",
+        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+      },
+      "counterparty": "cp-kestrel",
+      "credit_check": {
+        "credit_used": 0,
+        "deal_value": 4360000,
+        "exposure_after": 0,
+        "exposure_before": 0,
+        "exposure_if_booked": 4360000,
+        "headroom_after": 0,
+        "headroom_before": 0,
+        "limit": 0,
+        "status": "prepayment_required"
+      },
+      "entity": "newco-lon",
+      "governing_law": "England and Wales",
+      "inputs": {
+        "price": 545,
+        "quantity": 8000
+      },
+      "kind": "physical",
+      "mismatches": [
+        {
+          "agreed": "USD",
+          "caught": true,
+          "caught_by": "prepay-query",
+          "field": "currency",
+          "found": "GBP",
+          "id": "t2-london-kestrel-vlsfo:wrong-currency-requested",
+          "type": "wrong-currency",
+          "where": [
+            "chat:price",
+            "prepay-request",
+            "NC-LON-26-0001-prepayment-request.pdf"
+          ]
+        }
+      ],
+      "notional": 4360000,
+      "onboarding_scenario": "s2-london-kestrel-vlsfo",
+      "payment_days": 12,
+      "prepayment": {
+        "account": "acct-newco-lon-usd-operating",
+        "amount": 4360000,
+        "currency": "USD",
+        "due": "2026-03-23"
+      },
+      "scenario": "t2-london-kestrel-vlsfo",
+      "side": "sell",
+      "status": "agreed",
+      "terms": {
+        "currency": "USD",
+        "incoterm": "FOB",
+        "loading_from": "2026-04-13",
+        "loading_to": "2026-04-17",
+        "location": "Rotterdam",
+        "payment": "prepayment of 100% of the cargo value before vessel nomination",
+        "price_usd_per_mt": 545,
+        "product": "VLSFO",
+        "quantity": 8000,
+        "unit": "mt"
+      },
+      "tickets": [
+        {
+          "facts": {
+            "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited",
+            "currency": "USD",
+            "governing_law": "England and Wales",
+            "incoterm": "FOB",
+            "issued_by": "NewCo Trading London Limited",
+            "loading_from": "2026-04-13",
+            "loading_to": "2026-04-17",
+            "location": "Rotterdam",
+            "payment": "prepayment of 100% of the cargo value before vessel nomination",
+            "payment_days": 12,
+            "price_usd_per_mt": 545,
+            "product": "VLSFO",
+            "quantity": 8000,
+            "quantity_tolerance_pct": 5,
+            "trade_id": "NC-LON-26-0001",
+            "unit": "mt",
+            "version": 1
+          },
+          "filename": "NC-LON-26-0001-ticket-v1.pdf",
+          "issued_by": "NewCo Trading London Limited",
+          "message": "ticket",
+          "version": 1
+        }
+      ],
+      "tolerance_pct": 5,
+      "trade_id": "NC-LON-26-0001"
+    }
+  ],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "prepay-query",
+      "description": "The first prepayment request asks for GBP into the sterling account; the deal is in USD.",
+      "id": "t2-london-kestrel-vlsfo:wrong-currency-requested",
+      "type": "wrong-currency",
+      "values": {
+        "agreed": "USD",
+        "field": "currency",
+        "found": "GBP"
+      },
+      "where": [
+        "chat:price",
+        "prepay-request",
+        "NC-LON-26-0001-prepayment-request.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "deal_value": 4360000,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/001-credit-request.eml",
+        "md": "messages/001-credit-request.md"
+      },
+      "from": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "credit-request",
+      "message_id": "<5a6d8a21b9ec1133069f@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "graham.carr@newco-london.example"
+      },
+      "seq": 1,
+      "subject": "Credit check: Kestrel Bunkering Limited VLSFO sale NC-LON-26-0001",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-03-12T16:25:00+00:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0001-credit-check.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "credit_used": 0,
+        "deal_value": 4360000,
+        "exposure_after": 0,
+        "exposure_before": 0,
+        "exposure_if_booked": 4360000,
+        "headroom_after": 0,
+        "headroom_before": 0,
+        "limit": 0,
+        "status": "prepayment_required",
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/002-credit-result.eml",
+        "md": "messages/002-credit-result.md"
+      },
+      "from": {
+        "address": "marian.gibbs@newco-london.example",
+        "name": "Marian Gibbs",
+        "org": "newco-lon",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-request",
+      "key": "credit-result",
+      "message_id": "<b2a39332e51a5ee28d45@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example"
+      },
+      "seq": 2,
+      "subject": "Re: Credit check: Kestrel Bunkering Limited VLSFO sale NC-LON-26-0001",
+      "tags": [
+        "credit",
+        "prepayment"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-03-13T09:24:00+00:00",
+      "to": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0001-ticket-v1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "internal",
+      "facts": {
+        "price_usd_per_mt": 545,
+        "quantity": 8000,
+        "ticket_version": 1,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/003-ticket.eml",
+        "md": "messages/003-ticket.md"
+      },
+      "from": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "ticket",
+      "message_id": "<b8f0500d12863da476b4@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "graham.carr@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "Deal ticket NC-LON-26-0001",
+      "tags": [
+        "ticket"
+      ],
+      "thread": "ticket",
+      "timestamp": "2026-03-16T09:15:00+00:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://schema.org/Order",
+      "direction": "outbound",
+      "facts": {
+        "currency": "USD",
+        "price_usd_per_mt": 545,
+        "quantity": 8000,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/004-recap.eml",
+        "md": "messages/004-recap.md"
+      },
+      "from": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "recap",
+      "message_id": "<b20c7b4a4d8e565ad13b@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "graham.carr@newco-london.example"
+      },
+      "seq": 4,
+      "subject": "Recap NC-LON-26-0001: VLSFO",
+      "tags": [
+        "recap"
+      ],
+      "thread": "recap",
+      "timestamp": "2026-03-17T09:09:00+00:00",
+      "to": [
+        {
+          "address": "teresa.hammond@kestrel.example",
+          "name": "Teresa Hammond",
+          "org": "cp-kestrel",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0001-prepayment-request.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "outbound",
+      "facts": {
+        "account": "acct-newco-lon-gbp-operating",
+        "amount": 4360000,
+        "currency": "GBP",
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/005-prepay-request.eml",
+        "md": "messages/005-prepay-request.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "prepay-request",
+      "message_id": "<a59a2dab45dfb6cd7f1a@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 5,
+      "subject": "Prepayment request NC-LON-26-0001",
+      "tags": [
+        "planted",
+        "prepayment"
+      ],
+      "thread": "prepay-request",
+      "timestamp": "2026-03-18T09:19:00+00:00",
+      "to": [
+        {
+          "address": "angela.bell@kestrel.example",
+          "name": "Angela Bell",
+          "org": "cp-kestrel",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "currency": "USD",
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/006-prepay-query.eml",
+        "md": "messages/006-prepay-query.md"
+      },
+      "from": {
+        "address": "angela.bell@kestrel.example",
+        "name": "Angela Bell",
+        "org": "cp-kestrel",
+        "role": "settlements"
+      },
+      "in_reply_to": "prepay-request",
+      "key": "prepay-query",
+      "message_id": "<7f5d56bc70436fc527c4@kestrel.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "angela.bell@kestrel.example"
+      },
+      "seq": 6,
+      "subject": "Re: Prepayment request NC-LON-26-0001",
+      "tags": [
+        "prepayment",
+        "query"
+      ],
+      "thread": "prepay-request",
+      "timestamp": "2026-03-19T09:21:00+00:00",
+      "to": [
+        {
+          "address": "paige.ball@newco-london.example",
+          "name": "Paige Ball",
+          "org": "newco-lon",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "account": "acct-newco-lon-usd-operating",
+        "amount": 4360000,
+        "currency": "USD",
+        "due": "2026-03-23",
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/007-prepay-corrected.eml",
+        "md": "messages/007-prepay-corrected.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": "prepay-query",
+      "key": "prepay-corrected",
+      "message_id": "<e14433e8f6e2845f3a86@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 7,
+      "subject": "Re: Prepayment request NC-LON-26-0001",
+      "tags": [
+        "correction",
+        "prepayment"
+      ],
+      "thread": "prepay-request",
+      "timestamp": "2026-03-20T09:19:00+00:00",
+      "to": [
+        {
+          "address": "angela.bell@kestrel.example",
+          "name": "Angela Bell",
+          "org": "cp-kestrel",
+          "role": "settlements"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "credit_used": 0,
+    "prepayment": 4360000,
+    "result": "agreed",
+    "trade_id": "NC-LON-26-0001"
+  },
+  "ownership_edges": [],
+  "phase": "trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 4360000,
+      "id": "t2-london-kestrel-vlsfo-q1",
+      "question": "What prepayment did NewCo London require from Kestrel for NC-LON-26-0001?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": "GBP",
+      "id": "t2-london-kestrel-vlsfo-q2",
+      "question": "In which currency did the first prepayment request for NC-LON-26-0001 ask for payment?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 545,
+      "id": "t2-london-kestrel-vlsfo-q3",
+      "question": "What price per mt was agreed for NC-LON-26-0001?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    }
+  ],
+  "review_events": [],
+  "scenario": "t2-london-kestrel-vlsfo",
+  "title": "London sells 8,000 mt VLSFO to Kestrel: prepayment because no SBLC, wrong currency on the first request"
+}

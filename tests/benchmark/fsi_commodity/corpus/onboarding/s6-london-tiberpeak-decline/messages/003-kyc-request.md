@@ -1,0 +1,16 @@
+# KYC documents for Tiber Peak Trading DMCC
+
+- **Message-ID:** <732281302a3efacfefac@newco-london.example>
+- **Date:** Wed, 04 Mar 2026 09:06:00 +0000
+- **From:** Laura Jones <laura.jones@newco-london.example>
+- **To:** Michael Williams <michael.williams@tiberpeak.example>
+
+## Body
+
+Hi Michael,
+
+Please send your certificate of incorporation, an ownership chart down to the natural persons, and the completed questionnaire.
+
+Regards,
+Laura Jones
+NewCo Trading London Limited

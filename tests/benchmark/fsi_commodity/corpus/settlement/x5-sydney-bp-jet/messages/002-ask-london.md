@@ -1,0 +1,18 @@
+# Re: Invoice BPOI-INV-NC-LON-26-0003: NC-LON-26-0003
+
+- **Message-ID:** <a1dde08d4be97aa08ede@newco-sydney.example>
+- **Date:** Wed, 06 May 2026 09:01:00 +1000
+- **From:** Gary Mata <gary.mata@newco-sydney.example>
+- **To:** Kathleen Garner <kathleen.garner@newco-london.example>
+- **In-Reply-To:** <da93bdc080053c447c13@bp.example>
+- **References:** <da93bdc080053c447c13@bp.example>
+
+## Body
+
+Hi Kathleen,
+
+BP has invoiced us USD 9,378,000.00 for NC-LON-26-0003. We have no deal ticket or confirmation for that trade. Did London deal it?
+
+Regards,
+Gary Mata
+NewCo Trading Sydney Pty Ltd

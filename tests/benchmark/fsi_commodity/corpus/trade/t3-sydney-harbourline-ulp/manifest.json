@@ -1,0 +1,940 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd",
+        "currency": "USD",
+        "delivery_from": "2026-04-29",
+        "delivery_to": "2026-05-06",
+        "governing_law": "New South Wales",
+        "incoterm": "CFR",
+        "issued_by": "NewCo Trading Sydney Pty Ltd",
+        "location": "Newcastle",
+        "payment_days": 45,
+        "price_usd_per_mt": 765,
+        "product": "ULP 91",
+        "quantity": 20000,
+        "quantity_tolerance_pct": 8,
+        "trade_id": "NC-SYD-26-0001",
+        "unit": "mt",
+        "version": 1
+      },
+      "filename": "NC-SYD-26-0001-ticket-v1.pdf",
+      "kind": "deal-ticket",
+      "message": "ticket-a",
+      "path": "attachments/003-NC-SYD-26-0001-ticket-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example",
+        "wasDerivedFrom": "<fe0b4cd5f7a9940b2d56@newco-sydney.example>"
+      },
+      "sha256": "cd4ed1be4b00e24a8800a08fd332f16c3fc98d68c1434a9f0873e33926e122fb",
+      "size": 5196
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "counterparty": "Harbourline Petroleum Pty Ltd",
+        "credit_used": 0,
+        "deal_value": 15300000,
+        "exposure_after": 15300000,
+        "exposure_before": 15300000,
+        "exposure_if_booked": 30600000,
+        "headroom_after": 14700000,
+        "headroom_before": 14700000,
+        "limit": 30000000,
+        "status": "declined",
+        "trade_id": "NC-SYD-26-0002"
+      },
+      "filename": "NC-SYD-26-0002-credit-check-declined.pdf",
+      "kind": "credit-check",
+      "message": "credit-decline-b",
+      "path": "attachments/005-NC-SYD-26-0002-credit-check-declined.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example",
+        "wasDerivedFrom": "<c17fa67a04c82ee14356@newco-sydney.example>"
+      },
+      "sha256": "f01b5eb1bbbf50117b081f0234101b51edec27861030f63aaa5c53f134d62d97",
+      "size": 3506
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd",
+        "currency": "USD",
+        "delivery_from": "2026-06-03",
+        "delivery_to": "2026-06-11",
+        "governing_law": "New South Wales",
+        "incoterm": "CFR",
+        "issued_by": "NewCo Trading Sydney Pty Ltd",
+        "location": "Newcastle",
+        "payment_days": 45,
+        "price_usd_per_mt": 765,
+        "product": "ULP 91",
+        "quantity": 18000,
+        "quantity_tolerance_pct": 8,
+        "trade_id": "NC-SYD-26-0002",
+        "unit": "mt",
+        "version": 1
+      },
+      "filename": "NC-SYD-26-0002-ticket-v1.pdf",
+      "kind": "deal-ticket",
+      "message": "ticket-b",
+      "path": "attachments/007-NC-SYD-26-0002-ticket-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example",
+        "wasDerivedFrom": "<3733314450f1b03b7794@newco-sydney.example>"
+      },
+      "sha256": "8e919ac09a0f693b62a84c826bd898a203986c5dbeff19d007189a82dd00efe5",
+      "size": 5196
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [
+    {
+      "channel": "chat",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-SYD-26-0001",
+      "file": "chats/001-cargo-1.json",
+      "key": "cargo-1",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jeffrey.murray@harbourline.example",
+            "name": "Jeffrey Murray",
+            "org": "cp-harbourline",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "CFR",
+            "location": "Newcastle",
+            "product": "ULP 91",
+            "quantity": 20000,
+            "unit": "mt"
+          },
+          "text": "I want 20,000 mt of ULP 91 CFR Newcastle for delivery around 2026-04-29. Price?",
+          "timestamp": "2026-03-24T09:07:00+11:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "aaron.heath@newco-sydney.example",
+            "name": "Aaron Heath",
+            "org": "newco-syd",
+            "role": "trader"
+          },
+          "terms": {
+            "price_usd_per_mt": 765
+          },
+          "text": "USD 765.00 per mt CFR Newcastle.",
+          "timestamp": "2026-03-24T09:10:46+11:00"
+        },
+        {
+          "intent": "agree",
+          "speaker": {
+            "address": "jeffrey.murray@harbourline.example",
+            "name": "Jeffrey Murray",
+            "org": "cp-harbourline",
+            "role": "trader"
+          },
+          "terms": {
+            "currency": "USD",
+            "delivery_from": "2026-04-29",
+            "delivery_to": "2026-05-06",
+            "incoterm": "CFR",
+            "location": "Newcastle",
+            "price_usd_per_mt": 765,
+            "product": "ULP 91",
+            "quantity": 20000,
+            "unit": "mt"
+          },
+          "text": "Agreed. 20,000 mt ULP 91 CFR Newcastle at USD 765.00 per mt, delivery 2026-04-29 to 2026-05-06, in USD. Subject to your credit.",
+          "timestamp": "2026-03-24T09:12:23+11:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jeffrey.murray@harbourline.example",
+          "name": "Jeffrey Murray",
+          "org": "cp-harbourline",
+          "role": "trader"
+        },
+        {
+          "address": "aaron.heath@newco-sydney.example",
+          "name": "Aaron Heath",
+          "org": "newco-syd",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 1,
+      "tags": [
+        "agreed",
+        "negotiation"
+      ]
+    },
+    {
+      "channel": "chat",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-SYD-26-0002",
+      "file": "chats/002-cargo-2-request.json",
+      "key": "cargo-2-request",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jeffrey.murray@harbourline.example",
+            "name": "Jeffrey Murray",
+            "org": "cp-harbourline",
+            "role": "trader"
+          },
+          "terms": {
+            "price_usd_per_mt": 765,
+            "quantity": 20000,
+            "unit": "mt"
+          },
+          "text": "Same again please: another 20,000 mt, same price, one month after the first.",
+          "timestamp": "2026-03-26T10:28:00+11:00"
+        },
+        {
+          "intent": "hold",
+          "speaker": {
+            "address": "aaron.heath@newco-sydney.example",
+            "name": "Aaron Heath",
+            "org": "newco-syd",
+            "role": "trader"
+          },
+          "terms": {
+            "quantity": 20000
+          },
+          "text": "Agreed in principle, subject to credit. I will come back to you.",
+          "timestamp": "2026-03-26T10:31:29+11:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jeffrey.murray@harbourline.example",
+          "name": "Jeffrey Murray",
+          "org": "cp-harbourline",
+          "role": "trader"
+        },
+        {
+          "address": "aaron.heath@newco-sydney.example",
+          "name": "Aaron Heath",
+          "org": "newco-syd",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 2,
+      "tags": [
+        "negotiation",
+        "subject-to-credit"
+      ]
+    },
+    {
+      "channel": "chat",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-SYD-26-0002",
+      "file": "chats/003-cargo-2-resize.json",
+      "key": "cargo-2-resize",
+      "lines": [
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "aaron.heath@newco-sydney.example",
+            "name": "Aaron Heath",
+            "org": "newco-syd",
+            "role": "trader"
+          },
+          "terms": {
+            "price_usd_per_mt": 765,
+            "quantity": 18000
+          },
+          "text": "Credit cannot cover 20,000 mt. I can do 18,000 mt at the same price.",
+          "timestamp": "2026-03-30T09:40:00+11:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "jeffrey.murray@harbourline.example",
+            "name": "Jeffrey Murray",
+            "org": "cp-harbourline",
+            "role": "trader"
+          },
+          "terms": {
+            "quantity": 18000
+          },
+          "text": "18,000 mt works for us.",
+          "timestamp": "2026-03-30T09:40:55+11:00"
+        },
+        {
+          "intent": "agree",
+          "speaker": {
+            "address": "aaron.heath@newco-sydney.example",
+            "name": "Aaron Heath",
+            "org": "newco-syd",
+            "role": "trader"
+          },
+          "terms": {
+            "currency": "USD",
+            "delivery_from": "2026-06-03",
+            "delivery_to": "2026-06-11",
+            "incoterm": "CFR",
+            "location": "Newcastle",
+            "price_usd_per_mt": 765,
+            "product": "ULP 91",
+            "quantity": 18000,
+            "unit": "mt"
+          },
+          "text": "Agreed: 18,000 mt ULP 91 CFR Newcastle at USD 765.00 per mt, delivery 2026-06-03 to 2026-06-11, in USD.",
+          "timestamp": "2026-03-30T09:44:25+11:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "aaron.heath@newco-sydney.example",
+          "name": "Aaron Heath",
+          "org": "newco-syd",
+          "role": "trader"
+        },
+        {
+          "address": "jeffrey.murray@harbourline.example",
+          "name": "Jeffrey Murray",
+          "org": "cp-harbourline",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 3,
+      "tags": [
+        "agreed",
+        "negotiation",
+        "resized"
+      ]
+    }
+  ],
+  "counts": {
+    "attachments": 3,
+    "chats": 3,
+    "emails": 8
+  },
+  "deals": [
+    {
+      "agreed_in": "cargo-1",
+      "agreement": "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd",
+      "agreement_effective": "2026-03-09",
+      "chats": [
+        "cargo-1"
+      ],
+      "class_uris": {
+        "line_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+        "order": "https://schema.org/Order",
+        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+      },
+      "counterparty": "cp-harbourline",
+      "credit_check": {
+        "credit_used": 15300000,
+        "deal_value": 15300000,
+        "exposure_after": 15300000,
+        "exposure_before": 0,
+        "exposure_if_booked": 15300000,
+        "headroom_after": 14700000,
+        "headroom_before": 30000000,
+        "limit": 30000000,
+        "status": "approved"
+      },
+      "entity": "newco-syd",
+      "governing_law": "New South Wales",
+      "inputs": {
+        "price": 765,
+        "quantity": 20000
+      },
+      "kind": "physical",
+      "mismatches": [],
+      "notional": 15300000,
+      "onboarding_scenario": "s3-sydney-harbourline-ulp",
+      "payment_days": 45,
+      "scenario": "t3-sydney-harbourline-ulp",
+      "side": "sell",
+      "status": "agreed",
+      "terms": {
+        "currency": "USD",
+        "delivery_from": "2026-04-29",
+        "delivery_to": "2026-05-06",
+        "incoterm": "CFR",
+        "location": "Newcastle",
+        "price_usd_per_mt": 765,
+        "product": "ULP 91",
+        "quantity": 20000,
+        "unit": "mt"
+      },
+      "tickets": [
+        {
+          "facts": {
+            "agreement": "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd",
+            "currency": "USD",
+            "delivery_from": "2026-04-29",
+            "delivery_to": "2026-05-06",
+            "governing_law": "New South Wales",
+            "incoterm": "CFR",
+            "issued_by": "NewCo Trading Sydney Pty Ltd",
+            "location": "Newcastle",
+            "payment_days": 45,
+            "price_usd_per_mt": 765,
+            "product": "ULP 91",
+            "quantity": 20000,
+            "quantity_tolerance_pct": 8,
+            "trade_id": "NC-SYD-26-0001",
+            "unit": "mt",
+            "version": 1
+          },
+          "filename": "NC-SYD-26-0001-ticket-v1.pdf",
+          "issued_by": "NewCo Trading Sydney Pty Ltd",
+          "message": "ticket-a",
+          "version": 1
+        }
+      ],
+      "tolerance_pct": 8,
+      "trade_id": "NC-SYD-26-0001"
+    },
+    {
+      "agreed_in": "cargo-2-resize",
+      "agreement": "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd",
+      "agreement_effective": "2026-03-09",
+      "chats": [
+        "cargo-2-request",
+        "cargo-2-resize"
+      ],
+      "class_uris": {
+        "line_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+        "order": "https://schema.org/Order",
+        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+      },
+      "counterparty": "cp-harbourline",
+      "credit_check": {
+        "credit_used": 13770000,
+        "deal_value": 13770000,
+        "exposure_after": 29070000,
+        "exposure_before": 15300000,
+        "exposure_if_booked": 29070000,
+        "headroom_after": 930000,
+        "headroom_before": 14700000,
+        "limit": 30000000,
+        "status": "approved"
+      },
+      "declined_checks": [
+        {
+          "credit_used": 0,
+          "deal_value": 15300000,
+          "exposure_after": 15300000,
+          "exposure_before": 15300000,
+          "exposure_if_booked": 30600000,
+          "headroom_after": 14700000,
+          "headroom_before": 14700000,
+          "limit": 30000000,
+          "status": "declined"
+        }
+      ],
+      "entity": "newco-syd",
+      "governing_law": "New South Wales",
+      "inputs": {
+        "price": 765,
+        "quantity": 18000
+      },
+      "kind": "physical",
+      "max_quantity": 19215,
+      "mismatches": [],
+      "notional": 13770000,
+      "onboarding_scenario": "s3-sydney-harbourline-ulp",
+      "payment_days": 45,
+      "requested_quantity": 20000,
+      "scenario": "t3-sydney-harbourline-ulp",
+      "side": "sell",
+      "status": "resized",
+      "terms": {
+        "currency": "USD",
+        "delivery_from": "2026-06-03",
+        "delivery_to": "2026-06-11",
+        "incoterm": "CFR",
+        "location": "Newcastle",
+        "price_usd_per_mt": 765,
+        "product": "ULP 91",
+        "quantity": 18000,
+        "unit": "mt"
+      },
+      "tickets": [
+        {
+          "facts": {
+            "agreement": "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd",
+            "currency": "USD",
+            "delivery_from": "2026-06-03",
+            "delivery_to": "2026-06-11",
+            "governing_law": "New South Wales",
+            "incoterm": "CFR",
+            "issued_by": "NewCo Trading Sydney Pty Ltd",
+            "location": "Newcastle",
+            "payment_days": 45,
+            "price_usd_per_mt": 765,
+            "product": "ULP 91",
+            "quantity": 18000,
+            "quantity_tolerance_pct": 8,
+            "trade_id": "NC-SYD-26-0002",
+            "unit": "mt",
+            "version": 1
+          },
+          "filename": "NC-SYD-26-0002-ticket-v1.pdf",
+          "issued_by": "NewCo Trading Sydney Pty Ltd",
+          "message": "ticket-b",
+          "version": 1
+        }
+      ],
+      "tolerance_pct": 8,
+      "trade_id": "NC-SYD-26-0002"
+    }
+  ],
+  "expected_contradictions": [],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "deal_value": 15300000,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/001-credit-request-a.eml",
+        "md": "messages/001-credit-request-a.md"
+      },
+      "from": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "credit-request-a",
+      "message_id": "<6ef03bcf8be7e52becae@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example"
+      },
+      "seq": 1,
+      "subject": "Credit check: Harbourline Petroleum Pty Ltd ULP cargo NC-SYD-26-0001",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request-a",
+      "timestamp": "2026-03-24T09:38:00+11:00",
+      "to": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "credit_used": 15300000,
+        "deal_value": 15300000,
+        "exposure_after": 15300000,
+        "exposure_before": 0,
+        "exposure_if_booked": 15300000,
+        "headroom_after": 14700000,
+        "headroom_before": 30000000,
+        "limit": 30000000,
+        "status": "approved",
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/002-credit-ok-a.eml",
+        "md": "messages/002-credit-ok-a.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-request-a",
+      "key": "credit-ok-a",
+      "message_id": "<9a2c863cc039a68e12bd@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 2,
+      "subject": "Re: Credit check: Harbourline Petroleum Pty Ltd ULP cargo NC-SYD-26-0001",
+      "tags": [
+        "approval",
+        "credit"
+      ],
+      "thread": "credit-request-a",
+      "timestamp": "2026-03-25T09:00:00+11:00",
+      "to": [
+        {
+          "address": "aaron.heath@newco-sydney.example",
+          "name": "Aaron Heath",
+          "org": "newco-syd",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0001-ticket-v1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "internal",
+      "facts": {
+        "payment_days": 45,
+        "price_usd_per_mt": 765,
+        "quantity": 20000,
+        "ticket_version": 1,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/003-ticket-a.eml",
+        "md": "messages/003-ticket-a.md"
+      },
+      "from": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "ticket-a",
+      "message_id": "<fe0b4cd5f7a9940b2d56@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example"
+      },
+      "seq": 3,
+      "subject": "Deal ticket NC-SYD-26-0001",
+      "tags": [
+        "ticket"
+      ],
+      "thread": "ticket-a",
+      "timestamp": "2026-03-26T09:19:00+11:00",
+      "to": [
+        {
+          "address": "rhonda.jimenez@newco-sydney.example",
+          "name": "Rhonda Jimenez",
+          "org": "newco-syd",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "deal_value": 15300000,
+        "trade_id": "NC-SYD-26-0002"
+      },
+      "files": {
+        "eml": "messages/004-credit-request-b.eml",
+        "md": "messages/004-credit-request-b.md"
+      },
+      "from": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "credit-request-b",
+      "message_id": "<308c289bcbfc427833d4@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example"
+      },
+      "seq": 4,
+      "subject": "Credit check: Harbourline Petroleum Pty Ltd second ULP cargo",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request-b",
+      "timestamp": "2026-03-27T09:21:00+11:00",
+      "to": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0002-credit-check-declined.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "credit_used": 0,
+        "deal_value": 15300000,
+        "exposure_after": 15300000,
+        "exposure_before": 15300000,
+        "exposure_if_booked": 30600000,
+        "headroom_after": 14700000,
+        "headroom_before": 14700000,
+        "limit": 30000000,
+        "max_quantity": 19215,
+        "status": "declined",
+        "trade_id": "NC-SYD-26-0002"
+      },
+      "files": {
+        "eml": "messages/005-credit-decline-b.eml",
+        "md": "messages/005-credit-decline-b.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-request-b",
+      "key": "credit-decline-b",
+      "message_id": "<c17fa67a04c82ee14356@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 5,
+      "subject": "Re: Credit check: Harbourline Petroleum Pty Ltd second ULP cargo",
+      "tags": [
+        "credit",
+        "decline"
+      ],
+      "thread": "credit-request-b",
+      "timestamp": "2026-03-30T09:04:00+11:00",
+      "to": [
+        {
+          "address": "aaron.heath@newco-sydney.example",
+          "name": "Aaron Heath",
+          "org": "newco-syd",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "credit_used": 13770000,
+        "deal_value": 13770000,
+        "exposure_after": 29070000,
+        "exposure_before": 15300000,
+        "exposure_if_booked": 29070000,
+        "headroom_after": 930000,
+        "headroom_before": 14700000,
+        "limit": 30000000,
+        "status": "approved",
+        "trade_id": "NC-SYD-26-0002"
+      },
+      "files": {
+        "eml": "messages/006-credit-ok-b.eml",
+        "md": "messages/006-credit-ok-b.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-decline-b",
+      "key": "credit-ok-b",
+      "message_id": "<919a8979ce9ec990c1c9@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 6,
+      "subject": "Re: Credit check: Harbourline Petroleum Pty Ltd second ULP cargo",
+      "tags": [
+        "approval",
+        "credit"
+      ],
+      "thread": "credit-request-b",
+      "timestamp": "2026-03-31T09:25:00+11:00",
+      "to": [
+        {
+          "address": "aaron.heath@newco-sydney.example",
+          "name": "Aaron Heath",
+          "org": "newco-syd",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0002-ticket-v1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "internal",
+      "facts": {
+        "price_usd_per_mt": 765,
+        "quantity": 18000,
+        "resized_from": 20000,
+        "ticket_version": 1,
+        "trade_id": "NC-SYD-26-0002"
+      },
+      "files": {
+        "eml": "messages/007-ticket-b.eml",
+        "md": "messages/007-ticket-b.md"
+      },
+      "from": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "ticket-b",
+      "message_id": "<3733314450f1b03b7794@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example"
+      },
+      "seq": 7,
+      "subject": "Deal ticket NC-SYD-26-0002",
+      "tags": [
+        "resized",
+        "ticket"
+      ],
+      "thread": "ticket-b",
+      "timestamp": "2026-04-01T09:20:00+11:00",
+      "to": [
+        {
+          "address": "rhonda.jimenez@newco-sydney.example",
+          "name": "Rhonda Jimenez",
+          "org": "newco-syd",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://schema.org/Order",
+      "direction": "outbound",
+      "facts": {
+        "payment_days": 45,
+        "price_usd_per_mt": 765,
+        "quantity": 18000,
+        "trade_id": "NC-SYD-26-0002"
+      },
+      "files": {
+        "eml": "messages/008-recap-b.eml",
+        "md": "messages/008-recap-b.md"
+      },
+      "from": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "recap-b",
+      "message_id": "<61b0617d92ee930f8eec@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example"
+      },
+      "seq": 8,
+      "subject": "Recap NC-SYD-26-0002: ULP 91",
+      "tags": [
+        "recap",
+        "resized"
+      ],
+      "thread": "recap-b",
+      "timestamp": "2026-04-02T09:16:00+11:00",
+      "to": [
+        {
+          "address": "jeffrey.murray@harbourline.example",
+          "name": "Jeffrey Murray",
+          "org": "cp-harbourline",
+          "role": "trader"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "exposure_after": 29070000,
+    "headroom_after": 930000,
+    "result": "second cargo declined at 20000 mt and resized",
+    "trade_ids": [
+      "NC-SYD-26-0001",
+      "NC-SYD-26-0002"
+    ]
+  },
+  "ownership_edges": [],
+  "phase": "trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 20000,
+      "id": "t3-sydney-harbourline-ulp-q1",
+      "question": "At what quantity did credit decline Harbourline's second ULP cargo?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": 18000,
+      "id": "t3-sydney-harbourline-ulp-q2",
+      "question": "To what quantity was Harbourline's second ULP cargo resized?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": 45,
+      "id": "t3-sydney-harbourline-ulp-q3",
+      "question": "How many days after invoice is payment due on NC-SYD-26-0001?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "t3-sydney-harbourline-ulp",
+  "title": "Sydney sells ULP 91 to Harbourline: the second cargo is declined by credit and resized to 18,000 mt"
+}

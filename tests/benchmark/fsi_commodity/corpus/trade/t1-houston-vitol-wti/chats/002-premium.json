@@ -1,0 +1,94 @@
+{
+  "channel": "chat",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-HOU-26-0001",
+  "file": "chats/002-premium.json",
+  "key": "premium",
+  "lines": [
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {
+        "premium_usd_per_bbl": 0.75
+      },
+      "text": "I can do 0.75 over and we trade now.",
+      "timestamp": "2026-03-09T11:13:00-05:00"
+    },
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "crystal.king@vitol.example",
+        "name": "Crystal King",
+        "org": "cp-vitol",
+        "role": "trader"
+      },
+      "terms": {
+        "premium_usd_per_bbl": 0.95
+      },
+      "text": "0.95 and it is yours.",
+      "timestamp": "2026-03-09T11:16:21-05:00"
+    },
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {
+        "premium_usd_per_bbl": 0.85
+      },
+      "text": "Meet me at 0.85.",
+      "timestamp": "2026-03-09T11:19:48-05:00"
+    },
+    {
+      "intent": "agree",
+      "speaker": {
+        "address": "crystal.king@vitol.example",
+        "name": "Crystal King",
+        "org": "cp-vitol",
+        "role": "trader"
+      },
+      "terms": {
+        "currency": "USD",
+        "incoterm": "FOB",
+        "loading_from": "2026-04-13",
+        "loading_to": "2026-04-22",
+        "location": "Corpus Christi",
+        "premium_usd_per_bbl": 0.85,
+        "pricing": "Platts WTI Midland, average of the five assessments around the loading date, plus premium",
+        "product": "WTI Midland",
+        "quantity": 250000,
+        "unit": "bbl"
+      },
+      "text": "Done at 0.85. 250,000 bbl WTI Midland FOB Corpus Christi, Platts five-day average plus 0.85, loading 2026-04-13 to 2026-04-22, in USD. Subject to your credit.",
+      "timestamp": "2026-03-09T11:21:17-05:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "jenna.campbell@newco-houston.example",
+      "name": "Jenna Campbell",
+      "org": "newco-hou",
+      "role": "trader"
+    },
+    {
+      "address": "crystal.king@vitol.example",
+      "name": "Crystal King",
+      "org": "cp-vitol",
+      "role": "trader"
+    }
+  ],
+  "phase": "trade",
+  "seq": 2,
+  "tags": [
+    "agreed",
+    "negotiation"
+  ]
+}

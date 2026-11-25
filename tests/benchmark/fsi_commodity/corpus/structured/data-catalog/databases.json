@@ -1,0 +1,18 @@
+[
+  {
+    "id": "db-fsi-001",
+    "name": "fsi_commodity",
+    "displayName": "NewCo Commodity Trading Database",
+    "fullyQualifiedName": "fsi_postgres.fsi_commodity",
+    "description": "",
+    "service": {
+      "id": "svc-fsi-001",
+      "type": "databaseService",
+      "name": "fsi_postgres",
+      "fullyQualifiedName": "fsi_postgres",
+      "serviceType": "Postgres"
+    },
+    "tags": [],
+    "owners": []
+  }
+]

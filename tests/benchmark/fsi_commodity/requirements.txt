@@ -1,0 +1,6 @@
+# Exact pins for the corpus generator, kept equal to the root lock. Install with:
+#   python -m pip install -r tests/benchmark/fsi_commodity/requirements.txt  (fallback; uv uses pyproject.toml and uv.lock)
+Faker==40.63.0
+reportlab==5.1.1
+tzdata==2026.6
+PyYAML==6.0.4

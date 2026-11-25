@@ -1,0 +1,81 @@
+{
+  "channel": "chat",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-LON-26-0001",
+  "file": "chats/002-price.json",
+  "key": "price",
+  "lines": [
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "terms": {
+        "price_usd_per_mt": 545
+      },
+      "text": "USD 545.00 per mt and I will keep it for the hour.",
+      "timestamp": "2026-03-12T16:00:00+00:00"
+    },
+    {
+      "intent": "accept",
+      "speaker": {
+        "address": "teresa.hammond@kestrel.example",
+        "name": "Teresa Hammond",
+        "org": "cp-kestrel",
+        "role": "trader"
+      },
+      "terms": {
+        "price_usd_per_mt": 545
+      },
+      "text": "Done. Please send the recap.",
+      "timestamp": "2026-03-12T16:02:28+00:00"
+    },
+    {
+      "intent": "agree",
+      "speaker": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "terms": {
+        "currency": "USD",
+        "incoterm": "FOB",
+        "loading_from": "2026-04-13",
+        "loading_to": "2026-04-17",
+        "location": "Rotterdam",
+        "payment": "prepayment of 100% of the cargo value before vessel nomination",
+        "price_usd_per_mt": 545,
+        "product": "VLSFO",
+        "quantity": 8000,
+        "unit": "mt"
+      },
+      "text": "Agreed: 8,000 mt VLSFO FOB Rotterdam at USD 545.00 per mt, loading 2026-04-13 to 2026-04-17. You have no confirmed standby letter of credit yet, so payment is a prepayment of the full cargo value before nomination. Subject to our credit.",
+      "timestamp": "2026-03-12T16:02:48+00:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "graham.carr@newco-london.example",
+      "name": "Graham Carr",
+      "org": "newco-lon",
+      "role": "trader"
+    },
+    {
+      "address": "teresa.hammond@kestrel.example",
+      "name": "Teresa Hammond",
+      "org": "cp-kestrel",
+      "role": "trader"
+    }
+  ],
+  "phase": "trade",
+  "seq": 2,
+  "tags": [
+    "agreed",
+    "negotiation",
+    "prepayment"
+  ]
+}

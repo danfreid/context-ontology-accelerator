@@ -1,0 +1,1948 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "incorporated": "2014-08-06",
+        "jurisdiction": "Delaware",
+        "legal_form": "Ltd.",
+        "legal_name": "Glencore Ltd.",
+        "registration_number": "20820052"
+      },
+      "filename": "glencore-ltd-certificate-of-incorporation.pdf",
+      "kind": "certificate-of-incorporation",
+      "message": "kyc-docs",
+      "path": "attachments/003-glencore-ltd-certificate-of-incorporation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jimmy.porter@glencore.example",
+        "wasDerivedFrom": "<f69d92f38bf526f1f1eb@glencore.example>"
+      },
+      "sha256": "546061f098452dc3b798f862275a9669760b704e0935cb2ea7efe1303d373e72",
+      "size": 2924
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "complete": true,
+        "declared_beneficial_owners": {},
+        "edges": [],
+        "entity": "Glencore Ltd."
+      },
+      "filename": "glencore-ltd-ownership-chart.pdf",
+      "kind": "ownership-chart",
+      "message": "kyc-docs",
+      "path": "attachments/003-glencore-ltd-ownership-chart.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jimmy.porter@glencore.example",
+        "wasDerivedFrom": "<f69d92f38bf526f1f1eb@glencore.example>"
+      },
+      "sha256": "973a0d208f195ffd1c840c1420c9e7a00e4871fcbc358c1d486a35efe887745d",
+      "size": 2713
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntityIdentifierRegistryEntry",
+      "facts": {
+        "legal_name": "Glencore Ltd.",
+        "lei": "SYNT00US171IITQ89C20",
+        "next_renewal": "2026-08-22",
+        "status": "ACTIVE"
+      },
+      "filename": "glencore-ltd-lei-record.pdf",
+      "kind": "lei-record",
+      "message": "kyc-docs",
+      "path": "attachments/003-glencore-ltd-lei-record.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jimmy.porter@glencore.example",
+        "wasDerivedFrom": "<f69d92f38bf526f1f1eb@glencore.example>"
+      },
+      "sha256": "e9f94e8464063bebdeeff6fdc843ca9dec697f70ec6f149cf3508305c0adc3fc",
+      "size": 2479
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/PartyRoleIdentifier",
+      "facts": {
+        "entity": "Glencore Ltd.",
+        "signatories": [
+          {
+            "name": "Gregory Everett",
+            "role": "trader"
+          },
+          {
+            "name": "Ashley Gallagher",
+            "role": "lawyer"
+          },
+          {
+            "name": "Jennifer Arroyo",
+            "role": "settlements"
+          }
+        ]
+      },
+      "filename": "glencore-ltd-authorised-signatories.pdf",
+      "kind": "signatory-list",
+      "message": "kyc-docs",
+      "path": "attachments/003-glencore-ltd-authorised-signatories.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jimmy.porter@glencore.example",
+        "wasDerivedFrom": "<f69d92f38bf526f1f1eb@glencore.example>"
+      },
+      "sha256": "23665d140050a48204d6dc7d80860453d54e966ccc442ac2d42b74c8078fd7aa",
+      "size": 3016
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "entity": "Glencore Ltd.",
+        "fiscal_year": 2025,
+        "net_worth": 220000000,
+        "revenue": 1890000000
+      },
+      "filename": "glencore-ltd-financial-statements-2025.pdf",
+      "kind": "financial-statements",
+      "message": "financials",
+      "path": "attachments/004-glencore-ltd-financial-statements-2025.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "joseph.juarez@glencore.example",
+        "wasDerivedFrom": "<a577c69bac94701c703e@glencore.example>"
+      },
+      "sha256": "c2130ce042c81b9dacca847c5e22477d982693cfc2100e2885f947bd0e6c81ac",
+      "size": 2506
+    },
+    {
+      "class_uri": "https://schema.org/Service",
+      "facts": {
+        "entity": "Glencore Ltd.",
+        "hits": [],
+        "result": "clear",
+        "subjects": [
+          "Glencore Ltd.",
+          "Glencore Limited"
+        ]
+      },
+      "filename": "glencore-ltd-screening-report.pdf",
+      "kind": "screening-report",
+      "message": "screen-result",
+      "path": "attachments/006-glencore-ltd-screening-report.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example",
+        "wasDerivedFrom": "<71922f34cf295a116ad2@veridianscreening.example>"
+      },
+      "sha256": "acf2ca7ffd6a7b610fe93d95249e39c557cc7a83a59738ed43926f938e49f6d8",
+      "size": 3204
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "booking_entity": "NewCo Derivatives New York, Inc.",
+        "conditions": [
+          "executed ISDA Schedule and CSA",
+          "netting opinion"
+        ],
+        "counterparty": "Glencore Ltd.",
+        "exposure": 0,
+        "guaranteed": 0,
+        "headroom": 20000000,
+        "limit": 20000000,
+        "net_worth": 220000000,
+        "requested": 30000000,
+        "sblc": 0,
+        "security": "CSA",
+        "unsecured": 20000000
+      },
+      "filename": "glencore-ltd-credit-memo.pdf",
+      "kind": "credit-memo",
+      "message": "credit-memo",
+      "path": "attachments/008-glencore-ltd-credit-memo.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "eric.galloway@newco-newyork.example",
+        "wasDerivedFrom": "<36ce90dc027bba798176@newco-newyork.example>"
+      },
+      "sha256": "368aa4d79f76a0497b1359ea7ee9bbd2ba667e515d4b136820d7370155d26030",
+      "size": 4303
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "booking_entity": "NewCo Derivatives New York, Inc.",
+        "counterparty": "Glencore Ltd.",
+        "effective": "2026-02-11",
+        "limit": 20000000
+      },
+      "filename": "glencore-ltd-credit-limit-letter.pdf",
+      "kind": "credit-limit-letter",
+      "message": "limit-letter",
+      "path": "attachments/009-glencore-ltd-credit-limit-letter.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "eric.galloway@newco-newyork.example",
+        "wasDerivedFrom": "<972527ec7c8f0075ceeb@newco-newyork.example>"
+      },
+      "sha256": "931cba0909e1743935805bee486bea9fbf917d85d2ab6a2718f63f2d7e8db3a2",
+      "size": 2506
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Bernard Harris",
+        "changes": {
+          "cross_default": {
+            "threshold": 10000000
+          }
+        },
+        "round": 1,
+        "tracked_changes": 2,
+        "values_after": {
+          "cross_default": {
+            "threshold": 10000000
+          },
+          "governing_law": {
+            "law": "the State of New York",
+            "venue": "New York County"
+          },
+          "netting": {
+            "scope": "a single net amount payable by one party"
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "isda-schedule-round-1.docx",
+      "kind": "agreement-redline",
+      "message": "isda-r1",
+      "path": "attachments/011-isda-schedule-round-1.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example",
+        "wasDerivedFrom": "<6c7ebf2664c102a4ddac@callowayrye.example>"
+      },
+      "sha256": "8e209ff5c827550d86ea800150430c325ae87673ac7c1cb63b00f1c0b0a67c0b",
+      "size": 4245
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "facts": {
+        "author": "Bernard Harris",
+        "changes": {
+          "threshold": {
+            "amount": 1000000
+          }
+        },
+        "round": 1,
+        "tracked_changes": 2,
+        "values_after": {
+          "eligible_collateral": {
+            "assets": "cash in US dollars"
+          },
+          "min_transfer": {
+            "amount": 500000
+          },
+          "threshold": {
+            "amount": 1000000
+          },
+          "valuation": {
+            "time": "close of business in New York"
+          }
+        }
+      },
+      "filename": "isda-csa-round-1.docx",
+      "kind": "agreement-redline",
+      "message": "isda-r1",
+      "path": "attachments/011-isda-csa-round-1.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example",
+        "wasDerivedFrom": "<6c7ebf2664c102a4ddac@callowayrye.example>"
+      },
+      "sha256": "5c3b8495783ff30d40804587eb73d8109ffe052deb15fd3a66140ab7eefef755",
+      "size": 4140
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Ashley Gallagher",
+        "changes": {
+          "cross_default": {
+            "threshold": 25000000
+          },
+          "netting": {
+            "scope": "separate net amounts for each product group"
+          }
+        },
+        "round": 2,
+        "tracked_changes": 14,
+        "values_after": {
+          "cross_default": {
+            "threshold": 25000000
+          },
+          "governing_law": {
+            "law": "the State of New York",
+            "venue": "New York County"
+          },
+          "netting": {
+            "scope": "separate net amounts for each product group"
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "isda-schedule-round-2.docx",
+      "kind": "agreement-redline",
+      "message": "isda-r2",
+      "path": "attachments/012-isda-schedule-round-2.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ashley.gallagher@glencore.example",
+        "wasDerivedFrom": "<33f678590e0b40d85001@glencore.example>"
+      },
+      "sha256": "1085f0620bdb3e6a6f7b0f0a39e77d65b1146b19f4e6e6677061488d20572c50",
+      "size": 6086
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "facts": {
+        "author": "Ashley Gallagher",
+        "changes": {
+          "min_transfer": {
+            "amount": 250000
+          },
+          "threshold": {
+            "amount": 5000000
+          }
+        },
+        "round": 2,
+        "tracked_changes": 4,
+        "values_after": {
+          "eligible_collateral": {
+            "assets": "cash in US dollars"
+          },
+          "min_transfer": {
+            "amount": 250000
+          },
+          "threshold": {
+            "amount": 5000000
+          },
+          "valuation": {
+            "time": "close of business in New York"
+          }
+        }
+      },
+      "filename": "isda-csa-round-2.docx",
+      "kind": "agreement-redline",
+      "message": "isda-r2",
+      "path": "attachments/012-isda-csa-round-2.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ashley.gallagher@glencore.example",
+        "wasDerivedFrom": "<33f678590e0b40d85001@glencore.example>"
+      },
+      "sha256": "02d2a8f03077472c7ce2f93f91d3b897619fab5ed097dd06d48758731ffc5b4e",
+      "size": 4427
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Bernard Harris",
+        "changes": {
+          "cross_default": {
+            "threshold": 15000000
+          },
+          "netting": {
+            "scope": "a single net amount payable by one party"
+          }
+        },
+        "round": 3,
+        "tracked_changes": 14,
+        "values_after": {
+          "cross_default": {
+            "threshold": 15000000
+          },
+          "governing_law": {
+            "law": "the State of New York",
+            "venue": "New York County"
+          },
+          "netting": {
+            "scope": "a single net amount payable by one party"
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "isda-schedule-round-3.docx",
+      "kind": "agreement-redline",
+      "message": "isda-r3",
+      "path": "attachments/013-isda-schedule-round-3.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example",
+        "wasDerivedFrom": "<50c64b67b7d38e0d9f15@callowayrye.example>"
+      },
+      "sha256": "87b2ed2b1a456d953ef1a80969a98a2a8ebb824b1ff5439dc3cab9864aa1c5aa",
+      "size": 6054
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "facts": {
+        "author": "Bernard Harris",
+        "changes": {
+          "threshold": {
+            "amount": 2500000
+          }
+        },
+        "round": 3,
+        "tracked_changes": 2,
+        "values_after": {
+          "eligible_collateral": {
+            "assets": "cash in US dollars"
+          },
+          "min_transfer": {
+            "amount": 250000
+          },
+          "threshold": {
+            "amount": 2500000
+          },
+          "valuation": {
+            "time": "close of business in New York"
+          }
+        }
+      },
+      "filename": "isda-csa-round-3.docx",
+      "kind": "agreement-redline",
+      "message": "isda-r3",
+      "path": "attachments/013-isda-csa-round-3.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example",
+        "wasDerivedFrom": "<50c64b67b7d38e0d9f15@callowayrye.example>"
+      },
+      "sha256": "04d2304379e8960e36e8f178c78a838f17bccaa17050a13fff279ba971c338d7",
+      "size": 4148
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "cross_default": 15000000,
+        "party_b_as_signed": "Glencore Limited",
+        "party_b_legal_name": "Glencore Ltd."
+      },
+      "filename": "isda-schedule-executed.pdf",
+      "kind": "agreement",
+      "message": "isda-executed",
+      "path": "attachments/015-isda-schedule-executed.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example",
+        "wasDerivedFrom": "<e139f1406b59ae1b2fb3@callowayrye.example>"
+      },
+      "sha256": "cc395641ee29159d7ad1dc080ad434ff3948ec50ab9859ab0c03da82a21d3cfa",
+      "size": 2471
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "facts": {
+        "min_transfer": 250000,
+        "roles": {
+          "obligee": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligee",
+          "obligor": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligor"
+        },
+        "threshold": 2500000
+      },
+      "filename": "isda-csa-executed.pdf",
+      "kind": "agreement",
+      "message": "isda-executed",
+      "path": "attachments/015-isda-csa-executed.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example",
+        "wasDerivedFrom": "<e139f1406b59ae1b2fb3@callowayrye.example>"
+      },
+      "sha256": "3d82220cfa610a1800d876fac7abc716bf7962659a0df3406d0e220a098713eb",
+      "size": 2476
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "qualifications": [
+          "enforceability of close-out netting is not covered where a party is a bank branch in an unlisted state",
+          "netting of collateral is excluded in a bankruptcy of the counterparty's guarantor"
+        ],
+        "qualified": true
+      },
+      "filename": "glencore-netting-opinion.pdf",
+      "kind": "legal-opinion",
+      "message": "netting-opinion",
+      "path": "attachments/016-glencore-netting-opinion.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example",
+        "wasDerivedFrom": "<f9ffbb0badc7eca3e46b@callowayrye.example>"
+      },
+      "sha256": "50d0f66d23f99f85aa2a4eaa10adc62506a21191d7fe972f51f57e025a418c76",
+      "size": 2612
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "facts": {
+        "account": "acct-newco-nyc-usd-collateral",
+        "number": "4649276082"
+      },
+      "filename": "collateral-account-setup.pdf",
+      "kind": "account-setup",
+      "message": "collateral-request",
+      "path": "attachments/018-collateral-account-setup.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kenneth.ashley@newco-newyork.example",
+        "wasDerivedFrom": "<03b27158213009efec36@newco-newyork.example>"
+      },
+      "sha256": "819a78cdf3e2f3a640686d1b24e862a54c4b4b56b5ece58f5f1c97bb17e43c02",
+      "size": 2477
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/AccountHolder",
+      "facts": {
+        "account": "acct-newco-nyc-usd-collateral",
+        "status": "open"
+      },
+      "filename": "collateral-account-confirmation.pdf",
+      "kind": "account-confirmation",
+      "message": "collateral-confirm",
+      "path": "attachments/019-collateral-account-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "cassandra.norman@hudsonmeridian.example",
+        "wasDerivedFrom": "<3cf142e0f1a8440677c6@hudsonmeridian.example>"
+      },
+      "sha256": "00d87cb694da36f8c36aee67de133946edf3e89a4c1a2fb3b3c4da87f6c4591d",
+      "size": 2304
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "facts": {
+        "accounts": [
+          {
+            "aba": "101490438",
+            "bank": "bank-hudson",
+            "bic": "ZXSAUSEW",
+            "bsb": null,
+            "currency": "USD",
+            "iban": null,
+            "id": "acct-newco-nyc-usd-operating",
+            "number": "8108035621"
+          },
+          {
+            "aba": "101490438",
+            "bank": "bank-hudson",
+            "bic": "ZXSAUSEW",
+            "bsb": null,
+            "currency": "USD",
+            "iban": null,
+            "id": "acct-newco-nyc-usd-collateral",
+            "number": "4649276082"
+          }
+        ],
+        "entity": "NewCo Derivatives New York, Inc."
+      },
+      "filename": "newco-derivatives-new-york-inc-settlement-instructions.pdf",
+      "kind": "ssi-letter",
+      "message": "ssi-send",
+      "path": "attachments/020-newco-derivatives-new-york-inc-settlement-instructions.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathryn.braun@newco-newyork.example",
+        "wasDerivedFrom": "<150cc18c29349fcac8bc@newco-newyork.example>"
+      },
+      "sha256": "decfb5f49f0d5cfb53a229d0be7b88c2af24c0c9f656b4e21400c9b48374d339",
+      "size": 3889
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "facts": {
+        "contact": "Jennifer Arroyo",
+        "threshold": 2500000
+      },
+      "filename": "glencore-margin-contacts.pdf",
+      "kind": "margin-contacts",
+      "message": "collateral-terms",
+      "path": "attachments/021-glencore-margin-contacts.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jennifer.arroyo@glencore.example",
+        "wasDerivedFrom": "<4121763d4f7d20f17f5b@glencore.example>"
+      },
+      "sha256": "b043dbb9ea833c3f9f74f97f98f608c44e7db4f09d00b85928f64f77459f0860",
+      "size": 2302
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "facts": {
+        "min_transfer": 250000,
+        "valuation": "close of business in New York"
+      },
+      "filename": "glencore-margin-process.pdf",
+      "kind": "margin-process",
+      "message": "margin-process",
+      "path": "attachments/022-glencore-margin-process.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "samuel.cowan@glencore.example",
+        "wasDerivedFrom": "<39cbdac955fbf8891fa3@glencore.example>"
+      },
+      "sha256": "d4debee489b7b4bcea0461406407523646b79cce929d85a8e4591ebd0e1b0fdb",
+      "size": 2112
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 22,
+    "chats": 0,
+    "emails": 24
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "The ISDA documents name the counterparty 'Glencore Limited'; the certificate, LEI and universe use 'Glencore Ltd.'.",
+      "id": "s4-newyork-glencore-isda:alias-glencore-limited",
+      "type": "alias",
+      "values": {
+        "legal_name": "Glencore Ltd.",
+        "lei": "SYNT00US171IITQ89C20",
+        "signed_as": "Glencore Limited"
+      },
+      "where": [
+        "kyc-docs",
+        "isda-executed"
+      ]
+    },
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "The netting opinion carries two qualifications; the internal summary says there are none.",
+      "id": "s4-newyork-glencore-isda:qualified-opinion",
+      "type": "opinion-vs-summary",
+      "values": {
+        "opinion_qualified": true,
+        "summary": "no qualifications"
+      },
+      "where": [
+        "netting-opinion",
+        "opinion-summary"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/001-intro.eml",
+        "md": "messages/001-intro.md"
+      },
+      "from": {
+        "address": "shannon.tran@newco-newyork.example",
+        "name": "Shannon Tran",
+        "org": "newco-nyc",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "intro",
+      "message_id": "<81b077dee15dec25c29b@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "shannon.tran@newco-newyork.example"
+      },
+      "seq": 1,
+      "subject": "NewCo New York and Glencore: WTI swaps",
+      "tags": [
+        "intro"
+      ],
+      "thread": "intro",
+      "timestamp": "2026-02-02T10:59:00-05:00",
+      "to": [
+        {
+          "address": "michael.smith@glencore.example",
+          "name": "Michael Smith",
+          "org": "cp-glencore",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-kyc-request.eml",
+        "md": "messages/002-kyc-request.md"
+      },
+      "from": {
+        "address": "lori.flynn@newco-newyork.example",
+        "name": "Lori Flynn",
+        "org": "newco-nyc",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "kyc-request",
+      "message_id": "<48417bd5dbeb59111c6b@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "lori.flynn@newco-newyork.example"
+      },
+      "seq": 2,
+      "subject": "KYC documents for Glencore",
+      "tags": [
+        "kyc"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-02-03T09:19:00-05:00",
+      "to": [
+        {
+          "address": "jimmy.porter@glencore.example",
+          "name": "Jimmy Porter",
+          "org": "cp-glencore",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "glencore-ltd-certificate-of-incorporation.pdf",
+        "glencore-ltd-ownership-chart.pdf",
+        "glencore-ltd-lei-record.pdf",
+        "glencore-ltd-authorised-signatories.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {
+        "alias_used": "Glencore Limited",
+        "legal_name": "Glencore Ltd.",
+        "lei": "SYNT00US171IITQ89C20"
+      },
+      "files": {
+        "eml": "messages/003-kyc-docs.eml",
+        "md": "messages/003-kyc-docs.md"
+      },
+      "from": {
+        "address": "jimmy.porter@glencore.example",
+        "name": "Jimmy Porter",
+        "org": "cp-glencore",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-request",
+      "key": "kyc-docs",
+      "message_id": "<f69d92f38bf526f1f1eb@glencore.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jimmy.porter@glencore.example"
+      },
+      "seq": 3,
+      "subject": "Re: KYC documents for Glencore",
+      "tags": [
+        "alias",
+        "kyc"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-02-04T09:04:00-05:00",
+      "to": [
+        {
+          "address": "lori.flynn@newco-newyork.example",
+          "name": "Lori Flynn",
+          "org": "newco-nyc",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "glencore-ltd-financial-statements-2025.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "net_worth": 220000000
+      },
+      "files": {
+        "eml": "messages/004-financials.eml",
+        "md": "messages/004-financials.md"
+      },
+      "from": {
+        "address": "joseph.juarez@glencore.example",
+        "name": "Joseph Juarez",
+        "org": "cp-glencore",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "financials",
+      "message_id": "<a577c69bac94701c703e@glencore.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "joseph.juarez@glencore.example"
+      },
+      "seq": 4,
+      "subject": "Financial statements for Glencore",
+      "tags": [
+        "credit"
+      ],
+      "thread": "financials",
+      "timestamp": "2026-02-05T09:12:00-05:00",
+      "to": [
+        {
+          "address": "eric.galloway@newco-newyork.example",
+          "name": "Eric Galloway",
+          "org": "newco-nyc",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/005-screen-request.eml",
+        "md": "messages/005-screen-request.md"
+      },
+      "from": {
+        "address": "lori.flynn@newco-newyork.example",
+        "name": "Lori Flynn",
+        "org": "newco-nyc",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "screen-request",
+      "message_id": "<2b23087e0ce4c2d94309@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "lori.flynn@newco-newyork.example"
+      },
+      "seq": 5,
+      "subject": "Screening request: Glencore",
+      "tags": [
+        "alias",
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-02-06T09:27:00-05:00",
+      "to": [
+        {
+          "address": "mohammed.byrne@veridianscreening.example",
+          "name": "Mohammed Byrne",
+          "org": "svc-veridian",
+          "role": "analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "glencore-ltd-screening-report.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "result": "clear"
+      },
+      "files": {
+        "eml": "messages/006-screen-result.eml",
+        "md": "messages/006-screen-result.md"
+      },
+      "from": {
+        "address": "mohammed.byrne@veridianscreening.example",
+        "name": "Mohammed Byrne",
+        "org": "svc-veridian",
+        "role": "analyst"
+      },
+      "in_reply_to": "screen-request",
+      "key": "screen-result",
+      "message_id": "<71922f34cf295a116ad2@veridianscreening.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example"
+      },
+      "seq": 6,
+      "subject": "Re: Screening request: Glencore",
+      "tags": [
+        "clear",
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-02-09T09:09:00+00:00",
+      "to": [
+        {
+          "address": "lori.flynn@newco-newyork.example",
+          "name": "Lori Flynn",
+          "org": "newco-nyc",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "requested_limit": 30000000
+      },
+      "files": {
+        "eml": "messages/007-credit-request.eml",
+        "md": "messages/007-credit-request.md"
+      },
+      "from": {
+        "address": "shannon.tran@newco-newyork.example",
+        "name": "Shannon Tran",
+        "org": "newco-nyc",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "credit-request",
+      "message_id": "<c65135d6a7249e54ac23@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "shannon.tran@newco-newyork.example"
+      },
+      "seq": 7,
+      "subject": "Credit request: Glencore",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-02-10T09:27:00-05:00",
+      "to": [
+        {
+          "address": "eric.galloway@newco-newyork.example",
+          "name": "Eric Galloway",
+          "org": "newco-nyc",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "glencore-ltd-credit-memo.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "approved": 20000000,
+        "requested": 30000000
+      },
+      "files": {
+        "eml": "messages/008-credit-memo.eml",
+        "md": "messages/008-credit-memo.md"
+      },
+      "from": {
+        "address": "eric.galloway@newco-newyork.example",
+        "name": "Eric Galloway",
+        "org": "newco-nyc",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-request",
+      "key": "credit-memo",
+      "message_id": "<36ce90dc027bba798176@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "eric.galloway@newco-newyork.example"
+      },
+      "seq": 8,
+      "subject": "Re: Credit request: Glencore",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-02-11T09:24:00-05:00",
+      "to": [
+        {
+          "address": "shannon.tran@newco-newyork.example",
+          "name": "Shannon Tran",
+          "org": "newco-nyc",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "glencore-ltd-credit-limit-letter.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "outbound",
+      "facts": {
+        "limit": 20000000
+      },
+      "files": {
+        "eml": "messages/009-limit-letter.eml",
+        "md": "messages/009-limit-letter.md"
+      },
+      "from": {
+        "address": "eric.galloway@newco-newyork.example",
+        "name": "Eric Galloway",
+        "org": "newco-nyc",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "limit-letter",
+      "message_id": "<972527ec7c8f0075ceeb@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "eric.galloway@newco-newyork.example"
+      },
+      "seq": 9,
+      "subject": "Credit limit advice",
+      "tags": [
+        "credit"
+      ],
+      "thread": "limit-letter",
+      "timestamp": "2026-02-12T09:17:00-05:00",
+      "to": [
+        {
+          "address": "joseph.juarez@glencore.example",
+          "name": "Joseph Juarez",
+          "org": "cp-glencore",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/010-counsel-instruct.eml",
+        "md": "messages/010-counsel-instruct.md"
+      },
+      "from": {
+        "address": "kyle.callahan@newco-newyork.example",
+        "name": "Kyle Callahan",
+        "org": "newco-nyc",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "counsel-instruct",
+      "message_id": "<109a75bc959835f37735@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kyle.callahan@newco-newyork.example"
+      },
+      "seq": 10,
+      "subject": "ISDA Schedule and CSA: Glencore",
+      "tags": [
+        "isda",
+        "legal"
+      ],
+      "thread": "counsel-instruct",
+      "timestamp": "2026-02-13T09:16:00-05:00",
+      "to": [
+        {
+          "address": "bernard.harris@callowayrye.example",
+          "name": "Bernard Harris",
+          "org": "svc-calloway",
+          "role": "partner"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "isda-schedule-round-1.docx",
+        "isda-csa-round-1.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "cross_default": 10000000,
+        "min_transfer": 500000,
+        "threshold": 1000000
+      },
+      "files": {
+        "eml": "messages/011-isda-r1.eml",
+        "md": "messages/011-isda-r1.md"
+      },
+      "from": {
+        "address": "bernard.harris@callowayrye.example",
+        "name": "Bernard Harris",
+        "org": "svc-calloway",
+        "role": "partner"
+      },
+      "in_reply_to": null,
+      "key": "isda-r1",
+      "message_id": "<6c7ebf2664c102a4ddac@callowayrye.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example"
+      },
+      "seq": 11,
+      "subject": "ISDA Schedule and CSA: round 1",
+      "tags": [
+        "isda",
+        "legal",
+        "redline"
+      ],
+      "thread": "isda-r1",
+      "timestamp": "2026-02-17T09:06:00+00:00",
+      "to": [
+        {
+          "address": "ashley.gallagher@glencore.example",
+          "name": "Ashley Gallagher",
+          "org": "cp-glencore",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "isda-schedule-round-2.docx",
+        "isda-csa-round-2.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "cross_default": 25000000,
+        "min_transfer": 250000,
+        "threshold": 5000000
+      },
+      "files": {
+        "eml": "messages/012-isda-r2.eml",
+        "md": "messages/012-isda-r2.md"
+      },
+      "from": {
+        "address": "ashley.gallagher@glencore.example",
+        "name": "Ashley Gallagher",
+        "org": "cp-glencore",
+        "role": "lawyer"
+      },
+      "in_reply_to": "isda-r1",
+      "key": "isda-r2",
+      "message_id": "<33f678590e0b40d85001@glencore.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ashley.gallagher@glencore.example"
+      },
+      "seq": 12,
+      "subject": "Re: ISDA Schedule and CSA: round 1",
+      "tags": [
+        "isda",
+        "legal",
+        "redline"
+      ],
+      "thread": "isda-r1",
+      "timestamp": "2026-02-19T09:02:00-05:00",
+      "to": [
+        {
+          "address": "bernard.harris@callowayrye.example",
+          "name": "Bernard Harris",
+          "org": "svc-calloway",
+          "role": "partner"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "isda-schedule-round-3.docx",
+        "isda-csa-round-3.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "cross_default": 15000000,
+        "min_transfer": 250000,
+        "threshold": 2500000
+      },
+      "files": {
+        "eml": "messages/013-isda-r3.eml",
+        "md": "messages/013-isda-r3.md"
+      },
+      "from": {
+        "address": "bernard.harris@callowayrye.example",
+        "name": "Bernard Harris",
+        "org": "svc-calloway",
+        "role": "partner"
+      },
+      "in_reply_to": "isda-r2",
+      "key": "isda-r3",
+      "message_id": "<50c64b67b7d38e0d9f15@callowayrye.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example"
+      },
+      "seq": 13,
+      "subject": "Re: ISDA Schedule and CSA: round 1",
+      "tags": [
+        "final",
+        "isda",
+        "legal",
+        "redline"
+      ],
+      "thread": "isda-r1",
+      "timestamp": "2026-02-23T09:18:00+00:00",
+      "to": [
+        {
+          "address": "ashley.gallagher@glencore.example",
+          "name": "Ashley Gallagher",
+          "org": "cp-glencore",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "threshold": 2500000
+      },
+      "files": {
+        "eml": "messages/014-isda-agreed.eml",
+        "md": "messages/014-isda-agreed.md"
+      },
+      "from": {
+        "address": "ashley.gallagher@glencore.example",
+        "name": "Ashley Gallagher",
+        "org": "cp-glencore",
+        "role": "lawyer"
+      },
+      "in_reply_to": "isda-r3",
+      "key": "isda-agreed",
+      "message_id": "<91f2cd2f9dc2f07ce94b@glencore.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ashley.gallagher@glencore.example"
+      },
+      "seq": 14,
+      "subject": "Re: ISDA Schedule and CSA: round 1",
+      "tags": [
+        "agreed",
+        "isda",
+        "legal"
+      ],
+      "thread": "isda-r1",
+      "timestamp": "2026-02-24T09:00:00-05:00",
+      "to": [
+        {
+          "address": "bernard.harris@callowayrye.example",
+          "name": "Bernard Harris",
+          "org": "svc-calloway",
+          "role": "partner"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "isda-schedule-executed.pdf",
+        "isda-csa-executed.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "party_b_as_signed": "Glencore Limited"
+      },
+      "files": {
+        "eml": "messages/015-isda-executed.eml",
+        "md": "messages/015-isda-executed.md"
+      },
+      "from": {
+        "address": "bernard.harris@callowayrye.example",
+        "name": "Bernard Harris",
+        "org": "svc-calloway",
+        "role": "partner"
+      },
+      "in_reply_to": "isda-agreed",
+      "key": "isda-executed",
+      "message_id": "<e139f1406b59ae1b2fb3@callowayrye.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example"
+      },
+      "seq": 15,
+      "subject": "Re: ISDA Schedule and CSA: round 1",
+      "tags": [
+        "alias",
+        "isda",
+        "legal"
+      ],
+      "thread": "isda-r1",
+      "timestamp": "2026-02-27T09:06:00+00:00",
+      "to": [
+        {
+          "address": "kyle.callahan@newco-newyork.example",
+          "name": "Kyle Callahan",
+          "org": "newco-nyc",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "glencore-netting-opinion.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "inbound",
+      "facts": {
+        "qualified": true
+      },
+      "files": {
+        "eml": "messages/016-netting-opinion.eml",
+        "md": "messages/016-netting-opinion.md"
+      },
+      "from": {
+        "address": "bernard.harris@callowayrye.example",
+        "name": "Bernard Harris",
+        "org": "svc-calloway",
+        "role": "partner"
+      },
+      "in_reply_to": null,
+      "key": "netting-opinion",
+      "message_id": "<f9ffbb0badc7eca3e46b@callowayrye.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bernard.harris@callowayrye.example"
+      },
+      "seq": 16,
+      "subject": "Netting opinion: Glencore",
+      "tags": [
+        "legal",
+        "opinion",
+        "qualified"
+      ],
+      "thread": "netting-opinion",
+      "timestamp": "2026-03-02T09:09:00+00:00",
+      "to": [
+        {
+          "address": "kyle.callahan@newco-newyork.example",
+          "name": "Kyle Callahan",
+          "org": "newco-nyc",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "stated": "no qualifications"
+      },
+      "files": {
+        "eml": "messages/017-opinion-summary.eml",
+        "md": "messages/017-opinion-summary.md"
+      },
+      "from": {
+        "address": "kyle.callahan@newco-newyork.example",
+        "name": "Kyle Callahan",
+        "org": "newco-nyc",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "opinion-summary",
+      "message_id": "<11d01b1e781856be662a@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kyle.callahan@newco-newyork.example"
+      },
+      "seq": 17,
+      "subject": "Glencore netting opinion",
+      "tags": [
+        "legal",
+        "opinion",
+        "qualified-opinion-misread"
+      ],
+      "thread": "opinion-summary",
+      "timestamp": "2026-03-03T09:24:00-05:00",
+      "to": [
+        {
+          "address": "eric.galloway@newco-newyork.example",
+          "name": "Eric Galloway",
+          "org": "newco-nyc",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "collateral-account-setup.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/018-collateral-request.eml",
+        "md": "messages/018-collateral-request.md"
+      },
+      "from": {
+        "address": "kenneth.ashley@newco-newyork.example",
+        "name": "Kenneth Ashley",
+        "org": "newco-nyc",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "collateral-request",
+      "message_id": "<03b27158213009efec36@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kenneth.ashley@newco-newyork.example"
+      },
+      "seq": 18,
+      "subject": "Collateral account set-up",
+      "tags": [
+        "collateral",
+        "static-data"
+      ],
+      "thread": "collateral-request",
+      "timestamp": "2026-03-04T09:23:00-05:00",
+      "to": [
+        {
+          "address": "cassandra.norman@hudsonmeridian.example",
+          "name": "Cassandra Norman",
+          "org": "bank-hudson",
+          "role": "operations"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "collateral-account-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/019-collateral-confirm.eml",
+        "md": "messages/019-collateral-confirm.md"
+      },
+      "from": {
+        "address": "cassandra.norman@hudsonmeridian.example",
+        "name": "Cassandra Norman",
+        "org": "bank-hudson",
+        "role": "operations"
+      },
+      "in_reply_to": "collateral-request",
+      "key": "collateral-confirm",
+      "message_id": "<3cf142e0f1a8440677c6@hudsonmeridian.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "cassandra.norman@hudsonmeridian.example"
+      },
+      "seq": 19,
+      "subject": "Re: Collateral account set-up",
+      "tags": [
+        "collateral",
+        "static-data"
+      ],
+      "thread": "collateral-request",
+      "timestamp": "2026-03-05T09:11:00-05:00",
+      "to": [
+        {
+          "address": "kenneth.ashley@newco-newyork.example",
+          "name": "Kenneth Ashley",
+          "org": "newco-nyc",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "newco-derivatives-new-york-inc-settlement-instructions.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "direction": "outbound",
+      "facts": {
+        "accounts": [
+          "acct-newco-nyc-usd-operating",
+          "acct-newco-nyc-usd-collateral"
+        ]
+      },
+      "files": {
+        "eml": "messages/020-ssi-send.eml",
+        "md": "messages/020-ssi-send.md"
+      },
+      "from": {
+        "address": "kathryn.braun@newco-newyork.example",
+        "name": "Kathryn Braun",
+        "org": "newco-nyc",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "ssi-send",
+      "message_id": "<150cc18c29349fcac8bc@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathryn.braun@newco-newyork.example"
+      },
+      "seq": 20,
+      "subject": "Standard settlement instructions",
+      "tags": [
+        "ssi",
+        "static-data"
+      ],
+      "thread": "ssi-send",
+      "timestamp": "2026-03-06T09:27:00-05:00",
+      "to": [
+        {
+          "address": "jennifer.arroyo@glencore.example",
+          "name": "Jennifer Arroyo",
+          "org": "cp-glencore",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "glencore-margin-contacts.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "threshold": 2500000
+      },
+      "files": {
+        "eml": "messages/021-collateral-terms.eml",
+        "md": "messages/021-collateral-terms.md"
+      },
+      "from": {
+        "address": "jennifer.arroyo@glencore.example",
+        "name": "Jennifer Arroyo",
+        "org": "cp-glencore",
+        "role": "settlements"
+      },
+      "in_reply_to": "ssi-send",
+      "key": "collateral-terms",
+      "message_id": "<4121763d4f7d20f17f5b@glencore.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jennifer.arroyo@glencore.example"
+      },
+      "seq": 21,
+      "subject": "Re: Standard settlement instructions",
+      "tags": [
+        "collateral"
+      ],
+      "thread": "ssi-send",
+      "timestamp": "2026-03-09T09:19:00-04:00",
+      "to": [
+        {
+          "address": "kathryn.braun@newco-newyork.example",
+          "name": "Kathryn Braun",
+          "org": "newco-nyc",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "glencore-margin-process.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/022-margin-process.eml",
+        "md": "messages/022-margin-process.md"
+      },
+      "from": {
+        "address": "samuel.cowan@glencore.example",
+        "name": "Samuel Cowan",
+        "org": "cp-glencore",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "margin-process",
+      "message_id": "<39cbdac955fbf8891fa3@glencore.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "samuel.cowan@glencore.example"
+      },
+      "seq": 22,
+      "subject": "Margin call process",
+      "tags": [
+        "collateral"
+      ],
+      "thread": "margin-process",
+      "timestamp": "2026-03-10T09:06:00-04:00",
+      "to": [
+        {
+          "address": "kenneth.ashley@newco-newyork.example",
+          "name": "Kenneth Ashley",
+          "org": "newco-nyc",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "limit": 20000000,
+        "threshold": 2500000
+      },
+      "files": {
+        "eml": "messages/023-limit-active.eml",
+        "md": "messages/023-limit-active.md"
+      },
+      "from": {
+        "address": "eric.galloway@newco-newyork.example",
+        "name": "Eric Galloway",
+        "org": "newco-nyc",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "limit-active",
+      "message_id": "<b7019e399e610ca627cd@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "eric.galloway@newco-newyork.example"
+      },
+      "seq": 23,
+      "subject": "Glencore limit active",
+      "tags": [
+        "collateral",
+        "credit"
+      ],
+      "thread": "limit-active",
+      "timestamp": "2026-03-11T09:12:00-04:00",
+      "to": [
+        {
+          "address": "shannon.tran@newco-newyork.example",
+          "name": "Shannon Tran",
+          "org": "newco-nyc",
+          "role": "marketer"
+        },
+        {
+          "address": "kenneth.ashley@newco-newyork.example",
+          "name": "Kenneth Ashley",
+          "org": "newco-nyc",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "effective": "2026-03-11"
+      },
+      "files": {
+        "eml": "messages/024-go-live.eml",
+        "md": "messages/024-go-live.md"
+      },
+      "from": {
+        "address": "kyle.callahan@newco-newyork.example",
+        "name": "Kyle Callahan",
+        "org": "newco-nyc",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "go-live",
+      "message_id": "<54285714c53bbdbb0181@newco-newyork.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kyle.callahan@newco-newyork.example"
+      },
+      "seq": 24,
+      "subject": "Glencore live for derivatives",
+      "tags": [
+        "go-live"
+      ],
+      "thread": "go-live",
+      "timestamp": "2026-03-12T09:02:00-04:00",
+      "to": [
+        {
+          "address": "kenneth.ashley@newco-newyork.example",
+          "name": "Kenneth Ashley",
+          "org": "newco-nyc",
+          "role": "ops"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "agreement_effective": "2026-03-11",
+    "limit": 20000000,
+    "result": "approved",
+    "threshold": 2500000
+  },
+  "ownership_edges": [],
+  "phase": "onboarding",
+  "positions": [
+    {
+      "clause": "netting",
+      "message": "isda-r1",
+      "proposer": "newco-nyc",
+      "status": "superseded",
+      "value": "a single net amount payable by one party",
+      "version": 0
+    },
+    {
+      "clause": "netting",
+      "message": "isda-r2",
+      "proposer": "cp-glencore",
+      "status": "superseded",
+      "value": "separate net amounts for each product group",
+      "version": 2
+    },
+    {
+      "clause": "netting",
+      "message": "isda-r3",
+      "proposer": "svc-calloway",
+      "status": "agreed",
+      "value": "a single net amount payable by one party",
+      "version": 3
+    },
+    {
+      "clause": "cross_default",
+      "message": "isda-r1",
+      "proposer": "newco-nyc",
+      "status": "superseded",
+      "value": 5000000,
+      "version": 0
+    },
+    {
+      "clause": "cross_default",
+      "message": "isda-r1",
+      "proposer": "svc-calloway",
+      "status": "superseded",
+      "value": 10000000,
+      "version": 1
+    },
+    {
+      "clause": "cross_default",
+      "message": "isda-r2",
+      "proposer": "cp-glencore",
+      "status": "superseded",
+      "value": 25000000,
+      "version": 2
+    },
+    {
+      "clause": "cross_default",
+      "message": "isda-r3",
+      "proposer": "svc-calloway",
+      "status": "agreed",
+      "value": 15000000,
+      "version": 3
+    },
+    {
+      "clause": "governing_law",
+      "message": "isda-r1",
+      "proposer": "newco-nyc",
+      "status": "agreed",
+      "value": "the State of New York",
+      "version": 0
+    },
+    {
+      "clause": "termination",
+      "message": "isda-r1",
+      "proposer": "newco-nyc",
+      "status": "agreed",
+      "value": 30,
+      "version": 0
+    },
+    {
+      "clause": "threshold",
+      "message": "isda-r1",
+      "proposer": "newco-nyc",
+      "status": "superseded",
+      "value": 0,
+      "version": 0
+    },
+    {
+      "clause": "threshold",
+      "message": "isda-r1",
+      "proposer": "svc-calloway",
+      "status": "superseded",
+      "value": 1000000,
+      "version": 1
+    },
+    {
+      "clause": "threshold",
+      "message": "isda-r2",
+      "proposer": "cp-glencore",
+      "status": "superseded",
+      "value": 5000000,
+      "version": 2
+    },
+    {
+      "clause": "threshold",
+      "message": "isda-r3",
+      "proposer": "svc-calloway",
+      "status": "agreed",
+      "value": 2500000,
+      "version": 3
+    },
+    {
+      "clause": "min_transfer",
+      "message": "isda-r1",
+      "proposer": "newco-nyc",
+      "status": "superseded",
+      "value": 500000,
+      "version": 0
+    },
+    {
+      "clause": "min_transfer",
+      "message": "isda-r2",
+      "proposer": "cp-glencore",
+      "status": "agreed",
+      "value": 250000,
+      "version": 2
+    },
+    {
+      "clause": "eligible_collateral",
+      "message": "isda-r1",
+      "proposer": "newco-nyc",
+      "status": "agreed",
+      "value": "cash in US dollars",
+      "version": 0
+    },
+    {
+      "clause": "valuation",
+      "message": "isda-r1",
+      "proposer": "newco-nyc",
+      "status": "agreed",
+      "value": "close of business in New York",
+      "version": 0
+    }
+  ],
+  "questions": [
+    {
+      "expected": [
+        "Glencore Limited",
+        "Glencore Ltd."
+      ],
+      "id": "s4-newyork-glencore-isda-q1",
+      "question": "Under what name was the Glencore ISDA Schedule signed, and what is the legal name?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 2500000,
+      "id": "s4-newyork-glencore-isda-q2",
+      "question": "What is the CSA threshold agreed with Glencore (USD)?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": "yes",
+      "id": "s4-newyork-glencore-isda-q3",
+      "question": "Is the Glencore netting opinion qualified?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    }
+  ],
+  "review_events": [
+    {
+      "after_message": "isda-executed",
+      "alias": "Glencore Limited",
+      "canonical": "Glencore Ltd.",
+      "event": "merge-alias",
+      "org": "cp-glencore"
+    }
+  ],
+  "scenario": "s4-newyork-glencore-isda",
+  "title": "New York onboards Glencore: ISDA Schedule and CSA in three rounds, netting opinion, collateral"
+}

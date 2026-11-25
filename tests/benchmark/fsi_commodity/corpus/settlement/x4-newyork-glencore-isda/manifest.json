@@ -1,0 +1,663 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "facts": {
+        "amount": 620000,
+        "currency": "USD",
+        "from_account": "acct-newco-nyc-usd-collateral",
+        "margin_call": "MC-NC-NYC-26-0001-2",
+        "to_account": "acct-cp-glencore-usd-operating",
+        "trade_id": "NC-NYC-26-0001",
+        "value_date": "2026-05-06"
+      },
+      "filename": "NC-NYC-26-0001-collateral-transfer.pdf",
+      "kind": "collateral-transfer-notice",
+      "message": "collateral-transfer",
+      "path": "attachments/001-NC-NYC-26-0001-collateral-transfer.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathryn.braun@newco-newyork.example",
+        "wasDerivedFrom": "<cac4d0043f5dc8edd25d@newco-newyork.example>"
+      },
+      "sha256": "9aa69724e044cac9112cd5631f0f7fa22c9978084e10d5686c2dc81eff6a7e64",
+      "size": 4963
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+      "facts": {
+        "amount": 193520,
+        "average": 64.5296,
+        "currency": "USD",
+        "fixed_price": 68.4,
+        "notional": 50000,
+        "price_count": 23,
+        "prices": [
+          {
+            "date": "2026-05-01",
+            "price": 63.1
+          },
+          {
+            "date": "2026-05-04",
+            "price": 63.14
+          },
+          {
+            "date": "2026-05-05",
+            "price": 63.45
+          },
+          {
+            "date": "2026-05-06",
+            "price": 63.92
+          },
+          {
+            "date": "2026-05-07",
+            "price": 64.06
+          },
+          {
+            "date": "2026-05-08",
+            "price": 64.63
+          },
+          {
+            "date": "2026-05-11",
+            "price": 64.19
+          },
+          {
+            "date": "2026-05-12",
+            "price": 63.76
+          },
+          {
+            "date": "2026-05-13",
+            "price": 63.61
+          },
+          {
+            "date": "2026-05-14",
+            "price": 63.46
+          },
+          {
+            "date": "2026-05-15",
+            "price": 63.8
+          },
+          {
+            "date": "2026-05-18",
+            "price": 64.28
+          },
+          {
+            "date": "2026-05-19",
+            "price": 64.61
+          },
+          {
+            "date": "2026-05-20",
+            "price": 64.87
+          },
+          {
+            "date": "2026-05-21",
+            "price": 65.03
+          },
+          {
+            "date": "2026-05-22",
+            "price": 65.6
+          },
+          {
+            "date": "2026-05-26",
+            "price": 65.38
+          },
+          {
+            "date": "2026-05-27",
+            "price": 64.81
+          },
+          {
+            "date": "2026-05-28",
+            "price": 65.37
+          },
+          {
+            "date": "2026-05-29",
+            "price": 65.63
+          },
+          {
+            "date": "2026-06-01",
+            "price": 65.79
+          },
+          {
+            "date": "2026-06-02",
+            "price": 65.57
+          },
+          {
+            "date": "2026-06-03",
+            "price": 66.12
+          }
+        ],
+        "source": "Platts WTI Cushing",
+        "statement_date": "2026-06-04",
+        "trade_id": "NC-NYC-26-0001",
+        "version": 1
+      },
+      "filename": "NC-NYC-26-0001-swap-statement-v1.pdf",
+      "kind": "swap-statement",
+      "message": "swap-statement",
+      "path": "attachments/003-NC-NYC-26-0001-swap-statement-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "william.gonzalez@newco-newyork.example",
+        "wasDerivedFrom": "<e4b34c02f1b196a567b6@newco-newyork.example>"
+      },
+      "sha256": "778ac0c6a8dc59e3ad1a347bae72e34e3ac4b46acbf6fed03991c20d3b097a41",
+      "size": 9175
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+      "facts": {
+        "amount": 186675,
+        "average": 64.6665,
+        "currency": "USD",
+        "fixed_price": 68.4,
+        "notional": 50000,
+        "price_count": 23,
+        "prices": [
+          {
+            "date": "2026-05-01",
+            "price": 63.14
+          },
+          {
+            "date": "2026-05-04",
+            "price": 63.45
+          },
+          {
+            "date": "2026-05-05",
+            "price": 63.92
+          },
+          {
+            "date": "2026-05-06",
+            "price": 64.06
+          },
+          {
+            "date": "2026-05-07",
+            "price": 64.63
+          },
+          {
+            "date": "2026-05-08",
+            "price": 64.19
+          },
+          {
+            "date": "2026-05-11",
+            "price": 63.76
+          },
+          {
+            "date": "2026-05-12",
+            "price": 63.61
+          },
+          {
+            "date": "2026-05-13",
+            "price": 63.46
+          },
+          {
+            "date": "2026-05-14",
+            "price": 63.8
+          },
+          {
+            "date": "2026-05-15",
+            "price": 64.28
+          },
+          {
+            "date": "2026-05-18",
+            "price": 64.61
+          },
+          {
+            "date": "2026-05-19",
+            "price": 64.87
+          },
+          {
+            "date": "2026-05-20",
+            "price": 65.03
+          },
+          {
+            "date": "2026-05-21",
+            "price": 65.6
+          },
+          {
+            "date": "2026-05-22",
+            "price": 65.38
+          },
+          {
+            "date": "2026-05-26",
+            "price": 64.81
+          },
+          {
+            "date": "2026-05-27",
+            "price": 65.37
+          },
+          {
+            "date": "2026-05-28",
+            "price": 65.63
+          },
+          {
+            "date": "2026-05-29",
+            "price": 65.79
+          },
+          {
+            "date": "2026-06-01",
+            "price": 65.57
+          },
+          {
+            "date": "2026-06-02",
+            "price": 66.12
+          },
+          {
+            "date": "2026-06-03",
+            "price": 66.25
+          }
+        ],
+        "source": "Platts WTI Cushing",
+        "statement_date": "2026-06-08",
+        "trade_id": "NC-NYC-26-0001",
+        "version": 2
+      },
+      "filename": "NC-NYC-26-0001-swap-statement-v2.pdf",
+      "kind": "swap-statement",
+      "message": "statement-corrected",
+      "path": "attachments/005-NC-NYC-26-0001-swap-statement-v2.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "william.gonzalez@newco-newyork.example",
+        "wasDerivedFrom": "<9ba144190d1fa4b0dbfe@newco-newyork.example>"
+      },
+      "sha256": "b494f16fcc5e76389c9a239ca46cf5b5ac6068602db2bb87a65dd8e2f506d170",
+      "size": 9405
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "amount": 186675,
+        "covers": {
+          "Settles swap statement": "NC-NYC-26-0001 version 2"
+        },
+        "currency": "USD",
+        "from_account": "acct-newco-nyc-usd-operating",
+        "payee": "Glencore Ltd.",
+        "payer": "NewCo Derivatives New York, Inc.",
+        "reference": "NC-NYC-26-0001 X4 P1",
+        "to_account": {
+          "aba": "101490438",
+          "account_id": "acct-cp-glencore-usd-operating",
+          "bank": "Hudson Meridian Trust Company",
+          "bic": "ZXSAUSEW",
+          "number": "8168181687"
+        },
+        "trade_id": "NC-NYC-26-0001",
+        "value_date": "2026-06-10"
+      },
+      "filename": "NC-NYC-26-0001-swap-payment-notice.pdf",
+      "kind": "payment-notice",
+      "message": "swap-payment",
+      "path": "attachments/006-NC-NYC-26-0001-swap-payment-notice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathryn.braun@newco-newyork.example",
+        "wasDerivedFrom": "<5d8b5aa723dce7d242ae@newco-newyork.example>"
+      },
+      "sha256": "59dbf141d82bb836f141d08b1a7a38e28f0927cd65c5bc6e0a1ec1274d0b4c8f",
+      "size": 3889
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 4,
+    "chats": 0,
+    "emails": 6
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "statement-query",
+      "description": "Swap statement v1 uses the previous day's assessment for each of the 23 pricing days: average 64.5296 and USD 193,520.00, against 64.6665 and USD 186,675.00 from the right prices.",
+      "id": "x4-newyork-glencore-isda:statement-wrong-prices",
+      "type": "statement-vs-prices",
+      "values": {
+        "agreed": 186675,
+        "field": "amount",
+        "found": 193520,
+        "price_count": 23
+      },
+      "where": [
+        "NC-NYC-26-0001-swap-statement-v1.pdf",
+        "NC-NYC-26-0001-swap-statement-v2.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-NYC-26-0001-collateral-transfer.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "direction": "outbound",
+      "facts": {
+        "amount": 620000,
+        "call_due": "2026-05-01",
+        "margin_call": "MC-NC-NYC-26-0001-2",
+        "trade_id": "NC-NYC-26-0001",
+        "value_date": "2026-05-06"
+      },
+      "files": {
+        "eml": "messages/001-collateral-transfer.eml",
+        "md": "messages/001-collateral-transfer.md"
+      },
+      "from": {
+        "address": "kathryn.braun@newco-newyork.example",
+        "name": "Kathryn Braun",
+        "org": "newco-nyc",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "collateral-transfer",
+      "message_id": "<cac4d0043f5dc8edd25d@newco-newyork.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathryn.braun@newco-newyork.example"
+      },
+      "seq": 1,
+      "subject": "Collateral transfer MC-NC-NYC-26-0001-2",
+      "tags": [
+        "collateral",
+        "payment"
+      ],
+      "thread": "collateral-transfer",
+      "timestamp": "2026-05-06T09:26:00-04:00",
+      "to": [
+        {
+          "address": "jennifer.arroyo@glencore.example",
+          "name": "Jennifer Arroyo",
+          "org": "cp-glencore",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "amount": 620000,
+        "collateral_held": 620000,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/002-collateral-received.eml",
+        "md": "messages/002-collateral-received.md"
+      },
+      "from": {
+        "address": "jennifer.arroyo@glencore.example",
+        "name": "Jennifer Arroyo",
+        "org": "cp-glencore",
+        "role": "settlements"
+      },
+      "in_reply_to": "collateral-transfer",
+      "key": "collateral-received",
+      "message_id": "<b1ad584b15ae54dfdc1b@glencore.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jennifer.arroyo@glencore.example"
+      },
+      "seq": 2,
+      "subject": "Re: Collateral transfer MC-NC-NYC-26-0001-2",
+      "tags": [
+        "collateral",
+        "payment"
+      ],
+      "thread": "collateral-transfer",
+      "timestamp": "2026-05-07T09:19:00-04:00",
+      "to": [
+        {
+          "address": "kathryn.braun@newco-newyork.example",
+          "name": "Kathryn Braun",
+          "org": "newco-nyc",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-NYC-26-0001-swap-statement-v1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+      "direction": "outbound",
+      "facts": {
+        "amount": 193520,
+        "average": 64.5296,
+        "trade_id": "NC-NYC-26-0001",
+        "version": 1
+      },
+      "files": {
+        "eml": "messages/003-swap-statement.eml",
+        "md": "messages/003-swap-statement.md"
+      },
+      "from": {
+        "address": "william.gonzalez@newco-newyork.example",
+        "name": "William Gonzalez",
+        "org": "newco-nyc",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "swap-statement",
+      "message_id": "<e4b34c02f1b196a567b6@newco-newyork.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "william.gonzalez@newco-newyork.example"
+      },
+      "seq": 3,
+      "subject": "Swap statement NC-NYC-26-0001: first period",
+      "tags": [
+        "planted",
+        "swap-statement"
+      ],
+      "thread": "swap-statement",
+      "timestamp": "2026-06-04T10:29:00-04:00",
+      "to": [
+        {
+          "address": "william.baker@glencore.example",
+          "name": "William Baker",
+          "org": "cp-glencore",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "amount": 186675,
+        "average": 64.6665,
+        "statement_amount": 193520,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/004-statement-query.eml",
+        "md": "messages/004-statement-query.md"
+      },
+      "from": {
+        "address": "william.baker@glencore.example",
+        "name": "William Baker",
+        "org": "cp-glencore",
+        "role": "accounting"
+      },
+      "in_reply_to": "swap-statement",
+      "key": "statement-query",
+      "message_id": "<067b58a3d67a88be3deb@glencore.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "william.baker@glencore.example"
+      },
+      "seq": 4,
+      "subject": "Re: Swap statement NC-NYC-26-0001: first period",
+      "tags": [
+        "dispute",
+        "swap-statement"
+      ],
+      "thread": "swap-statement",
+      "timestamp": "2026-06-05T09:03:00-04:00",
+      "to": [
+        {
+          "address": "william.gonzalez@newco-newyork.example",
+          "name": "William Gonzalez",
+          "org": "newco-nyc",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-NYC-26-0001-swap-statement-v2.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+      "direction": "outbound",
+      "facts": {
+        "amount": 186675,
+        "average": 64.6665,
+        "trade_id": "NC-NYC-26-0001",
+        "version": 2
+      },
+      "files": {
+        "eml": "messages/005-statement-corrected.eml",
+        "md": "messages/005-statement-corrected.md"
+      },
+      "from": {
+        "address": "william.gonzalez@newco-newyork.example",
+        "name": "William Gonzalez",
+        "org": "newco-nyc",
+        "role": "accounting"
+      },
+      "in_reply_to": "statement-query",
+      "key": "statement-corrected",
+      "message_id": "<9ba144190d1fa4b0dbfe@newco-newyork.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "william.gonzalez@newco-newyork.example"
+      },
+      "seq": 5,
+      "subject": "Re: Swap statement NC-NYC-26-0001: first period",
+      "tags": [
+        "correction",
+        "swap-statement"
+      ],
+      "thread": "swap-statement",
+      "timestamp": "2026-06-08T09:00:00-04:00",
+      "to": [
+        {
+          "address": "william.baker@glencore.example",
+          "name": "William Baker",
+          "org": "cp-glencore",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-NYC-26-0001-swap-payment-notice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "outbound",
+      "facts": {
+        "amount": 186675,
+        "statement_version": 2,
+        "trade_id": "NC-NYC-26-0001",
+        "value_date": "2026-06-10"
+      },
+      "files": {
+        "eml": "messages/006-swap-payment.eml",
+        "md": "messages/006-swap-payment.md"
+      },
+      "from": {
+        "address": "kathryn.braun@newco-newyork.example",
+        "name": "Kathryn Braun",
+        "org": "newco-nyc",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "swap-payment",
+      "message_id": "<5d8b5aa723dce7d242ae@newco-newyork.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathryn.braun@newco-newyork.example"
+      },
+      "seq": 6,
+      "subject": "Swap settlement NC-NYC-26-0001 X4 P1",
+      "tags": [
+        "payment",
+        "payment-notice",
+        "swap-statement"
+      ],
+      "thread": "swap-payment",
+      "timestamp": "2026-06-10T09:31:00-04:00",
+      "to": [
+        {
+          "address": "jennifer.arroyo@glencore.example",
+          "name": "Jennifer Arroyo",
+          "org": "cp-glencore",
+          "role": "settlements"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "average_floating": 64.6665,
+    "collateral_transferred": 620000,
+    "first_statement_amount": 193520,
+    "price_count": 23,
+    "result": "settled-after-correction",
+    "settled_amount": 186675,
+    "trade_id": "NC-NYC-26-0001"
+  },
+  "ownership_edges": [],
+  "phase": "settlement",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 186675,
+      "id": "x4-newyork-glencore-isda-q1",
+      "question": "What amount settled on the first swap statement for NC-NYC-26-0001?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 64.6665,
+      "id": "x4-newyork-glencore-isda-q2",
+      "question": "What average floating price did the corrected statement for NC-NYC-26-0001 use?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 23,
+      "id": "x4-newyork-glencore-isda-q3",
+      "question": "How many daily prices does the swap statement for NC-NYC-26-0001 list?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "x4-newyork-glencore-isda",
+  "title": "New York transfers collateral and settles the first WTI swap statement, built first from the wrong prices"
+}

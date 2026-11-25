@@ -1,0 +1,16 @@
+# Credit request: Glencore
+
+- **Message-ID:** <c65135d6a7249e54ac23@newco-newyork.example>
+- **Date:** Tue, 10 Feb 2026 09:27:00 -0500
+- **From:** Shannon Tran <shannon.tran@newco-newyork.example>
+- **To:** Eric Galloway <eric.galloway@newco-newyork.example>
+
+## Body
+
+Hi Eric,
+
+Please set a derivatives limit of USD 30,000,000 for Glencore.
+
+Regards,
+Shannon Tran
+NewCo Derivatives New York, Inc.

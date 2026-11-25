@@ -1,0 +1,464 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "facts": {
+        "agreement": "Northgate Bank FX dealing terms",
+        "based_on": "NC-LON-26-0002-bank-ticket-v3.pdf",
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "confirmation_date": "2026-04-15",
+        "deal_type": "outright forward",
+        "debit_account": "19276574",
+        "governing_law": "England and Wales",
+        "issued_by": "Northgate Bank plc",
+        "pair": "GBP/USD",
+        "rate": 1.2845,
+        "sell_amount": 5138000,
+        "sell_currency": "USD",
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08"
+      },
+      "filename": "NC-LON-26-0002-bank-confirmation-v1.pdf",
+      "kind": "trade-confirmation",
+      "message": "bank-confirmation",
+      "path": "attachments/001-NC-LON-26-0002-bank-confirmation-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "valerie.smith@northgatebank.example",
+        "wasDerivedFrom": "<ed6081d6c6fe7d3f83be@northgatebank.example>"
+      },
+      "sha256": "863cd6a1cd8fed5803f00271201176ac180ee5dbcfae3991008e789fcaf3caa4",
+      "size": 5146
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+      "facts": {
+        "bank": "Northgate Bank plc",
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "debit_account": "19276574",
+        "party": "NewCo Trading London Limited",
+        "rate": 1.2845,
+        "sell_amount": 5138000,
+        "sell_currency": "USD",
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08",
+        "version": 1
+      },
+      "filename": "NC-LON-26-0002-swift-copy-v1.pdf",
+      "kind": "swift-copy",
+      "message": "bank-confirmation",
+      "path": "attachments/001-NC-LON-26-0002-swift-copy-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "valerie.smith@northgatebank.example",
+        "wasDerivedFrom": "<ed6081d6c6fe7d3f83be@northgatebank.example>"
+      },
+      "sha256": "20f0c59c4ba0d23a3990a8680b207a2f28e8d496666f1ad271a02bf33fc20ed7",
+      "size": 2430
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "facts": {
+        "agreement": "Northgate Bank FX dealing terms",
+        "based_on": "NC-LON-26-0002-bank-ticket-v3.pdf, debit account corrected",
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "confirmation_date": "2026-04-17",
+        "deal_type": "outright forward",
+        "debit_account": "19276547",
+        "governing_law": "England and Wales",
+        "issued_by": "Northgate Bank plc",
+        "pair": "GBP/USD",
+        "rate": 1.2845,
+        "sell_amount": 5138000,
+        "sell_currency": "USD",
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08"
+      },
+      "filename": "NC-LON-26-0002-bank-confirmation-v2.pdf",
+      "kind": "trade-confirmation",
+      "message": "bank-corrected",
+      "path": "attachments/004-NC-LON-26-0002-bank-confirmation-v2.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "valerie.smith@northgatebank.example",
+        "wasDerivedFrom": "<b67cff00e142d540d06e@northgatebank.example>"
+      },
+      "sha256": "75cd38efa6fe56924dce6adc13cc90d8aa3619b7f671beafd58eb7b03214208b",
+      "size": 5171
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+      "facts": {
+        "bank": "Northgate Bank plc",
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "debit_account": "19276547",
+        "party": "NewCo Trading London Limited",
+        "rate": 1.2845,
+        "sell_amount": 5138000,
+        "sell_currency": "USD",
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08",
+        "version": 2
+      },
+      "filename": "NC-LON-26-0002-swift-copy-v2.pdf",
+      "kind": "swift-copy",
+      "message": "bank-corrected",
+      "path": "attachments/004-NC-LON-26-0002-swift-copy-v2.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "valerie.smith@northgatebank.example",
+        "wasDerivedFrom": "<b67cff00e142d540d06e@northgatebank.example>"
+      },
+      "sha256": "f7107a71aa4acf7f37a2a06049450e3f6649d44b579f014fcb52c358a3ad0735",
+      "size": 2430
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 4,
+    "chats": 0,
+    "emails": 6
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "account-query",
+      "description": "The bank's first confirmation and message copy show NewCo's USD account as 19276574; the standing instruction is 19276547. Caught by NewCo settlements.",
+      "id": "p6-london-northgate-gbp-fwd:swapped-account-digits",
+      "type": "account-vs-ssi",
+      "values": {
+        "agreed": "19276547",
+        "field": "debit_account",
+        "found": "19276574"
+      },
+      "where": [
+        "NC-LON-26-0002-bank-confirmation-v1.pdf",
+        "NC-LON-26-0002-swift-copy-v1.pdf",
+        "acct-newco-lon-usd-operating"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-LON-26-0002-bank-confirmation-v1.pdf",
+        "NC-LON-26-0002-swift-copy-v1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "direction": "inbound",
+      "facts": {
+        "debit_account": "19276574",
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08"
+      },
+      "files": {
+        "eml": "messages/001-bank-confirmation.eml",
+        "md": "messages/001-bank-confirmation.md"
+      },
+      "from": {
+        "address": "valerie.smith@northgatebank.example",
+        "name": "Valerie Smith",
+        "org": "bank-northgate",
+        "role": "trade_finance"
+      },
+      "in_reply_to": null,
+      "key": "bank-confirmation",
+      "message_id": "<ed6081d6c6fe7d3f83be@northgatebank.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "valerie.smith@northgatebank.example"
+      },
+      "seq": 1,
+      "subject": "Forward confirmation NC-LON-26-0002",
+      "tags": [
+        "confirmation",
+        "planted",
+        "swift"
+      ],
+      "thread": "bank-confirmation",
+      "timestamp": "2026-04-15T10:48:00+01:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "trade_id": "NC-LON-26-0002"
+      },
+      "files": {
+        "eml": "messages/002-ops-check.eml",
+        "md": "messages/002-ops-check.md"
+      },
+      "from": {
+        "address": "tom.scott@newco-london.example",
+        "name": "Tom Scott",
+        "org": "newco-lon",
+        "role": "ops"
+      },
+      "in_reply_to": "bank-confirmation",
+      "key": "ops-check",
+      "message_id": "<ebda7f550f60742ea7ff@newco-london.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example"
+      },
+      "seq": 2,
+      "subject": "Re: Forward confirmation NC-LON-26-0002",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "bank-confirmation",
+      "timestamp": "2026-04-16T09:09:00+01:00",
+      "to": [
+        {
+          "address": "paige.ball@newco-london.example",
+          "name": "Paige Ball",
+          "org": "newco-lon",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "expected": "19276547",
+        "found": "19276574",
+        "trade_id": "NC-LON-26-0002"
+      },
+      "files": {
+        "eml": "messages/003-account-query.eml",
+        "md": "messages/003-account-query.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": "bank-confirmation",
+      "key": "account-query",
+      "message_id": "<0792138ac7dc90cc7e3c@newco-london.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "Re: Forward confirmation NC-LON-26-0002",
+      "tags": [
+        "confirmation",
+        "dispute",
+        "swift"
+      ],
+      "thread": "bank-confirmation",
+      "timestamp": "2026-04-17T09:06:00+01:00",
+      "to": [
+        {
+          "address": "valerie.smith@northgatebank.example",
+          "name": "Valerie Smith",
+          "org": "bank-northgate",
+          "role": "trade_finance"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0002-bank-confirmation-v2.pdf",
+        "NC-LON-26-0002-swift-copy-v2.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "direction": "inbound",
+      "facts": {
+        "debit_account": "19276547",
+        "trade_id": "NC-LON-26-0002"
+      },
+      "files": {
+        "eml": "messages/004-bank-corrected.eml",
+        "md": "messages/004-bank-corrected.md"
+      },
+      "from": {
+        "address": "valerie.smith@northgatebank.example",
+        "name": "Valerie Smith",
+        "org": "bank-northgate",
+        "role": "trade_finance"
+      },
+      "in_reply_to": "account-query",
+      "key": "bank-corrected",
+      "message_id": "<b67cff00e142d540d06e@northgatebank.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "valerie.smith@northgatebank.example"
+      },
+      "seq": 4,
+      "subject": "Re: Forward confirmation NC-LON-26-0002",
+      "tags": [
+        "confirmation",
+        "correction",
+        "swift"
+      ],
+      "thread": "bank-confirmation",
+      "timestamp": "2026-04-20T09:27:00+01:00",
+      "to": [
+        {
+          "address": "paige.ball@newco-london.example",
+          "name": "Paige Ball",
+          "org": "newco-lon",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/005-corrected-ack.eml",
+        "md": "messages/005-corrected-ack.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": "bank-corrected",
+      "key": "corrected-ack",
+      "message_id": "<22ae069f21b9f426fb24@newco-london.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 5,
+      "subject": "Re: Forward confirmation NC-LON-26-0002",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "bank-confirmation",
+      "timestamp": "2026-04-21T09:09:00+01:00",
+      "to": [
+        {
+          "address": "valerie.smith@northgatebank.example",
+          "name": "Valerie Smith",
+          "org": "bank-northgate",
+          "role": "trade_finance"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "trade_id": "NC-LON-26-0002",
+        "usd_payable": 5138000,
+        "value_date": "2026-07-08"
+      },
+      "files": {
+        "eml": "messages/006-booked.eml",
+        "md": "messages/006-booked.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "booked",
+      "message_id": "<b11aed745c2bdcbf02de@newco-london.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 6,
+      "subject": "Settlement instruction NC-LON-26-0002",
+      "tags": [
+        "payment"
+      ],
+      "thread": "booked",
+      "timestamp": "2026-04-22T09:26:00+01:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "debit_account": "19276547",
+    "result": "corrected",
+    "trade_id": "NC-LON-26-0002",
+    "usd_payable": 5138000,
+    "value_date": "2026-07-08"
+  },
+  "ownership_edges": [],
+  "phase": "post_trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": "19276574",
+      "id": "p6-london-northgate-gbp-fwd-q1",
+      "question": "What debit account did the first bank confirmation for NC-LON-26-0002 show?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 5138000,
+      "id": "p6-london-northgate-gbp-fwd-q2",
+      "question": "What USD amount settles NC-LON-26-0002?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": 1.2845,
+      "id": "p6-london-northgate-gbp-fwd-q3",
+      "question": "What rate is on the confirmation for NC-LON-26-0002?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    }
+  ],
+  "review_events": [],
+  "scenario": "p6-london-northgate-gbp-fwd",
+  "title": "Northgate confirms NewCo London's GBP forward: the bank's copy shows the USD account with two digits swapped"
+}

@@ -1,0 +1,782 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "counterparty": "Glencore Ltd.",
+        "credit_used": 4104000,
+        "deal_value": 4104000,
+        "exposure_after": 4104000,
+        "exposure_before": 0,
+        "exposure_if_booked": 4104000,
+        "headroom_after": 15896000,
+        "headroom_before": 20000000,
+        "limit": 20000000,
+        "status": "approved",
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "filename": "NC-NYC-26-0001-credit-check.pdf",
+      "kind": "credit-check",
+      "message": "credit-result",
+      "path": "attachments/002-NC-NYC-26-0001-credit-check.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "eric.galloway@newco-newyork.example",
+        "wasDerivedFrom": "<61f9e18b22d9b63655a5@newco-newyork.example>"
+      },
+      "sha256": "a5ad8eebd45c5319ac4923d06a12a3017e189f30d5b2a979062c2bf709f72346",
+      "size": 3483
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "facts": {
+        "agreement": "ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited",
+        "csa": "Credit Support Annex between NewCo Derivatives New York, Inc. and Glencore Limited",
+        "csa_threshold_usd": 2500000,
+        "currency": "USD",
+        "end": "2027-04-30",
+        "fixed_payer": "NewCo Derivatives New York, Inc.",
+        "fixed_price_usd_per_bbl": 68.4,
+        "fixed_receiver": "Glencore Ltd.",
+        "floating": "Platts WTI Cushing, monthly average",
+        "governing_law": "the State of New York",
+        "instrument": "WTI fixed-for-floating swap",
+        "issued_by": "NewCo Derivatives New York, Inc.",
+        "months": 12,
+        "notional_bbl_per_month": 50000,
+        "settlement": "monthly, in cash",
+        "start": "2026-05-01",
+        "trade_id": "NC-NYC-26-0001",
+        "version": 1
+      },
+      "filename": "NC-NYC-26-0001-ticket-v1.pdf",
+      "kind": "deal-ticket",
+      "message": "ticket-v1",
+      "path": "attachments/003-NC-NYC-26-0001-ticket-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jane.hill@newco-newyork.example",
+        "wasDerivedFrom": "<7a51d1e29ac32a9310f2@newco-newyork.example>"
+      },
+      "sha256": "2afbd01fc253a6fdba81ddc8cf495b6902d8f3b58105b626f4b05214a8d97754",
+      "size": 5726
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "facts": {
+        "agreement": "ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited",
+        "csa": "Credit Support Annex between NewCo Derivatives New York, Inc. and Glencore Limited",
+        "csa_threshold_usd": 2500000,
+        "currency": "USD",
+        "end": "2027-04-30",
+        "fixed_payer": "NewCo Derivatives New York, Inc.",
+        "fixed_price_usd_per_bbl": 68.04,
+        "fixed_receiver": "Glencore Ltd.",
+        "fixing": "last business day of each month",
+        "floating": "Platts WTI Cushing, monthly average",
+        "governing_law": "the State of New York",
+        "instrument": "WTI fixed-for-floating swap",
+        "issued_by": "NewCo Derivatives New York, Inc.",
+        "months": 12,
+        "notional_bbl_per_month": 50000,
+        "payment": "five business days after each fixing",
+        "settlement": "monthly, in cash",
+        "start": "2026-05-01",
+        "trade_id": "NC-NYC-26-0001",
+        "version": 2
+      },
+      "filename": "NC-NYC-26-0001-ticket-v2.pdf",
+      "kind": "deal-ticket",
+      "message": "ticket-v2",
+      "path": "attachments/005-NC-NYC-26-0001-ticket-v2.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kenneth.ashley@newco-newyork.example",
+        "wasDerivedFrom": "<4ee4f8ed0bcc74bce7d2@newco-newyork.example>"
+      },
+      "sha256": "db93428ded36dfe6e5e47e3c58b6043702b1feda0db3effc1e26d83fe727ecd3",
+      "size": 6140
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [
+    {
+      "channel": "chat",
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument",
+      "deal": "NC-NYC-26-0001",
+      "file": "chats/001-indication.json",
+      "key": "indication",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jane.hill@newco-newyork.example",
+            "name": "Jane Hill",
+            "org": "newco-nyc",
+            "role": "trader"
+          },
+          "terms": {
+            "instrument": "WTI fixed-for-floating swap",
+            "months": 12,
+            "notional_bbl_per_month": 50000
+          },
+          "text": "I want to pay fixed on a 12-month WTI swap, 50,000 bbl a month against the Platts Cushing monthly average, starting 2026-05-01. Where do you receive?",
+          "timestamp": "2026-03-25T10:55:00-04:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "gregory.everett@glencore.example",
+            "name": "Gregory Everett",
+            "org": "cp-glencore",
+            "role": "trader"
+          },
+          "terms": {
+            "fixed_price_usd_per_bbl": 68.9
+          },
+          "text": "I can receive 68.90 fixed.",
+          "timestamp": "2026-03-25T10:57:07-04:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jane.hill@newco-newyork.example",
+            "name": "Jane Hill",
+            "org": "newco-nyc",
+            "role": "trader"
+          },
+          "terms": {
+            "fixed_price_usd_per_bbl": 68.2
+          },
+          "text": "I can pay 68.20. Think about it.",
+          "timestamp": "2026-03-25T11:01:04-04:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jane.hill@newco-newyork.example",
+          "name": "Jane Hill",
+          "org": "newco-nyc",
+          "role": "trader"
+        },
+        {
+          "address": "gregory.everett@glencore.example",
+          "name": "Gregory Everett",
+          "org": "cp-glencore",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 1,
+      "tags": [
+        "indication"
+      ]
+    },
+    {
+      "channel": "chat",
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument",
+      "deal": "NC-NYC-26-0001",
+      "file": "chats/002-execution.json",
+      "key": "execution",
+      "lines": [
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "gregory.everett@glencore.example",
+            "name": "Gregory Everett",
+            "org": "cp-glencore",
+            "role": "trader"
+          },
+          "terms": {
+            "fixed_price_usd_per_bbl": 68.4
+          },
+          "text": "68.40 is my best level to receive.",
+          "timestamp": "2026-03-25T12:23:00-04:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "jane.hill@newco-newyork.example",
+            "name": "Jane Hill",
+            "org": "newco-nyc",
+            "role": "trader"
+          },
+          "terms": {
+            "fixed_price_usd_per_bbl": 68.4
+          },
+          "text": "Done.",
+          "timestamp": "2026-03-25T12:26:00-04:00"
+        },
+        {
+          "intent": "agree",
+          "speaker": {
+            "address": "gregory.everett@glencore.example",
+            "name": "Gregory Everett",
+            "org": "cp-glencore",
+            "role": "trader"
+          },
+          "terms": {
+            "currency": "USD",
+            "end": "2027-04-30",
+            "fixed_payer": "NewCo Derivatives New York, Inc.",
+            "fixed_price_usd_per_bbl": 68.4,
+            "fixed_receiver": "Glencore Ltd.",
+            "floating": "Platts WTI Cushing, monthly average",
+            "instrument": "WTI fixed-for-floating swap",
+            "months": 12,
+            "notional_bbl_per_month": 50000,
+            "settlement": "monthly, in cash",
+            "start": "2026-05-01"
+          },
+          "text": "Confirming: you pay 68.40 fixed, we pay the Platts WTI Cushing monthly average, 50,000 bbl a month for 12 months from 2026-05-01 to 2027-04-30, settled monthly in USD cash. Subject to your credit.",
+          "timestamp": "2026-03-25T12:26:20-04:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "gregory.everett@glencore.example",
+          "name": "Gregory Everett",
+          "org": "cp-glencore",
+          "role": "trader"
+        },
+        {
+          "address": "jane.hill@newco-newyork.example",
+          "name": "Jane Hill",
+          "org": "newco-nyc",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 2,
+      "tags": [
+        "agreed",
+        "negotiation"
+      ]
+    }
+  ],
+  "counts": {
+    "attachments": 3,
+    "chats": 2,
+    "emails": 7
+  },
+  "deals": [
+    {
+      "agreed_in": "execution",
+      "agreement": "ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited",
+      "agreement_effective": "2026-03-11",
+      "chats": [
+        "indication",
+        "execution"
+      ],
+      "class_uris": {
+        "contract_type": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument",
+        "instrument": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+        "settlement_terms": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+        "underlier": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Underlier"
+      },
+      "counterparty": "cp-glencore",
+      "credit_check": {
+        "credit_used": 4104000,
+        "deal_value": 4104000,
+        "exposure_after": 4104000,
+        "exposure_before": 0,
+        "exposure_if_booked": 4104000,
+        "headroom_after": 15896000,
+        "headroom_before": 20000000,
+        "limit": 20000000,
+        "status": "approved"
+      },
+      "csa_min_transfer": 250000,
+      "csa_threshold": 2500000,
+      "entity": "newco-nyc",
+      "governing_law": "the State of New York",
+      "inputs": {
+        "fixed_price": 68.4,
+        "months": 12,
+        "notional_bbl_per_month": 50000,
+        "pfe_pct": 10
+      },
+      "kind": "swap",
+      "mismatches": [
+        {
+          "agreed": 68.4,
+          "caught": false,
+          "caught_by": null,
+          "field": "fixed_price_usd_per_bbl",
+          "found": 68.04,
+          "id": "t4-newyork-glencore-isda:ticket-transposed-digits",
+          "type": "transposed-digits",
+          "where": [
+            "chat:execution",
+            "ticket-v2",
+            "NC-NYC-26-0001-ticket-v2.pdf"
+          ]
+        }
+      ],
+      "notional": 41040000,
+      "onboarding_scenario": "s4-newyork-glencore-isda",
+      "payment_days": null,
+      "scenario": "t4-newyork-glencore-isda",
+      "side": "pay-fixed",
+      "status": "agreed",
+      "terms": {
+        "currency": "USD",
+        "end": "2027-04-30",
+        "fixed_payer": "NewCo Derivatives New York, Inc.",
+        "fixed_price_usd_per_bbl": 68.4,
+        "fixed_receiver": "Glencore Ltd.",
+        "floating": "Platts WTI Cushing, monthly average",
+        "instrument": "WTI fixed-for-floating swap",
+        "months": 12,
+        "notional_bbl_per_month": 50000,
+        "settlement": "monthly, in cash",
+        "start": "2026-05-01"
+      },
+      "tickets": [
+        {
+          "facts": {
+            "agreement": "ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited",
+            "csa": "Credit Support Annex between NewCo Derivatives New York, Inc. and Glencore Limited",
+            "csa_threshold_usd": 2500000,
+            "currency": "USD",
+            "end": "2027-04-30",
+            "fixed_payer": "NewCo Derivatives New York, Inc.",
+            "fixed_price_usd_per_bbl": 68.4,
+            "fixed_receiver": "Glencore Ltd.",
+            "floating": "Platts WTI Cushing, monthly average",
+            "governing_law": "the State of New York",
+            "instrument": "WTI fixed-for-floating swap",
+            "issued_by": "NewCo Derivatives New York, Inc.",
+            "months": 12,
+            "notional_bbl_per_month": 50000,
+            "settlement": "monthly, in cash",
+            "start": "2026-05-01",
+            "trade_id": "NC-NYC-26-0001",
+            "version": 1
+          },
+          "filename": "NC-NYC-26-0001-ticket-v1.pdf",
+          "issued_by": "NewCo Derivatives New York, Inc.",
+          "message": "ticket-v1",
+          "version": 1
+        },
+        {
+          "facts": {
+            "agreement": "ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited",
+            "csa": "Credit Support Annex between NewCo Derivatives New York, Inc. and Glencore Limited",
+            "csa_threshold_usd": 2500000,
+            "currency": "USD",
+            "end": "2027-04-30",
+            "fixed_payer": "NewCo Derivatives New York, Inc.",
+            "fixed_price_usd_per_bbl": 68.04,
+            "fixed_receiver": "Glencore Ltd.",
+            "fixing": "last business day of each month",
+            "floating": "Platts WTI Cushing, monthly average",
+            "governing_law": "the State of New York",
+            "instrument": "WTI fixed-for-floating swap",
+            "issued_by": "NewCo Derivatives New York, Inc.",
+            "months": 12,
+            "notional_bbl_per_month": 50000,
+            "payment": "five business days after each fixing",
+            "settlement": "monthly, in cash",
+            "start": "2026-05-01",
+            "trade_id": "NC-NYC-26-0001",
+            "version": 2
+          },
+          "filename": "NC-NYC-26-0001-ticket-v2.pdf",
+          "issued_by": "NewCo Derivatives New York, Inc.",
+          "message": "ticket-v2",
+          "version": 2
+        }
+      ],
+      "tolerance_pct": null,
+      "trade_id": "NC-NYC-26-0001"
+    }
+  ],
+  "expected_contradictions": [
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "The amended ticket carries a fixed price of 68.04; the agreed price was 68.40 (last two digits transposed).",
+      "id": "t4-newyork-glencore-isda:ticket-transposed-digits",
+      "type": "transposed-digits",
+      "values": {
+        "agreed": 68.4,
+        "field": "fixed_price_usd_per_bbl",
+        "found": 68.04
+      },
+      "where": [
+        "chat:execution",
+        "ticket-v2",
+        "NC-NYC-26-0001-ticket-v2.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "total_notional": 41040000,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/001-credit-request.eml",
+        "md": "messages/001-credit-request.md"
+      },
+      "from": {
+        "address": "jane.hill@newco-newyork.example",
+        "name": "Jane Hill",
+        "org": "newco-nyc",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "credit-request",
+      "message_id": "<cd361f330cf03c9b4046@newco-newyork.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jane.hill@newco-newyork.example"
+      },
+      "seq": 1,
+      "subject": "Credit check: Glencore Ltd. WTI swap NC-NYC-26-0001",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-03-25T13:18:00-04:00",
+      "to": [
+        {
+          "address": "eric.galloway@newco-newyork.example",
+          "name": "Eric Galloway",
+          "org": "newco-nyc",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-NYC-26-0001-credit-check.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "credit_used": 4104000,
+        "deal_value": 4104000,
+        "exposure_after": 4104000,
+        "exposure_before": 0,
+        "exposure_if_booked": 4104000,
+        "headroom_after": 15896000,
+        "headroom_before": 20000000,
+        "limit": 20000000,
+        "pfe_pct": 10,
+        "status": "approved",
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/002-credit-result.eml",
+        "md": "messages/002-credit-result.md"
+      },
+      "from": {
+        "address": "eric.galloway@newco-newyork.example",
+        "name": "Eric Galloway",
+        "org": "newco-nyc",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-request",
+      "key": "credit-result",
+      "message_id": "<61f9e18b22d9b63655a5@newco-newyork.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "eric.galloway@newco-newyork.example"
+      },
+      "seq": 2,
+      "subject": "Re: Credit check: Glencore Ltd. WTI swap NC-NYC-26-0001",
+      "tags": [
+        "approval",
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-03-26T09:22:00-04:00",
+      "to": [
+        {
+          "address": "jane.hill@newco-newyork.example",
+          "name": "Jane Hill",
+          "org": "newco-nyc",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-NYC-26-0001-ticket-v1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "direction": "internal",
+      "facts": {
+        "fixed_price_usd_per_bbl": 68.4,
+        "ticket_version": 1,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/003-ticket-v1.eml",
+        "md": "messages/003-ticket-v1.md"
+      },
+      "from": {
+        "address": "jane.hill@newco-newyork.example",
+        "name": "Jane Hill",
+        "org": "newco-nyc",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "ticket-v1",
+      "message_id": "<7a51d1e29ac32a9310f2@newco-newyork.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jane.hill@newco-newyork.example"
+      },
+      "seq": 3,
+      "subject": "Deal ticket NC-NYC-26-0001",
+      "tags": [
+        "ticket"
+      ],
+      "thread": "ticket-v1",
+      "timestamp": "2026-03-27T09:26:00-04:00",
+      "to": [
+        {
+          "address": "kenneth.ashley@newco-newyork.example",
+          "name": "Kenneth Ashley",
+          "org": "newco-nyc",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/004-booked-v1.eml",
+        "md": "messages/004-booked-v1.md"
+      },
+      "from": {
+        "address": "kenneth.ashley@newco-newyork.example",
+        "name": "Kenneth Ashley",
+        "org": "newco-nyc",
+        "role": "ops"
+      },
+      "in_reply_to": "ticket-v1",
+      "key": "booked-v1",
+      "message_id": "<87151e3a4a528ff01b55@newco-newyork.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kenneth.ashley@newco-newyork.example"
+      },
+      "seq": 4,
+      "subject": "Re: Deal ticket NC-NYC-26-0001",
+      "tags": [
+        "booking"
+      ],
+      "thread": "ticket-v1",
+      "timestamp": "2026-03-30T09:09:00-04:00",
+      "to": [
+        {
+          "address": "jane.hill@newco-newyork.example",
+          "name": "Jane Hill",
+          "org": "newco-nyc",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-NYC-26-0001-ticket-v2.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument",
+      "direction": "internal",
+      "facts": {
+        "fixed_price_usd_per_bbl": 68.04,
+        "ticket_version": 2,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/005-ticket-v2.eml",
+        "md": "messages/005-ticket-v2.md"
+      },
+      "from": {
+        "address": "kenneth.ashley@newco-newyork.example",
+        "name": "Kenneth Ashley",
+        "org": "newco-nyc",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "ticket-v2",
+      "message_id": "<4ee4f8ed0bcc74bce7d2@newco-newyork.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kenneth.ashley@newco-newyork.example"
+      },
+      "seq": 5,
+      "subject": "Amended deal ticket NC-NYC-26-0001",
+      "tags": [
+        "amendment",
+        "planted",
+        "ticket"
+      ],
+      "thread": "ticket-v2",
+      "timestamp": "2026-03-31T09:16:00-04:00",
+      "to": [
+        {
+          "address": "jane.hill@newco-newyork.example",
+          "name": "Jane Hill",
+          "org": "newco-nyc",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/006-booked-v2.eml",
+        "md": "messages/006-booked-v2.md"
+      },
+      "from": {
+        "address": "jane.hill@newco-newyork.example",
+        "name": "Jane Hill",
+        "org": "newco-nyc",
+        "role": "trader"
+      },
+      "in_reply_to": "ticket-v2",
+      "key": "booked-v2",
+      "message_id": "<5017c068d3e6af3fb2d3@newco-newyork.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jane.hill@newco-newyork.example"
+      },
+      "seq": 6,
+      "subject": "Re: Amended deal ticket NC-NYC-26-0001",
+      "tags": [
+        "booking"
+      ],
+      "thread": "ticket-v2",
+      "timestamp": "2026-04-01T09:06:00-04:00",
+      "to": [
+        {
+          "address": "kenneth.ashley@newco-newyork.example",
+          "name": "Kenneth Ashley",
+          "org": "newco-nyc",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "fixed_price_usd_per_bbl": 68.4,
+        "notional_bbl_per_month": 50000,
+        "trade_id": "NC-NYC-26-0001"
+      },
+      "files": {
+        "eml": "messages/007-glencore-note.eml",
+        "md": "messages/007-glencore-note.md"
+      },
+      "from": {
+        "address": "gregory.everett@glencore.example",
+        "name": "Gregory Everett",
+        "org": "cp-glencore",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "glencore-note",
+      "message_id": "<faca7d605fc0902ae1a6@glencore.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gregory.everett@glencore.example"
+      },
+      "seq": 7,
+      "subject": "WTI swap NC-NYC-26-0001: our record",
+      "tags": [
+        "recap"
+      ],
+      "thread": "glencore-note",
+      "timestamp": "2026-04-02T09:14:00-04:00",
+      "to": [
+        {
+          "address": "jane.hill@newco-newyork.example",
+          "name": "Jane Hill",
+          "org": "newco-nyc",
+          "role": "trader"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "agreed_fixed": 68.4,
+    "result": "agreed",
+    "ticket_fixed": 68.04,
+    "trade_id": "NC-NYC-26-0001"
+  },
+  "ownership_edges": [],
+  "phase": "trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 68.4,
+      "id": "t4-newyork-glencore-isda-q1",
+      "question": "What fixed price did NewCo agree to pay Glencore on NC-NYC-26-0001?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": 68.04,
+      "id": "t4-newyork-glencore-isda-q2",
+      "question": "What fixed price does the latest ticket for NC-NYC-26-0001 show?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 2500000,
+      "id": "t4-newyork-glencore-isda-q3",
+      "question": "What is the CSA threshold with Glencore recorded for NC-NYC-26-0001?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "t4-newyork-glencore-isda",
+  "title": "New York swaps WTI with Glencore: fixed 68.40 agreed, amended ticket says 68.04"
+}

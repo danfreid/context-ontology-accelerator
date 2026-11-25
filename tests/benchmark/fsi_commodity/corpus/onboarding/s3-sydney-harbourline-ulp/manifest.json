@@ -1,0 +1,2007 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "incorporated": "2004-12-15",
+        "jurisdiction": "New South Wales",
+        "legal_form": "Pty Ltd",
+        "legal_name": "Harbourline Petroleum Pty Ltd",
+        "registration_number": "ACN 40487414"
+      },
+      "filename": "harbourline-petroleum-pty-ltd-certificate-of-incorporation.pdf",
+      "kind": "certificate-of-incorporation",
+      "message": "kyc-docs-1",
+      "path": "attachments/004-harbourline-petroleum-pty-ltd-certificate-of-incorporation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeffrey.daniels@harbourline.example",
+        "wasDerivedFrom": "<3f79cff11395fa6cca74@harbourline.example>"
+      },
+      "sha256": "b5cdf2fadc24e5fb985da8e8b90036c69298051593bd5fea3925126f4ada9657",
+      "size": 3005
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "issued": "2024-12-05",
+        "legal_name": "Harbourline Petroleum Pty Ltd",
+        "status": "in good standing",
+        "validity_months": 12
+      },
+      "filename": "harbourline-petroleum-pty-ltd-good-standing-2024-12-05.pdf",
+      "kind": "good-standing-certificate",
+      "message": "kyc-docs-1",
+      "path": "attachments/004-harbourline-petroleum-pty-ltd-good-standing-2024-12-05.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeffrey.daniels@harbourline.example",
+        "wasDerivedFrom": "<3f79cff11395fa6cca74@harbourline.example>"
+      },
+      "sha256": "ae4c1e3f02193e72fac44bf5afc8b038dd8f64aaff02548da268524ac1d42018",
+      "size": 2556
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "complete": true,
+        "declared_beneficial_owners": {
+          "Margaret Beck": 70.0,
+          "Michelle Walker": 30.0
+        },
+        "edges": [
+          {
+            "child": "cp-harbourline",
+            "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+            "parent": "hold-harbourline-grp",
+            "percent": 100.0
+          },
+          {
+            "child": "hold-harbourline-grp",
+            "class_uri": null,
+            "parent": "own-harbourline-1",
+            "percent": 70.0
+          },
+          {
+            "child": "hold-harbourline-grp",
+            "class_uri": null,
+            "parent": "own-harbourline-2",
+            "percent": 30.0
+          }
+        ],
+        "entity": "Harbourline Petroleum Pty Ltd"
+      },
+      "filename": "harbourline-petroleum-pty-ltd-ownership-chart.pdf",
+      "kind": "ownership-chart",
+      "message": "kyc-docs-2",
+      "path": "attachments/005-harbourline-petroleum-pty-ltd-ownership-chart.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeffrey.daniels@harbourline.example",
+        "wasDerivedFrom": "<76868c497e50bf31aadc@harbourline.example>"
+      },
+      "sha256": "b3b8f3957f34983442eee84b66de51c897afc15ddd45c8d8716e3009261189b3",
+      "size": 3808
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/PartyRoleIdentifier",
+      "facts": {
+        "entity": "Harbourline Petroleum Pty Ltd",
+        "signatories": [
+          {
+            "name": "Jeffrey Murray",
+            "role": "trader"
+          },
+          {
+            "name": "Daniel Barnett",
+            "role": "lawyer"
+          },
+          {
+            "name": "Anne Williams",
+            "role": "settlements"
+          }
+        ]
+      },
+      "filename": "harbourline-petroleum-pty-ltd-authorised-signatories.pdf",
+      "kind": "signatory-list",
+      "message": "kyc-docs-2",
+      "path": "attachments/005-harbourline-petroleum-pty-ltd-authorised-signatories.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeffrey.daniels@harbourline.example",
+        "wasDerivedFrom": "<76868c497e50bf31aadc@harbourline.example>"
+      },
+      "sha256": "f03afb98baa01657b67061787d4d84578b5d7859a8c22128bad56006694eb5e7",
+      "size": 3059
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "entity": "Harbourline Petroleum Pty Ltd",
+        "fiscal_year": 2025,
+        "net_worth": 650000000,
+        "revenue": 1381000000
+      },
+      "filename": "harbourline-petroleum-pty-ltd-financial-statements-2025.pdf",
+      "kind": "financial-statements",
+      "message": "financials",
+      "path": "attachments/006-harbourline-petroleum-pty-ltd-financial-statements-2025.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "shelly.sandoval@harbourline.example",
+        "wasDerivedFrom": "<6331e00db17437c2c4c2@harbourline.example>"
+      },
+      "sha256": "dc8baf9fb8c2418b855c30bafb9227ef12f1085ae158fb42a23fdf675b3f25cc",
+      "size": 2576
+    },
+    {
+      "class_uri": "https://schema.org/Service",
+      "facts": {
+        "entity": "Harbourline Petroleum Pty Ltd",
+        "hits": [],
+        "result": "clear",
+        "subjects": [
+          "Harbourline Petroleum Pty Ltd",
+          "Harbourline Group Holdings Pty Ltd",
+          "Margaret Beck",
+          "Michelle Walker"
+        ]
+      },
+      "filename": "harbourline-petroleum-pty-ltd-screening-report.pdf",
+      "kind": "screening-report",
+      "message": "screen-result",
+      "path": "attachments/008-harbourline-petroleum-pty-ltd-screening-report.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example",
+        "wasDerivedFrom": "<ff70768c029ba2e7000b@veridianscreening.example>"
+      },
+      "sha256": "c218d09e34a5481558d8670054daeb2b9d96d41a3929b4aa7ee76ed641da9744",
+      "size": 3710
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "answers": {
+          "Is any owner or director a politically exposed person?": "No",
+          "Is the entity or any owner subject to sanctions?": "No",
+          "Who guarantees the entity's obligations?": "Harbourline Group Holdings Pty Ltd"
+        },
+        "completed_by": "Jeffrey Daniels",
+        "entity": "Harbourline Petroleum Pty Ltd"
+      },
+      "filename": "harbourline-petroleum-pty-ltd-kyc-questionnaire.pdf",
+      "kind": "kyc-questionnaire",
+      "message": "questionnaire",
+      "path": "attachments/009-harbourline-petroleum-pty-ltd-kyc-questionnaire.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeffrey.daniels@harbourline.example",
+        "wasDerivedFrom": "<8866c5f9d7ebde501a33@harbourline.example>"
+      },
+      "sha256": "f6e769875e6236928b9f7f6a1a0a3108eadd876d8b8aa4908561652a65056fd5",
+      "size": 3372
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "requested_limit": 35000000
+      },
+      "filename": "harbourline-credit-application.pdf",
+      "kind": "credit-application",
+      "message": "credit-request",
+      "path": "attachments/010-harbourline-credit-application.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bonnie.briggs@newco-sydney.example",
+        "wasDerivedFrom": "<d1fbd54d06466be6be96@newco-sydney.example>"
+      },
+      "sha256": "f46447c98cc86d5a425c75c868d834c472ca369ee761f01e77e73656db315971",
+      "size": 2346
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "booking_entity": "NewCo Trading Sydney Pty Ltd",
+        "bureau_score": 636,
+        "conditions": [
+          "executed guarantee",
+          "confirmed SBLC covering the full term"
+        ],
+        "counterparty": "Harbourline Petroleum Pty Ltd",
+        "exposure": 0,
+        "guaranteed": 15000000,
+        "headroom": 30000000,
+        "limit": 30000000,
+        "net_worth": 650000000,
+        "requested": 35000000,
+        "sblc": 10000000,
+        "sblc_covers": "the full term of the agreement",
+        "security": "parent guarantee and confirmed SBLC",
+        "unsecured": 5000000
+      },
+      "filename": "harbourline-petroleum-pty-ltd-credit-memo.pdf",
+      "kind": "credit-memo",
+      "message": "credit-memo",
+      "path": "attachments/013-harbourline-petroleum-pty-ltd-credit-memo.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example",
+        "wasDerivedFrom": "<a99d96efa90000ec4059@newco-sydney.example>"
+      },
+      "sha256": "81011a6dc5a86a4d340ea576d383a27d958d3263d68715755a9c5ed7f95a0331",
+      "size": 4374
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "booking_entity": "NewCo Trading Sydney Pty Ltd",
+        "counterparty": "Harbourline Petroleum Pty Ltd",
+        "effective": "2026-02-11",
+        "limit": 30000000
+      },
+      "filename": "harbourline-petroleum-pty-ltd-credit-limit-letter.pdf",
+      "kind": "credit-limit-letter",
+      "message": "limit-letter",
+      "path": "attachments/014-harbourline-petroleum-pty-ltd-credit-limit-letter.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example",
+        "wasDerivedFrom": "<6fdb7a8ed993dc0d47d1@newco-sydney.example>"
+      },
+      "sha256": "e084583fc396c3a5403c0a62c43d8c86790cdbd04a3caf1fc5c2d3a92c5ae1f4",
+      "size": 2726
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "amount": 15000000,
+        "beneficiary": "newco-syd",
+        "debtor": "cp-harbourline",
+        "guarantor": "hold-harbourline-grp",
+        "roles": {
+          "beneficiary": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Beneficiary",
+          "obligee": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligee",
+          "obligor": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Obligor"
+        }
+      },
+      "filename": "harbourline-parent-guarantee.pdf",
+      "kind": "guarantee",
+      "message": "guarantee-draft",
+      "path": "attachments/015-harbourline-parent-guarantee.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "denise.cook@newco-sydney.example",
+        "wasDerivedFrom": "<62041d11c02f7723274c@newco-sydney.example>"
+      },
+      "sha256": "c338f6a6f0fff3149340545db8f2d19884f88e0ca41cb2efc7c477946cfd8ae9",
+      "size": 2543
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "amount": 15000000,
+        "executed": true,
+        "guarantor": "hold-harbourline-grp"
+      },
+      "filename": "harbourline-parent-guarantee-executed.pdf",
+      "kind": "guarantee",
+      "message": "guarantee-executed",
+      "path": "attachments/016-harbourline-parent-guarantee-executed.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "daniel.barnett@harbourline.example",
+        "wasDerivedFrom": "<5f98907badab2f1be276@harbourline.example>"
+      },
+      "sha256": "ee333e81820e68f5d3f959a6f18b73f5f758402e7c52aa3729fb8c85ff841986",
+      "size": 2314
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "guarantor": "hold-harbourline-grp",
+        "qualified": false
+      },
+      "filename": "harbourline-capacity-opinion.pdf",
+      "kind": "legal-opinion",
+      "message": "guarantee-executed",
+      "path": "attachments/016-harbourline-capacity-opinion.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "daniel.barnett@harbourline.example",
+        "wasDerivedFrom": "<5f98907badab2f1be276@harbourline.example>"
+      },
+      "sha256": "4bdde151b334902b79394149008b5a40258fb3e5f2949c2ec2d569252343c21a",
+      "size": 2176
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "amount": 10000000,
+        "required_expiry": "2027-05-09"
+      },
+      "filename": "harbourline-sblc-wording.pdf",
+      "kind": "sblc-draft",
+      "message": "sblc-request",
+      "path": "attachments/017-harbourline-sblc-wording.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example",
+        "wasDerivedFrom": "<3051c1e297ff5dc241f9@newco-sydney.example>"
+      },
+      "sha256": "d51c2aff4b29ecf89d80f6b814ccf62c886216c53f42a41b56a90d7ef46cc68a",
+      "size": 2361
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "advising_bank": "bank-bluegum",
+        "amount": 10000000,
+        "applicant": "cp-harbourline",
+        "beneficiary": "newco-syd",
+        "confirming_bank": "bank-concord",
+        "currency": "USD",
+        "expiry": "2026-09-08",
+        "issuing_bank": "bank-southerntide"
+      },
+      "filename": "harbourline-sblc-issuance.pdf",
+      "kind": "sblc-issuance-advice",
+      "message": "sblc-issued",
+      "path": "attachments/018-harbourline-sblc-issuance.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bryan.newton@southerntidebank.example",
+        "wasDerivedFrom": "<be6b594df5f6b1ed0085@southerntidebank.example>"
+      },
+      "sha256": "e00d4382014b476d729e2697f1e74bda18ded2da69866d40521b6ea2eea1e6e8",
+      "size": 3103
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/BilateralContract",
+      "facts": {
+        "advising_bank": "bank-bluegum",
+        "amount": 10000000,
+        "applicant": "cp-harbourline",
+        "beneficiary": "newco-syd",
+        "confirmed": true,
+        "confirming_bank": "bank-concord",
+        "currency": "USD",
+        "expiry": "2026-09-08",
+        "issuing_bank": "bank-southerntide"
+      },
+      "filename": "harbourline-sblc-confirmation.pdf",
+      "kind": "sblc-confirmation",
+      "message": "sblc-confirmed",
+      "path": "attachments/019-harbourline-sblc-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "janice.lee@concordreserve.example",
+        "wasDerivedFrom": "<5c503e0f9a073a96af47@concordreserve.example>"
+      },
+      "sha256": "89b30919db4e11dafbbeb7e5f4f1f677cb7754d2c40143a0a2e0d63995b82562",
+      "size": 3281
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Daniel Barnett",
+        "changes": {
+          "late_interest": {
+            "rate": 2
+          },
+          "payment": {
+            "days": 45
+          }
+        },
+        "round": 1,
+        "tracked_changes": 4,
+        "values_after": {
+          "credit_support": {
+            "support": "the layered credit support described in the credit approval"
+          },
+          "governing_law": {
+            "law": "New South Wales",
+            "venue": "Sydney"
+          },
+          "late_interest": {
+            "rate": 2
+          },
+          "no_deductions": {
+            "exception": "taxes the law requires the payer to withhold"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 45
+          },
+          "quantity_basis": {
+            "basis": "discharge"
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "mpta-round-1.docx",
+      "kind": "agreement-redline",
+      "message": "mpta-r1",
+      "path": "attachments/021-mpta-round-1.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "daniel.barnett@harbourline.example",
+        "wasDerivedFrom": "<45bbe3ce4b19784e0ed5@harbourline.example>"
+      },
+      "sha256": "ae5b76ad425e3d725b84adf1ea609bdb52590e477d64e7162b49c697d65df0e2",
+      "size": 5688
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Denise Cook",
+        "changes": {
+          "late_interest": {
+            "rate": 3
+          }
+        },
+        "round": 2,
+        "tracked_changes": 2,
+        "values_after": {
+          "credit_support": {
+            "support": "the layered credit support described in the credit approval"
+          },
+          "governing_law": {
+            "law": "New South Wales",
+            "venue": "Sydney"
+          },
+          "late_interest": {
+            "rate": 3
+          },
+          "no_deductions": {
+            "exception": "taxes the law requires the payer to withhold"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 45
+          },
+          "quantity_basis": {
+            "basis": "discharge"
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "mpta-round-2.docx",
+      "kind": "agreement-redline",
+      "message": "mpta-r2",
+      "path": "attachments/022-mpta-round-2.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "denise.cook@newco-sydney.example",
+        "wasDerivedFrom": "<c60865e13fa1fa9933c4@newco-sydney.example>"
+      },
+      "sha256": "6cbb6cef9bf4f21a30ebf831c49c81d3c5348768035360032473120be8a69e45",
+      "size": 5373
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Daniel Barnett",
+        "changes": {
+          "quantity_tolerance": {
+            "tolerance": 8
+          }
+        },
+        "round": 3,
+        "tracked_changes": 2,
+        "values_after": {
+          "credit_support": {
+            "support": "the layered credit support described in the credit approval"
+          },
+          "governing_law": {
+            "law": "New South Wales",
+            "venue": "Sydney"
+          },
+          "late_interest": {
+            "rate": 3
+          },
+          "no_deductions": {
+            "exception": "taxes the law requires the payer to withhold"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 45
+          },
+          "quantity_basis": {
+            "basis": "discharge"
+          },
+          "quantity_tolerance": {
+            "tolerance": 8
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "mpta-round-3.docx",
+      "kind": "agreement-redline",
+      "message": "mpta-r3",
+      "path": "attachments/023-mpta-round-3.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "daniel.barnett@harbourline.example",
+        "wasDerivedFrom": "<35e974c6cb6f0c6acf94@harbourline.example>"
+      },
+      "sha256": "1804389e3ea680443207a899b419e534452ccc5dc439f0a2e90ed8424dfb5d75",
+      "size": 5383
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "facts": {
+        "accounts": [
+          {
+            "aba": null,
+            "bank": "bank-bluegum",
+            "bic": "ZDECAUQR",
+            "bsb": "868-150",
+            "currency": "USD",
+            "iban": null,
+            "id": "acct-newco-syd-usd-operating",
+            "number": "2926537255"
+          }
+        ],
+        "entity": "NewCo Trading Sydney Pty Ltd"
+      },
+      "filename": "newco-trading-sydney-pty-ltd-settlement-instructions.pdf",
+      "kind": "ssi-letter",
+      "message": "ssi-send",
+      "path": "attachments/025-newco-trading-sydney-pty-ltd-settlement-instructions.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "alicia.parsons@newco-sydney.example",
+        "wasDerivedFrom": "<8e8c827553307cdb8454@newco-sydney.example>"
+      },
+      "sha256": "919e6408aa89dc7db45617418d17a33797bfb4825fc71f56b23aa763273dead3",
+      "size": 3366
+    }
+  ],
+  "beneficial_owners": {
+    "own-harbourline-1": 70.0,
+    "own-harbourline-2": 30.0
+  },
+  "chats": [],
+  "counts": {
+    "attachments": 20,
+    "chats": 0,
+    "emails": 26
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "The good-standing certificate is 420 days old; it is valid for 12 months and nobody asked for a new one.",
+      "id": "s3-sydney-harbourline-ulp:stale-good-standing",
+      "type": "stale-document",
+      "values": {
+        "age_days": 420,
+        "issued": "2024-12-05",
+        "validity_months": 12
+      },
+      "where": [
+        "kyc-docs-1",
+        "harbourline-petroleum-pty-ltd-good-standing-2024-12-05.pdf"
+      ]
+    },
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "The SBLC expires before the trading period, the payment term and the claim window end; the credit memo says it covers the full term.",
+      "id": "s3-sydney-harbourline-ulp:sblc-expires-too-early",
+      "type": "security-term",
+      "values": {
+        "required_expiry": "2027-05-09",
+        "sblc_expiry": "2026-09-08",
+        "short_by_days": 243
+      },
+      "where": [
+        "credit-memo",
+        "sblc-issued",
+        "sblc-confirmed"
+      ]
+    },
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "Harbourline's email says its only change is late interest, but its redline also moves payment from 30 to 45 days. NewCo's reply repeats that payment stays at 30 days.",
+      "id": "s3-sydney-harbourline-ulp:email-disagrees-with-redline",
+      "type": "email-vs-redline",
+      "values": {
+        "email_payment_days": 30,
+        "redline_payment_days": 45
+      },
+      "where": [
+        "mpta-r1",
+        "mpta-r2",
+        "mpta-round-1.docx"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/001-intro.eml",
+        "md": "messages/001-intro.md"
+      },
+      "from": {
+        "address": "bonnie.briggs@newco-sydney.example",
+        "name": "Bonnie Briggs",
+        "org": "newco-syd",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "intro",
+      "message_id": "<fda0e7b2e7f158cb943e@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bonnie.briggs@newco-sydney.example"
+      },
+      "seq": 1,
+      "subject": "NewCo Sydney and Harbourline: ULP supply",
+      "tags": [
+        "intro"
+      ],
+      "thread": "intro",
+      "timestamp": "2026-01-27T09:23:00+11:00",
+      "to": [
+        {
+          "address": "christine.thompson@harbourline.example",
+          "name": "Christine Thompson",
+          "org": "cp-harbourline",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-intro-reply.eml",
+        "md": "messages/002-intro-reply.md"
+      },
+      "from": {
+        "address": "christine.thompson@harbourline.example",
+        "name": "Christine Thompson",
+        "org": "cp-harbourline",
+        "role": "marketer"
+      },
+      "in_reply_to": "intro",
+      "key": "intro-reply",
+      "message_id": "<a4fd10b02e2b49b233eb@harbourline.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "christine.thompson@harbourline.example"
+      },
+      "seq": 2,
+      "subject": "Re: NewCo Sydney and Harbourline: ULP supply",
+      "tags": [
+        "intro"
+      ],
+      "thread": "intro",
+      "timestamp": "2026-01-28T09:01:00+11:00",
+      "to": [
+        {
+          "address": "bonnie.briggs@newco-sydney.example",
+          "name": "Bonnie Briggs",
+          "org": "newco-syd",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/003-kyc-request.eml",
+        "md": "messages/003-kyc-request.md"
+      },
+      "from": {
+        "address": "kevin.hall@newco-sydney.example",
+        "name": "Kevin Hall",
+        "org": "newco-syd",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "kyc-request",
+      "message_id": "<452cf98f52d883399b6a@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kevin.hall@newco-sydney.example"
+      },
+      "seq": 3,
+      "subject": "KYC documents for Harbourline Petroleum Pty Ltd",
+      "tags": [
+        "kyc"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-29T09:25:00+11:00",
+      "to": [
+        {
+          "address": "jeffrey.daniels@harbourline.example",
+          "name": "Jeffrey Daniels",
+          "org": "cp-harbourline",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-petroleum-pty-ltd-certificate-of-incorporation.pdf",
+        "harbourline-petroleum-pty-ltd-good-standing-2024-12-05.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {
+        "good_standing_issued": "2024-12-05"
+      },
+      "files": {
+        "eml": "messages/004-kyc-docs-1.eml",
+        "md": "messages/004-kyc-docs-1.md"
+      },
+      "from": {
+        "address": "jeffrey.daniels@harbourline.example",
+        "name": "Jeffrey Daniels",
+        "org": "cp-harbourline",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-request",
+      "key": "kyc-docs-1",
+      "message_id": "<3f79cff11395fa6cca74@harbourline.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeffrey.daniels@harbourline.example"
+      },
+      "seq": 4,
+      "subject": "Re: KYC documents for Harbourline Petroleum Pty Ltd",
+      "tags": [
+        "kyc",
+        "stale-certificate"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-30T09:02:00+11:00",
+      "to": [
+        {
+          "address": "kevin.hall@newco-sydney.example",
+          "name": "Kevin Hall",
+          "org": "newco-syd",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-petroleum-pty-ltd-ownership-chart.pdf",
+        "harbourline-petroleum-pty-ltd-authorised-signatories.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {
+        "declared_beneficial_owners": {
+          "Margaret Beck": 70.0,
+          "Michelle Walker": 30.0
+        }
+      },
+      "files": {
+        "eml": "messages/005-kyc-docs-2.eml",
+        "md": "messages/005-kyc-docs-2.md"
+      },
+      "from": {
+        "address": "jeffrey.daniels@harbourline.example",
+        "name": "Jeffrey Daniels",
+        "org": "cp-harbourline",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-docs-1",
+      "key": "kyc-docs-2",
+      "message_id": "<76868c497e50bf31aadc@harbourline.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeffrey.daniels@harbourline.example"
+      },
+      "seq": 5,
+      "subject": "Re: KYC documents for Harbourline Petroleum Pty Ltd",
+      "tags": [
+        "kyc",
+        "ownership"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-02-02T09:17:00+11:00",
+      "to": [
+        {
+          "address": "kevin.hall@newco-sydney.example",
+          "name": "Kevin Hall",
+          "org": "newco-syd",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-petroleum-pty-ltd-financial-statements-2025.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "net_worth": 650000000
+      },
+      "files": {
+        "eml": "messages/006-financials.eml",
+        "md": "messages/006-financials.md"
+      },
+      "from": {
+        "address": "shelly.sandoval@harbourline.example",
+        "name": "Shelly Sandoval",
+        "org": "cp-harbourline",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "financials",
+      "message_id": "<6331e00db17437c2c4c2@harbourline.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "shelly.sandoval@harbourline.example"
+      },
+      "seq": 6,
+      "subject": "Financial statements for Harbourline",
+      "tags": [
+        "credit"
+      ],
+      "thread": "financials",
+      "timestamp": "2026-02-03T09:11:00+11:00",
+      "to": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/007-screen-request.eml",
+        "md": "messages/007-screen-request.md"
+      },
+      "from": {
+        "address": "kevin.hall@newco-sydney.example",
+        "name": "Kevin Hall",
+        "org": "newco-syd",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "screen-request",
+      "message_id": "<a64e52172d1780f6e534@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kevin.hall@newco-sydney.example"
+      },
+      "seq": 7,
+      "subject": "Screening request: Harbourline",
+      "tags": [
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-02-04T09:13:00+11:00",
+      "to": [
+        {
+          "address": "mohammed.byrne@veridianscreening.example",
+          "name": "Mohammed Byrne",
+          "org": "svc-veridian",
+          "role": "analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-petroleum-pty-ltd-screening-report.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "result": "clear"
+      },
+      "files": {
+        "eml": "messages/008-screen-result.eml",
+        "md": "messages/008-screen-result.md"
+      },
+      "from": {
+        "address": "mohammed.byrne@veridianscreening.example",
+        "name": "Mohammed Byrne",
+        "org": "svc-veridian",
+        "role": "analyst"
+      },
+      "in_reply_to": "screen-request",
+      "key": "screen-result",
+      "message_id": "<ff70768c029ba2e7000b@veridianscreening.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example"
+      },
+      "seq": 8,
+      "subject": "Re: Screening request: Harbourline",
+      "tags": [
+        "clear",
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-02-04T09:20:00+00:00",
+      "to": [
+        {
+          "address": "kevin.hall@newco-sydney.example",
+          "name": "Kevin Hall",
+          "org": "newco-syd",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-petroleum-pty-ltd-kyc-questionnaire.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/009-questionnaire.eml",
+        "md": "messages/009-questionnaire.md"
+      },
+      "from": {
+        "address": "jeffrey.daniels@harbourline.example",
+        "name": "Jeffrey Daniels",
+        "org": "cp-harbourline",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-docs-2",
+      "key": "questionnaire",
+      "message_id": "<8866c5f9d7ebde501a33@harbourline.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeffrey.daniels@harbourline.example"
+      },
+      "seq": 9,
+      "subject": "Re: KYC documents for Harbourline Petroleum Pty Ltd",
+      "tags": [
+        "kyc",
+        "questionnaire"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-02-05T09:28:00+11:00",
+      "to": [
+        {
+          "address": "kevin.hall@newco-sydney.example",
+          "name": "Kevin Hall",
+          "org": "newco-syd",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-credit-application.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "requested_limit": 35000000
+      },
+      "files": {
+        "eml": "messages/010-credit-request.eml",
+        "md": "messages/010-credit-request.md"
+      },
+      "from": {
+        "address": "bonnie.briggs@newco-sydney.example",
+        "name": "Bonnie Briggs",
+        "org": "newco-syd",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "credit-request",
+      "message_id": "<d1fbd54d06466be6be96@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bonnie.briggs@newco-sydney.example"
+      },
+      "seq": 10,
+      "subject": "Credit request: Harbourline",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-02-06T09:15:00+11:00",
+      "to": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/011-bureau-request.eml",
+        "md": "messages/011-bureau-request.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "bureau-request",
+      "message_id": "<2975ab41429245a26bd3@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 11,
+      "subject": "Credit report request: Harbourline",
+      "tags": [],
+      "thread": "bureau-request",
+      "timestamp": "2026-02-09T09:05:00+11:00",
+      "to": [
+        {
+          "address": "jeffrey.butler@ledgerline.example",
+          "name": "Jeffrey Butler",
+          "org": "svc-ledgerline",
+          "role": "analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "bureau_score": 636
+      },
+      "files": {
+        "eml": "messages/012-bureau-reply.eml",
+        "md": "messages/012-bureau-reply.md"
+      },
+      "from": {
+        "address": "jeffrey.butler@ledgerline.example",
+        "name": "Jeffrey Butler",
+        "org": "svc-ledgerline",
+        "role": "analyst"
+      },
+      "in_reply_to": "bureau-request",
+      "key": "bureau-reply",
+      "message_id": "<025ca3b99760422440b7@ledgerline.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeffrey.butler@ledgerline.example"
+      },
+      "seq": 12,
+      "subject": "Re: Credit report request: Harbourline",
+      "tags": [
+        "credit"
+      ],
+      "thread": "bureau-request",
+      "timestamp": "2026-02-09T09:12:00-05:00",
+      "to": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-petroleum-pty-ltd-credit-memo.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "approved": 30000000,
+        "requested": 35000000,
+        "tiers": [
+          5000000,
+          15000000,
+          10000000
+        ]
+      },
+      "files": {
+        "eml": "messages/013-credit-memo.eml",
+        "md": "messages/013-credit-memo.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-request",
+      "key": "credit-memo",
+      "message_id": "<a99d96efa90000ec4059@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 13,
+      "subject": "Re: Credit request: Harbourline",
+      "tags": [
+        "credit",
+        "layered"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-02-11T09:02:00+11:00",
+      "to": [
+        {
+          "address": "bonnie.briggs@newco-sydney.example",
+          "name": "Bonnie Briggs",
+          "org": "newco-syd",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-petroleum-pty-ltd-credit-limit-letter.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "outbound",
+      "facts": {
+        "limit": 30000000
+      },
+      "files": {
+        "eml": "messages/014-limit-letter.eml",
+        "md": "messages/014-limit-letter.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "limit-letter",
+      "message_id": "<6fdb7a8ed993dc0d47d1@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 14,
+      "subject": "Credit limit advice",
+      "tags": [
+        "credit",
+        "layered"
+      ],
+      "thread": "limit-letter",
+      "timestamp": "2026-02-12T09:27:00+11:00",
+      "to": [
+        {
+          "address": "shelly.sandoval@harbourline.example",
+          "name": "Shelly Sandoval",
+          "org": "cp-harbourline",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-parent-guarantee.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {
+        "amount": 15000000
+      },
+      "files": {
+        "eml": "messages/015-guarantee-draft.eml",
+        "md": "messages/015-guarantee-draft.md"
+      },
+      "from": {
+        "address": "denise.cook@newco-sydney.example",
+        "name": "Denise Cook",
+        "org": "newco-syd",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "guarantee-draft",
+      "message_id": "<62041d11c02f7723274c@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "denise.cook@newco-sydney.example"
+      },
+      "seq": 15,
+      "subject": "Harbourline parent guarantee: draft",
+      "tags": [
+        "guarantee",
+        "legal"
+      ],
+      "thread": "guarantee-draft",
+      "timestamp": "2026-02-13T09:23:00+11:00",
+      "to": [
+        {
+          "address": "daniel.barnett@harbourline.example",
+          "name": "Daniel Barnett",
+          "org": "cp-harbourline",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-parent-guarantee-executed.pdf",
+        "harbourline-capacity-opinion.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "executed": true
+      },
+      "files": {
+        "eml": "messages/016-guarantee-executed.eml",
+        "md": "messages/016-guarantee-executed.md"
+      },
+      "from": {
+        "address": "daniel.barnett@harbourline.example",
+        "name": "Daniel Barnett",
+        "org": "cp-harbourline",
+        "role": "lawyer"
+      },
+      "in_reply_to": "guarantee-draft",
+      "key": "guarantee-executed",
+      "message_id": "<5f98907badab2f1be276@harbourline.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "daniel.barnett@harbourline.example"
+      },
+      "seq": 16,
+      "subject": "Re: Harbourline parent guarantee: draft",
+      "tags": [
+        "guarantee",
+        "legal"
+      ],
+      "thread": "guarantee-draft",
+      "timestamp": "2026-02-17T09:11:00+11:00",
+      "to": [
+        {
+          "address": "denise.cook@newco-sydney.example",
+          "name": "Denise Cook",
+          "org": "newco-syd",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-sblc-wording.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "outbound",
+      "facts": {
+        "required_expiry": "2027-05-09"
+      },
+      "files": {
+        "eml": "messages/017-sblc-request.eml",
+        "md": "messages/017-sblc-request.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "sblc-request",
+      "message_id": "<3051c1e297ff5dc241f9@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 17,
+      "subject": "SBLC for NewCo Sydney",
+      "tags": [
+        "sblc"
+      ],
+      "thread": "sblc-request",
+      "timestamp": "2026-02-18T09:06:00+11:00",
+      "to": [
+        {
+          "address": "amanda.maddox@bluegumbank.example",
+          "name": "Amanda Maddox",
+          "org": "bank-bluegum",
+          "role": "trade_finance"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-sblc-issuance.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "inbound",
+      "facts": {
+        "expiry": "2026-09-08"
+      },
+      "files": {
+        "eml": "messages/018-sblc-issued.eml",
+        "md": "messages/018-sblc-issued.md"
+      },
+      "from": {
+        "address": "bryan.newton@southerntidebank.example",
+        "name": "Bryan Newton",
+        "org": "bank-southerntide",
+        "role": "trade_finance"
+      },
+      "in_reply_to": null,
+      "key": "sblc-issued",
+      "message_id": "<be6b594df5f6b1ed0085@southerntidebank.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bryan.newton@southerntidebank.example"
+      },
+      "seq": 18,
+      "subject": "Standby letter of credit issued",
+      "tags": [
+        "expiry-too-early",
+        "sblc"
+      ],
+      "thread": "sblc-issued",
+      "timestamp": "2026-02-23T09:11:00+11:00",
+      "to": [
+        {
+          "address": "amanda.maddox@bluegumbank.example",
+          "name": "Amanda Maddox",
+          "org": "bank-bluegum",
+          "role": "trade_finance"
+        },
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "harbourline-sblc-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/BilateralContract",
+      "direction": "inbound",
+      "facts": {
+        "confirmed": true,
+        "expiry": "2026-09-08"
+      },
+      "files": {
+        "eml": "messages/019-sblc-confirmed.eml",
+        "md": "messages/019-sblc-confirmed.md"
+      },
+      "from": {
+        "address": "janice.lee@concordreserve.example",
+        "name": "Janice Lee",
+        "org": "bank-concord",
+        "role": "trade_finance"
+      },
+      "in_reply_to": null,
+      "key": "sblc-confirmed",
+      "message_id": "<5c503e0f9a073a96af47@concordreserve.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "janice.lee@concordreserve.example"
+      },
+      "seq": 19,
+      "subject": "Confirmation of standby letter of credit",
+      "tags": [
+        "confirmation",
+        "sblc"
+      ],
+      "thread": "sblc-confirmed",
+      "timestamp": "2026-02-24T09:26:00+00:00",
+      "to": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {
+        "late_interest": 4,
+        "payment_days": 30
+      },
+      "files": {
+        "eml": "messages/020-mpta-draft.eml",
+        "md": "messages/020-mpta-draft.md"
+      },
+      "from": {
+        "address": "denise.cook@newco-sydney.example",
+        "name": "Denise Cook",
+        "org": "newco-syd",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "mpta-draft",
+      "message_id": "<c266dab71d702ebf4c61@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "denise.cook@newco-sydney.example"
+      },
+      "seq": 20,
+      "subject": "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd: draft",
+      "tags": [
+        "legal",
+        "mpta"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-25T09:01:00+11:00",
+      "to": [
+        {
+          "address": "daniel.barnett@harbourline.example",
+          "name": "Daniel Barnett",
+          "org": "cp-harbourline",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-round-1.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "late_interest": 2,
+        "payment_days_stated": null
+      },
+      "files": {
+        "eml": "messages/021-mpta-r1.eml",
+        "md": "messages/021-mpta-r1.md"
+      },
+      "from": {
+        "address": "daniel.barnett@harbourline.example",
+        "name": "Daniel Barnett",
+        "org": "cp-harbourline",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-draft",
+      "key": "mpta-r1",
+      "message_id": "<45bbe3ce4b19784e0ed5@harbourline.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "daniel.barnett@harbourline.example"
+      },
+      "seq": 21,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd: draft",
+      "tags": [
+        "email-vs-redline",
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-27T09:08:00+11:00",
+      "to": [
+        {
+          "address": "denise.cook@newco-sydney.example",
+          "name": "Denise Cook",
+          "org": "newco-syd",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-round-2.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {
+        "late_interest": 3,
+        "payment_days_stated": 30
+      },
+      "files": {
+        "eml": "messages/022-mpta-r2.eml",
+        "md": "messages/022-mpta-r2.md"
+      },
+      "from": {
+        "address": "denise.cook@newco-sydney.example",
+        "name": "Denise Cook",
+        "org": "newco-syd",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-r1",
+      "key": "mpta-r2",
+      "message_id": "<c60865e13fa1fa9933c4@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "denise.cook@newco-sydney.example"
+      },
+      "seq": 22,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd: draft",
+      "tags": [
+        "email-vs-redline",
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-03-03T09:26:00+11:00",
+      "to": [
+        {
+          "address": "daniel.barnett@harbourline.example",
+          "name": "Daniel Barnett",
+          "org": "cp-harbourline",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-round-3.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "tolerance": 8
+      },
+      "files": {
+        "eml": "messages/023-mpta-r3.eml",
+        "md": "messages/023-mpta-r3.md"
+      },
+      "from": {
+        "address": "daniel.barnett@harbourline.example",
+        "name": "Daniel Barnett",
+        "org": "cp-harbourline",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-r2",
+      "key": "mpta-r3",
+      "message_id": "<35e974c6cb6f0c6acf94@harbourline.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "daniel.barnett@harbourline.example"
+      },
+      "seq": 23,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd: draft",
+      "tags": [
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-03-05T09:18:00+11:00",
+      "to": [
+        {
+          "address": "denise.cook@newco-sydney.example",
+          "name": "Denise Cook",
+          "org": "newco-syd",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {
+        "late_interest": 3,
+        "tolerance": 8
+      },
+      "files": {
+        "eml": "messages/024-mpta-agreed.eml",
+        "md": "messages/024-mpta-agreed.md"
+      },
+      "from": {
+        "address": "denise.cook@newco-sydney.example",
+        "name": "Denise Cook",
+        "org": "newco-syd",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-r3",
+      "key": "mpta-agreed",
+      "message_id": "<6517e9198511451f79ed@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "denise.cook@newco-sydney.example"
+      },
+      "seq": 24,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd: draft",
+      "tags": [
+        "agreed",
+        "legal",
+        "mpta"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-03-06T09:25:00+11:00",
+      "to": [
+        {
+          "address": "daniel.barnett@harbourline.example",
+          "name": "Daniel Barnett",
+          "org": "cp-harbourline",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "newco-trading-sydney-pty-ltd-settlement-instructions.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "direction": "outbound",
+      "facts": {
+        "account": "acct-newco-syd-usd-operating"
+      },
+      "files": {
+        "eml": "messages/025-ssi-send.eml",
+        "md": "messages/025-ssi-send.md"
+      },
+      "from": {
+        "address": "alicia.parsons@newco-sydney.example",
+        "name": "Alicia Parsons",
+        "org": "newco-syd",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "ssi-send",
+      "message_id": "<8e8c827553307cdb8454@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "alicia.parsons@newco-sydney.example"
+      },
+      "seq": 25,
+      "subject": "Standard settlement instructions",
+      "tags": [
+        "ssi",
+        "static-data"
+      ],
+      "thread": "ssi-send",
+      "timestamp": "2026-03-09T09:14:00+11:00",
+      "to": [
+        {
+          "address": "anne.williams@harbourline.example",
+          "name": "Anne Williams",
+          "org": "cp-harbourline",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "effective": "2026-03-09"
+      },
+      "files": {
+        "eml": "messages/026-go-live.eml",
+        "md": "messages/026-go-live.md"
+      },
+      "from": {
+        "address": "denise.cook@newco-sydney.example",
+        "name": "Denise Cook",
+        "org": "newco-syd",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "go-live",
+      "message_id": "<258528f37b8feceab597@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "denise.cook@newco-sydney.example"
+      },
+      "seq": 26,
+      "subject": "Harbourline live for trading",
+      "tags": [
+        "go-live"
+      ],
+      "thread": "go-live",
+      "timestamp": "2026-03-10T09:00:00+11:00",
+      "to": [
+        {
+          "address": "rhonda.jimenez@newco-sydney.example",
+          "name": "Rhonda Jimenez",
+          "org": "newco-syd",
+          "role": "ops"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "agreement_effective": "2026-03-09",
+    "limit": 30000000,
+    "result": "approved"
+  },
+  "ownership_edges": [
+    {
+      "child": "hold-harbourline-grp",
+      "class_uri": null,
+      "parent": "own-harbourline-1",
+      "percent": 70.0,
+      "relationship": null
+    },
+    {
+      "child": "hold-harbourline-grp",
+      "class_uri": null,
+      "parent": "own-harbourline-2",
+      "percent": 30.0,
+      "relationship": null
+    },
+    {
+      "child": "cp-harbourline",
+      "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+      "parent": "hold-harbourline-grp",
+      "percent": 100.0,
+      "relationship": "UltimateConsolidation"
+    }
+  ],
+  "phase": "onboarding",
+  "positions": [
+    {
+      "clause": "payment",
+      "message": "mpta-draft",
+      "proposer": "newco-syd",
+      "status": "superseded",
+      "value": 30,
+      "version": 0
+    },
+    {
+      "clause": "payment",
+      "message": "mpta-r1",
+      "proposer": "cp-harbourline",
+      "status": "agreed",
+      "value": 45,
+      "version": 1
+    },
+    {
+      "clause": "quantity_tolerance",
+      "message": "mpta-draft",
+      "proposer": "newco-syd",
+      "status": "superseded",
+      "value": 5,
+      "version": 0
+    },
+    {
+      "clause": "quantity_tolerance",
+      "message": "mpta-r3",
+      "proposer": "cp-harbourline",
+      "status": "agreed",
+      "value": 8,
+      "version": 3
+    },
+    {
+      "clause": "quantity_basis",
+      "message": "mpta-draft",
+      "proposer": "newco-syd",
+      "status": "agreed",
+      "value": "discharge",
+      "version": 0
+    },
+    {
+      "clause": "no_deductions",
+      "message": "mpta-draft",
+      "proposer": "newco-syd",
+      "status": "agreed",
+      "value": "taxes the law requires the payer to withhold",
+      "version": 0
+    },
+    {
+      "clause": "late_interest",
+      "message": "mpta-draft",
+      "proposer": "newco-syd",
+      "status": "superseded",
+      "value": 4,
+      "version": 0
+    },
+    {
+      "clause": "late_interest",
+      "message": "mpta-r1",
+      "proposer": "cp-harbourline",
+      "status": "superseded",
+      "value": 2,
+      "version": 1
+    },
+    {
+      "clause": "late_interest",
+      "message": "mpta-r2",
+      "proposer": "newco-syd",
+      "status": "agreed",
+      "value": 3,
+      "version": 2
+    },
+    {
+      "clause": "credit_support",
+      "message": "mpta-draft",
+      "proposer": "newco-syd",
+      "status": "agreed",
+      "value": "the layered credit support described in the credit approval",
+      "version": 0
+    },
+    {
+      "clause": "termination",
+      "message": "mpta-draft",
+      "proposer": "newco-syd",
+      "status": "agreed",
+      "value": 30,
+      "version": 0
+    },
+    {
+      "clause": "governing_law",
+      "message": "mpta-draft",
+      "proposer": "newco-syd",
+      "status": "agreed",
+      "value": "New South Wales",
+      "version": 0
+    }
+  ],
+  "questions": [
+    {
+      "expected": 30000000,
+      "id": "s3-sydney-harbourline-ulp-q1",
+      "question": "What is the combined credit limit approved for Harbourline?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": 45,
+      "id": "s3-sydney-harbourline-ulp-q2",
+      "question": "What payment days does the Harbourline redline set, against what the emails state?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": "2026-09-08",
+      "id": "s3-sydney-harbourline-ulp-q3",
+      "question": "When does the Harbourline standby letter of credit expire?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    }
+  ],
+  "review_events": [
+    {
+      "after_message": "sblc-confirmed",
+      "event": "flag-security-expiry",
+      "expiry": "2026-09-08",
+      "required_expiry": "2027-05-09"
+    }
+  ],
+  "scenario": "s3-sydney-harbourline-ulp",
+  "title": "Sydney onboards Harbourline: layered credit, NSW-law MPTA, SBLC that expires too early"
+}

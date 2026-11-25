@@ -1,0 +1,788 @@
+[
+  {
+    "id": "fsi-001",
+    "name": "counterparties",
+    "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading.counterparties",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-fsi-001",
+      "type": "databaseSchema",
+      "name": "trading",
+      "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading"
+    },
+    "columns": [
+      {
+        "name": "org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 40,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "name",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 2,
+        "dataLength": 120,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "legal_form",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 3,
+        "dataLength": 40
+      },
+      {
+        "name": "kind",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 4,
+        "dataLength": 20,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "country",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 5,
+        "dataLength": 4
+      },
+      {
+        "name": "lei",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 6,
+        "dataLength": 20
+      },
+      {
+        "name": "tax_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 7,
+        "dataLength": 40
+      },
+      {
+        "name": "jurisdiction",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 8,
+        "dataLength": 60
+      },
+      {
+        "name": "incorporation_date",
+        "dataType": "DATE",
+        "ordinalPosition": 9
+      },
+      {
+        "name": "class_uri",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 10,
+        "dataLength": 200
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "org_id"
+        ]
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": "fsi-002",
+    "name": "accounts",
+    "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading.accounts",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-fsi-001",
+      "type": "databaseSchema",
+      "name": "trading",
+      "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading"
+    },
+    "columns": [
+      {
+        "name": "account_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 60,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "owner_org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 2,
+        "dataLength": 40,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "bank_org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 3,
+        "dataLength": 40
+      },
+      {
+        "name": "currency",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 4,
+        "dataLength": 3,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "purpose",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 5,
+        "dataLength": 30
+      },
+      {
+        "name": "account_name",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 6,
+        "dataLength": 120
+      },
+      {
+        "name": "account_number",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 7,
+        "dataLength": 40
+      },
+      {
+        "name": "bic",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 8,
+        "dataLength": 11
+      },
+      {
+        "name": "iban",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 9,
+        "dataLength": 34
+      },
+      {
+        "name": "aba",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 10,
+        "dataLength": 9
+      },
+      {
+        "name": "bsb",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 11,
+        "dataLength": 7
+      },
+      {
+        "name": "class_uri",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 12,
+        "dataLength": 200
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "account_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "owner_org_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.counterparties.org_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "bank_org_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.counterparties.org_id"
+        ]
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": "fsi-003",
+    "name": "limits",
+    "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading.limits",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-fsi-001",
+      "type": "databaseSchema",
+      "name": "trading",
+      "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading"
+    },
+    "columns": [
+      {
+        "name": "scenario_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 60,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "entity_org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 2,
+        "dataLength": 40,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "counterparty_org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 3,
+        "dataLength": 40,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "agreement",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 4,
+        "dataLength": 200
+      },
+      {
+        "name": "requested",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 5,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "unsecured",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 6,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "guaranteed",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 7,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "sblc",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 8,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "credit_limit",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 9,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "exposure",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 10,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "headroom",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 11,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "payment_days",
+        "dataType": "INT",
+        "ordinalPosition": 12
+      },
+      {
+        "name": "governing_law",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 13,
+        "dataLength": 80
+      },
+      {
+        "name": "effective_date",
+        "dataType": "DATE",
+        "ordinalPosition": 14
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "scenario_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "entity_org_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.counterparties.org_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "counterparty_org_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.counterparties.org_id"
+        ]
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": "fsi-004",
+    "name": "deals",
+    "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading.deals",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-fsi-001",
+      "type": "databaseSchema",
+      "name": "trading",
+      "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading"
+    },
+    "columns": [
+      {
+        "name": "trade_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 30,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "scenario_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 2,
+        "dataLength": 60,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "entity_org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 3,
+        "dataLength": 40,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "counterparty_org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 4,
+        "dataLength": 40,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "kind",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 5,
+        "dataLength": 20
+      },
+      {
+        "name": "side",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 6,
+        "dataLength": 20
+      },
+      {
+        "name": "product",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 7,
+        "dataLength": 60
+      },
+      {
+        "name": "quantity",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 8,
+        "precision": 20,
+        "scale": 3
+      },
+      {
+        "name": "unit",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 9,
+        "dataLength": 10
+      },
+      {
+        "name": "currency",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 10,
+        "dataLength": 3
+      },
+      {
+        "name": "notional",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 11,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "status",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 12,
+        "dataLength": 20
+      },
+      {
+        "name": "credit_status",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 13,
+        "dataLength": 30
+      },
+      {
+        "name": "terms_json",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 14,
+        "dataLength": 2000
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "trade_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "entity_org_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.counterparties.org_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "counterparty_org_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.counterparties.org_id"
+        ]
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": "fsi-005",
+    "name": "invoices",
+    "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading.invoices",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-fsi-001",
+      "type": "databaseSchema",
+      "name": "trading",
+      "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading"
+    },
+    "columns": [
+      {
+        "name": "document_number",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 60,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "trade_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 2,
+        "dataLength": 30,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "kind",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 3,
+        "dataLength": 30
+      },
+      {
+        "name": "issuer_org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 4,
+        "dataLength": 40
+      },
+      {
+        "name": "payer_org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 5,
+        "dataLength": 40
+      },
+      {
+        "name": "payee_org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 6,
+        "dataLength": 40
+      },
+      {
+        "name": "currency",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 7,
+        "dataLength": 3
+      },
+      {
+        "name": "payable",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 8,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "due_date",
+        "dataType": "DATE",
+        "ordinalPosition": 9
+      },
+      {
+        "name": "payer_account_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 10,
+        "dataLength": 60
+      },
+      {
+        "name": "payee_account_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 11,
+        "dataLength": 60
+      },
+      {
+        "name": "filename",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 12,
+        "dataLength": 120
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "document_number"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "trade_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.deals.trade_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "issuer_org_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.counterparties.org_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "payer_org_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.counterparties.org_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "payee_org_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.counterparties.org_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "payer_account_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.accounts.account_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "payee_account_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.accounts.account_id"
+        ]
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": "fsi-006",
+    "name": "payments",
+    "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading.payments",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-fsi-001",
+      "type": "databaseSchema",
+      "name": "trading",
+      "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading"
+    },
+    "columns": [
+      {
+        "name": "payment_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 70,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "trade_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 2,
+        "dataLength": 30,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "scenario_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 3,
+        "dataLength": 60,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "amount",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 4,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "currency",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 5,
+        "dataLength": 3
+      },
+      {
+        "name": "value_date",
+        "dataType": "DATE",
+        "ordinalPosition": 6
+      },
+      {
+        "name": "due_date",
+        "dataType": "DATE",
+        "ordinalPosition": 7
+      },
+      {
+        "name": "days_late",
+        "dataType": "INT",
+        "ordinalPosition": 8
+      },
+      {
+        "name": "interest",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 9,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "collateral",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 10,
+        "precision": 20,
+        "scale": 2
+      },
+      {
+        "name": "status",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 11,
+        "dataLength": 30
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "payment_id"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "trade_id"
+        ],
+        "referredColumns": [
+          "fsi_postgres.fsi_commodity.trading.deals.trade_id"
+        ]
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": "fsi-007",
+    "name": "ownership_edges",
+    "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading.ownership_edges",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-fsi-001",
+      "type": "databaseSchema",
+      "name": "trading",
+      "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading"
+    },
+    "columns": [
+      {
+        "name": "edge_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 20,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "scenario_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 2,
+        "dataLength": 60
+      },
+      {
+        "name": "parent_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 3,
+        "dataLength": 40,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "child_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 4,
+        "dataLength": 40,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "percent",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 5,
+        "precision": 7,
+        "scale": 3
+      },
+      {
+        "name": "relationship",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 6,
+        "dataLength": 40
+      },
+      {
+        "name": "class_uri",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 7,
+        "dataLength": 200
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "edge_id"
+        ]
+      }
+    ],
+    "tags": []
+  }
+]

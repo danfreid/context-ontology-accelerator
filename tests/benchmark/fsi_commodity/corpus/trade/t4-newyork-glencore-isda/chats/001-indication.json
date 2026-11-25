@@ -1,0 +1,72 @@
+{
+  "channel": "chat",
+  "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument",
+  "deal": "NC-NYC-26-0001",
+  "file": "chats/001-indication.json",
+  "key": "indication",
+  "lines": [
+    {
+      "intent": "enquiry",
+      "speaker": {
+        "address": "jane.hill@newco-newyork.example",
+        "name": "Jane Hill",
+        "org": "newco-nyc",
+        "role": "trader"
+      },
+      "terms": {
+        "instrument": "WTI fixed-for-floating swap",
+        "months": 12,
+        "notional_bbl_per_month": 50000
+      },
+      "text": "I want to pay fixed on a 12-month WTI swap, 50,000 bbl a month against the Platts Cushing monthly average, starting 2026-05-01. Where do you receive?",
+      "timestamp": "2026-03-25T10:55:00-04:00"
+    },
+    {
+      "intent": "offer",
+      "speaker": {
+        "address": "gregory.everett@glencore.example",
+        "name": "Gregory Everett",
+        "org": "cp-glencore",
+        "role": "trader"
+      },
+      "terms": {
+        "fixed_price_usd_per_bbl": 68.9
+      },
+      "text": "I can receive 68.90 fixed.",
+      "timestamp": "2026-03-25T10:57:07-04:00"
+    },
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "jane.hill@newco-newyork.example",
+        "name": "Jane Hill",
+        "org": "newco-nyc",
+        "role": "trader"
+      },
+      "terms": {
+        "fixed_price_usd_per_bbl": 68.2
+      },
+      "text": "I can pay 68.20. Think about it.",
+      "timestamp": "2026-03-25T11:01:04-04:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "jane.hill@newco-newyork.example",
+      "name": "Jane Hill",
+      "org": "newco-nyc",
+      "role": "trader"
+    },
+    {
+      "address": "gregory.everett@glencore.example",
+      "name": "Gregory Everett",
+      "org": "cp-glencore",
+      "role": "trader"
+    }
+  ],
+  "phase": "trade",
+  "seq": 1,
+  "tags": [
+    "indication"
+  ]
+}

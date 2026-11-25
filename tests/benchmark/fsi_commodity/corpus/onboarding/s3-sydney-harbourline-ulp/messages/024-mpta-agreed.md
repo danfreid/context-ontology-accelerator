@@ -1,0 +1,18 @@
+# Re: Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd: draft
+
+- **Message-ID:** <6517e9198511451f79ed@newco-sydney.example>
+- **Date:** Fri, 06 Mar 2026 09:25:00 +1100
+- **From:** Denise Cook <denise.cook@newco-sydney.example>
+- **To:** Daniel Barnett <daniel.barnett@harbourline.example>
+- **In-Reply-To:** <35e974c6cb6f0c6acf94@harbourline.example>
+- **References:** <c266dab71d702ebf4c61@newco-sydney.example> <45bbe3ce4b19784e0ed5@harbourline.example> <c60865e13fa1fa9933c4@newco-sydney.example> <35e974c6cb6f0c6acf94@harbourline.example>
+
+## Body
+
+Hi Daniel,
+
+Agreed: 8% tolerance and 3% late interest. We will sign.
+
+Regards,
+Denise Cook
+NewCo Trading Sydney Pty Ltd

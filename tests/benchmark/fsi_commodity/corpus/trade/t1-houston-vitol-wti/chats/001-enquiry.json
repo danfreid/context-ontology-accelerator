@@ -1,0 +1,72 @@
+{
+  "channel": "chat",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-HOU-26-0001",
+  "file": "chats/001-enquiry.json",
+  "key": "enquiry",
+  "lines": [
+    {
+      "intent": "enquiry",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {
+        "incoterm": "FOB",
+        "location": "Corpus Christi",
+        "product": "WTI Midland",
+        "quantity": 250000,
+        "unit": "bbl"
+      },
+      "text": "Morning. I want 250k bbl of WTI Midland FOB Corpus Christi, loading in April 2026. Where is your premium?",
+      "timestamp": "2026-03-09T09:39:00-05:00"
+    },
+    {
+      "intent": "offer",
+      "speaker": {
+        "address": "crystal.king@vitol.example",
+        "name": "Crystal King",
+        "org": "cp-vitol",
+        "role": "trader"
+      },
+      "terms": {
+        "premium_usd_per_bbl": 1.1
+      },
+      "text": "Premium is 1.10 over the five-day Platts average.",
+      "timestamp": "2026-03-09T09:41:07-05:00"
+    },
+    {
+      "intent": "hold",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {},
+      "text": "Too high for me. Let me think about it and come back to you.",
+      "timestamp": "2026-03-09T09:44:07-05:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "jenna.campbell@newco-houston.example",
+      "name": "Jenna Campbell",
+      "org": "newco-hou",
+      "role": "trader"
+    },
+    {
+      "address": "crystal.king@vitol.example",
+      "name": "Crystal King",
+      "org": "cp-vitol",
+      "role": "trader"
+    }
+  ],
+  "phase": "trade",
+  "seq": 1,
+  "tags": [
+    "indication"
+  ]
+}

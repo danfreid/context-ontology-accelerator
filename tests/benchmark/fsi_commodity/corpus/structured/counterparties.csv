@@ -1,0 +1,36 @@
+org_id,name,legal_form,kind,country,lei,tax_id,jurisdiction,incorporation_date,class_uri
+bank-bluegum,Bluegum Commercial Bank Ltd,,bank,AU,SYNT009TGDS3GZZ94334,ABN 30232298790,AU,2016-11-24,https://www.gleif.org/ontology/L1/LegalEntity
+bank-concord,Concord Reserve Bank plc,,bank,GB,SYNT00Q4GEU742JDVF76,,GB,2007-10-17,https://www.gleif.org/ontology/L1/LegalEntity
+bank-gulfcrescent,Gulf Crescent Bank PJSC,,bank,AE,SYNT00P90RRLYVCM5U82,,AE,2014-08-13,https://www.gleif.org/ontology/L1/LegalEntity
+bank-hudson,Hudson Meridian Trust Company,,bank,US,SYNT004160SKUE392V04,EIN 63-7904070,US,2011-08-20,https://www.gleif.org/ontology/L1/LegalEntity
+bank-lonestar,Lonestar National Bank,,bank,US,SYNT00NQWM7DSTRNDD39,EIN 93-3159987,US,2013-08-21,https://www.gleif.org/ontology/L1/LegalEntity
+bank-northgate,Northgate Bank plc,,bank,GB,SYNT00KNFEAZ0R15K933,,GB,2014-07-02,https://www.gleif.org/ontology/L1/LegalEntity
+bank-southerntide,Southern Tide Bank Ltd,,bank,AU,SYNT00Z0KACPF5ZNCB03,ABN 92333601492,AU,2005-09-01,https://www.gleif.org/ontology/L1/LegalEntity
+cp-bp,BP Oil International Limited,Limited,counterparty,GB,SYNT00PSVOM776DTP631,,England and Wales,2005-03-23,https://www.gleif.org/ontology/L1/LegalEntity
+cp-bp-au,BP Australia Pty Ltd,Pty Ltd,counterparty,AU,SYNT005YAMZOIWWEKH51,ABN 92248125330,Victoria,2009-06-29,https://www.gleif.org/ontology/L1/LegalEntity
+cp-glencore,Glencore Ltd.,Ltd.,counterparty,US,SYNT00US171IITQ89C20,EIN 79-0004463,Delaware,2014-08-06,https://www.gleif.org/ontology/L1/LegalEntity
+cp-harbourline,Harbourline Petroleum Pty Ltd,Pty Ltd,counterparty,AU,SYNT003DLR3DDWGQBM27,ABN 29269413893,New South Wales,2004-12-15,https://www.gleif.org/ontology/L1/LegalEntity
+cp-kestrel,Kestrel Bunkering Limited,Limited,counterparty,GB,SYNT00863W272VJKGA02,,England and Wales,2009-05-08,https://www.gleif.org/ontology/L1/LegalEntity
+cp-shell,Shell Trading International Ltd,Ltd,counterparty,GB,SYNT00LUS7SEIRYKND59,,England and Wales,2004-04-24,https://www.gleif.org/ontology/L1/LegalEntity
+cp-tiberpeak,Tiber Peak Trading DMCC,DMCC,counterparty,AE,SYNT003LA01YL8L6HA88,,Dubai,2009-03-15,https://www.gleif.org/ontology/L1/LegalEntity
+cp-vitol,Vitol Inc.,Inc.,counterparty,US,SYNT00T81ISZ3ICZ9786,EIN 76-6181843,Delaware,2010-09-23,https://www.gleif.org/ontology/L1/LegalEntity
+hold-founders,NewCo Founders Partnership,General Partnership,holder,US,SYNT00G10TCZYWZ39578,EIN 62-4795467,Delaware,2004-11-05,https://www.gleif.org/ontology/L1/LegalEntity
+hold-harbourline-grp,Harbourline Group Holdings Pty Ltd,Pty Ltd,holder,AU,SYNT00RVC2BKX7X24L52,ABN 71600471536,New South Wales,2014-09-28,https://www.gleif.org/ontology/L1/LegalEntity
+hold-infra,Ridgeline Infrastructure Fund II LP,LP,holder,US,SYNT00ECZH0QKGJ33N92,EIN 51-2704669,Delaware,2015-07-06,https://www.gleif.org/ontology/L1/LegalEntity
+hold-kestrel-bvi,Kestrel Holdings (BVI) Ltd,Ltd,holder,VG,SYNT00PGTZ09J8NQOA97,,British Virgin Islands,2010-06-11,https://www.gleif.org/ontology/L1/LegalEntity
+hold-kestrel-trust,Sandpiper Trust (Jersey) Limited,Limited,holder,JE,SYNT00MM63JKAVAREZ12,,Jersey,2010-03-04,https://www.gleif.org/ontology/L1/LegalEntity
+hold-mgmt,NewCo Management Pool LLC,LLC,holder,US,SYNT00CO5GQ0ZTYP1549,EIN 65-8154088,Delaware,2008-02-29,https://www.gleif.org/ontology/L1/LegalEntity
+hold-tiber-cy,Tiber Peak Holdings Ltd,Ltd,holder,CY,SYNT00KZWI2WTC9ASH90,,Cyprus,2013-01-25,https://www.gleif.org/ontology/L1/LegalEntity
+hold-tiber-foundation,Corvane Foundation,Foundation,holder,PA,SYNT00FL0CPGQ56JTV93,,Panama,2006-05-01,https://www.gleif.org/ontology/L1/LegalEntity
+hold-tiber-nominee,Aurelian Nominees Ltd,Ltd,holder,CY,SYNT00UL24VF32A2B258,,Cyprus,2015-03-04,https://www.gleif.org/ontology/L1/LegalEntity
+newco-hldg,"NewCo Global Holdings, Inc.",Inc.,newco,US,SYNT00YCDMM2DH0M7O64,EIN 38-4410502,Delaware,2006-05-15,https://www.gleif.org/ontology/L1/LegalEntity
+newco-hou,NewCo Trading Houston LLC,LLC,newco,US,SYNT00MJOLB8NUE3K052,EIN 78-7829905,Texas,2013-11-16,https://www.gleif.org/ontology/L1/LegalEntity
+newco-lon,NewCo Trading London Limited,Limited,newco,GB,SYNT00Q8J4VEKACNAP42,,England and Wales,2011-03-30,https://www.gleif.org/ontology/L1/LegalEntity
+newco-nyc,"NewCo Derivatives New York, Inc.",Inc.,newco,US,SYNT000DMWJ652W3DD97,EIN 44-9287198,Delaware,2010-10-30,https://www.gleif.org/ontology/L1/LegalEntity
+newco-syd,NewCo Trading Sydney Pty Ltd,Pty Ltd,newco,AU,SYNT00CWIPGIBWQLQA64,ABN 31536389783,New South Wales,2016-04-11,https://www.gleif.org/ontology/L1/LegalEntity
+svc-calloway,Calloway Rye LLP,,law_firm,GB,SYNT00WKYANIXHYXVV62,,GB,2009-04-01,https://www.gleif.org/ontology/L1/LegalEntity
+svc-cardinal,Cardinal Inspection Services,,inspector,US,SYNT00LSXISY48O5OF89,EIN 70-7765088,US,2008-05-18,https://www.gleif.org/ontology/L1/LegalEntity
+svc-gulfstream,Gulfstream Marine Agency,,shipping_agent,US,SYNT00NH6TT42GZY9169,EIN 74-5649825,US,2014-12-24,https://www.gleif.org/ontology/L1/LegalEntity
+svc-ledgerline,Ledgerline Credit Bureau,,credit_bureau,US,SYNT00DQXDL9TK1LVJ26,EIN 42-7040838,US,2016-02-26,https://www.gleif.org/ontology/L1/LegalEntity
+svc-merriweather,Merriweather Ng Lawyers,,law_firm,AU,SYNT00U116917LN2YU67,ABN 51226049718,AU,2011-07-25,https://www.gleif.org/ontology/L1/LegalEntity
+svc-veridian,Veridian Screening Ltd,,screening_vendor,GB,SYNT002ZJXCZQOMHBP42,,GB,2013-01-22,https://www.gleif.org/ontology/L1/LegalEntity

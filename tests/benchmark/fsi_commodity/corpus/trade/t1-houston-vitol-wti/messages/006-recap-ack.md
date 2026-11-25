@@ -1,0 +1,18 @@
+# Re: Recap NC-HOU-26-0001: WTI Midland
+
+- **Message-ID:** <d23f8710012e11e973d9@newco-houston.example>
+- **Date:** Mon, 16 Mar 2026 09:20:00 -0500
+- **From:** Jenna Campbell <jenna.campbell@newco-houston.example>
+- **To:** Crystal King <crystal.king@vitol.example>
+- **In-Reply-To:** <544139b09878a377488a@vitol.example>
+- **References:** <544139b09878a377488a@vitol.example>
+
+## Body
+
+Hi Crystal,
+
+Thanks for the recap. We will nominate the vessel as we discussed.
+
+Regards,
+Jenna Campbell
+NewCo Trading Houston LLC

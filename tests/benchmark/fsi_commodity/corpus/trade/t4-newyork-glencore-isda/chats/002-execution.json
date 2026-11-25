@@ -1,0 +1,81 @@
+{
+  "channel": "chat",
+  "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument",
+  "deal": "NC-NYC-26-0001",
+  "file": "chats/002-execution.json",
+  "key": "execution",
+  "lines": [
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "gregory.everett@glencore.example",
+        "name": "Gregory Everett",
+        "org": "cp-glencore",
+        "role": "trader"
+      },
+      "terms": {
+        "fixed_price_usd_per_bbl": 68.4
+      },
+      "text": "68.40 is my best level to receive.",
+      "timestamp": "2026-03-25T12:23:00-04:00"
+    },
+    {
+      "intent": "accept",
+      "speaker": {
+        "address": "jane.hill@newco-newyork.example",
+        "name": "Jane Hill",
+        "org": "newco-nyc",
+        "role": "trader"
+      },
+      "terms": {
+        "fixed_price_usd_per_bbl": 68.4
+      },
+      "text": "Done.",
+      "timestamp": "2026-03-25T12:26:00-04:00"
+    },
+    {
+      "intent": "agree",
+      "speaker": {
+        "address": "gregory.everett@glencore.example",
+        "name": "Gregory Everett",
+        "org": "cp-glencore",
+        "role": "trader"
+      },
+      "terms": {
+        "currency": "USD",
+        "end": "2027-04-30",
+        "fixed_payer": "NewCo Derivatives New York, Inc.",
+        "fixed_price_usd_per_bbl": 68.4,
+        "fixed_receiver": "Glencore Ltd.",
+        "floating": "Platts WTI Cushing, monthly average",
+        "instrument": "WTI fixed-for-floating swap",
+        "months": 12,
+        "notional_bbl_per_month": 50000,
+        "settlement": "monthly, in cash",
+        "start": "2026-05-01"
+      },
+      "text": "Confirming: you pay 68.40 fixed, we pay the Platts WTI Cushing monthly average, 50,000 bbl a month for 12 months from 2026-05-01 to 2027-04-30, settled monthly in USD cash. Subject to your credit.",
+      "timestamp": "2026-03-25T12:26:20-04:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "gregory.everett@glencore.example",
+      "name": "Gregory Everett",
+      "org": "cp-glencore",
+      "role": "trader"
+    },
+    {
+      "address": "jane.hill@newco-newyork.example",
+      "name": "Jane Hill",
+      "org": "newco-nyc",
+      "role": "trader"
+    }
+  ],
+  "phase": "trade",
+  "seq": 2,
+  "tags": [
+    "agreed",
+    "negotiation"
+  ]
+}

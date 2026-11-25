@@ -167,6 +167,37 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
+  # Security scan (ASH: bandit, detect-secrets, checkov, cdk-nag, npm-audit,
+  # grype, opengrep and others). Needs no generated sources, so it does not wait
+  # for smithy-generate. Thresholds and ignores live in .ashrc.yaml; findings at
+  # or above severity_threshold fail the job. Make this a required status check.
+  security-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ASH
+        env:
+          ASH_VERSION: v3.8.0
+        run: pipx install "git+https://github.com/awslabs/automated-security-helper.git@${ASH_VERSION}"
+      - name: Run ASH
+        run: ash --mode container
+      - name: Publish summary
+        if: always()
+        run: |
+          if [ -f .ash/ash_output/reports/ash.summary.md ]; then
+            cat .ash/ash_output/reports/ash.summary.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ash-reports
+          path: .ash/ash_output/reports/
+          retention-days: 14
+          if-no-files-found: warn
   cdk-synth:
     needs: smithy-generate
     runs-on: ubuntu-latest

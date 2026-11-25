@@ -1,0 +1,792 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd",
+        "based_on": "NC-SYD-26-0001-ticket-v1.pdf",
+        "confirmation_date": "2026-04-04",
+        "currency": "USD",
+        "delivery_from": "2026-04-29",
+        "delivery_to": "2026-05-06",
+        "governing_law": "New South Wales",
+        "incoterm": "CFR",
+        "issued_by": "NewCo Trading Sydney Pty Ltd",
+        "location": "Newcastle",
+        "payment_days": 45,
+        "price_usd_per_mt": 765,
+        "product": "ULP 91",
+        "quantity": 20000,
+        "quantity_tolerance_pct": 8,
+        "trade_id": "NC-SYD-26-0001",
+        "unit": "mt"
+      },
+      "filename": "NC-SYD-26-0001-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirmation",
+      "path": "attachments/001-NC-SYD-26-0001-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example",
+        "wasDerivedFrom": "<d52200a238be2ba63a85@newco-sydney.example>"
+      },
+      "sha256": "b6cc8459d8658ecf7e3e60500fd6dbc96e82dcf9aa7ad0ddf8150ef4100c469f",
+      "size": 5375
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "facts": {
+        "laycan_from": "2026-04-29",
+        "laycan_to": "2026-05-06",
+        "nominated_by": "NewCo Trading Sydney Pty Ltd",
+        "notice_date": "2026-04-13",
+        "port": "Newcastle",
+        "product": "ULP 91",
+        "quantity": 20000,
+        "trade_id": "NC-SYD-26-0001",
+        "unit": "mt",
+        "vessel": "MT Southern Pelican"
+      },
+      "filename": "NC-SYD-26-0001-nomination.pdf",
+      "kind": "nomination",
+      "message": "nomination",
+      "path": "attachments/002-NC-SYD-26-0001-nomination.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example",
+        "wasDerivedFrom": "<006343f490d7d056b9f0@newco-sydney.example>"
+      },
+      "sha256": "474b5d7866c9a4a65d27178eb0bc423b35bfd4f8bb8c99ff9723a83c1f62a237",
+      "size": 3445
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "facts": {
+        "bl_date": "2026-04-15",
+        "bl_number": "BL-NC-SYD-26-0001-001",
+        "class_uris": {
+          "cargo_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+          "consignee": "https://schema.org/Organization",
+          "consignment": "https://vocabulary.uncefact.org/Consignment",
+          "notify_party": "https://schema.org/Organization",
+          "shipper": "https://schema.org/Organization"
+        },
+        "consignee": "Harbourline Petroleum Pty Ltd",
+        "discharge_port": "Newcastle",
+        "load_port": "Singapore",
+        "notify_party": "Harbourline Petroleum Pty Ltd",
+        "product": "ULP 91",
+        "quantity": 19996.5,
+        "shipper": "NewCo Trading Sydney Pty Ltd",
+        "trade_id": "NC-SYD-26-0001",
+        "unit": "mt",
+        "vessel": "MT Southern Pelican"
+      },
+      "filename": "NC-SYD-26-0001-bill-of-lading.pdf",
+      "kind": "bill-of-lading",
+      "message": "bill-of-lading",
+      "path": "attachments/003-NC-SYD-26-0001-bill-of-lading.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example",
+        "wasDerivedFrom": "<794cc30cfb9cfd2d15b8@newco-sydney.example>"
+      },
+      "sha256": "6c7d7e3ba2fd8d33708b0f6d8a6384ace7339ff1bcd690e1774ad5bf38bbf327",
+      "size": 3719
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/BilateralContract",
+      "facts": {
+        "bl_number": "BL-NC-SYD-26-0001-001",
+        "cargo_quantity": 19996.5,
+        "cargo_value": 15297322.5,
+        "counter_signed_by": "Southern Tide Bank Ltd",
+        "cover_pct": 125,
+        "currency": "USD",
+        "indemnified": "NewCo Trading Sydney Pty Ltd",
+        "indemnifier": "Harbourline Petroleum Pty Ltd",
+        "indemnity_amount": 19121653.13,
+        "issue_date": "2026-04-28",
+        "price": 765,
+        "trade_id": "NC-SYD-26-0001",
+        "unit": "mt"
+      },
+      "filename": "NC-SYD-26-0001-letter-of-indemnity.pdf",
+      "kind": "letter-of-indemnity",
+      "message": "loi",
+      "path": "attachments/005-NC-SYD-26-0001-letter-of-indemnity.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jessica.smith@harbourline.example",
+        "wasDerivedFrom": "<2b9127cd47420d78b6d2@harbourline.example>"
+      },
+      "sha256": "1a222e8502e4c59c0aba20d7788e3499a551ccde267f1988da6b17810b1832eb",
+      "size": 4306
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "facts": {
+        "basis": "discharge",
+        "bl_number": "BL-NC-SYD-26-0001-001",
+        "class_uris": {
+          "event": "https://ref.gs1.org/epcis/ObjectEvent",
+          "quantity": "https://ref.gs1.org/epcis/QuantityElement"
+        },
+        "date": "2026-05-05",
+        "issued_by": "Cardinal Inspection Services",
+        "place": "Newcastle",
+        "quantity": 19874.25,
+        "trade_id": "NC-SYD-26-0001",
+        "unit": "mt"
+      },
+      "filename": "NC-SYD-26-0001-discharge-certificate.pdf",
+      "kind": "discharge-certificate",
+      "message": "discharge-certificate",
+      "path": "attachments/006-NC-SYD-26-0001-discharge-certificate.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example",
+        "wasDerivedFrom": "<7764faeaabcf0173d2d9@cardinalinspection.example>"
+      },
+      "sha256": "fdee2fb12f1f296d1c0daec55cd3329dc77e711e05f6d8940f803f59fcda78fc",
+      "size": 3074
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "billed_to": "Harbourline Petroleum Pty Ltd",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "currency": "USD",
+        "deductions": [],
+        "due_date": "2026-06-01",
+        "inputs": {
+          "basis": "bill-of-lading",
+          "price": 765,
+          "quantity": 19996.5
+        },
+        "issue_date": "2026-05-11",
+        "issued_by": "NewCo Trading Sydney Pty Ltd",
+        "lines": [
+          {
+            "amount": 15297322.5,
+            "description": "ULP 91, CFR Newcastle, bill of lading quantity",
+            "price": 765,
+            "quantity": 19996.5,
+            "unit": "mt"
+          }
+        ],
+        "number": "NCS-INV-NC-SYD-26-0001",
+        "pay_to": {
+          "account_id": "acct-newco-syd-usd-operating",
+          "bank": "Bluegum Commercial Bank Ltd",
+          "bic": "ZDECAUQR",
+          "bsb": "868-150",
+          "number": "2926537255"
+        },
+        "subtotal": 15297322.5,
+        "total_due": 15297322.5,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "filename": "NC-SYD-26-0001-invoice.pdf",
+      "kind": "invoice",
+      "message": "invoice",
+      "path": "attachments/007-NC-SYD-26-0001-invoice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example",
+        "wasDerivedFrom": "<f615c8bd6de9c1f8f615@newco-sydney.example>"
+      },
+      "sha256": "d73a84ec8565d4807ef8ae2c5b38b73d75782ad7ec54322b56198f80c2e6558c",
+      "size": 6196
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "against_invoice": "NCS-INV-NC-SYD-26-0001",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "credit_lines": [
+          {
+            "amount": 93521.25,
+            "description": "Quantity basis correction: B/L less discharge quantity",
+            "price": 765,
+            "quantity": 122.25,
+            "unit": "mt"
+          }
+        ],
+        "credit_total": 93521.25,
+        "currency": "USD",
+        "inputs": {
+          "bl_quantity": 19996.5,
+          "discharge_quantity": 19874.25,
+          "price": 765
+        },
+        "invoice_total": 15297322.5,
+        "issue_date": "2026-05-12",
+        "issued_by": "NewCo Trading Sydney Pty Ltd",
+        "net_payable": 15203801.25,
+        "number": "NCS-CN-NC-SYD-26-0001",
+        "reason": "Invoice corrected to the discharge quantity",
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "filename": "NC-SYD-26-0001-credit-note.pdf",
+      "kind": "credit-note",
+      "message": "credit-note",
+      "path": "attachments/009-NC-SYD-26-0001-credit-note.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example",
+        "wasDerivedFrom": "<d1a4df4b628cfc1a3281@newco-sydney.example>"
+      },
+      "sha256": "56b6e7a63461de3ca32a145814d0c16cd8b4632668f39f91f58c112b94a671c7",
+      "size": 5112
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 7,
+    "chats": 0,
+    "emails": 10
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "basis-query",
+      "description": "The invoice uses the bill of lading quantity 19,996.500 mt; the agreement's quantity basis is discharge, certified at 19,874.250 mt.",
+      "id": "p3-sydney-harbourline-ulp:invoice-wrong-quantity-basis",
+      "type": "invoice-vs-agreement",
+      "values": {
+        "agreed": 19874.25,
+        "basis": "discharge",
+        "field": "quantity",
+        "found": 19996.5
+      },
+      "where": [
+        "NC-SYD-26-0001-invoice.pdf",
+        "NC-SYD-26-0001-discharge-certificate.pdf",
+        "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-SYD-26-0001-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "outbound",
+      "facts": {
+        "quantity": 20000,
+        "ticket_version": 1,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/001-confirmation.eml",
+        "md": "messages/001-confirmation.md"
+      },
+      "from": {
+        "address": "rhonda.jimenez@newco-sydney.example",
+        "name": "Rhonda Jimenez",
+        "org": "newco-syd",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirmation",
+      "message_id": "<d52200a238be2ba63a85@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example"
+      },
+      "seq": 1,
+      "subject": "Confirmation NC-SYD-26-0001: ULP 91",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "confirmation",
+      "timestamp": "2026-04-07T09:09:00+10:00",
+      "to": [
+        {
+          "address": "jessica.smith@harbourline.example",
+          "name": "Jessica Smith",
+          "org": "cp-harbourline",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0001-nomination.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "direction": "outbound",
+      "facts": {
+        "trade_id": "NC-SYD-26-0001",
+        "vessel": "MT Southern Pelican"
+      },
+      "files": {
+        "eml": "messages/002-nomination.eml",
+        "md": "messages/002-nomination.md"
+      },
+      "from": {
+        "address": "rhonda.jimenez@newco-sydney.example",
+        "name": "Rhonda Jimenez",
+        "org": "newco-syd",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "nomination",
+      "message_id": "<006343f490d7d056b9f0@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example"
+      },
+      "seq": 2,
+      "subject": "Vessel nomination NC-SYD-26-0001",
+      "tags": [
+        "logistics",
+        "nomination"
+      ],
+      "thread": "nomination",
+      "timestamp": "2026-04-13T09:47:00+10:00",
+      "to": [
+        {
+          "address": "jessica.smith@harbourline.example",
+          "name": "Jessica Smith",
+          "org": "cp-harbourline",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0001-bill-of-lading.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "direction": "outbound",
+      "facts": {
+        "bl_number": "BL-NC-SYD-26-0001-001",
+        "quantity": 19996.5,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/003-bill-of-lading.eml",
+        "md": "messages/003-bill-of-lading.md"
+      },
+      "from": {
+        "address": "rhonda.jimenez@newco-sydney.example",
+        "name": "Rhonda Jimenez",
+        "org": "newco-syd",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "bill-of-lading",
+      "message_id": "<794cc30cfb9cfd2d15b8@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example"
+      },
+      "seq": 3,
+      "subject": "Bill of lading BL-NC-SYD-26-0001-001",
+      "tags": [
+        "bill-of-lading",
+        "logistics"
+      ],
+      "thread": "bill-of-lading",
+      "timestamp": "2026-04-15T10:06:00+10:00",
+      "to": [
+        {
+          "address": "jessica.smith@harbourline.example",
+          "name": "Jessica Smith",
+          "org": "cp-harbourline",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "cover_pct": 125,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/004-loi-request.eml",
+        "md": "messages/004-loi-request.md"
+      },
+      "from": {
+        "address": "rhonda.jimenez@newco-sydney.example",
+        "name": "Rhonda Jimenez",
+        "org": "newco-syd",
+        "role": "ops"
+      },
+      "in_reply_to": "bill-of-lading",
+      "key": "loi-request",
+      "message_id": "<e0a21f0b0aa41a6b1b56@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example"
+      },
+      "seq": 4,
+      "subject": "Re: Bill of lading BL-NC-SYD-26-0001-001",
+      "tags": [
+        "logistics",
+        "loi"
+      ],
+      "thread": "bill-of-lading",
+      "timestamp": "2026-04-17T09:23:00+10:00",
+      "to": [
+        {
+          "address": "jessica.smith@harbourline.example",
+          "name": "Jessica Smith",
+          "org": "cp-harbourline",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0001-letter-of-indemnity.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/BilateralContract",
+      "direction": "inbound",
+      "facts": {
+        "cover_pct": 125,
+        "indemnity_amount": 19121653.13,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/005-loi.eml",
+        "md": "messages/005-loi.md"
+      },
+      "from": {
+        "address": "jessica.smith@harbourline.example",
+        "name": "Jessica Smith",
+        "org": "cp-harbourline",
+        "role": "ops"
+      },
+      "in_reply_to": "loi-request",
+      "key": "loi",
+      "message_id": "<2b9127cd47420d78b6d2@harbourline.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jessica.smith@harbourline.example"
+      },
+      "seq": 5,
+      "subject": "Re: Bill of lading BL-NC-SYD-26-0001-001",
+      "tags": [
+        "logistics",
+        "loi"
+      ],
+      "thread": "bill-of-lading",
+      "timestamp": "2026-04-28T09:22:00+10:00",
+      "to": [
+        {
+          "address": "rhonda.jimenez@newco-sydney.example",
+          "name": "Rhonda Jimenez",
+          "org": "newco-syd",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0001-discharge-certificate.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "direction": "inbound",
+      "facts": {
+        "quantity": 19874.25,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/006-discharge-certificate.eml",
+        "md": "messages/006-discharge-certificate.md"
+      },
+      "from": {
+        "address": "veronica.smith@cardinalinspection.example",
+        "name": "Veronica Smith",
+        "org": "svc-cardinal",
+        "role": "inspector"
+      },
+      "in_reply_to": null,
+      "key": "discharge-certificate",
+      "message_id": "<7764faeaabcf0173d2d9@cardinalinspection.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example"
+      },
+      "seq": 6,
+      "subject": "Discharge certificate NC-SYD-26-0001",
+      "tags": [
+        "certificate",
+        "logistics"
+      ],
+      "thread": "discharge-certificate",
+      "timestamp": "2026-05-05T10:22:00-05:00",
+      "to": [
+        {
+          "address": "rhonda.jimenez@newco-sydney.example",
+          "name": "Rhonda Jimenez",
+          "org": "newco-syd",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0001-invoice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "outbound",
+      "facts": {
+        "invoice_number": "NCS-INV-NC-SYD-26-0001",
+        "quantity": 19996.5,
+        "total_due": 15297322.5,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/007-invoice.eml",
+        "md": "messages/007-invoice.md"
+      },
+      "from": {
+        "address": "gary.mata@newco-sydney.example",
+        "name": "Gary Mata",
+        "org": "newco-syd",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "invoice",
+      "message_id": "<f615c8bd6de9c1f8f615@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example"
+      },
+      "seq": 7,
+      "subject": "Invoice NCS-INV-NC-SYD-26-0001: NC-SYD-26-0001",
+      "tags": [
+        "invoice",
+        "planted"
+      ],
+      "thread": "invoice",
+      "timestamp": "2026-05-11T09:10:00+10:00",
+      "to": [
+        {
+          "address": "brian.jones@harbourline.example",
+          "name": "Brian Jones",
+          "org": "cp-harbourline",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "basis": "discharge",
+        "discharge_quantity": 19874.25,
+        "invoiced_quantity": 19996.5,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/008-basis-query.eml",
+        "md": "messages/008-basis-query.md"
+      },
+      "from": {
+        "address": "brian.jones@harbourline.example",
+        "name": "Brian Jones",
+        "org": "cp-harbourline",
+        "role": "accounting"
+      },
+      "in_reply_to": "invoice",
+      "key": "basis-query",
+      "message_id": "<db169440922ccae45747@harbourline.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "brian.jones@harbourline.example"
+      },
+      "seq": 8,
+      "subject": "Re: Invoice NCS-INV-NC-SYD-26-0001: NC-SYD-26-0001",
+      "tags": [
+        "dispute",
+        "invoice"
+      ],
+      "thread": "invoice",
+      "timestamp": "2026-05-12T09:08:00+10:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0001-credit-note.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "outbound",
+      "facts": {
+        "credit_total": 93521.25,
+        "net_payable": 15203801.25,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/009-credit-note.eml",
+        "md": "messages/009-credit-note.md"
+      },
+      "from": {
+        "address": "gary.mata@newco-sydney.example",
+        "name": "Gary Mata",
+        "org": "newco-syd",
+        "role": "accounting"
+      },
+      "in_reply_to": "basis-query",
+      "key": "credit-note",
+      "message_id": "<d1a4df4b628cfc1a3281@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example"
+      },
+      "seq": 9,
+      "subject": "Re: Invoice NCS-INV-NC-SYD-26-0001: NC-SYD-26-0001",
+      "tags": [
+        "credit-note",
+        "invoice"
+      ],
+      "thread": "invoice",
+      "timestamp": "2026-05-13T09:00:00+10:00",
+      "to": [
+        {
+          "address": "brian.jones@harbourline.example",
+          "name": "Brian Jones",
+          "org": "cp-harbourline",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "due": "2026-06-01",
+        "net_payable": 15203801.25,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/010-payable.eml",
+        "md": "messages/010-payable.md"
+      },
+      "from": {
+        "address": "gary.mata@newco-sydney.example",
+        "name": "Gary Mata",
+        "org": "newco-syd",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "payable",
+      "message_id": "<f9546fa2daf5e43c9c87@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example"
+      },
+      "seq": 10,
+      "subject": "Expected receipt NC-SYD-26-0001",
+      "tags": [
+        "payment"
+      ],
+      "thread": "payable",
+      "timestamp": "2026-05-14T09:20:00+10:00",
+      "to": [
+        {
+          "address": "alicia.parsons@newco-sydney.example",
+          "name": "Alicia Parsons",
+          "org": "newco-syd",
+          "role": "settlements"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "credit": 93521.25,
+    "due": "2026-06-01",
+    "net_payable": 15203801.25,
+    "result": "corrected",
+    "trade_id": "NC-SYD-26-0001"
+  },
+  "ownership_edges": [],
+  "phase": "post_trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 19874.25,
+      "id": "p3-sydney-harbourline-ulp-q1",
+      "question": "On what quantity should the invoice for NC-SYD-26-0001 have been issued?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 125,
+      "id": "p3-sydney-harbourline-ulp-q2",
+      "question": "What cover does the letter of indemnity for BL-NC-SYD-26-0001-001 give, as a percentage of cargo value?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": 15203801.25,
+      "id": "p3-sydney-harbourline-ulp-q3",
+      "question": "What is the amount payable for NC-SYD-26-0001 after the credit note?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "p3-sydney-harbourline-ulp",
+  "title": "Sydney sells ULP 91 to Harbourline: letter of indemnity for a late B/L, invoice on the wrong quantity basis, credit note"
+}

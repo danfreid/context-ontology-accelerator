@@ -1,0 +1,18 @@
+# Re: Invoice NCS-INV-NC-SYD-26-0001: NC-SYD-26-0001
+
+- **Message-ID:** <db169440922ccae45747@harbourline.example>
+- **Date:** Tue, 12 May 2026 09:08:00 +1000
+- **From:** Brian Jones <brian.jones@harbourline.example>
+- **To:** Gary Mata <gary.mata@newco-sydney.example>
+- **In-Reply-To:** <f615c8bd6de9c1f8f615@newco-sydney.example>
+- **References:** <f615c8bd6de9c1f8f615@newco-sydney.example>
+
+## Body
+
+Hi Gary,
+
+The agreement sets the quantity basis as discharge. The discharge certificate says 19,874.250 mt, but the invoice uses 19,996.500 mt. Please reissue on the discharge quantity.
+
+Regards,
+Brian Jones
+Harbourline Petroleum Pty Ltd

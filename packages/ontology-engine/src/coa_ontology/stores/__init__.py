@@ -3,11 +3,13 @@
 
 """Storage abstractions for the Ontology Workbench.
 
-Two pluggable backends:
+Three pluggable backends:
 
   - ``na_only``         (Neptune Analytics for BOTH graph and vectors)
   - ``opensearch_neptune`` (OpenSearch Serverless for vectors, Neptune DB
     for the graph). **This is the default.**
+  - ``aurora_pgvector`` (Aurora PostgreSQL over the RDS Data API for BOTH graph
+    and vectors)
 
 Select via the ``WORKBENCH_BACKEND`` environment variable. See
 ``app.stores.factory`` for construction.

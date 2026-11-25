@@ -1,0 +1,284 @@
+%PDF-1.4
+%“Œ‹ž ReportLab Generated PDF document (opensource)
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/Contents 8 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 7 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+5 0 obj
+<<
+/PageMode /UseNone /Pages 7 0 R /Type /Catalog
+>>
+endobj
+6 0 obj
+<<
+/Author (NewCo synthetic corpus) /CreationDate (D:20000101000000+00'00') /Creator (fsi_commodity generator) /Keywords () /ModDate (D:20000101000000+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (\(unspecified\)) /Title (Invoice check sheet: VIT-INV-NC-HOU-26-0001) /Trapped /False
+>>
+endobj
+7 0 obj
+<<
+/Count 1 /Kids [ 4 0 R ] /Type /Pages
+>>
+endobj
+8 0 obj
+<<
+/Length 2880
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 57.02362 762.8661 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 18 Tf 22 TL 43.06417 0 Td (Invoice check sheet: VIT-INV-NC-HOU-26-0001) Tj T* -43.06417 0 Td ET
+Q
+Q
+q
+1 0 0 1 57.02362 745.5276 cm
+Q
+q
+1 0 0 1 56.69291 673.5276 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Trade id) Tj T* ET
+Q
+Q
+q
+1 0 0 1 161.9055 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (NC-HOU-26-0001) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Invoice) Tj T* ET
+Q
+Q
+q
+1 0 0 1 161.9055 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (VIT-INV-NC-HOU-26-0001) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Prepared by) Tj T* ET
+Q
+Q
+q
+1 0 0 1 161.9055 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Steve Harris) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Currency) Tj T* ET
+Q
+Q
+q
+1 0 0 1 161.9055 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (USD) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 57.02362 665.0236 cm
+Q
+q
+1 0 0 1 57.02362 581.0236 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Line) Tj T* ET
+Q
+Q
+q
+1 0 0 1 126.3071 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Invoiced) Tj T* ET
+Q
+Q
+q
+1 0 0 1 246.6142 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 14 Tm /F2 10 Tf 12 TL (Expected from the) Tj T* (deal) Tj T* ET
+Q
+Q
+q
+1 0 0 1 366.9213 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Difference) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Platts average) Tj T* ET
+Q
+Q
+q
+1 0 0 1 126.3071 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (16,591,410.19) Tj T* ET
+Q
+Q
+q
+1 0 0 1 246.6142 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (16,591,410.19) Tj T* ET
+Q
+Q
+q
+1 0 0 1 366.9213 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (0.00) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Premium) Tj T* ET
+Q
+Q
+q
+1 0 0 1 126.3071 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (238,812.13) Tj T* ET
+Q
+Q
+q
+1 0 0 1 246.6142 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (213,674.01) Tj T* ET
+Q
+Q
+q
+1 0 0 1 366.9213 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (25,138.12) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Total difference) Tj T* ET
+Q
+Q
+q
+1 0 0 1 126.3071 3 cm
+Q
+q
+1 0 0 1 246.6142 3 cm
+Q
+q
+1 0 0 1 366.9213 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (25,138.12) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.501961 .501961 .501961 RG
+.4 w
+n 0 84 m 481.2283 84 l S
+n 0 0 m 481.2283 0 l S
+n 0 0 m 0 84 l S
+n 481.2283 0 m 481.2283 84 l S
+n 0 54 m 481.2283 54 l S
+n 0 36 m 481.2283 36 l S
+n 0 18 m 481.2283 18 l S
+n 120.3071 0 m 120.3071 84 l S
+n 240.6142 0 m 240.6142 84 l S
+n 360.9213 0 m 360.9213 84 l S
+Q
+Q
+Q
+q
+1 0 0 1 57.02362 572.5197 cm
+Q
+ 
+endstream
+endobj
+xref
+0 9
+0000000000 65535 f 
+0000000061 00000 n 
+0000000102 00000 n 
+0000000209 00000 n 
+0000000321 00000 n 
+0000000524 00000 n 
+0000000592 00000 n 
+0000000919 00000 n 
+0000000978 00000 n 
+trailer
+<<
+/ID 
+[<3c55e2bb22c44df1c276a69c0dcf93c2><3c55e2bb22c44df1c276a69c0dcf93c2>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 6 0 R
+/Root 5 0 R
+/Size 9
+>>
+startxref
+3909
+%%EOF

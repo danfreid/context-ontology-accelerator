@@ -1,0 +1,18 @@
+# Re: Invoice BPOI-INV-NC-LON-26-0003: NC-LON-26-0003
+
+- **Message-ID:** <4753681078f34634996d@newco-london.example>
+- **Date:** Thu, 07 May 2026 09:06:00 +0100
+- **From:** Kathleen Garner <kathleen.garner@newco-london.example>
+- **To:** Gary Mata <gary.mata@newco-sydney.example>
+- **In-Reply-To:** <a1dde08d4be97aa08ede@newco-sydney.example>
+- **References:** <da93bdc080053c447c13@bp.example> <a1dde08d4be97aa08ede@newco-sydney.example>
+
+## Body
+
+Hi Gary,
+
+Yes, NC-LON-26-0003 is a London trade: 12,000 mt Jet A-1 bought from BP Oil International. The invoice should be addressed to NewCo Trading London Limited.
+
+Regards,
+Kathleen Garner
+NewCo Trading London Limited

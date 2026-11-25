@@ -1,0 +1,802 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "counterparty": "Vitol Inc.",
+        "credit_used": 16712500,
+        "deal_value": 16712500,
+        "exposure_after": 16712500,
+        "exposure_before": 0,
+        "exposure_if_booked": 16712500,
+        "headroom_after": 23287500,
+        "headroom_before": 40000000,
+        "limit": 40000000,
+        "status": "approved",
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "filename": "NC-HOU-26-0001-credit-check.pdf",
+      "kind": "credit-check",
+      "message": "credit-ok",
+      "path": "attachments/002-NC-HOU-26-0001-credit-check.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.hill@newco-houston.example",
+        "wasDerivedFrom": "<94730dbf0f52f22c7466@newco-houston.example>"
+      },
+      "sha256": "3d4cdcc9c3aef33caffa09bda504882669774360f33a8c20e3eee8667273e110",
+      "size": 3475
+    },
+    {
+      "class_uri": "https://schema.org/Order",
+      "facts": {
+        "currency": "USD",
+        "incoterm": "FOB",
+        "issued_by": "Vitol Inc.",
+        "loading_from": "2026-04-13",
+        "loading_to": "2026-04-22",
+        "location": "Corpus Christi",
+        "premium_usd_per_bbl": 0.95,
+        "pricing": "Platts WTI Midland, average of the five assessments around the loading date, plus premium",
+        "product": "WTI Midland",
+        "quantity": 250000,
+        "trade_id": "NC-HOU-26-0001",
+        "unit": "bbl"
+      },
+      "filename": "NC-HOU-26-0001-recap-vitol.pdf",
+      "kind": "trade-recap",
+      "message": "recap",
+      "path": "attachments/003-NC-HOU-26-0001-recap-vitol.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "crystal.king@vitol.example",
+        "wasDerivedFrom": "<544139b09878a377488a@vitol.example>"
+      },
+      "sha256": "61af9919f0126e5b857291e07cd8446b4fb9838d91bc736320cfe979b5586a35",
+      "size": 4410
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.",
+        "currency": "USD",
+        "governing_law": "the State of Texas",
+        "incoterm": "FOB",
+        "issued_by": "NewCo Trading Houston LLC",
+        "loading_from": "2026-04-13",
+        "loading_to": "2026-04-22",
+        "location": "Corpus Christi",
+        "payment_days": 25,
+        "premium_usd_per_bbl": 0.85,
+        "pricing": "Platts WTI Midland, average of the five assessments around the loading date, plus premium",
+        "product": "WTI Midland",
+        "quantity": 250000,
+        "quantity_tolerance_pct": 5,
+        "trade_id": "NC-HOU-26-0001",
+        "unit": "bbl",
+        "version": 1
+      },
+      "filename": "NC-HOU-26-0001-ticket-v1.pdf",
+      "kind": "deal-ticket",
+      "message": "ticket",
+      "path": "attachments/004-NC-HOU-26-0001-ticket-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jenna.campbell@newco-houston.example",
+        "wasDerivedFrom": "<362f3dac5516281753e2@newco-houston.example>"
+      },
+      "sha256": "89d25316c5565ac06635810f054a767e2b14355097d4cba1b1ca20c9d7906259",
+      "size": 5438
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [
+    {
+      "channel": "chat",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0001",
+      "file": "chats/001-enquiry.json",
+      "key": "enquiry",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Corpus Christi",
+            "product": "WTI Midland",
+            "quantity": 250000,
+            "unit": "bbl"
+          },
+          "text": "Morning. I want 250k bbl of WTI Midland FOB Corpus Christi, loading in April 2026. Where is your premium?",
+          "timestamp": "2026-03-09T09:39:00-05:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "premium_usd_per_bbl": 1.1
+          },
+          "text": "Premium is 1.10 over the five-day Platts average.",
+          "timestamp": "2026-03-09T09:41:07-05:00"
+        },
+        {
+          "intent": "hold",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {},
+          "text": "Too high for me. Let me think about it and come back to you.",
+          "timestamp": "2026-03-09T09:44:07-05:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 1,
+      "tags": [
+        "indication"
+      ]
+    },
+    {
+      "channel": "chat",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0001",
+      "file": "chats/002-premium.json",
+      "key": "premium",
+      "lines": [
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "premium_usd_per_bbl": 0.75
+          },
+          "text": "I can do 0.75 over and we trade now.",
+          "timestamp": "2026-03-09T11:13:00-05:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "premium_usd_per_bbl": 0.95
+          },
+          "text": "0.95 and it is yours.",
+          "timestamp": "2026-03-09T11:16:21-05:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "premium_usd_per_bbl": 0.85
+          },
+          "text": "Meet me at 0.85.",
+          "timestamp": "2026-03-09T11:19:48-05:00"
+        },
+        {
+          "intent": "agree",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "currency": "USD",
+            "incoterm": "FOB",
+            "loading_from": "2026-04-13",
+            "loading_to": "2026-04-22",
+            "location": "Corpus Christi",
+            "premium_usd_per_bbl": 0.85,
+            "pricing": "Platts WTI Midland, average of the five assessments around the loading date, plus premium",
+            "product": "WTI Midland",
+            "quantity": 250000,
+            "unit": "bbl"
+          },
+          "text": "Done at 0.85. 250,000 bbl WTI Midland FOB Corpus Christi, Platts five-day average plus 0.85, loading 2026-04-13 to 2026-04-22, in USD. Subject to your credit.",
+          "timestamp": "2026-03-09T11:21:17-05:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 2,
+      "tags": [
+        "agreed",
+        "negotiation"
+      ]
+    },
+    {
+      "channel": "chat",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0001",
+      "file": "chats/003-logistics.json",
+      "key": "logistics",
+      "lines": [
+        {
+          "intent": "logistics",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "nomination_notice_days": 10
+          },
+          "text": "Recap received. We will nominate the vessel ten days before the window opens.",
+          "timestamp": "2026-03-13T09:56:00-05:00"
+        },
+        {
+          "intent": "logistics",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {},
+          "text": "Fine. Send the nomination to my ops team.",
+          "timestamp": "2026-03-13T09:57:51-05:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 3,
+      "tags": [
+        "logistics"
+      ]
+    }
+  ],
+  "counts": {
+    "attachments": 3,
+    "chats": 3,
+    "emails": 7
+  },
+  "deals": [
+    {
+      "agreed_in": "premium",
+      "agreement": "Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.",
+      "agreement_effective": "2026-02-23",
+      "chats": [
+        "enquiry",
+        "premium",
+        "logistics"
+      ],
+      "class_uris": {
+        "line_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+        "order": "https://schema.org/Order",
+        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+      },
+      "counterparty": "cp-vitol",
+      "credit_check": {
+        "credit_used": 16712500,
+        "deal_value": 16712500,
+        "exposure_after": 16712500,
+        "exposure_before": 0,
+        "exposure_if_booked": 16712500,
+        "headroom_after": 23287500,
+        "headroom_before": 40000000,
+        "limit": 40000000,
+        "status": "approved"
+      },
+      "entity": "newco-hou",
+      "governing_law": "the State of Texas",
+      "inputs": {
+        "premium": 0.85,
+        "quantity": 250000,
+        "reference_price": 66
+      },
+      "kind": "physical",
+      "mismatches": [
+        {
+          "agreed": 0.85,
+          "caught": false,
+          "caught_by": null,
+          "field": "premium_usd_per_bbl",
+          "found": 0.95,
+          "id": "t1-houston-vitol-wti:recap-differs-from-chat",
+          "type": "recap-vs-chat",
+          "where": [
+            "chat:premium",
+            "recap",
+            "NC-HOU-26-0001-recap-vitol.pdf"
+          ]
+        }
+      ],
+      "notional": 16712500,
+      "onboarding_scenario": "s1-houston-vitol-wti",
+      "payment_days": 25,
+      "scenario": "t1-houston-vitol-wti",
+      "side": "buy",
+      "status": "agreed",
+      "terms": {
+        "currency": "USD",
+        "incoterm": "FOB",
+        "loading_from": "2026-04-13",
+        "loading_to": "2026-04-22",
+        "location": "Corpus Christi",
+        "premium_usd_per_bbl": 0.85,
+        "pricing": "Platts WTI Midland, average of the five assessments around the loading date, plus premium",
+        "product": "WTI Midland",
+        "quantity": 250000,
+        "unit": "bbl"
+      },
+      "tickets": [
+        {
+          "facts": {
+            "agreement": "Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.",
+            "currency": "USD",
+            "governing_law": "the State of Texas",
+            "incoterm": "FOB",
+            "issued_by": "NewCo Trading Houston LLC",
+            "loading_from": "2026-04-13",
+            "loading_to": "2026-04-22",
+            "location": "Corpus Christi",
+            "payment_days": 25,
+            "premium_usd_per_bbl": 0.85,
+            "pricing": "Platts WTI Midland, average of the five assessments around the loading date, plus premium",
+            "product": "WTI Midland",
+            "quantity": 250000,
+            "quantity_tolerance_pct": 5,
+            "trade_id": "NC-HOU-26-0001",
+            "unit": "bbl",
+            "version": 1
+          },
+          "filename": "NC-HOU-26-0001-ticket-v1.pdf",
+          "issued_by": "NewCo Trading Houston LLC",
+          "message": "ticket",
+          "version": 1
+        }
+      ],
+      "tolerance_pct": 5,
+      "trade_id": "NC-HOU-26-0001"
+    }
+  ],
+  "expected_contradictions": [
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "Vitol's recap states a premium of 0.95, a mid-negotiation offer; the chat settled at 0.85.",
+      "id": "t1-houston-vitol-wti:recap-differs-from-chat",
+      "type": "recap-vs-chat",
+      "values": {
+        "agreed": 0.85,
+        "field": "premium_usd_per_bbl",
+        "found": 0.95
+      },
+      "where": [
+        "chat:premium",
+        "recap",
+        "NC-HOU-26-0001-recap-vitol.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "deal_value": 16712500,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/001-credit-request.eml",
+        "md": "messages/001-credit-request.md"
+      },
+      "from": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "credit-request",
+      "message_id": "<8862502f4243f72cc6da@newco-houston.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jenna.campbell@newco-houston.example"
+      },
+      "seq": 1,
+      "subject": "Credit check: Vitol Inc. WTI purchase NC-HOU-26-0001",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-03-09T11:36:00-05:00",
+      "to": [
+        {
+          "address": "laura.hill@newco-houston.example",
+          "name": "Laura Hill",
+          "org": "newco-hou",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-credit-check.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "credit_used": 16712500,
+        "deal_value": 16712500,
+        "exposure_after": 16712500,
+        "exposure_before": 0,
+        "exposure_if_booked": 16712500,
+        "headroom_after": 23287500,
+        "headroom_before": 40000000,
+        "limit": 40000000,
+        "status": "approved",
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/002-credit-ok.eml",
+        "md": "messages/002-credit-ok.md"
+      },
+      "from": {
+        "address": "laura.hill@newco-houston.example",
+        "name": "Laura Hill",
+        "org": "newco-hou",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-request",
+      "key": "credit-ok",
+      "message_id": "<94730dbf0f52f22c7466@newco-houston.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.hill@newco-houston.example"
+      },
+      "seq": 2,
+      "subject": "Re: Credit check: Vitol Inc. WTI purchase NC-HOU-26-0001",
+      "tags": [
+        "approval",
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-03-10T09:24:00-05:00",
+      "to": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-recap-vitol.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Order",
+      "direction": "inbound",
+      "facts": {
+        "premium_usd_per_bbl": 0.95,
+        "quantity": 250000,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/003-recap.eml",
+        "md": "messages/003-recap.md"
+      },
+      "from": {
+        "address": "crystal.king@vitol.example",
+        "name": "Crystal King",
+        "org": "cp-vitol",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "recap",
+      "message_id": "<544139b09878a377488a@vitol.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "crystal.king@vitol.example"
+      },
+      "seq": 3,
+      "subject": "Recap NC-HOU-26-0001: WTI Midland",
+      "tags": [
+        "planted",
+        "recap"
+      ],
+      "thread": "recap",
+      "timestamp": "2026-03-11T09:29:00-05:00",
+      "to": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-ticket-v1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "internal",
+      "facts": {
+        "premium_usd_per_bbl": 0.85,
+        "quantity": 250000,
+        "ticket_version": 1,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/004-ticket.eml",
+        "md": "messages/004-ticket.md"
+      },
+      "from": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "ticket",
+      "message_id": "<362f3dac5516281753e2@newco-houston.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jenna.campbell@newco-houston.example"
+      },
+      "seq": 4,
+      "subject": "Deal ticket NC-HOU-26-0001",
+      "tags": [
+        "ticket"
+      ],
+      "thread": "ticket",
+      "timestamp": "2026-03-12T09:06:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/005-booked.eml",
+        "md": "messages/005-booked.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": "ticket",
+      "key": "booked",
+      "message_id": "<6b4c14fd179a2de8e4bd@newco-houston.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 5,
+      "subject": "Re: Deal ticket NC-HOU-26-0001",
+      "tags": [
+        "booking"
+      ],
+      "thread": "ticket",
+      "timestamp": "2026-03-13T09:03:00-05:00",
+      "to": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/006-recap-ack.eml",
+        "md": "messages/006-recap-ack.md"
+      },
+      "from": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "in_reply_to": "recap",
+      "key": "recap-ack",
+      "message_id": "<d23f8710012e11e973d9@newco-houston.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jenna.campbell@newco-houston.example"
+      },
+      "seq": 6,
+      "subject": "Re: Recap NC-HOU-26-0001: WTI Midland",
+      "tags": [
+        "recap"
+      ],
+      "thread": "recap",
+      "timestamp": "2026-03-16T09:20:00-05:00",
+      "to": [
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "loading_from": "2026-04-13",
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/007-handover.eml",
+        "md": "messages/007-handover.md"
+      },
+      "from": {
+        "address": "jeff.guzman@vitol.example",
+        "name": "Jeff Guzman",
+        "org": "cp-vitol",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "handover",
+      "message_id": "<73b2221c8d33d7d52a71@vitol.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeff.guzman@vitol.example"
+      },
+      "seq": 7,
+      "subject": "Nomination for NC-HOU-26-0001",
+      "tags": [
+        "logistics"
+      ],
+      "thread": "handover",
+      "timestamp": "2026-03-17T09:21:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "premium": 0.85,
+    "recap_premium": 0.95,
+    "result": "agreed",
+    "trade_id": "NC-HOU-26-0001"
+  },
+  "ownership_edges": [],
+  "phase": "trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 0.85,
+      "id": "t1-houston-vitol-wti-q1",
+      "question": "What premium did the traders agree in chat for NC-HOU-26-0001?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": 0.95,
+      "id": "t1-houston-vitol-wti-q2",
+      "question": "What premium does Vitol's recap for NC-HOU-26-0001 state?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 23287500,
+      "id": "t1-houston-vitol-wti-q3",
+      "question": "What was NewCo Houston's headroom with Vitol Inc. after NC-HOU-26-0001?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "t1-houston-vitol-wti",
+  "title": "Houston buys 250 kbbl WTI from Vitol: premium haggled in chat, recap carries the wrong premium"
+}

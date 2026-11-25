@@ -1,0 +1,16 @@
+# Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd: draft
+
+- **Message-ID:** <c266dab71d702ebf4c61@newco-sydney.example>
+- **Date:** Wed, 25 Feb 2026 09:01:00 +1100
+- **From:** Denise Cook <denise.cook@newco-sydney.example>
+- **To:** Daniel Barnett <daniel.barnett@harbourline.example>
+
+## Body
+
+Hi Daniel,
+
+Our draft is on New South Wales law with payment in 30 days, discharge quantity basis and 4% late interest.
+
+Regards,
+Denise Cook
+NewCo Trading Sydney Pty Ltd

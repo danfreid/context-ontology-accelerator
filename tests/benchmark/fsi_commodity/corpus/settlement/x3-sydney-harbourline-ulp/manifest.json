@@ -1,0 +1,578 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "amount": 15203801.25,
+        "covers": {
+          "Settles credit note NCS-CN-NC-SYD-26-0001": "net USD 15,203,801.25"
+        },
+        "currency": "USD",
+        "from_account": "acct-cp-harbourline-usd-operating",
+        "payee": "NewCo Trading Sydney Pty Ltd",
+        "payer": "Harbourline Petroleum Pty Ltd",
+        "reference": "NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001",
+        "to_account": {
+          "account_id": "acct-newco-syd-usd-operating",
+          "bank": "Bluegum Commercial Bank Ltd",
+          "bic": "ZDECAUQR",
+          "bsb": "868-150",
+          "number": "2926537255"
+        },
+        "trade_id": "NC-SYD-26-0001",
+        "value_date": "2026-06-01"
+      },
+      "filename": "NC-SYD-26-0001-remittance-advice.pdf",
+      "kind": "remittance-advice",
+      "message": "remittance",
+      "path": "attachments/001-NC-SYD-26-0001-remittance-advice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "brian.jones@harbourline.example",
+        "wasDerivedFrom": "<6228e3b25cb6a521680b@harbourline.example>"
+      },
+      "sha256": "832ba143a87ceee6c97d1188be1c3ddbf239f0174c116cd863480d8c74b2d337",
+      "size": 4002
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "account": {
+          "account_id": "acct-newco-syd-usd-operating",
+          "bank": "Bluegum Commercial Bank Ltd",
+          "bic": "ZDECAUQR",
+          "bsb": "868-150",
+          "number": "2926537255"
+        },
+        "amount": 15203756.25,
+        "bank": "Bluegum Commercial Bank Ltd",
+        "charges": 45,
+        "currency": "USD",
+        "instructed": 15203801.25,
+        "originator": "Harbourline Petroleum Pty Ltd",
+        "reference": "NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001",
+        "trade_id": "NC-SYD-26-0001",
+        "value_date": "2026-06-01"
+      },
+      "filename": "NC-SYD-26-0001-credit-advice.pdf",
+      "kind": "credit-advice",
+      "message": "credit-advice",
+      "path": "attachments/002-NC-SYD-26-0001-credit-advice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.schneider@bluegumbank.example",
+        "wasDerivedFrom": "<1c36085929f544ef3d19@bluegumbank.example>"
+      },
+      "sha256": "c853ef508f89778916f3cb8c5b1c41aa0ef57dd552788200063d08d27fc5434a",
+      "size": 4266
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "currency": "USD",
+        "prepared_by": "Alicia Parsons",
+        "rows": [
+          {
+            "difference": 45,
+            "expected": 15203801.25,
+            "line": "Net payable on NCS-CN-NC-SYD-26-0001",
+            "received": 15203756.25
+          }
+        ],
+        "status": "open: short payment",
+        "trade_id": "NC-SYD-26-0001",
+        "unreconciled": 45
+      },
+      "filename": "NC-SYD-26-0001-cash-reconciliation.pdf",
+      "kind": "cash-reconciliation",
+      "message": "reconciliation",
+      "path": "attachments/003-NC-SYD-26-0001-cash-reconciliation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "alicia.parsons@newco-sydney.example",
+        "wasDerivedFrom": "<9537e80b39ed4ca9192c@newco-sydney.example>"
+      },
+      "sha256": "280775c2572b419d7504032c0f7de3e505763441a34230d94057c7f1cfe6b1dd",
+      "size": 3886
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "account": {
+          "account_id": "acct-newco-syd-usd-operating",
+          "bank": "Bluegum Commercial Bank Ltd",
+          "bic": "ZDECAUQR",
+          "bsb": "868-150",
+          "number": "2926537255"
+        },
+        "amount": 45,
+        "bank": "Bluegum Commercial Bank Ltd",
+        "charges": 0,
+        "currency": "USD",
+        "instructed": 45,
+        "originator": "Harbourline Petroleum Pty Ltd",
+        "reference": "NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001 TOP-UP",
+        "trade_id": "NC-SYD-26-0001",
+        "value_date": "2026-06-04"
+      },
+      "filename": "NC-SYD-26-0001-top-up-credit-advice.pdf",
+      "kind": "credit-advice",
+      "message": "top-up-credit-advice",
+      "path": "attachments/006-NC-SYD-26-0001-top-up-credit-advice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.schneider@bluegumbank.example",
+        "wasDerivedFrom": "<8d35ab5f9b94d3215e1c@bluegumbank.example>"
+      },
+      "sha256": "d82847778a9a83bdc6746805e124170c1943089a0b9c3c874113d008d56e7cf6",
+      "size": 4031
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 4,
+    "chats": 0,
+    "emails": 8
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "short-payment-query",
+      "description": "The credit of USD 15,203,756.25 is USD 45.00 less than the net payable of USD 15,203,801.25: a bank charge was deducted although the agreement allows no deductions.",
+      "id": "x3-sydney-harbourline-ulp:bank-charge-short-payment",
+      "type": "payment-vs-invoice",
+      "values": {
+        "agreed": 15203801.25,
+        "bank_charge": 45,
+        "field": "amount",
+        "found": 15203756.25
+      },
+      "where": [
+        "NC-SYD-26-0001-credit-note.pdf",
+        "NC-SYD-26-0001-credit-advice.pdf",
+        "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-SYD-26-0001-remittance-advice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "inbound",
+      "facts": {
+        "amount": 15203801.25,
+        "trade_id": "NC-SYD-26-0001",
+        "value_date": "2026-06-01"
+      },
+      "files": {
+        "eml": "messages/001-remittance.eml",
+        "md": "messages/001-remittance.md"
+      },
+      "from": {
+        "address": "brian.jones@harbourline.example",
+        "name": "Brian Jones",
+        "org": "cp-harbourline",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "remittance",
+      "message_id": "<6228e3b25cb6a521680b@harbourline.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "brian.jones@harbourline.example"
+      },
+      "seq": 1,
+      "subject": "Remittance advice NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001",
+      "tags": [
+        "payment",
+        "remittance"
+      ],
+      "thread": "remittance",
+      "timestamp": "2026-06-01T09:36:00+10:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0001-credit-advice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "inbound",
+      "facts": {
+        "amount": 15203756.25,
+        "charges": 45,
+        "instructed": 15203801.25,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/002-credit-advice.eml",
+        "md": "messages/002-credit-advice.md"
+      },
+      "from": {
+        "address": "michael.schneider@bluegumbank.example",
+        "name": "Michael Schneider",
+        "org": "bank-bluegum",
+        "role": "operations"
+      },
+      "in_reply_to": null,
+      "key": "credit-advice",
+      "message_id": "<1c36085929f544ef3d19@bluegumbank.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.schneider@bluegumbank.example"
+      },
+      "seq": 2,
+      "subject": "Credit advice NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001",
+      "tags": [
+        "credit-advice",
+        "payment",
+        "short-payment"
+      ],
+      "thread": "credit-advice",
+      "timestamp": "2026-06-01T10:42:00+10:00",
+      "to": [
+        {
+          "address": "alicia.parsons@newco-sydney.example",
+          "name": "Alicia Parsons",
+          "org": "newco-syd",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0001-cash-reconciliation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "internal",
+      "facts": {
+        "difference": 45,
+        "expected": 15203801.25,
+        "received": 15203756.25,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/003-reconciliation.eml",
+        "md": "messages/003-reconciliation.md"
+      },
+      "from": {
+        "address": "alicia.parsons@newco-sydney.example",
+        "name": "Alicia Parsons",
+        "org": "newco-syd",
+        "role": "settlements"
+      },
+      "in_reply_to": "credit-advice",
+      "key": "reconciliation",
+      "message_id": "<9537e80b39ed4ca9192c@newco-sydney.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "alicia.parsons@newco-sydney.example"
+      },
+      "seq": 3,
+      "subject": "Re: Credit advice NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001",
+      "tags": [
+        "reconciliation",
+        "short-payment"
+      ],
+      "thread": "credit-advice",
+      "timestamp": "2026-06-01T12:04:00+10:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "clause": "no_deductions",
+        "shortfall": 45,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/004-short-payment-query.eml",
+        "md": "messages/004-short-payment-query.md"
+      },
+      "from": {
+        "address": "gary.mata@newco-sydney.example",
+        "name": "Gary Mata",
+        "org": "newco-syd",
+        "role": "accounting"
+      },
+      "in_reply_to": "remittance",
+      "key": "short-payment-query",
+      "message_id": "<73ce1f9423ebf5b4fe8e@newco-sydney.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example"
+      },
+      "seq": 4,
+      "subject": "Re: Remittance advice NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001",
+      "tags": [
+        "payment",
+        "query",
+        "short-payment"
+      ],
+      "thread": "remittance",
+      "timestamp": "2026-06-02T09:06:00+10:00",
+      "to": [
+        {
+          "address": "brian.jones@harbourline.example",
+          "name": "Brian Jones",
+          "org": "cp-harbourline",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "shortfall": 45,
+        "top_up_promised": true,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/005-short-payment-reply.eml",
+        "md": "messages/005-short-payment-reply.md"
+      },
+      "from": {
+        "address": "brian.jones@harbourline.example",
+        "name": "Brian Jones",
+        "org": "cp-harbourline",
+        "role": "accounting"
+      },
+      "in_reply_to": "short-payment-query",
+      "key": "short-payment-reply",
+      "message_id": "<7a1c0b7893f092056e99@harbourline.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "brian.jones@harbourline.example"
+      },
+      "seq": 5,
+      "subject": "Re: Remittance advice NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001",
+      "tags": [
+        "payment",
+        "short-payment"
+      ],
+      "thread": "remittance",
+      "timestamp": "2026-06-03T09:23:00+10:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0001-top-up-credit-advice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "inbound",
+      "facts": {
+        "amount": 45,
+        "trade_id": "NC-SYD-26-0001",
+        "value_date": "2026-06-04"
+      },
+      "files": {
+        "eml": "messages/006-top-up-credit-advice.eml",
+        "md": "messages/006-top-up-credit-advice.md"
+      },
+      "from": {
+        "address": "michael.schneider@bluegumbank.example",
+        "name": "Michael Schneider",
+        "org": "bank-bluegum",
+        "role": "operations"
+      },
+      "in_reply_to": null,
+      "key": "top-up-credit-advice",
+      "message_id": "<8d35ab5f9b94d3215e1c@bluegumbank.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.schneider@bluegumbank.example"
+      },
+      "seq": 6,
+      "subject": "Credit advice NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001 TOP-UP",
+      "tags": [
+        "credit-advice",
+        "payment",
+        "top-up"
+      ],
+      "thread": "top-up-credit-advice",
+      "timestamp": "2026-06-04T09:46:00+10:00",
+      "to": [
+        {
+          "address": "alicia.parsons@newco-sydney.example",
+          "name": "Alicia Parsons",
+          "org": "newco-syd",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "difference": 0,
+        "expected": 15203801.25,
+        "received_total": 15203801.25,
+        "trade_id": "NC-SYD-26-0001"
+      },
+      "files": {
+        "eml": "messages/007-reconciled.eml",
+        "md": "messages/007-reconciled.md"
+      },
+      "from": {
+        "address": "alicia.parsons@newco-sydney.example",
+        "name": "Alicia Parsons",
+        "org": "newco-syd",
+        "role": "settlements"
+      },
+      "in_reply_to": "reconciliation",
+      "key": "reconciled",
+      "message_id": "<ad784121024c002665b1@newco-sydney.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "alicia.parsons@newco-sydney.example"
+      },
+      "seq": 7,
+      "subject": "Re: Credit advice NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001",
+      "tags": [
+        "reconciliation"
+      ],
+      "thread": "credit-advice",
+      "timestamp": "2026-06-04T10:50:00+10:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/008-closed.eml",
+        "md": "messages/008-closed.md"
+      },
+      "from": {
+        "address": "gary.mata@newco-sydney.example",
+        "name": "Gary Mata",
+        "org": "newco-syd",
+        "role": "accounting"
+      },
+      "in_reply_to": "short-payment-reply",
+      "key": "closed",
+      "message_id": "<02072781c0f769b0a89f@newco-sydney.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example"
+      },
+      "seq": 8,
+      "subject": "Re: Remittance advice NC-SYD-26-0001 NCS-CN-NC-SYD-26-0001",
+      "tags": [
+        "payment"
+      ],
+      "thread": "remittance",
+      "timestamp": "2026-06-05T09:00:00+10:00",
+      "to": [
+        {
+          "address": "brian.jones@harbourline.example",
+          "name": "Brian Jones",
+          "org": "cp-harbourline",
+          "role": "accounting"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "first_credit": 15203756.25,
+    "net_payable": 15203801.25,
+    "result": "settled-after-top-up",
+    "shortfall": 45,
+    "top_up": 45,
+    "trade_id": "NC-SYD-26-0001"
+  },
+  "ownership_edges": [],
+  "phase": "settlement",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 45,
+      "id": "x3-sydney-harbourline-ulp-q1",
+      "question": "By how much was the first payment for NC-SYD-26-0001 short?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": "no deductions, including bank charges",
+      "id": "x3-sydney-harbourline-ulp-q2",
+      "question": "Which clause did the NC-SYD-26-0001 bank charge breach?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": 15203801.25,
+      "id": "x3-sydney-harbourline-ulp-q3",
+      "question": "What did Harbourline credit in total for NC-SYD-26-0001?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    }
+  ],
+  "review_events": [],
+  "scenario": "x3-sydney-harbourline-ulp",
+  "title": "Harbourline pays USD 45.00 short after a bank charge: reconciliation, query against the no-deductions clause, top-up"
+}

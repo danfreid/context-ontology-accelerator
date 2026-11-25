@@ -1,0 +1,30 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/awslabs/automated-security-helper/refs/heads/main/automated_security_helper/schemas/AshConfig.json
+project_name: context-ontology-accelerator
+
+# Fail the scan on actionable findings (exit 2) and when a scanner did not run
+# (exit 1), so a scan with incomplete coverage cannot pass silently.
+fail_on_findings: true
+fail_on_incomplete_scanners: true
+# Refuse a misspelled key in a suppression or ignore entry instead of warning.
+fail_on_unknown_keys: true
+
+# ASH already honors .gitignore (node_modules, .nx, smithy-generated, ...).
+# Accept individual findings through suppressions, each with a reason and an
+# expiry, rather than ignoring whole directories here.
+global_settings:
+  severity_threshold: MEDIUM
+
+scanners:
+  bandit:
+    options:
+      # Test code: pytest relies on bare `assert` (B101, ~25k hits) and fixtures
+      # use fake credentials. detect-secrets, gitleaks and semgrep still scan it.
+      excluded_paths:
+        - path: "*/tests/*"
+          reason: Test code; bandit findings there are assert/fixture noise.
+        - path: "*/test/*"
+          reason: Test code; bandit findings there are assert/fixture noise.
+        - path: "*/test_*.py"
+          reason: Test code; bandit findings there are assert/fixture noise.
+        - path: "*/conftest.py"
+          reason: Test code; bandit findings there are assert/fixture noise.

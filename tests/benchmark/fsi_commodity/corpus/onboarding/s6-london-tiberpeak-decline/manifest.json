@@ -1,0 +1,943 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "incorporated": "2009-03-15",
+        "jurisdiction": "Dubai",
+        "legal_form": "DMCC",
+        "legal_name": "Tiber Peak Trading DMCC",
+        "registration_number": "DMCC-93558648"
+      },
+      "filename": "tiber-peak-trading-dmcc-certificate-of-incorporation.pdf",
+      "kind": "certificate-of-incorporation",
+      "message": "kyc-docs",
+      "path": "attachments/004-tiber-peak-trading-dmcc-certificate-of-incorporation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.williams@tiberpeak.example",
+        "wasDerivedFrom": "<37e570df8040b6d167d5@tiberpeak.example>"
+      },
+      "sha256": "92c82a5b064824975f73ff25dc405a3092a6078f613f75b0bd1e143a96c5fd2c",
+      "size": 2963
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "complete": false,
+        "declared_beneficial_owners": {
+          "Aaron Rich": 40.0
+        },
+        "edges": [
+          {
+            "child": "cp-tiberpeak",
+            "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+            "parent": "hold-tiber-cy",
+            "percent": 100.0
+          },
+          {
+            "child": "hold-tiber-cy",
+            "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+            "parent": "hold-tiber-nominee",
+            "percent": 60.0
+          },
+          {
+            "child": "hold-tiber-cy",
+            "class_uri": null,
+            "parent": "own-tiber-declared",
+            "percent": 40.0
+          }
+        ],
+        "entity": "Tiber Peak Trading DMCC"
+      },
+      "filename": "tiber-peak-trading-dmcc-ownership-chart.pdf",
+      "kind": "ownership-chart",
+      "message": "kyc-docs",
+      "path": "attachments/004-tiber-peak-trading-dmcc-ownership-chart.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.williams@tiberpeak.example",
+        "wasDerivedFrom": "<37e570df8040b6d167d5@tiberpeak.example>"
+      },
+      "sha256": "74446ac03c2968080a883b3880b62310d50bed75d81fd10d2334d87282ca406c",
+      "size": 3876
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "answers": {
+          "Does any owner other than the declared shareholder hold 25% or more?": "No",
+          "Is any shareholder a nominee?": "Yes, Aurelian Nominees Ltd, for an investor who prefers not to be named",
+          "Is the entity or any owner subject to sanctions?": "No"
+        },
+        "completed_by": "Michael Williams",
+        "entity": "Tiber Peak Trading DMCC"
+      },
+      "filename": "tiber-peak-trading-dmcc-kyc-questionnaire.pdf",
+      "kind": "kyc-questionnaire",
+      "message": "questionnaire",
+      "path": "attachments/005-tiber-peak-trading-dmcc-kyc-questionnaire.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.williams@tiberpeak.example",
+        "wasDerivedFrom": "<bf67b1eecf424588165b@tiberpeak.example>"
+      },
+      "sha256": "2aba1ee6d8dc3a54b16d44d3c24f7fd2b49178311c77dd423c8475303d58b662",
+      "size": 3404
+    },
+    {
+      "class_uri": "https://schema.org/Service",
+      "facts": {
+        "entity": "Tiber Peak Trading DMCC",
+        "hits": [
+          {
+            "category": "sanctions",
+            "finding": "sanctions match; ultimate owner of Aurelian Nominees Ltd through Corvane Foundation",
+            "subject": "Daniel Smith"
+          }
+        ],
+        "result": "hit",
+        "subjects": [
+          "Tiber Peak Trading DMCC",
+          "Tiber Peak Holdings Ltd",
+          "Aurelian Nominees Ltd",
+          "Corvane Foundation",
+          "Aaron Rich",
+          "Daniel Smith"
+        ]
+      },
+      "filename": "tiber-peak-trading-dmcc-screening-report.pdf",
+      "kind": "screening-report",
+      "message": "screen-result",
+      "path": "attachments/007-tiber-peak-trading-dmcc-screening-report.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example",
+        "wasDerivedFrom": "<00581fbb3cb917c8bc7a@veridianscreening.example>"
+      },
+      "sha256": "78db565225b1ae34b05f4bcfff8d95ef564f0fa6f141fe020ef3b145c70c3ae5",
+      "size": 4199
+    },
+    {
+      "class_uri": "https://schema.org/Service",
+      "facts": {
+        "decision": "decline",
+        "disclose_reason": false,
+        "group_block": true,
+        "hidden_owner": "own-tiber-hidden"
+      },
+      "filename": "tiberpeak-compliance-decision.pdf",
+      "kind": "compliance-decision",
+      "message": "decline-memo",
+      "path": "attachments/008-tiberpeak-compliance-decision.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example",
+        "wasDerivedFrom": "<06fde00a1c64d887c30f@newco-london.example>"
+      },
+      "sha256": "eeac50bd600ff5569a55d9f7ef3fa6fa3c0c4a3b68a82dc58982e5fa1a53208f",
+      "size": 2760
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "decision": "decline",
+        "reason_disclosed": false
+      },
+      "filename": "tiberpeak-decline-letter.pdf",
+      "kind": "decline-letter",
+      "message": "decline-letter",
+      "path": "attachments/009-tiberpeak-decline-letter.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "danny.dunn@newco-london.example",
+        "wasDerivedFrom": "<0da2d4e9621782e265c9@newco-london.example>"
+      },
+      "sha256": "2ad6eb132eea032703bd12d6f74bcc83d13417925a85cfb97b4a4d19f453e109",
+      "size": 2147
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "blocked_entities": [
+          "hold-tiber-cy",
+          "hold-tiber-nominee",
+          "hold-tiber-foundation"
+        ],
+        "counterparty": "cp-tiberpeak",
+        "lei": "SYNT003LA01YL8L6HA88",
+        "scope": [
+          "newco-syd",
+          "newco-hou",
+          "newco-nyc",
+          "newco-lon"
+        ]
+      },
+      "filename": "tiberpeak-group-block.pdf",
+      "kind": "block-notice",
+      "message": "group-block",
+      "path": "attachments/012-tiberpeak-group-block.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example",
+        "wasDerivedFrom": "<dae2c6780cb341a42aa5@newco-london.example>"
+      },
+      "sha256": "9f7737c1e9edf731dd575a3fe0fcea1f0bd0a0a78b27a462379f799481f30a7c",
+      "size": 2573
+    }
+  ],
+  "beneficial_owners": {
+    "own-tiber-declared": 40.0,
+    "own-tiber-hidden": 60.0
+  },
+  "chats": [],
+  "counts": {
+    "attachments": 7,
+    "chats": 0,
+    "emails": 14
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "decline-memo",
+      "description": "The chart and questionnaire show no owner above 25% except Aaron Rich; screening finds Daniel Smith owning 60% of the holding through a foundation and a nominee (60% effective).",
+      "id": "s6-london-tiberpeak-decline:hidden-sanctioned-owner",
+      "type": "ownership-concealment",
+      "values": {
+        "declared": {
+          "Aaron Rich": 40.0
+        },
+        "effective_percent": 60.0,
+        "hidden_owner": "Daniel Smith",
+        "hops": 4
+      },
+      "where": [
+        "kyc-docs",
+        "questionnaire",
+        "screen-result"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/001-intro.eml",
+        "md": "messages/001-intro.md"
+      },
+      "from": {
+        "address": "danny.dunn@newco-london.example",
+        "name": "Danny Dunn",
+        "org": "newco-lon",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "intro",
+      "message_id": "<18a9757a580b8108c9e9@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "danny.dunn@newco-london.example"
+      },
+      "seq": 1,
+      "subject": "NewCo London and Tiber Peak: supply relationship",
+      "tags": [
+        "intro"
+      ],
+      "thread": "intro",
+      "timestamp": "2026-03-02T09:08:00+00:00",
+      "to": [
+        {
+          "address": "michele.hill@tiberpeak.example",
+          "name": "Michele Hill",
+          "org": "cp-tiberpeak",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-intro-reply.eml",
+        "md": "messages/002-intro-reply.md"
+      },
+      "from": {
+        "address": "michele.hill@tiberpeak.example",
+        "name": "Michele Hill",
+        "org": "cp-tiberpeak",
+        "role": "marketer"
+      },
+      "in_reply_to": "intro",
+      "key": "intro-reply",
+      "message_id": "<9d6d2567cd0d606d310f@tiberpeak.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michele.hill@tiberpeak.example"
+      },
+      "seq": 2,
+      "subject": "Re: NewCo London and Tiber Peak: supply relationship",
+      "tags": [
+        "intro"
+      ],
+      "thread": "intro",
+      "timestamp": "2026-03-03T09:06:00+04:00",
+      "to": [
+        {
+          "address": "danny.dunn@newco-london.example",
+          "name": "Danny Dunn",
+          "org": "newco-lon",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/003-kyc-request.eml",
+        "md": "messages/003-kyc-request.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "kyc-request",
+      "message_id": "<732281302a3efacfefac@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "KYC documents for Tiber Peak Trading DMCC",
+      "tags": [
+        "kyc"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-03-04T09:06:00+00:00",
+      "to": [
+        {
+          "address": "michael.williams@tiberpeak.example",
+          "name": "Michael Williams",
+          "org": "cp-tiberpeak",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "tiber-peak-trading-dmcc-certificate-of-incorporation.pdf",
+        "tiber-peak-trading-dmcc-ownership-chart.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {
+        "chart_complete": false,
+        "declared_beneficial_owners": {
+          "Aaron Rich": 40.0
+        }
+      },
+      "files": {
+        "eml": "messages/004-kyc-docs.eml",
+        "md": "messages/004-kyc-docs.md"
+      },
+      "from": {
+        "address": "michael.williams@tiberpeak.example",
+        "name": "Michael Williams",
+        "org": "cp-tiberpeak",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-request",
+      "key": "kyc-docs",
+      "message_id": "<37e570df8040b6d167d5@tiberpeak.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.williams@tiberpeak.example"
+      },
+      "seq": 4,
+      "subject": "Re: KYC documents for Tiber Peak Trading DMCC",
+      "tags": [
+        "incomplete-chart",
+        "kyc",
+        "ownership"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-03-05T09:16:00+04:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "tiber-peak-trading-dmcc-kyc-questionnaire.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {
+        "owner_over_25_other_than_declared": false
+      },
+      "files": {
+        "eml": "messages/005-questionnaire.eml",
+        "md": "messages/005-questionnaire.md"
+      },
+      "from": {
+        "address": "michael.williams@tiberpeak.example",
+        "name": "Michael Williams",
+        "org": "cp-tiberpeak",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-docs",
+      "key": "questionnaire",
+      "message_id": "<bf67b1eecf424588165b@tiberpeak.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michael.williams@tiberpeak.example"
+      },
+      "seq": 5,
+      "subject": "Re: KYC documents for Tiber Peak Trading DMCC",
+      "tags": [
+        "concealed-owner",
+        "kyc",
+        "questionnaire"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-03-06T09:00:00+04:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/006-screen-request.eml",
+        "md": "messages/006-screen-request.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "screen-request",
+      "message_id": "<ff31ba7d078212d18eb6@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 6,
+      "subject": "Screening request: Tiber Peak",
+      "tags": [
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-03-09T09:06:00+00:00",
+      "to": [
+        {
+          "address": "mohammed.byrne@veridianscreening.example",
+          "name": "Mohammed Byrne",
+          "org": "svc-veridian",
+          "role": "analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "tiber-peak-trading-dmcc-screening-report.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "hidden_owner": "own-tiber-hidden",
+        "result": "hit"
+      },
+      "files": {
+        "eml": "messages/007-screen-result.eml",
+        "md": "messages/007-screen-result.md"
+      },
+      "from": {
+        "address": "mohammed.byrne@veridianscreening.example",
+        "name": "Mohammed Byrne",
+        "org": "svc-veridian",
+        "role": "analyst"
+      },
+      "in_reply_to": "screen-request",
+      "key": "screen-result",
+      "message_id": "<00581fbb3cb917c8bc7a@veridianscreening.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example"
+      },
+      "seq": 7,
+      "subject": "Re: Screening request: Tiber Peak",
+      "tags": [
+        "sanctions",
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-03-11T09:06:00+00:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "tiberpeak-compliance-decision.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "decision": "decline"
+      },
+      "files": {
+        "eml": "messages/008-decline-memo.eml",
+        "md": "messages/008-decline-memo.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "decline-memo",
+      "message_id": "<06fde00a1c64d887c30f@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 8,
+      "subject": "Tiber Peak: decline and group block",
+      "tags": [
+        "contradiction-caught",
+        "decline"
+      ],
+      "thread": "decline-memo",
+      "timestamp": "2026-03-12T09:23:00+00:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        },
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "tiberpeak-decline-letter.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "reason_disclosed": false
+      },
+      "files": {
+        "eml": "messages/009-decline-letter.eml",
+        "md": "messages/009-decline-letter.md"
+      },
+      "from": {
+        "address": "danny.dunn@newco-london.example",
+        "name": "Danny Dunn",
+        "org": "newco-lon",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "decline-letter",
+      "message_id": "<0da2d4e9621782e265c9@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "danny.dunn@newco-london.example"
+      },
+      "seq": 9,
+      "subject": "NewCo London and Tiber Peak: decision",
+      "tags": [
+        "decline",
+        "neutral"
+      ],
+      "thread": "decline-letter",
+      "timestamp": "2026-03-13T09:27:00+00:00",
+      "to": [
+        {
+          "address": "michele.hill@tiberpeak.example",
+          "name": "Michele Hill",
+          "org": "cp-tiberpeak",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/010-reason-query.eml",
+        "md": "messages/010-reason-query.md"
+      },
+      "from": {
+        "address": "michele.hill@tiberpeak.example",
+        "name": "Michele Hill",
+        "org": "cp-tiberpeak",
+        "role": "marketer"
+      },
+      "in_reply_to": "decline-letter",
+      "key": "reason-query",
+      "message_id": "<15fc1cbb3339482a8215@tiberpeak.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "michele.hill@tiberpeak.example"
+      },
+      "seq": 10,
+      "subject": "Re: NewCo London and Tiber Peak: decision",
+      "tags": [
+        "decline"
+      ],
+      "thread": "decline-letter",
+      "timestamp": "2026-03-16T09:21:00+04:00",
+      "to": [
+        {
+          "address": "danny.dunn@newco-london.example",
+          "name": "Danny Dunn",
+          "org": "newco-lon",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "reason_disclosed": false
+      },
+      "files": {
+        "eml": "messages/011-reason-reply.eml",
+        "md": "messages/011-reason-reply.md"
+      },
+      "from": {
+        "address": "danny.dunn@newco-london.example",
+        "name": "Danny Dunn",
+        "org": "newco-lon",
+        "role": "marketer"
+      },
+      "in_reply_to": "reason-query",
+      "key": "reason-reply",
+      "message_id": "<302c70f9503aa71784f1@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "danny.dunn@newco-london.example"
+      },
+      "seq": 11,
+      "subject": "Re: NewCo London and Tiber Peak: decision",
+      "tags": [
+        "decline",
+        "neutral"
+      ],
+      "thread": "decline-letter",
+      "timestamp": "2026-03-17T09:09:00+00:00",
+      "to": [
+        {
+          "address": "michele.hill@tiberpeak.example",
+          "name": "Michele Hill",
+          "org": "cp-tiberpeak",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "tiberpeak-group-block.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "internal",
+      "facts": {
+        "blocked": true
+      },
+      "files": {
+        "eml": "messages/012-group-block.eml",
+        "md": "messages/012-group-block.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "group-block",
+      "message_id": "<dae2c6780cb341a42aa5@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 12,
+      "subject": "Group-wide block: Tiber Peak",
+      "tags": [
+        "group-block"
+      ],
+      "thread": "group-block",
+      "timestamp": "2026-03-18T09:23:00+00:00",
+      "to": [
+        {
+          "address": "kevin.hall@newco-sydney.example",
+          "name": "Kevin Hall",
+          "org": "newco-syd",
+          "role": "compliance_analyst"
+        },
+        {
+          "address": "gina.finley@newco-houston.example",
+          "name": "Gina Finley",
+          "org": "newco-hou",
+          "role": "compliance_analyst"
+        },
+        {
+          "address": "lori.flynn@newco-newyork.example",
+          "name": "Lori Flynn",
+          "org": "newco-nyc",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/013-block-ack.eml",
+        "md": "messages/013-block-ack.md"
+      },
+      "from": {
+        "address": "gina.finley@newco-houston.example",
+        "name": "Gina Finley",
+        "org": "newco-hou",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "group-block",
+      "key": "block-ack",
+      "message_id": "<1159a40697e61a948a12@newco-houston.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gina.finley@newco-houston.example"
+      },
+      "seq": 13,
+      "subject": "Re: Group-wide block: Tiber Peak",
+      "tags": [
+        "group-block"
+      ],
+      "thread": "group-block",
+      "timestamp": "2026-03-19T09:21:00-05:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "limit": 0,
+        "status": "closed"
+      },
+      "files": {
+        "eml": "messages/014-static-block.eml",
+        "md": "messages/014-static-block.md"
+      },
+      "from": {
+        "address": "marian.gibbs@newco-london.example",
+        "name": "Marian Gibbs",
+        "org": "newco-lon",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "static-block",
+      "message_id": "<2605c332cbe09ac5e105@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example"
+      },
+      "seq": 14,
+      "subject": "Tiber Peak: static data closed",
+      "tags": [
+        "group-block",
+        "static-data"
+      ],
+      "thread": "static-block",
+      "timestamp": "2026-03-20T09:18:00+00:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "group_block": true,
+    "hidden_owner": "own-tiber-hidden",
+    "reason_disclosed": false,
+    "result": "declined"
+  },
+  "ownership_edges": [
+    {
+      "child": "hold-tiber-foundation",
+      "class_uri": null,
+      "parent": "own-tiber-hidden",
+      "percent": 100.0,
+      "relationship": null
+    },
+    {
+      "child": "hold-tiber-nominee",
+      "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+      "parent": "hold-tiber-foundation",
+      "percent": 100.0,
+      "relationship": "UltimateConsolidation"
+    },
+    {
+      "child": "hold-tiber-cy",
+      "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+      "parent": "hold-tiber-nominee",
+      "percent": 60.0,
+      "relationship": "DirectConsolidation"
+    },
+    {
+      "child": "hold-tiber-cy",
+      "class_uri": null,
+      "parent": "own-tiber-declared",
+      "percent": 40.0,
+      "relationship": null
+    },
+    {
+      "child": "cp-tiberpeak",
+      "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+      "parent": "hold-tiber-cy",
+      "percent": 100.0,
+      "relationship": "DirectConsolidation"
+    }
+  ],
+  "phase": "onboarding",
+  "positions": [],
+  "questions": [
+    {
+      "expected": "Daniel Smith",
+      "id": "s6-london-tiberpeak-decline-q1",
+      "question": "Who is the ultimate beneficial owner behind Tiber Peak's 60% shareholder?",
+      "tolerance_pct": 0,
+      "type": "graph_traversal"
+    },
+    {
+      "expected": 4,
+      "id": "s6-london-tiberpeak-decline-q2",
+      "question": "How many ownership hops lie between the sanctioned owner and Tiber Peak Trading DMCC?",
+      "tolerance_pct": 0,
+      "type": "graph_traversal"
+    },
+    {
+      "expected": "no",
+      "id": "s6-london-tiberpeak-decline-q3",
+      "question": "Did Tiber Peak's questionnaire disclose an owner above 25% other than the declared shareholder?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    }
+  ],
+  "review_events": [
+    {
+      "after_message": "screen-result",
+      "event": "confirm-sanctions-match",
+      "person": "own-tiber-hidden"
+    }
+  ],
+  "scenario": "s6-london-tiberpeak-decline",
+  "title": "London declines Tiber Peak: hidden sanctioned owner, neutral decline, group-wide block"
+}

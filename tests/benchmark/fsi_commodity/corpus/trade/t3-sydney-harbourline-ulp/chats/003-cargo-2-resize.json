@@ -1,0 +1,81 @@
+{
+  "channel": "chat",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-SYD-26-0002",
+  "file": "chats/003-cargo-2-resize.json",
+  "key": "cargo-2-resize",
+  "lines": [
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "terms": {
+        "price_usd_per_mt": 765,
+        "quantity": 18000
+      },
+      "text": "Credit cannot cover 20,000 mt. I can do 18,000 mt at the same price.",
+      "timestamp": "2026-03-30T09:40:00+11:00"
+    },
+    {
+      "intent": "accept",
+      "speaker": {
+        "address": "jeffrey.murray@harbourline.example",
+        "name": "Jeffrey Murray",
+        "org": "cp-harbourline",
+        "role": "trader"
+      },
+      "terms": {
+        "quantity": 18000
+      },
+      "text": "18,000 mt works for us.",
+      "timestamp": "2026-03-30T09:40:55+11:00"
+    },
+    {
+      "intent": "agree",
+      "speaker": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "terms": {
+        "currency": "USD",
+        "delivery_from": "2026-06-03",
+        "delivery_to": "2026-06-11",
+        "incoterm": "CFR",
+        "location": "Newcastle",
+        "price_usd_per_mt": 765,
+        "product": "ULP 91",
+        "quantity": 18000,
+        "unit": "mt"
+      },
+      "text": "Agreed: 18,000 mt ULP 91 CFR Newcastle at USD 765.00 per mt, delivery 2026-06-03 to 2026-06-11, in USD.",
+      "timestamp": "2026-03-30T09:44:25+11:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "aaron.heath@newco-sydney.example",
+      "name": "Aaron Heath",
+      "org": "newco-syd",
+      "role": "trader"
+    },
+    {
+      "address": "jeffrey.murray@harbourline.example",
+      "name": "Jeffrey Murray",
+      "org": "cp-harbourline",
+      "role": "trader"
+    }
+  ],
+  "phase": "trade",
+  "seq": 3,
+  "tags": [
+    "agreed",
+    "negotiation",
+    "resized"
+  ]
+}

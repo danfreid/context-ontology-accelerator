@@ -1,0 +1,54 @@
+{
+  "channel": "chat",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-HOU-26-0001",
+  "file": "chats/003-logistics.json",
+  "key": "logistics",
+  "lines": [
+    {
+      "intent": "logistics",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {
+        "nomination_notice_days": 10
+      },
+      "text": "Recap received. We will nominate the vessel ten days before the window opens.",
+      "timestamp": "2026-03-13T09:56:00-05:00"
+    },
+    {
+      "intent": "logistics",
+      "speaker": {
+        "address": "crystal.king@vitol.example",
+        "name": "Crystal King",
+        "org": "cp-vitol",
+        "role": "trader"
+      },
+      "terms": {},
+      "text": "Fine. Send the nomination to my ops team.",
+      "timestamp": "2026-03-13T09:57:51-05:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "jenna.campbell@newco-houston.example",
+      "name": "Jenna Campbell",
+      "org": "newco-hou",
+      "role": "trader"
+    },
+    {
+      "address": "crystal.king@vitol.example",
+      "name": "Crystal King",
+      "org": "cp-vitol",
+      "role": "trader"
+    }
+  ],
+  "phase": "trade",
+  "seq": 3,
+  "tags": [
+    "logistics"
+  ]
+}

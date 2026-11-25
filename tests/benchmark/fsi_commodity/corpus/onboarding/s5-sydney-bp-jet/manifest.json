@@ -1,0 +1,1261 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "incorporated": "2005-03-23",
+        "jurisdiction": "England and Wales",
+        "legal_form": "Limited",
+        "legal_name": "BP Oil International Limited",
+        "registration_number": "74426159"
+      },
+      "filename": "bp-oil-international-limited-certificate-of-incorporation.pdf",
+      "kind": "certificate-of-incorporation",
+      "message": "kyc-file",
+      "path": "attachments/003-bp-oil-international-limited-certificate-of-incorporation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example",
+        "wasDerivedFrom": "<bf557fe11eba315a8ad7@newco-london.example>"
+      },
+      "sha256": "8059432f39c8b55685b142a320b63cc0eb8a9ded0d7f409972ae6dd0ff934a31",
+      "size": 2978
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "issued": "2024-10-06",
+        "legal_name": "BP Oil International Limited",
+        "status": "in good standing",
+        "validity_months": 12
+      },
+      "filename": "bp-oil-international-limited-good-standing-2024-10-06.pdf",
+      "kind": "good-standing-certificate",
+      "message": "kyc-file",
+      "path": "attachments/003-bp-oil-international-limited-good-standing-2024-10-06.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example",
+        "wasDerivedFrom": "<bf557fe11eba315a8ad7@newco-london.example>"
+      },
+      "sha256": "b224476c695fb9b0f3cb632479733173761f71060c25a30d4b8d23d56e8ff5de",
+      "size": 2553
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "complete": true,
+        "declared_beneficial_owners": {},
+        "edges": [],
+        "entity": "BP Oil International Limited"
+      },
+      "filename": "bp-oil-international-limited-ownership-chart.pdf",
+      "kind": "ownership-chart",
+      "message": "kyc-file",
+      "path": "attachments/003-bp-oil-international-limited-ownership-chart.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example",
+        "wasDerivedFrom": "<bf557fe11eba315a8ad7@newco-london.example>"
+      },
+      "sha256": "f1200cc5845a1b6e1bcd9fd1273522ab402d15b75594340eb7088dd58f1545e7",
+      "size": 2758
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "incorporated": "2009-06-29",
+        "jurisdiction": "Victoria",
+        "legal_form": "Pty Ltd",
+        "legal_name": "BP Australia Pty Ltd",
+        "registration_number": "ACN 28829696"
+      },
+      "filename": "bp-australia-pty-ltd-certificate-of-incorporation.pdf",
+      "kind": "certificate-of-incorporation",
+      "message": "au-docs",
+      "path": "attachments/004-bp-australia-pty-ltd-certificate-of-incorporation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "frank.brennan@bp-australia.example",
+        "wasDerivedFrom": "<8fb2664c27aa459ec169@bp-australia.example>"
+      },
+      "sha256": "ee03f97ded555ee2fa75f66d34588ab91e7d786900e34e5a9b1cb3afe1295a4f",
+      "size": 2949
+    },
+    {
+      "class_uri": "https://schema.org/Service",
+      "facts": {
+        "entity": "BP Australia Pty Ltd",
+        "hits": [],
+        "result": "clear",
+        "subjects": [
+          "BP Oil International Limited",
+          "BP Australia Pty Ltd"
+        ]
+      },
+      "filename": "bp-australia-pty-ltd-screening-report.pdf",
+      "kind": "screening-report",
+      "message": "screen-result",
+      "path": "attachments/006-bp-australia-pty-ltd-screening-report.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example",
+        "wasDerivedFrom": "<c577c7f247030bc75d01@veridianscreening.example>"
+      },
+      "sha256": "ffeeba0dad6e8638de06d2d5ad8c9eb14e77a0c5e27f76e78d9ed02cbd43e643",
+      "size": 3244
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "counterparty": "cp-bp-au",
+        "relied_on": "newco-lon",
+        "relying": "newco-syd"
+      },
+      "filename": "newco-sydney-reliance-letter.pdf",
+      "kind": "reliance-letter",
+      "message": "reliance-letter",
+      "path": "attachments/007-newco-sydney-reliance-letter.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kevin.hall@newco-sydney.example",
+        "wasDerivedFrom": "<99d3623139a9b2235f5c@newco-sydney.example>"
+      },
+      "sha256": "a08a528d456adc576a38953c83d72ef47eab94cc5740b892e187e052f1d6e058",
+      "size": 2531
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "group_headroom": 88000000,
+        "group_limit": 150000000,
+        "london_exposure": 62000000
+      },
+      "filename": "bp-group-exposure.pdf",
+      "kind": "exposure-statement",
+      "message": "exposure-reply",
+      "path": "attachments/012-bp-group-exposure.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example",
+        "wasDerivedFrom": "<9d6c4055117479ecfee3@newco-london.example>"
+      },
+      "sha256": "f8c502b62fd147466329f1916baa5ecaba748785ee999bc9bf62e91785962f41",
+      "size": 2339
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "available": 40000000,
+        "exposure": 0,
+        "group_headroom": 88000000,
+        "group_limit": 150000000,
+        "guaranteed": 0,
+        "headroom": 40000000,
+        "limit": 40000000,
+        "london_exposure": 62000000,
+        "requested": 40000000,
+        "sblc": 0,
+        "unsecured": 40000000
+      },
+      "filename": "bp-australia-credit-memo.pdf",
+      "kind": "credit-memo",
+      "message": "credit-memo",
+      "path": "attachments/013-bp-australia-credit-memo.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example",
+        "wasDerivedFrom": "<f8cc5b111b9fb57eebf8@newco-sydney.example>"
+      },
+      "sha256": "05a2839377b63253aa53608828dfe93824c703b4fbf9bd2949cb543757e30f57",
+      "size": 3165
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "booking_entity": "NewCo Trading Sydney Pty Ltd",
+        "counterparty": "BP Australia Pty Ltd",
+        "effective": "2026-02-27",
+        "limit": 40000000
+      },
+      "filename": "bp-australia-pty-ltd-credit-limit-letter.pdf",
+      "kind": "credit-limit-letter",
+      "message": "limit-letter",
+      "path": "attachments/014-bp-australia-pty-ltd-credit-limit-letter.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example",
+        "wasDerivedFrom": "<b3e88ca37e5e46ff0829@newco-sydney.example>"
+      },
+      "sha256": "83d904d6322e93d04fd1e89fa898f75310b33e0e0138ac35cf01fe822a477c31",
+      "size": 2705
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "acceding": "newco-syd",
+        "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited",
+        "counterparty": "cp-bp-au",
+        "terms": {
+          "governing_law": {
+            "law": "England and Wales",
+            "venue": "London"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 30
+          },
+          "quantity_basis": {
+            "basis": "discharge"
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          }
+        }
+      },
+      "filename": "bp-accession-letter.pdf",
+      "kind": "accession-letter",
+      "message": "accession-send",
+      "path": "attachments/016-bp-accession-letter.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example",
+        "wasDerivedFrom": "<87c222d72aab1b0e59f1@newco-london.example>"
+      },
+      "sha256": "52ab7fb00f96acb112b7abff18b425e4ef3c9000c6e5abaaad25ade38645e45d",
+      "size": 2651
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "acceding": "newco-syd",
+        "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited",
+        "countersigned": true
+      },
+      "filename": "bp-accession-letter-countersigned.pdf",
+      "kind": "accession-letter",
+      "message": "accession-signed",
+      "path": "attachments/017-bp-accession-letter-countersigned.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "alice.turner@bp.example",
+        "wasDerivedFrom": "<8a7bd279b8e5c5fd6fa9@bp.example>"
+      },
+      "sha256": "645cc2eaed30f7ea21659c38437e74305bbc1d24c3ce6575351de3a74d43b26e",
+      "size": 2634
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "facts": {
+        "accounts": [
+          {
+            "aba": null,
+            "bank": "bank-bluegum",
+            "bic": "ZDECAUQR",
+            "bsb": "868-150",
+            "currency": "USD",
+            "iban": null,
+            "id": "acct-newco-syd-usd-operating",
+            "number": "2926537255"
+          }
+        ],
+        "entity": "NewCo Trading Sydney Pty Ltd"
+      },
+      "filename": "newco-trading-sydney-pty-ltd-settlement-instructions.pdf",
+      "kind": "ssi-letter",
+      "message": "ssi-send",
+      "path": "attachments/018-newco-trading-sydney-pty-ltd-settlement-instructions.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "alicia.parsons@newco-sydney.example",
+        "wasDerivedFrom": "<4933a75d1f102c858190@newco-sydney.example>"
+      },
+      "sha256": "919e6408aa89dc7db45617418d17a33797bfb4825fc71f56b23aa763273dead3",
+      "size": 3366
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 12,
+    "chats": 0,
+    "emails": 20
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "Sydney relies on London's KYC, whose good-standing certificate is 500 days old against a 12-month policy.",
+      "id": "s5-sydney-bp-jet:stale-london-kyc",
+      "type": "stale-document",
+      "values": {
+        "age_days": 500,
+        "issued": "2024-10-06",
+        "policy_months": 12
+      },
+      "where": [
+        "kyc-file",
+        "bp-oil-international-limited-good-standing-2024-10-06.pdf",
+        "reliance-confirm"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/001-intro.eml",
+        "md": "messages/001-intro.md"
+      },
+      "from": {
+        "address": "bonnie.briggs@newco-sydney.example",
+        "name": "Bonnie Briggs",
+        "org": "newco-syd",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "intro",
+      "message_id": "<1b753022ac50c9a0712c@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bonnie.briggs@newco-sydney.example"
+      },
+      "seq": 1,
+      "subject": "BP: Sydney joins London's relationship",
+      "tags": [
+        "intro"
+      ],
+      "thread": "intro",
+      "timestamp": "2026-02-17T09:19:00+11:00",
+      "to": [
+        {
+          "address": "danny.dunn@newco-london.example",
+          "name": "Danny Dunn",
+          "org": "newco-lon",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-reliance-request.eml",
+        "md": "messages/002-reliance-request.md"
+      },
+      "from": {
+        "address": "kevin.hall@newco-sydney.example",
+        "name": "Kevin Hall",
+        "org": "newco-syd",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "reliance-request",
+      "message_id": "<a3446d3b6eb1c48885b4@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kevin.hall@newco-sydney.example"
+      },
+      "seq": 2,
+      "subject": "BP: KYC reliance",
+      "tags": [
+        "kyc",
+        "reliance"
+      ],
+      "thread": "reliance-request",
+      "timestamp": "2026-02-18T09:01:00+11:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "bp-oil-international-limited-certificate-of-incorporation.pdf",
+        "bp-oil-international-limited-good-standing-2024-10-06.pdf",
+        "bp-oil-international-limited-ownership-chart.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "internal",
+      "facts": {
+        "good_standing_issued": "2024-10-06"
+      },
+      "files": {
+        "eml": "messages/003-kyc-file.eml",
+        "md": "messages/003-kyc-file.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "reliance-request",
+      "key": "kyc-file",
+      "message_id": "<bf557fe11eba315a8ad7@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "Re: BP: KYC reliance",
+      "tags": [
+        "kyc",
+        "reliance",
+        "stale-certificate"
+      ],
+      "thread": "reliance-request",
+      "timestamp": "2026-02-18T09:18:00+00:00",
+      "to": [
+        {
+          "address": "kevin.hall@newco-sydney.example",
+          "name": "Kevin Hall",
+          "org": "newco-syd",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "bp-australia-pty-ltd-certificate-of-incorporation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/004-au-docs.eml",
+        "md": "messages/004-au-docs.md"
+      },
+      "from": {
+        "address": "frank.brennan@bp-australia.example",
+        "name": "Frank Brennan",
+        "org": "cp-bp-au",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "au-docs",
+      "message_id": "<8fb2664c27aa459ec169@bp-australia.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "frank.brennan@bp-australia.example"
+      },
+      "seq": 4,
+      "subject": "BP Australia Pty Ltd: certificate of incorporation",
+      "tags": [
+        "kyc"
+      ],
+      "thread": "au-docs",
+      "timestamp": "2026-02-19T09:28:00+11:00",
+      "to": [
+        {
+          "address": "kevin.hall@newco-sydney.example",
+          "name": "Kevin Hall",
+          "org": "newco-syd",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/005-screen-request.eml",
+        "md": "messages/005-screen-request.md"
+      },
+      "from": {
+        "address": "kevin.hall@newco-sydney.example",
+        "name": "Kevin Hall",
+        "org": "newco-syd",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "screen-request",
+      "message_id": "<4db707cf1bc94ff3b576@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kevin.hall@newco-sydney.example"
+      },
+      "seq": 5,
+      "subject": "Screening request: BP entities",
+      "tags": [
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-02-20T09:01:00+11:00",
+      "to": [
+        {
+          "address": "mohammed.byrne@veridianscreening.example",
+          "name": "Mohammed Byrne",
+          "org": "svc-veridian",
+          "role": "analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "bp-australia-pty-ltd-screening-report.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "result": "clear"
+      },
+      "files": {
+        "eml": "messages/006-screen-result.eml",
+        "md": "messages/006-screen-result.md"
+      },
+      "from": {
+        "address": "mohammed.byrne@veridianscreening.example",
+        "name": "Mohammed Byrne",
+        "org": "svc-veridian",
+        "role": "analyst"
+      },
+      "in_reply_to": "screen-request",
+      "key": "screen-result",
+      "message_id": "<c577c7f247030bc75d01@veridianscreening.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example"
+      },
+      "seq": 6,
+      "subject": "Re: Screening request: BP entities",
+      "tags": [
+        "clear",
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-02-20T09:08:00+00:00",
+      "to": [
+        {
+          "address": "kevin.hall@newco-sydney.example",
+          "name": "Kevin Hall",
+          "org": "newco-syd",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "newco-sydney-reliance-letter.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/007-reliance-letter.eml",
+        "md": "messages/007-reliance-letter.md"
+      },
+      "from": {
+        "address": "kevin.hall@newco-sydney.example",
+        "name": "Kevin Hall",
+        "org": "newco-syd",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "reliance-letter",
+      "message_id": "<99d3623139a9b2235f5c@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kevin.hall@newco-sydney.example"
+      },
+      "seq": 7,
+      "subject": "BP: reliance letter",
+      "tags": [
+        "kyc",
+        "reliance"
+      ],
+      "thread": "reliance-letter",
+      "timestamp": "2026-02-23T09:29:00+11:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "confirmed": true
+      },
+      "files": {
+        "eml": "messages/008-reliance-confirm.eml",
+        "md": "messages/008-reliance-confirm.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "reliance-letter",
+      "key": "reliance-confirm",
+      "message_id": "<7732c2f613443ebf7c5a@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 8,
+      "subject": "Re: BP: reliance letter",
+      "tags": [
+        "kyc",
+        "reliance"
+      ],
+      "thread": "reliance-letter",
+      "timestamp": "2026-02-23T09:24:00+00:00",
+      "to": [
+        {
+          "address": "kevin.hall@newco-sydney.example",
+          "name": "Kevin Hall",
+          "org": "newco-syd",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "internal",
+      "facts": {
+        "payment_days": 30
+      },
+      "files": {
+        "eml": "messages/009-agreement-terms.eml",
+        "md": "messages/009-agreement-terms.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "agreement-terms",
+      "message_id": "<94439ffee60bfb68a267@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 9,
+      "subject": "BP: London agreement terms",
+      "tags": [
+        "accession",
+        "legal"
+      ],
+      "thread": "agreement-terms",
+      "timestamp": "2026-02-24T09:18:00+00:00",
+      "to": [
+        {
+          "address": "denise.cook@newco-sydney.example",
+          "name": "Denise Cook",
+          "org": "newco-syd",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "requested_limit": 40000000
+      },
+      "files": {
+        "eml": "messages/010-credit-request.eml",
+        "md": "messages/010-credit-request.md"
+      },
+      "from": {
+        "address": "bonnie.briggs@newco-sydney.example",
+        "name": "Bonnie Briggs",
+        "org": "newco-syd",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "credit-request",
+      "message_id": "<31b5efbd7abfac603f79@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "bonnie.briggs@newco-sydney.example"
+      },
+      "seq": 10,
+      "subject": "Credit request: BP Australia",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-02-25T09:06:00+11:00",
+      "to": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/011-exposure-request.eml",
+        "md": "messages/011-exposure-request.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "exposure-request",
+      "message_id": "<ad5cc33d7463961dbed1@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 11,
+      "subject": "BP group exposure",
+      "tags": [
+        "credit",
+        "group-limit"
+      ],
+      "thread": "exposure-request",
+      "timestamp": "2026-02-26T09:13:00+11:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "bp-group-exposure.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "group_limit": 150000000,
+        "london_exposure": 62000000
+      },
+      "files": {
+        "eml": "messages/012-exposure-reply.eml",
+        "md": "messages/012-exposure-reply.md"
+      },
+      "from": {
+        "address": "marian.gibbs@newco-london.example",
+        "name": "Marian Gibbs",
+        "org": "newco-lon",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "exposure-request",
+      "key": "exposure-reply",
+      "message_id": "<9d6c4055117479ecfee3@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example"
+      },
+      "seq": 12,
+      "subject": "Re: BP group exposure",
+      "tags": [
+        "credit",
+        "group-limit"
+      ],
+      "thread": "exposure-request",
+      "timestamp": "2026-02-26T09:00:00+00:00",
+      "to": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "bp-australia-credit-memo.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "available": 40000000,
+        "group_limit": 150000000,
+        "london_exposure": 62000000,
+        "sub_limit": 40000000
+      },
+      "files": {
+        "eml": "messages/013-credit-memo.eml",
+        "md": "messages/013-credit-memo.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-request",
+      "key": "credit-memo",
+      "message_id": "<f8cc5b111b9fb57eebf8@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 13,
+      "subject": "Re: Credit request: BP Australia",
+      "tags": [
+        "credit",
+        "group-limit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-02-27T09:13:00+11:00",
+      "to": [
+        {
+          "address": "bonnie.briggs@newco-sydney.example",
+          "name": "Bonnie Briggs",
+          "org": "newco-syd",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "bp-australia-pty-ltd-credit-limit-letter.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "outbound",
+      "facts": {
+        "limit": 40000000
+      },
+      "files": {
+        "eml": "messages/014-limit-letter.eml",
+        "md": "messages/014-limit-letter.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "limit-letter",
+      "message_id": "<b3e88ca37e5e46ff0829@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 14,
+      "subject": "Credit limit advice",
+      "tags": [
+        "credit"
+      ],
+      "thread": "limit-letter",
+      "timestamp": "2026-03-02T09:00:00+11:00",
+      "to": [
+        {
+          "address": "christopher.figueroa@bp-australia.example",
+          "name": "Christopher Figueroa",
+          "org": "cp-bp-au",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "internal",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited"
+      },
+      "files": {
+        "eml": "messages/015-accession-draft.eml",
+        "md": "messages/015-accession-draft.md"
+      },
+      "from": {
+        "address": "denise.cook@newco-sydney.example",
+        "name": "Denise Cook",
+        "org": "newco-syd",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "accession-draft",
+      "message_id": "<a19f91272ff71377a340@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "denise.cook@newco-sydney.example"
+      },
+      "seq": 15,
+      "subject": "BP: accession letter",
+      "tags": [
+        "accession",
+        "legal"
+      ],
+      "thread": "accession-draft",
+      "timestamp": "2026-03-03T09:13:00+11:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "bp-accession-letter.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/016-accession-send.eml",
+        "md": "messages/016-accession-send.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "accession-send",
+      "message_id": "<87c222d72aab1b0e59f1@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 16,
+      "subject": "BP: accession letter for countersignature",
+      "tags": [
+        "accession",
+        "legal"
+      ],
+      "thread": "accession-send",
+      "timestamp": "2026-03-03T09:02:00+00:00",
+      "to": [
+        {
+          "address": "alice.turner@bp.example",
+          "name": "Alice Turner",
+          "org": "cp-bp",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "bp-accession-letter-countersigned.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "countersigned": true
+      },
+      "files": {
+        "eml": "messages/017-accession-signed.eml",
+        "md": "messages/017-accession-signed.md"
+      },
+      "from": {
+        "address": "alice.turner@bp.example",
+        "name": "Alice Turner",
+        "org": "cp-bp",
+        "role": "lawyer"
+      },
+      "in_reply_to": "accession-send",
+      "key": "accession-signed",
+      "message_id": "<8a7bd279b8e5c5fd6fa9@bp.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "alice.turner@bp.example"
+      },
+      "seq": 17,
+      "subject": "Re: BP: accession letter for countersignature",
+      "tags": [
+        "accession",
+        "agreed",
+        "legal"
+      ],
+      "thread": "accession-send",
+      "timestamp": "2026-03-05T09:11:00+00:00",
+      "to": [
+        {
+          "address": "denise.cook@newco-sydney.example",
+          "name": "Denise Cook",
+          "org": "newco-syd",
+          "role": "lawyer"
+        },
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "newco-trading-sydney-pty-ltd-settlement-instructions.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "direction": "outbound",
+      "facts": {
+        "account": "acct-newco-syd-usd-operating"
+      },
+      "files": {
+        "eml": "messages/018-ssi-send.eml",
+        "md": "messages/018-ssi-send.md"
+      },
+      "from": {
+        "address": "alicia.parsons@newco-sydney.example",
+        "name": "Alicia Parsons",
+        "org": "newco-syd",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "ssi-send",
+      "message_id": "<4933a75d1f102c858190@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "alicia.parsons@newco-sydney.example"
+      },
+      "seq": 18,
+      "subject": "Standard settlement instructions",
+      "tags": [
+        "ssi",
+        "static-data"
+      ],
+      "thread": "ssi-send",
+      "timestamp": "2026-03-06T09:00:00+11:00",
+      "to": [
+        {
+          "address": "theresa.dickerson@bp-australia.example",
+          "name": "Theresa Dickerson",
+          "org": "cp-bp-au",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/019-ssi-confirm.eml",
+        "md": "messages/019-ssi-confirm.md"
+      },
+      "from": {
+        "address": "theresa.dickerson@bp-australia.example",
+        "name": "Theresa Dickerson",
+        "org": "cp-bp-au",
+        "role": "settlements"
+      },
+      "in_reply_to": "ssi-send",
+      "key": "ssi-confirm",
+      "message_id": "<8261ef13bfecb9dd310d@bp-australia.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "theresa.dickerson@bp-australia.example"
+      },
+      "seq": 19,
+      "subject": "Re: Standard settlement instructions",
+      "tags": [
+        "ssi",
+        "static-data"
+      ],
+      "thread": "ssi-send",
+      "timestamp": "2026-03-09T09:22:00+11:00",
+      "to": [
+        {
+          "address": "alicia.parsons@newco-sydney.example",
+          "name": "Alicia Parsons",
+          "org": "newco-syd",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "effective": "2026-03-09",
+        "sub_limit": 40000000
+      },
+      "files": {
+        "eml": "messages/020-go-live.eml",
+        "md": "messages/020-go-live.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "go-live",
+      "message_id": "<d9b138d4373d554add3a@newco-sydney.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 20,
+      "subject": "BP Australia live for trading",
+      "tags": [
+        "go-live"
+      ],
+      "thread": "go-live",
+      "timestamp": "2026-03-10T09:19:00+11:00",
+      "to": [
+        {
+          "address": "rhonda.jimenez@newco-sydney.example",
+          "name": "Rhonda Jimenez",
+          "org": "newco-syd",
+          "role": "ops"
+        },
+        {
+          "address": "bonnie.briggs@newco-sydney.example",
+          "name": "Bonnie Briggs",
+          "org": "newco-syd",
+          "role": "marketer"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "agreement_effective": "2026-03-09",
+    "group_limit": 150000000,
+    "london_exposure": 62000000,
+    "result": "approved",
+    "sub_limit": 40000000
+  },
+  "ownership_edges": [
+    {
+      "child": "cp-bp-au",
+      "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+      "parent": "cp-bp",
+      "percent": 100.0,
+      "relationship": "UltimateConsolidation"
+    }
+  ],
+  "phase": "onboarding",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 62000000,
+      "id": "s5-sydney-bp-jet-q1",
+      "question": "What is NewCo London's open exposure to the BP group?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": "NewCo Trading London Limited",
+      "id": "s5-sydney-bp-jet-q2",
+      "question": "Which NewCo entity holds the master agreement with BP that Sydney acceded to?",
+      "tolerance_pct": 0,
+      "type": "graph_traversal"
+    },
+    {
+      "expected": 500,
+      "id": "s5-sydney-bp-jet-q3",
+      "question": "How old is the good-standing certificate Sydney relied on, in days?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    }
+  ],
+  "review_events": [],
+  "scenario": "s5-sydney-bp-jet",
+  "title": "Sydney onboards BP via London: KYC reliance, USD 40m sub-limit inside a USD 150m group limit"
+}

@@ -1,0 +1,18 @@
+# Re: Vessel nomination NC-HOU-26-0001
+
+- **Message-ID:** <3a6ec86e073c4bdc0e92@vitol.example>
+- **Date:** Tue, 31 Mar 2026 09:05:00 -0500
+- **From:** Jeff Guzman <jeff.guzman@vitol.example>
+- **To:** Donald Flores <donald.flores@newco-houston.example>
+- **In-Reply-To:** <1cc2f52b78540f791e5f@newco-houston.example>
+- **References:** <1cc2f52b78540f791e5f@newco-houston.example>
+
+## Body
+
+Hi Donald,
+
+MT Coastal Meridian accepted for NC-HOU-26-0001.
+
+Regards,
+Jeff Guzman
+Vitol Inc.

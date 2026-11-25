@@ -1,0 +1,18 @@
+# Re: KYC documents for NewCo Houston onboarding
+
+- **Message-ID:** <133ed2962c4a27d97a86@newco-houston.example>
+- **Date:** Fri, 16 Jan 2026 09:03:00 -0600
+- **From:** Gina Finley <gina.finley@newco-houston.example>
+- **To:** Patrick Smith <patrick.smith@vitol.example>
+- **In-Reply-To:** <b42d6f1a0862b7935f58@vitol.example>
+- **References:** <1c30d6da7ca556f9e588@newco-houston.example> <b42d6f1a0862b7935f58@vitol.example>
+
+## Body
+
+Hi Patrick,
+
+Received, thank you. Still outstanding: the ownership chart, LEI record and signatory list.
+
+Regards,
+Gina Finley
+NewCo Trading Houston LLC

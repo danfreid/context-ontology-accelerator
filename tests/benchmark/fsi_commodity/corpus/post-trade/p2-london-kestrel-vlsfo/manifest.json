@@ -1,0 +1,812 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited",
+        "based_on": "NC-LON-26-0001-ticket-v1.pdf",
+        "confirmation_date": "2026-03-21",
+        "currency": "USD",
+        "governing_law": "England and Wales",
+        "incoterm": "FOB",
+        "issued_by": "NewCo Trading London Limited",
+        "loading_from": "2026-04-13",
+        "loading_to": "2026-04-17",
+        "location": "Rotterdam",
+        "payment": "prepayment of 100% of the cargo value before vessel nomination",
+        "payment_days": 12,
+        "price_usd_per_mt": 545,
+        "product": "VLSFO",
+        "quantity": 8000,
+        "quantity_tolerance_pct": 5,
+        "trade_id": "NC-LON-26-0001",
+        "unit": "mt"
+      },
+      "filename": "NC-LON-26-0001-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirmation",
+      "path": "attachments/001-NC-LON-26-0001-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example",
+        "wasDerivedFrom": "<0d3613658748b26106a9@newco-london.example>"
+      },
+      "sha256": "83aa675a188baf982cbc52f873f409a642788655b72ff5017fe41e4aea6b0e16",
+      "size": 5601
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "billed_to": "Kestrel Bunkering Limited",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "currency": "USD",
+        "deductions": [],
+        "due_date": "2026-03-23",
+        "inputs": {
+          "price": 545,
+          "quantity": 8000
+        },
+        "issue_date": "2026-03-21",
+        "issued_by": "NewCo Trading London Limited",
+        "lines": [
+          {
+            "amount": 4360000,
+            "description": "Prepayment of 100% of cargo value"
+          }
+        ],
+        "number": "PRO-NC-LON-26-0001",
+        "pay_to": {
+          "account_id": "acct-newco-lon-usd-operating",
+          "bank": "Northgate Bank plc",
+          "bic": "ZIXWGBH6",
+          "iban": "GB75KHMP38669819276547",
+          "number": "19276547"
+        },
+        "subtotal": 4360000,
+        "total_due": 4360000,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "filename": "NC-LON-26-0001-prepayment-invoice.pdf",
+      "kind": "prepayment-invoice",
+      "message": "confirmation",
+      "path": "attachments/001-NC-LON-26-0001-prepayment-invoice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example",
+        "wasDerivedFrom": "<0d3613658748b26106a9@newco-london.example>"
+      },
+      "sha256": "69af8c18c8caedfb0a6f6c9467bd02c47621d1d214b7f11ff2ae735bd44233d8",
+      "size": 5779
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "account": {
+          "account_id": "acct-newco-lon-usd-operating",
+          "bank": "Northgate Bank plc",
+          "bic": "ZIXWGBH6",
+          "iban": "GB75KHMP38669819276547",
+          "number": "19276547"
+        },
+        "amount": 4360000,
+        "bank": "Northgate Bank plc",
+        "currency": "USD",
+        "originator": "Kestrel Bunkering Limited",
+        "reference": "PREPAY NC-LON-26-0001",
+        "trade_id": "NC-LON-26-0001",
+        "value_date": "2026-03-23"
+      },
+      "filename": "NC-LON-26-0001-credit-advice.pdf",
+      "kind": "credit-advice",
+      "message": "credit-advice",
+      "path": "attachments/002-NC-LON-26-0001-credit-advice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amy.davies@northgatebank.example",
+        "wasDerivedFrom": "<774976904fcbd1f61242@northgatebank.example>"
+      },
+      "sha256": "27eea39e701acb024928275afcf60b06355e42ef63ab73ff4edb69faa26fab21",
+      "size": 3484
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "facts": {
+        "laycan_from": "2026-04-13",
+        "laycan_to": "2026-04-17",
+        "nominated_by": "Kestrel Bunkering Limited",
+        "notice_date": "2026-04-02",
+        "port": "Rotterdam",
+        "product": "VLSFO",
+        "quantity": 8000,
+        "trade_id": "NC-LON-26-0001",
+        "unit": "mt",
+        "vessel": "MT Nordic Harrier"
+      },
+      "filename": "NC-LON-26-0001-nomination.pdf",
+      "kind": "nomination",
+      "message": "nomination",
+      "path": "attachments/004-NC-LON-26-0001-nomination.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "josh.hill@kestrel.example",
+        "wasDerivedFrom": "<a30d80a334172cb9798c@kestrel.example>"
+      },
+      "sha256": "9df2ad11f47d6eaeacc3de892b42e1f03d72602f18cda7d2b9a84c5bf3f56a6a",
+      "size": 3437
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "facts": {
+        "bl_date": "2026-04-15",
+        "bl_number": "BL-NC-LON-26-0001-001",
+        "class_uris": {
+          "cargo_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+          "consignee": "https://schema.org/Organization",
+          "consignment": "https://vocabulary.uncefact.org/Consignment",
+          "notify_party": "https://schema.org/Organization",
+          "shipper": "https://schema.org/Organization"
+        },
+        "consignee": "Kestrel Bunkering Limited",
+        "discharge_port": "Fujairah",
+        "load_port": "Rotterdam",
+        "notify_party": "Kestrel Bunkering Limited",
+        "product": "VLSFO",
+        "quantity": 8085,
+        "shipper": "NewCo Trading London Limited",
+        "trade_id": "NC-LON-26-0001",
+        "unit": "mt",
+        "vessel": "MT Nordic Harrier"
+      },
+      "filename": "NC-LON-26-0001-bill-of-lading.pdf",
+      "kind": "bill-of-lading",
+      "message": "bill-of-lading",
+      "path": "attachments/006-NC-LON-26-0001-bill-of-lading.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example",
+        "wasDerivedFrom": "<a3ccc2098f6f6b39acdc@newco-london.example>"
+      },
+      "sha256": "5cd7972ba36c31d34b5e78d007ef37062d71236627767aca34b5cc12ba4d39c8",
+      "size": 3706
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "facts": {
+        "basis": "load-port",
+        "bl_number": "BL-NC-LON-26-0001-001",
+        "class_uris": {
+          "event": "https://ref.gs1.org/epcis/ObjectEvent",
+          "quantity": "https://ref.gs1.org/epcis/QuantityElement"
+        },
+        "date": "2026-04-15",
+        "inspection_fee_usd": 1122.8,
+        "issued_by": "Cardinal Inspection Services",
+        "place": "Rotterdam",
+        "quantity": 8085,
+        "trade_id": "NC-LON-26-0001",
+        "unit": "mt"
+      },
+      "filename": "NC-LON-26-0001-quantity-certificate.pdf",
+      "kind": "quantity-certificate",
+      "message": "certificates",
+      "path": "attachments/007-NC-LON-26-0001-quantity-certificate.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example",
+        "wasDerivedFrom": "<b65cf456a4bc0d1c7a31@cardinalinspection.example>"
+      },
+      "sha256": "058552d62cd4391315e92f3f7c23a1c9de7cbe518235eb3c60c51d71d5325ecc",
+      "size": 3258
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "facts": {
+        "bl_number": "BL-NC-LON-26-0001-001",
+        "class_uris": {
+          "event": "https://ref.gs1.org/epcis/ObjectEvent",
+          "quantity": "https://ref.gs1.org/epcis/QuantityElement"
+        },
+        "date": "2026-04-15",
+        "density_15c": 988.1,
+        "issued_by": "Cardinal Inspection Services",
+        "place": "Rotterdam",
+        "sulphur_pct": 0.49,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "filename": "NC-LON-26-0001-quality-certificate.pdf",
+      "kind": "quality-certificate",
+      "message": "certificates",
+      "path": "attachments/007-NC-LON-26-0001-quality-certificate.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example",
+        "wasDerivedFrom": "<b65cf456a4bc0d1c7a31@cardinalinspection.example>"
+      },
+      "sha256": "4c48d205f4bc1f4bd352a1fb9d700162ba6f65505739cee3beaa987e28cab727",
+      "size": 3051
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "billed_to": "Kestrel Bunkering Limited",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "currency": "USD",
+        "deductions": [
+          {
+            "amount": 4360000,
+            "description": "Prepayment received"
+          }
+        ],
+        "due_date": "2026-04-27",
+        "inputs": {
+          "fee_share_pct": 50,
+          "inspection_fee": 1122.8,
+          "prepayment": 4360000,
+          "price": 545,
+          "quantity": 8085
+        },
+        "issue_date": "2026-04-17",
+        "issued_by": "NewCo Trading London Limited",
+        "lines": [
+          {
+            "amount": 4406325,
+            "description": "VLSFO, 8,085.000 mt at 545.00",
+            "price": 545,
+            "quantity": 8085,
+            "unit": "mt"
+          },
+          {
+            "amount": 561.4,
+            "description": "Inspection fee share (50% of 1,122.80)"
+          }
+        ],
+        "number": "NCL-INV-NC-LON-26-0001",
+        "pay_to": {
+          "account_id": "acct-newco-lon-usd-operating",
+          "bank": "Northgate Bank plc",
+          "bic": "ZIXWGBH6",
+          "iban": "GB75KHMP38669819276547",
+          "number": "19276547"
+        },
+        "subtotal": 4406886.4,
+        "total_due": 46886.4,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "filename": "NC-LON-26-0001-final-invoice.pdf",
+      "kind": "final-invoice",
+      "message": "final-invoice",
+      "path": "attachments/008-NC-LON-26-0001-final-invoice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathleen.garner@newco-london.example",
+        "wasDerivedFrom": "<327324978adf725bc4a2@newco-london.example>"
+      },
+      "sha256": "fad97c35358ebb6e40081b6e96e86eb3d5aeb9e1612ca3946570e75f3b7517a4",
+      "size": 6845
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 8,
+    "chats": 0,
+    "emails": 10
+  },
+  "deals": [],
+  "expected_contradictions": [],
+  "messages": [
+    {
+      "attachments": [
+        "NC-LON-26-0001-confirmation.pdf",
+        "NC-LON-26-0001-prepayment-invoice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "outbound",
+      "facts": {
+        "prepayment": 4360000,
+        "ticket_version": 1,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/001-confirmation.eml",
+        "md": "messages/001-confirmation.md"
+      },
+      "from": {
+        "address": "tom.scott@newco-london.example",
+        "name": "Tom Scott",
+        "org": "newco-lon",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirmation",
+      "message_id": "<0d3613658748b26106a9@newco-london.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example"
+      },
+      "seq": 1,
+      "subject": "Confirmation NC-LON-26-0001: VLSFO",
+      "tags": [
+        "confirmation",
+        "prepayment"
+      ],
+      "thread": "confirmation",
+      "timestamp": "2026-03-23T09:07:00+00:00",
+      "to": [
+        {
+          "address": "josh.hill@kestrel.example",
+          "name": "Josh Hill",
+          "org": "cp-kestrel",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0001-credit-advice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "inbound",
+      "facts": {
+        "amount": 4360000,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/002-credit-advice.eml",
+        "md": "messages/002-credit-advice.md"
+      },
+      "from": {
+        "address": "amy.davies@northgatebank.example",
+        "name": "Amy Davies",
+        "org": "bank-northgate",
+        "role": "operations"
+      },
+      "in_reply_to": null,
+      "key": "credit-advice",
+      "message_id": "<774976904fcbd1f61242@northgatebank.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amy.davies@northgatebank.example"
+      },
+      "seq": 2,
+      "subject": "Credit advice PREPAY NC-LON-26-0001",
+      "tags": [
+        "payment",
+        "prepayment"
+      ],
+      "thread": "credit-advice",
+      "timestamp": "2026-03-23T10:14:00+00:00",
+      "to": [
+        {
+          "address": "paige.ball@newco-london.example",
+          "name": "Paige Ball",
+          "org": "newco-lon",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/003-prepayment-received.eml",
+        "md": "messages/003-prepayment-received.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": "credit-advice",
+      "key": "prepayment-received",
+      "message_id": "<0c773634b4e72864809d@newco-london.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "Re: Credit advice PREPAY NC-LON-26-0001",
+      "tags": [
+        "prepayment"
+      ],
+      "thread": "credit-advice",
+      "timestamp": "2026-03-24T09:15:00+00:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0001-nomination.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "direction": "inbound",
+      "facts": {
+        "trade_id": "NC-LON-26-0001",
+        "vessel": "MT Nordic Harrier"
+      },
+      "files": {
+        "eml": "messages/004-nomination.eml",
+        "md": "messages/004-nomination.md"
+      },
+      "from": {
+        "address": "josh.hill@kestrel.example",
+        "name": "Josh Hill",
+        "org": "cp-kestrel",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "nomination",
+      "message_id": "<a30d80a334172cb9798c@kestrel.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "josh.hill@kestrel.example"
+      },
+      "seq": 4,
+      "subject": "Vessel nomination NC-LON-26-0001",
+      "tags": [
+        "logistics",
+        "nomination"
+      ],
+      "thread": "nomination",
+      "timestamp": "2026-04-02T10:02:00+01:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/005-nomination-ack.eml",
+        "md": "messages/005-nomination-ack.md"
+      },
+      "from": {
+        "address": "tom.scott@newco-london.example",
+        "name": "Tom Scott",
+        "org": "newco-lon",
+        "role": "ops"
+      },
+      "in_reply_to": "nomination",
+      "key": "nomination-ack",
+      "message_id": "<a96e552135c9730e7bd0@newco-london.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example"
+      },
+      "seq": 5,
+      "subject": "Re: Vessel nomination NC-LON-26-0001",
+      "tags": [
+        "logistics"
+      ],
+      "thread": "nomination",
+      "timestamp": "2026-04-07T09:17:00+01:00",
+      "to": [
+        {
+          "address": "josh.hill@kestrel.example",
+          "name": "Josh Hill",
+          "org": "cp-kestrel",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0001-bill-of-lading.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "direction": "outbound",
+      "facts": {
+        "bl_number": "BL-NC-LON-26-0001-001",
+        "quantity": 8085,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/006-bill-of-lading.eml",
+        "md": "messages/006-bill-of-lading.md"
+      },
+      "from": {
+        "address": "tom.scott@newco-london.example",
+        "name": "Tom Scott",
+        "org": "newco-lon",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "bill-of-lading",
+      "message_id": "<a3ccc2098f6f6b39acdc@newco-london.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example"
+      },
+      "seq": 6,
+      "subject": "Bill of lading BL-NC-LON-26-0001-001",
+      "tags": [
+        "bill-of-lading",
+        "logistics"
+      ],
+      "thread": "bill-of-lading",
+      "timestamp": "2026-04-15T10:28:00+01:00",
+      "to": [
+        {
+          "address": "josh.hill@kestrel.example",
+          "name": "Josh Hill",
+          "org": "cp-kestrel",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0001-quantity-certificate.pdf",
+        "NC-LON-26-0001-quality-certificate.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "direction": "inbound",
+      "facts": {
+        "quantity": 8085,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/007-certificates.eml",
+        "md": "messages/007-certificates.md"
+      },
+      "from": {
+        "address": "veronica.smith@cardinalinspection.example",
+        "name": "Veronica Smith",
+        "org": "svc-cardinal",
+        "role": "inspector"
+      },
+      "in_reply_to": null,
+      "key": "certificates",
+      "message_id": "<b65cf456a4bc0d1c7a31@cardinalinspection.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example"
+      },
+      "seq": 7,
+      "subject": "Inspection certificates NC-LON-26-0001",
+      "tags": [
+        "certificate",
+        "logistics"
+      ],
+      "thread": "certificates",
+      "timestamp": "2026-04-16T09:03:00-05:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0001-final-invoice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "outbound",
+      "facts": {
+        "invoice_number": "NCL-INV-NC-LON-26-0001",
+        "prepayment": 4360000,
+        "total_due": 46886.4,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/008-final-invoice.eml",
+        "md": "messages/008-final-invoice.md"
+      },
+      "from": {
+        "address": "kathleen.garner@newco-london.example",
+        "name": "Kathleen Garner",
+        "org": "newco-lon",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "final-invoice",
+      "message_id": "<327324978adf725bc4a2@newco-london.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathleen.garner@newco-london.example"
+      },
+      "seq": 8,
+      "subject": "Final invoice NCL-INV-NC-LON-26-0001: NC-LON-26-0001",
+      "tags": [
+        "invoice",
+        "true-up"
+      ],
+      "thread": "final-invoice",
+      "timestamp": "2026-04-17T09:45:00+01:00",
+      "to": [
+        {
+          "address": "louis.walsh@kestrel.example",
+          "name": "Louis Walsh",
+          "org": "cp-kestrel",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "contract_quantity": 8000,
+        "invoiced_quantity": 8085,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/009-quantity-query.eml",
+        "md": "messages/009-quantity-query.md"
+      },
+      "from": {
+        "address": "louis.walsh@kestrel.example",
+        "name": "Louis Walsh",
+        "org": "cp-kestrel",
+        "role": "accounting"
+      },
+      "in_reply_to": "final-invoice",
+      "key": "quantity-query",
+      "message_id": "<87334d25a08c498fa853@kestrel.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "louis.walsh@kestrel.example"
+      },
+      "seq": 9,
+      "subject": "Re: Final invoice NCL-INV-NC-LON-26-0001: NC-LON-26-0001",
+      "tags": [
+        "invoice",
+        "query"
+      ],
+      "thread": "final-invoice",
+      "timestamp": "2026-04-20T09:22:00+01:00",
+      "to": [
+        {
+          "address": "kathleen.garner@newco-london.example",
+          "name": "Kathleen Garner",
+          "org": "newco-lon",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "difference": 85,
+        "tolerance_pct": 5,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/010-quantity-answer.eml",
+        "md": "messages/010-quantity-answer.md"
+      },
+      "from": {
+        "address": "kathleen.garner@newco-london.example",
+        "name": "Kathleen Garner",
+        "org": "newco-lon",
+        "role": "accounting"
+      },
+      "in_reply_to": "quantity-query",
+      "key": "quantity-answer",
+      "message_id": "<e4cb5ac390fcfdf01d18@newco-london.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathleen.garner@newco-london.example"
+      },
+      "seq": 10,
+      "subject": "Re: Final invoice NCL-INV-NC-LON-26-0001: NC-LON-26-0001",
+      "tags": [
+        "invoice",
+        "tolerance"
+      ],
+      "thread": "final-invoice",
+      "timestamp": "2026-04-21T09:13:00+01:00",
+      "to": [
+        {
+          "address": "louis.walsh@kestrel.example",
+          "name": "Louis Walsh",
+          "org": "cp-kestrel",
+          "role": "accounting"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "balance": 46886.4,
+    "due": "2026-04-27",
+    "quantity_query": {
+      "difference": 85,
+      "within_tolerance": true
+    },
+    "result": "balance-invoiced",
+    "trade_id": "NC-LON-26-0001"
+  },
+  "ownership_edges": [],
+  "phase": "post_trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 46886.4,
+      "id": "p2-london-kestrel-vlsfo-q1",
+      "question": "What balance is due on the final invoice for NC-LON-26-0001 after the prepayment?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": "within the 5% tolerance",
+      "id": "p2-london-kestrel-vlsfo-q2",
+      "question": "Why was the invoiced quantity for NC-LON-26-0001 not queried further after the answer?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": 4360000,
+      "id": "p2-london-kestrel-vlsfo-q3",
+      "question": "What prepayment was credited for NC-LON-26-0001?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "p2-london-kestrel-vlsfo",
+  "title": "London sells VLSFO to Kestrel: prepayment credited, final invoice trued up, quantity query answered by the tolerance"
+}

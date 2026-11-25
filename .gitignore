@@ -263,3 +263,6 @@ infra/Python/
 # Benchmark run output (keep the directory)
 tests/benchmark/results/*
 !tests/benchmark/results/.gitkeep
+
+# ASH scan output
+.ash/ash_output/

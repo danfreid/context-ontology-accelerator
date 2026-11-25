@@ -1,0 +1,1617 @@
+{
+  "//format": "{ \"<query_id>\": { \"expected\": <result count>, \"tolerance_pct\": 0, \"tolerance\": 0, \"type\": ..., \"question\": ..., \"answer\": ... } }. compare.py reads expected and tolerance (absolute count).",
+  "//generated": "python -m tests.benchmark.fsi_commodity.golden (seed 20260101); one entry per manifest question plus traversal questions over the universe and scenario links (graph-qNN) and metadata questions on the structured source. Do not edit by hand.",
+  "s1-houston-vitol-wti-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What credit limit did NewCo Houston approve for Vitol Inc.?",
+    "answer": 40000000
+  },
+  "s1-houston-vitol-wti-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "In how many redline rounds was the Vitol master agreement negotiated?",
+    "answer": 4
+  },
+  "s1-houston-vitol-wti-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What payment days did the final Vitol master agreement set?",
+    "answer": 25
+  },
+  "s2-london-kestrel-vlsfo-q1": {
+    "expected": 2,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Who are the beneficial owners of Kestrel Bunkering Limited at 25% or more?",
+    "answer": [
+      "Adam Mahmood",
+      "Elliot Ryan"
+    ]
+  },
+  "s2-london-kestrel-vlsfo-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Which owner of Kestrel is a PEP although the questionnaire says there is none?",
+    "answer": "Elliot Ryan"
+  },
+  "s2-london-kestrel-vlsfo-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What unsecured credit limit does NewCo London have for Kestrel?",
+    "answer": 0
+  },
+  "s3-sydney-harbourline-ulp-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the combined credit limit approved for Harbourline?",
+    "answer": 30000000
+  },
+  "s3-sydney-harbourline-ulp-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What payment days does the Harbourline redline set, against what the emails state?",
+    "answer": 45
+  },
+  "s3-sydney-harbourline-ulp-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "When does the Harbourline standby letter of credit expire?",
+    "answer": "2026-09-08"
+  },
+  "s4-newyork-glencore-isda-q1": {
+    "expected": 2,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Under what name was the Glencore ISDA Schedule signed, and what is the legal name?",
+    "answer": [
+      "Glencore Limited",
+      "Glencore Ltd."
+    ]
+  },
+  "s4-newyork-glencore-isda-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the CSA threshold agreed with Glencore (USD)?",
+    "answer": 2500000
+  },
+  "s4-newyork-glencore-isda-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "Is the Glencore netting opinion qualified?",
+    "answer": "yes"
+  },
+  "s5-sydney-bp-jet-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is NewCo London's open exposure to the BP group?",
+    "answer": 62000000
+  },
+  "s5-sydney-bp-jet-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which NewCo entity holds the master agreement with BP that Sydney acceded to?",
+    "answer": "NewCo Trading London Limited"
+  },
+  "s5-sydney-bp-jet-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "How old is the good-standing certificate Sydney relied on, in days?",
+    "answer": 500
+  },
+  "s6-london-tiberpeak-decline-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Who is the ultimate beneficial owner behind Tiber Peak's 60% shareholder?",
+    "answer": "Daniel Smith"
+  },
+  "s6-london-tiberpeak-decline-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "How many ownership hops lie between the sanctioned owner and Tiber Peak Trading DMCC?",
+    "answer": 4
+  },
+  "s6-london-tiberpeak-decline-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Did Tiber Peak's questionnaire disclose an owner above 25% other than the declared shareholder?",
+    "answer": "no"
+  },
+  "t1-houston-vitol-wti-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "What premium did the traders agree in chat for NC-HOU-26-0001?",
+    "answer": 0.85
+  },
+  "t1-houston-vitol-wti-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What premium does Vitol's recap for NC-HOU-26-0001 state?",
+    "answer": 0.95
+  },
+  "t1-houston-vitol-wti-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What was NewCo Houston's headroom with Vitol Inc. after NC-HOU-26-0001?",
+    "answer": 23287500
+  },
+  "t2-london-kestrel-vlsfo-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What prepayment did NewCo London require from Kestrel for NC-LON-26-0001?",
+    "answer": 4360000
+  },
+  "t2-london-kestrel-vlsfo-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "In which currency did the first prepayment request for NC-LON-26-0001 ask for payment?",
+    "answer": "GBP"
+  },
+  "t2-london-kestrel-vlsfo-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "What price per mt was agreed for NC-LON-26-0001?",
+    "answer": 545
+  },
+  "t3-sydney-harbourline-ulp-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "At what quantity did credit decline Harbourline's second ULP cargo?",
+    "answer": 20000
+  },
+  "t3-sydney-harbourline-ulp-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "To what quantity was Harbourline's second ULP cargo resized?",
+    "answer": 18000
+  },
+  "t3-sydney-harbourline-ulp-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "How many days after invoice is payment due on NC-SYD-26-0001?",
+    "answer": 45
+  },
+  "t4-newyork-glencore-isda-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "What fixed price did NewCo agree to pay Glencore on NC-NYC-26-0001?",
+    "answer": 68.4
+  },
+  "t4-newyork-glencore-isda-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What fixed price does the latest ticket for NC-NYC-26-0001 show?",
+    "answer": 68.04
+  },
+  "t4-newyork-glencore-isda-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the CSA threshold with Glencore recorded for NC-NYC-26-0001?",
+    "answer": 2500000
+  },
+  "t5-sydney-bp-jet-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What was the group exposure to BP after NC-SYD-26-0003?",
+    "answer": 85850000
+  },
+  "t5-sydney-bp-jet-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Which incoterm does BP's recap for NC-SYD-26-0003 state?",
+    "answer": "CFR"
+  },
+  "t5-sydney-bp-jet-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "Which incoterm was agreed in chat for NC-SYD-26-0003?",
+    "answer": "CIF"
+  },
+  "t6-london-northgate-gbp-fwd-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "At what rate did NewCo London buy GBP forward on NC-LON-26-0002?",
+    "answer": 1.2845
+  },
+  "t6-london-northgate-gbp-fwd-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What value date did Northgate's first confirmation of NC-LON-26-0002 show?",
+    "answer": "2026-07-09"
+  },
+  "t6-london-northgate-gbp-fwd-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What USD amount settles NC-LON-26-0002?",
+    "answer": 5138000
+  },
+  "p1-houston-vitol-wti-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "By how much does Vitol's invoice for NC-HOU-26-0001 overcharge the premium?",
+    "answer": 25138.12
+  },
+  "p1-houston-vitol-wti-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "What certified quantity is on the quantity certificate for NC-HOU-26-0001?",
+    "answer": 251381.194
+  },
+  "p1-houston-vitol-wti-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the amount payable for NC-HOU-26-0001 after the credit note?",
+    "answer": 16805084.2
+  },
+  "p2-london-kestrel-vlsfo-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What balance is due on the final invoice for NC-LON-26-0001 after the prepayment?",
+    "answer": 46886.4
+  },
+  "p2-london-kestrel-vlsfo-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "Why was the invoiced quantity for NC-LON-26-0001 not queried further after the answer?",
+    "answer": "within the 5% tolerance"
+  },
+  "p2-london-kestrel-vlsfo-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What prepayment was credited for NC-LON-26-0001?",
+    "answer": 4360000
+  },
+  "p3-sydney-harbourline-ulp-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "On what quantity should the invoice for NC-SYD-26-0001 have been issued?",
+    "answer": 19874.25
+  },
+  "p3-sydney-harbourline-ulp-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "What cover does the letter of indemnity for BL-NC-SYD-26-0001-001 give, as a percentage of cargo value?",
+    "answer": 125
+  },
+  "p3-sydney-harbourline-ulp-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the amount payable for NC-SYD-26-0001 after the credit note?",
+    "answer": 15203801.25
+  },
+  "p4-newyork-glencore-isda-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What fixed price did NewCo's first confirmation for NC-NYC-26-0001 state?",
+    "answer": 68.04
+  },
+  "p4-newyork-glencore-isda-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What amount should the margin call for NC-NYC-26-0001 be after the CSA threshold?",
+    "answer": 620000
+  },
+  "p4-newyork-glencore-isda-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the CSA threshold for NC-NYC-26-0001?",
+    "answer": 2500000
+  },
+  "p5-sydney-bp-jet-q1": {
+    "expected": 2,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Which FX rates do NewCo and BP apply to the invoice for NC-SYD-26-0003?",
+    "answer": [
+      1.541,
+      1.5365
+    ]
+  },
+  "p5-sydney-bp-jet-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What is the GST in AUD on NewCo's tax invoice for NC-SYD-26-0003?",
+    "answer": 3676816.37
+  },
+  "p5-sydney-bp-jet-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the USD total on the tax invoice for NC-SYD-26-0003?",
+    "answer": 23859937.5
+  },
+  "p6-london-northgate-gbp-fwd-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What debit account did the first bank confirmation for NC-LON-26-0002 show?",
+    "answer": "19276574"
+  },
+  "p6-london-northgate-gbp-fwd-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What USD amount settles NC-LON-26-0002?",
+    "answer": 5138000
+  },
+  "p6-london-northgate-gbp-fwd-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "What rate is on the confirmation for NC-LON-26-0002?",
+    "answer": 1.2845
+  },
+  "x1-houston-vitol-wti-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What amount did NewCo Houston pay Vitol for NC-HOU-26-0001?",
+    "answer": 16805084.2
+  },
+  "x1-houston-vitol-wti-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "Why did the release for NC-HOU-26-0001 need a second approver?",
+    "answer": "above the USD 10,000,000 single-release limit"
+  },
+  "x1-houston-vitol-wti-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which bank held the debited account for NC-HOU-26-0001?",
+    "answer": "Lonestar National Bank"
+  },
+  "x2-london-kestrel-vlsfo-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "How many days after the due date did Kestrel pay the balance for NC-LON-26-0001?",
+    "answer": 2
+  },
+  "x2-london-kestrel-vlsfo-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What late interest accrued on the NC-LON-26-0001 balance before it was waived?",
+    "answer": 7.71
+  },
+  "x2-london-kestrel-vlsfo-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What balance did the reminder for NC-LON-26-0001 claim?",
+    "answer": 46886.4
+  },
+  "x3-sydney-harbourline-ulp-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "By how much was the first payment for NC-SYD-26-0001 short?",
+    "answer": 45
+  },
+  "x3-sydney-harbourline-ulp-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "Which clause did the NC-SYD-26-0001 bank charge breach?",
+    "answer": "no deductions, including bank charges"
+  },
+  "x3-sydney-harbourline-ulp-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What did Harbourline credit in total for NC-SYD-26-0001?",
+    "answer": 15203801.25
+  },
+  "x4-newyork-glencore-isda-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What amount settled on the first swap statement for NC-NYC-26-0001?",
+    "answer": 186675
+  },
+  "x4-newyork-glencore-isda-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What average floating price did the corrected statement for NC-NYC-26-0001 use?",
+    "answer": 64.6665
+  },
+  "x4-newyork-glencore-isda-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "How many daily prices does the swap statement for NC-NYC-26-0001 list?",
+    "answer": 23
+  },
+  "x5-sydney-bp-jet-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What net amount did BP settle with NewCo Sydney for NC-SYD-26-0003 and NC-LON-26-0003?",
+    "answer": 14481937.5
+  },
+  "x5-sydney-bp-jet-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Which NewCo entity dealt NC-LON-26-0003, which BP invoiced to Sydney?",
+    "answer": "NewCo Trading London Limited"
+  },
+  "x5-sydney-bp-jet-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What was the amount of BP invoice BPOI-INV-NC-LON-26-0003?",
+    "answer": 9378000
+  },
+  "x6-london-northgate-gbp-fwd-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "How much USD did NewCo London pay to settle NC-LON-26-0002?",
+    "answer": 5138000
+  },
+  "x6-london-northgate-gbp-fwd-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What rate did the settlement of NC-LON-26-0002 use?",
+    "answer": 1.2845
+  },
+  "x6-london-northgate-gbp-fwd-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which account received the GBP for NC-LON-26-0002?",
+    "answer": "acct-newco-lon-gbp-operating"
+  },
+  "graph-q01": {
+    "expected": 2,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which natural persons own Kestrel Bunkering Limited, directly or through any chain of holding entities?",
+    "answer": [
+      "Adam Mahmood",
+      "Elliot Ryan"
+    ],
+    "shape": "reachable",
+    "hops": 3,
+    "query": {
+      "op": "reach",
+      "start": "cp-kestrel",
+      "kinds": [
+        "owns"
+      ],
+      "want": [
+        "person"
+      ],
+      "direction": "in"
+    }
+  },
+  "graph-q02": {
+    "expected": 2,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which natural persons own Tiber Peak Trading DMCC, directly or through any chain of holding entities?",
+    "answer": [
+      "Aaron Rich",
+      "Daniel Smith"
+    ],
+    "shape": "reachable",
+    "hops": 4,
+    "query": {
+      "op": "reach",
+      "start": "cp-tiberpeak",
+      "kinds": [
+        "owns"
+      ],
+      "want": [
+        "person"
+      ],
+      "direction": "in"
+    }
+  },
+  "graph-q03": {
+    "expected": 2,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which natural persons own Harbourline Petroleum Pty Ltd, directly or through any chain of holding entities?",
+    "answer": [
+      "Margaret Beck",
+      "Michelle Walker"
+    ],
+    "shape": "reachable",
+    "hops": 2,
+    "query": {
+      "op": "reach",
+      "start": "cp-harbourline",
+      "kinds": [
+        "owns"
+      ],
+      "want": [
+        "person"
+      ],
+      "direction": "in"
+    }
+  },
+  "graph-q04": {
+    "expected": 2,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which natural persons own NewCo Trading Houston LLC, directly or through any chain of holding entities?",
+    "answer": [
+      "Brandon Ramirez",
+      "Heather Santos"
+    ],
+    "shape": "reachable",
+    "hops": 3,
+    "query": {
+      "op": "reach",
+      "start": "newco-hou",
+      "kinds": [
+        "owns"
+      ],
+      "want": [
+        "person"
+      ],
+      "direction": "in"
+    }
+  },
+  "graph-q05": {
+    "expected": 5,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which legal entities does NewCo Founders Partnership own, directly or indirectly?",
+    "answer": [
+      "NewCo Derivatives New York, Inc.",
+      "NewCo Global Holdings, Inc.",
+      "NewCo Trading Houston LLC",
+      "NewCo Trading London Limited",
+      "NewCo Trading Sydney Pty Ltd"
+    ],
+    "shape": "reachable",
+    "hops": 2,
+    "query": {
+      "op": "reach",
+      "start": "hold-founders",
+      "kinds": [
+        "owns"
+      ],
+      "want": [
+        "newco",
+        "counterparty",
+        "holder"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q06": {
+    "expected": 6,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which legal entities does Heather Santos own, directly or indirectly?",
+    "answer": [
+      "NewCo Derivatives New York, Inc.",
+      "NewCo Founders Partnership",
+      "NewCo Global Holdings, Inc.",
+      "NewCo Trading Houston LLC",
+      "NewCo Trading London Limited",
+      "NewCo Trading Sydney Pty Ltd"
+    ],
+    "shape": "reachable",
+    "hops": 3,
+    "query": {
+      "op": "reach",
+      "start": "own-founder-1",
+      "kinds": [
+        "owns"
+      ],
+      "want": [
+        "newco",
+        "counterparty",
+        "holder"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q07": {
+    "expected": 5,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which legal entities does Ridgeline Infrastructure Fund II LP own, directly or indirectly?",
+    "answer": [
+      "NewCo Derivatives New York, Inc.",
+      "NewCo Global Holdings, Inc.",
+      "NewCo Trading Houston LLC",
+      "NewCo Trading London Limited",
+      "NewCo Trading Sydney Pty Ltd"
+    ],
+    "shape": "reachable",
+    "hops": 2,
+    "query": {
+      "op": "reach",
+      "start": "hold-infra",
+      "kinds": [
+        "owns"
+      ],
+      "want": [
+        "newco",
+        "counterparty",
+        "holder"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q08": {
+    "expected": 4,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which legal entities does Daniel Smith own, directly or indirectly?",
+    "answer": [
+      "Aurelian Nominees Ltd",
+      "Corvane Foundation",
+      "Tiber Peak Holdings Ltd",
+      "Tiber Peak Trading DMCC"
+    ],
+    "shape": "reachable",
+    "hops": 4,
+    "query": {
+      "op": "reach",
+      "start": "own-tiber-hidden",
+      "kinds": [
+        "owns"
+      ],
+      "want": [
+        "newco",
+        "counterparty",
+        "holder"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q09": {
+    "expected": 3,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which legal entities does Elliot Ryan own, directly or indirectly?",
+    "answer": [
+      "Kestrel Bunkering Limited",
+      "Kestrel Holdings (BVI) Ltd",
+      "Sandpiper Trust (Jersey) Limited"
+    ],
+    "shape": "reachable",
+    "hops": 3,
+    "query": {
+      "op": "reach",
+      "start": "own-kestrel-pep",
+      "kinds": [
+        "owns"
+      ],
+      "want": [
+        "newco",
+        "counterparty",
+        "holder"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q10": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which legal entities does Harbourline Group Holdings Pty Ltd own, directly or indirectly?",
+    "answer": [
+      "Harbourline Petroleum Pty Ltd"
+    ],
+    "shape": "reachable",
+    "hops": 1,
+    "query": {
+      "op": "reach",
+      "start": "hold-harbourline-grp",
+      "kinds": [
+        "owns"
+      ],
+      "want": [
+        "newco",
+        "counterparty",
+        "holder"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q11": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "What effective percentage of NewCo Trading Houston LLC does Heather Santos hold through the ownership chain?",
+    "answer": 34.1,
+    "shape": "effective_share",
+    "hops": 3,
+    "query": {
+      "op": "share",
+      "start": "own-founder-1",
+      "end": "newco-hou"
+    }
+  },
+  "graph-q12": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "What effective percentage of NewCo Trading Sydney Pty Ltd does Brandon Ramirez hold through the ownership chain?",
+    "answer": 27.9,
+    "shape": "effective_share",
+    "hops": 3,
+    "query": {
+      "op": "share",
+      "start": "own-founder-2",
+      "end": "newco-syd"
+    }
+  },
+  "graph-q13": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "What effective percentage of Kestrel Bunkering Limited does Elliot Ryan hold through the ownership chain?",
+    "answer": 55.0,
+    "shape": "effective_share",
+    "hops": 3,
+    "query": {
+      "op": "share",
+      "start": "own-kestrel-pep",
+      "end": "cp-kestrel"
+    }
+  },
+  "graph-q14": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "What effective percentage of Tiber Peak Trading DMCC does Daniel Smith hold through the ownership chain?",
+    "answer": 60.0,
+    "shape": "effective_share",
+    "hops": 4,
+    "query": {
+      "op": "share",
+      "start": "own-tiber-hidden",
+      "end": "cp-tiberpeak"
+    }
+  },
+  "graph-q15": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "How many ownership hops lie between Heather Santos and NewCo Trading London Limited?",
+    "answer": 3,
+    "shape": "path_length",
+    "hops": 3,
+    "query": {
+      "op": "hops",
+      "start": "own-founder-1",
+      "end": "newco-lon",
+      "kinds": [
+        "owns"
+      ]
+    }
+  },
+  "graph-q16": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "How many ownership hops lie between Elliot Ryan and Kestrel Bunkering Limited?",
+    "answer": 3,
+    "shape": "path_length",
+    "hops": 3,
+    "query": {
+      "op": "hops",
+      "start": "own-kestrel-pep",
+      "end": "cp-kestrel",
+      "kinds": [
+        "owns"
+      ]
+    }
+  },
+  "graph-q17": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "How many ownership hops lie between Margaret Beck and Harbourline Petroleum Pty Ltd?",
+    "answer": 2,
+    "shape": "path_length",
+    "hops": 2,
+    "query": {
+      "op": "hops",
+      "start": "own-harbourline-1",
+      "end": "cp-harbourline",
+      "kinds": [
+        "owns"
+      ]
+    }
+  },
+  "graph-q18": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "How many ownership hops lie between Ridgeline Infrastructure Fund II LP and NewCo Trading Sydney Pty Ltd?",
+    "answer": 2,
+    "shape": "path_length",
+    "hops": 2,
+    "query": {
+      "op": "hops",
+      "start": "hold-infra",
+      "end": "newco-syd",
+      "kinds": [
+        "owns"
+      ]
+    }
+  },
+  "graph-q19": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "How many ownership hops lie between Daniel Smith and Tiber Peak Holdings Ltd?",
+    "answer": 3,
+    "shape": "path_length",
+    "hops": 3,
+    "query": {
+      "op": "hops",
+      "start": "own-tiber-hidden",
+      "end": "hold-tiber-cy",
+      "kinds": [
+        "owns"
+      ]
+    }
+  },
+  "graph-q20": {
+    "expected": 5,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "List the ownership chain from Daniel Smith down to Tiber Peak Trading DMCC, in order.",
+    "answer": [
+      "Daniel Smith",
+      "Corvane Foundation",
+      "Aurelian Nominees Ltd",
+      "Tiber Peak Holdings Ltd",
+      "Tiber Peak Trading DMCC"
+    ],
+    "shape": "path",
+    "hops": 4,
+    "query": {
+      "op": "path",
+      "start": "own-tiber-hidden",
+      "end": "cp-tiberpeak",
+      "kinds": [
+        "owns"
+      ]
+    }
+  },
+  "graph-q21": {
+    "expected": 4,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "List the ownership chain from Elliot Ryan down to Kestrel Bunkering Limited, in order.",
+    "answer": [
+      "Elliot Ryan",
+      "Sandpiper Trust (Jersey) Limited",
+      "Kestrel Holdings (BVI) Ltd",
+      "Kestrel Bunkering Limited"
+    ],
+    "shape": "path",
+    "hops": 3,
+    "query": {
+      "op": "path",
+      "start": "own-kestrel-pep",
+      "end": "cp-kestrel",
+      "kinds": [
+        "owns"
+      ]
+    }
+  },
+  "graph-q22": {
+    "expected": 4,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "List the ownership chain from Brandon Ramirez down to NewCo Derivatives New York, Inc., in order.",
+    "answer": [
+      "Brandon Ramirez",
+      "NewCo Founders Partnership",
+      "NewCo Global Holdings, Inc.",
+      "NewCo Derivatives New York, Inc."
+    ],
+    "shape": "path",
+    "hops": 3,
+    "query": {
+      "op": "path",
+      "start": "own-founder-2",
+      "end": "newco-nyc",
+      "kinds": [
+        "owns"
+      ]
+    }
+  },
+  "graph-q23": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Does an ownership chain run from Elliot Ryan to Kestrel Bunkering Limited?",
+    "answer": "yes",
+    "shape": "path_exists",
+    "hops": 3,
+    "query": {
+      "op": "exists",
+      "start": "own-kestrel-pep",
+      "end": "cp-kestrel",
+      "kinds": [
+        "owns"
+      ]
+    }
+  },
+  "graph-q24": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Does an ownership chain run from Elliot Ryan to Tiber Peak Trading DMCC?",
+    "answer": "no",
+    "shape": "path_exists",
+    "hops": null,
+    "query": {
+      "op": "exists",
+      "start": "own-kestrel-pep",
+      "end": "cp-tiberpeak",
+      "kinds": [
+        "owns"
+      ]
+    }
+  },
+  "graph-q25": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which banks hold accounts of NewCo Trading London Limited?",
+    "answer": [
+      "Northgate Bank plc"
+    ],
+    "shape": "reachable",
+    "hops": 2,
+    "query": {
+      "op": "reach",
+      "start": "newco-lon",
+      "kinds": [
+        "has_account",
+        "held_at"
+      ],
+      "want": [
+        "bank"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q26": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which banks hold accounts of NewCo Trading Houston LLC?",
+    "answer": [
+      "Lonestar National Bank"
+    ],
+    "shape": "reachable",
+    "hops": 2,
+    "query": {
+      "op": "reach",
+      "start": "newco-hou",
+      "kinds": [
+        "has_account",
+        "held_at"
+      ],
+      "want": [
+        "bank"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q27": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which banks hold accounts of BP Australia Pty Ltd?",
+    "answer": [
+      "Southern Tide Bank Ltd"
+    ],
+    "shape": "reachable",
+    "hops": 2,
+    "query": {
+      "op": "reach",
+      "start": "cp-bp-au",
+      "kinds": [
+        "has_account",
+        "held_at"
+      ],
+      "want": [
+        "bank"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q28": {
+    "expected": 4,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which legal entities hold an account at Northgate Bank plc?",
+    "answer": [
+      "BP Oil International Limited",
+      "Kestrel Bunkering Limited",
+      "NewCo Trading London Limited",
+      "Shell Trading International Ltd"
+    ],
+    "shape": "reachable",
+    "hops": 2,
+    "query": {
+      "op": "reach",
+      "start": "bank-northgate",
+      "kinds": [
+        "has_account",
+        "held_at"
+      ],
+      "want": [
+        "newco",
+        "counterparty",
+        "holder"
+      ],
+      "direction": "in"
+    }
+  },
+  "graph-q29": {
+    "expected": 3,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which legal entities hold an account at Hudson Meridian Trust Company?",
+    "answer": [
+      "Glencore Ltd.",
+      "NewCo Derivatives New York, Inc.",
+      "Vitol Inc."
+    ],
+    "shape": "reachable",
+    "hops": 2,
+    "query": {
+      "op": "reach",
+      "start": "bank-hudson",
+      "kinds": [
+        "has_account",
+        "held_at"
+      ],
+      "want": [
+        "newco",
+        "counterparty",
+        "holder"
+      ],
+      "direction": "in"
+    }
+  },
+  "graph-q30": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Following email to attachment to trade to invoice to payment, which payment does the email <45b8de5fda00e23c65df@vitol.example> (subject: Re: Invoice VIT-INV-NC-HOU-26-0001: NC-HOU-26-0001), carrying NC-HOU-26-0001-credit-note.pdf, lead to?",
+    "answer": [
+      "pay-x1-houston-vitol-wti"
+    ],
+    "shape": "reachable",
+    "hops": 4,
+    "query": {
+      "op": "reach",
+      "start": "<45b8de5fda00e23c65df@vitol.example>",
+      "kinds": [
+        "attaches",
+        "about",
+        "billed",
+        "settled_by"
+      ],
+      "want": [
+        "payment"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q31": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Following email to attachment to trade to invoice to payment, which payment does the email <327324978adf725bc4a2@newco-london.example> (subject: Final invoice NCL-INV-NC-LON-26-0001: NC-LON-26-0001), carrying NC-LON-26-0001-final-invoice.pdf, lead to?",
+    "answer": [
+      "pay-x2-london-kestrel-vlsfo"
+    ],
+    "shape": "reachable",
+    "hops": 4,
+    "query": {
+      "op": "reach",
+      "start": "<327324978adf725bc4a2@newco-london.example>",
+      "kinds": [
+        "attaches",
+        "about",
+        "billed",
+        "settled_by"
+      ],
+      "want": [
+        "payment"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q32": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Following email to attachment to trade to invoice to payment, which payment does the email <d1a4df4b628cfc1a3281@newco-sydney.example> (subject: Re: Invoice NCS-INV-NC-SYD-26-0001: NC-SYD-26-0001), carrying NC-SYD-26-0001-credit-note.pdf, lead to?",
+    "answer": [
+      "pay-x3-sydney-harbourline-ulp"
+    ],
+    "shape": "reachable",
+    "hops": 4,
+    "query": {
+      "op": "reach",
+      "start": "<d1a4df4b628cfc1a3281@newco-sydney.example>",
+      "kinds": [
+        "attaches",
+        "about",
+        "billed",
+        "settled_by"
+      ],
+      "want": [
+        "payment"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q33": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Following email to attachment to trade to invoice to payment, which payment does the email <fa948622bc24b966edc3@glencore.example> (subject: Re: Margin call MC-NC-NYC-26-0001-1), carrying NC-NYC-26-0001-margin-call-r2.pdf, lead to?",
+    "answer": [
+      "pay-x4-newyork-glencore-isda"
+    ],
+    "shape": "reachable",
+    "hops": 4,
+    "query": {
+      "op": "reach",
+      "start": "<fa948622bc24b966edc3@glencore.example>",
+      "kinds": [
+        "attaches",
+        "about",
+        "billed",
+        "settled_by"
+      ],
+      "want": [
+        "payment"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q34": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Following email to attachment to trade to invoice to payment, which payment does the email <0ac355143a3fbfc4e8ab@newco-sydney.example> (subject: Tax invoice NCS-TAX-NC-SYD-26-0003: NC-SYD-26-0003), carrying NC-SYD-26-0003-tax-invoice.pdf, lead to?",
+    "answer": [
+      "pay-x5-sydney-bp-jet"
+    ],
+    "shape": "reachable",
+    "hops": 4,
+    "query": {
+      "op": "reach",
+      "start": "<0ac355143a3fbfc4e8ab@newco-sydney.example>",
+      "kinds": [
+        "attaches",
+        "about",
+        "billed",
+        "settled_by"
+      ],
+      "want": [
+        "payment"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q35": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Following email to attachment to trade to invoice to payment, which payment does the email <b67cff00e142d540d06e@northgatebank.example> (subject: Re: Forward confirmation NC-LON-26-0002), carrying NC-LON-26-0002-bank-confirmation-v2.pdf, lead to?",
+    "answer": [
+      "pay-x6-london-northgate-gbp-fwd"
+    ],
+    "shape": "reachable",
+    "hops": 4,
+    "query": {
+      "op": "reach",
+      "start": "<b67cff00e142d540d06e@northgatebank.example>",
+      "kinds": [
+        "attaches",
+        "about",
+        "billed",
+        "settled_by"
+      ],
+      "want": [
+        "payment"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q36": {
+    "expected": 4,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which banks hold accounts of companies that Heather Santos owns, directly or indirectly?",
+    "answer": [
+      "Bluegum Commercial Bank Ltd",
+      "Hudson Meridian Trust Company",
+      "Lonestar National Bank",
+      "Northgate Bank plc"
+    ],
+    "shape": "reachable",
+    "hops": 5,
+    "query": {
+      "op": "reach",
+      "start": "own-founder-1",
+      "kinds": [
+        "owns",
+        "has_account",
+        "held_at"
+      ],
+      "want": [
+        "bank"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q37": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which payments settle trades of companies that Elliot Ryan owns, directly or indirectly?",
+    "answer": [
+      "pay-x2-london-kestrel-vlsfo"
+    ],
+    "shape": "reachable",
+    "hops": 6,
+    "query": {
+      "op": "reach",
+      "start": "own-kestrel-pep",
+      "kinds": [
+        "owns",
+        "party_to",
+        "billed",
+        "settled_by"
+      ],
+      "want": [
+        "payment"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q38": {
+    "expected": 6,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which payments settle trades of companies that Heather Santos owns, directly or indirectly?",
+    "answer": [
+      "pay-x1-houston-vitol-wti",
+      "pay-x2-london-kestrel-vlsfo",
+      "pay-x3-sydney-harbourline-ulp",
+      "pay-x4-newyork-glencore-isda",
+      "pay-x5-sydney-bp-jet",
+      "pay-x6-london-northgate-gbp-fwd"
+    ],
+    "shape": "reachable",
+    "hops": 6,
+    "query": {
+      "op": "reach",
+      "start": "own-founder-1",
+      "kinds": [
+        "owns",
+        "party_to",
+        "billed",
+        "settled_by"
+      ],
+      "want": [
+        "payment"
+      ],
+      "direction": "out"
+    }
+  },
+  "graph-q39": {
+    "expected": 7,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "List the chain from Elliot Ryan to the payment pay-x2-london-kestrel-vlsfo, through ownership, trade and invoice.",
+    "answer": [
+      "Elliot Ryan",
+      "Sandpiper Trust (Jersey) Limited",
+      "Kestrel Holdings (BVI) Ltd",
+      "Kestrel Bunkering Limited",
+      "NC-LON-26-0001",
+      "NCL-INV-NC-LON-26-0001",
+      "pay-x2-london-kestrel-vlsfo"
+    ],
+    "shape": "path",
+    "hops": 6,
+    "query": {
+      "op": "path",
+      "start": "own-kestrel-pep",
+      "end": "pay-x2-london-kestrel-vlsfo",
+      "kinds": [
+        "owns",
+        "party_to",
+        "billed",
+        "settled_by"
+      ]
+    }
+  },
+  "graph-q40": {
+    "expected": 6,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "List the chain from Margaret Beck to the payment pay-x3-sydney-harbourline-ulp, through ownership, trade and invoice.",
+    "answer": [
+      "Margaret Beck",
+      "Harbourline Group Holdings Pty Ltd",
+      "Harbourline Petroleum Pty Ltd",
+      "NC-SYD-26-0001",
+      "NCS-CN-NC-SYD-26-0001",
+      "pay-x3-sydney-harbourline-ulp"
+    ],
+    "shape": "path",
+    "hops": 5,
+    "query": {
+      "op": "path",
+      "start": "own-harbourline-1",
+      "end": "pay-x3-sydney-harbourline-ulp",
+      "kinds": [
+        "owns",
+        "party_to",
+        "billed",
+        "settled_by"
+      ]
+    }
+  },
+  "graph-q41": {
+    "expected": 2,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which NewCo entities sign or accede to the BP master agreement that NewCo Sydney acceded to?",
+    "answer": [
+      "NewCo Trading London Limited",
+      "NewCo Trading Sydney Pty Ltd"
+    ],
+    "shape": "reachable",
+    "hops": 1,
+    "query": {
+      "op": "reach",
+      "start": "agr:Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited",
+      "kinds": [
+        "signed",
+        "acceded"
+      ],
+      "want": [
+        "newco"
+      ],
+      "direction": "in"
+    }
+  },
+  "graph-q42": {
+    "expected": 3,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "List the chain from NewCo Trading Sydney Pty Ltd to BP Australia Pty Ltd through the master agreement accession and sub-limit.",
+    "answer": [
+      "NewCo Trading Sydney Pty Ltd",
+      "Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited",
+      "BP Australia Pty Ltd"
+    ],
+    "shape": "path",
+    "hops": 2,
+    "query": {
+      "op": "path",
+      "start": "newco-syd",
+      "end": "cp-bp-au",
+      "kinds": [
+        "signed",
+        "acceded",
+        "sub_limit"
+      ]
+    }
+  },
+  "catalog-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which namespace holds the datasource ds-fsi-commodity?",
+    "answer": "ns-fsi-commodity"
+  },
+  "catalog-q2": {
+    "expected": 7,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which tables does the datasource ds-fsi-commodity expose?",
+    "answer": [
+      "counterparties",
+      "accounts",
+      "limits",
+      "deals",
+      "invoices",
+      "payments",
+      "ownership_edges"
+    ]
+  },
+  "catalog-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "How many rows does the deals table hold?",
+    "answer": 7
+  }
+}

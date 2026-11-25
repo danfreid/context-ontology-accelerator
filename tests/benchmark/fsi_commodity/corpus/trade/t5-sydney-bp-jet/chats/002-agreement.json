@@ -1,0 +1,65 @@
+{
+  "channel": "chat",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-SYD-26-0003",
+  "file": "chats/002-agreement.json",
+  "key": "agreement",
+  "lines": [
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "terms": {
+        "price_usd_per_mt": 795
+      },
+      "text": "USD 795.00 per mt and it is done.",
+      "timestamp": "2026-03-24T10:30:00+11:00"
+    },
+    {
+      "intent": "agree",
+      "speaker": {
+        "address": "danny.smith@bp-australia.example",
+        "name": "Danny Smith",
+        "org": "cp-bp-au",
+        "role": "trader"
+      },
+      "terms": {
+        "currency": "USD",
+        "delivery_from": "2026-05-06",
+        "delivery_to": "2026-05-13",
+        "incoterm": "CIF",
+        "location": "Brisbane",
+        "price_usd_per_mt": 795,
+        "product": "Jet A-1",
+        "quantity": 30000,
+        "unit": "mt"
+      },
+      "text": "Agreed. 30,000 mt Jet A-1 CIF Brisbane at USD 795.00 per mt, delivery 2026-05-06 to 2026-05-13, in USD. Subject to your credit.",
+      "timestamp": "2026-03-24T10:31:30+11:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "aaron.heath@newco-sydney.example",
+      "name": "Aaron Heath",
+      "org": "newco-syd",
+      "role": "trader"
+    },
+    {
+      "address": "danny.smith@bp-australia.example",
+      "name": "Danny Smith",
+      "org": "cp-bp-au",
+      "role": "trader"
+    }
+  ],
+  "phase": "trade",
+  "seq": 2,
+  "tags": [
+    "agreed",
+    "negotiation"
+  ]
+}

@@ -1,0 +1,3767 @@
+{
+  "accounts": {
+    "acct-cp-bp-au-aud-operating": {
+      "aba": null,
+      "bank": "bank-southerntide",
+      "bic": "ZYAZAUKZ",
+      "bsb": "126-501",
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "AUD",
+      "iban": null,
+      "id": "acct-cp-bp-au-aud-operating",
+      "name": "BP Australia Pty Ltd",
+      "number": "4620000936",
+      "owner": "cp-bp-au",
+      "purpose": "operating"
+    },
+    "acct-cp-bp-au-usd-operating": {
+      "aba": null,
+      "bank": "bank-southerntide",
+      "bic": "ZYAZAUKZ",
+      "bsb": "126-501",
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": null,
+      "id": "acct-cp-bp-au-usd-operating",
+      "name": "BP Australia Pty Ltd",
+      "number": "4199189847",
+      "owner": "cp-bp-au",
+      "purpose": "operating"
+    },
+    "acct-cp-bp-usd-operating": {
+      "aba": null,
+      "bank": "bank-northgate",
+      "bic": "ZIXWGBH6",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": "GB12GKOB34656886733736",
+      "id": "acct-cp-bp-usd-operating",
+      "name": "BP Oil International Limited",
+      "number": "86733736",
+      "owner": "cp-bp",
+      "purpose": "operating"
+    },
+    "acct-cp-glencore-usd-operating": {
+      "aba": "101490438",
+      "bank": "bank-hudson",
+      "bic": "ZXSAUSEW",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": null,
+      "id": "acct-cp-glencore-usd-operating",
+      "name": "Glencore Ltd.",
+      "number": "8168181687",
+      "owner": "cp-glencore",
+      "purpose": "operating"
+    },
+    "acct-cp-harbourline-aud-operating": {
+      "aba": null,
+      "bank": "bank-southerntide",
+      "bic": "ZYAZAUKZ",
+      "bsb": "126-501",
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "AUD",
+      "iban": null,
+      "id": "acct-cp-harbourline-aud-operating",
+      "name": "Harbourline Petroleum Pty Ltd",
+      "number": "7563556553",
+      "owner": "cp-harbourline",
+      "purpose": "operating"
+    },
+    "acct-cp-harbourline-usd-operating": {
+      "aba": null,
+      "bank": "bank-southerntide",
+      "bic": "ZYAZAUKZ",
+      "bsb": "126-501",
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": null,
+      "id": "acct-cp-harbourline-usd-operating",
+      "name": "Harbourline Petroleum Pty Ltd",
+      "number": "8829971782",
+      "owner": "cp-harbourline",
+      "purpose": "operating"
+    },
+    "acct-cp-kestrel-usd-operating": {
+      "aba": null,
+      "bank": "bank-northgate",
+      "bic": "ZIXWGBH6",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": "GB40OUKS07524221955591",
+      "id": "acct-cp-kestrel-usd-operating",
+      "name": "Kestrel Bunkering Limited",
+      "number": "21955591",
+      "owner": "cp-kestrel",
+      "purpose": "operating"
+    },
+    "acct-cp-shell-usd-operating": {
+      "aba": null,
+      "bank": "bank-northgate",
+      "bic": "ZIXWGBH6",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": "GB06SABJ22278071166260",
+      "id": "acct-cp-shell-usd-operating",
+      "name": "Shell Trading International Ltd",
+      "number": "71166260",
+      "owner": "cp-shell",
+      "purpose": "operating"
+    },
+    "acct-cp-tiberpeak-usd-operating": {
+      "aba": null,
+      "bank": "bank-gulfcrescent",
+      "bic": "ZMATAEVM",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": "AE529997411321298117849",
+      "id": "acct-cp-tiberpeak-usd-operating",
+      "name": "Tiber Peak Trading DMCC",
+      "number": "1316782246",
+      "owner": "cp-tiberpeak",
+      "purpose": "operating"
+    },
+    "acct-cp-vitol-usd-operating": {
+      "aba": "101490438",
+      "bank": "bank-hudson",
+      "bic": "ZXSAUSEW",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": null,
+      "id": "acct-cp-vitol-usd-operating",
+      "name": "Vitol Inc.",
+      "number": "3797790121",
+      "owner": "cp-vitol",
+      "purpose": "operating"
+    },
+    "acct-newco-hou-usd-operating": {
+      "aba": "041528729",
+      "bank": "bank-lonestar",
+      "bic": "ZGTWUSC9",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": null,
+      "id": "acct-newco-hou-usd-operating",
+      "name": "NewCo Trading Houston LLC",
+      "number": "6634836340",
+      "owner": "newco-hou",
+      "purpose": "operating"
+    },
+    "acct-newco-hou-usd-settlement": {
+      "aba": "041528729",
+      "bank": "bank-lonestar",
+      "bic": "ZGTWUSC9",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": null,
+      "id": "acct-newco-hou-usd-settlement",
+      "name": "NewCo Trading Houston LLC",
+      "number": "7001138779",
+      "owner": "newco-hou",
+      "purpose": "settlement"
+    },
+    "acct-newco-lon-gbp-operating": {
+      "aba": null,
+      "bank": "bank-northgate",
+      "bic": "ZIXWGBH6",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "GBP",
+      "iban": "GB86JABI13468955618033",
+      "id": "acct-newco-lon-gbp-operating",
+      "name": "NewCo Trading London Limited",
+      "number": "55618033",
+      "owner": "newco-lon",
+      "purpose": "operating"
+    },
+    "acct-newco-lon-usd-operating": {
+      "aba": null,
+      "bank": "bank-northgate",
+      "bic": "ZIXWGBH6",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": "GB75KHMP38669819276547",
+      "id": "acct-newco-lon-usd-operating",
+      "name": "NewCo Trading London Limited",
+      "number": "19276547",
+      "owner": "newco-lon",
+      "purpose": "operating"
+    },
+    "acct-newco-nyc-usd-collateral": {
+      "aba": "101490438",
+      "bank": "bank-hudson",
+      "bic": "ZXSAUSEW",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": null,
+      "id": "acct-newco-nyc-usd-collateral",
+      "name": "NewCo Derivatives New York, Inc.",
+      "number": "4649276082",
+      "owner": "newco-nyc",
+      "purpose": "collateral"
+    },
+    "acct-newco-nyc-usd-operating": {
+      "aba": "101490438",
+      "bank": "bank-hudson",
+      "bic": "ZXSAUSEW",
+      "bsb": null,
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": null,
+      "id": "acct-newco-nyc-usd-operating",
+      "name": "NewCo Derivatives New York, Inc.",
+      "number": "8108035621",
+      "owner": "newco-nyc",
+      "purpose": "operating"
+    },
+    "acct-newco-syd-aud-operating": {
+      "aba": null,
+      "bank": "bank-bluegum",
+      "bic": "ZDECAUQR",
+      "bsb": "868-150",
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "AUD",
+      "iban": null,
+      "id": "acct-newco-syd-aud-operating",
+      "name": "NewCo Trading Sydney Pty Ltd",
+      "number": "4906464752",
+      "owner": "newco-syd",
+      "purpose": "operating"
+    },
+    "acct-newco-syd-usd-operating": {
+      "aba": null,
+      "bank": "bank-bluegum",
+      "bic": "ZDECAUQR",
+      "bsb": "868-150",
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "currency": "USD",
+      "iban": null,
+      "id": "acct-newco-syd-usd-operating",
+      "name": "NewCo Trading Sydney Pty Ltd",
+      "number": "2926537255",
+      "owner": "newco-syd",
+      "purpose": "operating"
+    }
+  },
+  "directory": {
+    "aaron.heath@newco-sydney.example": {
+      "org": "newco-syd",
+      "person": "p-newco-syd-trader",
+      "role": "trader"
+    },
+    "alice.turner@bp.example": {
+      "org": "cp-bp",
+      "person": "p-cp-bp-lawyer",
+      "role": "lawyer"
+    },
+    "alicia.parsons@newco-sydney.example": {
+      "org": "newco-syd",
+      "person": "p-newco-syd-settlements",
+      "role": "settlements"
+    },
+    "amanda.adams@vitol.example": {
+      "org": "cp-vitol",
+      "person": "p-cp-vitol-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "amanda.hoover@lonestarbank.example": {
+      "org": "bank-lonestar",
+      "person": "p-bank-lonestar-operations",
+      "role": "operations"
+    },
+    "amanda.maddox@bluegumbank.example": {
+      "org": "bank-bluegum",
+      "person": "p-bank-bluegum-trade_finance",
+      "role": "trade_finance"
+    },
+    "amy.davies@northgatebank.example": {
+      "org": "bank-northgate",
+      "person": "p-bank-northgate-operations",
+      "role": "operations"
+    },
+    "amy.martinez@bp-australia.example": {
+      "org": "cp-bp-au",
+      "person": "p-cp-bp-au-accounting",
+      "role": "accounting"
+    },
+    "andrew.evans@newco-houston.example": {
+      "org": "newco-hou",
+      "person": "p-newco-hou-settlements",
+      "role": "settlements"
+    },
+    "angela.bell@kestrel.example": {
+      "org": "cp-kestrel",
+      "person": "p-cp-kestrel-settlements",
+      "role": "settlements"
+    },
+    "anne.williams@harbourline.example": {
+      "org": "cp-harbourline",
+      "person": "p-cp-harbourline-settlements",
+      "role": "settlements"
+    },
+    "anthony.ferguson@tiberpeak.example": {
+      "org": "cp-tiberpeak",
+      "person": "p-cp-tiberpeak-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "arthur.bradley@merriweatherng.example": {
+      "org": "svc-merriweather",
+      "person": "p-svc-merriweather-associate",
+      "role": "associate"
+    },
+    "ashley.gallagher@glencore.example": {
+      "org": "cp-glencore",
+      "person": "p-cp-glencore-lawyer",
+      "role": "lawyer"
+    },
+    "austin.henderson@hudsonmeridian.example": {
+      "org": "bank-hudson",
+      "person": "p-bank-hudson-trade_finance",
+      "role": "trade_finance"
+    },
+    "bernard.harris@callowayrye.example": {
+      "org": "svc-calloway",
+      "person": "p-svc-calloway-partner",
+      "role": "partner"
+    },
+    "bonnie.briggs@newco-sydney.example": {
+      "org": "newco-syd",
+      "person": "p-newco-syd-marketer",
+      "role": "marketer"
+    },
+    "brandon.lawson@gulfstreammarine.example": {
+      "org": "svc-gulfstream",
+      "person": "p-svc-gulfstream-agent",
+      "role": "agent"
+    },
+    "brian.jones@harbourline.example": {
+      "org": "cp-harbourline",
+      "person": "p-cp-harbourline-accounting",
+      "role": "accounting"
+    },
+    "brittany.holland@tiberpeak.example": {
+      "org": "cp-tiberpeak",
+      "person": "p-cp-tiberpeak-settlements",
+      "role": "settlements"
+    },
+    "brittney.lyons@newco-global.example": {
+      "org": "newco-hldg",
+      "person": "p-newco-hldg-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "bryan.newton@southerntidebank.example": {
+      "org": "bank-southerntide",
+      "person": "p-bank-southerntide-trade_finance",
+      "role": "trade_finance"
+    },
+    "carol.frost@veridianscreening.example": {
+      "org": "svc-veridian",
+      "person": "p-svc-veridian-support",
+      "role": "support"
+    },
+    "cassandra.norman@hudsonmeridian.example": {
+      "org": "bank-hudson",
+      "person": "p-bank-hudson-operations",
+      "role": "operations"
+    },
+    "christine.thompson@harbourline.example": {
+      "org": "cp-harbourline",
+      "person": "p-cp-harbourline-marketer",
+      "role": "marketer"
+    },
+    "christopher.figueroa@bp-australia.example": {
+      "org": "cp-bp-au",
+      "person": "p-cp-bp-au-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "connie.roberts@tiberpeak.example": {
+      "org": "cp-tiberpeak",
+      "person": "p-cp-tiberpeak-accounting",
+      "role": "accounting"
+    },
+    "crystal.king@vitol.example": {
+      "org": "cp-vitol",
+      "person": "p-cp-vitol-trader",
+      "role": "trader"
+    },
+    "daniel.barnett@harbourline.example": {
+      "org": "cp-harbourline",
+      "person": "p-cp-harbourline-lawyer",
+      "role": "lawyer"
+    },
+    "daniel.hardy@newco-global.example": {
+      "org": "newco-hldg",
+      "person": "p-newco-hldg-lawyer",
+      "role": "lawyer"
+    },
+    "danny.dunn@newco-london.example": {
+      "org": "newco-lon",
+      "person": "p-newco-lon-marketer",
+      "role": "marketer"
+    },
+    "danny.smith@bp-australia.example": {
+      "org": "cp-bp-au",
+      "person": "p-cp-bp-au-trader",
+      "role": "trader"
+    },
+    "dean.smith@kestrel.example": {
+      "org": "cp-kestrel",
+      "person": "p-cp-kestrel-marketer",
+      "role": "marketer"
+    },
+    "denise.ali@callowayrye.example": {
+      "org": "svc-calloway",
+      "person": "p-svc-calloway-associate",
+      "role": "associate"
+    },
+    "denise.brown@gulfstreammarine.example": {
+      "org": "svc-gulfstream",
+      "person": "p-svc-gulfstream-operations",
+      "role": "operations"
+    },
+    "denise.cook@newco-sydney.example": {
+      "org": "newco-syd",
+      "person": "p-newco-syd-lawyer",
+      "role": "lawyer"
+    },
+    "donald.flores@newco-houston.example": {
+      "org": "newco-hou",
+      "person": "p-newco-hou-ops",
+      "role": "ops"
+    },
+    "elliott.herbert@bp.example": {
+      "org": "cp-bp",
+      "person": "p-cp-bp-ops",
+      "role": "ops"
+    },
+    "emily.gonzales@vitol.example": {
+      "org": "cp-vitol",
+      "person": "p-cp-vitol-settlements",
+      "role": "settlements"
+    },
+    "eric.galloway@newco-newyork.example": {
+      "org": "newco-nyc",
+      "person": "p-newco-nyc-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "frank.brennan@bp-australia.example": {
+      "org": "cp-bp-au",
+      "person": "p-cp-bp-au-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "gary.mata@newco-sydney.example": {
+      "org": "newco-syd",
+      "person": "p-newco-syd-accounting",
+      "role": "accounting"
+    },
+    "gina.finley@newco-houston.example": {
+      "org": "newco-hou",
+      "person": "p-newco-hou-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "grace.connolly@shell.example": {
+      "org": "cp-shell",
+      "person": "p-cp-shell-marketer",
+      "role": "marketer"
+    },
+    "graham.carr@newco-london.example": {
+      "org": "newco-lon",
+      "person": "p-newco-lon-trader",
+      "role": "trader"
+    },
+    "gregory.everett@glencore.example": {
+      "org": "cp-glencore",
+      "person": "p-cp-glencore-trader",
+      "role": "trader"
+    },
+    "jade.edwards@kestrel.example": {
+      "org": "cp-kestrel",
+      "person": "p-cp-kestrel-lawyer",
+      "role": "lawyer"
+    },
+    "james.clay@gulfcrescent.example": {
+      "org": "bank-gulfcrescent",
+      "person": "p-bank-gulfcrescent-operations",
+      "role": "operations"
+    },
+    "jane.hill@newco-newyork.example": {
+      "org": "newco-nyc",
+      "person": "p-newco-nyc-trader",
+      "role": "trader"
+    },
+    "janet.law@shell.example": {
+      "org": "cp-shell",
+      "person": "p-cp-shell-ops",
+      "role": "ops"
+    },
+    "janice.lee@concordreserve.example": {
+      "org": "bank-concord",
+      "person": "p-bank-concord-trade_finance",
+      "role": "trade_finance"
+    },
+    "janice.thompson@cardinalinspection.example": {
+      "org": "svc-cardinal",
+      "person": "p-svc-cardinal-reports",
+      "role": "reports"
+    },
+    "jean.smith@bp.example": {
+      "org": "cp-bp",
+      "person": "p-cp-bp-trader",
+      "role": "trader"
+    },
+    "jeff.guzman@vitol.example": {
+      "org": "cp-vitol",
+      "person": "p-cp-vitol-ops",
+      "role": "ops"
+    },
+    "jeffrey.butler@ledgerline.example": {
+      "org": "svc-ledgerline",
+      "person": "p-svc-ledgerline-analyst",
+      "role": "analyst"
+    },
+    "jeffrey.daniels@harbourline.example": {
+      "org": "cp-harbourline",
+      "person": "p-cp-harbourline-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "jeffrey.murray@harbourline.example": {
+      "org": "cp-harbourline",
+      "person": "p-cp-harbourline-trader",
+      "role": "trader"
+    },
+    "jeffrey.torres@newco-global.example": {
+      "org": "newco-hldg",
+      "person": "p-newco-hldg-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "jenna.campbell@newco-houston.example": {
+      "org": "newco-hou",
+      "person": "p-newco-hou-trader",
+      "role": "trader"
+    },
+    "jennifer.arroyo@glencore.example": {
+      "org": "cp-glencore",
+      "person": "p-cp-glencore-settlements",
+      "role": "settlements"
+    },
+    "jennifer.nguyen@newco-global.example": {
+      "org": "newco-hldg",
+      "person": "p-newco-hldg-settlements",
+      "role": "settlements"
+    },
+    "jennifer.walker@newco-global.example": {
+      "org": "newco-hldg",
+      "person": "p-newco-hldg-marketer",
+      "role": "marketer"
+    },
+    "jeremy.olson@vitol.example": {
+      "org": "cp-vitol",
+      "person": "p-cp-vitol-marketer",
+      "role": "marketer"
+    },
+    "jessica.nichols@newco-global.example": {
+      "org": "newco-hldg",
+      "person": "p-newco-hldg-trader",
+      "role": "trader"
+    },
+    "jessica.powell@tiberpeak.example": {
+      "org": "cp-tiberpeak",
+      "person": "p-cp-tiberpeak-trader",
+      "role": "trader"
+    },
+    "jessica.smith@harbourline.example": {
+      "org": "cp-harbourline",
+      "person": "p-cp-harbourline-ops",
+      "role": "ops"
+    },
+    "jillian.andrews@tiberpeak.example": {
+      "org": "cp-tiberpeak",
+      "person": "p-cp-tiberpeak-ops",
+      "role": "ops"
+    },
+    "jimmy.porter@glencore.example": {
+      "org": "cp-glencore",
+      "person": "p-cp-glencore-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "jodie.obrien@shell.example": {
+      "org": "cp-shell",
+      "person": "p-cp-shell-lawyer",
+      "role": "lawyer"
+    },
+    "john.perry@newco-global.example": {
+      "org": "newco-hldg",
+      "person": "p-newco-hldg-accounting",
+      "role": "accounting"
+    },
+    "joseph.juarez@glencore.example": {
+      "org": "cp-glencore",
+      "person": "p-cp-glencore-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "josh.hill@kestrel.example": {
+      "org": "cp-kestrel",
+      "person": "p-cp-kestrel-ops",
+      "role": "ops"
+    },
+    "joshua.dominguez@vitol.example": {
+      "org": "cp-vitol",
+      "person": "p-cp-vitol-accounting",
+      "role": "accounting"
+    },
+    "kathleen.garner@newco-london.example": {
+      "org": "newco-lon",
+      "person": "p-newco-lon-accounting",
+      "role": "accounting"
+    },
+    "kathryn.braun@newco-newyork.example": {
+      "org": "newco-nyc",
+      "person": "p-newco-nyc-settlements",
+      "role": "settlements"
+    },
+    "kenneth.ashley@newco-newyork.example": {
+      "org": "newco-nyc",
+      "person": "p-newco-nyc-ops",
+      "role": "ops"
+    },
+    "kevin.hall@newco-sydney.example": {
+      "org": "newco-syd",
+      "person": "p-newco-syd-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "kyle.callahan@newco-newyork.example": {
+      "org": "newco-nyc",
+      "person": "p-newco-nyc-lawyer",
+      "role": "lawyer"
+    },
+    "laura.hill@newco-houston.example": {
+      "org": "newco-hou",
+      "person": "p-newco-hou-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "laura.jones@newco-london.example": {
+      "org": "newco-lon",
+      "person": "p-newco-lon-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "leigh.cook@shell.example": {
+      "org": "cp-shell",
+      "person": "p-cp-shell-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "lisa.chen@gulfcrescent.example": {
+      "org": "bank-gulfcrescent",
+      "person": "p-bank-gulfcrescent-trade_finance",
+      "role": "trade_finance"
+    },
+    "lori.flynn@newco-newyork.example": {
+      "org": "newco-nyc",
+      "person": "p-newco-nyc-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "louis.harvey@newco-houston.example": {
+      "org": "newco-hou",
+      "person": "p-newco-hou-lawyer",
+      "role": "lawyer"
+    },
+    "louis.walsh@kestrel.example": {
+      "org": "cp-kestrel",
+      "person": "p-cp-kestrel-accounting",
+      "role": "accounting"
+    },
+    "marcus.griffiths@bp.example": {
+      "org": "cp-bp",
+      "person": "p-cp-bp-marketer",
+      "role": "marketer"
+    },
+    "margaret.martinez@tiberpeak.example": {
+      "org": "cp-tiberpeak",
+      "person": "p-cp-tiberpeak-lawyer",
+      "role": "lawyer"
+    },
+    "marian.gibbs@newco-london.example": {
+      "org": "newco-lon",
+      "person": "p-newco-lon-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "max.rose@shell.example": {
+      "org": "cp-shell",
+      "person": "p-cp-shell-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "michael.brown@bp-australia.example": {
+      "org": "cp-bp-au",
+      "person": "p-cp-bp-au-lawyer",
+      "role": "lawyer"
+    },
+    "michael.schneider@bluegumbank.example": {
+      "org": "bank-bluegum",
+      "person": "p-bank-bluegum-operations",
+      "role": "operations"
+    },
+    "michael.smith@glencore.example": {
+      "org": "cp-glencore",
+      "person": "p-cp-glencore-marketer",
+      "role": "marketer"
+    },
+    "michael.williams@tiberpeak.example": {
+      "org": "cp-tiberpeak",
+      "person": "p-cp-tiberpeak-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "michele.hill@tiberpeak.example": {
+      "org": "cp-tiberpeak",
+      "person": "p-cp-tiberpeak-marketer",
+      "role": "marketer"
+    },
+    "michele.mcintyre@merriweatherng.example": {
+      "org": "svc-merriweather",
+      "person": "p-svc-merriweather-partner",
+      "role": "partner"
+    },
+    "misty.mathis@southerntidebank.example": {
+      "org": "bank-southerntide",
+      "person": "p-bank-southerntide-operations",
+      "role": "operations"
+    },
+    "mohammed.byrne@veridianscreening.example": {
+      "org": "svc-veridian",
+      "person": "p-svc-veridian-analyst",
+      "role": "analyst"
+    },
+    "molly.pearce@shell.example": {
+      "org": "cp-shell",
+      "person": "p-cp-shell-settlements",
+      "role": "settlements"
+    },
+    "nicholas.banks@newco-london.example": {
+      "org": "newco-lon",
+      "person": "p-newco-lon-lawyer",
+      "role": "lawyer"
+    },
+    "oliver.tucker@bp.example": {
+      "org": "cp-bp",
+      "person": "p-cp-bp-accounting",
+      "role": "accounting"
+    },
+    "paige.ball@newco-london.example": {
+      "org": "newco-lon",
+      "person": "p-newco-lon-settlements",
+      "role": "settlements"
+    },
+    "patrick.smith@vitol.example": {
+      "org": "cp-vitol",
+      "person": "p-cp-vitol-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "raymond.brown@shell.example": {
+      "org": "cp-shell",
+      "person": "p-cp-shell-accounting",
+      "role": "accounting"
+    },
+    "rhonda.jimenez@newco-sydney.example": {
+      "org": "newco-syd",
+      "person": "p-newco-syd-ops",
+      "role": "ops"
+    },
+    "rhys.barry@bp.example": {
+      "org": "cp-bp",
+      "person": "p-cp-bp-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "ricardo.crosby@newco-sydney.example": {
+      "org": "newco-syd",
+      "person": "p-newco-syd-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "ricky.watts@kestrel.example": {
+      "org": "cp-kestrel",
+      "person": "p-cp-kestrel-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "roberto.rogers@vitol.example": {
+      "org": "cp-vitol",
+      "person": "p-cp-vitol-lawyer",
+      "role": "lawyer"
+    },
+    "samantha.sparks@newco-global.example": {
+      "org": "newco-hldg",
+      "person": "p-newco-hldg-ops",
+      "role": "ops"
+    },
+    "samuel.cowan@glencore.example": {
+      "org": "cp-glencore",
+      "person": "p-cp-glencore-ops",
+      "role": "ops"
+    },
+    "sean.everett@ledgerline.example": {
+      "org": "svc-ledgerline",
+      "person": "p-svc-ledgerline-support",
+      "role": "support"
+    },
+    "shannon.tran@newco-newyork.example": {
+      "org": "newco-nyc",
+      "person": "p-newco-nyc-marketer",
+      "role": "marketer"
+    },
+    "sharon.gardner@bp.example": {
+      "org": "cp-bp",
+      "person": "p-cp-bp-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "shelly.sandoval@harbourline.example": {
+      "org": "cp-harbourline",
+      "person": "p-cp-harbourline-credit_analyst",
+      "role": "credit_analyst"
+    },
+    "shirley.kelly@bp.example": {
+      "org": "cp-bp",
+      "person": "p-cp-bp-settlements",
+      "role": "settlements"
+    },
+    "steve.harris@newco-houston.example": {
+      "org": "newco-hou",
+      "person": "p-newco-hou-accounting",
+      "role": "accounting"
+    },
+    "teresa.hammond@kestrel.example": {
+      "org": "cp-kestrel",
+      "person": "p-cp-kestrel-trader",
+      "role": "trader"
+    },
+    "theresa.dickerson@bp-australia.example": {
+      "org": "cp-bp-au",
+      "person": "p-cp-bp-au-settlements",
+      "role": "settlements"
+    },
+    "thomas.stone@kestrel.example": {
+      "org": "cp-kestrel",
+      "person": "p-cp-kestrel-compliance_analyst",
+      "role": "compliance_analyst"
+    },
+    "tiffany.mclaughlin@lonestarbank.example": {
+      "org": "bank-lonestar",
+      "person": "p-bank-lonestar-trade_finance",
+      "role": "trade_finance"
+    },
+    "todd.marsh@bp-australia.example": {
+      "org": "cp-bp-au",
+      "person": "p-cp-bp-au-marketer",
+      "role": "marketer"
+    },
+    "tom.scott@newco-london.example": {
+      "org": "newco-lon",
+      "person": "p-newco-lon-ops",
+      "role": "ops"
+    },
+    "travis.ford@newco-houston.example": {
+      "org": "newco-hou",
+      "person": "p-newco-hou-marketer",
+      "role": "marketer"
+    },
+    "valerie.smith@northgatebank.example": {
+      "org": "bank-northgate",
+      "person": "p-bank-northgate-trade_finance",
+      "role": "trade_finance"
+    },
+    "veronica.smith@cardinalinspection.example": {
+      "org": "svc-cardinal",
+      "person": "p-svc-cardinal-inspector",
+      "role": "inspector"
+    },
+    "victoria.wood@shell.example": {
+      "org": "cp-shell",
+      "person": "p-cp-shell-trader",
+      "role": "trader"
+    },
+    "william.baker@glencore.example": {
+      "org": "cp-glencore",
+      "person": "p-cp-glencore-accounting",
+      "role": "accounting"
+    },
+    "william.gonzalez@newco-newyork.example": {
+      "org": "newco-nyc",
+      "person": "p-newco-nyc-accounting",
+      "role": "accounting"
+    },
+    "william.smith@bp-australia.example": {
+      "org": "cp-bp-au",
+      "person": "p-cp-bp-au-ops",
+      "role": "ops"
+    },
+    "zoe.jones@concordreserve.example": {
+      "org": "bank-concord",
+      "person": "p-bank-concord-operations",
+      "role": "operations"
+    }
+  },
+  "orgs": {
+    "bank-bluegum": {
+      "accounts": [],
+      "address": {
+        "city": "Sydney",
+        "country": "AU",
+        "postcode": "",
+        "state": "",
+        "street": "9 George Street"
+      },
+      "aliases": [],
+      "bic": "ZDECAUQR",
+      "bsb": "868-150",
+      "calendar": "AU-NSW",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "AU",
+      "domain": "bluegumbank.example",
+      "id": "bank-bluegum",
+      "incorporation": {
+        "date": "2016-11-24",
+        "jurisdiction": "AU",
+        "registration_number": "ACN 13627187"
+      },
+      "kind": "bank",
+      "legal_form": "",
+      "lei": "SYNT009TGDS3GZZ94334",
+      "name": "Bluegum Commercial Bank Ltd",
+      "people": [
+        "p-bank-bluegum-trade_finance",
+        "p-bank-bluegum-operations"
+      ],
+      "real_name": false,
+      "tax_id": "ABN 30232298790"
+    },
+    "bank-concord": {
+      "accounts": [],
+      "address": {
+        "city": "London",
+        "country": "GB",
+        "postcode": "",
+        "state": "",
+        "street": "936 High Street"
+      },
+      "aliases": [],
+      "bic": "ZUKJGBZ6",
+      "calendar": "GB",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "GB",
+      "domain": "concordreserve.example",
+      "id": "bank-concord",
+      "incorporation": {
+        "date": "2007-10-17",
+        "jurisdiction": "GB",
+        "registration_number": "67286735"
+      },
+      "kind": "bank",
+      "legal_form": "",
+      "lei": "SYNT00Q4GEU742JDVF76",
+      "name": "Concord Reserve Bank plc",
+      "people": [
+        "p-bank-concord-trade_finance",
+        "p-bank-concord-operations"
+      ],
+      "real_name": false,
+      "tax_id": null
+    },
+    "bank-gulfcrescent": {
+      "accounts": [],
+      "address": {
+        "city": "Dubai",
+        "country": "AE",
+        "postcode": "",
+        "state": "",
+        "street": "791 Sheikh Zayed Street"
+      },
+      "aliases": [],
+      "bic": "ZMATAEVM",
+      "calendar": "AE",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "AE",
+      "domain": "gulfcrescent.example",
+      "id": "bank-gulfcrescent",
+      "incorporation": {
+        "date": "2014-08-13",
+        "jurisdiction": "AE",
+        "registration_number": "DMCC-23200314"
+      },
+      "kind": "bank",
+      "legal_form": "",
+      "lei": "SYNT00P90RRLYVCM5U82",
+      "name": "Gulf Crescent Bank PJSC",
+      "people": [
+        "p-bank-gulfcrescent-trade_finance",
+        "p-bank-gulfcrescent-operations"
+      ],
+      "real_name": false,
+      "tax_id": null
+    },
+    "bank-hudson": {
+      "aba": "101490438",
+      "accounts": [],
+      "address": {
+        "city": "New York",
+        "country": "US",
+        "postcode": "",
+        "state": "",
+        "street": "834 Main Street"
+      },
+      "aliases": [],
+      "bic": "ZXSAUSEW",
+      "calendar": "US-NY",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": "hudsonmeridian.example",
+      "id": "bank-hudson",
+      "incorporation": {
+        "date": "2011-08-20",
+        "jurisdiction": "US",
+        "registration_number": "54586338"
+      },
+      "kind": "bank",
+      "legal_form": "",
+      "lei": "SYNT004160SKUE392V04",
+      "name": "Hudson Meridian Trust Company",
+      "people": [
+        "p-bank-hudson-trade_finance",
+        "p-bank-hudson-operations"
+      ],
+      "real_name": false,
+      "tax_id": "EIN 63-7904070"
+    },
+    "bank-lonestar": {
+      "aba": "041528729",
+      "accounts": [],
+      "address": {
+        "city": "Houston",
+        "country": "US",
+        "postcode": "",
+        "state": "",
+        "street": "7675 Main Street"
+      },
+      "aliases": [],
+      "bic": "ZGTWUSC9",
+      "calendar": "US-TX",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": "lonestarbank.example",
+      "id": "bank-lonestar",
+      "incorporation": {
+        "date": "2013-08-21",
+        "jurisdiction": "US",
+        "registration_number": "16969521"
+      },
+      "kind": "bank",
+      "legal_form": "",
+      "lei": "SYNT00NQWM7DSTRNDD39",
+      "name": "Lonestar National Bank",
+      "people": [
+        "p-bank-lonestar-trade_finance",
+        "p-bank-lonestar-operations"
+      ],
+      "real_name": false,
+      "tax_id": "EIN 93-3159987"
+    },
+    "bank-northgate": {
+      "accounts": [],
+      "address": {
+        "city": "London",
+        "country": "GB",
+        "postcode": "",
+        "state": "",
+        "street": "22 High Street"
+      },
+      "aliases": [],
+      "bic": "ZIXWGBH6",
+      "calendar": "GB",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "GB",
+      "domain": "northgatebank.example",
+      "id": "bank-northgate",
+      "incorporation": {
+        "date": "2014-07-02",
+        "jurisdiction": "GB",
+        "registration_number": "62718412"
+      },
+      "kind": "bank",
+      "legal_form": "",
+      "lei": "SYNT00KNFEAZ0R15K933",
+      "name": "Northgate Bank plc",
+      "people": [
+        "p-bank-northgate-trade_finance",
+        "p-bank-northgate-operations"
+      ],
+      "real_name": false,
+      "tax_id": null
+    },
+    "bank-southerntide": {
+      "accounts": [],
+      "address": {
+        "city": "Newcastle",
+        "country": "AU",
+        "postcode": "",
+        "state": "",
+        "street": "60 George Street"
+      },
+      "aliases": [],
+      "bic": "ZYAZAUKZ",
+      "bsb": "126-501",
+      "calendar": "AU-NSW",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "AU",
+      "domain": "southerntidebank.example",
+      "id": "bank-southerntide",
+      "incorporation": {
+        "date": "2005-09-01",
+        "jurisdiction": "AU",
+        "registration_number": "ACN 22253399"
+      },
+      "kind": "bank",
+      "legal_form": "",
+      "lei": "SYNT00Z0KACPF5ZNCB03",
+      "name": "Southern Tide Bank Ltd",
+      "people": [
+        "p-bank-southerntide-trade_finance",
+        "p-bank-southerntide-operations"
+      ],
+      "real_name": false,
+      "tax_id": "ABN 92333601492"
+    },
+    "cp-bp": {
+      "accounts": [
+        "acct-cp-bp-usd-operating"
+      ],
+      "address": {
+        "city": "London",
+        "country": "GB",
+        "postcode": "EC2Y 9LY",
+        "state": "",
+        "street": "76 High Street"
+      },
+      "aliases": [],
+      "calendar": "GB",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "GB",
+      "domain": "bp.example",
+      "id": "cp-bp",
+      "incorporation": {
+        "date": "2005-03-23",
+        "jurisdiction": "England and Wales",
+        "registration_number": "74426159"
+      },
+      "kind": "counterparty",
+      "legal_form": "Limited",
+      "lei": "SYNT00PSVOM776DTP631",
+      "name": "BP Oil International Limited",
+      "people": [
+        "p-cp-bp-marketer",
+        "p-cp-bp-trader",
+        "p-cp-bp-lawyer",
+        "p-cp-bp-credit_analyst",
+        "p-cp-bp-compliance_analyst",
+        "p-cp-bp-ops",
+        "p-cp-bp-settlements",
+        "p-cp-bp-accounting"
+      ],
+      "real_name": true,
+      "tax_id": null
+    },
+    "cp-bp-au": {
+      "accounts": [
+        "acct-cp-bp-au-aud-operating",
+        "acct-cp-bp-au-usd-operating"
+      ],
+      "address": {
+        "city": "Melbourne",
+        "country": "AU",
+        "postcode": "3000",
+        "state": "VIC",
+        "street": "8 George Street"
+      },
+      "aliases": [],
+      "calendar": "AU-NSW",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "AU",
+      "domain": "bp-australia.example",
+      "id": "cp-bp-au",
+      "incorporation": {
+        "date": "2009-06-29",
+        "jurisdiction": "Victoria",
+        "registration_number": "ACN 28829696"
+      },
+      "kind": "counterparty",
+      "legal_form": "Pty Ltd",
+      "lei": "SYNT005YAMZOIWWEKH51",
+      "name": "BP Australia Pty Ltd",
+      "people": [
+        "p-cp-bp-au-marketer",
+        "p-cp-bp-au-trader",
+        "p-cp-bp-au-lawyer",
+        "p-cp-bp-au-credit_analyst",
+        "p-cp-bp-au-compliance_analyst",
+        "p-cp-bp-au-ops",
+        "p-cp-bp-au-settlements",
+        "p-cp-bp-au-accounting"
+      ],
+      "real_name": true,
+      "tax_id": "ABN 92248125330"
+    },
+    "cp-glencore": {
+      "accounts": [
+        "acct-cp-glencore-usd-operating"
+      ],
+      "address": {
+        "city": "Stamford",
+        "country": "US",
+        "postcode": "06902",
+        "state": "CT",
+        "street": "418 Main Street"
+      },
+      "aliases": [
+        "Glencore Limited",
+        "Glencore Ltd"
+      ],
+      "calendar": "US-NY",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": "glencore.example",
+      "id": "cp-glencore",
+      "incorporation": {
+        "date": "2014-08-06",
+        "jurisdiction": "Delaware",
+        "registration_number": "20820052"
+      },
+      "kind": "counterparty",
+      "legal_form": "Ltd.",
+      "lei": "SYNT00US171IITQ89C20",
+      "name": "Glencore Ltd.",
+      "people": [
+        "p-cp-glencore-marketer",
+        "p-cp-glencore-trader",
+        "p-cp-glencore-lawyer",
+        "p-cp-glencore-credit_analyst",
+        "p-cp-glencore-compliance_analyst",
+        "p-cp-glencore-ops",
+        "p-cp-glencore-settlements",
+        "p-cp-glencore-accounting"
+      ],
+      "real_name": true,
+      "tax_id": "EIN 79-0004463"
+    },
+    "cp-harbourline": {
+      "accounts": [
+        "acct-cp-harbourline-aud-operating",
+        "acct-cp-harbourline-usd-operating"
+      ],
+      "address": {
+        "city": "Newcastle",
+        "country": "AU",
+        "postcode": "2300",
+        "state": "NSW",
+        "street": "6 George Street"
+      },
+      "aliases": [],
+      "calendar": "AU-NSW",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "AU",
+      "domain": "harbourline.example",
+      "id": "cp-harbourline",
+      "incorporation": {
+        "date": "2004-12-15",
+        "jurisdiction": "New South Wales",
+        "registration_number": "ACN 40487414"
+      },
+      "kind": "counterparty",
+      "legal_form": "Pty Ltd",
+      "lei": "SYNT003DLR3DDWGQBM27",
+      "name": "Harbourline Petroleum Pty Ltd",
+      "people": [
+        "p-cp-harbourline-marketer",
+        "p-cp-harbourline-trader",
+        "p-cp-harbourline-lawyer",
+        "p-cp-harbourline-credit_analyst",
+        "p-cp-harbourline-compliance_analyst",
+        "p-cp-harbourline-ops",
+        "p-cp-harbourline-settlements",
+        "p-cp-harbourline-accounting"
+      ],
+      "real_name": false,
+      "tax_id": "ABN 29269413893"
+    },
+    "cp-kestrel": {
+      "accounts": [
+        "acct-cp-kestrel-usd-operating"
+      ],
+      "address": {
+        "city": "London",
+        "country": "GB",
+        "postcode": "E14 5AB",
+        "state": "",
+        "street": "6 High Street"
+      },
+      "aliases": [],
+      "calendar": "GB",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "GB",
+      "domain": "kestrel.example",
+      "id": "cp-kestrel",
+      "incorporation": {
+        "date": "2009-05-08",
+        "jurisdiction": "England and Wales",
+        "registration_number": "30613710"
+      },
+      "kind": "counterparty",
+      "legal_form": "Limited",
+      "lei": "SYNT00863W272VJKGA02",
+      "name": "Kestrel Bunkering Limited",
+      "people": [
+        "p-cp-kestrel-marketer",
+        "p-cp-kestrel-trader",
+        "p-cp-kestrel-lawyer",
+        "p-cp-kestrel-credit_analyst",
+        "p-cp-kestrel-compliance_analyst",
+        "p-cp-kestrel-ops",
+        "p-cp-kestrel-settlements",
+        "p-cp-kestrel-accounting"
+      ],
+      "real_name": false,
+      "tax_id": null
+    },
+    "cp-shell": {
+      "accounts": [
+        "acct-cp-shell-usd-operating"
+      ],
+      "address": {
+        "city": "London",
+        "country": "GB",
+        "postcode": "SE1 7NA",
+        "state": "",
+        "street": "0 High Street"
+      },
+      "aliases": [],
+      "calendar": "GB",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "GB",
+      "domain": "shell.example",
+      "id": "cp-shell",
+      "incorporation": {
+        "date": "2004-04-24",
+        "jurisdiction": "England and Wales",
+        "registration_number": "87103382"
+      },
+      "kind": "counterparty",
+      "legal_form": "Ltd",
+      "lei": "SYNT00LUS7SEIRYKND59",
+      "name": "Shell Trading International Ltd",
+      "people": [
+        "p-cp-shell-marketer",
+        "p-cp-shell-trader",
+        "p-cp-shell-lawyer",
+        "p-cp-shell-credit_analyst",
+        "p-cp-shell-compliance_analyst",
+        "p-cp-shell-ops",
+        "p-cp-shell-settlements",
+        "p-cp-shell-accounting"
+      ],
+      "real_name": true,
+      "tax_id": null
+    },
+    "cp-tiberpeak": {
+      "accounts": [
+        "acct-cp-tiberpeak-usd-operating"
+      ],
+      "address": {
+        "city": "Dubai",
+        "country": "AE",
+        "postcode": "00000",
+        "state": "",
+        "street": "88109 Sheikh Zayed Street"
+      },
+      "aliases": [],
+      "calendar": "AE",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "AE",
+      "domain": "tiberpeak.example",
+      "id": "cp-tiberpeak",
+      "incorporation": {
+        "date": "2009-03-15",
+        "jurisdiction": "Dubai",
+        "registration_number": "DMCC-93558648"
+      },
+      "kind": "counterparty",
+      "legal_form": "DMCC",
+      "lei": "SYNT003LA01YL8L6HA88",
+      "name": "Tiber Peak Trading DMCC",
+      "people": [
+        "p-cp-tiberpeak-marketer",
+        "p-cp-tiberpeak-trader",
+        "p-cp-tiberpeak-lawyer",
+        "p-cp-tiberpeak-credit_analyst",
+        "p-cp-tiberpeak-compliance_analyst",
+        "p-cp-tiberpeak-ops",
+        "p-cp-tiberpeak-settlements",
+        "p-cp-tiberpeak-accounting"
+      ],
+      "real_name": false,
+      "tax_id": null
+    },
+    "cp-vitol": {
+      "accounts": [
+        "acct-cp-vitol-usd-operating"
+      ],
+      "address": {
+        "city": "Houston",
+        "country": "US",
+        "postcode": "77056",
+        "state": "TX",
+        "street": "492 Main Street"
+      },
+      "aliases": [],
+      "calendar": "US-TX",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": "vitol.example",
+      "id": "cp-vitol",
+      "incorporation": {
+        "date": "2010-09-23",
+        "jurisdiction": "Delaware",
+        "registration_number": "18950464"
+      },
+      "kind": "counterparty",
+      "legal_form": "Inc.",
+      "lei": "SYNT00T81ISZ3ICZ9786",
+      "name": "Vitol Inc.",
+      "people": [
+        "p-cp-vitol-marketer",
+        "p-cp-vitol-trader",
+        "p-cp-vitol-lawyer",
+        "p-cp-vitol-credit_analyst",
+        "p-cp-vitol-compliance_analyst",
+        "p-cp-vitol-ops",
+        "p-cp-vitol-settlements",
+        "p-cp-vitol-accounting"
+      ],
+      "real_name": true,
+      "tax_id": "EIN 76-6181843"
+    },
+    "hold-founders": {
+      "accounts": [],
+      "address": {
+        "city": null,
+        "country": "US",
+        "postcode": "",
+        "state": "",
+        "street": null
+      },
+      "aliases": [],
+      "calendar": null,
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": null,
+      "id": "hold-founders",
+      "incorporation": {
+        "date": "2004-11-05",
+        "jurisdiction": "Delaware",
+        "registration_number": "32809024"
+      },
+      "kind": "holder",
+      "legal_form": "General Partnership",
+      "lei": "SYNT00G10TCZYWZ39578",
+      "name": "NewCo Founders Partnership",
+      "people": [],
+      "real_name": false,
+      "tax_id": "EIN 62-4795467"
+    },
+    "hold-harbourline-grp": {
+      "accounts": [],
+      "address": {
+        "city": null,
+        "country": "AU",
+        "postcode": "",
+        "state": "",
+        "street": null
+      },
+      "aliases": [],
+      "calendar": null,
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "AU",
+      "domain": null,
+      "id": "hold-harbourline-grp",
+      "incorporation": {
+        "date": "2014-09-28",
+        "jurisdiction": "New South Wales",
+        "registration_number": "ACN 37308301"
+      },
+      "kind": "holder",
+      "legal_form": "Pty Ltd",
+      "lei": "SYNT00RVC2BKX7X24L52",
+      "name": "Harbourline Group Holdings Pty Ltd",
+      "people": [],
+      "real_name": false,
+      "tax_id": "ABN 71600471536"
+    },
+    "hold-infra": {
+      "accounts": [],
+      "address": {
+        "city": null,
+        "country": "US",
+        "postcode": "",
+        "state": "",
+        "street": null
+      },
+      "aliases": [],
+      "calendar": null,
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": null,
+      "id": "hold-infra",
+      "incorporation": {
+        "date": "2015-07-06",
+        "jurisdiction": "Delaware",
+        "registration_number": "58132651"
+      },
+      "kind": "holder",
+      "legal_form": "LP",
+      "lei": "SYNT00ECZH0QKGJ33N92",
+      "name": "Ridgeline Infrastructure Fund II LP",
+      "people": [],
+      "real_name": false,
+      "tax_id": "EIN 51-2704669"
+    },
+    "hold-kestrel-bvi": {
+      "accounts": [],
+      "address": {
+        "city": null,
+        "country": "VG",
+        "postcode": "",
+        "state": "",
+        "street": null
+      },
+      "aliases": [],
+      "calendar": null,
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "VG",
+      "domain": null,
+      "id": "hold-kestrel-bvi",
+      "incorporation": {
+        "date": "2010-06-11",
+        "jurisdiction": "British Virgin Islands",
+        "registration_number": "BVI-38614152"
+      },
+      "kind": "holder",
+      "legal_form": "Ltd",
+      "lei": "SYNT00PGTZ09J8NQOA97",
+      "name": "Kestrel Holdings (BVI) Ltd",
+      "people": [],
+      "real_name": false,
+      "tax_id": null
+    },
+    "hold-kestrel-trust": {
+      "accounts": [],
+      "address": {
+        "city": null,
+        "country": "JE",
+        "postcode": "",
+        "state": "",
+        "street": null
+      },
+      "aliases": [],
+      "calendar": null,
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "JE",
+      "domain": null,
+      "id": "hold-kestrel-trust",
+      "incorporation": {
+        "date": "2010-03-04",
+        "jurisdiction": "Jersey",
+        "registration_number": "JE-87693554"
+      },
+      "kind": "holder",
+      "legal_form": "Limited",
+      "lei": "SYNT00MM63JKAVAREZ12",
+      "name": "Sandpiper Trust (Jersey) Limited",
+      "people": [],
+      "real_name": false,
+      "tax_id": null
+    },
+    "hold-mgmt": {
+      "accounts": [],
+      "address": {
+        "city": null,
+        "country": "US",
+        "postcode": "",
+        "state": "",
+        "street": null
+      },
+      "aliases": [],
+      "calendar": null,
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": null,
+      "id": "hold-mgmt",
+      "incorporation": {
+        "date": "2008-02-29",
+        "jurisdiction": "Delaware",
+        "registration_number": "40986990"
+      },
+      "kind": "holder",
+      "legal_form": "LLC",
+      "lei": "SYNT00CO5GQ0ZTYP1549",
+      "name": "NewCo Management Pool LLC",
+      "people": [],
+      "real_name": false,
+      "tax_id": "EIN 65-8154088"
+    },
+    "hold-tiber-cy": {
+      "accounts": [],
+      "address": {
+        "city": null,
+        "country": "CY",
+        "postcode": "",
+        "state": "",
+        "street": null
+      },
+      "aliases": [],
+      "calendar": null,
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "CY",
+      "domain": null,
+      "id": "hold-tiber-cy",
+      "incorporation": {
+        "date": "2013-01-25",
+        "jurisdiction": "Cyprus",
+        "registration_number": "HE66869859"
+      },
+      "kind": "holder",
+      "legal_form": "Ltd",
+      "lei": "SYNT00KZWI2WTC9ASH90",
+      "name": "Tiber Peak Holdings Ltd",
+      "people": [],
+      "real_name": false,
+      "tax_id": null
+    },
+    "hold-tiber-foundation": {
+      "accounts": [],
+      "address": {
+        "city": null,
+        "country": "PA",
+        "postcode": "",
+        "state": "",
+        "street": null
+      },
+      "aliases": [],
+      "calendar": null,
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "PA",
+      "domain": null,
+      "id": "hold-tiber-foundation",
+      "incorporation": {
+        "date": "2006-05-01",
+        "jurisdiction": "Panama",
+        "registration_number": "PA-79680971"
+      },
+      "kind": "holder",
+      "legal_form": "Foundation",
+      "lei": "SYNT00FL0CPGQ56JTV93",
+      "name": "Corvane Foundation",
+      "people": [],
+      "real_name": false,
+      "tax_id": null
+    },
+    "hold-tiber-nominee": {
+      "accounts": [],
+      "address": {
+        "city": null,
+        "country": "CY",
+        "postcode": "",
+        "state": "",
+        "street": null
+      },
+      "aliases": [],
+      "calendar": null,
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "CY",
+      "domain": null,
+      "id": "hold-tiber-nominee",
+      "incorporation": {
+        "date": "2015-03-04",
+        "jurisdiction": "Cyprus",
+        "registration_number": "HE67129717"
+      },
+      "kind": "holder",
+      "legal_form": "Ltd",
+      "lei": "SYNT00UL24VF32A2B258",
+      "name": "Aurelian Nominees Ltd",
+      "people": [],
+      "real_name": false,
+      "tax_id": null
+    },
+    "newco-hldg": {
+      "accounts": [],
+      "address": {
+        "city": "New York",
+        "country": "US",
+        "postcode": "10005",
+        "state": "NY",
+        "street": "08823 Main Street"
+      },
+      "aliases": [],
+      "calendar": "US-NY",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": "newco-global.example",
+      "id": "newco-hldg",
+      "incorporation": {
+        "date": "2006-05-15",
+        "jurisdiction": "Delaware",
+        "registration_number": "56501631"
+      },
+      "kind": "newco",
+      "legal_form": "Inc.",
+      "lei": "SYNT00YCDMM2DH0M7O64",
+      "name": "NewCo Global Holdings, Inc.",
+      "people": [
+        "p-newco-hldg-marketer",
+        "p-newco-hldg-trader",
+        "p-newco-hldg-lawyer",
+        "p-newco-hldg-credit_analyst",
+        "p-newco-hldg-compliance_analyst",
+        "p-newco-hldg-ops",
+        "p-newco-hldg-settlements",
+        "p-newco-hldg-accounting"
+      ],
+      "real_name": false,
+      "tax_id": "EIN 38-4410502"
+    },
+    "newco-hou": {
+      "accounts": [
+        "acct-newco-hou-usd-operating",
+        "acct-newco-hou-usd-settlement"
+      ],
+      "address": {
+        "city": "Houston",
+        "country": "US",
+        "postcode": "77002",
+        "state": "TX",
+        "street": "02180 Main Street"
+      },
+      "aliases": [],
+      "calendar": "US-TX",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": "newco-houston.example",
+      "id": "newco-hou",
+      "incorporation": {
+        "date": "2013-11-16",
+        "jurisdiction": "Texas",
+        "registration_number": "99090314"
+      },
+      "kind": "newco",
+      "legal_form": "LLC",
+      "lei": "SYNT00MJOLB8NUE3K052",
+      "name": "NewCo Trading Houston LLC",
+      "people": [
+        "p-newco-hou-marketer",
+        "p-newco-hou-trader",
+        "p-newco-hou-lawyer",
+        "p-newco-hou-credit_analyst",
+        "p-newco-hou-compliance_analyst",
+        "p-newco-hou-ops",
+        "p-newco-hou-settlements",
+        "p-newco-hou-accounting"
+      ],
+      "real_name": false,
+      "tax_id": "EIN 78-7829905"
+    },
+    "newco-lon": {
+      "accounts": [
+        "acct-newco-lon-gbp-operating",
+        "acct-newco-lon-usd-operating"
+      ],
+      "address": {
+        "city": "London",
+        "country": "GB",
+        "postcode": "EC2V 7HR",
+        "state": "",
+        "street": "0 High Street"
+      },
+      "aliases": [],
+      "calendar": "GB",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "GB",
+      "domain": "newco-london.example",
+      "id": "newco-lon",
+      "incorporation": {
+        "date": "2011-03-30",
+        "jurisdiction": "England and Wales",
+        "registration_number": "10307952"
+      },
+      "kind": "newco",
+      "legal_form": "Limited",
+      "lei": "SYNT00Q8J4VEKACNAP42",
+      "name": "NewCo Trading London Limited",
+      "people": [
+        "p-newco-lon-marketer",
+        "p-newco-lon-trader",
+        "p-newco-lon-lawyer",
+        "p-newco-lon-credit_analyst",
+        "p-newco-lon-compliance_analyst",
+        "p-newco-lon-ops",
+        "p-newco-lon-settlements",
+        "p-newco-lon-accounting"
+      ],
+      "real_name": false,
+      "tax_id": null
+    },
+    "newco-nyc": {
+      "accounts": [
+        "acct-newco-nyc-usd-operating",
+        "acct-newco-nyc-usd-collateral"
+      ],
+      "address": {
+        "city": "New York",
+        "country": "US",
+        "postcode": "10005",
+        "state": "NY",
+        "street": "95986 Main Street"
+      },
+      "aliases": [],
+      "calendar": "US-NY",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": "newco-newyork.example",
+      "id": "newco-nyc",
+      "incorporation": {
+        "date": "2010-10-30",
+        "jurisdiction": "Delaware",
+        "registration_number": "68958395"
+      },
+      "kind": "newco",
+      "legal_form": "Inc.",
+      "lei": "SYNT000DMWJ652W3DD97",
+      "name": "NewCo Derivatives New York, Inc.",
+      "people": [
+        "p-newco-nyc-marketer",
+        "p-newco-nyc-trader",
+        "p-newco-nyc-lawyer",
+        "p-newco-nyc-credit_analyst",
+        "p-newco-nyc-compliance_analyst",
+        "p-newco-nyc-ops",
+        "p-newco-nyc-settlements",
+        "p-newco-nyc-accounting"
+      ],
+      "real_name": false,
+      "tax_id": "EIN 44-9287198"
+    },
+    "newco-syd": {
+      "accounts": [
+        "acct-newco-syd-aud-operating",
+        "acct-newco-syd-usd-operating"
+      ],
+      "address": {
+        "city": "Sydney",
+        "country": "AU",
+        "postcode": "2000",
+        "state": "NSW",
+        "street": "935 George Street"
+      },
+      "aliases": [],
+      "calendar": "AU-NSW",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "AU",
+      "domain": "newco-sydney.example",
+      "id": "newco-syd",
+      "incorporation": {
+        "date": "2016-04-11",
+        "jurisdiction": "New South Wales",
+        "registration_number": "ACN 23890888"
+      },
+      "kind": "newco",
+      "legal_form": "Pty Ltd",
+      "lei": "SYNT00CWIPGIBWQLQA64",
+      "name": "NewCo Trading Sydney Pty Ltd",
+      "people": [
+        "p-newco-syd-marketer",
+        "p-newco-syd-trader",
+        "p-newco-syd-lawyer",
+        "p-newco-syd-credit_analyst",
+        "p-newco-syd-compliance_analyst",
+        "p-newco-syd-ops",
+        "p-newco-syd-settlements",
+        "p-newco-syd-accounting"
+      ],
+      "real_name": false,
+      "tax_id": "ABN 31536389783"
+    },
+    "svc-calloway": {
+      "accounts": [],
+      "address": {
+        "city": "London",
+        "country": "GB",
+        "postcode": "",
+        "state": "",
+        "street": "8 High Street"
+      },
+      "aliases": [],
+      "calendar": "GB",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "GB",
+      "domain": "callowayrye.example",
+      "id": "svc-calloway",
+      "incorporation": {
+        "date": "2009-04-01",
+        "jurisdiction": "GB",
+        "registration_number": "44324463"
+      },
+      "kind": "law_firm",
+      "legal_form": "",
+      "lei": "SYNT00WKYANIXHYXVV62",
+      "name": "Calloway Rye LLP",
+      "people": [
+        "p-svc-calloway-partner",
+        "p-svc-calloway-associate"
+      ],
+      "real_name": false,
+      "tax_id": null
+    },
+    "svc-cardinal": {
+      "accounts": [],
+      "address": {
+        "city": "Houston",
+        "country": "US",
+        "postcode": "",
+        "state": "",
+        "street": "00512 Main Street"
+      },
+      "aliases": [],
+      "calendar": "US-TX",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": "cardinalinspection.example",
+      "id": "svc-cardinal",
+      "incorporation": {
+        "date": "2008-05-18",
+        "jurisdiction": "US",
+        "registration_number": "2118301"
+      },
+      "kind": "inspector",
+      "legal_form": "",
+      "lei": "SYNT00LSXISY48O5OF89",
+      "name": "Cardinal Inspection Services",
+      "people": [
+        "p-svc-cardinal-inspector",
+        "p-svc-cardinal-reports"
+      ],
+      "real_name": false,
+      "tax_id": "EIN 70-7765088"
+    },
+    "svc-gulfstream": {
+      "accounts": [],
+      "address": {
+        "city": "Houston",
+        "country": "US",
+        "postcode": "",
+        "state": "",
+        "street": "487 Main Street"
+      },
+      "aliases": [],
+      "calendar": "US-TX",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": "gulfstreammarine.example",
+      "id": "svc-gulfstream",
+      "incorporation": {
+        "date": "2014-12-24",
+        "jurisdiction": "US",
+        "registration_number": "84682877"
+      },
+      "kind": "shipping_agent",
+      "legal_form": "",
+      "lei": "SYNT00NH6TT42GZY9169",
+      "name": "Gulfstream Marine Agency",
+      "people": [
+        "p-svc-gulfstream-agent",
+        "p-svc-gulfstream-operations"
+      ],
+      "real_name": false,
+      "tax_id": "EIN 74-5649825"
+    },
+    "svc-ledgerline": {
+      "accounts": [],
+      "address": {
+        "city": "New York",
+        "country": "US",
+        "postcode": "",
+        "state": "",
+        "street": "78933 Main Street"
+      },
+      "aliases": [],
+      "calendar": "US-NY",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "US",
+      "domain": "ledgerline.example",
+      "id": "svc-ledgerline",
+      "incorporation": {
+        "date": "2016-02-26",
+        "jurisdiction": "US",
+        "registration_number": "40680257"
+      },
+      "kind": "credit_bureau",
+      "legal_form": "",
+      "lei": "SYNT00DQXDL9TK1LVJ26",
+      "name": "Ledgerline Credit Bureau",
+      "people": [
+        "p-svc-ledgerline-analyst",
+        "p-svc-ledgerline-support"
+      ],
+      "real_name": false,
+      "tax_id": "EIN 42-7040838"
+    },
+    "svc-merriweather": {
+      "accounts": [],
+      "address": {
+        "city": "Sydney",
+        "country": "AU",
+        "postcode": "",
+        "state": "",
+        "street": "184 George Street"
+      },
+      "aliases": [],
+      "calendar": "AU-NSW",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "AU",
+      "domain": "merriweatherng.example",
+      "id": "svc-merriweather",
+      "incorporation": {
+        "date": "2011-07-25",
+        "jurisdiction": "AU",
+        "registration_number": "ACN 95526359"
+      },
+      "kind": "law_firm",
+      "legal_form": "",
+      "lei": "SYNT00U116917LN2YU67",
+      "name": "Merriweather Ng Lawyers",
+      "people": [
+        "p-svc-merriweather-partner",
+        "p-svc-merriweather-associate"
+      ],
+      "real_name": false,
+      "tax_id": "ABN 51226049718"
+    },
+    "svc-veridian": {
+      "accounts": [],
+      "address": {
+        "city": "London",
+        "country": "GB",
+        "postcode": "",
+        "state": "",
+        "street": "7 High Street"
+      },
+      "aliases": [],
+      "calendar": "GB",
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "country": "GB",
+      "domain": "veridianscreening.example",
+      "id": "svc-veridian",
+      "incorporation": {
+        "date": "2013-01-22",
+        "jurisdiction": "GB",
+        "registration_number": "65881991"
+      },
+      "kind": "screening_vendor",
+      "legal_form": "",
+      "lei": "SYNT002ZJXCZQOMHBP42",
+      "name": "Veridian Screening Ltd",
+      "people": [
+        "p-svc-veridian-analyst",
+        "p-svc-veridian-support"
+      ],
+      "real_name": false,
+      "tax_id": null
+    }
+  },
+  "ownership_edges": [
+    {
+      "child": "hold-founders",
+      "class_uri": null,
+      "parent": "own-founder-1",
+      "percent": 55.0,
+      "relationship": null
+    },
+    {
+      "child": "hold-founders",
+      "class_uri": null,
+      "parent": "own-founder-2",
+      "percent": 45.0,
+      "relationship": null
+    },
+    {
+      "child": "newco-hldg",
+      "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+      "parent": "hold-founders",
+      "percent": 62.0,
+      "relationship": "UltimateConsolidation"
+    },
+    {
+      "child": "newco-hldg",
+      "class_uri": null,
+      "parent": "hold-infra",
+      "percent": 28.0,
+      "relationship": null
+    },
+    {
+      "child": "newco-hldg",
+      "class_uri": null,
+      "parent": "hold-mgmt",
+      "percent": 10.0,
+      "relationship": null
+    },
+    {
+      "child": "newco-syd",
+      "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+      "parent": "newco-hldg",
+      "percent": 100.0,
+      "relationship": "DirectConsolidation"
+    },
+    {
+      "child": "newco-hou",
+      "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+      "parent": "newco-hldg",
+      "percent": 100.0,
+      "relationship": "DirectConsolidation"
+    },
+    {
+      "child": "newco-nyc",
+      "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+      "parent": "newco-hldg",
+      "percent": 100.0,
+      "relationship": "DirectConsolidation"
+    },
+    {
+      "child": "newco-lon",
+      "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+      "parent": "newco-hldg",
+      "percent": 100.0,
+      "relationship": "DirectConsolidation"
+    },
+    {
+      "child": "cp-bp-au",
+      "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+      "parent": "cp-bp",
+      "percent": 100.0,
+      "relationship": "UltimateConsolidation"
+    },
+    {
+      "child": "hold-harbourline-grp",
+      "class_uri": null,
+      "parent": "own-harbourline-1",
+      "percent": 70.0,
+      "relationship": null
+    },
+    {
+      "child": "hold-harbourline-grp",
+      "class_uri": null,
+      "parent": "own-harbourline-2",
+      "percent": 30.0,
+      "relationship": null
+    },
+    {
+      "child": "cp-harbourline",
+      "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+      "parent": "hold-harbourline-grp",
+      "percent": 100.0,
+      "relationship": "UltimateConsolidation"
+    },
+    {
+      "child": "hold-kestrel-trust",
+      "class_uri": null,
+      "parent": "own-kestrel-pep",
+      "percent": 100.0,
+      "relationship": null
+    },
+    {
+      "child": "hold-kestrel-bvi",
+      "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+      "parent": "hold-kestrel-trust",
+      "percent": 55.0,
+      "relationship": "UltimateConsolidation"
+    },
+    {
+      "child": "hold-kestrel-bvi",
+      "class_uri": null,
+      "parent": "own-kestrel-founder",
+      "percent": 45.0,
+      "relationship": null
+    },
+    {
+      "child": "cp-kestrel",
+      "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+      "parent": "hold-kestrel-bvi",
+      "percent": 100.0,
+      "relationship": "DirectConsolidation"
+    },
+    {
+      "child": "hold-tiber-foundation",
+      "class_uri": null,
+      "parent": "own-tiber-hidden",
+      "percent": 100.0,
+      "relationship": null
+    },
+    {
+      "child": "hold-tiber-nominee",
+      "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+      "parent": "hold-tiber-foundation",
+      "percent": 100.0,
+      "relationship": "UltimateConsolidation"
+    },
+    {
+      "child": "hold-tiber-cy",
+      "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+      "parent": "hold-tiber-nominee",
+      "percent": 60.0,
+      "relationship": "DirectConsolidation"
+    },
+    {
+      "child": "hold-tiber-cy",
+      "class_uri": null,
+      "parent": "own-tiber-declared",
+      "percent": 40.0,
+      "relationship": null
+    },
+    {
+      "child": "cp-tiberpeak",
+      "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+      "parent": "hold-tiber-cy",
+      "percent": 100.0,
+      "relationship": "DirectConsolidation"
+    }
+  ],
+  "persons": {
+    "own-founder-1": {
+      "email": null,
+      "id": "own-founder-1",
+      "kind": "owner",
+      "name": "Heather Santos",
+      "org": null,
+      "pep": false,
+      "phone": null,
+      "role": "NewCo founder (managing partner)",
+      "sanctioned": false
+    },
+    "own-founder-2": {
+      "email": null,
+      "id": "own-founder-2",
+      "kind": "owner",
+      "name": "Brandon Ramirez",
+      "org": null,
+      "pep": false,
+      "phone": null,
+      "role": "NewCo founder (partner)",
+      "sanctioned": false
+    },
+    "own-harbourline-1": {
+      "email": null,
+      "id": "own-harbourline-1",
+      "kind": "owner",
+      "name": "Margaret Beck",
+      "org": null,
+      "pep": false,
+      "phone": null,
+      "role": "Harbourline principal",
+      "sanctioned": false
+    },
+    "own-harbourline-2": {
+      "email": null,
+      "id": "own-harbourline-2",
+      "kind": "owner",
+      "name": "Michelle Walker",
+      "org": null,
+      "pep": false,
+      "phone": null,
+      "role": "Harbourline principal",
+      "sanctioned": false
+    },
+    "own-kestrel-founder": {
+      "email": null,
+      "id": "own-kestrel-founder",
+      "kind": "owner",
+      "name": "Adam Mahmood",
+      "org": null,
+      "pep": false,
+      "phone": null,
+      "role": "Kestrel founder",
+      "sanctioned": false
+    },
+    "own-kestrel-pep": {
+      "email": null,
+      "id": "own-kestrel-pep",
+      "kind": "owner",
+      "name": "Elliot Ryan",
+      "org": null,
+      "pep": true,
+      "phone": null,
+      "role": "Kestrel trust beneficiary (politically exposed)",
+      "sanctioned": false
+    },
+    "own-tiber-declared": {
+      "email": null,
+      "id": "own-tiber-declared",
+      "kind": "owner",
+      "name": "Aaron Rich",
+      "org": null,
+      "pep": false,
+      "phone": null,
+      "role": "Tiber Peak declared shareholder",
+      "sanctioned": false
+    },
+    "own-tiber-hidden": {
+      "email": null,
+      "id": "own-tiber-hidden",
+      "kind": "owner",
+      "name": "Daniel Smith",
+      "org": null,
+      "pep": false,
+      "phone": null,
+      "role": "Tiber Peak concealed owner (sanctioned)",
+      "sanctioned": true
+    },
+    "p-bank-bluegum-operations": {
+      "email": "michael.schneider@bluegumbank.example",
+      "id": "p-bank-bluegum-operations",
+      "kind": "staff",
+      "name": "Michael Schneider",
+      "org": "bank-bluegum",
+      "pep": false,
+      "phone": "0248119551",
+      "role": "operations",
+      "sanctioned": false
+    },
+    "p-bank-bluegum-trade_finance": {
+      "email": "amanda.maddox@bluegumbank.example",
+      "id": "p-bank-bluegum-trade_finance",
+      "kind": "staff",
+      "name": "Amanda Maddox",
+      "org": "bank-bluegum",
+      "pep": false,
+      "phone": "79770780",
+      "role": "trade_finance",
+      "sanctioned": false
+    },
+    "p-bank-concord-operations": {
+      "email": "zoe.jones@concordreserve.example",
+      "id": "p-bank-concord-operations",
+      "kind": "staff",
+      "name": "Zoe Jones",
+      "org": "bank-concord",
+      "pep": false,
+      "phone": "(0191) 4960509",
+      "role": "operations",
+      "sanctioned": false
+    },
+    "p-bank-concord-trade_finance": {
+      "email": "janice.lee@concordreserve.example",
+      "id": "p-bank-concord-trade_finance",
+      "kind": "staff",
+      "name": "Janice Lee",
+      "org": "bank-concord",
+      "pep": false,
+      "phone": "+44116 4960122",
+      "role": "trade_finance",
+      "sanctioned": false
+    },
+    "p-bank-gulfcrescent-operations": {
+      "email": "james.clay@gulfcrescent.example",
+      "id": "p-bank-gulfcrescent-operations",
+      "kind": "staff",
+      "name": "James Clay",
+      "org": "bank-gulfcrescent",
+      "pep": false,
+      "phone": "6754346058",
+      "role": "operations",
+      "sanctioned": false
+    },
+    "p-bank-gulfcrescent-trade_finance": {
+      "email": "lisa.chen@gulfcrescent.example",
+      "id": "p-bank-gulfcrescent-trade_finance",
+      "kind": "staff",
+      "name": "Lisa Chen",
+      "org": "bank-gulfcrescent",
+      "pep": false,
+      "phone": "(869)432-9797x56226",
+      "role": "trade_finance",
+      "sanctioned": false
+    },
+    "p-bank-hudson-operations": {
+      "email": "cassandra.norman@hudsonmeridian.example",
+      "id": "p-bank-hudson-operations",
+      "kind": "staff",
+      "name": "Cassandra Norman",
+      "org": "bank-hudson",
+      "pep": false,
+      "phone": "570.655.9907x50558",
+      "role": "operations",
+      "sanctioned": false
+    },
+    "p-bank-hudson-trade_finance": {
+      "email": "austin.henderson@hudsonmeridian.example",
+      "id": "p-bank-hudson-trade_finance",
+      "kind": "staff",
+      "name": "Austin Henderson",
+      "org": "bank-hudson",
+      "pep": false,
+      "phone": "982-397-5312x20798",
+      "role": "trade_finance",
+      "sanctioned": false
+    },
+    "p-bank-lonestar-operations": {
+      "email": "amanda.hoover@lonestarbank.example",
+      "id": "p-bank-lonestar-operations",
+      "kind": "staff",
+      "name": "Amanda Hoover",
+      "org": "bank-lonestar",
+      "pep": false,
+      "phone": "001-421-397-2725x0037",
+      "role": "operations",
+      "sanctioned": false
+    },
+    "p-bank-lonestar-trade_finance": {
+      "email": "tiffany.mclaughlin@lonestarbank.example",
+      "id": "p-bank-lonestar-trade_finance",
+      "kind": "staff",
+      "name": "Tiffany Mclaughlin",
+      "org": "bank-lonestar",
+      "pep": false,
+      "phone": "+1-594-439-6151",
+      "role": "trade_finance",
+      "sanctioned": false
+    },
+    "p-bank-northgate-operations": {
+      "email": "amy.davies@northgatebank.example",
+      "id": "p-bank-northgate-operations",
+      "kind": "staff",
+      "name": "Amy Davies",
+      "org": "bank-northgate",
+      "pep": false,
+      "phone": "01314960265",
+      "role": "operations",
+      "sanctioned": false
+    },
+    "p-bank-northgate-trade_finance": {
+      "email": "valerie.smith@northgatebank.example",
+      "id": "p-bank-northgate-trade_finance",
+      "kind": "staff",
+      "name": "Valerie Smith",
+      "org": "bank-northgate",
+      "pep": false,
+      "phone": "0289018074",
+      "role": "trade_finance",
+      "sanctioned": false
+    },
+    "p-bank-southerntide-operations": {
+      "email": "misty.mathis@southerntidebank.example",
+      "id": "p-bank-southerntide-operations",
+      "kind": "staff",
+      "name": "Misty Mathis",
+      "org": "bank-southerntide",
+      "pep": false,
+      "phone": "+61-449-571-991",
+      "role": "operations",
+      "sanctioned": false
+    },
+    "p-bank-southerntide-trade_finance": {
+      "email": "bryan.newton@southerntidebank.example",
+      "id": "p-bank-southerntide-trade_finance",
+      "kind": "staff",
+      "name": "Bryan Newton",
+      "org": "bank-southerntide",
+      "pep": false,
+      "phone": "0406.738.962",
+      "role": "trade_finance",
+      "sanctioned": false
+    },
+    "p-cp-bp-accounting": {
+      "email": "oliver.tucker@bp.example",
+      "id": "p-cp-bp-accounting",
+      "kind": "staff",
+      "name": "Oliver Tucker",
+      "org": "cp-bp",
+      "pep": false,
+      "phone": "0292018490",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-cp-bp-au-accounting": {
+      "email": "amy.martinez@bp-australia.example",
+      "id": "p-cp-bp-au-accounting",
+      "kind": "staff",
+      "name": "Amy Martinez",
+      "org": "cp-bp-au",
+      "pep": false,
+      "phone": "+61.430.246.256",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-cp-bp-au-compliance_analyst": {
+      "email": "frank.brennan@bp-australia.example",
+      "id": "p-cp-bp-au-compliance_analyst",
+      "kind": "staff",
+      "name": "Frank Brennan",
+      "org": "cp-bp-au",
+      "pep": false,
+      "phone": "(08)-4992-1481",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-cp-bp-au-credit_analyst": {
+      "email": "christopher.figueroa@bp-australia.example",
+      "id": "p-cp-bp-au-credit_analyst",
+      "kind": "staff",
+      "name": "Christopher Figueroa",
+      "org": "cp-bp-au",
+      "pep": false,
+      "phone": "(08) 3130 1929",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-cp-bp-au-lawyer": {
+      "email": "michael.brown@bp-australia.example",
+      "id": "p-cp-bp-au-lawyer",
+      "kind": "staff",
+      "name": "Michael Brown",
+      "org": "cp-bp-au",
+      "pep": false,
+      "phone": "+61842351074",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-cp-bp-au-marketer": {
+      "email": "todd.marsh@bp-australia.example",
+      "id": "p-cp-bp-au-marketer",
+      "kind": "staff",
+      "name": "Todd Marsh",
+      "org": "cp-bp-au",
+      "pep": false,
+      "phone": "(02).8949.2895",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-cp-bp-au-ops": {
+      "email": "william.smith@bp-australia.example",
+      "id": "p-cp-bp-au-ops",
+      "kind": "staff",
+      "name": "William Smith",
+      "org": "cp-bp-au",
+      "pep": false,
+      "phone": "0472-985-658",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-cp-bp-au-settlements": {
+      "email": "theresa.dickerson@bp-australia.example",
+      "id": "p-cp-bp-au-settlements",
+      "kind": "staff",
+      "name": "Theresa Dickerson",
+      "org": "cp-bp-au",
+      "pep": false,
+      "phone": "03 0576 1678",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-cp-bp-au-trader": {
+      "email": "danny.smith@bp-australia.example",
+      "id": "p-cp-bp-au-trader",
+      "kind": "staff",
+      "name": "Danny Smith",
+      "org": "cp-bp-au",
+      "pep": false,
+      "phone": "02-3521-9704",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-cp-bp-compliance_analyst": {
+      "email": "rhys.barry@bp.example",
+      "id": "p-cp-bp-compliance_analyst",
+      "kind": "staff",
+      "name": "Rhys Barry",
+      "org": "cp-bp",
+      "pep": false,
+      "phone": "+44(0)116 496 0224",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-cp-bp-credit_analyst": {
+      "email": "sharon.gardner@bp.example",
+      "id": "p-cp-bp-credit_analyst",
+      "kind": "staff",
+      "name": "Sharon Gardner",
+      "org": "cp-bp",
+      "pep": false,
+      "phone": "(01632) 960811",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-cp-bp-lawyer": {
+      "email": "alice.turner@bp.example",
+      "id": "p-cp-bp-lawyer",
+      "kind": "staff",
+      "name": "Alice Turner",
+      "org": "cp-bp",
+      "pep": false,
+      "phone": "0116 496 0975",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-cp-bp-marketer": {
+      "email": "marcus.griffiths@bp.example",
+      "id": "p-cp-bp-marketer",
+      "kind": "staff",
+      "name": "Marcus Griffiths",
+      "org": "cp-bp",
+      "pep": false,
+      "phone": "+44(0)1914960420",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-cp-bp-ops": {
+      "email": "elliott.herbert@bp.example",
+      "id": "p-cp-bp-ops",
+      "kind": "staff",
+      "name": "Elliott Herbert",
+      "org": "cp-bp",
+      "pep": false,
+      "phone": "+441314960019",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-cp-bp-settlements": {
+      "email": "shirley.kelly@bp.example",
+      "id": "p-cp-bp-settlements",
+      "kind": "staff",
+      "name": "Shirley Kelly",
+      "org": "cp-bp",
+      "pep": false,
+      "phone": "+441174960889",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-cp-bp-trader": {
+      "email": "jean.smith@bp.example",
+      "id": "p-cp-bp-trader",
+      "kind": "staff",
+      "name": "Jean Smith",
+      "org": "cp-bp",
+      "pep": false,
+      "phone": "+44(0)1914960241",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-cp-glencore-accounting": {
+      "email": "william.baker@glencore.example",
+      "id": "p-cp-glencore-accounting",
+      "kind": "staff",
+      "name": "William Baker",
+      "org": "cp-glencore",
+      "pep": false,
+      "phone": "501.883.3602x702",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-cp-glencore-compliance_analyst": {
+      "email": "jimmy.porter@glencore.example",
+      "id": "p-cp-glencore-compliance_analyst",
+      "kind": "staff",
+      "name": "Jimmy Porter",
+      "org": "cp-glencore",
+      "pep": false,
+      "phone": "+1-484-793-1636",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-cp-glencore-credit_analyst": {
+      "email": "joseph.juarez@glencore.example",
+      "id": "p-cp-glencore-credit_analyst",
+      "kind": "staff",
+      "name": "Joseph Juarez",
+      "org": "cp-glencore",
+      "pep": false,
+      "phone": "2283069216",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-cp-glencore-lawyer": {
+      "email": "ashley.gallagher@glencore.example",
+      "id": "p-cp-glencore-lawyer",
+      "kind": "staff",
+      "name": "Ashley Gallagher",
+      "org": "cp-glencore",
+      "pep": false,
+      "phone": "(823)992-9694x351",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-cp-glencore-marketer": {
+      "email": "michael.smith@glencore.example",
+      "id": "p-cp-glencore-marketer",
+      "kind": "staff",
+      "name": "Michael Smith",
+      "org": "cp-glencore",
+      "pep": false,
+      "phone": "+1-421-827-6180",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-cp-glencore-ops": {
+      "email": "samuel.cowan@glencore.example",
+      "id": "p-cp-glencore-ops",
+      "kind": "staff",
+      "name": "Samuel Cowan",
+      "org": "cp-glencore",
+      "pep": false,
+      "phone": "289-474-1843",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-cp-glencore-settlements": {
+      "email": "jennifer.arroyo@glencore.example",
+      "id": "p-cp-glencore-settlements",
+      "kind": "staff",
+      "name": "Jennifer Arroyo",
+      "org": "cp-glencore",
+      "pep": false,
+      "phone": "658.289.7120",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-cp-glencore-trader": {
+      "email": "gregory.everett@glencore.example",
+      "id": "p-cp-glencore-trader",
+      "kind": "staff",
+      "name": "Gregory Everett",
+      "org": "cp-glencore",
+      "pep": false,
+      "phone": "875-954-3770x373",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-cp-harbourline-accounting": {
+      "email": "brian.jones@harbourline.example",
+      "id": "p-cp-harbourline-accounting",
+      "kind": "staff",
+      "name": "Brian Jones",
+      "org": "cp-harbourline",
+      "pep": false,
+      "phone": "+61 455 430 124",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-cp-harbourline-compliance_analyst": {
+      "email": "jeffrey.daniels@harbourline.example",
+      "id": "p-cp-harbourline-compliance_analyst",
+      "kind": "staff",
+      "name": "Jeffrey Daniels",
+      "org": "cp-harbourline",
+      "pep": false,
+      "phone": "8053.9836",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-cp-harbourline-credit_analyst": {
+      "email": "shelly.sandoval@harbourline.example",
+      "id": "p-cp-harbourline-credit_analyst",
+      "kind": "staff",
+      "name": "Shelly Sandoval",
+      "org": "cp-harbourline",
+      "pep": false,
+      "phone": "+61 440 437 650",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-cp-harbourline-lawyer": {
+      "email": "daniel.barnett@harbourline.example",
+      "id": "p-cp-harbourline-lawyer",
+      "kind": "staff",
+      "name": "Daniel Barnett",
+      "org": "cp-harbourline",
+      "pep": false,
+      "phone": "(02)-7754-1868",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-cp-harbourline-marketer": {
+      "email": "christine.thompson@harbourline.example",
+      "id": "p-cp-harbourline-marketer",
+      "kind": "staff",
+      "name": "Christine Thompson",
+      "org": "cp-harbourline",
+      "pep": false,
+      "phone": "(07)90060181",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-cp-harbourline-ops": {
+      "email": "jessica.smith@harbourline.example",
+      "id": "p-cp-harbourline-ops",
+      "kind": "staff",
+      "name": "Jessica Smith",
+      "org": "cp-harbourline",
+      "pep": false,
+      "phone": "+61-7-9549-0959",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-cp-harbourline-settlements": {
+      "email": "anne.williams@harbourline.example",
+      "id": "p-cp-harbourline-settlements",
+      "kind": "staff",
+      "name": "Anne Williams",
+      "org": "cp-harbourline",
+      "pep": false,
+      "phone": "+61 8 4505 1633",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-cp-harbourline-trader": {
+      "email": "jeffrey.murray@harbourline.example",
+      "id": "p-cp-harbourline-trader",
+      "kind": "staff",
+      "name": "Jeffrey Murray",
+      "org": "cp-harbourline",
+      "pep": false,
+      "phone": "+61.7.2856.5790",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-cp-kestrel-accounting": {
+      "email": "louis.walsh@kestrel.example",
+      "id": "p-cp-kestrel-accounting",
+      "kind": "staff",
+      "name": "Louis Walsh",
+      "org": "cp-kestrel",
+      "pep": false,
+      "phone": "+44113 496 0377",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-cp-kestrel-compliance_analyst": {
+      "email": "thomas.stone@kestrel.example",
+      "id": "p-cp-kestrel-compliance_analyst",
+      "kind": "staff",
+      "name": "Thomas Stone",
+      "org": "cp-kestrel",
+      "pep": false,
+      "phone": "+44292018854",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-cp-kestrel-credit_analyst": {
+      "email": "ricky.watts@kestrel.example",
+      "id": "p-cp-kestrel-credit_analyst",
+      "kind": "staff",
+      "name": "Ricky Watts",
+      "org": "cp-kestrel",
+      "pep": false,
+      "phone": "(029) 2018 0423",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-cp-kestrel-lawyer": {
+      "email": "jade.edwards@kestrel.example",
+      "id": "p-cp-kestrel-lawyer",
+      "kind": "staff",
+      "name": "Jade Edwards",
+      "org": "cp-kestrel",
+      "pep": false,
+      "phone": "(029) 2018 0754",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-cp-kestrel-marketer": {
+      "email": "dean.smith@kestrel.example",
+      "id": "p-cp-kestrel-marketer",
+      "kind": "staff",
+      "name": "Dean Smith",
+      "org": "cp-kestrel",
+      "pep": false,
+      "phone": "01914960812",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-cp-kestrel-ops": {
+      "email": "josh.hill@kestrel.example",
+      "id": "p-cp-kestrel-ops",
+      "kind": "staff",
+      "name": "Josh Hill",
+      "org": "cp-kestrel",
+      "pep": false,
+      "phone": "+44(0)1414960643",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-cp-kestrel-settlements": {
+      "email": "angela.bell@kestrel.example",
+      "id": "p-cp-kestrel-settlements",
+      "kind": "staff",
+      "name": "Angela Bell",
+      "org": "cp-kestrel",
+      "pep": false,
+      "phone": "01214960461",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-cp-kestrel-trader": {
+      "email": "teresa.hammond@kestrel.example",
+      "id": "p-cp-kestrel-trader",
+      "kind": "staff",
+      "name": "Teresa Hammond",
+      "org": "cp-kestrel",
+      "pep": false,
+      "phone": "+4420 7496 0856",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-cp-shell-accounting": {
+      "email": "raymond.brown@shell.example",
+      "id": "p-cp-shell-accounting",
+      "kind": "staff",
+      "name": "Raymond Brown",
+      "org": "cp-shell",
+      "pep": false,
+      "phone": "0306 999 0985",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-cp-shell-compliance_analyst": {
+      "email": "max.rose@shell.example",
+      "id": "p-cp-shell-compliance_analyst",
+      "kind": "staff",
+      "name": "Max Rose",
+      "org": "cp-shell",
+      "pep": false,
+      "phone": "020 74960269",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-cp-shell-credit_analyst": {
+      "email": "leigh.cook@shell.example",
+      "id": "p-cp-shell-credit_analyst",
+      "kind": "staff",
+      "name": "Leigh Cook",
+      "org": "cp-shell",
+      "pep": false,
+      "phone": "+44306 999 0080",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-cp-shell-lawyer": {
+      "email": "jodie.obrien@shell.example",
+      "id": "p-cp-shell-lawyer",
+      "kind": "staff",
+      "name": "Jodie O'Brien",
+      "org": "cp-shell",
+      "pep": false,
+      "phone": "029 2018 0118",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-cp-shell-marketer": {
+      "email": "grace.connolly@shell.example",
+      "id": "p-cp-shell-marketer",
+      "kind": "staff",
+      "name": "Grace Connolly",
+      "org": "cp-shell",
+      "pep": false,
+      "phone": "+44(0)114 496 0145",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-cp-shell-ops": {
+      "email": "janet.law@shell.example",
+      "id": "p-cp-shell-ops",
+      "kind": "staff",
+      "name": "Janet Law",
+      "org": "cp-shell",
+      "pep": false,
+      "phone": "(0131) 4960100",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-cp-shell-settlements": {
+      "email": "molly.pearce@shell.example",
+      "id": "p-cp-shell-settlements",
+      "kind": "staff",
+      "name": "Molly Pearce",
+      "org": "cp-shell",
+      "pep": false,
+      "phone": "01174960425",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-cp-shell-trader": {
+      "email": "victoria.wood@shell.example",
+      "id": "p-cp-shell-trader",
+      "kind": "staff",
+      "name": "Victoria Wood",
+      "org": "cp-shell",
+      "pep": false,
+      "phone": "01632 960701",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-cp-tiberpeak-accounting": {
+      "email": "connie.roberts@tiberpeak.example",
+      "id": "p-cp-tiberpeak-accounting",
+      "kind": "staff",
+      "name": "Connie Roberts",
+      "org": "cp-tiberpeak",
+      "pep": false,
+      "phone": "382-502-3078x85424",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-cp-tiberpeak-compliance_analyst": {
+      "email": "michael.williams@tiberpeak.example",
+      "id": "p-cp-tiberpeak-compliance_analyst",
+      "kind": "staff",
+      "name": "Michael Williams",
+      "org": "cp-tiberpeak",
+      "pep": false,
+      "phone": "+1-431-870-3246x02140",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-cp-tiberpeak-credit_analyst": {
+      "email": "anthony.ferguson@tiberpeak.example",
+      "id": "p-cp-tiberpeak-credit_analyst",
+      "kind": "staff",
+      "name": "Anthony Ferguson",
+      "org": "cp-tiberpeak",
+      "pep": false,
+      "phone": "+1-376-580-0268x60781",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-cp-tiberpeak-lawyer": {
+      "email": "margaret.martinez@tiberpeak.example",
+      "id": "p-cp-tiberpeak-lawyer",
+      "kind": "staff",
+      "name": "Margaret Martinez",
+      "org": "cp-tiberpeak",
+      "pep": false,
+      "phone": "567-609-2947x854",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-cp-tiberpeak-marketer": {
+      "email": "michele.hill@tiberpeak.example",
+      "id": "p-cp-tiberpeak-marketer",
+      "kind": "staff",
+      "name": "Michele Hill",
+      "org": "cp-tiberpeak",
+      "pep": false,
+      "phone": "697.494.0941x5119",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-cp-tiberpeak-ops": {
+      "email": "jillian.andrews@tiberpeak.example",
+      "id": "p-cp-tiberpeak-ops",
+      "kind": "staff",
+      "name": "Jillian Andrews",
+      "org": "cp-tiberpeak",
+      "pep": false,
+      "phone": "832.415.0561",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-cp-tiberpeak-settlements": {
+      "email": "brittany.holland@tiberpeak.example",
+      "id": "p-cp-tiberpeak-settlements",
+      "kind": "staff",
+      "name": "Brittany Holland",
+      "org": "cp-tiberpeak",
+      "pep": false,
+      "phone": "791-979-0467x626",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-cp-tiberpeak-trader": {
+      "email": "jessica.powell@tiberpeak.example",
+      "id": "p-cp-tiberpeak-trader",
+      "kind": "staff",
+      "name": "Jessica Powell",
+      "org": "cp-tiberpeak",
+      "pep": false,
+      "phone": "468.521.7483",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-cp-vitol-accounting": {
+      "email": "joshua.dominguez@vitol.example",
+      "id": "p-cp-vitol-accounting",
+      "kind": "staff",
+      "name": "Joshua Dominguez",
+      "org": "cp-vitol",
+      "pep": false,
+      "phone": "001-878-695-7088x869",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-cp-vitol-compliance_analyst": {
+      "email": "patrick.smith@vitol.example",
+      "id": "p-cp-vitol-compliance_analyst",
+      "kind": "staff",
+      "name": "Patrick Smith",
+      "org": "cp-vitol",
+      "pep": false,
+      "phone": "744.213.4477x0598",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-cp-vitol-credit_analyst": {
+      "email": "amanda.adams@vitol.example",
+      "id": "p-cp-vitol-credit_analyst",
+      "kind": "staff",
+      "name": "Amanda Adams",
+      "org": "cp-vitol",
+      "pep": false,
+      "phone": "590-792-4155",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-cp-vitol-lawyer": {
+      "email": "roberto.rogers@vitol.example",
+      "id": "p-cp-vitol-lawyer",
+      "kind": "staff",
+      "name": "Roberto Rogers",
+      "org": "cp-vitol",
+      "pep": false,
+      "phone": "2335101509",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-cp-vitol-marketer": {
+      "email": "jeremy.olson@vitol.example",
+      "id": "p-cp-vitol-marketer",
+      "kind": "staff",
+      "name": "Jeremy Olson",
+      "org": "cp-vitol",
+      "pep": false,
+      "phone": "(946)329-2573x744",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-cp-vitol-ops": {
+      "email": "jeff.guzman@vitol.example",
+      "id": "p-cp-vitol-ops",
+      "kind": "staff",
+      "name": "Jeff Guzman",
+      "org": "cp-vitol",
+      "pep": false,
+      "phone": "386-979-2078x2124",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-cp-vitol-settlements": {
+      "email": "emily.gonzales@vitol.example",
+      "id": "p-cp-vitol-settlements",
+      "kind": "staff",
+      "name": "Emily Gonzales",
+      "org": "cp-vitol",
+      "pep": false,
+      "phone": "(773)600-3833",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-cp-vitol-trader": {
+      "email": "crystal.king@vitol.example",
+      "id": "p-cp-vitol-trader",
+      "kind": "staff",
+      "name": "Crystal King",
+      "org": "cp-vitol",
+      "pep": false,
+      "phone": "893.380.5137x62401",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-newco-hldg-accounting": {
+      "email": "john.perry@newco-global.example",
+      "id": "p-newco-hldg-accounting",
+      "kind": "staff",
+      "name": "John Perry",
+      "org": "newco-hldg",
+      "pep": false,
+      "phone": "001-422-681-6282x1705",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-newco-hldg-compliance_analyst": {
+      "email": "brittney.lyons@newco-global.example",
+      "id": "p-newco-hldg-compliance_analyst",
+      "kind": "staff",
+      "name": "Brittney Lyons",
+      "org": "newco-hldg",
+      "pep": false,
+      "phone": "4539380159",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-newco-hldg-credit_analyst": {
+      "email": "jeffrey.torres@newco-global.example",
+      "id": "p-newco-hldg-credit_analyst",
+      "kind": "staff",
+      "name": "Jeffrey Torres",
+      "org": "newco-hldg",
+      "pep": false,
+      "phone": "001-859-687-2861x2252",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-newco-hldg-lawyer": {
+      "email": "daniel.hardy@newco-global.example",
+      "id": "p-newco-hldg-lawyer",
+      "kind": "staff",
+      "name": "Daniel Hardy",
+      "org": "newco-hldg",
+      "pep": false,
+      "phone": "729.598.4659x3610",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-newco-hldg-marketer": {
+      "email": "jennifer.walker@newco-global.example",
+      "id": "p-newco-hldg-marketer",
+      "kind": "staff",
+      "name": "Jennifer Walker",
+      "org": "newco-hldg",
+      "pep": false,
+      "phone": "+1-783-518-4525x2664",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-newco-hldg-ops": {
+      "email": "samantha.sparks@newco-global.example",
+      "id": "p-newco-hldg-ops",
+      "kind": "staff",
+      "name": "Samantha Sparks",
+      "org": "newco-hldg",
+      "pep": false,
+      "phone": "938.499.0046",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-newco-hldg-settlements": {
+      "email": "jennifer.nguyen@newco-global.example",
+      "id": "p-newco-hldg-settlements",
+      "kind": "staff",
+      "name": "Jennifer Nguyen",
+      "org": "newco-hldg",
+      "pep": false,
+      "phone": "001-414-888-3976x486",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-newco-hldg-trader": {
+      "email": "jessica.nichols@newco-global.example",
+      "id": "p-newco-hldg-trader",
+      "kind": "staff",
+      "name": "Jessica Nichols",
+      "org": "newco-hldg",
+      "pep": false,
+      "phone": "3124285889",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-newco-hou-accounting": {
+      "email": "steve.harris@newco-houston.example",
+      "id": "p-newco-hou-accounting",
+      "kind": "staff",
+      "name": "Steve Harris",
+      "org": "newco-hou",
+      "pep": false,
+      "phone": "646-232-4410",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-newco-hou-compliance_analyst": {
+      "email": "gina.finley@newco-houston.example",
+      "id": "p-newco-hou-compliance_analyst",
+      "kind": "staff",
+      "name": "Gina Finley",
+      "org": "newco-hou",
+      "pep": false,
+      "phone": "+1-804-470-3503x73204",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-newco-hou-credit_analyst": {
+      "email": "laura.hill@newco-houston.example",
+      "id": "p-newco-hou-credit_analyst",
+      "kind": "staff",
+      "name": "Laura Hill",
+      "org": "newco-hou",
+      "pep": false,
+      "phone": "(407)238-2421",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-newco-hou-lawyer": {
+      "email": "louis.harvey@newco-houston.example",
+      "id": "p-newco-hou-lawyer",
+      "kind": "staff",
+      "name": "Louis Harvey",
+      "org": "newco-hou",
+      "pep": false,
+      "phone": "+1-645-218-4651x9461",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-newco-hou-marketer": {
+      "email": "travis.ford@newco-houston.example",
+      "id": "p-newco-hou-marketer",
+      "kind": "staff",
+      "name": "Travis Ford",
+      "org": "newco-hou",
+      "pep": false,
+      "phone": "001-655-369-9219x999",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-newco-hou-ops": {
+      "email": "donald.flores@newco-houston.example",
+      "id": "p-newco-hou-ops",
+      "kind": "staff",
+      "name": "Donald Flores",
+      "org": "newco-hou",
+      "pep": false,
+      "phone": "(885)379-2474x65295",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-newco-hou-settlements": {
+      "email": "andrew.evans@newco-houston.example",
+      "id": "p-newco-hou-settlements",
+      "kind": "staff",
+      "name": "Andrew Evans",
+      "org": "newco-hou",
+      "pep": false,
+      "phone": "235.332.8465x293",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-newco-hou-trader": {
+      "email": "jenna.campbell@newco-houston.example",
+      "id": "p-newco-hou-trader",
+      "kind": "staff",
+      "name": "Jenna Campbell",
+      "org": "newco-hou",
+      "pep": false,
+      "phone": "792.485.7026",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-newco-lon-accounting": {
+      "email": "kathleen.garner@newco-london.example",
+      "id": "p-newco-lon-accounting",
+      "kind": "staff",
+      "name": "Kathleen Garner",
+      "org": "newco-lon",
+      "pep": false,
+      "phone": "(0113) 4960416",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-newco-lon-compliance_analyst": {
+      "email": "laura.jones@newco-london.example",
+      "id": "p-newco-lon-compliance_analyst",
+      "kind": "staff",
+      "name": "Laura Jones",
+      "org": "newco-lon",
+      "pep": false,
+      "phone": "+44116 496 0071",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-newco-lon-credit_analyst": {
+      "email": "marian.gibbs@newco-london.example",
+      "id": "p-newco-lon-credit_analyst",
+      "kind": "staff",
+      "name": "Marian Gibbs",
+      "org": "newco-lon",
+      "pep": false,
+      "phone": "+443069990019",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-newco-lon-lawyer": {
+      "email": "nicholas.banks@newco-london.example",
+      "id": "p-newco-lon-lawyer",
+      "kind": "staff",
+      "name": "Nicholas Banks",
+      "org": "newco-lon",
+      "pep": false,
+      "phone": "0292018492",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-newco-lon-marketer": {
+      "email": "danny.dunn@newco-london.example",
+      "id": "p-newco-lon-marketer",
+      "kind": "staff",
+      "name": "Danny Dunn",
+      "org": "newco-lon",
+      "pep": false,
+      "phone": "(0191)4960596",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-newco-lon-ops": {
+      "email": "tom.scott@newco-london.example",
+      "id": "p-newco-lon-ops",
+      "kind": "staff",
+      "name": "Tom Scott",
+      "org": "newco-lon",
+      "pep": false,
+      "phone": "+44(0)20 7496 0677",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-newco-lon-settlements": {
+      "email": "paige.ball@newco-london.example",
+      "id": "p-newco-lon-settlements",
+      "kind": "staff",
+      "name": "Paige Ball",
+      "org": "newco-lon",
+      "pep": false,
+      "phone": "+441174960823",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-newco-lon-trader": {
+      "email": "graham.carr@newco-london.example",
+      "id": "p-newco-lon-trader",
+      "kind": "staff",
+      "name": "Graham Carr",
+      "org": "newco-lon",
+      "pep": false,
+      "phone": "+441144960830",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-newco-nyc-accounting": {
+      "email": "william.gonzalez@newco-newyork.example",
+      "id": "p-newco-nyc-accounting",
+      "kind": "staff",
+      "name": "William Gonzalez",
+      "org": "newco-nyc",
+      "pep": false,
+      "phone": "+1-254-662-4332x459",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-newco-nyc-compliance_analyst": {
+      "email": "lori.flynn@newco-newyork.example",
+      "id": "p-newco-nyc-compliance_analyst",
+      "kind": "staff",
+      "name": "Lori Flynn",
+      "org": "newco-nyc",
+      "pep": false,
+      "phone": "523.310.4994x8242",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-newco-nyc-credit_analyst": {
+      "email": "eric.galloway@newco-newyork.example",
+      "id": "p-newco-nyc-credit_analyst",
+      "kind": "staff",
+      "name": "Eric Galloway",
+      "org": "newco-nyc",
+      "pep": false,
+      "phone": "001-388-514-4368x03677",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-newco-nyc-lawyer": {
+      "email": "kyle.callahan@newco-newyork.example",
+      "id": "p-newco-nyc-lawyer",
+      "kind": "staff",
+      "name": "Kyle Callahan",
+      "org": "newco-nyc",
+      "pep": false,
+      "phone": "615.447.4830x2173",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-newco-nyc-marketer": {
+      "email": "shannon.tran@newco-newyork.example",
+      "id": "p-newco-nyc-marketer",
+      "kind": "staff",
+      "name": "Shannon Tran",
+      "org": "newco-nyc",
+      "pep": false,
+      "phone": "001-220-299-2901x17261",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-newco-nyc-ops": {
+      "email": "kenneth.ashley@newco-newyork.example",
+      "id": "p-newco-nyc-ops",
+      "kind": "staff",
+      "name": "Kenneth Ashley",
+      "org": "newco-nyc",
+      "pep": false,
+      "phone": "001-313-924-2338x12057",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-newco-nyc-settlements": {
+      "email": "kathryn.braun@newco-newyork.example",
+      "id": "p-newco-nyc-settlements",
+      "kind": "staff",
+      "name": "Kathryn Braun",
+      "org": "newco-nyc",
+      "pep": false,
+      "phone": "569-471-2740",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-newco-nyc-trader": {
+      "email": "jane.hill@newco-newyork.example",
+      "id": "p-newco-nyc-trader",
+      "kind": "staff",
+      "name": "Jane Hill",
+      "org": "newco-nyc",
+      "pep": false,
+      "phone": "9275175045",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-newco-syd-accounting": {
+      "email": "gary.mata@newco-sydney.example",
+      "id": "p-newco-syd-accounting",
+      "kind": "staff",
+      "name": "Gary Mata",
+      "org": "newco-syd",
+      "pep": false,
+      "phone": "(08).6571.4674",
+      "role": "accounting",
+      "sanctioned": false
+    },
+    "p-newco-syd-compliance_analyst": {
+      "email": "kevin.hall@newco-sydney.example",
+      "id": "p-newco-syd-compliance_analyst",
+      "kind": "staff",
+      "name": "Kevin Hall",
+      "org": "newco-syd",
+      "pep": false,
+      "phone": "0422.545.744",
+      "role": "compliance_analyst",
+      "sanctioned": false
+    },
+    "p-newco-syd-credit_analyst": {
+      "email": "ricardo.crosby@newco-sydney.example",
+      "id": "p-newco-syd-credit_analyst",
+      "kind": "staff",
+      "name": "Ricardo Crosby",
+      "org": "newco-syd",
+      "pep": false,
+      "phone": "0467 274 033",
+      "role": "credit_analyst",
+      "sanctioned": false
+    },
+    "p-newco-syd-lawyer": {
+      "email": "denise.cook@newco-sydney.example",
+      "id": "p-newco-syd-lawyer",
+      "kind": "staff",
+      "name": "Denise Cook",
+      "org": "newco-syd",
+      "pep": false,
+      "phone": "07.4663.2763",
+      "role": "lawyer",
+      "sanctioned": false
+    },
+    "p-newco-syd-marketer": {
+      "email": "bonnie.briggs@newco-sydney.example",
+      "id": "p-newco-syd-marketer",
+      "kind": "staff",
+      "name": "Bonnie Briggs",
+      "org": "newco-syd",
+      "pep": false,
+      "phone": "0449 756 411",
+      "role": "marketer",
+      "sanctioned": false
+    },
+    "p-newco-syd-ops": {
+      "email": "rhonda.jimenez@newco-sydney.example",
+      "id": "p-newco-syd-ops",
+      "kind": "staff",
+      "name": "Rhonda Jimenez",
+      "org": "newco-syd",
+      "pep": false,
+      "phone": "70981682",
+      "role": "ops",
+      "sanctioned": false
+    },
+    "p-newco-syd-settlements": {
+      "email": "alicia.parsons@newco-sydney.example",
+      "id": "p-newco-syd-settlements",
+      "kind": "staff",
+      "name": "Alicia Parsons",
+      "org": "newco-syd",
+      "pep": false,
+      "phone": "(03)00205852",
+      "role": "settlements",
+      "sanctioned": false
+    },
+    "p-newco-syd-trader": {
+      "email": "aaron.heath@newco-sydney.example",
+      "id": "p-newco-syd-trader",
+      "kind": "staff",
+      "name": "Aaron Heath",
+      "org": "newco-syd",
+      "pep": false,
+      "phone": "0499.656.123",
+      "role": "trader",
+      "sanctioned": false
+    },
+    "p-svc-calloway-associate": {
+      "email": "denise.ali@callowayrye.example",
+      "id": "p-svc-calloway-associate",
+      "kind": "staff",
+      "name": "Denise Ali",
+      "org": "svc-calloway",
+      "pep": false,
+      "phone": "+44(0)161 496 0970",
+      "role": "associate",
+      "sanctioned": false
+    },
+    "p-svc-calloway-partner": {
+      "email": "bernard.harris@callowayrye.example",
+      "id": "p-svc-calloway-partner",
+      "kind": "staff",
+      "name": "Bernard Harris",
+      "org": "svc-calloway",
+      "pep": false,
+      "phone": "+44121 4960488",
+      "role": "partner",
+      "sanctioned": false
+    },
+    "p-svc-cardinal-inspector": {
+      "email": "veronica.smith@cardinalinspection.example",
+      "id": "p-svc-cardinal-inspector",
+      "kind": "staff",
+      "name": "Veronica Smith",
+      "org": "svc-cardinal",
+      "pep": false,
+      "phone": "234-376-4834",
+      "role": "inspector",
+      "sanctioned": false
+    },
+    "p-svc-cardinal-reports": {
+      "email": "janice.thompson@cardinalinspection.example",
+      "id": "p-svc-cardinal-reports",
+      "kind": "staff",
+      "name": "Janice Thompson",
+      "org": "svc-cardinal",
+      "pep": false,
+      "phone": "551.425.7856x2187",
+      "role": "reports",
+      "sanctioned": false
+    },
+    "p-svc-gulfstream-agent": {
+      "email": "brandon.lawson@gulfstreammarine.example",
+      "id": "p-svc-gulfstream-agent",
+      "kind": "staff",
+      "name": "Brandon Lawson",
+      "org": "svc-gulfstream",
+      "pep": false,
+      "phone": "(704)775-5625x9189",
+      "role": "agent",
+      "sanctioned": false
+    },
+    "p-svc-gulfstream-operations": {
+      "email": "denise.brown@gulfstreammarine.example",
+      "id": "p-svc-gulfstream-operations",
+      "kind": "staff",
+      "name": "Denise Brown",
+      "org": "svc-gulfstream",
+      "pep": false,
+      "phone": "001-855-200-4522x63906",
+      "role": "operations",
+      "sanctioned": false
+    },
+    "p-svc-ledgerline-analyst": {
+      "email": "jeffrey.butler@ledgerline.example",
+      "id": "p-svc-ledgerline-analyst",
+      "kind": "staff",
+      "name": "Jeffrey Butler",
+      "org": "svc-ledgerline",
+      "pep": false,
+      "phone": "(930)637-1092x448",
+      "role": "analyst",
+      "sanctioned": false
+    },
+    "p-svc-ledgerline-support": {
+      "email": "sean.everett@ledgerline.example",
+      "id": "p-svc-ledgerline-support",
+      "kind": "staff",
+      "name": "Sean Everett",
+      "org": "svc-ledgerline",
+      "pep": false,
+      "phone": "001-726-624-7988x5694",
+      "role": "support",
+      "sanctioned": false
+    },
+    "p-svc-merriweather-associate": {
+      "email": "arthur.bradley@merriweatherng.example",
+      "id": "p-svc-merriweather-associate",
+      "kind": "staff",
+      "name": "Arthur Bradley",
+      "org": "svc-merriweather",
+      "pep": false,
+      "phone": "2382.6913",
+      "role": "associate",
+      "sanctioned": false
+    },
+    "p-svc-merriweather-partner": {
+      "email": "michele.mcintyre@merriweatherng.example",
+      "id": "p-svc-merriweather-partner",
+      "kind": "staff",
+      "name": "Michele Mcintyre",
+      "org": "svc-merriweather",
+      "pep": false,
+      "phone": "+61 2 1918 2327",
+      "role": "partner",
+      "sanctioned": false
+    },
+    "p-svc-veridian-analyst": {
+      "email": "mohammed.byrne@veridianscreening.example",
+      "id": "p-svc-veridian-analyst",
+      "kind": "staff",
+      "name": "Mohammed Byrne",
+      "org": "svc-veridian",
+      "pep": false,
+      "phone": "(0131) 4960455",
+      "role": "analyst",
+      "sanctioned": false
+    },
+    "p-svc-veridian-support": {
+      "email": "carol.frost@veridianscreening.example",
+      "id": "p-svc-veridian-support",
+      "kind": "staff",
+      "name": "Carol Frost",
+      "org": "svc-veridian",
+      "pep": false,
+      "phone": "(0115) 4960738",
+      "role": "support",
+      "sanctioned": false
+    }
+  },
+  "seed": 20260101
+}

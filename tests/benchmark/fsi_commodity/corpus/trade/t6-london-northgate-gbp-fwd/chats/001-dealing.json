@@ -1,0 +1,107 @@
+{
+  "channel": "chat",
+  "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument",
+  "deal": "NC-LON-26-0002",
+  "file": "chats/001-dealing.json",
+  "key": "dealing",
+  "lines": [
+    {
+      "intent": "enquiry",
+      "speaker": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "terms": {
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "pair": "GBP/USD",
+        "value_date": "2026-07-08"
+      },
+      "text": "I need to buy GBP 4,000,000 against USD for value 2026-07-08. Where is the forward?",
+      "timestamp": "2026-04-07T09:23:00+01:00"
+    },
+    {
+      "intent": "quote",
+      "speaker": {
+        "address": "valerie.smith@northgatebank.example",
+        "name": "Valerie Smith",
+        "org": "bank-northgate",
+        "role": "trade_finance"
+      },
+      "terms": {
+        "rate": 1.2838
+      },
+      "text": "1.2838.",
+      "timestamp": "2026-04-07T09:26:32+01:00"
+    },
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "terms": {},
+      "text": "That has moved against me. Can you do better?",
+      "timestamp": "2026-04-07T09:29:08+01:00"
+    },
+    {
+      "intent": "quote",
+      "speaker": {
+        "address": "valerie.smith@northgatebank.example",
+        "name": "Valerie Smith",
+        "org": "bank-northgate",
+        "role": "trade_finance"
+      },
+      "terms": {
+        "rate": 1.2845
+      },
+      "text": "1.2845, last price.",
+      "timestamp": "2026-04-07T09:29:39+01:00"
+    },
+    {
+      "intent": "agree",
+      "speaker": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "terms": {
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "deal_type": "outright forward",
+        "pair": "GBP/USD",
+        "rate": 1.2845,
+        "sell_amount": 5138000,
+        "sell_currency": "USD",
+        "value_date": "2026-07-08"
+      },
+      "text": "Done. I buy GBP 4,000,000 and sell USD 5,138,000 at 1.2845, value 2026-07-08.",
+      "timestamp": "2026-04-07T09:31:15+01:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "graham.carr@newco-london.example",
+      "name": "Graham Carr",
+      "org": "newco-lon",
+      "role": "trader"
+    },
+    {
+      "address": "valerie.smith@northgatebank.example",
+      "name": "Valerie Smith",
+      "org": "bank-northgate",
+      "role": "trade_finance"
+    }
+  ],
+  "phase": "trade",
+  "seq": 1,
+  "tags": [
+    "agreed",
+    "negotiation"
+  ]
+}

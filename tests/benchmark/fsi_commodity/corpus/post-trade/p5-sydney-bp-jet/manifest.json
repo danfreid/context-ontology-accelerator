@@ -1,0 +1,785 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited",
+        "based_on": "NC-SYD-26-0003-ticket-v1.pdf",
+        "confirmation_date": "2026-04-01",
+        "currency": "USD",
+        "delivery_from": "2026-05-06",
+        "delivery_to": "2026-05-13",
+        "governing_law": "England and Wales",
+        "incoterm": "CIF",
+        "issued_by": "NewCo Trading Sydney Pty Ltd",
+        "location": "Brisbane",
+        "payment_days": 30,
+        "price_usd_per_mt": 795,
+        "product": "Jet A-1",
+        "quantity": 30000,
+        "quantity_tolerance_pct": 5,
+        "trade_id": "NC-SYD-26-0003",
+        "unit": "mt"
+      },
+      "filename": "NC-SYD-26-0003-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirmation",
+      "path": "attachments/001-NC-SYD-26-0003-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example",
+        "wasDerivedFrom": "<2b54ed6cc5169f180977@newco-sydney.example>"
+      },
+      "sha256": "b44a92ae4d2d8a70c8070e68b54b0b8f8c5fd70f608c935b08edc6f42ebff90a",
+      "size": 5367
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "facts": {
+        "laycan_from": "2026-05-06",
+        "laycan_to": "2026-05-13",
+        "nominated_by": "NewCo Trading Sydney Pty Ltd",
+        "notice_date": "2026-04-16",
+        "port": "Brisbane",
+        "product": "Jet A-1",
+        "quantity": 30000,
+        "trade_id": "NC-SYD-26-0003",
+        "unit": "mt",
+        "vessel": "MT Pacific Tern"
+      },
+      "filename": "NC-SYD-26-0003-nomination.pdf",
+      "kind": "nomination",
+      "message": "nomination",
+      "path": "attachments/002-NC-SYD-26-0003-nomination.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example",
+        "wasDerivedFrom": "<dbe280cdd77586eeba6d@newco-sydney.example>"
+      },
+      "sha256": "5ced533e33a8859c55a470b60f272869f8bdb8982b00549f8a84071ccfafe37e",
+      "size": 3432
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "facts": {
+        "bl_date": "2026-04-24",
+        "bl_number": "BL-NC-SYD-26-0003-001",
+        "class_uris": {
+          "cargo_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+          "consignee": "https://schema.org/Organization",
+          "consignment": "https://vocabulary.uncefact.org/Consignment",
+          "notify_party": "https://schema.org/Organization",
+          "shipper": "https://schema.org/Organization"
+        },
+        "consignee": "BP Australia Pty Ltd",
+        "discharge_port": "Brisbane",
+        "load_port": "Singapore",
+        "notify_party": "BP Australia Pty Ltd",
+        "product": "Jet A-1",
+        "quantity": 30012.5,
+        "shipper": "NewCo Trading Sydney Pty Ltd",
+        "trade_id": "NC-SYD-26-0003",
+        "unit": "mt",
+        "vessel": "MT Pacific Tern"
+      },
+      "filename": "NC-SYD-26-0003-bill-of-lading.pdf",
+      "kind": "bill-of-lading",
+      "message": "bill-of-lading",
+      "path": "attachments/003-NC-SYD-26-0003-bill-of-lading.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example",
+        "wasDerivedFrom": "<4c20bbd51025d7e784f0@newco-sydney.example>"
+      },
+      "sha256": "11c862893b6e213577a5e62ea91e60bfaee9396b1f4dc6145156bbe566abf913",
+      "size": 3697
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "facts": {
+        "basis": "load-port",
+        "bl_number": "BL-NC-SYD-26-0003-001",
+        "class_uris": {
+          "event": "https://ref.gs1.org/epcis/ObjectEvent",
+          "quantity": "https://ref.gs1.org/epcis/QuantityElement"
+        },
+        "date": "2026-04-24",
+        "issued_by": "Cardinal Inspection Services",
+        "place": "Singapore",
+        "quantity": 30012.5,
+        "trade_id": "NC-SYD-26-0003",
+        "unit": "mt"
+      },
+      "filename": "NC-SYD-26-0003-quantity-certificate.pdf",
+      "kind": "quantity-certificate",
+      "message": "certificates",
+      "path": "attachments/004-NC-SYD-26-0003-quantity-certificate.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example",
+        "wasDerivedFrom": "<9eb8f738db52a14ada43@cardinalinspection.example>"
+      },
+      "sha256": "dd380e3fbc78c5b20ac33cea0fe050136ed81f4e655feb593810090281323be6",
+      "size": 3057
+    },
+    {
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "facts": {
+        "bl_number": "BL-NC-SYD-26-0003-001",
+        "class_uris": {
+          "event": "https://ref.gs1.org/epcis/ObjectEvent",
+          "quantity": "https://ref.gs1.org/epcis/QuantityElement"
+        },
+        "date": "2026-04-24",
+        "flash_point_c": 41,
+        "freezing_point_c": -49.5,
+        "issued_by": "Cardinal Inspection Services",
+        "place": "Singapore",
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "filename": "NC-SYD-26-0003-quality-certificate.pdf",
+      "kind": "quality-certificate",
+      "message": "certificates",
+      "path": "attachments/004-NC-SYD-26-0003-quality-certificate.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example",
+        "wasDerivedFrom": "<9eb8f738db52a14ada43@cardinalinspection.example>"
+      },
+      "sha256": "b166f24251a6f31522cf65b66af9ac70d1cc00a2ba42aecedcf5876adfc231d5",
+      "size": 3046
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "aud_equivalent": 36768163.69,
+        "billed_to": "BP Australia Pty Ltd",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "currency": "USD",
+        "deductions": [],
+        "due_date": "2026-05-25",
+        "fx": {
+          "basis": "bill-of-lading-date",
+          "pair": "AUD per USD",
+          "rate": 1.541,
+          "rate_date": "2026-04-24"
+        },
+        "gst_aud": 3676816.37,
+        "gst_pct": 10,
+        "inputs": {
+          "price": 795,
+          "quantity": 30012.5
+        },
+        "issue_date": "2026-04-28",
+        "issued_by": "NewCo Trading Sydney Pty Ltd",
+        "lines": [
+          {
+            "amount": 23859937.5,
+            "description": "Jet A-1, CIF Brisbane",
+            "price": 795,
+            "quantity": 30012.5,
+            "unit": "mt"
+          }
+        ],
+        "number": "NCS-TAX-NC-SYD-26-0003",
+        "pay_to": {
+          "account_id": "acct-newco-syd-usd-operating",
+          "bank": "Bluegum Commercial Bank Ltd",
+          "bic": "ZDECAUQR",
+          "bsb": "868-150",
+          "number": "2926537255"
+        },
+        "subtotal": 23859937.5,
+        "total_due": 23859937.5,
+        "total_incl_gst_aud": 40444980.06,
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "filename": "NC-SYD-26-0003-tax-invoice.pdf",
+      "kind": "tax-invoice",
+      "message": "invoice",
+      "path": "attachments/006-NC-SYD-26-0003-tax-invoice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example",
+        "wasDerivedFrom": "<0ac355143a3fbfc4e8ab@newco-sydney.example>"
+      },
+      "sha256": "226776c574fbd1414bfa63b60bbb5ebce4df5589ef85906eeeaf256eb0111bd4",
+      "size": 7251
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "aud_equivalent": 36660793.97,
+        "fx": {
+          "basis": "invoice-date",
+          "pair": "AUD per USD",
+          "rate": 1.5365,
+          "rate_date": "2026-04-28"
+        },
+        "gst_aud": 3666079.4,
+        "gst_pct": 10,
+        "invoice_number": "NCS-TAX-NC-SYD-26-0003",
+        "trade_id": "NC-SYD-26-0003",
+        "usd_total": 23859937.5
+      },
+      "filename": "NC-SYD-26-0003-bp-fx-rate-sheet.pdf",
+      "kind": "fx-rate-sheet",
+      "message": "fx-query",
+      "path": "attachments/007-NC-SYD-26-0003-bp-fx-rate-sheet.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amy.martinez@bp-australia.example",
+        "wasDerivedFrom": "<975d3380c89a25c23b12@bp-australia.example>"
+      },
+      "sha256": "bfa7ae589a207fd6a131a9885d4c31b589d9d17a2ab2fb7ae98ec04af71ad7ea",
+      "size": 4642
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 7,
+    "chats": 0,
+    "emails": 10
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "fx-query",
+      "description": "NewCo converts at the bill of lading date rate 1.5410; BP converts at the invoice date rate 1.5365. The GST differs by AUD 10,736.97. Not settled in the corpus.",
+      "id": "p5-sydney-bp-jet:fx-rate-date-dispute",
+      "type": "invoice-vs-counterparty",
+      "values": {
+        "agreed": null,
+        "counterparty_value": 1.5365,
+        "field": "fx_rate",
+        "found": 1.541
+      },
+      "where": [
+        "NC-SYD-26-0003-tax-invoice.pdf",
+        "NC-SYD-26-0003-bp-fx-rate-sheet.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-SYD-26-0003-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "outbound",
+      "facts": {
+        "incoterm": "CIF",
+        "ticket_version": 1,
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "files": {
+        "eml": "messages/001-confirmation.eml",
+        "md": "messages/001-confirmation.md"
+      },
+      "from": {
+        "address": "rhonda.jimenez@newco-sydney.example",
+        "name": "Rhonda Jimenez",
+        "org": "newco-syd",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirmation",
+      "message_id": "<2b54ed6cc5169f180977@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example"
+      },
+      "seq": 1,
+      "subject": "Confirmation NC-SYD-26-0003: Jet A-1",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "confirmation",
+      "timestamp": "2026-04-01T10:05:00+11:00",
+      "to": [
+        {
+          "address": "william.smith@bp-australia.example",
+          "name": "William Smith",
+          "org": "cp-bp-au",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0003-nomination.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "direction": "outbound",
+      "facts": {
+        "trade_id": "NC-SYD-26-0003",
+        "vessel": "MT Pacific Tern"
+      },
+      "files": {
+        "eml": "messages/002-nomination.eml",
+        "md": "messages/002-nomination.md"
+      },
+      "from": {
+        "address": "rhonda.jimenez@newco-sydney.example",
+        "name": "Rhonda Jimenez",
+        "org": "newco-syd",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "nomination",
+      "message_id": "<dbe280cdd77586eeba6d@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example"
+      },
+      "seq": 2,
+      "subject": "Vessel nomination NC-SYD-26-0003",
+      "tags": [
+        "logistics",
+        "nomination"
+      ],
+      "thread": "nomination",
+      "timestamp": "2026-04-16T09:25:00+10:00",
+      "to": [
+        {
+          "address": "william.smith@bp-australia.example",
+          "name": "William Smith",
+          "org": "cp-bp-au",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0003-bill-of-lading.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "direction": "outbound",
+      "facts": {
+        "bl_number": "BL-NC-SYD-26-0003-001",
+        "quantity": 30012.5,
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "files": {
+        "eml": "messages/003-bill-of-lading.eml",
+        "md": "messages/003-bill-of-lading.md"
+      },
+      "from": {
+        "address": "rhonda.jimenez@newco-sydney.example",
+        "name": "Rhonda Jimenez",
+        "org": "newco-syd",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "bill-of-lading",
+      "message_id": "<4c20bbd51025d7e784f0@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example"
+      },
+      "seq": 3,
+      "subject": "Bill of lading BL-NC-SYD-26-0003-001",
+      "tags": [
+        "bill-of-lading",
+        "logistics"
+      ],
+      "thread": "bill-of-lading",
+      "timestamp": "2026-04-24T09:41:00+10:00",
+      "to": [
+        {
+          "address": "william.smith@bp-australia.example",
+          "name": "William Smith",
+          "org": "cp-bp-au",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0003-quantity-certificate.pdf",
+        "NC-SYD-26-0003-quality-certificate.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "direction": "inbound",
+      "facts": {
+        "quantity": 30012.5,
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "files": {
+        "eml": "messages/004-certificates.eml",
+        "md": "messages/004-certificates.md"
+      },
+      "from": {
+        "address": "veronica.smith@cardinalinspection.example",
+        "name": "Veronica Smith",
+        "org": "svc-cardinal",
+        "role": "inspector"
+      },
+      "in_reply_to": null,
+      "key": "certificates",
+      "message_id": "<9eb8f738db52a14ada43@cardinalinspection.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example"
+      },
+      "seq": 4,
+      "subject": "Inspection certificates NC-SYD-26-0003",
+      "tags": [
+        "certificate",
+        "logistics"
+      ],
+      "thread": "certificates",
+      "timestamp": "2026-04-24T09:06:00-05:00",
+      "to": [
+        {
+          "address": "rhonda.jimenez@newco-sydney.example",
+          "name": "Rhonda Jimenez",
+          "org": "newco-syd",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/005-certificates-forward.eml",
+        "md": "messages/005-certificates-forward.md"
+      },
+      "from": {
+        "address": "rhonda.jimenez@newco-sydney.example",
+        "name": "Rhonda Jimenez",
+        "org": "newco-syd",
+        "role": "ops"
+      },
+      "in_reply_to": "certificates",
+      "key": "certificates-forward",
+      "message_id": "<ed9b57024bd6db3d9291@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "rhonda.jimenez@newco-sydney.example"
+      },
+      "seq": 5,
+      "subject": "Re: Inspection certificates NC-SYD-26-0003",
+      "tags": [
+        "logistics"
+      ],
+      "thread": "certificates",
+      "timestamp": "2026-04-27T09:23:00+10:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0003-tax-invoice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "outbound",
+      "facts": {
+        "gst_aud": 3676816.37,
+        "invoice_number": "NCS-TAX-NC-SYD-26-0003",
+        "total_due": 23859937.5,
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "files": {
+        "eml": "messages/006-invoice.eml",
+        "md": "messages/006-invoice.md"
+      },
+      "from": {
+        "address": "gary.mata@newco-sydney.example",
+        "name": "Gary Mata",
+        "org": "newco-syd",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "invoice",
+      "message_id": "<0ac355143a3fbfc4e8ab@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example"
+      },
+      "seq": 6,
+      "subject": "Tax invoice NCS-TAX-NC-SYD-26-0003: NC-SYD-26-0003",
+      "tags": [
+        "fx",
+        "invoice",
+        "tax-invoice"
+      ],
+      "thread": "invoice",
+      "timestamp": "2026-04-28T10:21:00+10:00",
+      "to": [
+        {
+          "address": "amy.martinez@bp-australia.example",
+          "name": "Amy Martinez",
+          "org": "cp-bp-au",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0003-bp-fx-rate-sheet.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "inbound",
+      "facts": {
+        "basis": "invoice-date",
+        "rate": 1.5365,
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "files": {
+        "eml": "messages/007-fx-query.eml",
+        "md": "messages/007-fx-query.md"
+      },
+      "from": {
+        "address": "amy.martinez@bp-australia.example",
+        "name": "Amy Martinez",
+        "org": "cp-bp-au",
+        "role": "accounting"
+      },
+      "in_reply_to": "invoice",
+      "key": "fx-query",
+      "message_id": "<975d3380c89a25c23b12@bp-australia.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amy.martinez@bp-australia.example"
+      },
+      "seq": 7,
+      "subject": "Re: Tax invoice NCS-TAX-NC-SYD-26-0003: NC-SYD-26-0003",
+      "tags": [
+        "dispute",
+        "fx",
+        "invoice"
+      ],
+      "thread": "invoice",
+      "timestamp": "2026-04-29T09:27:00+10:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {
+        "basis": "bill-of-lading-date",
+        "gst_difference_aud": 10736.97,
+        "rate": 1.541,
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "files": {
+        "eml": "messages/008-fx-reply.eml",
+        "md": "messages/008-fx-reply.md"
+      },
+      "from": {
+        "address": "gary.mata@newco-sydney.example",
+        "name": "Gary Mata",
+        "org": "newco-syd",
+        "role": "accounting"
+      },
+      "in_reply_to": "fx-query",
+      "key": "fx-reply",
+      "message_id": "<d2eef6fbe170c9e1c39b@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example"
+      },
+      "seq": 8,
+      "subject": "Re: Tax invoice NCS-TAX-NC-SYD-26-0003: NC-SYD-26-0003",
+      "tags": [
+        "dispute",
+        "fx",
+        "invoice"
+      ],
+      "thread": "invoice",
+      "timestamp": "2026-04-30T09:11:00+10:00",
+      "to": [
+        {
+          "address": "amy.martinez@bp-australia.example",
+          "name": "Amy Martinez",
+          "org": "cp-bp-au",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "trade_id": "NC-SYD-26-0003",
+        "usd_payable": 23859937.5
+      },
+      "files": {
+        "eml": "messages/009-fx-open.eml",
+        "md": "messages/009-fx-open.md"
+      },
+      "from": {
+        "address": "amy.martinez@bp-australia.example",
+        "name": "Amy Martinez",
+        "org": "cp-bp-au",
+        "role": "accounting"
+      },
+      "in_reply_to": "fx-reply",
+      "key": "fx-open",
+      "message_id": "<f156a21ed0970c2f42f5@bp-australia.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amy.martinez@bp-australia.example"
+      },
+      "seq": 9,
+      "subject": "Re: Tax invoice NCS-TAX-NC-SYD-26-0003: NC-SYD-26-0003",
+      "tags": [
+        "fx",
+        "invoice",
+        "payment"
+      ],
+      "thread": "invoice",
+      "timestamp": "2026-05-01T09:22:00+10:00",
+      "to": [
+        {
+          "address": "gary.mata@newco-sydney.example",
+          "name": "Gary Mata",
+          "org": "newco-syd",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "due": "2026-05-25",
+        "trade_id": "NC-SYD-26-0003",
+        "usd_payable": 23859937.5
+      },
+      "files": {
+        "eml": "messages/010-payable.eml",
+        "md": "messages/010-payable.md"
+      },
+      "from": {
+        "address": "gary.mata@newco-sydney.example",
+        "name": "Gary Mata",
+        "org": "newco-syd",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "payable",
+      "message_id": "<768b542ae58c35a6aae8@newco-sydney.example>",
+      "phase": "post_trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "gary.mata@newco-sydney.example"
+      },
+      "seq": 10,
+      "subject": "Expected receipt NC-SYD-26-0003",
+      "tags": [
+        "payment"
+      ],
+      "thread": "payable",
+      "timestamp": "2026-05-04T09:14:00+10:00",
+      "to": [
+        {
+          "address": "alicia.parsons@newco-sydney.example",
+          "name": "Alicia Parsons",
+          "org": "newco-syd",
+          "role": "settlements"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "due": "2026-05-25",
+    "gst_aud": 3676816.37,
+    "gst_aud_bp": 3666079.4,
+    "result": "open-dispute",
+    "trade_id": "NC-SYD-26-0003",
+    "usd_payable": 23859937.5
+  },
+  "ownership_edges": [],
+  "phase": "post_trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": [
+        1.541,
+        1.5365
+      ],
+      "id": "p5-sydney-bp-jet-q1",
+      "question": "Which FX rates do NewCo and BP apply to the invoice for NC-SYD-26-0003?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 3676816.37,
+      "id": "p5-sydney-bp-jet-q2",
+      "question": "What is the GST in AUD on NewCo's tax invoice for NC-SYD-26-0003?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 23859937.5,
+      "id": "p5-sydney-bp-jet-q3",
+      "question": "What is the USD total on the tax invoice for NC-SYD-26-0003?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "p5-sydney-bp-jet",
+  "title": "Sydney sells Jet A-1 to BP Australia: tax invoice with AUD equivalent and GST, FX rate date in dispute"
+}

@@ -1,0 +1,1962 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "incorporated": "2009-05-08",
+        "jurisdiction": "England and Wales",
+        "legal_form": "Limited",
+        "legal_name": "Kestrel Bunkering Limited",
+        "registration_number": "30613710"
+      },
+      "filename": "kestrel-bunkering-limited-certificate-of-incorporation.pdf",
+      "kind": "certificate-of-incorporation",
+      "message": "kyc-docs-1",
+      "path": "attachments/004-kestrel-bunkering-limited-certificate-of-incorporation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example",
+        "wasDerivedFrom": "<88d1387b3fee6b2e2170@kestrel.example>"
+      },
+      "sha256": "080d4f472c1a149681974518342a5c44f69bd9c037f4d31ac1136f9269c02b97",
+      "size": 2967
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "complete": true,
+        "declared_beneficial_owners": {
+          "Adam Mahmood": 45.0,
+          "Elliot Ryan": 55.0
+        },
+        "edges": [
+          {
+            "child": "cp-kestrel",
+            "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+            "parent": "hold-kestrel-bvi",
+            "percent": 100.0
+          },
+          {
+            "child": "hold-kestrel-bvi",
+            "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+            "parent": "hold-kestrel-trust",
+            "percent": 55.0
+          },
+          {
+            "child": "hold-kestrel-bvi",
+            "class_uri": null,
+            "parent": "own-kestrel-founder",
+            "percent": 45.0
+          },
+          {
+            "child": "hold-kestrel-trust",
+            "class_uri": null,
+            "parent": "own-kestrel-pep",
+            "percent": 100.0
+          }
+        ],
+        "entity": "Kestrel Bunkering Limited"
+      },
+      "filename": "kestrel-bunkering-limited-ownership-chart.pdf",
+      "kind": "ownership-chart",
+      "message": "kyc-docs-2",
+      "path": "attachments/005-kestrel-bunkering-limited-ownership-chart.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example",
+        "wasDerivedFrom": "<23e85a1e542b66017bd0@kestrel.example>"
+      },
+      "sha256": "826c9c00617de33d354cfcc4d0560dbbab276bc571ed9c503b599ed1f7a5c82e",
+      "size": 4079
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Beneficiary",
+      "facts": {
+        "beneficiary": "own-kestrel-pep",
+        "beneficiary_name": "Elliot Ryan",
+        "trustee": "hold-kestrel-trust"
+      },
+      "filename": "sandpiper-trust-extract.pdf",
+      "kind": "trust-extract",
+      "message": "kyc-docs-2",
+      "path": "attachments/005-sandpiper-trust-extract.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example",
+        "wasDerivedFrom": "<23e85a1e542b66017bd0@kestrel.example>"
+      },
+      "sha256": "551061ef3509b0d4a269495b52c0e9cc65f536ac26c9abb41ee43aba01976d2f",
+      "size": 2567
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntityIdentifierRegistryEntry",
+      "facts": {
+        "legal_name": "Kestrel Bunkering Limited",
+        "lei": "SYNT00863W272VJKGA02",
+        "next_renewal": "2026-08-10",
+        "status": "ACTIVE"
+      },
+      "filename": "kestrel-bunkering-limited-lei-record.pdf",
+      "kind": "lei-record",
+      "message": "kyc-docs-2",
+      "path": "attachments/005-kestrel-bunkering-limited-lei-record.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example",
+        "wasDerivedFrom": "<23e85a1e542b66017bd0@kestrel.example>"
+      },
+      "sha256": "727c8a42ad377c3f528ffeb040ff5c8e50f6c31738394b9fe122f09a51bc8805",
+      "size": 2515
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/PartyRoleIdentifier",
+      "facts": {
+        "entity": "Kestrel Bunkering Limited",
+        "signatories": [
+          {
+            "name": "Teresa Hammond",
+            "role": "trader"
+          },
+          {
+            "name": "Jade Edwards",
+            "role": "lawyer"
+          },
+          {
+            "name": "Angela Bell",
+            "role": "settlements"
+          }
+        ]
+      },
+      "filename": "kestrel-bunkering-limited-authorised-signatories.pdf",
+      "kind": "signatory-list",
+      "message": "kyc-docs-2",
+      "path": "attachments/005-kestrel-bunkering-limited-authorised-signatories.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example",
+        "wasDerivedFrom": "<23e85a1e542b66017bd0@kestrel.example>"
+      },
+      "sha256": "604eb0a5fede296f40ed755baf045b07aed1819f831c1e6224078e71d9367a3f",
+      "size": 3043
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "entity": "Kestrel Bunkering Limited",
+        "fiscal_year": 2025,
+        "net_worth": 247000000,
+        "revenue": 3342000000
+      },
+      "filename": "kestrel-bunkering-limited-financial-statements-2025.pdf",
+      "kind": "financial-statements",
+      "message": "financials",
+      "path": "attachments/006-kestrel-bunkering-limited-financial-statements-2025.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricky.watts@kestrel.example",
+        "wasDerivedFrom": "<787d4f5ce2be5feb93c3@kestrel.example>"
+      },
+      "sha256": "4d30d1928a2b681fba4ccf449ab51972070256a3fb3ab876ae0a9cc17c191425",
+      "size": 2542
+    },
+    {
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "facts": {
+        "answers": {
+          "Is any owner a beneficiary of a trust?": "Yes, the Sandpiper Trust",
+          "Is any owner or director a politically exposed person?": "No",
+          "Is the entity or any owner subject to sanctions?": "No"
+        },
+        "completed_by": "Thomas Stone",
+        "entity": "Kestrel Bunkering Limited"
+      },
+      "filename": "kestrel-bunkering-limited-kyc-questionnaire.pdf",
+      "kind": "kyc-questionnaire",
+      "message": "questionnaire",
+      "path": "attachments/007-kestrel-bunkering-limited-kyc-questionnaire.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example",
+        "wasDerivedFrom": "<9c41998e8e488d047333@kestrel.example>"
+      },
+      "sha256": "38c7a7c35252bfca2062015bc0ded6c698bdd016448b96ea14b70c10a9d9b53b",
+      "size": 3345
+    },
+    {
+      "class_uri": "https://schema.org/Service",
+      "facts": {
+        "entity": "Kestrel Bunkering Limited",
+        "hits": [
+          {
+            "category": "pep",
+            "finding": "politically exposed person: former member of a national legislature",
+            "subject": "Elliot Ryan"
+          }
+        ],
+        "result": "hit",
+        "subjects": [
+          "Kestrel Bunkering Limited",
+          "Adam Mahmood",
+          "Elliot Ryan",
+          "Elliot Ryan"
+        ]
+      },
+      "filename": "kestrel-bunkering-limited-screening-report.pdf",
+      "kind": "screening-report",
+      "message": "screen-result",
+      "path": "attachments/009-kestrel-bunkering-limited-screening-report.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example",
+        "wasDerivedFrom": "<8010e8c1de21855279d7@veridianscreening.example>"
+      },
+      "sha256": "a05534305f87d6e0f4a253b48d5a88a0c1b927035593b05da5af4ac62e2c64b6",
+      "size": 3805
+    },
+    {
+      "class_uri": "https://schema.org/Person",
+      "facts": {
+        "person": "own-kestrel-pep",
+        "source": "business sale"
+      },
+      "filename": "kestrel-source-of-wealth.pdf",
+      "kind": "source-of-wealth",
+      "message": "edd-reply",
+      "path": "attachments/012-kestrel-source-of-wealth.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example",
+        "wasDerivedFrom": "<3b9e8e9cc7d8736b3ec2@kestrel.example>"
+      },
+      "sha256": "f4b99e44d77240a07621e62921436e7782d39669d17506600c4a651ee2fd2a16",
+      "size": 2375
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/AccountHolder",
+      "facts": {
+        "bank": "bank-concord",
+        "person": "own-kestrel-pep"
+      },
+      "filename": "kestrel-bank-reference.pdf",
+      "kind": "bank-reference",
+      "message": "edd-reply",
+      "path": "attachments/012-kestrel-bank-reference.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example",
+        "wasDerivedFrom": "<3b9e8e9cc7d8736b3ec2@kestrel.example>"
+      },
+      "sha256": "4e57695266c4cd5ae70c8c72b9b19c9ea110ec58cd9f7183b71b79de35e95fa2",
+      "size": 2313
+    },
+    {
+      "class_uri": "https://schema.org/Service",
+      "facts": {
+        "person": "own-kestrel-pep",
+        "result": "consistent"
+      },
+      "filename": "kestrel-edd-report.pdf",
+      "kind": "edd-report",
+      "message": "edd-check-result",
+      "path": "attachments/014-kestrel-edd-report.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example",
+        "wasDerivedFrom": "<2bfe29637df619d73f12@veridianscreening.example>"
+      },
+      "sha256": "3b84cf54409379442eff08319ab4671a1f1199e3653bbbcfe34271002733971a",
+      "size": 2481
+    },
+    {
+      "class_uri": "https://schema.org/Service",
+      "facts": {
+        "conditions": [
+          "enhanced monitoring of every payment",
+          "annual refresh of the enhanced review",
+          "no unsecured credit"
+        ],
+        "decision": "approved-with-conditions"
+      },
+      "filename": "kestrel-compliance-approval.pdf",
+      "kind": "compliance-approval",
+      "message": "compliance-approval",
+      "path": "attachments/015-kestrel-compliance-approval.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example",
+        "wasDerivedFrom": "<a3736275ddb5e1434239@newco-london.example>"
+      },
+      "sha256": "6237938e9ec5a9eee76481790399d84e1e3079fd6e8a8f3f6453a4205fd15072",
+      "size": 2645
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "conditional_limit": 8000000,
+        "conditions": [
+          "confirmed SBLC before any credit sale",
+          "prepayment until then"
+        ],
+        "exposure": 0,
+        "guaranteed": 0,
+        "headroom": 0,
+        "limit": 0,
+        "requested": 10000000,
+        "sblc": 0,
+        "secured_only": true,
+        "unsecured": 0
+      },
+      "filename": "kestrel-credit-memo.pdf",
+      "kind": "credit-memo",
+      "message": "credit-memo",
+      "path": "attachments/017-kestrel-credit-memo.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example",
+        "wasDerivedFrom": "<9cd5d45017724fb817a2@newco-london.example>"
+      },
+      "sha256": "d46b69f0a71f73185668d913170f6638aaf709d55f692990da2cacfbb335ea03",
+      "size": 3181
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "booking_entity": "NewCo Trading London Limited",
+        "counterparty": "Kestrel Bunkering Limited",
+        "effective": "2026-02-12",
+        "limit": 8000000
+      },
+      "filename": "kestrel-bunkering-limited-credit-limit-letter.pdf",
+      "kind": "credit-limit-letter",
+      "message": "limit-letter",
+      "path": "attachments/018-kestrel-bunkering-limited-credit-limit-letter.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example",
+        "wasDerivedFrom": "<6754d3c5d84cfc35f258@newco-london.example>"
+      },
+      "sha256": "2b6227fabd65a3872ea185f01ae17ffa2b681b92e218be210c421e1404ac1de4",
+      "size": 2736
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Jade Edwards",
+        "changes": {
+          "late_interest": {
+            "rate": 2
+          },
+          "payment": {
+            "days": 20
+          }
+        },
+        "round": 1,
+        "tracked_changes": 4,
+        "values_after": {
+          "credit_support": {
+            "support": "a prepayment of the full cargo value before the Seller nominates a vessel, until the Seller approves a confirmed standby letter of credit"
+          },
+          "governing_law": {
+            "law": "England and Wales",
+            "venue": "London"
+          },
+          "late_interest": {
+            "rate": 2
+          },
+          "no_deductions": {
+            "exception": "taxes the law requires the payer to withhold"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 20
+          },
+          "quantity_basis": {
+            "basis": "load-port"
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "mpta-round-1.docx",
+      "kind": "agreement-redline",
+      "message": "mpta-r1",
+      "path": "attachments/021-mpta-round-1.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jade.edwards@kestrel.example",
+        "wasDerivedFrom": "<7c4ffd45f29ffa630006@kestrel.example>"
+      },
+      "sha256": "dc8d64d40f959fd7178b606a0ca98c235bb82493f22cde1e45b4bf75d754a8c0",
+      "size": 5748
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "author": "Nicholas Banks",
+        "changes": {
+          "late_interest": {
+            "rate": 3
+          },
+          "payment": {
+            "days": 12
+          }
+        },
+        "round": 2,
+        "tracked_changes": 4,
+        "values_after": {
+          "credit_support": {
+            "support": "a prepayment of the full cargo value before the Seller nominates a vessel, until the Seller approves a confirmed standby letter of credit"
+          },
+          "governing_law": {
+            "law": "England and Wales",
+            "venue": "London"
+          },
+          "late_interest": {
+            "rate": 3
+          },
+          "no_deductions": {
+            "exception": "taxes the law requires the payer to withhold"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 12
+          },
+          "quantity_basis": {
+            "basis": "load-port"
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "termination": {
+            "notice": 30
+          }
+        }
+      },
+      "filename": "mpta-round-2.docx",
+      "kind": "agreement-redline",
+      "message": "mpta-r2",
+      "path": "attachments/022-mpta-round-2.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example",
+        "wasDerivedFrom": "<881a0db21d96952a09c4@newco-london.example>"
+      },
+      "sha256": "b9d95fcbeb7ac680891182ff708157cbb4e6fd30800bf8302a62bb592a5c1bfc",
+      "size": 5760
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "facts": {
+        "accounts": [
+          {
+            "aba": null,
+            "bank": "bank-northgate",
+            "bic": "ZIXWGBH6",
+            "bsb": null,
+            "currency": "USD",
+            "iban": "GB75KHMP38669819276547",
+            "id": "acct-newco-lon-usd-operating",
+            "number": "19276547"
+          }
+        ],
+        "entity": "NewCo Trading London Limited"
+      },
+      "filename": "newco-trading-london-limited-settlement-instructions.pdf",
+      "kind": "ssi-letter",
+      "message": "ssi-send",
+      "path": "attachments/024-newco-trading-london-limited-settlement-instructions.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example",
+        "wasDerivedFrom": "<fb8a4111b4795380138e@newco-london.example>"
+      },
+      "sha256": "38c49dc9d37b14cdb306b6bc8d713f5aa9b4cda4c08b51171e5f2466c278aec7",
+      "size": 3366
+    }
+  ],
+  "beneficial_owners": {
+    "own-kestrel-founder": 45.0,
+    "own-kestrel-pep": 55.0
+  },
+  "chats": [],
+  "counts": {
+    "attachments": 17,
+    "chats": 0,
+    "emails": 28
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "pep-escalation",
+      "description": "The questionnaire answers No to a PEP owner. Screening and the trust extract show the beneficiary is a PEP.",
+      "id": "s2-london-kestrel-vlsfo:questionnaire-denies-pep",
+      "type": "questionnaire-vs-screening",
+      "values": {
+        "declared": false,
+        "found": true,
+        "pep": "Elliot Ryan"
+      },
+      "where": [
+        "questionnaire",
+        "screen-result",
+        "kyc-docs-2"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/001-intro.eml",
+        "md": "messages/001-intro.md"
+      },
+      "from": {
+        "address": "danny.dunn@newco-london.example",
+        "name": "Danny Dunn",
+        "org": "newco-lon",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "intro",
+      "message_id": "<a790eedc3853da6333a3@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "danny.dunn@newco-london.example"
+      },
+      "seq": 1,
+      "subject": "NewCo London and Kestrel: bunker fuel supply",
+      "tags": [
+        "intro"
+      ],
+      "thread": "intro",
+      "timestamp": "2026-01-19T09:23:00+00:00",
+      "to": [
+        {
+          "address": "dean.smith@kestrel.example",
+          "name": "Dean Smith",
+          "org": "cp-kestrel",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-intro-reply.eml",
+        "md": "messages/002-intro-reply.md"
+      },
+      "from": {
+        "address": "dean.smith@kestrel.example",
+        "name": "Dean Smith",
+        "org": "cp-kestrel",
+        "role": "marketer"
+      },
+      "in_reply_to": "intro",
+      "key": "intro-reply",
+      "message_id": "<bc6bad5d7276a57f0d10@kestrel.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "dean.smith@kestrel.example"
+      },
+      "seq": 2,
+      "subject": "Re: NewCo London and Kestrel: bunker fuel supply",
+      "tags": [
+        "intro"
+      ],
+      "thread": "intro",
+      "timestamp": "2026-01-20T09:21:00+00:00",
+      "to": [
+        {
+          "address": "danny.dunn@newco-london.example",
+          "name": "Danny Dunn",
+          "org": "newco-lon",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/003-kyc-request.eml",
+        "md": "messages/003-kyc-request.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "kyc-request",
+      "message_id": "<253342717ddab3b9aba7@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "KYC documents for Kestrel Bunkering Limited",
+      "tags": [
+        "kyc"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-21T09:18:00+00:00",
+      "to": [
+        {
+          "address": "thomas.stone@kestrel.example",
+          "name": "Thomas Stone",
+          "org": "cp-kestrel",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "kestrel-bunkering-limited-certificate-of-incorporation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/004-kyc-docs-1.eml",
+        "md": "messages/004-kyc-docs-1.md"
+      },
+      "from": {
+        "address": "thomas.stone@kestrel.example",
+        "name": "Thomas Stone",
+        "org": "cp-kestrel",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-request",
+      "key": "kyc-docs-1",
+      "message_id": "<88d1387b3fee6b2e2170@kestrel.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example"
+      },
+      "seq": 4,
+      "subject": "Re: KYC documents for Kestrel Bunkering Limited",
+      "tags": [
+        "kyc"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-22T09:21:00+00:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "kestrel-bunkering-limited-ownership-chart.pdf",
+        "sandpiper-trust-extract.pdf",
+        "kestrel-bunkering-limited-lei-record.pdf",
+        "kestrel-bunkering-limited-authorised-signatories.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {
+        "declared_beneficial_owners": {
+          "Adam Mahmood": 45.0,
+          "Elliot Ryan": 55.0
+        }
+      },
+      "files": {
+        "eml": "messages/005-kyc-docs-2.eml",
+        "md": "messages/005-kyc-docs-2.md"
+      },
+      "from": {
+        "address": "thomas.stone@kestrel.example",
+        "name": "Thomas Stone",
+        "org": "cp-kestrel",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-docs-1",
+      "key": "kyc-docs-2",
+      "message_id": "<23e85a1e542b66017bd0@kestrel.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example"
+      },
+      "seq": 5,
+      "subject": "Re: KYC documents for Kestrel Bunkering Limited",
+      "tags": [
+        "kyc",
+        "ownership",
+        "trust-layers"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-23T09:24:00+00:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "kestrel-bunkering-limited-financial-statements-2025.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "net_worth": 247000000
+      },
+      "files": {
+        "eml": "messages/006-financials.eml",
+        "md": "messages/006-financials.md"
+      },
+      "from": {
+        "address": "ricky.watts@kestrel.example",
+        "name": "Ricky Watts",
+        "org": "cp-kestrel",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "financials",
+      "message_id": "<787d4f5ce2be5feb93c3@kestrel.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricky.watts@kestrel.example"
+      },
+      "seq": 6,
+      "subject": "Financial statements for Kestrel Bunkering Limited",
+      "tags": [
+        "credit"
+      ],
+      "thread": "financials",
+      "timestamp": "2026-01-26T09:23:00+00:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "kestrel-bunkering-limited-kyc-questionnaire.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://www.gleif.org/ontology/L1/LegalEntity",
+      "direction": "inbound",
+      "facts": {
+        "pep_declared": false
+      },
+      "files": {
+        "eml": "messages/007-questionnaire.eml",
+        "md": "messages/007-questionnaire.md"
+      },
+      "from": {
+        "address": "thomas.stone@kestrel.example",
+        "name": "Thomas Stone",
+        "org": "cp-kestrel",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "kyc-docs-2",
+      "key": "questionnaire",
+      "message_id": "<9c41998e8e488d047333@kestrel.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example"
+      },
+      "seq": 7,
+      "subject": "Re: KYC documents for Kestrel Bunkering Limited",
+      "tags": [
+        "denies-pep",
+        "kyc",
+        "questionnaire"
+      ],
+      "thread": "kyc-request",
+      "timestamp": "2026-01-27T09:14:00+00:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/008-screen-request.eml",
+        "md": "messages/008-screen-request.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "screen-request",
+      "message_id": "<6fac8758af26775268f3@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 8,
+      "subject": "Screening request: Kestrel Bunkering Limited",
+      "tags": [
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-01-28T09:00:00+00:00",
+      "to": [
+        {
+          "address": "mohammed.byrne@veridianscreening.example",
+          "name": "Mohammed Byrne",
+          "org": "svc-veridian",
+          "role": "analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "kestrel-bunkering-limited-screening-report.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "pep": "Elliot Ryan",
+        "result": "hit"
+      },
+      "files": {
+        "eml": "messages/009-screen-result.eml",
+        "md": "messages/009-screen-result.md"
+      },
+      "from": {
+        "address": "mohammed.byrne@veridianscreening.example",
+        "name": "Mohammed Byrne",
+        "org": "svc-veridian",
+        "role": "analyst"
+      },
+      "in_reply_to": "screen-request",
+      "key": "screen-result",
+      "message_id": "<8010e8c1de21855279d7@veridianscreening.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example"
+      },
+      "seq": 9,
+      "subject": "Re: Screening request: Kestrel Bunkering Limited",
+      "tags": [
+        "pep",
+        "screening"
+      ],
+      "thread": "screen-request",
+      "timestamp": "2026-01-29T09:25:00+00:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "pep": "Elliot Ryan"
+      },
+      "files": {
+        "eml": "messages/010-pep-escalation.eml",
+        "md": "messages/010-pep-escalation.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "pep-escalation",
+      "message_id": "<e861b915c90027e69ae8@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 10,
+      "subject": "Kestrel: PEP found behind the trust",
+      "tags": [
+        "contradiction-caught",
+        "pep"
+      ],
+      "thread": "pep-escalation",
+      "timestamp": "2026-01-30T09:26:00+00:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        },
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/011-edd-request.eml",
+        "md": "messages/011-edd-request.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "edd-request",
+      "message_id": "<4e5e13712cbf3ff9355a@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 11,
+      "subject": "Kestrel: enhanced due diligence",
+      "tags": [
+        "edd",
+        "pep"
+      ],
+      "thread": "edd-request",
+      "timestamp": "2026-02-02T09:21:00+00:00",
+      "to": [
+        {
+          "address": "thomas.stone@kestrel.example",
+          "name": "Thomas Stone",
+          "org": "cp-kestrel",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "kestrel-source-of-wealth.pdf",
+        "kestrel-bank-reference.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "explanation": "oversight"
+      },
+      "files": {
+        "eml": "messages/012-edd-reply.eml",
+        "md": "messages/012-edd-reply.md"
+      },
+      "from": {
+        "address": "thomas.stone@kestrel.example",
+        "name": "Thomas Stone",
+        "org": "cp-kestrel",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": "edd-request",
+      "key": "edd-reply",
+      "message_id": "<3b9e8e9cc7d8736b3ec2@kestrel.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "thomas.stone@kestrel.example"
+      },
+      "seq": 12,
+      "subject": "Re: Kestrel: enhanced due diligence",
+      "tags": [
+        "edd",
+        "pep"
+      ],
+      "thread": "edd-request",
+      "timestamp": "2026-02-04T09:23:00+00:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/013-edd-check-request.eml",
+        "md": "messages/013-edd-check-request.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "edd-check-request",
+      "message_id": "<5e357d649262cd3d20eb@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 13,
+      "subject": "Enhanced check: Kestrel beneficiary",
+      "tags": [
+        "edd"
+      ],
+      "thread": "edd-check-request",
+      "timestamp": "2026-02-05T09:19:00+00:00",
+      "to": [
+        {
+          "address": "mohammed.byrne@veridianscreening.example",
+          "name": "Mohammed Byrne",
+          "org": "svc-veridian",
+          "role": "analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "kestrel-edd-report.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/014-edd-check-result.eml",
+        "md": "messages/014-edd-check-result.md"
+      },
+      "from": {
+        "address": "mohammed.byrne@veridianscreening.example",
+        "name": "Mohammed Byrne",
+        "org": "svc-veridian",
+        "role": "analyst"
+      },
+      "in_reply_to": "edd-check-request",
+      "key": "edd-check-result",
+      "message_id": "<2bfe29637df619d73f12@veridianscreening.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "mohammed.byrne@veridianscreening.example"
+      },
+      "seq": 14,
+      "subject": "Re: Enhanced check: Kestrel beneficiary",
+      "tags": [
+        "edd"
+      ],
+      "thread": "edd-check-request",
+      "timestamp": "2026-02-09T09:16:00+00:00",
+      "to": [
+        {
+          "address": "laura.jones@newco-london.example",
+          "name": "Laura Jones",
+          "org": "newco-lon",
+          "role": "compliance_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "kestrel-compliance-approval.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/015-compliance-approval.eml",
+        "md": "messages/015-compliance-approval.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "compliance-approval",
+      "message_id": "<a3736275ddb5e1434239@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 15,
+      "subject": "Kestrel: compliance approval with conditions",
+      "tags": [
+        "approval",
+        "edd"
+      ],
+      "thread": "compliance-approval",
+      "timestamp": "2026-02-10T09:23:00+00:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        },
+        {
+          "address": "danny.dunn@newco-london.example",
+          "name": "Danny Dunn",
+          "org": "newco-lon",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "requested_limit": 10000000
+      },
+      "files": {
+        "eml": "messages/016-credit-request.eml",
+        "md": "messages/016-credit-request.md"
+      },
+      "from": {
+        "address": "danny.dunn@newco-london.example",
+        "name": "Danny Dunn",
+        "org": "newco-lon",
+        "role": "marketer"
+      },
+      "in_reply_to": null,
+      "key": "credit-request",
+      "message_id": "<014a3eb50a03a6cb535d@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "danny.dunn@newco-london.example"
+      },
+      "seq": 16,
+      "subject": "Credit request: Kestrel",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-02-11T09:15:00+00:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "kestrel-credit-memo.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "conditional_limit": 8000000,
+        "unsecured_limit": 0
+      },
+      "files": {
+        "eml": "messages/017-credit-memo.eml",
+        "md": "messages/017-credit-memo.md"
+      },
+      "from": {
+        "address": "marian.gibbs@newco-london.example",
+        "name": "Marian Gibbs",
+        "org": "newco-lon",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-request",
+      "key": "credit-memo",
+      "message_id": "<9cd5d45017724fb817a2@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example"
+      },
+      "seq": 17,
+      "subject": "Re: Credit request: Kestrel",
+      "tags": [
+        "credit",
+        "secured-only"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-02-12T09:05:00+00:00",
+      "to": [
+        {
+          "address": "danny.dunn@newco-london.example",
+          "name": "Danny Dunn",
+          "org": "newco-lon",
+          "role": "marketer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "kestrel-bunkering-limited-credit-limit-letter.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "outbound",
+      "facts": {
+        "conditional_limit": 8000000
+      },
+      "files": {
+        "eml": "messages/018-limit-letter.eml",
+        "md": "messages/018-limit-letter.md"
+      },
+      "from": {
+        "address": "marian.gibbs@newco-london.example",
+        "name": "Marian Gibbs",
+        "org": "newco-lon",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "limit-letter",
+      "message_id": "<6754d3c5d84cfc35f258@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example"
+      },
+      "seq": 18,
+      "subject": "Credit conditions for Kestrel",
+      "tags": [
+        "credit",
+        "secured-only"
+      ],
+      "thread": "limit-letter",
+      "timestamp": "2026-02-13T09:12:00+00:00",
+      "to": [
+        {
+          "address": "ricky.watts@kestrel.example",
+          "name": "Ricky Watts",
+          "org": "cp-kestrel",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/019-limit-reply.eml",
+        "md": "messages/019-limit-reply.md"
+      },
+      "from": {
+        "address": "ricky.watts@kestrel.example",
+        "name": "Ricky Watts",
+        "org": "cp-kestrel",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "limit-letter",
+      "key": "limit-reply",
+      "message_id": "<e8db61eb5bec4fc1768c@kestrel.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricky.watts@kestrel.example"
+      },
+      "seq": 19,
+      "subject": "Re: Credit conditions for Kestrel",
+      "tags": [
+        "credit"
+      ],
+      "thread": "limit-letter",
+      "timestamp": "2026-02-16T09:25:00+00:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {
+        "payment_days": 10
+      },
+      "files": {
+        "eml": "messages/020-mpta-draft.eml",
+        "md": "messages/020-mpta-draft.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "mpta-draft",
+      "message_id": "<2168fcee200adbe2e931@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 20,
+      "subject": "Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited: draft",
+      "tags": [
+        "legal",
+        "mpta"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-17T09:11:00+00:00",
+      "to": [
+        {
+          "address": "jade.edwards@kestrel.example",
+          "name": "Jade Edwards",
+          "org": "cp-kestrel",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-round-1.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "late_interest": 2,
+        "payment_days": 20
+      },
+      "files": {
+        "eml": "messages/021-mpta-r1.eml",
+        "md": "messages/021-mpta-r1.md"
+      },
+      "from": {
+        "address": "jade.edwards@kestrel.example",
+        "name": "Jade Edwards",
+        "org": "cp-kestrel",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-draft",
+      "key": "mpta-r1",
+      "message_id": "<7c4ffd45f29ffa630006@kestrel.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jade.edwards@kestrel.example"
+      },
+      "seq": 21,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited: draft",
+      "tags": [
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-19T09:29:00+00:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-round-2.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {
+        "late_interest": 3,
+        "payment_days": 12
+      },
+      "files": {
+        "eml": "messages/022-mpta-r2.eml",
+        "md": "messages/022-mpta-r2.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-r1",
+      "key": "mpta-r2",
+      "message_id": "<881a0db21d96952a09c4@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 22,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited: draft",
+      "tags": [
+        "final",
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-23T09:24:00+00:00",
+      "to": [
+        {
+          "address": "jade.edwards@kestrel.example",
+          "name": "Jade Edwards",
+          "org": "cp-kestrel",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {
+        "payment_days": 12
+      },
+      "files": {
+        "eml": "messages/023-mpta-agreed.eml",
+        "md": "messages/023-mpta-agreed.md"
+      },
+      "from": {
+        "address": "jade.edwards@kestrel.example",
+        "name": "Jade Edwards",
+        "org": "cp-kestrel",
+        "role": "lawyer"
+      },
+      "in_reply_to": "mpta-r2",
+      "key": "mpta-agreed",
+      "message_id": "<57939d75b26438145d6b@kestrel.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jade.edwards@kestrel.example"
+      },
+      "seq": 23,
+      "subject": "Re: Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited: draft",
+      "tags": [
+        "agreed",
+        "legal",
+        "mpta"
+      ],
+      "thread": "mpta-draft",
+      "timestamp": "2026-02-24T09:00:00+00:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "newco-trading-london-limited-settlement-instructions.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/Account",
+      "direction": "outbound",
+      "facts": {
+        "account": "acct-newco-lon-usd-operating"
+      },
+      "files": {
+        "eml": "messages/024-ssi-send.eml",
+        "md": "messages/024-ssi-send.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "ssi-send",
+      "message_id": "<fb8a4111b4795380138e@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 24,
+      "subject": "Standard settlement instructions",
+      "tags": [
+        "ssi",
+        "static-data"
+      ],
+      "thread": "ssi-send",
+      "timestamp": "2026-02-25T09:18:00+00:00",
+      "to": [
+        {
+          "address": "angela.bell@kestrel.example",
+          "name": "Angela Bell",
+          "org": "cp-kestrel",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/025-ssi-confirm.eml",
+        "md": "messages/025-ssi-confirm.md"
+      },
+      "from": {
+        "address": "angela.bell@kestrel.example",
+        "name": "Angela Bell",
+        "org": "cp-kestrel",
+        "role": "settlements"
+      },
+      "in_reply_to": "ssi-send",
+      "key": "ssi-confirm",
+      "message_id": "<e4e9e00d8d99eb2109a3@kestrel.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "angela.bell@kestrel.example"
+      },
+      "seq": 25,
+      "subject": "Re: Standard settlement instructions",
+      "tags": [
+        "ssi",
+        "static-data"
+      ],
+      "thread": "ssi-send",
+      "timestamp": "2026-02-26T09:26:00+00:00",
+      "to": [
+        {
+          "address": "paige.ball@newco-london.example",
+          "name": "Paige Ball",
+          "org": "newco-lon",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "effective": "2026-02-26",
+        "prepayment_only": true
+      },
+      "files": {
+        "eml": "messages/026-go-live.eml",
+        "md": "messages/026-go-live.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "go-live",
+      "message_id": "<366378d460b4cbd685c1@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 26,
+      "subject": "Kestrel live: prepayment only",
+      "tags": [
+        "go-live"
+      ],
+      "thread": "go-live",
+      "timestamp": "2026-02-27T09:27:00+00:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/027-monitoring-flag.eml",
+        "md": "messages/027-monitoring-flag.md"
+      },
+      "from": {
+        "address": "laura.jones@newco-london.example",
+        "name": "Laura Jones",
+        "org": "newco-lon",
+        "role": "compliance_analyst"
+      },
+      "in_reply_to": null,
+      "key": "monitoring-flag",
+      "message_id": "<6ef9445cff4d7526d339@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "laura.jones@newco-london.example"
+      },
+      "seq": 27,
+      "subject": "Kestrel: enhanced monitoring",
+      "tags": [
+        "edd",
+        "monitoring"
+      ],
+      "thread": "monitoring-flag",
+      "timestamp": "2026-03-02T09:11:00+00:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "prepayment_only": true
+      },
+      "files": {
+        "eml": "messages/028-prepay-reminder.eml",
+        "md": "messages/028-prepay-reminder.md"
+      },
+      "from": {
+        "address": "marian.gibbs@newco-london.example",
+        "name": "Marian Gibbs",
+        "org": "newco-lon",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "prepay-reminder",
+      "message_id": "<0818cd193a46a438a978@newco-london.example>",
+      "phase": "onboarding",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example"
+      },
+      "seq": 28,
+      "subject": "Kestrel: prepayment only",
+      "tags": [
+        "credit",
+        "secured-only"
+      ],
+      "thread": "prepay-reminder",
+      "timestamp": "2026-03-03T09:05:00+00:00",
+      "to": [
+        {
+          "address": "danny.dunn@newco-london.example",
+          "name": "Danny Dunn",
+          "org": "newco-lon",
+          "role": "marketer"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "agreement_effective": "2026-02-26",
+    "conditional_limit": 8000000,
+    "prepayment_only": true,
+    "result": "approved-with-conditions",
+    "unsecured_limit": 0
+  },
+  "ownership_edges": [
+    {
+      "child": "hold-kestrel-trust",
+      "class_uri": null,
+      "parent": "own-kestrel-pep",
+      "percent": 100.0,
+      "relationship": null
+    },
+    {
+      "child": "hold-kestrel-bvi",
+      "class_uri": "https://www.gleif.org/ontology/L2/UltimateConsolidation",
+      "parent": "hold-kestrel-trust",
+      "percent": 55.0,
+      "relationship": "UltimateConsolidation"
+    },
+    {
+      "child": "hold-kestrel-bvi",
+      "class_uri": null,
+      "parent": "own-kestrel-founder",
+      "percent": 45.0,
+      "relationship": null
+    },
+    {
+      "child": "cp-kestrel",
+      "class_uri": "https://www.gleif.org/ontology/L2/DirectConsolidation",
+      "parent": "hold-kestrel-bvi",
+      "percent": 100.0,
+      "relationship": "DirectConsolidation"
+    }
+  ],
+  "phase": "onboarding",
+  "positions": [
+    {
+      "clause": "payment",
+      "message": "mpta-draft",
+      "proposer": "newco-lon",
+      "status": "superseded",
+      "value": 10,
+      "version": 0
+    },
+    {
+      "clause": "payment",
+      "message": "mpta-r1",
+      "proposer": "cp-kestrel",
+      "status": "superseded",
+      "value": 20,
+      "version": 1
+    },
+    {
+      "clause": "payment",
+      "message": "mpta-r2",
+      "proposer": "newco-lon",
+      "status": "agreed",
+      "value": 12,
+      "version": 2
+    },
+    {
+      "clause": "quantity_tolerance",
+      "message": "mpta-draft",
+      "proposer": "newco-lon",
+      "status": "agreed",
+      "value": 5,
+      "version": 0
+    },
+    {
+      "clause": "quantity_basis",
+      "message": "mpta-draft",
+      "proposer": "newco-lon",
+      "status": "agreed",
+      "value": "load-port",
+      "version": 0
+    },
+    {
+      "clause": "no_deductions",
+      "message": "mpta-draft",
+      "proposer": "newco-lon",
+      "status": "agreed",
+      "value": "taxes the law requires the payer to withhold",
+      "version": 0
+    },
+    {
+      "clause": "late_interest",
+      "message": "mpta-draft",
+      "proposer": "newco-lon",
+      "status": "superseded",
+      "value": 4,
+      "version": 0
+    },
+    {
+      "clause": "late_interest",
+      "message": "mpta-r1",
+      "proposer": "cp-kestrel",
+      "status": "superseded",
+      "value": 2,
+      "version": 1
+    },
+    {
+      "clause": "late_interest",
+      "message": "mpta-r2",
+      "proposer": "newco-lon",
+      "status": "agreed",
+      "value": 3,
+      "version": 2
+    },
+    {
+      "clause": "credit_support",
+      "message": "mpta-draft",
+      "proposer": "newco-lon",
+      "status": "agreed",
+      "value": "a prepayment of the full cargo value before the Seller nominates a vessel, until the Seller approves a confirmed standby letter of credit",
+      "version": 0
+    },
+    {
+      "clause": "termination",
+      "message": "mpta-draft",
+      "proposer": "newco-lon",
+      "status": "agreed",
+      "value": 30,
+      "version": 0
+    },
+    {
+      "clause": "governing_law",
+      "message": "mpta-draft",
+      "proposer": "newco-lon",
+      "status": "agreed",
+      "value": "England and Wales",
+      "version": 0
+    }
+  ],
+  "questions": [
+    {
+      "expected": [
+        "Adam Mahmood",
+        "Elliot Ryan"
+      ],
+      "id": "s2-london-kestrel-vlsfo-q1",
+      "question": "Who are the beneficial owners of Kestrel Bunkering Limited at 25% or more?",
+      "tolerance_pct": 0,
+      "type": "graph_traversal"
+    },
+    {
+      "expected": "Elliot Ryan",
+      "id": "s2-london-kestrel-vlsfo-q2",
+      "question": "Which owner of Kestrel is a PEP although the questionnaire says there is none?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 0,
+      "id": "s2-london-kestrel-vlsfo-q3",
+      "question": "What unsecured credit limit does NewCo London have for Kestrel?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [
+    {
+      "after_message": "pep-escalation",
+      "event": "mark-person-pep",
+      "note": "steward confirms the screening match",
+      "person": "own-kestrel-pep"
+    }
+  ],
+  "scenario": "s2-london-kestrel-vlsfo",
+  "title": "London onboards Kestrel: PEP owner, enhanced due diligence, secured-only credit"
+}

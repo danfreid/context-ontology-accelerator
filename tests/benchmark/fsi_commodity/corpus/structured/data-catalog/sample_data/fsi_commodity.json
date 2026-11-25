@@ -1,0 +1,747 @@
+{
+  "namespaceId": "ns-fsi-commodity",
+  "sources": [
+    {
+      "datasourceId": "ds-fsi-commodity",
+      "sourceType": "JDBC_DATABASE",
+      "databases": [
+        {
+          "name": "fsi_commodity",
+          "description": "NewCo commodity-trading tables behind the synthetic corpus: counterparties, accounts, credit limits, deals, invoices, payments and ownership edges. All values are invented.",
+          "tables": [
+            {
+              "name": "counterparties",
+              "technicalMetadata": {
+                "columnCount": 10,
+                "format": "postgres"
+              },
+              "businessMetadata": {
+                "description": "Every legal entity in universe.json: NewCo entities, counterparties, holdings, banks, service parties.",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "org_id"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [],
+              "columns": [
+                {
+                  "name": "org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "name",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "legal_form",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "kind",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "country",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "lei",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "tax_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "jurisdiction",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "incorporation_date",
+                  "dataType": "DATE",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "class_uri",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                }
+              ]
+            },
+            {
+              "name": "accounts",
+              "technicalMetadata": {
+                "columnCount": 12,
+                "format": "postgres"
+              },
+              "businessMetadata": {
+                "description": "Bank accounts from universe.json with their identifiers.",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "account_id"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [
+                {
+                  "column": "owner_org_id",
+                  "targetTable": "counterparties",
+                  "targetColumn": "org_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                },
+                {
+                  "column": "bank_org_id",
+                  "targetTable": "counterparties",
+                  "targetColumn": "org_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                }
+              ],
+              "columns": [
+                {
+                  "name": "account_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "owner_org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "bank_org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "currency",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "purpose",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "account_name",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "account_number",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "bic",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "iban",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "aba",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "bsb",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "class_uri",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                }
+              ]
+            },
+            {
+              "name": "limits",
+              "technicalMetadata": {
+                "columnCount": 14,
+                "format": "postgres"
+              },
+              "businessMetadata": {
+                "description": "Credit limits and agreement terms approved in each onboarding scenario.",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "scenario_id"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [
+                {
+                  "column": "entity_org_id",
+                  "targetTable": "counterparties",
+                  "targetColumn": "org_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                },
+                {
+                  "column": "counterparty_org_id",
+                  "targetTable": "counterparties",
+                  "targetColumn": "org_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                }
+              ],
+              "columns": [
+                {
+                  "name": "scenario_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "entity_org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "counterparty_org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "agreement",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "requested",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "unsecured",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "guaranteed",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "sblc",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "credit_limit",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "exposure",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "headroom",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "payment_days",
+                  "dataType": "INT",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "governing_law",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "effective_date",
+                  "dataType": "DATE",
+                  "description": "",
+                  "constraint": null
+                }
+              ]
+            },
+            {
+              "name": "deals",
+              "technicalMetadata": {
+                "columnCount": 14,
+                "format": "postgres"
+              },
+              "businessMetadata": {
+                "description": "Every deal in the trade phase, with its credit check outcome.",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "trade_id"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [
+                {
+                  "column": "entity_org_id",
+                  "targetTable": "counterparties",
+                  "targetColumn": "org_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                },
+                {
+                  "column": "counterparty_org_id",
+                  "targetTable": "counterparties",
+                  "targetColumn": "org_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                }
+              ],
+              "columns": [
+                {
+                  "name": "trade_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "scenario_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "entity_org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "counterparty_org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "kind",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "side",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "product",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "quantity",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "unit",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "currency",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "notional",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "status",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "credit_status",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "terms_json",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                }
+              ]
+            },
+            {
+              "name": "invoices",
+              "technicalMetadata": {
+                "columnCount": 12,
+                "format": "postgres"
+              },
+              "businessMetadata": {
+                "description": "The last cash-bearing post-trade document of each trade (invoice, credit note, margin call, confirmation).",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "document_number"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [
+                {
+                  "column": "trade_id",
+                  "targetTable": "deals",
+                  "targetColumn": "trade_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                },
+                {
+                  "column": "issuer_org_id",
+                  "targetTable": "counterparties",
+                  "targetColumn": "org_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                },
+                {
+                  "column": "payer_org_id",
+                  "targetTable": "counterparties",
+                  "targetColumn": "org_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                },
+                {
+                  "column": "payee_org_id",
+                  "targetTable": "counterparties",
+                  "targetColumn": "org_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                },
+                {
+                  "column": "payer_account_id",
+                  "targetTable": "accounts",
+                  "targetColumn": "account_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                },
+                {
+                  "column": "payee_account_id",
+                  "targetTable": "accounts",
+                  "targetColumn": "account_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                }
+              ],
+              "columns": [
+                {
+                  "name": "document_number",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "trade_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "kind",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "issuer_org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "payer_org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "payee_org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "currency",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "payable",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "due_date",
+                  "dataType": "DATE",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "payer_account_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "payee_account_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "filename",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                }
+              ]
+            },
+            {
+              "name": "payments",
+              "technicalMetadata": {
+                "columnCount": 11,
+                "format": "postgres"
+              },
+              "businessMetadata": {
+                "description": "Cash movements from the settlement phase.",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "payment_id"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [
+                {
+                  "column": "trade_id",
+                  "targetTable": "deals",
+                  "targetColumn": "trade_id",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                }
+              ],
+              "columns": [
+                {
+                  "name": "payment_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "trade_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "scenario_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "amount",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "currency",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "value_date",
+                  "dataType": "DATE",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "due_date",
+                  "dataType": "DATE",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "days_late",
+                  "dataType": "INT",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "interest",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "collateral",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "status",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                }
+              ]
+            },
+            {
+              "name": "ownership_edges",
+              "technicalMetadata": {
+                "columnCount": 7,
+                "format": "postgres"
+              },
+              "businessMetadata": {
+                "description": "Ownership edges: group structure from the universe and the per-scenario edges found in onboarding.",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "edge_id"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [],
+              "columns": [
+                {
+                  "name": "edge_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "scenario_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "parent_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "child_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "percent",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "relationship",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "class_uri",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

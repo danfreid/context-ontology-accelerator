@@ -1,0 +1,7 @@
+scenario_id,entity_org_id,counterparty_org_id,agreement,requested,unsecured,guaranteed,sblc,credit_limit,exposure,headroom,payment_days,governing_law,effective_date
+s1-houston-vitol-wti,newco-hou,cp-vitol,Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.,60000000,40000000,0,0,40000000,0,40000000,25,the State of Texas,2026-02-23
+s2-london-kestrel-vlsfo,newco-lon,cp-kestrel,Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited,10000000,0,0,0,0,0,0,12,England and Wales,2026-02-26
+s3-sydney-harbourline-ulp,newco-syd,cp-harbourline,Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd,35000000,5000000,15000000,10000000,30000000,0,30000000,45,New South Wales,2026-03-09
+s4-newyork-glencore-isda,newco-nyc,cp-glencore,"ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited",30000000,20000000,0,0,20000000,0,20000000,,the State of New York,2026-03-11
+s5-sydney-bp-jet,newco-syd,cp-bp-au,Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited,40000000,40000000,0,0,40000000,0,40000000,30,England and Wales,2026-03-09
+s6-london-tiberpeak-decline,newco-lon,cp-tiberpeak,,5000000,0,0,0,0,0,0,,,2026-03-20

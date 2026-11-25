@@ -1,0 +1,18 @@
+# Re: Credit advice PREPAY NC-LON-26-0001
+
+- **Message-ID:** <0c773634b4e72864809d@newco-london.example>
+- **Date:** Tue, 24 Mar 2026 09:15:00 +0000
+- **From:** Paige Ball <paige.ball@newco-london.example>
+- **To:** Tom Scott <tom.scott@newco-london.example>
+- **In-Reply-To:** <774976904fcbd1f61242@northgatebank.example>
+- **References:** <774976904fcbd1f61242@northgatebank.example>
+
+## Body
+
+Hi Tom,
+
+The prepayment of USD 4,360,000.00 for NC-LON-26-0001 has arrived. Kestrel can nominate.
+
+Regards,
+Paige Ball
+NewCo Trading London Limited

@@ -1,0 +1,7 @@
+payment_id,trade_id,scenario_id,amount,currency,value_date,due_date,days_late,interest,collateral,status
+pay-x1-houston-vitol-wti,NC-HOU-26-0001,x1-houston-vitol-wti,16805084.2,USD,2026-05-11,2026-05-11,,,,paid
+pay-x2-london-kestrel-vlsfo,NC-LON-26-0001,x2-london-kestrel-vlsfo,46886.4,USD,2026-04-29,2026-04-27,2,7.71,,paid-late
+pay-x3-sydney-harbourline-ulp,NC-SYD-26-0001,x3-sydney-harbourline-ulp,15203801.25,USD,2026-06-04,2026-06-01,,,,short-paid-then-topped-up
+pay-x4-newyork-glencore-isda,NC-NYC-26-0001,x4-newyork-glencore-isda,186675,USD,2026-06-10,,,,620000,paid
+pay-x5-sydney-bp-jet,NC-SYD-26-0003,x5-sydney-bp-jet,14481937.5,USD,2026-05-25,2026-05-25,,,,paid
+pay-x6-london-northgate-gbp-fwd,NC-LON-26-0002,x6-london-northgate-gbp-fwd,5138000,USD,2026-07-08,,,,,paid

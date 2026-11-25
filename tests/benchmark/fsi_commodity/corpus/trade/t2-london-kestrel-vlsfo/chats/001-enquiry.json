@@ -1,0 +1,74 @@
+{
+  "channel": "chat",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-LON-26-0001",
+  "file": "chats/001-enquiry.json",
+  "key": "enquiry",
+  "lines": [
+    {
+      "intent": "enquiry",
+      "speaker": {
+        "address": "teresa.hammond@kestrel.example",
+        "name": "Teresa Hammond",
+        "org": "cp-kestrel",
+        "role": "trader"
+      },
+      "terms": {
+        "incoterm": "FOB",
+        "location": "Rotterdam",
+        "product": "VLSFO",
+        "quantity": 8000,
+        "unit": "mt"
+      },
+      "text": "I need 8,000 mt of VLSFO FOB Rotterdam for loading around 2026-04-13. What is your price?",
+      "timestamp": "2026-03-12T14:43:00+00:00"
+    },
+    {
+      "intent": "offer",
+      "speaker": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "terms": {
+        "price_usd_per_mt": 552
+      },
+      "text": "USD 552.00 per mt.",
+      "timestamp": "2026-03-12T14:45:03+00:00"
+    },
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "teresa.hammond@kestrel.example",
+        "name": "Teresa Hammond",
+        "org": "cp-kestrel",
+        "role": "trader"
+      },
+      "terms": {
+        "price_usd_per_mt": 538
+      },
+      "text": "I was thinking USD 538.00.",
+      "timestamp": "2026-03-12T14:46:04+00:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "teresa.hammond@kestrel.example",
+      "name": "Teresa Hammond",
+      "org": "cp-kestrel",
+      "role": "trader"
+    },
+    {
+      "address": "graham.carr@newco-london.example",
+      "name": "Graham Carr",
+      "org": "newco-lon",
+      "role": "trader"
+    }
+  ],
+  "phase": "trade",
+  "seq": 1,
+  "tags": [
+    "indication"
+  ]
+}

@@ -1,0 +1,736 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "counterparty": "BP Australia Pty Ltd",
+        "credit_used": 23850000,
+        "deal_value": 23850000,
+        "exposure_after": 23850000,
+        "exposure_before": 0,
+        "exposure_if_booked": 23850000,
+        "group_exposure_after": 85850000,
+        "group_exposure_before": 62000000,
+        "group_headroom_after": 64150000,
+        "group_limit": 150000000,
+        "headroom_after": 16150000,
+        "headroom_before": 40000000,
+        "limit": 40000000,
+        "other_group_exposure": 62000000,
+        "status": "approved",
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "filename": "NC-SYD-26-0003-credit-check.pdf",
+      "kind": "credit-check",
+      "message": "credit-result",
+      "path": "attachments/004-NC-SYD-26-0003-credit-check.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example",
+        "wasDerivedFrom": "<c3d6c98d8f0633c260be@newco-sydney.example>"
+      },
+      "sha256": "1a88db41a62c43e599e707acf57713e2370ded5072e78f72ee9632a8d67b5210",
+      "size": 4111
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "facts": {
+        "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited",
+        "currency": "USD",
+        "delivery_from": "2026-05-06",
+        "delivery_to": "2026-05-13",
+        "governing_law": "England and Wales",
+        "incoterm": "CIF",
+        "issued_by": "NewCo Trading Sydney Pty Ltd",
+        "location": "Brisbane",
+        "payment_days": 30,
+        "price_usd_per_mt": 795,
+        "product": "Jet A-1",
+        "quantity": 30000,
+        "quantity_tolerance_pct": 5,
+        "trade_id": "NC-SYD-26-0003",
+        "unit": "mt",
+        "version": 1
+      },
+      "filename": "NC-SYD-26-0003-ticket-v1.pdf",
+      "kind": "deal-ticket",
+      "message": "ticket",
+      "path": "attachments/005-NC-SYD-26-0003-ticket-v1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example",
+        "wasDerivedFrom": "<8d595e16a73f934822be@newco-sydney.example>"
+      },
+      "sha256": "491ac711691ecd3122ab1845d60e752fba7a54d4709276ef7e523fd9b56de6ec",
+      "size": 5188
+    },
+    {
+      "class_uri": "https://schema.org/Order",
+      "facts": {
+        "currency": "USD",
+        "delivery_from": "2026-05-06",
+        "delivery_to": "2026-05-13",
+        "incoterm": "CFR",
+        "issued_by": "BP Australia Pty Ltd",
+        "location": "Brisbane",
+        "price_usd_per_mt": 795,
+        "product": "Jet A-1",
+        "quantity": 30000,
+        "trade_id": "NC-SYD-26-0003",
+        "unit": "mt"
+      },
+      "filename": "NC-SYD-26-0003-recap-bp.pdf",
+      "kind": "trade-recap",
+      "message": "recap",
+      "path": "attachments/006-NC-SYD-26-0003-recap-bp.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "danny.smith@bp-australia.example",
+        "wasDerivedFrom": "<d6ea4e89f9d46a4aefb0@bp-australia.example>"
+      },
+      "sha256": "c5147830cee7f0c9163f2831494e3d4fb534533d8e6fa59247cfff0f9c748c20",
+      "size": 4147
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [
+    {
+      "channel": "chat",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-SYD-26-0003",
+      "file": "chats/001-indication.json",
+      "key": "indication",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "danny.smith@bp-australia.example",
+            "name": "Danny Smith",
+            "org": "cp-bp-au",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "CIF",
+            "location": "Brisbane",
+            "product": "Jet A-1",
+            "quantity": 30000,
+            "unit": "mt"
+          },
+          "text": "Do you have 30,000 mt of Jet A-1 for Brisbane around 2026-05-06, CIF?",
+          "timestamp": "2026-03-24T09:24:00+11:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "aaron.heath@newco-sydney.example",
+            "name": "Aaron Heath",
+            "org": "newco-syd",
+            "role": "trader"
+          },
+          "terms": {
+            "price_usd_per_mt": 812
+          },
+          "text": "Yes. USD 812.00 per mt CIF Brisbane.",
+          "timestamp": "2026-03-24T09:27:47+11:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "danny.smith@bp-australia.example",
+            "name": "Danny Smith",
+            "org": "cp-bp-au",
+            "role": "trader"
+          },
+          "terms": {
+            "price_usd_per_mt": 788
+          },
+          "text": "USD 788.00 and we can talk.",
+          "timestamp": "2026-03-24T09:28:42+11:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "danny.smith@bp-australia.example",
+          "name": "Danny Smith",
+          "org": "cp-bp-au",
+          "role": "trader"
+        },
+        {
+          "address": "aaron.heath@newco-sydney.example",
+          "name": "Aaron Heath",
+          "org": "newco-syd",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 1,
+      "tags": [
+        "indication"
+      ]
+    },
+    {
+      "channel": "chat",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-SYD-26-0003",
+      "file": "chats/002-agreement.json",
+      "key": "agreement",
+      "lines": [
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "aaron.heath@newco-sydney.example",
+            "name": "Aaron Heath",
+            "org": "newco-syd",
+            "role": "trader"
+          },
+          "terms": {
+            "price_usd_per_mt": 795
+          },
+          "text": "USD 795.00 per mt and it is done.",
+          "timestamp": "2026-03-24T10:30:00+11:00"
+        },
+        {
+          "intent": "agree",
+          "speaker": {
+            "address": "danny.smith@bp-australia.example",
+            "name": "Danny Smith",
+            "org": "cp-bp-au",
+            "role": "trader"
+          },
+          "terms": {
+            "currency": "USD",
+            "delivery_from": "2026-05-06",
+            "delivery_to": "2026-05-13",
+            "incoterm": "CIF",
+            "location": "Brisbane",
+            "price_usd_per_mt": 795,
+            "product": "Jet A-1",
+            "quantity": 30000,
+            "unit": "mt"
+          },
+          "text": "Agreed. 30,000 mt Jet A-1 CIF Brisbane at USD 795.00 per mt, delivery 2026-05-06 to 2026-05-13, in USD. Subject to your credit.",
+          "timestamp": "2026-03-24T10:31:30+11:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "aaron.heath@newco-sydney.example",
+          "name": "Aaron Heath",
+          "org": "newco-syd",
+          "role": "trader"
+        },
+        {
+          "address": "danny.smith@bp-australia.example",
+          "name": "Danny Smith",
+          "org": "cp-bp-au",
+          "role": "trader"
+        }
+      ],
+      "phase": "trade",
+      "seq": 2,
+      "tags": [
+        "agreed",
+        "negotiation"
+      ]
+    }
+  ],
+  "counts": {
+    "attachments": 3,
+    "chats": 2,
+    "emails": 7
+  },
+  "deals": [
+    {
+      "agreed_in": "agreement",
+      "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited",
+      "agreement_effective": "2026-03-09",
+      "chats": [
+        "indication",
+        "agreement"
+      ],
+      "class_uris": {
+        "line_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+        "order": "https://schema.org/Order",
+        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+      },
+      "counterparty": "cp-bp-au",
+      "credit_check": {
+        "credit_used": 23850000,
+        "deal_value": 23850000,
+        "exposure_after": 23850000,
+        "exposure_before": 0,
+        "exposure_if_booked": 23850000,
+        "group_exposure_after": 85850000,
+        "group_exposure_before": 62000000,
+        "group_headroom_after": 64150000,
+        "group_limit": 150000000,
+        "headroom_after": 16150000,
+        "headroom_before": 40000000,
+        "limit": 40000000,
+        "other_group_exposure": 62000000,
+        "status": "approved"
+      },
+      "entity": "newco-syd",
+      "governing_law": "England and Wales",
+      "group": {
+        "limit": 150000000,
+        "london_entity": "newco-lon",
+        "london_exposure": 62000000
+      },
+      "inputs": {
+        "price": 795,
+        "quantity": 30000
+      },
+      "kind": "physical",
+      "mismatches": [
+        {
+          "agreed": "CIF",
+          "caught": false,
+          "caught_by": null,
+          "field": "incoterm",
+          "found": "CFR",
+          "id": "t5-sydney-bp-jet:wrong-incoterm",
+          "type": "wrong-incoterm",
+          "where": [
+            "chat:agreement",
+            "recap",
+            "NC-SYD-26-0003-recap-bp.pdf"
+          ]
+        }
+      ],
+      "notional": 23850000,
+      "onboarding_scenario": "s5-sydney-bp-jet",
+      "payment_days": 30,
+      "scenario": "t5-sydney-bp-jet",
+      "side": "sell",
+      "status": "agreed",
+      "terms": {
+        "currency": "USD",
+        "delivery_from": "2026-05-06",
+        "delivery_to": "2026-05-13",
+        "incoterm": "CIF",
+        "location": "Brisbane",
+        "price_usd_per_mt": 795,
+        "product": "Jet A-1",
+        "quantity": 30000,
+        "unit": "mt"
+      },
+      "tickets": [
+        {
+          "facts": {
+            "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited",
+            "currency": "USD",
+            "delivery_from": "2026-05-06",
+            "delivery_to": "2026-05-13",
+            "governing_law": "England and Wales",
+            "incoterm": "CIF",
+            "issued_by": "NewCo Trading Sydney Pty Ltd",
+            "location": "Brisbane",
+            "payment_days": 30,
+            "price_usd_per_mt": 795,
+            "product": "Jet A-1",
+            "quantity": 30000,
+            "quantity_tolerance_pct": 5,
+            "trade_id": "NC-SYD-26-0003",
+            "unit": "mt",
+            "version": 1
+          },
+          "filename": "NC-SYD-26-0003-ticket-v1.pdf",
+          "issued_by": "NewCo Trading Sydney Pty Ltd",
+          "message": "ticket",
+          "version": 1
+        }
+      ],
+      "tolerance_pct": 5,
+      "trade_id": "NC-SYD-26-0003"
+    }
+  ],
+  "expected_contradictions": [
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "BP's recap says CFR Brisbane; the chat agreed CIF Brisbane, so insurance cover is unclear.",
+      "id": "t5-sydney-bp-jet:wrong-incoterm",
+      "type": "wrong-incoterm",
+      "values": {
+        "agreed": "CIF",
+        "field": "incoterm",
+        "found": "CFR"
+      },
+      "where": [
+        "chat:agreement",
+        "recap",
+        "NC-SYD-26-0003-recap-bp.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "deal_value": 23850000,
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "files": {
+        "eml": "messages/001-credit-request.eml",
+        "md": "messages/001-credit-request.md"
+      },
+      "from": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "credit-request",
+      "message_id": "<1483259c2ec9844cea0c@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example"
+      },
+      "seq": 1,
+      "subject": "Credit check: BP Australia Pty Ltd Jet A-1 sale NC-SYD-26-0003",
+      "tags": [
+        "credit"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-03-24T12:01:00+11:00",
+      "to": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-london-query.eml",
+        "md": "messages/002-london-query.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "london-query",
+      "message_id": "<0a24087760a701a82e82@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 2,
+      "subject": "BP group exposure for a Sydney sale",
+      "tags": [
+        "credit",
+        "group"
+      ],
+      "thread": "london-query",
+      "timestamp": "2026-03-25T09:11:00+11:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "london_exposure": 62000000
+      },
+      "files": {
+        "eml": "messages/003-london-reply.eml",
+        "md": "messages/003-london-reply.md"
+      },
+      "from": {
+        "address": "marian.gibbs@newco-london.example",
+        "name": "Marian Gibbs",
+        "org": "newco-lon",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "london-query",
+      "key": "london-reply",
+      "message_id": "<478b1e0b486e190951f9@newco-london.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "Re: BP group exposure for a Sydney sale",
+      "tags": [
+        "credit",
+        "group"
+      ],
+      "thread": "london-query",
+      "timestamp": "2026-03-25T09:03:00+00:00",
+      "to": [
+        {
+          "address": "ricardo.crosby@newco-sydney.example",
+          "name": "Ricardo Crosby",
+          "org": "newco-syd",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0003-credit-check.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "direction": "internal",
+      "facts": {
+        "credit_used": 23850000,
+        "deal_value": 23850000,
+        "exposure_after": 23850000,
+        "exposure_before": 0,
+        "exposure_if_booked": 23850000,
+        "group_exposure_after": 85850000,
+        "group_exposure_before": 62000000,
+        "group_headroom_after": 64150000,
+        "group_limit": 150000000,
+        "headroom_after": 16150000,
+        "headroom_before": 40000000,
+        "limit": 40000000,
+        "other_group_exposure": 62000000,
+        "status": "approved",
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "files": {
+        "eml": "messages/004-credit-result.eml",
+        "md": "messages/004-credit-result.md"
+      },
+      "from": {
+        "address": "ricardo.crosby@newco-sydney.example",
+        "name": "Ricardo Crosby",
+        "org": "newco-syd",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "credit-request",
+      "key": "credit-result",
+      "message_id": "<c3d6c98d8f0633c260be@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "ricardo.crosby@newco-sydney.example"
+      },
+      "seq": 4,
+      "subject": "Re: Credit check: BP Australia Pty Ltd Jet A-1 sale NC-SYD-26-0003",
+      "tags": [
+        "approval",
+        "credit",
+        "group"
+      ],
+      "thread": "credit-request",
+      "timestamp": "2026-03-26T09:28:00+11:00",
+      "to": [
+        {
+          "address": "aaron.heath@newco-sydney.example",
+          "name": "Aaron Heath",
+          "org": "newco-syd",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0003-ticket-v1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "direction": "internal",
+      "facts": {
+        "incoterm": "CIF",
+        "price_usd_per_mt": 795,
+        "quantity": 30000,
+        "ticket_version": 1,
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "files": {
+        "eml": "messages/005-ticket.eml",
+        "md": "messages/005-ticket.md"
+      },
+      "from": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "ticket",
+      "message_id": "<8d595e16a73f934822be@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example"
+      },
+      "seq": 5,
+      "subject": "Deal ticket NC-SYD-26-0003",
+      "tags": [
+        "ticket"
+      ],
+      "thread": "ticket",
+      "timestamp": "2026-03-27T09:18:00+11:00",
+      "to": [
+        {
+          "address": "rhonda.jimenez@newco-sydney.example",
+          "name": "Rhonda Jimenez",
+          "org": "newco-syd",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-SYD-26-0003-recap-bp.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Order",
+      "direction": "inbound",
+      "facts": {
+        "incoterm": "CFR",
+        "price_usd_per_mt": 795,
+        "quantity": 30000,
+        "trade_id": "NC-SYD-26-0003"
+      },
+      "files": {
+        "eml": "messages/006-recap.eml",
+        "md": "messages/006-recap.md"
+      },
+      "from": {
+        "address": "danny.smith@bp-australia.example",
+        "name": "Danny Smith",
+        "org": "cp-bp-au",
+        "role": "trader"
+      },
+      "in_reply_to": null,
+      "key": "recap",
+      "message_id": "<d6ea4e89f9d46a4aefb0@bp-australia.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "danny.smith@bp-australia.example"
+      },
+      "seq": 6,
+      "subject": "Recap NC-SYD-26-0003: Jet A-1",
+      "tags": [
+        "planted",
+        "recap"
+      ],
+      "thread": "recap",
+      "timestamp": "2026-03-30T09:15:00+11:00",
+      "to": [
+        {
+          "address": "aaron.heath@newco-sydney.example",
+          "name": "Aaron Heath",
+          "org": "newco-syd",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/007-recap-ack.eml",
+        "md": "messages/007-recap-ack.md"
+      },
+      "from": {
+        "address": "aaron.heath@newco-sydney.example",
+        "name": "Aaron Heath",
+        "org": "newco-syd",
+        "role": "trader"
+      },
+      "in_reply_to": "recap",
+      "key": "recap-ack",
+      "message_id": "<8018d3db9ed808e2ce4e@newco-sydney.example>",
+      "phase": "trade",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "aaron.heath@newco-sydney.example"
+      },
+      "seq": 7,
+      "subject": "Re: Recap NC-SYD-26-0003: Jet A-1",
+      "tags": [
+        "recap"
+      ],
+      "thread": "recap",
+      "timestamp": "2026-03-31T09:24:00+11:00",
+      "to": [
+        {
+          "address": "danny.smith@bp-australia.example",
+          "name": "Danny Smith",
+          "org": "cp-bp-au",
+          "role": "trader"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "group_exposure_after": 85850000,
+    "result": "agreed",
+    "trade_id": "NC-SYD-26-0003"
+  },
+  "ownership_edges": [],
+  "phase": "trade",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 85850000,
+      "id": "t5-sydney-bp-jet-q1",
+      "question": "What was the group exposure to BP after NC-SYD-26-0003?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": "CFR",
+      "id": "t5-sydney-bp-jet-q2",
+      "question": "Which incoterm does BP's recap for NC-SYD-26-0003 state?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": "CIF",
+      "id": "t5-sydney-bp-jet-q3",
+      "question": "Which incoterm was agreed in chat for NC-SYD-26-0003?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    }
+  ],
+  "review_events": [],
+  "scenario": "t5-sydney-bp-jet",
+  "title": "Sydney sells Jet A-1 to BP Australia: group exposure includes London's USD 62m, recap says CFR"
+}

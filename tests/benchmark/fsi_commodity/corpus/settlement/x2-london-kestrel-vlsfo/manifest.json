@@ -1,0 +1,443 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "as_of": "2026-04-28",
+        "balance": 46886.4,
+        "currency": "USD",
+        "days_overdue": 1,
+        "due": "2026-04-27",
+        "invoice_number": "NCL-INV-NC-LON-26-0001",
+        "pay_to": {
+          "account_id": "acct-newco-lon-usd-operating",
+          "bank": "Northgate Bank plc",
+          "bic": "ZIXWGBH6",
+          "iban": "GB75KHMP38669819276547",
+          "number": "19276547"
+        },
+        "trade_id": "NC-LON-26-0001"
+      },
+      "filename": "NC-LON-26-0001-reminder-statement.pdf",
+      "kind": "account-statement",
+      "message": "reminder",
+      "path": "attachments/001-NC-LON-26-0001-reminder-statement.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathleen.garner@newco-london.example",
+        "wasDerivedFrom": "<6d3d466877bcd0b0c32c@newco-london.example>"
+      },
+      "sha256": "15ca23c12b4bcd74425dab9569461963d5ab68b2d1b393a65168b41ce7c5da64",
+      "size": 4038
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "account": {
+          "account_id": "acct-newco-lon-usd-operating",
+          "bank": "Northgate Bank plc",
+          "bic": "ZIXWGBH6",
+          "iban": "GB75KHMP38669819276547",
+          "number": "19276547"
+        },
+        "amount": 46886.4,
+        "bank": "Northgate Bank plc",
+        "charges": 0,
+        "currency": "USD",
+        "instructed": 46886.4,
+        "originator": "Kestrel Bunkering Limited",
+        "reference": "NC-LON-26-0001 NCL-INV-NC-LON-26-0001",
+        "trade_id": "NC-LON-26-0001",
+        "value_date": "2026-04-29"
+      },
+      "filename": "NC-LON-26-0001-credit-advice.pdf",
+      "kind": "credit-advice",
+      "message": "credit-advice",
+      "path": "attachments/003-NC-LON-26-0001-credit-advice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amy.davies@northgatebank.example",
+        "wasDerivedFrom": "<623dbcc24f4b0a8a903d@northgatebank.example>"
+      },
+      "sha256": "21ecde9c5f29599ff7e9c67aa40e8081ba49afec93d3a4f5ad49c5223606729d",
+      "size": 4012
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "balance": 46886.4,
+        "currency": "USD",
+        "days_late": 2,
+        "due": "2026-04-27",
+        "interest": 7.71,
+        "interest_payable": 0,
+        "paid": "2026-04-29",
+        "rate_pct": 3,
+        "trade_id": "NC-LON-26-0001",
+        "waived": true
+      },
+      "filename": "NC-LON-26-0001-late-interest.pdf",
+      "kind": "late-interest-statement",
+      "message": "interest-waived",
+      "path": "attachments/005-NC-LON-26-0001-late-interest.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathleen.garner@newco-london.example",
+        "wasDerivedFrom": "<298a4a31583764edf25a@newco-london.example>"
+      },
+      "sha256": "982a87a368fee6146ac64a027b9c93ba58d0d636aca7473a227be72aafef03dd",
+      "size": 4112
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 3,
+    "chats": 0,
+    "emails": 6
+  },
+  "deals": [],
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "payment-matched",
+      "description": "Kestrel's USD 46,886.40 was credited on 2026-04-29, 2 days after the due date of 2026-04-27.",
+      "id": "x2-london-kestrel-vlsfo:late-payment",
+      "type": "payment-vs-due-date",
+      "values": {
+        "agreed": "2026-04-27",
+        "days_late": 2,
+        "field": "value_date",
+        "found": "2026-04-29"
+      },
+      "where": [
+        "NC-LON-26-0001-final-invoice.pdf",
+        "NC-LON-26-0001-credit-advice.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-LON-26-0001-reminder-statement.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "outbound",
+      "facts": {
+        "balance": 46886.4,
+        "due": "2026-04-27",
+        "reminder_date": "2026-04-28",
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/001-reminder.eml",
+        "md": "messages/001-reminder.md"
+      },
+      "from": {
+        "address": "kathleen.garner@newco-london.example",
+        "name": "Kathleen Garner",
+        "org": "newco-lon",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "reminder",
+      "message_id": "<6d3d466877bcd0b0c32c@newco-london.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathleen.garner@newco-london.example"
+      },
+      "seq": 1,
+      "subject": "Reminder: NCL-INV-NC-LON-26-0001 USD 46,886.40 overdue",
+      "tags": [
+        "payment",
+        "reminder"
+      ],
+      "thread": "reminder",
+      "timestamp": "2026-04-28T10:28:00+01:00",
+      "to": [
+        {
+          "address": "louis.walsh@kestrel.example",
+          "name": "Louis Walsh",
+          "org": "cp-kestrel",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "promised_date": "2026-04-29",
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/002-reminder-reply.eml",
+        "md": "messages/002-reminder-reply.md"
+      },
+      "from": {
+        "address": "louis.walsh@kestrel.example",
+        "name": "Louis Walsh",
+        "org": "cp-kestrel",
+        "role": "accounting"
+      },
+      "in_reply_to": "reminder",
+      "key": "reminder-reply",
+      "message_id": "<170a0ed5c15ce04d3d01@kestrel.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "louis.walsh@kestrel.example"
+      },
+      "seq": 2,
+      "subject": "Re: Reminder: NCL-INV-NC-LON-26-0001 USD 46,886.40 overdue",
+      "tags": [
+        "payment",
+        "reminder"
+      ],
+      "thread": "reminder",
+      "timestamp": "2026-04-29T09:26:00+01:00",
+      "to": [
+        {
+          "address": "kathleen.garner@newco-london.example",
+          "name": "Kathleen Garner",
+          "org": "newco-lon",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0001-credit-advice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "inbound",
+      "facts": {
+        "amount": 46886.4,
+        "due": "2026-04-27",
+        "trade_id": "NC-LON-26-0001",
+        "value_date": "2026-04-29"
+      },
+      "files": {
+        "eml": "messages/003-credit-advice.eml",
+        "md": "messages/003-credit-advice.md"
+      },
+      "from": {
+        "address": "amy.davies@northgatebank.example",
+        "name": "Amy Davies",
+        "org": "bank-northgate",
+        "role": "operations"
+      },
+      "in_reply_to": null,
+      "key": "credit-advice",
+      "message_id": "<623dbcc24f4b0a8a903d@northgatebank.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amy.davies@northgatebank.example"
+      },
+      "seq": 3,
+      "subject": "Credit advice NC-LON-26-0001 NCL-INV-NC-LON-26-0001",
+      "tags": [
+        "credit-advice",
+        "late-payment",
+        "payment"
+      ],
+      "thread": "credit-advice",
+      "timestamp": "2026-04-29T09:34:00+01:00",
+      "to": [
+        {
+          "address": "paige.ball@newco-london.example",
+          "name": "Paige Ball",
+          "org": "newco-lon",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "amount": 46886.4,
+        "days_late": 2,
+        "interest": 7.71,
+        "trade_id": "NC-LON-26-0001"
+      },
+      "files": {
+        "eml": "messages/004-payment-matched.eml",
+        "md": "messages/004-payment-matched.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": "credit-advice",
+      "key": "payment-matched",
+      "message_id": "<956c8decb8992c625763@newco-london.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 4,
+      "subject": "Re: Credit advice NC-LON-26-0001 NCL-INV-NC-LON-26-0001",
+      "tags": [
+        "late-payment",
+        "payment"
+      ],
+      "thread": "credit-advice",
+      "timestamp": "2026-04-29T11:03:00+01:00",
+      "to": [
+        {
+          "address": "kathleen.garner@newco-london.example",
+          "name": "Kathleen Garner",
+          "org": "newco-lon",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0001-late-interest.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "outbound",
+      "facts": {
+        "days_late": 2,
+        "interest": 7.71,
+        "trade_id": "NC-LON-26-0001",
+        "waived": true
+      },
+      "files": {
+        "eml": "messages/005-interest-waived.eml",
+        "md": "messages/005-interest-waived.md"
+      },
+      "from": {
+        "address": "kathleen.garner@newco-london.example",
+        "name": "Kathleen Garner",
+        "org": "newco-lon",
+        "role": "accounting"
+      },
+      "in_reply_to": null,
+      "key": "interest-waived",
+      "message_id": "<298a4a31583764edf25a@newco-london.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "kathleen.garner@newco-london.example"
+      },
+      "seq": 5,
+      "subject": "Late interest waived: NC-LON-26-0001",
+      "tags": [
+        "late-payment",
+        "payment",
+        "waiver"
+      ],
+      "thread": "interest-waived",
+      "timestamp": "2026-04-30T09:08:00+01:00",
+      "to": [
+        {
+          "address": "louis.walsh@kestrel.example",
+          "name": "Louis Walsh",
+          "org": "cp-kestrel",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/006-thanks.eml",
+        "md": "messages/006-thanks.md"
+      },
+      "from": {
+        "address": "louis.walsh@kestrel.example",
+        "name": "Louis Walsh",
+        "org": "cp-kestrel",
+        "role": "accounting"
+      },
+      "in_reply_to": "interest-waived",
+      "key": "thanks",
+      "message_id": "<fb1590d5d887f9eb0bb5@kestrel.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "louis.walsh@kestrel.example"
+      },
+      "seq": 6,
+      "subject": "Re: Late interest waived: NC-LON-26-0001",
+      "tags": [
+        "payment"
+      ],
+      "thread": "interest-waived",
+      "timestamp": "2026-05-01T09:01:00+01:00",
+      "to": [
+        {
+          "address": "kathleen.garner@newco-london.example",
+          "name": "Kathleen Garner",
+          "org": "newco-lon",
+          "role": "accounting"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "amount_paid": 46886.4,
+    "days_late": 2,
+    "interest_accrued": 7.71,
+    "interest_waived": true,
+    "result": "settled-late",
+    "trade_id": "NC-LON-26-0001"
+  },
+  "ownership_edges": [],
+  "phase": "settlement",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 2,
+      "id": "x2-london-kestrel-vlsfo-q1",
+      "question": "How many days after the due date did Kestrel pay the balance for NC-LON-26-0001?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 7.71,
+      "id": "x2-london-kestrel-vlsfo-q2",
+      "question": "What late interest accrued on the NC-LON-26-0001 balance before it was waived?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 46886.4,
+      "id": "x2-london-kestrel-vlsfo-q3",
+      "question": "What balance did the reminder for NC-LON-26-0001 claim?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "x2-london-kestrel-vlsfo",
+  "title": "Kestrel pays the VLSFO balance two days late: reminder, credit matched, late interest waived"
+}

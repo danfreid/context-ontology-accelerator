@@ -1,0 +1,17 @@
+# Kestrel live: prepayment only
+
+- **Message-ID:** <366378d460b4cbd685c1@newco-london.example>
+- **Date:** Fri, 27 Feb 2026 09:27:00 +0000
+- **From:** Nicholas Banks <nicholas.banks@newco-london.example>
+- **To:** Tom Scott <tom.scott@newco-london.example>
+- **Cc:** Marian Gibbs <marian.gibbs@newco-london.example>
+
+## Body
+
+Hi Tom,
+
+The agreement is signed and static data is loaded for Kestrel. Trading is on prepayment only.
+
+Regards,
+Nicholas Banks
+NewCo Trading London Limited

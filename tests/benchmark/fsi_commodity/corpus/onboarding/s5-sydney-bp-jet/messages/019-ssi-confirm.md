@@ -1,0 +1,18 @@
+# Re: Standard settlement instructions
+
+- **Message-ID:** <8261ef13bfecb9dd310d@bp-australia.example>
+- **Date:** Mon, 09 Mar 2026 09:22:00 +1100
+- **From:** Theresa Dickerson <theresa.dickerson@bp-australia.example>
+- **To:** Alicia Parsons <alicia.parsons@newco-sydney.example>
+- **In-Reply-To:** <4933a75d1f102c858190@newco-sydney.example>
+- **References:** <4933a75d1f102c858190@newco-sydney.example>
+
+## Body
+
+Hi Alicia,
+
+Loaded. Ours is the Southern Tide Bank Ltd USD account ending 9847.
+
+Regards,
+Theresa Dickerson
+BP Australia Pty Ltd

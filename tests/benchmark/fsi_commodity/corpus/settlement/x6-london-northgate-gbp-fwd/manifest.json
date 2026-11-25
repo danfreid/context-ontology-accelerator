@@ -1,0 +1,251 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+      "facts": {
+        "bank": "Northgate Bank plc",
+        "credit_account": "acct-newco-lon-gbp-operating",
+        "debit_account": "acct-newco-lon-usd-operating",
+        "party": "NewCo Trading London Limited",
+        "pay_amount": 5138000,
+        "pay_currency": "USD",
+        "receive_amount": 4000000,
+        "receive_currency": "GBP",
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08"
+      },
+      "filename": "NC-LON-26-0002-settlement-instruction.pdf",
+      "kind": "fx-settlement-instruction",
+      "message": "settlement-instruction",
+      "path": "attachments/001-NC-LON-26-0002-settlement-instruction.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example",
+        "wasDerivedFrom": "<4e793339e12212055d19@newco-london.example>"
+      },
+      "sha256": "a510a973cfcb64fdfefb9318f8d6dc9ea9ab02a9569b0c1ace5d183c593e3c98",
+      "size": 4453
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+      "facts": {
+        "bank": "Northgate Bank plc",
+        "buy_amount": 4000000,
+        "buy_currency": "GBP",
+        "credit_account": "acct-newco-lon-gbp-operating",
+        "debit_account": "acct-newco-lon-usd-operating",
+        "rate": 1.2845,
+        "sell_amount": 5138000,
+        "sell_currency": "USD",
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08"
+      },
+      "filename": "NC-LON-26-0002-settlement-advice.pdf",
+      "kind": "fx-settlement-advice",
+      "message": "settlement-advice",
+      "path": "attachments/002-NC-LON-26-0002-settlement-advice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amy.davies@northgatebank.example",
+        "wasDerivedFrom": "<000d645eb0c4f3a2ffd4@northgatebank.example>"
+      },
+      "sha256": "2e4870b28213d80899946442db7573d62e90bb975199135fbd816e007ed0d18b",
+      "size": 4464
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 2,
+    "chats": 0,
+    "emails": 3
+  },
+  "deals": [],
+  "expected_contradictions": [],
+  "messages": [
+    {
+      "attachments": [
+        "NC-LON-26-0002-settlement-instruction.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+      "direction": "outbound",
+      "facts": {
+        "pay_amount": 5138000,
+        "receive_amount": 4000000,
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08"
+      },
+      "files": {
+        "eml": "messages/001-settlement-instruction.eml",
+        "md": "messages/001-settlement-instruction.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "settlement-instruction",
+      "message_id": "<4e793339e12212055d19@newco-london.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 1,
+      "subject": "Settlement instruction NC-LON-26-0002",
+      "tags": [
+        "fx-settlement",
+        "payment"
+      ],
+      "thread": "settlement-instruction",
+      "timestamp": "2026-07-07T10:06:00+01:00",
+      "to": [
+        {
+          "address": "amy.davies@northgatebank.example",
+          "name": "Amy Davies",
+          "org": "bank-northgate",
+          "role": "operations"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0002-settlement-advice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms",
+      "direction": "inbound",
+      "facts": {
+        "credit": 4000000,
+        "debit": 5138000,
+        "rate": 1.2845,
+        "trade_id": "NC-LON-26-0002",
+        "value_date": "2026-07-08"
+      },
+      "files": {
+        "eml": "messages/002-settlement-advice.eml",
+        "md": "messages/002-settlement-advice.md"
+      },
+      "from": {
+        "address": "amy.davies@northgatebank.example",
+        "name": "Amy Davies",
+        "org": "bank-northgate",
+        "role": "operations"
+      },
+      "in_reply_to": "settlement-instruction",
+      "key": "settlement-advice",
+      "message_id": "<000d645eb0c4f3a2ffd4@northgatebank.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amy.davies@northgatebank.example"
+      },
+      "seq": 2,
+      "subject": "Settlement advice NC-LON-26-0002",
+      "tags": [
+        "fx-settlement",
+        "payment"
+      ],
+      "thread": "settlement-instruction",
+      "timestamp": "2026-07-08T10:27:00+01:00",
+      "to": [
+        {
+          "address": "paige.ball@newco-london.example",
+          "name": "Paige Ball",
+          "org": "newco-lon",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "credit": 4000000,
+        "debit": 5138000,
+        "difference": 0,
+        "trade_id": "NC-LON-26-0002"
+      },
+      "files": {
+        "eml": "messages/003-reconciled.eml",
+        "md": "messages/003-reconciled.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": "settlement-advice",
+      "key": "reconciled",
+      "message_id": "<68adfe33ee8757c2c898@newco-london.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "Re: Settlement advice NC-LON-26-0002",
+      "tags": [
+        "reconciliation"
+      ],
+      "thread": "settlement-instruction",
+      "timestamp": "2026-07-08T11:36:00+01:00",
+      "to": [
+        {
+          "address": "kathleen.garner@newco-london.example",
+          "name": "Kathleen Garner",
+          "org": "newco-lon",
+          "role": "accounting"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "gbp_received": 4000000,
+    "rate": 1.2845,
+    "result": "settled",
+    "trade_id": "NC-LON-26-0002",
+    "usd_paid": 5138000,
+    "value_date": "2026-07-08"
+  },
+  "ownership_edges": [],
+  "phase": "settlement",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 5138000,
+      "id": "x6-london-northgate-gbp-fwd-q1",
+      "question": "How much USD did NewCo London pay to settle NC-LON-26-0002?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 1.2845,
+      "id": "x6-london-northgate-gbp-fwd-q2",
+      "question": "What rate did the settlement of NC-LON-26-0002 use?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": "acct-newco-lon-gbp-operating",
+      "id": "x6-london-northgate-gbp-fwd-q3",
+      "question": "Which account received the GBP for NC-LON-26-0002?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "x6-london-northgate-gbp-fwd",
+  "title": "GBP forward settles: USD 5,138,000 against GBP 4,000,000 at 1.2845 (control)"
+}

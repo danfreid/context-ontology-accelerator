@@ -224,6 +224,11 @@ def write_and_presign_ontology_download(
 def _get_table():
     global _table
     if _table is None:
+        from coa_ontology.aurora_metadata import BACKEND_AURORA, aurora_table, metadata_backend
+
+        if metadata_backend() == BACKEND_AURORA:
+            _table = aurora_table()
+            return _table
         _table = boto3.resource("dynamodb", region_name=REGION).Table(TABLE_NAME)
     return _table
 
@@ -239,6 +244,11 @@ def _get_dao():
     """
     global _dao
     if _dao is None:
+        from coa_ontology.aurora_metadata import BACKEND_AURORA, aurora_dao, metadata_backend
+
+        if metadata_backend() == BACKEND_AURORA:
+            _dao = aurora_dao()
+            return _dao
         from coa_common import DynamoDBDAO
 
         _dao = DynamoDBDAO(TABLE_NAME, region=REGION)

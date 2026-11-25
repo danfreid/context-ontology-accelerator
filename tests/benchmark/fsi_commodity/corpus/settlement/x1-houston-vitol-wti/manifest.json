@@ -1,0 +1,381 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "amount": 16805084.2,
+        "beneficiary_account": "acct-cp-vitol-usd-operating",
+        "currency": "USD",
+        "debit_account": "acct-newco-hou-usd-settlement",
+        "payee": "Vitol Inc.",
+        "reference": "NC-HOU-26-0001 VIT-CN-NC-HOU-26-0001",
+        "release_limit": 10000000,
+        "second_approval_required": true,
+        "trade_id": "NC-HOU-26-0001",
+        "value_date": "2026-05-11"
+      },
+      "filename": "NC-HOU-26-0001-release-request.pdf",
+      "kind": "payment-release-request",
+      "message": "release-request",
+      "path": "attachments/001-NC-HOU-26-0001-release-request.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "andrew.evans@newco-houston.example",
+        "wasDerivedFrom": "<952e79d334721d768d03@newco-houston.example>"
+      },
+      "sha256": "c5d9c3fa183b9aacfdf7fc74d61e68e8d24094e69131cb57a0c2a4736dabc7f1",
+      "size": 5213
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "account": {
+          "aba": "041528729",
+          "account_id": "acct-newco-hou-usd-settlement",
+          "bank": "Lonestar National Bank",
+          "bic": "ZGTWUSC9",
+          "number": "7001138779"
+        },
+        "amount": 16805084.2,
+        "bank": "Lonestar National Bank",
+        "beneficiary": "Vitol Inc.",
+        "currency": "USD",
+        "reference": "NC-HOU-26-0001 VIT-CN-NC-HOU-26-0001",
+        "trade_id": "NC-HOU-26-0001",
+        "value_date": "2026-05-11"
+      },
+      "filename": "NC-HOU-26-0001-debit-advice.pdf",
+      "kind": "debit-advice",
+      "message": "debit-advice",
+      "path": "attachments/003-NC-HOU-26-0001-debit-advice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amanda.hoover@lonestarbank.example",
+        "wasDerivedFrom": "<6e4bdc67cc76ae7b20e4@lonestarbank.example>"
+      },
+      "sha256": "d3b072af174b46e396f7d788e28b91c3fd983fa70758cc239d3d9701a880e601",
+      "size": 3577
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "amount": 16805084.2,
+        "covers": {
+          "Settles credit note VIT-CN-NC-HOU-26-0001": "net USD 16,805,084.20"
+        },
+        "currency": "USD",
+        "from_account": "acct-newco-hou-usd-settlement",
+        "payee": "Vitol Inc.",
+        "payer": "NewCo Trading Houston LLC",
+        "reference": "NC-HOU-26-0001 VIT-CN-NC-HOU-26-0001",
+        "to_account": {
+          "aba": "101490438",
+          "account_id": "acct-cp-vitol-usd-operating",
+          "bank": "Hudson Meridian Trust Company",
+          "bic": "ZXSAUSEW",
+          "number": "3797790121"
+        },
+        "trade_id": "NC-HOU-26-0001",
+        "value_date": "2026-05-11"
+      },
+      "filename": "NC-HOU-26-0001-payment-notice.pdf",
+      "kind": "payment-notice",
+      "message": "payment-notice",
+      "path": "attachments/004-NC-HOU-26-0001-payment-notice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "andrew.evans@newco-houston.example",
+        "wasDerivedFrom": "<488a6a079cd763cc524d@newco-houston.example>"
+      },
+      "sha256": "13691fdf6f6bde8597f5f35cb130086b40a25dd5bb4f03f9494786f07557bf3f",
+      "size": 3978
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 3,
+    "chats": 0,
+    "emails": 5
+  },
+  "deals": [],
+  "expected_contradictions": [],
+  "messages": [
+    {
+      "attachments": [
+        "NC-HOU-26-0001-release-request.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "internal",
+      "facts": {
+        "amount": 16805084.2,
+        "release_limit": 10000000,
+        "trade_id": "NC-HOU-26-0001",
+        "value_date": "2026-05-11"
+      },
+      "files": {
+        "eml": "messages/001-release-request.eml",
+        "md": "messages/001-release-request.md"
+      },
+      "from": {
+        "address": "andrew.evans@newco-houston.example",
+        "name": "Andrew Evans",
+        "org": "newco-hou",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "release-request",
+      "message_id": "<952e79d334721d768d03@newco-houston.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "andrew.evans@newco-houston.example"
+      },
+      "seq": 1,
+      "subject": "Release approval: NC-HOU-26-0001 VIT-CN-NC-HOU-26-0001",
+      "tags": [
+        "payment",
+        "treasury"
+      ],
+      "thread": "release-request",
+      "timestamp": "2026-05-07T09:53:00-05:00",
+      "to": [
+        {
+          "address": "steve.harris@newco-houston.example",
+          "name": "Steve Harris",
+          "org": "newco-hou",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {
+        "amount": 16805084.2,
+        "approved": true,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/002-release-approved.eml",
+        "md": "messages/002-release-approved.md"
+      },
+      "from": {
+        "address": "steve.harris@newco-houston.example",
+        "name": "Steve Harris",
+        "org": "newco-hou",
+        "role": "accounting"
+      },
+      "in_reply_to": "release-request",
+      "key": "release-approved",
+      "message_id": "<cf3856975a404826d86e@newco-houston.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "steve.harris@newco-houston.example"
+      },
+      "seq": 2,
+      "subject": "Re: Release approval: NC-HOU-26-0001 VIT-CN-NC-HOU-26-0001",
+      "tags": [
+        "payment",
+        "treasury"
+      ],
+      "thread": "release-request",
+      "timestamp": "2026-05-08T09:06:00-05:00",
+      "to": [
+        {
+          "address": "andrew.evans@newco-houston.example",
+          "name": "Andrew Evans",
+          "org": "newco-hou",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-debit-advice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "inbound",
+      "facts": {
+        "amount": 16805084.2,
+        "trade_id": "NC-HOU-26-0001",
+        "value_date": "2026-05-11"
+      },
+      "files": {
+        "eml": "messages/003-debit-advice.eml",
+        "md": "messages/003-debit-advice.md"
+      },
+      "from": {
+        "address": "amanda.hoover@lonestarbank.example",
+        "name": "Amanda Hoover",
+        "org": "bank-lonestar",
+        "role": "operations"
+      },
+      "in_reply_to": null,
+      "key": "debit-advice",
+      "message_id": "<6e4bdc67cc76ae7b20e4@lonestarbank.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "amanda.hoover@lonestarbank.example"
+      },
+      "seq": 3,
+      "subject": "Debit advice NC-HOU-26-0001 VIT-CN-NC-HOU-26-0001",
+      "tags": [
+        "debit-advice",
+        "payment"
+      ],
+      "thread": "debit-advice",
+      "timestamp": "2026-05-11T10:04:00-05:00",
+      "to": [
+        {
+          "address": "andrew.evans@newco-houston.example",
+          "name": "Andrew Evans",
+          "org": "newco-hou",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0001-payment-notice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "outbound",
+      "facts": {
+        "amount": 16805084.2,
+        "credit_note": "VIT-CN-NC-HOU-26-0001",
+        "trade_id": "NC-HOU-26-0001",
+        "value_date": "2026-05-11"
+      },
+      "files": {
+        "eml": "messages/004-payment-notice.eml",
+        "md": "messages/004-payment-notice.md"
+      },
+      "from": {
+        "address": "andrew.evans@newco-houston.example",
+        "name": "Andrew Evans",
+        "org": "newco-hou",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "payment-notice",
+      "message_id": "<488a6a079cd763cc524d@newco-houston.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "andrew.evans@newco-houston.example"
+      },
+      "seq": 4,
+      "subject": "Payment notice NC-HOU-26-0001 VIT-CN-NC-HOU-26-0001",
+      "tags": [
+        "payment",
+        "payment-notice"
+      ],
+      "thread": "payment-notice",
+      "timestamp": "2026-05-11T11:23:00-05:00",
+      "to": [
+        {
+          "address": "joshua.dominguez@vitol.example",
+          "name": "Joshua Dominguez",
+          "org": "cp-vitol",
+          "role": "accounting"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {
+        "amount": 16805084.2,
+        "trade_id": "NC-HOU-26-0001"
+      },
+      "files": {
+        "eml": "messages/005-receipt.eml",
+        "md": "messages/005-receipt.md"
+      },
+      "from": {
+        "address": "joshua.dominguez@vitol.example",
+        "name": "Joshua Dominguez",
+        "org": "cp-vitol",
+        "role": "accounting"
+      },
+      "in_reply_to": "payment-notice",
+      "key": "receipt",
+      "message_id": "<8d37d23cd987a18d57fb@vitol.example>",
+      "phase": "settlement",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "joshua.dominguez@vitol.example"
+      },
+      "seq": 5,
+      "subject": "Re: Payment notice NC-HOU-26-0001 VIT-CN-NC-HOU-26-0001",
+      "tags": [
+        "payment",
+        "receipt"
+      ],
+      "thread": "payment-notice",
+      "timestamp": "2026-05-12T09:26:00-05:00",
+      "to": [
+        {
+          "address": "andrew.evans@newco-houston.example",
+          "name": "Andrew Evans",
+          "org": "newco-hou",
+          "role": "settlements"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "amount_paid": 16805084.2,
+    "result": "settled",
+    "second_approval": true,
+    "trade_id": "NC-HOU-26-0001",
+    "value_date": "2026-05-11"
+  },
+  "ownership_edges": [],
+  "phase": "settlement",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 16805084.2,
+      "id": "x1-houston-vitol-wti-q1",
+      "question": "What amount did NewCo Houston pay Vitol for NC-HOU-26-0001?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": "above the USD 10,000,000 single-release limit",
+      "id": "x1-houston-vitol-wti-q2",
+      "question": "Why did the release for NC-HOU-26-0001 need a second approver?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": "Lonestar National Bank",
+      "id": "x1-houston-vitol-wti-q3",
+      "question": "Which bank held the debited account for NC-HOU-26-0001?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "x1-houston-vitol-wti",
+  "title": "Houston pays Vitol: treasury release above the limit, debit advice on the due date, payment notice (control)"
+}

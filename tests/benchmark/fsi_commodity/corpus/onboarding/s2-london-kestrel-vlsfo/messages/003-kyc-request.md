@@ -1,0 +1,16 @@
+# KYC documents for Kestrel Bunkering Limited
+
+- **Message-ID:** <253342717ddab3b9aba7@newco-london.example>
+- **Date:** Wed, 21 Jan 2026 09:18:00 +0000
+- **From:** Laura Jones <laura.jones@newco-london.example>
+- **To:** Thomas Stone <thomas.stone@kestrel.example>
+
+## Body
+
+Hi Thomas,
+
+Please send a certificate of incorporation, an ownership chart that goes through to the natural persons, a trust extract for any trust in the chain, your LEI record, signatories and audited financials.
+
+Regards,
+Laura Jones
+NewCo Trading London Limited

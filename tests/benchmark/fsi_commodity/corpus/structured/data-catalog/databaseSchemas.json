@@ -1,0 +1,15 @@
+[
+  {
+    "id": "schema-fsi-001",
+    "name": "trading",
+    "displayName": "Trading Schema",
+    "fullyQualifiedName": "fsi_postgres.fsi_commodity.trading",
+    "description": "",
+    "database": {
+      "id": "db-fsi-001",
+      "type": "database",
+      "name": "fsi_commodity",
+      "fullyQualifiedName": "fsi_postgres.fsi_commodity"
+    }
+  }
+]
