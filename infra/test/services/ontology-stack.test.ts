@@ -769,3 +769,33 @@ describe("OntologyStack with a long resource_prefix", () => {
     );
   });
 });
+
+describe("OntologyStack Lambda compute path", () => {
+  const LAMBDA_CONTEXT = { compute_backend: "lambda" };
+
+  test("creates no ECS cluster or service", () => {
+    const t = renderOntology({}, "LambdaOntology", LAMBDA_CONTEXT);
+    t.resourceCountIs("AWS::ECS::Cluster", 0);
+    t.resourceCountIs("AWS::ECS::Service", 0);
+  });
+
+  test("creates an arm64 3072 MB ontology-engine Lambda", () => {
+    const t = renderOntology({}, "LambdaOntologyFn", LAMBDA_CONTEXT);
+    t.hasResourceProperties("AWS::Lambda::Function", {
+      FunctionName: `${PREFIX}-ontology-engine`,
+      Architectures: ["arm64"],
+      MemorySize: 3072,
+      Timeout: 900,
+    });
+  });
+
+  test("publishes the Lambda ARN as the ontology-engine api-fn-arn", () => {
+    const t = renderOntology({}, "LambdaOntologySsm", LAMBDA_CONTEXT);
+    t.hasResourceProperties("AWS::SSM::Parameter", {
+      Name: `/${DEFAULT_RESOURCE_PREFIX}/ontology-engine/api-fn-arn`,
+      Value: {
+        "Fn::GetAtt": [Match.stringLikeRegexp("OntologyEngineFn"), "Arn"],
+      },
+    });
+  });
+});

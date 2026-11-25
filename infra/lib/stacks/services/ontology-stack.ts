@@ -25,6 +25,7 @@ import {
   resolveContext,
   guardrailProfileResources,
   resolvePreferIpv4BuildArgs,
+  resolveBackendFlags,
 } from "../../context";
 import { bundlePython } from "../../utils/python-bundling";
 import {
@@ -96,8 +97,10 @@ export interface OntologyStackProps extends cdk.StackProps {
  *   - http://ontology-engine:8001
  */
 export class OntologyStack extends SCLStack {
-  public readonly cluster: ecs.Cluster;
-  public readonly service: ecs.FargateService;
+  /** ECS cluster. Undefined when `compute_backend=lambda`. */
+  public readonly cluster?: ecs.Cluster;
+  /** ECS service. Undefined when `compute_backend=lambda`. */
+  public readonly service?: ecs.FargateService;
   public readonly table: dynamodb.Table;
   public readonly containerPort: number;
 
@@ -111,6 +114,12 @@ export class OntologyStack extends SCLStack {
       );
     }
     const { ssmPrefix } = resolveContext(this.node);
+    const flags = resolveBackendFlags(this.node);
+    const useLambda = flags.computeBackend === "lambda";
+    const useAurora =
+      flags.graphBackend === "aurora" &&
+      flags.vectorBackend === "pgvector" &&
+      flags.metadataBackend === "aurora";
     const vpc = props.network.vpc;
     const ecsSecurityGroup = props.network.ecsSecurityGroup;
 
@@ -195,36 +204,6 @@ export class OntologyStack extends SCLStack {
           : cdk.RemovalPolicy.DESTROY,
     });
 
-    // ECS Cluster
-    this.cluster = new ecs.Cluster(this, "OntologyCluster", {
-      clusterName: this.prefixed("ontology-cluster"),
-      vpc,
-    });
-
-    // Task Definition
-    const taskDef = new ecs.FargateTaskDefinition(this, "OntologyTaskDef", {
-      family: this.prefixed("ontology-engine"),
-      cpu,
-      memoryLimitMiB,
-    });
-    grantGuardDutyAgentPull(taskDef);
-
-    const logGroup = new logs.LogGroup(this, "OntologyLogGroup", {
-      logGroupName: `/ecs/${this.prefixed("ontology-engine")}`,
-      retention: logs.RetentionDays.ONE_MONTH,
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-    });
-
-    const imageUri = this.node.tryGetContext("ontology_engine_image_uri") as
-      | string
-      | undefined;
-    const ecrRepositoryArn = this.node.tryGetContext("ecr_repository_arn") as
-      | string
-      | undefined;
-    const ecrRepositoryName = this.node.tryGetContext("ecr_repository_name") as
-      | string
-      | undefined;
-
     // String(): context from cdk.json may be a non-string; CLI values always are.
     const oopsEndpoint = String(
       this.node.tryGetContext("oops_endpoint") ?? "",
@@ -237,170 +216,275 @@ export class OntologyStack extends SCLStack {
       );
     }
 
-    const preferIpv4BuildArgs = resolvePreferIpv4BuildArgs(
-      this,
-      imageUri && ecrRepositoryArn && ecrRepositoryName
-        ? "ontology_engine_image_uri"
-        : undefined,
-    );
-    let containerImage: ecs.ContainerImage;
-    if (imageUri && ecrRepositoryArn && ecrRepositoryName) {
-      const ecrRepo = cdk.aws_ecr.Repository.fromRepositoryAttributes(
-        this,
-        "OntologyEcrRepo",
-        { repositoryArn: ecrRepositoryArn, repositoryName: ecrRepositoryName },
-      );
-      containerImage = ecs.ContainerImage.fromEcrRepository(
-        ecrRepo,
-        imageUri.split(":").pop() || "latest",
-      );
-    } else {
-      containerImage = ecs.ContainerImage.fromAsset(Paths.root, {
-        file: "packages/ontology-engine/Dockerfile",
-        platform: cdk.aws_ecr_assets.Platform.LINUX_AMD64,
-        buildArgs: preferIpv4BuildArgs,
-      });
-    }
+    const engineEnvironment = {
+      WORKBENCH_BACKEND: "opensearch_neptune",
+      NDB_ENDPOINT: `https://${props.neptuneClusterEndpoint}:8182`,
+      NDB_IAM_AUTH: "true",
+      NDB_REGION: cdk.Aws.REGION,
+      OSS_ENDPOINT: opensearchEndpoint,
+      OSS_REGION: cdk.Aws.REGION,
+      OSS_INDEX: opensearchCollectionName,
+      OSS_DIMENSIONS: embedDimensions,
+      ONTOLOGY_ARTIFACTS_BUCKET: props.ontologyArtifactsBucket.bucketName,
+      DYNAMODB_TABLE: this.table.tableName,
+      DYNAMODB_REGION: cdk.Aws.REGION,
+      BEDROCK_REGION: cdk.Aws.REGION,
+      BEDROCK_EMBED_MODEL_ID: embedModelId,
+      BEDROCK_EMBED_DIMENSIONS: embedDimensions,
+      LLM_MODEL_ID: inductionModelId,
+      // Description generation reads its own variable (main.py) — set it from
+      // the same resolved value so it cannot silently stay on a `us.` profile.
+      DESCRIPTION_LLM_MODEL_ID: inductionModelId,
+      // Shared BedrockClient default (constraint inference / nl_generator).
+      BEDROCK_CHAT_MODEL_ID: chatModelId,
+      // Grounding reranker model (ontology-engine). Defaults to the chat
+      // (Haiku-class) model; override via bedrockGroundingLlmModelId for a
+      // region-valid profile on a non-US deploy.
+      GROUNDING_LLM_MODEL_ID: groundingModelId,
+      LLM_REGION: cdk.Aws.REGION,
+      // SSM path to the Bedrock guardrail id — the app resolves it at runtime
+      // and applies content filtering to LLM calls (constraint inference).
+      GUARDRAIL_SSM_PARAM: `${ssmPrefix}/bedrock/guardrail-id`,
+      CATALOG_SOURCE: "smus",
+      SMUS_DOMAIN_ID: props.smusDomainId,
+      NAMESPACES_TABLE: namespacesTableName,
+      DATASOURCES_TABLE: sourcesTableName,
+      SOURCES_TABLE: sourcesTableName,
+      PROJECT_ACCESS_ROLE_ARN: projectAccessRoleArn,
+      SOURCES_API_FN_NAME: `${this.prefixed("sources-api")}`,
+      INDUCE_OUTPUT_DIR: "/tmp/induce",
+      PORT: String(this.containerPort),
+      // Optional OoPS! pitfall scan (Tier-3 validation). It sends the
+      // serialised ontology to this endpoint, so it is opt-in: absent context
+      // leaves the variable unset and the validator makes no request.
+      ...(oopsEndpoint && { OOPS_ENDPOINT: oopsEndpoint }),
+      // Ontology import binds classes to RDF_SPARQL graph sources only with
+      // `-c graph_sources=on`; absent means off.
+      ...(graphSourcesEnabled(this.node) && { [GRAPH_SOURCES_ENV]: "true" }),
+    };
 
-    taskDef.addContainer("OntologyEngineContainer", {
-      containerName: this.prefixed("ontology-engine"),
-      image: containerImage,
-      environment: {
-        WORKBENCH_BACKEND: "opensearch_neptune",
-        NDB_ENDPOINT: `https://${props.neptuneClusterEndpoint}:8182`,
-        NDB_IAM_AUTH: "true",
-        NDB_REGION: cdk.Aws.REGION,
-        OSS_ENDPOINT: opensearchEndpoint,
-        OSS_REGION: cdk.Aws.REGION,
-        OSS_INDEX: opensearchCollectionName,
-        OSS_DIMENSIONS: embedDimensions,
-        ONTOLOGY_ARTIFACTS_BUCKET: props.ontologyArtifactsBucket.bucketName,
-        DYNAMODB_TABLE: this.table.tableName,
-        DYNAMODB_REGION: cdk.Aws.REGION,
-        BEDROCK_REGION: cdk.Aws.REGION,
-        BEDROCK_EMBED_MODEL_ID: embedModelId,
-        BEDROCK_EMBED_DIMENSIONS: embedDimensions,
-        LLM_MODEL_ID: inductionModelId,
-        // Description generation reads its own variable (main.py) — set it from
-        // the same resolved value so it cannot silently stay on a `us.` profile.
-        DESCRIPTION_LLM_MODEL_ID: inductionModelId,
-        // Shared BedrockClient default (constraint inference / nl_generator).
-        BEDROCK_CHAT_MODEL_ID: chatModelId,
-        // Grounding reranker model (ontology-engine). Defaults to the chat
-        // (Haiku-class) model; override via bedrockGroundingLlmModelId for a
-        // region-valid profile on a non-US deploy.
-        GROUNDING_LLM_MODEL_ID: groundingModelId,
-        LLM_REGION: cdk.Aws.REGION,
-        // SSM path to the Bedrock guardrail id — the app resolves it at runtime
-        // and applies content filtering to LLM calls (constraint inference).
-        GUARDRAIL_SSM_PARAM: `${ssmPrefix}/bedrock/guardrail-id`,
-        CATALOG_SOURCE: "smus",
-        SMUS_DOMAIN_ID: props.smusDomainId,
-        NAMESPACES_TABLE: namespacesTableName,
-        DATASOURCES_TABLE: sourcesTableName,
-        SOURCES_TABLE: sourcesTableName,
-        PROJECT_ACCESS_ROLE_ARN: projectAccessRoleArn,
-        SOURCES_API_FN_NAME: `${this.prefixed("sources-api")}`,
-        INDUCE_OUTPUT_DIR: "/tmp/induce",
-        PORT: String(this.containerPort),
-        // Optional OoPS! pitfall scan (Tier-3 validation). It sends the
-        // serialised ontology to this endpoint, so it is opt-in: absent context
-        // leaves the variable unset and the validator makes no request.
-        ...(oopsEndpoint && { OOPS_ENDPOINT: oopsEndpoint }),
-        // Ontology import binds classes to RDF_SPARQL graph sources only with
-        // `-c graph_sources=on`; absent means off.
-        ...(graphSourcesEnabled(this.node) && { [GRAPH_SOURCES_ENV]: "true" }),
-      },
-      portMappings: [
-        {
-          containerPort: this.containerPort,
-          protocol: ecs.Protocol.TCP,
-        },
-      ],
-      logging: ecs.LogDrivers.awsLogs({
-        streamPrefix: "ontology-engine",
-        logGroup,
-      }),
-      healthCheck: {
-        command: [
-          "CMD-SHELL",
-          `curl -sf http://localhost:${this.containerPort}/health || exit 1`,
+    // The role that receives the data-plane IAM grants below: the Fargate task
+    // role, or the Lambda execution role when compute_backend=lambda.
+    let workloadRole: iam.IRole;
+    let taskDef: ecs.FargateTaskDefinition | undefined;
+    let ontologyLambdaFn: lambda.Function | undefined;
+    if (!useLambda) {
+      // Task Definition
+      taskDef = new ecs.FargateTaskDefinition(this, "OntologyTaskDef", {
+        family: this.prefixed("ontology-engine"),
+        cpu,
+        memoryLimitMiB,
+      });
+      grantGuardDutyAgentPull(taskDef);
+
+      const logGroup = new logs.LogGroup(this, "OntologyLogGroup", {
+        logGroupName: `/ecs/${this.prefixed("ontology-engine")}`,
+        retention: logs.RetentionDays.ONE_MONTH,
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+      });
+
+      const imageUri = this.node.tryGetContext("ontology_engine_image_uri") as
+        | string
+        | undefined;
+      const ecrRepositoryArn = this.node.tryGetContext("ecr_repository_arn") as
+        | string
+        | undefined;
+      const ecrRepositoryName = this.node.tryGetContext(
+        "ecr_repository_name",
+      ) as string | undefined;
+
+      const preferIpv4BuildArgs = resolvePreferIpv4BuildArgs(
+        this,
+        imageUri && ecrRepositoryArn && ecrRepositoryName
+          ? "ontology_engine_image_uri"
+          : undefined,
+      );
+      let containerImage: ecs.ContainerImage;
+      if (imageUri && ecrRepositoryArn && ecrRepositoryName) {
+        const ecrRepo = cdk.aws_ecr.Repository.fromRepositoryAttributes(
+          this,
+          "OntologyEcrRepo",
+          {
+            repositoryArn: ecrRepositoryArn,
+            repositoryName: ecrRepositoryName,
+          },
+        );
+        containerImage = ecs.ContainerImage.fromEcrRepository(
+          ecrRepo,
+          imageUri.split(":").pop() || "latest",
+        );
+      } else {
+        containerImage = ecs.ContainerImage.fromAsset(Paths.root, {
+          file: "packages/ontology-engine/Dockerfile",
+          platform: cdk.aws_ecr_assets.Platform.LINUX_AMD64,
+          buildArgs: preferIpv4BuildArgs,
+        });
+      }
+
+      taskDef.addContainer("OntologyEngineContainer", {
+        containerName: this.prefixed("ontology-engine"),
+        image: containerImage,
+        environment: engineEnvironment,
+        portMappings: [
+          {
+            containerPort: this.containerPort,
+            protocol: ecs.Protocol.TCP,
+          },
         ],
-        interval: cdk.Duration.seconds(30),
-        timeout: cdk.Duration.seconds(10),
-        retries: 5,
-        // 90s gives FastAPI module-load (Neptune/OSS/Bedrock client construction
-        // and AOSS data-access-policy propagation) time to settle before the
-        // first probe is counted against the failure budget.
-        startPeriod: cdk.Duration.seconds(90),
-      },
-    });
+        logging: ecs.LogDrivers.awsLogs({
+          streamPrefix: "ontology-engine",
+          logGroup,
+        }),
+        healthCheck: {
+          command: [
+            "CMD-SHELL",
+            `curl -sf http://localhost:${this.containerPort}/health || exit 1`,
+          ],
+          interval: cdk.Duration.seconds(30),
+          timeout: cdk.Duration.seconds(10),
+          retries: 5,
+          // 90s gives FastAPI module-load (Neptune/OSS/Bedrock client construction
+          // and AOSS data-access-policy propagation) time to settle before the
+          // first probe is counted against the failure budget.
+          startPeriod: cdk.Duration.seconds(90),
+        },
+      });
+
+      workloadRole = taskDef.taskRole;
+    } else {
+      // Single Lambda replaces the Fargate service. It reuses the api-proxy
+      // handler and bundling path.
+      // TODO: Fargate used 8 vCPU / 32 GB; Lambda max is 10 GB / 6 vCPU.
+      // 3 GB / arm64 covers the api-proxy forwarding path.
+      // Heavy induction jobs (Neptune/AOSS teardown) are not ported to Lambda
+      // in this phase: see Phase 2 of the switchable-backends roadmap.
+      ontologyLambdaFn = new lambda.Function(this, "OntologyEngineFn", {
+        functionName: this.prefixed("ontology-engine"),
+        runtime: lambda.Runtime.PYTHON_3_12,
+        architecture: lambda.Architecture.ARM_64,
+        memorySize: 3072,
+        timeout: cdk.Duration.minutes(15),
+        code: bundlePython({
+          srcDirs: [Paths.ontologyEngineSrc, Paths.commonLib],
+          requirementsFile: fromRoot(
+            "packages/ontology-engine/lambda/api-proxy/requirements.lock.txt",
+          ),
+          architecture: "arm64",
+        }),
+        handler: "coa_ontology.api_proxy_handler.handler",
+        vpc,
+        vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+        securityGroups: [props.network.lambdaSecurityGroup],
+        environment: {
+          ...engineEnvironment,
+          // Aurora endpoint and secret are read from these SSM parameters at runtime.
+          ...(useAurora && {
+            WORKBENCH_BACKEND: "aurora_pgvector",
+            AURORA_CLUSTER_ENDPOINT: `${ssmPrefix}/aurora/cluster-endpoint`,
+            AURORA_SECRET_ARN: `${ssmPrefix}/aurora/secret-arn`,
+          }),
+        },
+      });
+      // StartInduction is retry-safe with a clientToken; the function is the
+      // API proxy on this path, so it enforces it.
+      grantIdempotencyTable(this, ontologyLambdaFn);
+      workloadRole = ontologyLambdaFn.role!;
+    }
 
     // IAM Permissions
 
-    // Neptune DB — read/write/delete for SPARQL queries + Graph Store Protocol
-    taskDef.taskRole.addToPrincipalPolicy(
-      new iam.PolicyStatement({
-        actions: [
-          "neptune-db:ReadDataViaQuery",
-          "neptune-db:WriteDataViaQuery",
-          "neptune-db:DeleteDataViaQuery",
-          "neptune-db:GetQueryStatus",
-          "neptune-db:CancelQuery",
-        ],
-        // neptuneClusterArn already includes the ``/*`` suffix from
-        // storage-stack.ts:formatArn (cluster-id/*). Do NOT append another.
-        resources: [props.neptuneClusterArn],
-      }),
-    );
+    let ossDataAccessPolicy: opensearchserverless.CfnAccessPolicy | undefined;
+    if (!useAurora) {
+      // Neptune DB — read/write/delete for SPARQL queries + Graph Store Protocol
+      workloadRole.addToPrincipalPolicy(
+        new iam.PolicyStatement({
+          actions: [
+            "neptune-db:ReadDataViaQuery",
+            "neptune-db:WriteDataViaQuery",
+            "neptune-db:DeleteDataViaQuery",
+            "neptune-db:GetQueryStatus",
+            "neptune-db:CancelQuery",
+          ],
+          // neptuneClusterArn already includes the ``/*`` suffix from
+          // storage-stack.ts:formatArn (cluster-id/*). Do NOT append another.
+          resources: [props.neptuneClusterArn],
+        }),
+      );
 
-    // OpenSearch Serverless — API access
-    taskDef.taskRole.addToPrincipalPolicy(
-      new iam.PolicyStatement({
-        actions: ["aoss:APIAccessAll"],
-        resources: [opensearchCollectionArn],
-      }),
-    );
+      // OpenSearch Serverless — API access
+      workloadRole.addToPrincipalPolicy(
+        new iam.PolicyStatement({
+          actions: ["aoss:APIAccessAll"],
+          resources: [opensearchCollectionArn],
+        }),
+      );
 
-    // AOSS Data Access Policy — full CRUD for embeddings
-    const ossDataAccessPolicy = new opensearchserverless.CfnAccessPolicy(
-      this,
-      "OSSDataAccessPolicy",
-      {
-        name: this.aossName("ontology-oss"),
-        type: "data",
-        policy: JSON.stringify([
-          {
-            Rules: [
-              {
-                ResourceType: "index",
-                Resource: [`index/${opensearchCollectionName}/*`],
-                Permission: [
-                  "aoss:CreateIndex",
-                  "aoss:DescribeIndex",
-                  "aoss:UpdateIndex",
-                  "aoss:DeleteIndex",
-                  "aoss:ReadDocument",
-                  "aoss:WriteDocument",
-                ],
-              },
-              {
-                ResourceType: "collection",
-                Resource: [`collection/${opensearchCollectionName}`],
-                Permission: ["aoss:DescribeCollectionItems"],
-              },
-            ],
-            Principal: [taskDef.taskRole.roleArn],
-          },
-        ]),
-      },
-    );
+      // AOSS Data Access Policy — full CRUD for embeddings
+      ossDataAccessPolicy = new opensearchserverless.CfnAccessPolicy(
+        this,
+        "OSSDataAccessPolicy",
+        {
+          name: this.aossName("ontology-oss"),
+          type: "data",
+          policy: JSON.stringify([
+            {
+              Rules: [
+                {
+                  ResourceType: "index",
+                  Resource: [`index/${opensearchCollectionName}/*`],
+                  Permission: [
+                    "aoss:CreateIndex",
+                    "aoss:DescribeIndex",
+                    "aoss:UpdateIndex",
+                    "aoss:DeleteIndex",
+                    "aoss:ReadDocument",
+                    "aoss:WriteDocument",
+                  ],
+                },
+                {
+                  ResourceType: "collection",
+                  Resource: [`collection/${opensearchCollectionName}`],
+                  Permission: ["aoss:DescribeCollectionItems"],
+                },
+              ],
+              Principal: [workloadRole.roleArn],
+            },
+          ]),
+        },
+      );
+    } else {
+      // Aurora path: RDS Data API plus the admin secret replace neptune-db and aoss.
+      workloadRole.addToPrincipalPolicy(
+        new iam.PolicyStatement({
+          actions: [
+            "rds-data:ExecuteStatement",
+            "rds-data:BatchExecuteStatement",
+            "rds-data:BeginTransaction",
+            "rds-data:CommitTransaction",
+            "rds-data:RollbackTransaction",
+          ],
+          // On the Aurora path neptuneClusterArn carries the Aurora cluster ARN.
+          resources: [props.neptuneClusterArn],
+        }),
+      );
+      workloadRole.addToPrincipalPolicy(
+        new iam.PolicyStatement({
+          actions: ["secretsmanager:GetSecretValue"],
+          resources: [
+            ssm.StringParameter.valueForStringParameter(
+              this,
+              `${ssmPrefix}/aurora/secret-arn`,
+            ),
+          ],
+        }),
+      );
+    }
 
     // DynamoDB — full access to own table
-    this.table.grantReadWriteData(taskDef.taskRole);
+    this.table.grantReadWriteData(workloadRole);
 
     // S3 — read/write ontology artifacts (Turtle, R2RML) for accepted proposals
-    props.ontologyArtifactsBucket.grantReadWrite(taskDef.taskRole);
+    props.ontologyArtifactsBucket.grantReadWrite(workloadRole);
 
     // DynamoDB — read access to the namespaces table so the catalog reader
     // can look up ``dataZoneProjectId`` per namespace.
@@ -409,7 +493,7 @@ export class OntologyStack extends SCLStack {
       "NamespacesTable",
       namespacesTableName,
     );
-    nsTable.grantReadData(taskDef.taskRole);
+    nsTable.grantReadData(workloadRole);
 
     // DynamoDB — read access to the unified sources table so the catalog
     // reader can verify a sourceId is registered before fetching DataZone
@@ -420,12 +504,12 @@ export class OntologyStack extends SCLStack {
       "SourcesTable",
       sourcesTableName,
     );
-    srcTable.grantReadData(taskDef.taskRole);
+    srcTable.grantReadData(workloadRole);
 
     // Bedrock — LLM (Converse) + Embeddings (InvokeModel)
     const region = cdk.Aws.REGION;
     const account = cdk.Aws.ACCOUNT_ID;
-    taskDef.taskRole.addToPrincipalPolicy(
+    workloadRole.addToPrincipalPolicy(
       new iam.PolicyStatement({
         actions: [
           "bedrock:InvokeModel",
@@ -448,7 +532,7 @@ export class OntologyStack extends SCLStack {
     // these permissions, the first InvokeModel call fails with AccessDeniedException
     // and induction proposals error at the Fetch metadata stage.
     // These actions have no resource-level ARN (IAM limitation, not a design choice).
-    taskDef.taskRole.addToPrincipalPolicy(
+    workloadRole.addToPrincipalPolicy(
       new iam.PolicyStatement({
         actions: [
           "aws-marketplace:ViewSubscriptions",
@@ -460,7 +544,7 @@ export class OntologyStack extends SCLStack {
 
     // SSM — read the Bedrock guardrail id at runtime (content filtering on LLM
     // calls). Resolved lazily by the app; grant read on just that parameter.
-    taskDef.taskRole.addToPrincipalPolicy(
+    workloadRole.addToPrincipalPolicy(
       new iam.PolicyStatement({
         actions: ["ssm:GetParameter"],
         resources: [
@@ -474,7 +558,7 @@ export class OntologyStack extends SCLStack {
     // 2. Project membership — granted by assuming ``projectAccessRole``,
     //    which is registered as a DataZone project member in NamespaceStack.
     //    DataZone gates Search/GetAsset on project membership, not IAM alone.
-    taskDef.taskRole.addToPrincipalPolicy(
+    workloadRole.addToPrincipalPolicy(
       new iam.PolicyStatement({
         actions: [
           "datazone:GetAsset",
@@ -488,10 +572,10 @@ export class OntologyStack extends SCLStack {
         ],
       }),
     );
-    projectAccessRole.grantAssumeRole(taskDef.taskRole);
+    projectAccessRole.grantAssumeRole(workloadRole);
 
     // Sources Lambda — invoke for catalog column fetching during induction
-    taskDef.taskRole.addToPrincipalPolicy(
+    workloadRole.addToPrincipalPolicy(
       new iam.PolicyStatement({
         actions: ["lambda:InvokeFunction"],
         resources: [
@@ -501,7 +585,7 @@ export class OntologyStack extends SCLStack {
     );
 
     // EventBridge — emit ontology.published events for VKG reload
-    taskDef.taskRole.addToPrincipalPolicy(
+    workloadRole.addToPrincipalPolicy(
       new iam.PolicyStatement({
         actions: ["events:PutEvents"],
         resources: [`arn:aws:events:${region}:${account}:event-bus/default`],
@@ -513,7 +597,7 @@ export class OntologyStack extends SCLStack {
     // guardrail allow/block decisions under COA/Guardrails.
     // PutMetricData exposes no resource-level ARN, so least-privilege is
     // enforced with the ``cloudwatch:namespace`` condition key instead.
-    taskDef.taskRole.addToPrincipalPolicy(
+    workloadRole.addToPrincipalPolicy(
       new iam.PolicyStatement({
         actions: ["cloudwatch:PutMetricData"],
         resources: ["*"],
@@ -525,149 +609,167 @@ export class OntologyStack extends SCLStack {
       }),
     );
 
-    // Fargate Service with Cloud Map service discovery
-    // Uses ``cloudMapOptions`` (not ``serviceConnectConfiguration``) so the
-    // task IPs are published as real Route 53 A records under
-    // ontology-engine.<namespace>.local. Service Connect's namespace DNS is
-    // only resolvable from inside another ECS task (via the Envoy sidecar),
-    // which would block the api-proxy Lambda from reaching this service.
-    this.service = new ecs.FargateService(this, "OntologyService", {
-      serviceName: this.prefixed("ontology-engine"),
-      cluster: this.cluster,
-      taskDefinition: taskDef,
-      desiredCount,
-      vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
-      securityGroups: [ecsSecurityGroup],
-      assignPublicIp: false,
-      cloudMapOptions: {
-        cloudMapNamespace: namespace,
-        name: "ontology-engine",
-        dnsRecordType: servicediscovery.DnsRecordType.A,
-        dnsTtl: cdk.Duration.seconds(10),
-      },
-      circuitBreaker: { rollback: true },
-      minHealthyPercent: 100,
-      maxHealthyPercent: 200,
-    });
+    if (!useLambda) {
+      const cluster = new ecs.Cluster(this, "OntologyCluster", {
+        clusterName: this.prefixed("ontology-cluster"),
+        vpc,
+      });
+      this.cluster = cluster;
 
-    // Ensure the AOSS data access policy exists before tasks start probing
-    // OpenSearch — without this, the first /readiness or _ensure_index call
-    // races against policy creation and can return 403 long enough to trip
-    // the deployment circuit breaker.
-    this.service.node.addDependency(ossDataAccessPolicy);
-
-    ecsSecurityGroup.addIngressRule(
-      props.network.lambdaSecurityGroup,
-      ec2.Port.tcp(this.containerPort),
-      "Allow ontology-engine API from api-proxy Lambda",
-    );
-
-    // OE monitoring (cdk-monitoring-constructs)
-    new SclMonitoring(this, "Monitoring", {
-      alarmNamePrefix: this.prefixed("ontology"),
-      alarmAction: props.alarmAction,
-    })
-      .monitorFargateService(this.service)
-      .monitorTable(this.table);
-
-    // Out-of-process OOM observability: a SIGKILL runs neither `except` nor `finally`, so the
-    // app's terminal PutMetricData never fires; an EventBridge rule and a memory alarm cover it.
-
-    // (b) Memory alarm at 85% Maximum, 1 period. 85 < the facade's 90% (which
-    // sampled 81% and never breached); Maximum (not the facade's Average)
-    // catches the ramp. Wired to props.alarmAction like the facade alarms.
-    const memoryAlarm = new cloudwatch.Alarm(
-      this,
-      "MemoryUtilizationHighAlarm",
-      {
-        alarmName: this.prefixed("ontology-memory-high"),
-        alarmDescription:
-          "Ontology induction task memory >= 85% — pre-OOM ramp; the 32GB task exit-137'd once at 100%",
-        metric: this.service.metricMemoryUtilization({
-          period: cdk.Duration.minutes(1),
-          statistic: "Maximum",
-        }),
-        threshold: 85,
-        evaluationPeriods: 1,
-        comparisonOperator:
-          cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-        treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
-      },
-    );
-    props.alarmAction?.addAlarmActions({
-      alarm: memoryAlarm,
-      action: props.alarmAction,
-    });
-
-    // (a) EventBridge rule on ECS OOM. The exit-137/OutOfMemory label lives only
-    // in the ECS Task State Change event, so route it to a durable metric.
-    // rule → Logs log group + metric filter emitting COA/Ontology InductionTaskOOMKilled → alarm;
-    // the log group also keeps the raw stop events for post-mortems.
-    const oomLogGroup = new logs.LogGroup(this, "OomEventLogGroup", {
-      logGroupName: `/aws/events/${this.prefixed("ontology-oom")}`,
-      retention: logs.RetentionDays.ONE_MONTH,
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-    });
-
-    new events.Rule(this, "OntologyTaskOomRule", {
-      ruleName: this.prefixed("ontology-oom"),
-      description:
-        "Ontology induction ECS task stopped by OOM (OutOfMemory reason, or an essential container that exited 137)",
-      eventPattern: {
-        source: ["aws.ecs"],
-        detailType: ["ECS Task State Change"],
-        detail: {
-          clusterArn: [this.cluster.clusterArn],
-          lastStatus: ["STOPPED"],
-          // Exit 137 alone is any SIGKILL, including ECS killing a task that
-          // outlived its stop timeout during a deploy (stopCode
-          // ServiceSchedulerInitiated). Count it only when the essential
-          // container died on its own; an OOM during a stop still matches on
-          // its OutOfMemory reason.
-          $or: [
-            { stoppedReason: [{ wildcard: "*OutOfMemory*" }] },
-            { containers: { reason: [{ wildcard: "*OutOfMemory*" }] } },
-            {
-              stopCode: ["EssentialContainerExited"],
-              containers: { exitCode: [137] },
-            },
-          ],
+      // Fargate Service with Cloud Map service discovery
+      // Uses ``cloudMapOptions`` (not ``serviceConnectConfiguration``) so the
+      // task IPs are published as real Route 53 A records under
+      // ontology-engine.<namespace>.local. Service Connect's namespace DNS is
+      // only resolvable from inside another ECS task (via the Envoy sidecar),
+      // which would block the api-proxy Lambda from reaching this service.
+      const service = new ecs.FargateService(this, "OntologyService", {
+        serviceName: this.prefixed("ontology-engine"),
+        cluster,
+        taskDefinition: taskDef!, // assigned in the !useLambda branch above
+        desiredCount,
+        vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+        securityGroups: [ecsSecurityGroup],
+        assignPublicIp: false,
+        cloudMapOptions: {
+          cloudMapNamespace: namespace,
+          name: "ontology-engine",
+          dnsRecordType: servicediscovery.DnsRecordType.A,
+          dnsTtl: cdk.Duration.seconds(10),
         },
-      },
-      targets: [new targets.CloudWatchLogGroup(oomLogGroup)],
-    });
+        circuitBreaker: { rollback: true },
+        minHealthyPercent: 100,
+        maxHealthyPercent: 200,
+      });
+      this.service = service;
 
-    // Metric filter — every event delivered to the log group is an OOM stop
-    // (the rule already filtered), so match all events and emit a count of 1.
-    new logs.MetricFilter(this, "OomEventMetricFilter", {
-      logGroup: oomLogGroup,
-      filterPattern: logs.FilterPattern.allEvents(),
-      metricNamespace: "COA/Ontology",
-      metricName: "InductionTaskOOMKilled",
-      metricValue: "1",
-      defaultValue: 0,
-    });
+      // Ensure the AOSS data access policy exists before tasks start probing
+      // OpenSearch — without this, the first /readiness or _ensure_index call
+      // races against policy creation and can return 403 long enough to trip
+      // the deployment circuit breaker.
+      if (ossDataAccessPolicy) service.node.addDependency(ossDataAccessPolicy);
 
-    const oomAlarm = new cloudwatch.Alarm(this, "InductionTaskOomKilledAlarm", {
-      alarmName: this.prefixed("ontology-oom-killed"),
-      alarmDescription:
-        "An ontology induction ECS task was OOM-killed (exit 137) — right-size memory or shard the workload",
-      metric: new cloudwatch.Metric({
-        namespace: "COA/Ontology",
+      ecsSecurityGroup.addIngressRule(
+        props.network.lambdaSecurityGroup,
+        ec2.Port.tcp(this.containerPort),
+        "Allow ontology-engine API from api-proxy Lambda",
+      );
+
+      // OE monitoring (cdk-monitoring-constructs)
+      new SclMonitoring(this, "Monitoring", {
+        alarmNamePrefix: this.prefixed("ontology"),
+        alarmAction: props.alarmAction,
+      })
+        .monitorFargateService(service)
+        .monitorTable(this.table);
+
+      // Out-of-process OOM observability: a SIGKILL runs neither `except` nor `finally`, so the
+      // app's terminal PutMetricData never fires; an EventBridge rule and a memory alarm cover it.
+
+      // (b) Memory alarm at 85% Maximum, 1 period. 85 < the facade's 90% (which
+      // sampled 81% and never breached); Maximum (not the facade's Average)
+      // catches the ramp. Wired to props.alarmAction like the facade alarms.
+      const memoryAlarm = new cloudwatch.Alarm(
+        this,
+        "MemoryUtilizationHighAlarm",
+        {
+          alarmName: this.prefixed("ontology-memory-high"),
+          alarmDescription:
+            "Ontology induction task memory >= 85% — pre-OOM ramp; the 32GB task exit-137'd once at 100%",
+          metric: service.metricMemoryUtilization({
+            period: cdk.Duration.minutes(1),
+            statistic: "Maximum",
+          }),
+          threshold: 85,
+          evaluationPeriods: 1,
+          comparisonOperator:
+            cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+          treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
+        },
+      );
+      props.alarmAction?.addAlarmActions({
+        alarm: memoryAlarm,
+        action: props.alarmAction,
+      });
+
+      // (a) EventBridge rule on ECS OOM. The exit-137/OutOfMemory label lives only
+      // in the ECS Task State Change event, so route it to a durable metric.
+      // rule → Logs log group + metric filter emitting COA/Ontology InductionTaskOOMKilled → alarm;
+      // the log group also keeps the raw stop events for post-mortems.
+      const oomLogGroup = new logs.LogGroup(this, "OomEventLogGroup", {
+        logGroupName: `/aws/events/${this.prefixed("ontology-oom")}`,
+        retention: logs.RetentionDays.ONE_MONTH,
+        removalPolicy: cdk.RemovalPolicy.DESTROY,
+      });
+
+      new events.Rule(this, "OntologyTaskOomRule", {
+        ruleName: this.prefixed("ontology-oom"),
+        description:
+          "Ontology induction ECS task stopped by OOM (OutOfMemory reason, or an essential container that exited 137)",
+        eventPattern: {
+          source: ["aws.ecs"],
+          detailType: ["ECS Task State Change"],
+          detail: {
+            clusterArn: [cluster.clusterArn],
+            lastStatus: ["STOPPED"],
+            // Exit 137 alone is any SIGKILL, including ECS killing a task that
+            // outlived its stop timeout during a deploy (stopCode
+            // ServiceSchedulerInitiated). Count it only when the essential
+            // container died on its own; an OOM during a stop still matches on
+            // its OutOfMemory reason.
+            $or: [
+              { stoppedReason: [{ wildcard: "*OutOfMemory*" }] },
+              { containers: { reason: [{ wildcard: "*OutOfMemory*" }] } },
+              {
+                stopCode: ["EssentialContainerExited"],
+                containers: { exitCode: [137] },
+              },
+            ],
+          },
+        },
+        targets: [new targets.CloudWatchLogGroup(oomLogGroup)],
+      });
+
+      // Metric filter — every event delivered to the log group is an OOM stop
+      // (the rule already filtered), so match all events and emit a count of 1.
+      new logs.MetricFilter(this, "OomEventMetricFilter", {
+        logGroup: oomLogGroup,
+        filterPattern: logs.FilterPattern.allEvents(),
+        metricNamespace: "COA/Ontology",
         metricName: "InductionTaskOOMKilled",
-        statistic: "Sum",
-        period: cdk.Duration.minutes(5),
-      }),
-      threshold: 1,
-      evaluationPeriods: 1,
-      comparisonOperator:
-        cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-      treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
-    });
-    props.alarmAction?.addAlarmActions({
-      alarm: oomAlarm,
-      action: props.alarmAction,
-    });
+        metricValue: "1",
+        defaultValue: 0,
+      });
+
+      const oomAlarm = new cloudwatch.Alarm(
+        this,
+        "InductionTaskOomKilledAlarm",
+        {
+          alarmName: this.prefixed("ontology-oom-killed"),
+          alarmDescription:
+            "An ontology induction ECS task was OOM-killed (exit 137) — right-size memory or shard the workload",
+          metric: new cloudwatch.Metric({
+            namespace: "COA/Ontology",
+            metricName: "InductionTaskOOMKilled",
+            statistic: "Sum",
+            period: cdk.Duration.minutes(5),
+          }),
+          threshold: 1,
+          evaluationPeriods: 1,
+          comparisonOperator:
+            cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+          treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
+        },
+      );
+      props.alarmAction?.addAlarmActions({
+        alarm: oomAlarm,
+        action: props.alarmAction,
+      });
+    } else {
+      new SclMonitoring(this, "Monitoring", {
+        alarmNamePrefix: this.prefixed("ontology"),
+        alarmAction: props.alarmAction,
+      }).monitorTable(this.table);
+    }
 
     // CloudWatch Dashboard — Induction Performance, Load & Cost. The container emits all
     // custom metrics under COA/Ontology via PutMetricData (EMF is not extracted on this task).
@@ -1007,22 +1109,26 @@ export class OntologyStack extends SCLStack {
         width: 12,
         height: 6,
       }),
-      new cloudwatch.GraphWidget({
-        title: "ECS service utilization (%)",
-        left: [
-          this.service.metricCpuUtilization({
-            period: defaultPeriod,
-            label: "CPU",
-          }),
-          this.service.metricMemoryUtilization({
-            period: defaultPeriod,
-            label: "Memory",
-          }),
-        ],
-        leftYAxis: { label: "%", min: 0, max: 100, showUnits: false },
-        width: 12,
-        height: 6,
-      }),
+      ...(this.service
+        ? [
+            new cloudwatch.GraphWidget({
+              title: "ECS service utilization (%)",
+              left: [
+                this.service.metricCpuUtilization({
+                  period: defaultPeriod,
+                  label: "CPU",
+                }),
+                this.service.metricMemoryUtilization({
+                  period: defaultPeriod,
+                  label: "Memory",
+                }),
+              ],
+              leftYAxis: { label: "%", min: 0, max: 100, showUnits: false },
+              width: 12,
+              height: 6,
+            }),
+          ]
+        : []),
     );
 
     dashboard.addWidgets(
@@ -1043,15 +1149,17 @@ export class OntologyStack extends SCLStack {
     );
 
     // SSM Parameters
-    new ssm.StringParameter(this, "SsmOntologyClusterArn", {
-      parameterName: `${ssmPrefix}/ontology-engine/cluster-arn`,
-      stringValue: this.cluster.clusterArn,
-    });
+    if (this.cluster && this.service) {
+      new ssm.StringParameter(this, "SsmOntologyClusterArn", {
+        parameterName: `${ssmPrefix}/ontology-engine/cluster-arn`,
+        stringValue: this.cluster.clusterArn,
+      });
 
-    new ssm.StringParameter(this, "SsmOntologyServiceName", {
-      parameterName: `${ssmPrefix}/ontology-engine/service-name`,
-      stringValue: this.service.serviceName,
-    });
+      new ssm.StringParameter(this, "SsmOntologyServiceName", {
+        parameterName: `${ssmPrefix}/ontology-engine/service-name`,
+        stringValue: this.service.serviceName,
+      });
+    }
 
     // Republishing the Cloud Map namespace ARN keeps the network-stack export: the deployed
     // ontology stack still imports it, and CFN refuses to drop an imported export.
@@ -1072,72 +1180,80 @@ export class OntologyStack extends SCLStack {
       stringValue: this.table.tableName,
     });
 
-    // API Proxy Lambda (forwards API Gateway → ECS via Cloud Map DNS)
-    const apiProxyFn = new lambda.Function(this, "ApiProxyFn", {
-      functionName: this.prefixed(ONTOLOGY_API_PROXY_FUNCTION_NAME),
-      runtime: lambda.Runtime.PYTHON_3_12,
-      handler: "coa_ontology.api_proxy_handler.handler",
-      // Merges libs/common/src into the asset root so
-      // `coa_common` (used for resolve_region) is importable.
-      // Its runtime deps (structlog, pydantic-settings, etc. — see
-      // libs/common/pyproject.toml) are listed in the requirements file next
-      // to the handler's lock, since the Lambda has no package of its own.
-      code: bundlePython({
-        srcDirs: [Paths.ontologyEngineSrc, Paths.commonLib],
-        requirementsFile: fromRoot(
-          "packages/ontology-engine/lambda/api-proxy/requirements.lock.txt",
-        ),
-      }),
-      timeout: cdk.Duration.seconds(60),
-      memorySize: 256,
-      vpc,
-      vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
-      securityGroups: [props.network.lambdaSecurityGroup],
-      environment: {
-        // Use the FQDN under the Cloud Map private DNS namespace. The short
-        // name ``ontology-engine`` only resolves from inside ECS tasks
-        // (which inject the namespace as a search domain); Lambda's
-        // resolver requires the fully-qualified name.
-        ONTOLOGY_ENGINE_ENDPOINT: `http://ontology-engine.${namespace.namespaceName}:${this.containerPort}`,
-        SOURCES_TABLE: sourcesTableName,
-        NEPTUNE_ENDPOINT: props.neptuneClusterEndpoint,
-        OPENSEARCH_ENDPOINT: opensearchEndpoint,
-        ALLOWED_ORIGIN: props.allowedOrigin,
-      },
-    });
-    // StartInduction is retry-safe with a clientToken; the proxy (not the ECS
-    // service) enforces it because only it sees the caller identity.
-    grantIdempotencyTable(this, apiProxyFn);
-    // System-health check describes only the sources table (SOURCES_TABLE).
-    apiProxyFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        sid: "HealthCheckDescribeSourcesTable",
-        actions: ["dynamodb:DescribeTable"],
-        resources: [srcTable.tableArn],
-      }),
-    );
-    apiProxyFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["neptune-db:ReadDataViaQuery", "neptune-db:GetQueryStatus"],
-        resources: [props.neptuneClusterArn],
-      }),
-    );
-    // aoss:BatchGetCollection does not support resource-level permissions
-    // (AWS limitation — no resource type in the Service Authorization
-    // Reference), so it must use "*". It is a read-only control-plane call
-    // returning collection metadata (status, endpoints), never index data.
-    apiProxyFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        sid: "HealthCheckBatchGetCollection",
-        actions: ["aoss:BatchGetCollection"],
-        resources: ["*"],
-      }),
-    );
+    if (!useLambda) {
+      // API Proxy Lambda (forwards API Gateway → ECS via Cloud Map DNS)
+      const apiProxyFn = new lambda.Function(this, "ApiProxyFn", {
+        functionName: this.prefixed(ONTOLOGY_API_PROXY_FUNCTION_NAME),
+        runtime: lambda.Runtime.PYTHON_3_12,
+        handler: "coa_ontology.api_proxy_handler.handler",
+        // Merges libs/common/src into the asset root so
+        // `coa_common` (used for resolve_region) is importable.
+        // Its runtime deps (structlog, pydantic-settings, etc. — see
+        // libs/common/pyproject.toml) are listed in the requirements file next
+        // to the handler's lock, since the Lambda has no package of its own.
+        code: bundlePython({
+          srcDirs: [Paths.ontologyEngineSrc, Paths.commonLib],
+          requirementsFile: fromRoot(
+            "packages/ontology-engine/lambda/api-proxy/requirements.lock.txt",
+          ),
+        }),
+        timeout: cdk.Duration.seconds(60),
+        memorySize: 256,
+        vpc,
+        vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+        securityGroups: [props.network.lambdaSecurityGroup],
+        environment: {
+          // Use the FQDN under the Cloud Map private DNS namespace. The short
+          // name ``ontology-engine`` only resolves from inside ECS tasks
+          // (which inject the namespace as a search domain); Lambda's
+          // resolver requires the fully-qualified name.
+          ONTOLOGY_ENGINE_ENDPOINT: `http://ontology-engine.${namespace.namespaceName}:${this.containerPort}`,
+          SOURCES_TABLE: sourcesTableName,
+          NEPTUNE_ENDPOINT: props.neptuneClusterEndpoint,
+          OPENSEARCH_ENDPOINT: opensearchEndpoint,
+          ALLOWED_ORIGIN: props.allowedOrigin,
+        },
+      });
+      // StartInduction is retry-safe with a clientToken; the proxy (not the ECS
+      // service) enforces it because only it sees the caller identity.
+      grantIdempotencyTable(this, apiProxyFn);
+      // System-health check describes only the sources table (SOURCES_TABLE).
+      apiProxyFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          sid: "HealthCheckDescribeSourcesTable",
+          actions: ["dynamodb:DescribeTable"],
+          resources: [srcTable.tableArn],
+        }),
+      );
+      apiProxyFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["neptune-db:ReadDataViaQuery", "neptune-db:GetQueryStatus"],
+          resources: [props.neptuneClusterArn],
+        }),
+      );
+      // aoss:BatchGetCollection does not support resource-level permissions
+      // (AWS limitation — no resource type in the Service Authorization
+      // Reference), so it must use "*". It is a read-only control-plane call
+      // returning collection metadata (status, endpoints), never index data.
+      apiProxyFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          sid: "HealthCheckBatchGetCollection",
+          actions: ["aoss:BatchGetCollection"],
+          resources: ["*"],
+        }),
+      );
 
-    new ssm.StringParameter(this, "SsmOntologyApiFnArn", {
-      parameterName: `${ssmPrefix}/ontology-engine/api-fn-arn`,
-      stringValue: apiProxyFn.functionArn,
-    });
+      new ssm.StringParameter(this, "SsmOntologyApiFnArn", {
+        parameterName: `${ssmPrefix}/ontology-engine/api-fn-arn`,
+        stringValue: apiProxyFn.functionArn,
+      });
+    } else {
+      // The full ontology-engine Lambda is the API proxy on this path.
+      new ssm.StringParameter(this, "SsmOntologyApiFnArn", {
+        parameterName: `${ssmPrefix}/ontology-engine/api-fn-arn`,
+        stringValue: ontologyLambdaFn!.functionArn,
+      });
+    }
 
     // Outputs
     new cdk.CfnOutput(this, "OntologyServiceEndpoint", {

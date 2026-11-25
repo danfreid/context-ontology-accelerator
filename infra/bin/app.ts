@@ -13,6 +13,7 @@ import {
   DEFAULT_RESOURCE_PREFIX,
   DEFAULT_ENV,
 } from "../lib/constants";
+import { resolveBackendFlags } from "../lib/context";
 import { Paths } from "../lib/paths";
 import { SsmConfig, CustomDomainConfig, IdpType } from "../lib/types";
 import {
@@ -124,6 +125,7 @@ async function deploy(): Promise<void> {
   const importingVpc = !!(app.node.tryGetContext("vpc_id") as
     | string
     | undefined);
+  const flags = resolveBackendFlags(app.node);
   let agentCoreAzNames: string[] | undefined;
   if (!importingVpc && hasCredentials) {
     // The OpenSearch Serverless control-plane VPC endpoint
@@ -132,10 +134,14 @@ async function deploy(): Promise<void> {
     // Runtime ENIs and the AOSS endpoint land on valid zones (e.g. in
     // us-east-1, AgentCore allows {1a,1b,1c} but AOSS only {1b,1c,1d} — the
     // intersection {1b,1c} avoids the 1a endpoint-create failure).
-    const aossAzNames = await resolveEndpointServiceAzNames(
-      deployRegion,
-      `com.amazonaws.${deployRegion}.aoss`,
-    );
+    // Skipped with vector_backend=pgvector: that path creates no AOSS endpoint.
+    const aossAzNames =
+      flags.vectorBackend !== "pgvector"
+        ? await resolveEndpointServiceAzNames(
+            deployRegion,
+            `com.amazonaws.${deployRegion}.aoss`,
+          )
+        : undefined;
     agentCoreAzNames = await resolveAgentCoreAzNames(
       deployRegion,
       2,
