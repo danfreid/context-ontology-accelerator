@@ -9,6 +9,8 @@ CREATE EXTENSION IF NOT EXISTS vector;     -- pgvector: embedding similarity sea
 -- Keyword search uses built-in tsvector + ts_rank (GIN index); merge with pgvector
 -- results by reciprocal rank fusion in SQL. ParadeDB pg_search is not supported on Aurora.
 CREATE EXTENSION IF NOT EXISTS pgrouting;  -- shortest-path / Dijkstra graph traversal
+CREATE EXTENSION IF NOT EXISTS pg_trgm;       -- trigram similarity: typo-tolerant entity-name matching
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch; -- levenshtein / soundex, for re-checking close trigram matches
 
 -- ── DynamoDB replacement tables ────────────────────────────────────────────
 -- TODO: mirror DynamoDB table schema here. Derive it from the single-table
@@ -95,3 +97,20 @@ CREATE TABLE IF NOT EXISTS search_term_stats (
     doc_freq   BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (namespace, term)
 );
+
+-- ── Fuzzy and prefix matching (counterparty / entity names) ────────────────
+-- Needed because tsvector alone cannot match "Glencor" to "Glencore" or
+-- "Harbour" to "Harbor". Labels and aliases get a trigram index; the trigram
+-- similarity score is a third input to the reciprocal rank fusion.
+CREATE TABLE IF NOT EXISTS entity_label (
+    entity_id  TEXT NOT NULL,
+    namespace  TEXT NOT NULL,
+    label      TEXT NOT NULL,
+    kind       TEXT NOT NULL DEFAULT 'label',          -- 'label' | 'alias'
+    PRIMARY KEY (entity_id, label)
+);
+CREATE INDEX IF NOT EXISTS entity_label_trgm_idx
+    ON entity_label USING GIN (label gin_trgm_ops);
+--   fuzzy:  SELECT entity_id, similarity(label, $1) AS s FROM entity_label
+--           WHERE label % $1 AND namespace = $2 ORDER BY s DESC LIMIT 50;
+--   prefix: to_tsquery('english', 'harb:*') matches partial words in search_doc.tsv.
