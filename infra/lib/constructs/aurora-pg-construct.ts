@@ -22,8 +22,9 @@ export interface AuroraPgProps {
  * Serverless and the DynamoDB metadata tables on the cost-optimised path.
  *
  * - pgvector: vector similarity search (replaces the AOSS VECTORSEARCH collection).
- * - pg_search (ParadeDB): BM25 full-text search, combined with pgvector through
- *   reciprocal rank fusion for hybrid search.
+ * - tsvector / ts_rank (built in): keyword search, merged with pgvector results
+ *   by reciprocal rank fusion in SQL for hybrid search. ParadeDB pg_search is
+ *   not in Aurora's supported-extension list, so it is not used here.
  * - pgrouting: shortest-path / Dijkstra traversal.
  * - Data API enabled, so Lambda reaches the cluster without a VPC-bound JDBC pool.
  *
@@ -55,8 +56,9 @@ export class AuroraPg extends SCLConstruct {
       }),
       description: "SemanticContext Aurora PostgreSQL 16 parameters",
       parameters: {
-        shared_preload_libraries:
-          "pg_stat_statements,pgvector,pg_search,pgrouting",
+        // Only libraries that need preloading. vector and pgrouting are plain
+        // CREATE EXTENSION; an unknown name here stops the instance starting.
+        shared_preload_libraries: "pg_stat_statements",
         // Serverless v2 at min ACU 0 starts with few slots; 200 is a safe ceiling.
         max_connections: "200",
       },
@@ -111,8 +113,8 @@ export class AuroraPg extends SCLConstruct {
     // Parallel to /opensearch/endpoint: tells app code which search path to use.
     new ssm.StringParameter(this, "SsmHybridSearchBackend", {
       parameterName: `${ssmPrefix}/opensearch/hybrid-search-backend`,
-      stringValue: "pgvector+pg_search",
-      description: "Hybrid search backend (pgvector + ParadeDB pg_search BM25)",
+      stringValue: "pgvector+tsvector",
+      description: "Hybrid search backend (pgvector + tsvector/ts_rank, RRF in SQL)",
     });
 
     new cdk.CfnOutput(this, "AuroraClusterEndpointOutput", {

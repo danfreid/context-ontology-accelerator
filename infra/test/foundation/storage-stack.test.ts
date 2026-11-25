@@ -509,11 +509,10 @@ describe("StorageStack Aurora path", () => {
     });
   });
 
-  it("loads pgvector, pg_search and pgrouting through the parameter group", () => {
+  it("preloads only pg_stat_statements (vector/pgrouting need no preload)", () => {
     buildAurora().hasResourceProperties("AWS::RDS::DBClusterParameterGroup", {
       Parameters: Match.objectLike({
-        shared_preload_libraries:
-          "pg_stat_statements,pgvector,pg_search,pgrouting",
+        shared_preload_libraries: "pg_stat_statements",
       }),
     });
   });

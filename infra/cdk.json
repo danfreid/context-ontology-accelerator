@@ -3,7 +3,7 @@
   "context": {
     "env": "dev",
     "//": "Emit templates without indentation. The control-plane API stack embeds the generated OpenAPI spec, which had pushed its template to 1,007,482 bytes — past CloudFormation's 1,000,000-byte ceiling, so it could not be deployed and CDK could not even build a change set for it. Dropping indentation takes that template to 590,805 bytes. Templates in cdk.out become one long line; use `cdk synth <stack>` or pipe through a formatter when reading them by hand.",
-    "// switchable-backends": "graph_backend: neptune|aurora (default neptune), vector_backend: aoss|pgvector (default aoss), metadata_backend: dynamodb|aurora (default dynamodb), compute_backend: fargate|lambda (default fargate). NOTE: vector_backend=pgvector provisions pgvector + ParadeDB pg_search (BM25 hybrid search) + pgRouting as a full AOSS replacement in a single Aurora cluster — no separate OpenSearch collection. Set via -c or SCL_* env vars in deploy scripts.",
+    "// switchable-backends": "graph_backend: neptune|aurora (default neptune), vector_backend: aoss|pgvector (default aoss), metadata_backend: dynamodb|aurora (default dynamodb), compute_backend: fargate|lambda (default fargate). NOTE: vector_backend=pgvector provisions pgvector + tsvector/ts_rank keyword search (RRF in SQL) + pgRouting as a full AOSS replacement in a single Aurora cluster — no separate OpenSearch collection. Set via -c or SCL_* env vars in deploy scripts.",
     "@aws-cdk/core:suppressTemplateIndentation": true
   }
 }

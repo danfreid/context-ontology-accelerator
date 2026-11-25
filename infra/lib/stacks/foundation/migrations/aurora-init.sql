@@ -6,7 +6,8 @@
 
 -- ── Extensions ─────────────────────────────────────────────────────────────
 CREATE EXTENSION IF NOT EXISTS vector;     -- pgvector: embedding similarity search
-CREATE EXTENSION IF NOT EXISTS pg_search;  -- ParadeDB: BM25 full-text; combine with pgvector via reciprocal rank fusion
+-- Keyword search uses built-in tsvector + ts_rank (GIN index); merge with pgvector
+-- results by reciprocal rank fusion in SQL. ParadeDB pg_search is not supported on Aurora.
 CREATE EXTENSION IF NOT EXISTS pgrouting;  -- shortest-path / Dijkstra graph traversal
 
 -- ── DynamoDB replacement tables ────────────────────────────────────────────
