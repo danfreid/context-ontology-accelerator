@@ -20,6 +20,25 @@ def test_idf_non_negative_for_common_term() -> None:
     assert idf(10, 10) > 0
 
 
+def test_prefix_df_is_one_value_per_term_across_disjoint_expansions() -> None:
+    # "cop:*" expands to "copper" (df 2) in one document and "copperfield" (df 9) in another.
+    doc_freqs = {"copper": 2, "copperfield": 9}
+    a = Candidate("a", {"copper": 1}, 5)
+    b = Candidate("b", {"copperfield": 1}, 5)
+    stats = CorpusStats(20, 5.0, doc_freqs)
+    scores = {c.key: s for c, s in rank_bm25([a, b], stats, ["cop:*"])}
+    assert scores["a"] == pytest.approx(scores["b"])  # same df (max) for both candidates
+    assert scores["a"] == pytest.approx(bm25_score(["cop:*"], a.tf, 5, 5.0, 20, doc_freqs))
+    assert scores["a"] == pytest.approx(idf(20, 9) * 2.2 / 2.2)
+
+
+def test_term_without_stats_row_contributes_zero() -> None:
+    assert bm25_score(["ghost"], {"ghost": 3}, 5, 5.0, 10, {}) == 0.0
+    assert bm25_score(["gho:*"], {"ghost": 3}, 5, 5.0, 10, {"other": 4}) == 0.0
+    both = bm25_score(["ghost", "real"], {"ghost": 3, "real": 1}, 5, 5.0, 10, {"real": 2})
+    assert both == pytest.approx(bm25_score(["real"], {"real": 1}, 5, 5.0, 10, {"real": 2}))
+
+
 def test_single_term_known_answer() -> None:
     score = bm25_score(["a"], {"a": 1}, 10, 10.0, 10, {"a": 2})
     # doc_len == avg -> norm = k1; score = idf * (k1+1) / (1 + k1)

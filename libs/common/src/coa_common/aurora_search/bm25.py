@@ -17,18 +17,35 @@ def idf(n_docs: int, doc_freq: int) -> float:
     return math.log(1.0 + (n_docs - doc_freq + 0.5) / (doc_freq + 0.5))
 
 
-def _match(term: str, doc_tf: Mapping[str, int], doc_freqs: Mapping[str, int]) -> tuple[int, int]:
-    """Return (tf, df) for a query term. A term ending in ``:*`` or ``*`` is a prefix."""
-    if term.endswith(":*") or term.endswith("*"):
-        prefix = term[:-2] if term.endswith(":*") else term[:-1]
-        tf = 0
-        df = 0
-        for lexeme, count in doc_tf.items():
-            if lexeme.startswith(prefix):
-                tf += count
-                df = max(df, doc_freqs.get(lexeme, 0))
-        return tf, df
-    return doc_tf.get(term, 0), doc_freqs.get(term, 0)
+def _prefix_of(term: str) -> str | None:
+    """The prefix of a ``x:*`` / ``x*`` query term, or None for an exact term."""
+    if term.endswith(":*"):
+        return term[:-2]
+    if term.endswith("*"):
+        return term[:-1]
+    return None
+
+
+def term_doc_freqs(query_terms: Sequence[str], doc_freqs: Mapping[str, int]) -> dict[str, int]:
+    """Document frequency per query term. A prefix term takes the max over its expansions in ``doc_freqs``.
+
+    A term with no row in ``doc_freqs`` gets 0 and contributes no weight.
+    """
+    out: dict[str, int] = {}
+    for term in query_terms:
+        prefix = _prefix_of(term)
+        if prefix is None:
+            out[term] = doc_freqs.get(term, 0)
+        else:
+            out[term] = max((df for lexeme, df in doc_freqs.items() if lexeme.startswith(prefix)), default=0)
+    return out
+
+
+def _tf(term: str, doc_tf: Mapping[str, int]) -> int:
+    prefix = _prefix_of(term)
+    if prefix is None:
+        return doc_tf.get(term, 0)
+    return sum(count for lexeme, count in doc_tf.items() if lexeme.startswith(prefix))
 
 
 def bm25_score(
@@ -40,15 +57,22 @@ def bm25_score(
     doc_freqs: Mapping[str, int],
     k1: float = DEFAULT_K1,
     b: float = DEFAULT_B,
+    term_dfs: Mapping[str, int] | None = None,
 ) -> float:
-    """BM25 score of one document. Returns 0.0 for an empty corpus or a non-positive average length."""
+    """BM25 score of one document. Returns 0.0 for an empty corpus or a non-positive average length.
+
+    ``term_dfs`` is the per-query-term document frequency from ``term_doc_freqs``; it is computed
+    from ``doc_freqs`` when omitted. A term with no statistics row adds nothing.
+    """
     if avg_doc_len <= 0 or n_docs <= 0:
         return 0.0
+    dfs = term_dfs if term_dfs is not None else term_doc_freqs(query_terms, doc_freqs)
     score = 0.0
     norm = k1 * (1.0 - b + b * (doc_len / avg_doc_len))
     for term in query_terms:
-        tf, df = _match(term, doc_tf, doc_freqs)
-        if tf <= 0:
+        tf = _tf(term, doc_tf)
+        df = dfs.get(term, 0)
+        if tf <= 0 or df <= 0:
             continue
         score += idf(n_docs, df) * (tf * (k1 + 1.0)) / (tf + norm)
     return score
@@ -81,10 +105,11 @@ def rank_bm25(
     b: float = DEFAULT_B,
 ) -> list[tuple[Candidate, float]]:
     """Score candidates and sort by score descending, then key ascending."""
+    dfs = term_doc_freqs(query_terms, stats.doc_freqs)
     scored = [
         (
             c,
-            bm25_score(query_terms, c.tf, c.doc_len, stats.avg_doc_len, stats.n_docs, stats.doc_freqs, k1, b),
+            bm25_score(query_terms, c.tf, c.doc_len, stats.avg_doc_len, stats.n_docs, stats.doc_freqs, k1, b, dfs),
         )
         for c in candidates
     ]

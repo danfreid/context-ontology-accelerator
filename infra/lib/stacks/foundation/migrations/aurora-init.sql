@@ -116,8 +116,24 @@ CREATE TABLE IF NOT EXISTS entity_label (
     namespace  TEXT NOT NULL,
     label      TEXT NOT NULL,
     kind       TEXT NOT NULL DEFAULT 'label',          -- 'label' | 'alias'
-    PRIMARY KEY (entity_id, label)
+    PRIMARY KEY (namespace, entity_id, label)
 );
+-- Existing tables were created with PRIMARY KEY (entity_id, label), which let one
+-- namespace overwrite another's labels. Re-key idempotently.
+DO $$
+BEGIN
+    IF EXISTS (
+        SELECT 1
+        FROM pg_constraint c
+        WHERE c.conrelid = 'entity_label'::regclass
+          AND c.contype = 'p'
+          AND cardinality(c.conkey) = 2
+    ) THEN
+        ALTER TABLE entity_label DROP CONSTRAINT entity_label_pkey;
+        ALTER TABLE entity_label ADD PRIMARY KEY (namespace, entity_id, label);
+    END IF;
+END
+$$;
 CREATE INDEX IF NOT EXISTS entity_label_trgm_idx
     ON entity_label USING GIN (label gin_trgm_ops);
 --   fuzzy:  SELECT entity_id, similarity(label, $1) AS s FROM entity_label

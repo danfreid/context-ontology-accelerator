@@ -27,6 +27,8 @@ logger = logging.getLogger(__name__)
 
 DEFAULT_DIMENSIONS = 1024
 DEFAULT_DATABASE = "postgres"
+MIN_DIMENSIONS = 1
+MAX_DIMENSIONS = 2000  # HNSW on the ``vector`` type indexes at most 2000 dimensions
 
 
 class SearchBackend(StrEnum):
@@ -97,6 +99,10 @@ class AuroraConfig:
             dimensions = int(raw_dim)
         except ValueError as exc:
             raise RuntimeError(f"AURORA_VECTOR_DIMENSIONS must be an integer, got {raw_dim!r}") from exc
+        if not MIN_DIMENSIONS <= dimensions <= MAX_DIMENSIONS:
+            raise RuntimeError(
+                f"Aurora vector dimensions must be between {MIN_DIMENSIONS} and {MAX_DIMENSIONS}, got {dimensions}"
+            )
         return cls(
             cluster_arn=cluster_arn,
             secret_arn=secret_arn,

@@ -10,7 +10,6 @@ MAX_QUERY_TOKENS = 32
 MAX_TOKEN_LEN = 64
 
 _WORD_RE = re.compile(r"[^\W_]+", re.UNICODE)
-_TSQUERY_SAFE_RE = re.compile(r"[^a-z0-9_]")
 
 
 def tokenize(text: str) -> list[str]:
@@ -26,12 +25,15 @@ def tokenize(text: str) -> list[str]:
 
 
 def build_or_prefix_tsquery(text: str) -> str:
-    """Build ``'a:* | b:*'`` for ``to_tsquery``. Only ``[a-z0-9_]`` survives, so no operator can be injected."""
+    """Build ``'a':* | 'b':*`` for ``to_tsquery``.
+
+    Tokens are Unicode word characters only, and each lexeme is single-quoted with quote and
+    backslash escaped, so no operator can be injected.
+    """
     parts: list[str] = []
     for token in tokenize(text):
-        safe = _TSQUERY_SAFE_RE.sub("", token)
-        if safe:
-            parts.append(f"{safe}:*")
+        quoted = token.replace("\\", "\\\\").replace("'", "''")
+        parts.append(f"'{quoted}':*")
     return " | ".join(parts)
 
 

@@ -99,6 +99,18 @@ def test_dimensions_and_database() -> None:
         AuroraConfig.from_env({**base, "AURORA_VECTOR_DIMENSIONS": "abc"})
 
 
+@pytest.mark.parametrize("bad", ["0", "-1", "2001", "16000"])
+def test_dimensions_out_of_range_rejected(bad: str) -> None:
+    base = {"AURORA_CLUSTER_ARN": "arn:c", "AURORA_SECRET_ARN": "arn:s"}
+    with pytest.raises(RuntimeError, match="between 1 and 2000"):
+        AuroraConfig.from_env({**base, "AURORA_VECTOR_DIMENSIONS": bad})
+
+
+def test_dimensions_upper_bound_accepted() -> None:
+    base = {"AURORA_CLUSTER_ARN": "arn:c", "AURORA_SECRET_ARN": "arn:s"}
+    assert AuroraConfig.from_env({**base, "AURORA_VECTOR_DIMENSIONS": "2000"}).dimensions == 2000
+
+
 def test_import_coa_common_is_lazy() -> None:
     import coa_common
 

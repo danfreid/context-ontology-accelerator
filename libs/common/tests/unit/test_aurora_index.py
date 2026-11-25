@@ -162,7 +162,7 @@ def test_upsert_new_doc_adds_term_deltas_and_corpus_stats() -> None:
         body=ADVERSARIAL + " copper copper trade",
         entity_uri="urn:e:1",
         ontology_id="onto",
-        embedding=[0.5, 1.0],
+        embedding=[0.5, 1.0, 0.0],
         metadata={"data_source_id": "ds"},
         label="Glencore",
         aliases=["Glencor Intl"],
@@ -177,7 +177,12 @@ def test_upsert_new_doc_adds_term_deltas_and_corpus_stats() -> None:
     assert params["doc_id"] == doc_id_for("coa-onto-vec", doc)
     assert params["ns"] == "coa-onto-vec"
     assert params["doc_len"] == 3
-    assert params["embedding"] == "[0.5,1,0]"  # padded to 3 dimensions
+    assert params["embedding"] == "[0.5,1,0]"
+    lock = fake.find("pg_advisory_xact_lock", "execute")[0]
+    assert "hashtextextended(:scope, 0)" in lock[1]
+    assert lock[2] == {"scope": "coa-onto-vec"}
+    begin = next(i for i, e in enumerate(fake.events) if e[0] == "tx")
+    assert fake.events[begin + 1][1] == lock[1]  # first statement inside the transaction
     assert params["metadata"]["entity_uri"] == "urn:e:1"
     assert params["metadata"]["ontology_id"] == "onto"
     assert params["metadata"]["data_source_id"] == "ds"
@@ -189,15 +194,41 @@ def test_upsert_new_doc_adds_term_deltas_and_corpus_stats() -> None:
         ("Glencore", "label", "urn:e:1"),
         ("Glencor Intl", "alias", "urn:e:1"),
     }
+    assert "ON CONFLICT (namespace, entity_id, label)" in fake.find("INSERT INTO entity_label", "batch")[0][1]
     assert len(fake.find("CREATE INDEX")) == 1
     assert_only_placeholders(fake, [ADVERSARIAL, "Glencore", "urn:e:1"])
     assert [e[1] for e in fake.events if e[0] == "tx"] == ["BEGIN", "COMMIT"]
 
 
-def test_upsert_truncates_long_embedding() -> None:
+@pytest.mark.parametrize("embedding", [[1, 2, 3, 4, 5], [1, 2]])
+def test_upsert_dimension_mismatch_raises(embedding: list[float]) -> None:
     idx, fake = make(upsert_handler([], "'a':1"))
-    idx.upsert_docs("s", [SearchDoc(body="a", entity_uri="e", embedding=[1, 2, 3, 4, 5])])
-    assert fake.find("INSERT INTO search_doc", "execute")[0][2]["embedding"] == "[1,2,3]"
+    with pytest.raises(ValueError, match="dimensions"):
+        idx.upsert_docs("s", [SearchDoc(body="a", entity_uri="e", embedding=embedding)])
+    assert fake.find("INSERT INTO search_doc", "execute") == []
+
+
+def test_vector_search_dimension_mismatch_raises() -> None:
+    idx, fake = make()
+    with pytest.raises(ValueError, match="dimensions"):
+        idx.vector_search("s", [1, 0], 5)
+    assert fake.events == []
+
+
+def test_upsert_reconciles_removed_labels() -> None:
+    idx, fake = make(upsert_handler([], "'a':1"))
+    idx.upsert_docs("s", [SearchDoc(body="a", entity_uri="e1", label="New Name", aliases=["Alias"])])
+    stale = fake.find("DELETE FROM entity_label", "batch")[0]
+    assert "namespace = :ns AND entity_id = :entity_id" in stale[1]
+    assert "NOT IN (SELECT jsonb_array_elements_text(CAST(:labels AS jsonb)))" in stale[1]
+    assert stale[2] == [{"ns": "s", "entity_id": "e1", "labels": ["Alias", "New Name"]}]
+    assert_only_placeholders(fake, ["New Name"])
+
+
+def test_upsert_without_labels_keeps_existing_labels() -> None:
+    idx, fake = make(upsert_handler([], "'a':1"))
+    idx.upsert_docs("s", [SearchDoc(body="a", entity_uri="e1")])
+    assert fake.find("entity_label") == []
 
 
 def test_upsert_without_embedding_skips_index_creation() -> None:
@@ -256,7 +287,7 @@ def test_delete_docs_applies_negative_deltas_and_removes_zero_rows() -> None:
     calls = {"n": 0}
 
     def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
-        if "SELECT doc_id, to_jsonb" in sql:
+        if "DELETE FROM search_doc WHERE doc_id IN" in sql:
             calls["n"] += 1
             if calls["n"] == 1:
                 return [
@@ -270,19 +301,35 @@ def test_delete_docs_applies_negative_deltas_and_removes_zero_rows() -> None:
     assert term_sets(fake) == {"a": -2, "b": -1}
     assert corpus_params(fake) == {"ns": "s", "dc": -2, "dl": -6}
     assert len(fake.find("DELETE FROM search_term_stats WHERE namespace = :ns AND doc_freq <= 0")) == 1
-    assert len(fake.find("DELETE FROM search_doc", "execute")) == 1
+    deletes = fake.find("DELETE FROM search_doc", "execute")
+    assert len(deletes) == 2  # one batch with rows, one empty batch ending the loop
+    assert "RETURNING doc_id" in deletes[0][1]
+    assert len(fake.find("pg_advisory_xact_lock", "execute")) == 2
     label_delete = fake.find("DELETE FROM entity_label", "execute")[0]
     assert label_delete[2]["eids"] == ["e1", "e2"]
-    select = fake.find("SELECT doc_id, to_jsonb", "execute")[0]
+    select = deletes[0]
     assert "metadata @> CAST(:fm AS jsonb)" in select[1]
     assert select[2]["fm"] == {"ontology_id": ADVERSARIAL}
     assert_only_placeholders(fake, [ADVERSARIAL])
 
 
+def test_delete_docs_applies_deltas_only_for_rows_actually_deleted() -> None:
+    # The statement returns one row although two ids matched earlier: a concurrent delete won the other.
+    returned = iter([[{"doc_id": "d1", "terms": ["a"], "doc_len": 3, "entity_key": "e1"}], []])
+
+    def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
+        return next(returned) if "DELETE FROM search_doc WHERE doc_id IN" in sql else []
+
+    idx, fake = make(handler)
+    assert idx.delete_docs("s", doc_ids=["d1", "d2"]) == 1
+    assert term_sets(fake) == {"a": -1}
+    assert corpus_params(fake) == {"ns": "s", "dc": -1, "dl": -3}
+
+
 def test_delete_docs_by_ids() -> None:
     idx, fake = make()
     assert idx.delete_docs("s", doc_ids=["d1"]) == 0
-    select = fake.find("SELECT doc_id, to_jsonb", "execute")[0]
+    select = fake.find("DELETE FROM search_doc", "execute")[0]
     assert "doc_id IN" in select[1]
     assert select[2]["dids"] == ["d1"]
 
@@ -308,11 +355,13 @@ def test_delete_scope_loops_until_empty_and_clears_stats() -> None:
     assert len(chunk_deletes) == 3
     assert "ctid IN" in chunk_deletes[0][1]
     assert chunk_deletes[0][2]["lim"] == 5000
-    tail = [e[1] for e in fake.events[-3:]]
-    assert tail == [
+    kinds = [e[1] for e in fake.events]
+    assert kinds[0] == "BEGIN" and kinds[-1] == "COMMIT"
+    assert "pg_advisory_xact_lock" in kinds[1]
+    assert kinds[-4:-1] == [
+        "DELETE FROM entity_label WHERE namespace = :ns",
         "DELETE FROM search_term_stats WHERE namespace = :ns",
         "DELETE FROM search_corpus_stats WHERE namespace = :ns",
-        "DELETE FROM entity_label WHERE namespace = :ns",
     ]
 
 
@@ -416,7 +465,7 @@ def test_keyword_search_recalls_then_ranks_by_bm25() -> None:
     assert "to_tsquery('english', :q)" in recall_sql
     assert "ORDER BY rank DESC" in recall_sql
     assert recall_params["recall"] == 200
-    assert all(re.fullmatch(r"[a-z0-9_]+:\*", t) for t in recall_params["q"].split(" | "))
+    assert all(re.fullmatch(r"'[a-z0-9_]+':\*", t) for t in recall_params["q"].split(" | "))
     stats_params = fake.find("search_corpus_stats", "execute")[0][2]
     assert stats_params["terms"] == ["copper"]
     assert_only_placeholders(fake, [ADVERSARIAL, "DROP TABLE search_doc;"])
@@ -442,6 +491,57 @@ def test_keyword_search_phrases_report_matches() -> None:
     assert recall_sql.count("phraseto_tsquery('english', :ph") >= 2
     assert params["ph0"] == "master netting"
     assert params["ph1"] == "force majeure"
+
+
+def test_keyword_search_phrase_only_recall_ranks_by_phrase_rank() -> None:
+    idx, fake = make(keyword_handler([], []))
+    idx.keyword_search("s", "", top_k=5, phrases=["master netting", "force majeure"])
+    sql, params = fake.find("ts_rank", "execute")[0][1:]
+    assert "to_tsquery('english', :q)" not in sql
+    assert "q" not in params
+    assert "GREATEST(ts_rank(tsv, phraseto_tsquery('english', :ph0)), ts_rank(tsv, phraseto_tsquery" in sql
+    assert "ORDER BY rank DESC, doc_id LIMIT :recall" in sql
+    assert_only_placeholders(fake, [])
+
+
+def test_keyword_search_mixed_recall_takes_greatest_rank() -> None:
+    idx, fake = make(keyword_handler([], []))
+    idx.keyword_search("s", "copper", top_k=5, phrases=["master netting"])
+    sql = fake.find("ts_rank", "execute")[0][1]
+    assert "GREATEST(ts_rank(tsv, to_tsquery('english', :q)), ts_rank(tsv, phraseto_tsquery('english', :ph0)))" in sql
+
+
+def test_keyword_search_single_phrase_has_no_greatest() -> None:
+    idx, fake = make(keyword_handler([], []))
+    idx.keyword_search("s", "", top_k=5, phrases=["master netting"])
+    sql = fake.find("ts_rank", "execute")[0][1]
+    assert "GREATEST" not in sql
+    assert "ts_rank(tsv, phraseto_tsquery('english', :ph0)) AS rank" in sql
+
+
+def test_fuzzy_entities_applies_document_filters_server_side() -> None:
+    idx, fake = make()
+    idx.fuzzy_entities("s", "Glencore", filters={"ontology_ids": ["o1"], "require_mapped": True})
+    sql, params = fake.find("FROM entity_label", "execute")[0][1:]
+    assert "EXISTS (SELECT 1 FROM search_doc d WHERE d.namespace = :ns" in sql
+    assert "= entity_label.entity_id" in sql
+    assert "metadata @> CAST(" in sql
+    assert {"ontology_id": "o1"} in params.values()
+    assert_only_placeholders(fake, [])
+
+
+def test_fuzzy_entities_without_filters_has_no_exists() -> None:
+    idx, fake = make()
+    idx.fuzzy_entities("s", "Glencore")
+    assert "EXISTS" not in fake.find("FROM entity_label", "execute")[0][1]
+
+
+def test_search_passes_filters_to_fuzzy_lookup() -> None:
+    idx, fake = make()
+    idx.search("s", "copper", vector=[1, 0, 0], filters={"ontology_ids": ["o1"]})
+    sql, params = fake.find("FROM entity_label", "execute")[0][1:]
+    assert "EXISTS" in sql
+    assert {"ontology_id": "o1"} in params.values()
 
 
 def test_keyword_search_without_tokens_makes_no_call() -> None:

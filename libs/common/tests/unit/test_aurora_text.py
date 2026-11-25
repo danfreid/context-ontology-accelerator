@@ -26,13 +26,13 @@ def test_tokenize_empty() -> None:
 
 
 def test_prefix_tsquery_or_joined() -> None:
-    assert build_or_prefix_tsquery("harb copper") == "harb:* | copper:*"
+    assert build_or_prefix_tsquery("harb copper") == "'harb':* | 'copper':*"
 
 
 def test_tsquery_strips_operators() -> None:
     q = build_or_prefix_tsquery("a & b | !c ' ; :* ( ) <-> d\\")
-    assert q == "a:* | b:* | c:* | d:*"
-    assert set(q) <= set("abcd:* |")
+    assert q == "'a':* | 'b':* | 'c':* | 'd':*"
+    assert set(q) <= set("abcd':* |")
 
 
 def test_tsquery_empty_input() -> None:
@@ -40,10 +40,25 @@ def test_tsquery_empty_input() -> None:
     assert build_or_prefix_tsquery("&|!") == ""
 
 
-def test_tsquery_unicode_tokens_keep_only_safe_chars() -> None:
-    assert build_or_prefix_tsquery("café Zürich") == "caf:* | zrich:*"
-    assert build_or_prefix_tsquery("日本") == ""
+def test_tsquery_keeps_unicode_word_characters() -> None:
+    assert build_or_prefix_tsquery("café Zürich") == "'café':* | 'zürich':*"
     assert tokenize("café Zürich") == ["café", "zürich"]
+
+
+def test_tsquery_cjk_query_is_not_empty() -> None:
+    assert build_or_prefix_tsquery("日本 銀行") == "'日本':* | '銀行':*"
+
+
+def test_tsquery_quotes_each_lexeme_and_escapes() -> None:
+    from coa_common.aurora_search import text
+
+    # Tokens never contain quotes or backslashes, but the quoting step must still escape them.
+    original = text.tokenize
+    text.tokenize = lambda _t: ["o'neil", "a\\b"]  # type: ignore[assignment]
+    try:
+        assert build_or_prefix_tsquery("ignored") == "'o''neil':* | 'a\\\\b':*"
+    finally:
+        text.tokenize = original
 
 
 def test_tsquery_token_cap() -> None:
