@@ -90,7 +90,11 @@ def _parse_args() -> argparse.Namespace:
     return p.parse_args()
 
 
+_CONFIG_DIR = Path(__file__).parent  # base for relative ``source_file`` paths; set by load_config
+
+
 def load_config(config_path: Path | None = None) -> dict:
+    global _CONFIG_DIR
     path = config_path or _DEFAULT_CONFIG_PATH
     # A bare name like ``config-fsi-commodity.yaml`` also resolves next to this script.
     if not path.exists() and not path.is_absolute() and (Path(__file__).parent / path).exists():
@@ -100,7 +104,8 @@ def load_config(config_path: Path | None = None) -> dict:
         if config_path is None:
             console.print("  Run: cp demo/config-example.yaml demo/config.yaml")
         sys.exit(1)
-    with open(path) as f:
+    _CONFIG_DIR = path.resolve().parent
+    with open(path, encoding="utf-8") as f:
         return yaml.safe_load(f)
 
 
@@ -292,6 +297,60 @@ def _server_side_fetch(
         return None
 
 
+def _upload_local_file(entry: dict, tier: str) -> dict | None:
+    """Register an ontology from a local file through ``POST /ontologies/{id}/upload``.
+
+    Used for entries with ``source_file`` (a path relative to the config file) instead of
+    ``source_url``: the engine's fetch accepts https URLs only. When the entry has ``sha256``,
+    the file must match it. The upload ingest embeds every class itself, so the caller skips
+    the client-side embedding steps for these entries.
+    """
+    import hashlib
+    from urllib.parse import quote
+
+    path = (_CONFIG_DIR / entry["source_file"]).resolve()
+    if not path.is_file():
+        console.print(f"    [red]source_file not found: {path}[/]")
+        return None
+    data = path.read_bytes()
+    expected = entry.get("sha256")
+    if expected and hashlib.sha256(data).hexdigest() != expected:
+        console.print(f"    [red]sha256 mismatch for {path.name}; refusing to upload[/]")
+        return None
+
+    existing = _find_existing_ontology(entry["uri"])
+    if existing:
+        console.print(f"    [yellow]already registered[/] → id={existing['ontology_id']}")
+        return existing
+
+    form = {
+        "title": entry.get("title", entry["uri"]),
+        "ontology_type": entry.get("ontology_type", "foundational" if tier == "foundational" else "user_created"),
+        "format": entry.get("format", "turtle"),
+        "description": entry.get("description") or "",
+        "license": entry.get("license") or "",
+        "license_tier": entry.get("license_tier") or "",
+        "domain_tags": ",".join(entry.get("domain_tags", [])),
+    }
+    try:
+        resp = httpx.post(
+            f"{CATALOG_URL}/ontologies/{quote(entry['uri'], safe='')}/upload",
+            files={"file": (path.name, data, "text/turtle")},
+            data={k: v for k, v in form.items() if v},
+            timeout=900,  # ingest waits for embeddings; the largest files take minutes
+        )
+        resp.raise_for_status()
+    except httpx.HTTPError as e:
+        console.print(f"    [red]upload failed: {e}[/]")
+        return None
+    record = resp.json()
+    console.print(
+        f"      uploaded {path.name} ({len(data) // 1024} KB): "
+        f"{record.get('class_count')} classes, {record.get('property_count')} properties"
+    )
+    return record
+
+
 def load_ontologies(config: dict) -> list[dict]:
     """Register every grounding ontology in config.yaml — foundational AND customer-provided.
 
@@ -356,6 +415,14 @@ def load_ontologies(config: dict) -> list[dict]:
 
         title = entry.get("title", entry["uri"])
         console.print(f"    [bold]{title}[/] ({entry['uri']})")
+
+        if entry.get("source_file"):
+            record = _upload_local_file(entry, tier)
+            if record:
+                registered.append(
+                    {"record": record, "config": entry, "tier": tier, "extracted_properties": [], "uploaded": True}
+                )
+            continue
 
         record = _register_ontology(entry)
         if not record:
@@ -580,6 +647,9 @@ def generate_embeddings(registered: list[dict]):
     for item in registered:
         record = item["record"]
         cfg = item["config"]
+        if item.get("uploaded"):
+            console.print(f"  [bold]{cfg.get('title', record['uri'])}[/] — embedded during upload, skipped")
+            continue
         sample_classes = cfg.get("sample_classes", [])
         console.print(f"  [bold]{cfg.get('title', record['uri'])}[/] — {len(sample_classes)} sample classes")
         n = _embed_and_post(
@@ -617,6 +687,8 @@ def generate_property_embeddings(registered: list[dict]):
     for item in registered:
         record = item["record"]
         cfg = item["config"]
+        if item.get("uploaded"):
+            continue  # the upload ingest embedded its properties already
         curated = cfg.get("sample_properties", [])
         auto_extracted = item.get("extracted_properties", []) or []
 

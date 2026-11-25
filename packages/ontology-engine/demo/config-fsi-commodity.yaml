@@ -4,37 +4,39 @@
 #   python setup.py --config config-fsi-commodity.yaml
 #   python demo.py  --config config-fsi-commodity.yaml
 #
-# Covered by published ontologies in this pack:
-#   • Legal entity identity and ownership (GLEIF LEI Base/L1/L2, FIBO BE)
-#   • Counterparty identifiers for KYC onboarding (GLEIF, FIBO FND Parties)
-#   • Agreements and contracts, incl. collateral agreements (FIBO FND)
-#   • Accounts and credit accounts (FIBO FBC)
-#   • Derivatives, OTC and cleared; interest rate swaps (FIBO DER)
-#   • Trade documents and shipment: exchanged documents (invoice, BoL),
-#     product certificates, settlement, payment terms, consignment (UN/CEFACT)
+# Two kinds of entry:
+#   • source_url — fetched live by the engine. Used for the ontologies in the
+#     base COA foundational catalog (Schema.org, Dublin Core, PROV-O, and FIBO
+#     Agreements, Contracts, Financial Products and Services, Clients and
+#     Accounts), and for FIBO IR Swaps, Bonds, Basket Indices and GS1 EPCIS,
+#     which no uploaded snapshot covers.
+#   • source_file — an uploaded snapshot (tests/benchmark/fsi_commodity/
+#     ontologies/, pinned by sha256), loaded through the upload route under a
+#     urn:coa:fixture:fsi-commodity:<key> id: GLEIF LEI, FIBO (combined),
+#     UN/CEFACT, ISDA CDM, DCSA eBL, BFO 2020. The upload embeds every class.
+#
+# Covered:
+#   • Legal entity identity, LEI registration, ownership (GLEIF, FIBO BE)
+#   • Agreements, contracts, collateral agreements (FIBO FND)
+#   • Accounts, credit accounts, loans, debt (FIBO FBC, LOAN)
+#   • Derivatives OTC and cleared; interest rate swaps (FIBO DER)
+#   • ISDA Master Agreement and clauses, CSA thresholds and IM/VM margin,
+#     trade lifecycle, confirmations (ISDA CDM)
+#   • Bill of lading, shipper, consignee, notify party, cargo (DCSA eBL)
+#   • Trade documents, product certificates, settlement, payment terms (UN/CEFACT)
 #   • Lot tracking / chain of custody (GS1 EPCIS)
 #   • Document and email provenance (PROV-O, Dublin Core)
 #
-# Gaps — no published, loadable OWL/RDF exists, so the live pack cannot fetch them:
-#   • ISDA CDM (Rosetta DSL, not OWL) and DCSA eBL (OpenAPI only): converted
-#     snapshots are in tests/benchmark/fsi_commodity/ontologies/ (isda-cdm,
-#     dcsa-ebl) and load through the upload API, not this file.
-#   • NAESB and EEI contract clauses; ACTUS contract types (JSON dictionary only)
-#   • Letter of indemnity, letters of credit (UCP 600 / ISP98), netting sets.
-#     CDM covers CSA margin and thresholds; the optional FOLIO snapshot has
-#     Letter of Credit and Letter of Indemnity Clause classes.
-#   • Commodity price benchmarks (Platts, Argus, Henry Hub); commodity-specific
-#     CoQ/CoC fields (UN/CEFACT ProductCertificate covers the generic document)
-# Anything still missing belongs in a customer ontology.
+# Gaps — model in a customer ontology:
+#   • NAESB and EEI contract clauses; ACTUS contract types
+#   • Letter of indemnity, letters of credit (UCP 600 / ISP98), netting sets
+#     (the optional FOLIO snapshot has Letter of Credit and Letter of
+#     Indemnity Clause classes; not loaded by default, 18k classes)
+#   • Commodity price benchmarks (Platts, Argus, Henry Hub)
 #
-# Design: published ontologies are loaded in full; sample_classes bounds
-# embedding cost the same way config-example.yaml does for Schema.org.
-# Customer-specific overrides and extensions belong in customer_ontologies.
-#
-# Verification: every source_url returns 200 with no redirect (the engine's
-# fetch refuses redirects) and parses with rdflib; every sample_classes and
-# sample_properties IRI is declared (has an rdf:type) in its source file.
-# Re-check after upstream releases — FIBO "master/latest" moves.
+# sample_classes: bound client-side embedding for source_url entries, and list
+# the classes the FSI benchmark corpus may ground to (tests/benchmark/fsi_commodity/
+# ontology.py). Every sample IRI is declared in its source file.
 # ──────────────────────────────────────────────────────────────────────────────
 
 services:
@@ -176,20 +178,22 @@ foundational_ontologies:
         labels: [Location]
         comments: [A named place — delivery point, port, exchange venue]
 
-  # ── GLEIF LEI Ontology ─────────────────────────────────────────────────────
-  # Global Legal Entity Identifier. The authoritative counterparty identity
-  # vocabulary. Maps directly to KYC/AML onboarding: every registered entity
-  # has an LEI, legal name, registered address, and ultimate parent chain.
-  - uri: "https://www.gleif.org/ontology/Base/"
-    title: GLEIF LEI Ontology — Base
+  # ── GLEIF LEI ─────────────────────────────────────────────────────────────
+  # Not in the base COA catalog: loaded from the uploaded snapshot, which combines
+  # GLEIF Base, L1 and L2 in one file.
+  - uri: "urn:coa:fixture:fsi-commodity:gleif-lei"
+    title: GLEIF LEI (Base, L1, L2)
     description: >
-      Global Legal Entity Identifier (LEI) ontology — legal entity identity,
-      registration authority, ownership chain. Anchors KYC counterparty onboarding.
+      Legal Entity Identifier ontology: entity identity, registration authority, LEI
+      registry entries (Level 1) and ownership relationships (Level 2). KYC/AML onboarding.
     format: turtle
     license: "GLEIF terms of use (https://www.gleif.org/en/meta/lei-data-terms-of-use/)"
     license_tier: attribution
-    source_url: https://www.gleif.org/ontology/v1.0/Base/ontology.ttl
-    domain_tags: [counterparty, legal-entity, kyc, lei]
+    upstream: https://www.gleif.org/ontology/
+    # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.
+    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/gleif-lei.ttl
+    sha256: f4d62ff963b167d67e699dc895e5abf5c816459a25b2a5b9e331b98ebc08dc66
+    domain_tags: [counterparty, legal-entity, kyc, aml, lei, ownership]
     sample_classes:
       - class_uri: "https://www.gleif.org/ontology/Base/Entity"
         labels: [Entity]
@@ -209,29 +213,6 @@ foundational_ontologies:
       - class_uri: "https://www.gleif.org/ontology/Base/Period"
         labels: [Period]
         comments: [A time interval — registration validity period]
-    sample_properties:
-      - property_uri: "https://www.gleif.org/ontology/Base/hasNameLegal"
-        labels: [has legal name]
-        comments: [Official registered legal name of the entity]
-        domain: "https://www.gleif.org/ontology/Base/Entity"
-        range: "xsd:string"
-      - property_uri: "https://www.gleif.org/ontology/Base/hasLegalJurisdiction"
-        labels: [has legal jurisdiction]
-        comments: [Jurisdiction under which the entity is legally formed]
-        domain: "https://www.gleif.org/ontology/Base/Entity"
-        range: ""
-
-  - uri: "https://www.gleif.org/ontology/L1/"
-    title: GLEIF LEI Ontology — Level 1 (Who Is Who)
-    description: >
-      LEI Level 1 data: registration status, managing LOU, legal address.
-      Feeds directly into KYC/AML entity verification.
-    format: turtle
-    license: "GLEIF terms of use (https://www.gleif.org/en/meta/lei-data-terms-of-use/)"
-    license_tier: attribution
-    source_url: https://www.gleif.org/ontology/v1.0/L1/ontology.ttl
-    domain_tags: [counterparty, kyc, lei, registration]
-    sample_classes:
       - class_uri: "https://www.gleif.org/ontology/L1/LegalEntity"
         labels: [Legal Entity]
         comments: [A legal entity with an LEI — the counterparty record in KYC onboarding]
@@ -250,7 +231,23 @@ foundational_ontologies:
       - class_uri: "https://www.gleif.org/ontology/L1/Fund"
         labels: [Fund]
         comments: [An investment fund counterparty]
+      - class_uri: "https://www.gleif.org/ontology/L2/DirectConsolidation"
+        labels: [Direct Consolidation]
+        comments: [Direct parent-child ownership relationship between legal entities]
+      - class_uri: "https://www.gleif.org/ontology/L2/UltimateConsolidation"
+        labels: [Ultimate Consolidation]
+        comments: [Ultimate beneficial owner relationship — top of the ownership chain]
     sample_properties:
+      - property_uri: "https://www.gleif.org/ontology/Base/hasNameLegal"
+        labels: [has legal name]
+        comments: [Official registered legal name of the entity]
+        domain: "https://www.gleif.org/ontology/Base/Entity"
+        range: "xsd:string"
+      - property_uri: "https://www.gleif.org/ontology/Base/hasLegalJurisdiction"
+        labels: [has legal jurisdiction]
+        comments: [Jurisdiction under which the entity is legally formed]
+        domain: "https://www.gleif.org/ontology/Base/Entity"
+        range: ""
       - property_uri: "https://www.gleif.org/ontology/L1/LEI"
         labels: [LEI]
         comments: [The LEI code value of a legal entity]
@@ -267,39 +264,23 @@ foundational_ontologies:
         domain: "https://www.gleif.org/ontology/L1/LegalEntity"
         range: "https://www.gleif.org/ontology/Base/PhysicalAddress"
 
-  - uri: "https://www.gleif.org/ontology/L2/"
-    title: GLEIF LEI Ontology — Level 2 (Who Owns Whom)
+  # ── FIBO (uploaded snapshot) ───────────────────────────────────────────────
+  # Replaces the live FIBO Parties, Derivatives Basics and BE Legal Persons modules,
+  # which are not in the base COA catalog. Interest Rate Swaps, Bonds and Basket
+  # Indices are not in the snapshot, so they stay live below.
+  - uri: "urn:coa:fixture:fsi-commodity:fibo"
+    title: FIBO (combined subset)
     description: >
-      LEI Level 2 data: ownership and control relationships between legal entities.
-      Used for beneficial ownership, group exposure, AML network analysis.
-    format: turtle
-    license: "GLEIF terms of use (https://www.gleif.org/en/meta/lei-data-terms-of-use/)"
-    license_tier: attribution
-    source_url: https://www.gleif.org/ontology/v1.0/L2/ontology.ttl
-    domain_tags: [counterparty, aml, ownership, lei]
-    sample_classes:
-      - class_uri: "https://www.gleif.org/ontology/L2/DirectConsolidation"
-        labels: [Direct Consolidation]
-        comments: [Direct parent-child ownership relationship between legal entities]
-      - class_uri: "https://www.gleif.org/ontology/L2/UltimateConsolidation"
-        labels: [Ultimate Consolidation]
-        comments: [Ultimate beneficial owner relationship — top of the ownership chain]
-
-  # ── FIBO Foundations — Parties and Agreements ──────────────────────────────
-  # Lightweight but authoritative. These FND modules are the base layer most
-  # other FIBO modules import. They define Agreement, Contract, Party, Obligor,
-  # Obligee, Beneficiary — the backbone of any trading relationship.
-  - uri: "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/"
-    title: FIBO FND — Parties
-    description: >
-      FIBO Foundations Parties module — party role identifiers and tax identifiers.
-      (FIBO moved the generic Party class to OMG Commons; this module keeps the
-      identifier schemes used in counterparty onboarding.)
+      FIBO across FND, FBC, BE, DER, SEC, IND and LOAN: parties, legal entities, derivatives,
+      debt, loans and securities. Overlaps the four base-catalog FIBO modules above.
     format: turtle
     license: MIT
     license_tier: unrestricted
-    source_url: https://spec.edmcouncil.org/fibo/ontology/master/latest/FND/Parties/Parties.ttl
-    domain_tags: [finance, counterparty, kyc]
+    upstream: https://spec.edmcouncil.org/fibo/
+    # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.
+    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/fibo.ttl
+    sha256: 0d6c0607493c0509fe67546bbc731f09e11d711ee8dfb8f1f528690e672e975b
+    domain_tags: [finance, fibo, counterparty, derivatives, credit, securities]
     sample_classes:
       - class_uri: "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/PartyRoleIdentifier"
         labels: [Party Role Identifier]
@@ -307,7 +288,46 @@ foundational_ontologies:
       - class_uri: "https://spec.edmcouncil.org/fibo/ontology/FND/Parties/Parties/TaxIdentifier"
         labels: [Tax Identifier]
         comments: [Tax ID of a counterparty — collected in KYC onboarding (EIN, VAT number)]
+      # DerivativeInstrument and Underlier are FBC-namespace classes restated in this module.
+      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument"
+        labels: [Derivative Instrument]
+        comments: [An instrument whose value derives from an underlying — swap, forward, option, futures]
+      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Underlier"
+        labels: [Underlier]
+        comments: [The underlying asset — crude oil price, power price, FX rate, interest rate]
+      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms"
+        labels: [Derivative Settlement Terms]
+        comments: [Cash or physical settlement specification for a derivative trade]
+      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument"
+        labels: [OTC Derivative Instrument]
+        comments: [A bilateral OTC derivative — commodity swap, power forward, FX forward under ISDA]
+      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativesClearingOrganization"
+        labels: [Derivatives Clearing Organization]
+        comments: [A CCP clearing exchange-traded or cleared OTC derivatives — ICE Clear, CME Clearing]
+      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/PayingParty"
+        labels: [Paying Party]
+        comments: [The party paying a leg of a derivative]
+      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/ReceivingParty"
+        labels: [Receiving Party]
+        comments: [The party receiving a leg of a derivative]
+      # LegalEntity now lives in the OMG Commons namespace; this module restates it.
+      - class_uri: "https://www.omg.org/spec/Commons/Organizations/LegalEntity"
+        labels: [Legal Entity]
+        comments: [An entity with legal standing — corporation, partnership, trust]
+      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/BusinessEntity"
+        labels: [Business Entity]
+        comments: [A legal entity conducting business — trading company, producer, refiner]
+      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/SpecialPurposeVehicle"
+        labels: [Special Purpose Vehicle]
+        comments: [An SPV counterparty — common in structured commodity finance; KYC beneficial-ownership flag]
+      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/PowerOfAttorney"
+        labels: [Power Of Attorney]
+        comments: [Authority to act for an entity — authorized signatories collected in onboarding]
 
+  # ── FIBO Foundations — Parties and Agreements ──────────────────────────────
+  # Lightweight but authoritative. These FND modules are the base layer most
+  # other FIBO modules import. They define Agreement, Contract, Party, Obligor,
+  # Obligee, Beneficiary — the backbone of any trading relationship.
   - uri: "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/"
     title: FIBO FND — Agreements
     description: >
@@ -408,43 +428,6 @@ foundational_ontologies:
         labels: [Account Provider]
         comments: [The institution providing the account — clearing broker, bank]
 
-  # ── FIBO Derivatives ────────────────────────────────────────────────────────
-  # DER covers OTC derivatives and exchange-traded derivatives: swaps, options,
-  # forwards, futures. The vocabulary the ISDA CDM maps into.
-  - uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/"
-    title: FIBO DER — Derivatives Basics
-    description: >
-      FIBO Derivatives basics — derivative instrument, underlier, settlement terms.
-      Anchors OTC swaps, forwards, options across energy and financial asset classes.
-    format: turtle
-    license: MIT
-    license_tier: unrestricted
-    source_url: https://spec.edmcouncil.org/fibo/ontology/master/latest/DER/DerivativesContracts/DerivativesBasics.ttl
-    domain_tags: [derivatives, isda, otc, finance]
-    sample_classes:
-      # DerivativeInstrument and Underlier are FBC-namespace classes restated in this module.
-      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/DerivativeInstrument"
-        labels: [Derivative Instrument]
-        comments: [An instrument whose value derives from an underlying — swap, forward, option, futures]
-      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/FBC/FinancialInstruments/FinancialInstruments/Underlier"
-        labels: [Underlier]
-        comments: [The underlying asset — crude oil price, power price, FX rate, interest rate]
-      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativeSettlementTerms"
-        labels: [Derivative Settlement Terms]
-        comments: [Cash or physical settlement specification for a derivative trade]
-      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/OverTheCounterDerivativeInstrument"
-        labels: [OTC Derivative Instrument]
-        comments: [A bilateral OTC derivative — commodity swap, power forward, FX forward under ISDA]
-      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/DerivativesClearingOrganization"
-        labels: [Derivatives Clearing Organization]
-        comments: [A CCP clearing exchange-traded or cleared OTC derivatives — ICE Clear, CME Clearing]
-      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/PayingParty"
-        labels: [Paying Party]
-        comments: [The party paying a leg of a derivative]
-      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/DER/DerivativesContracts/DerivativesBasics/ReceivingParty"
-        labels: [Receiving Party]
-        comments: [The party receiving a leg of a derivative]
-
   - uri: "https://spec.edmcouncil.org/fibo/ontology/DER/RateDerivatives/IRSwaps/"
     title: FIBO DER — Interest Rate Swaps
     description: >
@@ -507,49 +490,20 @@ foundational_ontologies:
         labels: [Credit Index]
         comments: [A credit index such as CDX or iTraxx]
 
-  # ── FIBO Business Entities ─────────────────────────────────────────────────
-  # BE covers legal person, formal organization, registered address.
-  # Ties GLEIF LEI to FIBO's FND party structure.
-  - uri: "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/"
-    title: FIBO BE — Legal Persons
+  # ── UN/CEFACT (uploaded snapshot) ─────────────────────────────────────────
+  - uri: "urn:coa:fixture:fsi-commodity:uncefact"
+    title: UN/CEFACT Web Vocabulary (subset)
     description: >
-      FIBO Business Entities legal persons — legal entity, registered address,
-      date of incorporation. Bridges GLEIF LEI data to FIBO party model.
+      Buy-Ship-Pay trade vocabulary: consignment, transport, exchanged documents (invoice,
+      bill of lading), product certificates, settlement and payment terms.
     format: turtle
-    license: MIT
-    license_tier: unrestricted
-    source_url: https://spec.edmcouncil.org/fibo/ontology/master/latest/BE/LegalEntities/LegalPersons.ttl
-    domain_tags: [counterparty, legal-entity, kyc, lei]
-    sample_classes:
-      # LegalEntity now lives in the OMG Commons namespace; this module restates it.
-      - class_uri: "https://www.omg.org/spec/Commons/Organizations/LegalEntity"
-        labels: [Legal Entity]
-        comments: [An entity with legal standing — corporation, partnership, trust]
-      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/BusinessEntity"
-        labels: [Business Entity]
-        comments: [A legal entity conducting business — trading company, producer, refiner]
-      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/SpecialPurposeVehicle"
-        labels: [Special Purpose Vehicle]
-        comments: [An SPV counterparty — common in structured commodity finance; KYC beneficial-ownership flag]
-      - class_uri: "https://spec.edmcouncil.org/fibo/ontology/BE/LegalEntities/LegalPersons/PowerOfAttorney"
-        labels: [Power Of Attorney]
-        comments: [Authority to act for an entity — authorized signatories collected in onboarding]
-
-  # ── UN/CEFACT Buy-Ship-Pay Vocabulary ─────────────────────────────────────
-  # The authoritative vocabulary for international trade documents:
-  # commercial invoice, packing list, bill of lading, certificate of origin,
-  # certificate of quality. Direct match for post-trade logistics domain.
-  - uri: "https://vocabulary.uncefact.org/"
-    title: UN/CEFACT Web Vocabulary
-    description: >
-      UN/CEFACT UNECE trade vocabulary — consignment, transport equipment,
-      cargo item, logistics service. Covers physical commodity shipment chain.
-    format: json-ld
-    license: "UNECE terms (no licence file in the source repository)"
+    license: "UNECE, free of charge to use; no explicit licence"
     license_tier: attribution
-    # Full vocabulary as JSON-LD (~8 MB), published from github.com/uncefact/vocabulary-outputs
-    source_url: https://raw.githubusercontent.com/uncefact/vocabulary-outputs/main/unece.jsonld
-    domain_tags: [trade, logistics, shipping, commodity]
+    upstream: https://vocabulary.uncefact.org/
+    # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.
+    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/uncefact.ttl
+    sha256: 46504be25a600261f1f23ae17b1cf6661f7dee4ae11d599e4ea55cd46a07089a
+    domain_tags: [trade, logistics, shipping, documents, settlement]
     sample_classes:
       - class_uri: "https://vocabulary.uncefact.org/Consignment"
         labels: [Consignment]
@@ -595,13 +549,51 @@ foundational_ontologies:
         domain: "https://vocabulary.uncefact.org/TransportMovement"
         range: "xsd:string"
 
-  # ── Not fetchable: DCSA eBL, ISDA CDM, ACTUS ───────────────────────────────
-  # DCSA (electronic bill of lading) publishes OpenAPI specs only (for example
-  # github.com/dcsaorg/DCSA-EBL), and ISDA CDM is a Rosetta DSL model; neither
-  # is OWL/RDF at a URL. Converted snapshots of both live in
-  # tests/benchmark/fsi_commodity/ontologies/ and load through the upload API
-  # (tests/benchmark/fsi_commodity/load_ontologies.py). ACTUS publishes a JSON
-  # data dictionary only; no snapshot exists yet.
+  # ── ISDA CDM, DCSA eBL, BFO (uploaded snapshots) ──────────────────────────
+  # No published OWL exists for CDM or DCSA; these are converted snapshots. They have
+  # no sample_classes: the upload ingest embeds every class, and the benchmark corpus
+  # only grounds to classes listed in sample_classes.
+  - uri: "urn:coa:fixture:fsi-commodity:isda-cdm"
+    title: ISDA / FINOS Common Domain Model
+    description: >
+      Trade and trade state, ISDA Master Agreement and clauses, CSA elections (thresholds,
+      initial and variation margin, eligible collateral), confirmations. Converted from the
+      CDM Rosetta model; class IRIs are CDM qualified type names.
+    format: turtle
+    license: "Community Specification License 1.0"
+    license_tier: attribution
+    upstream: https://github.com/finos/common-domain-model
+    # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.
+    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/isda-cdm.ttl
+    sha256: 09823e12c6d94a716e36973a32dd6fdba72759a483fc2cb56da9df298db8813f
+    domain_tags: [derivatives, isda, csa, collateral, margin, trade-lifecycle]
+
+  - uri: "urn:coa:fixture:fsi-commodity:dcsa-ebl"
+    title: DCSA Electronic Bill of Lading
+    description: >
+      Transport document (bill of lading), house B/L, shipper, consignee, notify party,
+      endorsee, cargo and consignment items. Converted from DCSA OpenAPI schemas.
+    format: turtle
+    license: Apache-2.0
+    license_tier: unrestricted
+    upstream: https://github.com/dcsaorg/DCSA-EBL
+    # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.
+    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/dcsa-ebl.ttl
+    sha256: 4094888d43b10b48a7ef5d46a834719910e53d6b527a2e37cd490f921d441208
+    domain_tags: [shipping, ebl, post-trade, logistics]
+
+  - uri: "urn:coa:fixture:fsi-commodity:bfo-2020"
+    title: Basic Formal Ontology 2020
+    description: >
+      ISO/IEC 21838-2 upper ontology. Class IRIs are BFO_nnnnnnn codes; labels carry the meaning.
+    format: turtle
+    license: CC-BY-4.0
+    license_tier: attribution
+    upstream: https://github.com/BFO-ontology/BFO-2020
+    # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.
+    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/bfo-2020.ttl
+    sha256: bf783f99e72479fd46cb8c17c204adfd43c9e43beea5f79c79bd61752d416aad
+    domain_tags: [upper-ontology]
 
   # ── GS1 EPCIS — Physical Commodity Event Tracking ─────────────────────────
   # GS1 EPCIS (Electronic Product Code Information Services) is the standard
@@ -660,7 +652,7 @@ foundational_ontologies:
 #     format: turtle
 #     license: Proprietary
 #     license_tier: restricted
-#     source_url: "file://./ontologies/acme-counterparty.ttl"
+#     source_file: ontologies/acme-counterparty.ttl   # uploaded; path relative to this file
 #     domain_tags: [counterparty, kyc, credit, internal]
 #     extract_all_properties: true
 #     sample_classes:

@@ -1,23 +1,23 @@
 # Pinned ontology snapshots for the FSI / commodity benchmark.
 #
-# These are Turtle snapshots generated from published sources. They are the
-# deterministic, offline counterpart to the live pack
-# (packages/ontology-engine/demo/config-fsi-commodity.yaml), whose source URLs
-# move with each upstream release. Load one or the other into a namespace, not
-# both, or the same classes are embedded twice.
+# These are Turtle snapshots generated from published sources. The demo pack
+# (packages/ontology-engine/demo/config-fsi-commodity.yaml) loads six of them
+# through source_file entries under the same ontology_id: gleif-lei, fibo,
+# uncefact, isda-cdm, dcsa-ebl, bfo-2020. The fibo-* modules overlap fibo.
 #
 # Fields
 #   key            short name; also the file stem
 #   file           snapshot file in this directory
-#   ontology_id    id the loader registers the snapshot under. A fixture URN, so
-#                  it never merges with an ontology the live pack registers.
+#   ontology_id    id the snapshot is registered under, by this loader and by the
+#                  pack. A fixture URN, so it never merges with a live-fetched
+#                  ontology (the GLEIF file declares the live GLEIF L1 IRI).
 #   declared_iri   the owl:Ontology IRI written inside the file (informational)
 #   ontology_type  OntologyType value sent on ingest
 #   derived        true when the upstream publishes no OWL/RDF and the snapshot
 #                  was converted from another format; its class IRIs were minted
 #                  by the converter rather than the standards body
-#   license        upstream licence; license_verified false means it still has
-#                  to be read before this file is distributed outside the team
+#   license        upstream licence as checked at its source; license_verified
+#                  false means it has not been checked yet
 #   source         where the upstream content comes from
 #   snapshot       version suffix of the generated file (-v1, -v2)
 #   sha256, bytes  pin the exact file; the unit test fails if either changes
@@ -35,8 +35,8 @@ ontologies:
     ontology_type: foundational
     derived: false
     license: CC-BY-4.0
-    license_verified: false
-    source: "https://basic-formal-ontology.org/"
+    license_verified: true
+    source: "https://github.com/BFO-ontology/BFO-2020"
     snapshot: v1
     sha256: bf783f99e72479fd46cb8c17c204adfd43c9e43beea5f79c79bd61752d416aad
     bytes: 26066
@@ -190,8 +190,10 @@ ontologies:
     title: UN/CEFACT Web Vocabulary (subset)
     ontology_type: foundational
     derived: false
-    license: "UNECE terms; no licence file in the source repository"
-    license_verified: false
+    # No licence file in uncefact/vocabulary-outputs or uncefact/spec-jsonld. UNECE states its
+    # deliverables are free of charge to use; no explicit redistribution licence was found.
+    license: "UNECE, free of charge to use; no explicit licence"
+    license_verified: true
     source: "https://github.com/uncefact/vocabulary-outputs"
     snapshot: v1
     sha256: 46504be25a600261f1f23ae17b1cf6661f7dee4ae11d599e4ea55cd46a07089a

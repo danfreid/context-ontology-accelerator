@@ -38,7 +38,11 @@ python demo.py  --config config-fsi-commodity.yaml
 | Pack | Domain |
 |---|---|
 | `config-example.yaml` | P&C insurance (the default example) |
-| `config-fsi-commodity.yaml` | FSI and commodity trading: GLEIF LEI, FIBO, UN/CEFACT, GS1 EPCIS, PROV-O. Its header lists the domains no published ontology covers. |
+| `config-fsi-commodity.yaml` | FSI and commodity trading: the base-catalog ontologies fetched live, plus uploaded snapshots of GLEIF LEI, FIBO, UN/CEFACT, ISDA CDM, DCSA eBL and BFO. Its header lists the remaining gaps. |
+
+A config entry can give `source_file` (a path relative to the config file, optionally with `sha256`) instead of
+`source_url`. `setup.py` uploads it through `POST /ontologies/{id}/upload`, because the engine's fetch accepts
+`https://` URLs only. The upload embeds every class, so these entries skip the sample-class embedding steps.
 
 ## setup.py
 

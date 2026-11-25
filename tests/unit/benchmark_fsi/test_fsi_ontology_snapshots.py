@@ -45,12 +45,21 @@ def test_keys_and_ontology_ids_are_unique_fixture_urns_with_valid_types(snapshot
         assert s.ontology_type in ONTOLOGY_TYPES
 
 
-def test_no_snapshot_id_collides_with_an_ontology_the_live_pack_registers(snapshots: list[lo.Snapshot]) -> None:
+def test_pack_source_file_entries_match_their_manifest_snapshot(snapshots: list[lo.Snapshot]) -> None:
     pack = yaml.safe_load(PACK.read_text(encoding="utf-8"))
-    pack_uris = {
-        o["uri"] for group in ("foundational_ontologies", "customer_ontologies") for o in pack.get(group) or []
-    }
-    assert not pack_uris & {s.ontology_id for s in snapshots}
+    entries = [o for group in ("foundational_ontologies", "customer_ontologies") for o in pack.get(group) or []]
+    by_id = {s.ontology_id: s for s in snapshots}
+    uploaded = [o for o in entries if "source_file" in o]
+    assert uploaded, "the pack loads no uploaded snapshot"
+    for o in uploaded:
+        snap = by_id[o["uri"]]  # the pack registers the snapshot under its manifest id
+        assert (PACK.parent / o["source_file"]).resolve() == snap.path.resolve()
+        assert o["sha256"] == snap.sha256
+        assert "source_url" not in o
+    # A live entry never takes a fixture id, so live and uploaded records cannot merge.
+    for o in entries:
+        if "source_file" not in o:
+            assert o["uri"] not in by_id
 
 
 def test_every_ttl_in_the_directory_is_in_the_manifest(snapshots: list[lo.Snapshot]) -> None:

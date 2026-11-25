@@ -8,11 +8,11 @@ publishes OWL at a URL: ISDA CDM and the DCSA electronic bill of lading.
 
 | Key | Classes | Source | Licence |
 |---|---:|---|---|
-| `bfo-2020` | 36 | Basic Formal Ontology 2020 | CC-BY-4.0 (to confirm) |
+| `bfo-2020` | 36 | Basic Formal Ontology 2020 | CC-BY-4.0 |
 | `fibo` | 1244 | FIBO, combined subset | MIT |
 | `fibo-be`, `fibo-debt`, `fibo-debt-instruments`, `fibo-derivatives`, `fibo-loans`, `fibo-securities` | 114–492 each | FIBO modules | MIT |
 | `gleif-lei` | 40 | GLEIF Base, L1, L2 | GLEIF terms of use |
-| `uncefact` | 542 | UN/CEFACT Web Vocabulary, subset | UNECE terms (to confirm) |
+| `uncefact` | 542 | UN/CEFACT Web Vocabulary, subset | UNECE: free to use, no explicit licence |
 | `dcsa-ebl` | 106 | DCSA eBL, converted from OpenAPI | Apache-2.0 |
 | `isda-cdm` | 523 | ISDA/FINOS CDM, converted from Rosetta | Community Specification License 1.0 |
 | `folio` (optional, not committed) | 18327 | FOLIO legal ontology | CC-BY-4.0 |
@@ -36,9 +36,12 @@ uv run python -m tests.benchmark.fsi_commodity.load_ontologies --dry-run
 ```
 
 Every file is checked against its pinned size and SHA-256 before the first request. Ontologies already in the
-namespace are skipped. Each snapshot registers as `urn:coa:fixture:fsi-commodity:<key>`, so it never merges with
-an ontology the live pack registers. Load the snapshots or the live pack into a namespace, not both; otherwise the
-same classes are embedded twice.
+namespace are skipped. Each snapshot registers as `urn:coa:fixture:fsi-commodity:<key>`.
+
+The demo pack `config-fsi-commodity.yaml` uses six of these files (`gleif-lei`, `fibo`, `uncefact`, `isda-cdm`,
+`dcsa-ebl`, `bfo-2020`) through `source_file` entries, under the same ids. So `setup.py --config
+config-fsi-commodity.yaml` loads them on a local engine, and running this loader as well skips them. The
+`fibo-*` module files overlap `fibo`; the pack does not use them.
 
 To load FOLIO, copy the generated `FOLIO-v1.ttl` here as `folio.ttl` and pass `--include-optional`. Its SHA-256 is
 pinned in the manifest too.
