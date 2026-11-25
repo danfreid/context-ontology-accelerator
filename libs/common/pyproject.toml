@@ -29,6 +29,8 @@ dependencies = [
 [dependency-groups]
 dev = [
     "moto[dynamodb]>=5.2.1",
+    # Opt-in Aurora search integration test (libs/common/tests/integ), run against a local Postgres.
+    "psycopg[binary]>=3.2",
 ]
 
 # deptry (ci/deptry.yml). Imported inside a function on purpose: llama_index (only kg-build and

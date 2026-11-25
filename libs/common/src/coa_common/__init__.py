@@ -117,6 +117,11 @@ __all__ = [
     "bulk_with_retry",
     "is_transient",
     "oss_retry",
+    "AuroraDataApiClient",
+    "AuroraSearchIndex",
+    "SearchBackend",
+    "SearchMode",
+    "resolve_search_backend",
     "ASSET_TYPE_NAME",
     "AssetResult",
     "BedrockClient",
@@ -224,6 +229,13 @@ _LAZY_OPENSEARCH = {
     "is_transient",
     "oss_retry",
 }
+_LAZY_AURORA_SEARCH = {
+    "AuroraDataApiClient",
+    "AuroraSearchIndex",
+    "SearchBackend",
+    "SearchMode",
+    "resolve_search_backend",
+}
 
 
 def __getattr__(name: str):
@@ -231,4 +243,8 @@ def __getattr__(name: str):
         import coa_common.opensearch as _osm
 
         return getattr(_osm, name)
+    if name in _LAZY_AURORA_SEARCH:
+        import coa_common.aurora_search as _aur
+
+        return getattr(_aur, name)
     raise AttributeError(f"module {__name__!r} has no attribute {name!r}")

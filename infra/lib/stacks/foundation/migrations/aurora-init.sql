@@ -82,6 +82,15 @@ CREATE TABLE IF NOT EXISTS search_doc (
 );
 CREATE INDEX IF NOT EXISTS search_doc_tsv_idx ON search_doc USING GIN (tsv);
 CREATE INDEX IF NOT EXISTS search_doc_namespace_idx ON search_doc (namespace);
+-- Added by the Aurora search layer (coa_common.aurora_search). 'namespace' holds the
+-- AOSS-equivalent index name (the search scope, e.g. coa_common.constants
+-- ontology_vector_index_name / graphrag_index_names). The HNSW index on
+-- embedding is NOT created here: the vector dimension is runtime-configured,
+-- so AuroraSearchIndex.ensure_vector_index() creates
+-- search_doc_embedding_hnsw_<dim> on the write path.
+ALTER TABLE search_doc ADD COLUMN IF NOT EXISTS doc_kind TEXT NOT NULL DEFAULT 'doc';
+ALTER TABLE search_doc ADD COLUMN IF NOT EXISTS metadata JSONB NOT NULL DEFAULT '{}'::jsonb;
+CREATE INDEX IF NOT EXISTS search_doc_metadata_idx ON search_doc USING GIN (metadata jsonb_path_ops);
 
 -- Per-namespace corpus statistics: document count and average length.
 CREATE TABLE IF NOT EXISTS search_corpus_stats (
