@@ -449,7 +449,14 @@ describe("NamespaceDeletionPipeline - Aurora search backend", () => {
   });
 
   test("pgvector: DeleteSources gets the env and Data API grants", () => {
-    const s = render({ vector_backend: "pgvector" });
+    expect(render({ vector_backend: "pgvector" })).not.toContain("rds-data:");
+    const s = render({
+      graph_backend: "aurora",
+      vector_backend: "pgvector",
+      metadata_backend: "aurora",
+    });
+    expect(s).toContain("/coa/aurora/search-rw-secret-arn");
+    expect(s).not.toContain("search-ro-secret-arn");
     expect(s).toContain("HYBRID_SEARCH_BACKEND");
     expect(s).toContain("rds-data:ExecuteStatement");
     expect(s).toContain("secretsmanager:GetSecretValue");

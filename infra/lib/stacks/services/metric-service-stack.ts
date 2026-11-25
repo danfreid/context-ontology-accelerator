@@ -28,6 +28,7 @@ import { resolveBackendFlags, resolveContext } from "../../context";
 import {
   auroraSearchEnv,
   grantAuroraDataApi,
+  isAuroraSearchEnabled,
 } from "../../utils/aurora-search";
 import {
   DEFAULT_EVENT_BUS_NAME,
@@ -192,8 +193,8 @@ export class MetricServiceStack extends SCLStack {
       },
     });
 
-    if (flags.vectorBackend === "pgvector") {
-      grantAuroraDataApi(this, this.metricApiFn, ssmPrefix);
+    if (isAuroraSearchEnabled(flags)) {
+      grantAuroraDataApi(this, this.metricApiFn, ssmPrefix, "rw");
     }
 
     // CreateMetric / ImportOsi are retry-safe with a caller-supplied clientToken.
@@ -397,8 +398,8 @@ export class MetricServiceStack extends SCLStack {
     // Read only namespace-scoped import sources and checkpoints. The broader
     // imports prefix is retained for in-flight legacy jobs whose source keys
     // predate the dedicated imports/jobs sub-prefix.
-    if (flags.vectorBackend === "pgvector") {
-      grantAuroraDataApi(this, importWorkerFn, ssmPrefix);
+    if (isAuroraSearchEnabled(flags)) {
+      grantAuroraDataApi(this, importWorkerFn, ssmPrefix, "rw");
     }
     importWorkerFn.addToRolePolicy(
       new iam.PolicyStatement({

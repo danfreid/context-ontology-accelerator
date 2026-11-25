@@ -1155,7 +1155,18 @@ describe("ServeStack - Aurora search backend", () => {
   });
 
   it("sets the env and grants the Data API with vector_backend=pgvector", () => {
-    const s = json(createStack({ vector_backend: "pgvector" }));
+    expect(json(createStack({ vector_backend: "pgvector" }))).not.toContain(
+      "rds-data:",
+    );
+    const s = json(
+      createStack({
+        graph_backend: "aurora",
+        vector_backend: "pgvector",
+        metadata_backend: "aurora",
+      }),
+    );
+    expect(s).toContain("/coa/aurora/search-ro-secret-arn");
+    expect(s).not.toContain("search-rw-secret-arn");
     expect(s).toContain("HYBRID_SEARCH_BACKEND");
     expect(s).toContain("pgvector+tsvector");
     expect(s).toContain("rds-data:ExecuteStatement");

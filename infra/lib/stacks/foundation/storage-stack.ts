@@ -13,6 +13,10 @@ import { SCLStack } from "../../constructs/scl-stack";
 import { AccessLogsBucket, AuroraPg } from "../../constructs";
 import { VECTOR_COLLECTION_SUFFIX } from "../../constants";
 import { resolveBackendFlags, resolveContext } from "../../context";
+import {
+  isAuroraSearchEnabled,
+  warnIfAuroraSearchIncomplete,
+} from "../../utils/aurora-search";
 import { NetworkStack } from "./network-stack";
 
 /**
@@ -75,10 +79,8 @@ export class StorageStack extends SCLStack {
     const { network } = props;
 
     const flags = resolveBackendFlags(this.node);
-    const useAurora =
-      flags.graphBackend === "aurora" &&
-      flags.vectorBackend === "pgvector" &&
-      flags.metadataBackend === "aurora";
+    const useAurora = isAuroraSearchEnabled(flags);
+    warnIfAuroraSearchIncomplete(this, flags);
 
     // ── Resolve private subnets ──────────────────────────────────────
     const privateSubnets = network.vpc.selectSubnets({

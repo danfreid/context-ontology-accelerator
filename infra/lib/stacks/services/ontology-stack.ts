@@ -35,6 +35,7 @@ import {
 import {
   auroraSearchEnv,
   grantAuroraDataApi,
+  isAuroraSearchEnabled,
 } from "../../utils/aurora-search";
 import { grantIdempotencyTable } from "../../utils/idempotency";
 import { grantGuardDutyAgentPull } from "../../utils/guardduty-agent";
@@ -120,10 +121,7 @@ export class OntologyStack extends SCLStack {
     const { ssmPrefix } = resolveContext(this.node);
     const flags = resolveBackendFlags(this.node);
     const useLambda = flags.computeBackend === "lambda";
-    const useAurora =
-      flags.graphBackend === "aurora" &&
-      flags.vectorBackend === "pgvector" &&
-      flags.metadataBackend === "aurora";
+    const useAurora = isAuroraSearchEnabled(flags);
     const vpc = props.network.vpc;
     const ecsSecurityGroup = props.network.ecsSecurityGroup;
 
@@ -221,7 +219,7 @@ export class OntologyStack extends SCLStack {
     }
 
     const engineEnvironment = {
-      WORKBENCH_BACKEND: "opensearch_neptune",
+      WORKBENCH_BACKEND: useAurora ? "aurora_pgvector" : "opensearch_neptune",
       NDB_ENDPOINT: `https://${props.neptuneClusterEndpoint}:8182`,
       NDB_IAM_AUTH: "true",
       NDB_REGION: cdk.Aws.REGION,
@@ -383,11 +381,11 @@ export class OntologyStack extends SCLStack {
         securityGroups: [props.network.lambdaSecurityGroup],
         environment: {
           ...engineEnvironment,
-          // Aurora endpoint and secret are read from these SSM parameters at runtime.
+          // The cluster endpoint is read from this SSM parameter at runtime; the search
+          // secret comes from auroraSearchEnv (AURORA_SECRET_ARN, read-write role).
           ...(useAurora && {
             WORKBENCH_BACKEND: "aurora_pgvector",
             AURORA_CLUSTER_ENDPOINT: `${ssmPrefix}/aurora/cluster-endpoint`,
-            AURORA_SECRET_ARN: `${ssmPrefix}/aurora/secret-arn`,
           }),
         },
       });
@@ -486,10 +484,25 @@ export class OntologyStack extends SCLStack {
       );
     }
 
-    // vector_backend=pgvector without the full Aurora flag set: the search code
-    // still calls the Data API, which the Aurora branch above does not grant.
-    if (flags.vectorBackend === "pgvector" && !useAurora) {
-      grantAuroraDataApi(this, workloadRole, ssmPrefix);
+    // Full Aurora flag set: the search code calls the Data API as the read-write role.
+    // The Lambda also reads the cluster endpoint from the SSM parameter its env names.
+    // Nothing is granted for vector_backend=pgvector alone: that path has no cluster.
+    if (useAurora) {
+      grantAuroraDataApi(this, workloadRole, ssmPrefix, "rw");
+      if (useLambda) {
+        workloadRole.addToPrincipalPolicy(
+          new iam.PolicyStatement({
+            actions: ["ssm:GetParameter"],
+            resources: [
+              cdk.Stack.of(this).formatArn({
+                service: "ssm",
+                resource: "parameter",
+                resourceName: `${ssmPrefix.replace(/^\//, "")}/aurora/cluster-endpoint`,
+              }),
+            ],
+          }),
+        );
+      }
     }
 
     // DynamoDB — full access to own table

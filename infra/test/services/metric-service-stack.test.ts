@@ -709,8 +709,15 @@ describe("MetricServiceStack - Aurora search backend", () => {
   });
 
   test("pgvector: env on both Lambdas and Data API grants", () => {
-    const s = render({ vector_backend: "pgvector" });
+    expect(render({ vector_backend: "pgvector" })).not.toContain("rds-data:");
+    const s = render({
+      graph_backend: "aurora",
+      vector_backend: "pgvector",
+      metadata_backend: "aurora",
+    });
     expect(s.split("HYBRID_SEARCH_BACKEND").length - 1).toBe(2);
+    expect(s).toContain("/coa/aurora/search-rw-secret-arn");
+    expect(s).not.toContain("search-ro-secret-arn");
     expect(s).toContain("rds-data:ExecuteStatement");
     expect(s).toContain("rds-data:BatchExecuteStatement");
     expect(s).toContain("secretsmanager:GetSecretValue");

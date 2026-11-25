@@ -802,30 +802,70 @@ describe("OntologyStack Lambda compute path", () => {
 
 describe("OntologyStack Aurora search backend", () => {
   const json = (t: Template) => JSON.stringify(t.toJSON());
+  const FULL = {
+    graph_backend: "aurora",
+    vector_backend: "pgvector",
+    metadata_backend: "aurora",
+  };
 
   test("aoss (default): no HYBRID_SEARCH_BACKEND and no rds-data statement", () => {
     const t = renderOntology({}, "AuroraSearchOff");
     expect(envValue(t, "HYBRID_SEARCH_BACKEND")).toBeUndefined();
+    expect(envValue(t, "WORKBENCH_BACKEND")).toBe("opensearch_neptune");
     expect(json(t)).not.toContain("rds-data:ExecuteStatement");
   });
 
-  test("pgvector: env on the container and Data API statements granted", () => {
-    const t = renderOntology({}, "AuroraSearchOn", {
+  test("pgvector alone: no Aurora env and no Aurora IAM", () => {
+    const t = renderOntology({}, "AuroraSearchPgOnly", {
       vector_backend: "pgvector",
     });
+    expect(envValue(t, "HYBRID_SEARCH_BACKEND")).toBeUndefined();
+    expect(envValue(t, "AURORA_SSM_PREFIX")).toBeUndefined();
+    expect(envValue(t, "WORKBENCH_BACKEND")).toBe("opensearch_neptune");
+    const s = json(t);
+    expect(s).not.toContain("rds-data:");
+    expect(s).not.toContain("/aurora/");
+  });
+
+  test("full Aurora set: ECS container env carries what AuroraConfig.from_env reads", () => {
+    const t = renderOntology({}, "AuroraSearchFull", FULL);
+    expect(envValue(t, "WORKBENCH_BACKEND")).toBe("aurora_pgvector");
     expect(envValue(t, "HYBRID_SEARCH_BACKEND")).toBe("pgvector+tsvector");
-    expect(envValue(t, "AURORA_SSM_PREFIX")).toBeDefined();
+    expect(envValue(t, "AURORA_SSM_PREFIX")).toBe("/coa");
+    expect(envValue(t, "AURORA_SECRET_ARN")).toBe(
+      "/coa/aurora/search-rw-secret-arn",
+    );
+    expect(envValue(t, "OSS_DIMENSIONS")).toBeDefined();
+  });
+
+  test("full Aurora set: grants the rw secret and exact SSM parameters, no wildcard", () => {
+    const t = renderOntology({}, "AuroraSearchFullIam", FULL);
     const s = json(t);
     expect(s).toContain("rds-data:ExecuteStatement");
     expect(s).toContain("rds-data:BatchExecuteStatement");
     expect(s).toContain("secretsmanager:GetSecretValue");
+    expect(s).toContain("/coa/aurora/cluster-arn");
+    expect(s).toContain("/coa/aurora/search-rw-secret-arn");
+    expect(s).not.toContain("parameter/coa/aurora/*");
   });
 
-  test("pgvector on the Lambda path: env on the engine function", () => {
+  test("full Aurora set on the Lambda path: rw secret env and cluster endpoint grant", () => {
     const t = renderOntology({}, "AuroraSearchLambda", {
-      vector_backend: "pgvector",
+      ...FULL,
       compute_backend: "lambda",
     });
-    expect(json(t)).toContain("pgvector+tsvector");
+    t.hasResourceProperties("AWS::Lambda::Function", {
+      FunctionName: `${PREFIX}-ontology-engine`,
+      Environment: {
+        Variables: Match.objectLike({
+          WORKBENCH_BACKEND: "aurora_pgvector",
+          HYBRID_SEARCH_BACKEND: "pgvector+tsvector",
+          AURORA_SSM_PREFIX: "/coa",
+          AURORA_SECRET_ARN: "/coa/aurora/search-rw-secret-arn",
+          AURORA_CLUSTER_ENDPOINT: "/coa/aurora/cluster-endpoint",
+        }),
+      },
+    });
+    expect(json(t)).toContain("parameter/coa/aurora/cluster-endpoint");
   });
 });

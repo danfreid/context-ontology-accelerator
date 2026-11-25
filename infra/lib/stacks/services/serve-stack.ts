@@ -22,6 +22,7 @@ import {
 import {
   auroraSearchEnv,
   grantAuroraDataApi,
+  isAuroraSearchEnabled,
 } from "../../utils/aurora-search";
 import { agentCoreSupportedSubnets } from "../../utils/agentcore-az";
 import { retainAgentCoreSecurityGroup } from "../../utils/agentcore-teardown";
@@ -539,7 +540,7 @@ export class ServeStack extends SCLStack {
           OPENSEARCH_ENDPOINT: opensearchEndpoint,
           // TODO(aoss-proxy): Remove when AgentCore supports AOSS directly
           OPENSEARCH_PROXY_LAMBDA_ARN: aossProxyFn.functionArn,
-          ...auroraSearchEnv(ssmPrefix, flags),
+          ...auroraSearchEnv(ssmPrefix, flags, "ro"),
           ATHENA_OUTPUT_S3: `s3://${props.athenaResultsBucketName ?? this.prefixed("athena-results")}/`,
           // Platform bucket that holds UPLOADED documents (<namespaceId>/raw/<uploadId>/...).
           // Upload sources carry no bucket of their own, so Deep Reasoning's document
@@ -766,8 +767,8 @@ export class ServeStack extends SCLStack {
 
       // ── Add service-specific IAM policies to the L2's auto-created role ──
 
-      if (flags.vectorBackend === "pgvector") {
-        grantAuroraDataApi(this, runtime.role!, ssmPrefix);
+      if (isAuroraSearchEnabled(flags)) {
+        grantAuroraDataApi(this, runtime.role!, ssmPrefix, "ro");
       }
 
       // ECR image pull

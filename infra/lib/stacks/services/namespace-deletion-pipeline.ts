@@ -41,6 +41,7 @@ import { resolveBackendFlags, resolveContext } from "../../context";
 import {
   auroraSearchEnv,
   grantAuroraDataApi,
+  isAuroraSearchEnabled,
 } from "../../utils/aurora-search";
 
 export interface NamespaceDeletionPipelineProps {
@@ -144,8 +145,8 @@ export class NamespaceDeletionPipeline extends Construct {
       },
     });
     // Aurora scope deletion (coa_control_plane cleanup) runs in this Lambda.
-    if (flags.vectorBackend === "pgvector") {
-      grantAuroraDataApi(this, deleteSourcesFn, ssmPrefix);
+    if (isAuroraSearchEnabled(flags)) {
+      grantAuroraDataApi(this, deleteSourcesFn, ssmPrefix, "rw");
     }
     deleteSourcesFn.addToRolePolicy(
       new iam.PolicyStatement({
