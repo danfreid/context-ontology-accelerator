@@ -365,6 +365,14 @@ def test_vector_search_filters_use_containment_and_iterative_scan() -> None:
     assert_only_placeholders(fake, [ADVERSARIAL, "Counterparty"])
 
 
+def test_vector_search_exclude_metadata_filter_negates_containment() -> None:
+    idx, fake = make()
+    idx.vector_search("s", [1, 0, 0], 5, filters={"exclude_metadata": {"query_backend": "RDF_SPARQL"}})
+    sql, params = fake.events[2][1], fake.events[2][2]
+    assert "NOT (metadata @> CAST(" in sql
+    assert {"query_backend": "RDF_SPARQL"} in params.values()
+
+
 def keyword_handler(recall: list[dict[str, Any]], stats: list[dict[str, Any]]) -> Handler:
     def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
         if "unnest(tsvector_to_array" in sql:

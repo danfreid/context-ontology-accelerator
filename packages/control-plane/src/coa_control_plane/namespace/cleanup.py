@@ -20,6 +20,13 @@ from urllib.error import HTTPError, URLError
 import boto3
 import structlog
 from coa_common import async_boto_config
+from coa_common.aurora_search import (
+    AuroraConfig,
+    AuroraDataApiClient,
+    AuroraSearchIndex,
+    SearchBackend,
+    resolve_search_backend,
+)
 from coa_common.constants import graphrag_index_names
 from coa_common.dao import DynamoDBDAO, QueryParams
 from coa_common.opensearch import AossVectorClient
@@ -333,6 +340,17 @@ def _delete_vkg_log_group(logs_client: Any, namespace_id: str, log_group: str) -
         )
 
 
+def _delete_aurora_scopes(namespace_id: str, scopes: list[str]) -> list[str]:
+    """Clear each Aurora search scope. Returns the scopes that held documents. Raises on failure."""
+    cfg = AuroraConfig.from_env()
+    index = AuroraSearchIndex(
+        AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database), cfg.dimensions
+    )
+    removed = [scope for scope in scopes if index.delete_scope(scope) > 0]
+    logger.info("aurora_search_scopes_deleted", namespace_id=namespace_id, removed=removed, checked=scopes)
+    return removed
+
+
 def delete_graphrag_indexes(namespace_id: str) -> list[str]:
     """Delete the namespace's GraphRAG doc-KG vector indexes. Returns those removed.
 
@@ -345,7 +363,12 @@ def delete_graphrag_indexes(namespace_id: str) -> list[str]:
     Deleting an absent index is a no-op, so this is safe to retry. Raises on a
     real failure, because the leak is unreclaimable once the namespace record is
     gone.
+
+    With the Aurora backend selected (`HYBRID_SEARCH_BACKEND`) the scopes are cleared
+    with `AuroraSearchIndex.delete_scope`, which also removes the stats rows.
     """
+    if resolve_search_backend() == SearchBackend.PGVECTOR:
+        return _delete_aurora_scopes(namespace_id, graphrag_index_names(namespace_id))
     endpoint = os.environ.get("OSS_ENDPOINT", "")
     if not endpoint:
         logger.warning("oss_endpoint_not_configured", namespace_id=namespace_id)
@@ -372,8 +395,10 @@ def delete_graphrag_indexes(namespace_id: str) -> list[str]:
 def delete_all_ontologies(namespace_id: str) -> None:
     """Call the ontology-engine to delete all ontology data for a namespace.
 
-    Drops Neptune named graphs, deletes the AOSS vector index, and purges
-    all ontology DynamoDB records (registry, jobs, proposals).
+    Drops Neptune named graphs, deletes the vector index, and purges
+    all ontology DynamoDB records (registry, jobs, proposals). The vector index
+    is deleted by the ontology-engine through its configured `VectorStore`, so
+    with `WORKBENCH_BACKEND=aurora_pgvector` that is `AuroraSearchIndex.delete_scope`.
 
     NOT best-effort: raises on failure. The AOSS index is capped at 1000 per
     collection and cannot be targeted once the namespace record is gone, so

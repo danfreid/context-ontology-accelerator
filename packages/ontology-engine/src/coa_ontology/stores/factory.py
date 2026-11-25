@@ -10,6 +10,8 @@ Valid values:
   - ``opensearch_neptune`` (default) — OpenSearch Serverless vector +
     Neptune DB graph.
   - ``na_only``                      — Neptune Analytics for both.
+  - ``aurora_pgvector``              — Neptune DB graph + Aurora PostgreSQL
+    (pgvector + tsvector) vector store. Graph traversal moves later.
 
 Callers should prefer :func:`build_stores` and accept whatever they get;
 if a caller genuinely needs a specific backend it should not go through
@@ -58,8 +60,16 @@ def build_stores(namespace: str | None = None) -> tuple[GraphStore, VectorStore]
 
         pair = (NeptuneDBGraphStore(namespace=namespace), OpenSearchVectorStore(namespace=namespace))
 
+    elif backend == "aurora_pgvector":
+        from coa_ontology.stores.aurora_vector import AuroraVectorStore
+        from coa_ontology.stores.neptune_db_graph import NeptuneDBGraphStore
+
+        pair = (NeptuneDBGraphStore(namespace=namespace), AuroraVectorStore(namespace=namespace))
+
     else:
-        raise ValueError(f"Unknown WORKBENCH_BACKEND {backend!r}. Expected one of: opensearch_neptune, na_only.")
+        raise ValueError(
+            f"Unknown WORKBENCH_BACKEND {backend!r}. Expected one of: opensearch_neptune, na_only, aurora_pgvector."
+        )
 
     _store_cache[namespace] = pair
     return pair

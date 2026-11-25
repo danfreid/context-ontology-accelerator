@@ -60,6 +60,37 @@ class TestFactory:
 
 
 @pytest.mark.unit
+class TestVectorBackendSelection:
+    """_build_default_clients picks the vector client from resolve_search_backend()."""
+
+    @staticmethod
+    def _build():
+        from coa_serve.clients.factory import _build_default_clients
+
+        with (
+            patch("coa_serve.clients.neptune.NeptuneGraphClient"),
+            patch("coa_serve.clients.bedrock.BedrockLLMClient"),
+            patch("coa_serve.clients.source_db.SourceDBQueryExecutor"),
+        ):
+            return _build_default_clients()
+
+    def test_default_builds_opensearch_client(self, monkeypatch):
+        from coa_serve.clients.opensearch import OpenSearchVectorClient
+
+        monkeypatch.delenv("HYBRID_SEARCH_BACKEND", raising=False)
+        monkeypatch.delenv("WORKBENCH_BACKEND", raising=False)
+        monkeypatch.setenv("OPENSEARCH_ENDPOINT", "test.aoss.amazonaws.com")
+        assert isinstance(self._build().vector, OpenSearchVectorClient)
+
+    def test_pgvector_tsvector_builds_aurora_client(self, monkeypatch):
+        from coa_serve.clients.aurora import AuroraVectorClient
+
+        monkeypatch.setenv("HYBRID_SEARCH_BACKEND", "pgvector+tsvector")
+        monkeypatch.delenv("OPENSEARCH_ENDPOINT", raising=False)
+        assert isinstance(self._build().vector, AuroraVectorClient)
+
+
+@pytest.mark.unit
 class TestClientSet:
     async def test_close_calls_client_close_methods(self):
         mock_graph = AsyncMock()

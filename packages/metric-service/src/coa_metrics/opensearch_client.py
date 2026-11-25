@@ -28,6 +28,14 @@ from coa_common import (
     BedrockEmbedder,
     ontology_vector_index_name,
 )
+from coa_common.aurora_search import (
+    AuroraConfig,
+    AuroraDataApiClient,
+    AuroraSearchIndex,
+    SearchBackend,
+    SearchDoc,
+    resolve_search_backend,
+)
 from coa_common.opensearch import DeleteIncompleteError
 
 from coa_metrics.neptune_client import MetricDefinition, _metric_uri
@@ -78,6 +86,19 @@ class MetricOpenSearchClient:
         """Initialize with lazily constructed AOSS client and embedder."""
         self._client: AossVectorClient | None = None
         self._embedder: BedrockEmbedder | None = None
+        self._aurora_index: AuroraSearchIndex | None = None
+
+    def _use_aurora(self) -> bool:
+        """Return True when the Aurora pgvector backend is selected (AOSS is the default)."""
+        return resolve_search_backend() == SearchBackend.PGVECTOR
+
+    def _aurora(self) -> AuroraSearchIndex:
+        """Lazily build the Aurora search index from the environment."""
+        if self._aurora_index is None:
+            cfg = AuroraConfig.from_env()
+            client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
+            self._aurora_index = AuroraSearchIndex(client, OSS_DIMENSIONS)
+        return self._aurora_index
 
     def _aoss(self) -> AossVectorClient:
         if self._client is None:
@@ -105,6 +126,27 @@ class MetricOpenSearchClient:
         text = _build_embedding_text(metric)
         embedding = _generate_embedding(text, self._embedder_client())
         entity_uri = _metric_uri(namespace, metric.name)
+        if self._use_aurora():
+            aurora = self._aurora()
+            aurora.ensure_vector_index()
+            aurora.upsert_docs(
+                self._index_name(namespace),
+                [
+                    SearchDoc(
+                        body=text,
+                        doc_kind="metric",
+                        entity_uri=entity_uri,
+                        embedding_type="lexical",
+                        model_id=BEDROCK_MODEL_ID,
+                        ontology_id=GOVERNED_METRICS_ONTOLOGY_ID,
+                        embedding=embedding,
+                        metadata={"entity_type": "metric", "namespace": namespace},
+                        label=metric.name,
+                    )
+                ],
+            )
+            logger.info("Metric embedded", namespace=namespace, name=metric.name, text_length=len(text))
+            return
         index = self._aoss().ensure_index(self._index_name(namespace))
 
         # AOSS idempotent upsert: delete existing docs first.
@@ -129,7 +171,10 @@ class MetricOpenSearchClient:
         """Delete the embedding document for a metric."""
         entity_uri = _metric_uri(namespace, name)
         index = self._index_name(namespace)
-        self._delete_by_entity_uri(index, entity_uri)
+        if self._use_aurora():
+            self._aurora().delete_docs(index, filter_metadata={"entity_uri": entity_uri, "entity_type": "metric"})
+        else:
+            self._delete_by_entity_uri(index, entity_uri)
         logger.info("Metric embedding deleted", namespace=namespace, name=name)
 
     def search_metrics(
@@ -140,6 +185,22 @@ class MetricOpenSearchClient:
     ) -> list[dict[str, Any]]:
         """k-NN search for metrics by vector similarity (server-side filtered)."""
         index = self._index_name(namespace)
+        if self._use_aurora():
+            return [
+                {
+                    "entity_uri": h.metadata.get("entity_uri"),
+                    "metric_name": (h.metadata.get("entity_uri") or "").rsplit(":", 1)[-1],
+                    "namespace": h.metadata.get("namespace"),
+                    "text": h.body,
+                    "score": (1.0 + h.score) / 2.0,  # same [0, 1] scale as the AOSS score
+                }
+                for h in self._aurora().vector_search(
+                    index,
+                    query_embedding,
+                    top_k,
+                    {"doc_kind": "metric", "entity_type": "metric", "namespace": namespace},
+                )
+            ]
         raw_hits = self._aoss().knn_search(
             index,
             query_embedding,

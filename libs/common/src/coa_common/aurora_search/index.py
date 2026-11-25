@@ -127,6 +127,7 @@ def _build_filters(filters: dict[str, Any] | None, prefix: str = "f") -> tuple[s
 
     ``ontology_ids``: list, OR over ``metadata @> {"ontology_id": x}``.
     ``require_mapped``: true requires ``metadata`` to have ``data_source_id``.
+    ``exclude_metadata``: dict; rows whose ``metadata`` contains it are excluded.
     ``doc_kind``: str or list matched against the column.
     Any other key: a list is an OR over containment of ``{key: v}``; a scalar is one containment.
     """
@@ -146,6 +147,8 @@ def _build_filters(filters: dict[str, Any] | None, prefix: str = "f") -> tuple[s
             continue
         if key == "require_mapped":
             clauses.append("jsonb_exists(metadata, 'data_source_id')")
+        elif key == "exclude_metadata":
+            clauses.append(f"NOT (metadata @> CAST(:{add(value)} AS jsonb))")
         elif key == "doc_kind":
             kinds = value if isinstance(value, list) else [value]
             clauses.append(

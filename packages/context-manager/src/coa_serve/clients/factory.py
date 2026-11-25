@@ -15,8 +15,9 @@ from typing import TYPE_CHECKING
 from urllib.parse import urlsplit
 
 import structlog
+from coa_common.aurora_search import SearchBackend, resolve_search_backend
 
-from .base import ClientSet
+from .base import ClientSet, VectorClient
 
 if TYPE_CHECKING:
     from ..config import ServiceConfig
@@ -100,9 +101,17 @@ def _build_default_clients() -> ClientSet:
     from .opensearch import OpenSearchVectorClient
     from .source_db import SourceDBQueryExecutor
 
+    vector: VectorClient
+    if resolve_search_backend() == SearchBackend.PGVECTOR:
+        from .aurora import AuroraVectorClient
+
+        vector = AuroraVectorClient()
+    else:
+        vector = OpenSearchVectorClient()
+
     return ClientSet(
         graph=NeptuneGraphClient(),
-        vector=OpenSearchVectorClient(),
+        vector=vector,
         llm=BedrockLLMClient(),
         # Executes authorized SQL directly against customer relational databases.
         query_executor=SourceDBQueryExecutor(),
