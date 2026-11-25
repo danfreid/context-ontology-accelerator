@@ -87,3 +87,14 @@ def test_retries_while_cluster_resumes(index):
     index._rds.execute_statement.side_effect = [resuming, {"records": []}]
     assert index._execute(PROPS, "SELECT 1") == {"records": []}
     assert index._rds.execute_statement.call_count == 2
+
+
+def test_creates_hnsw_index_as_admin_for_configured_dimension(index):
+    index.handler({"RequestType": "Create", "ResourceProperties": {**PROPS, "VectorDimensions": 768}}, None)
+    sqls = [c.kwargs["sql"] for c in index._rds.execute_statement.call_args_list]
+    assert any("search_doc_embedding_hnsw_768" in s and "vector(768)" in s for s in sqls)
+
+
+def test_rejects_out_of_range_vector_dimensions(index):
+    with pytest.raises(ValueError):
+        index.handler({"RequestType": "Create", "ResourceProperties": {**PROPS, "VectorDimensions": 4000}}, None)

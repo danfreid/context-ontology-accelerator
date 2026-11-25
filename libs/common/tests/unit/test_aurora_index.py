@@ -124,9 +124,17 @@ def test_ensure_vector_index_swallows_already_exists_race() -> None:
     idx.ensure_vector_index()
 
 
+def test_ensure_vector_index_tolerates_non_owner_role() -> None:
+    def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
+        raise AuroraQueryError("must be owner of table search_doc")
+
+    idx, _ = make(handler)
+    idx.ensure_vector_index()
+
+
 def test_ensure_vector_index_reraises_other_errors() -> None:
     def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
-        raise AuroraQueryError("permission denied")
+        raise AuroraQueryError("connection reset")
 
     idx, _ = make(handler)
     with pytest.raises(AuroraQueryError):

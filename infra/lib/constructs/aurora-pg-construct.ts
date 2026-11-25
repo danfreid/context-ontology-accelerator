@@ -27,6 +27,12 @@ export interface AuroraPgProps {
   readonly vpc: ec2.IVpc;
   /** Security group attached to the cluster (ingress 5432 from workloads). */
   readonly securityGroup: ec2.ISecurityGroup;
+  /**
+   * Embedding dimension for the HNSW index on search_doc. The migrator creates the index as
+   * the table owner so the least-privilege rw role never needs to. Must equal the
+   * dimension the embedders use (AURORA_VECTOR_DIMENSIONS / OSS_DIMENSIONS). Default 1024.
+   */
+  readonly vectorDimensions?: number;
 }
 
 /**
@@ -130,7 +136,7 @@ export class AuroraPg extends SCLConstruct {
     this.searchRwSecretArn = rwSecret.secretArn;
     this.searchRoSecretArn = roSecret.secretArn;
 
-    this.addMigrator(cluster, [
+    this.addMigrator(cluster, props.vectorDimensions ?? 1024, [
       { name: SEARCH_RW_ROLE, secret: rwSecret },
       { name: SEARCH_RO_ROLE, secret: roSecret },
     ]);
@@ -195,6 +201,7 @@ export class AuroraPg extends SCLConstruct {
    */
   private addMigrator(
     cluster: rds.DatabaseCluster,
+    vectorDimensions: number,
     roles: { name: string; secret: secretsmanager.ISecret }[],
   ): void {
     const sqlPath = path.join(
@@ -245,6 +252,7 @@ export class AuroraPg extends SCLConstruct {
         AdminSecretArn: cluster.secret!.secretArn,
         Database: "postgres",
         SqlHash: sqlHash,
+        VectorDimensions: vectorDimensions,
         Roles: roles.map((r) => ({
           Name: r.name,
           SecretArn: r.secret.secretArn,

@@ -29,6 +29,7 @@ _secrets = boto3.client("secretsmanager")
 _SQL_PATH = Path(__file__).resolve().parent / "aurora-init.sql"
 _PHYSICAL_ID = "aurora-search-migration"
 _ROLE_NAME_RE = re.compile(r"^[a-z_][a-z0-9_]{0,62}$")
+_MAX_DIMENSIONS = 2000  # HNSW on the `vector` type indexes at most 2000 dimensions
 # A min-capacity-0 cluster is paused when idle; the first Data API call resumes it.
 _RESUME_ATTEMPTS = 12
 _RESUME_DELAY_SECONDS = 10
@@ -121,6 +122,26 @@ def _set_role_password(props: dict[str, Any], role: dict[str, str]) -> None:
     _execute(props, statement)
 
 
+def _create_vector_index(props: dict[str, Any]) -> None:
+    """Create the HNSW index as the table owner, so the rw role never needs to.
+
+    Identifiers cannot be bound as parameters; the dimension is validated as an integer.
+    The expression matches AuroraSearchIndex.ensure_vector_index and vector_search.
+    """
+    raw = props.get("VectorDimensions")
+    if raw is None:
+        return
+    dim = int(raw)
+    if not 1 <= dim <= _MAX_DIMENSIONS:
+        raise ValueError(f"VectorDimensions must be between 1 and {_MAX_DIMENSIONS}, got {dim}")
+    _execute(
+        props,
+        f"CREATE INDEX IF NOT EXISTS search_doc_embedding_hnsw_{dim} ON search_doc "
+        f"USING hnsw (CAST(embedding AS vector({dim})) vector_cosine_ops) "
+        "WHERE embedding IS NOT NULL",
+    )
+
+
 def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
     """CloudFormation custom-resource entry point."""
     request_type = event["RequestType"]
@@ -131,6 +152,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
     statements = split_statements(_SQL_PATH.read_text(encoding="utf-8"))
     for statement in statements:
         _execute(props, statement)
+    _create_vector_index(props)
     for role in props["Roles"]:
         _set_role_password(props, role)
     logger.info("applied %d statements and %d role passwords", len(statements), len(props["Roles"]))

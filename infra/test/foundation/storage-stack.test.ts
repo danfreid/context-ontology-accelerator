@@ -557,6 +557,7 @@ describe("StorageStack Aurora path", () => {
     template.hasResourceProperties("AWS::CloudFormation::CustomResource", {
       Database: "postgres",
       SqlHash: Match.stringLikeRegexp("^[0-9a-f]{64}$"),
+      VectorDimensions: 1024,
       Roles: [
         Match.objectLike({ Name: "coa_search_rw" }),
         Match.objectLike({ Name: "coa_search_ro" }),

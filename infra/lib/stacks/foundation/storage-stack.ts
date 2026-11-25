@@ -39,6 +39,8 @@ export interface StorageStackProps extends cdk.StackProps {
    * NetworkError, even though server-side (curl) uploads succeed.
    */
   allowedOrigin?: string;
+  /** Embedding dimension for the Aurora HNSW index (full Aurora path only). Default 1024. */
+  bedrockEmbedDimensions?: number;
 }
 
 export class StorageStack extends SCLStack {
@@ -296,6 +298,7 @@ export class StorageStack extends SCLStack {
       const aurora = new AuroraPg(this, "AuroraPg", {
         vpc: network.vpc,
         securityGroup: network.auroraSecurityGroup!,
+        vectorDimensions: props.bedrockEmbedDimensions,
       });
 
       this.neptunePort = 5432; // aurora-path: PostgreSQL port

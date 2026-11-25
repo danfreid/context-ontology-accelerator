@@ -244,6 +244,7 @@ async function deploy(): Promise<void> {
   const storage = new StorageStack(app, `${stackPrefix}-storage`, {
     network,
     allowedOrigin,
+    bedrockEmbedDimensions: config.bedrockEmbedDimensions,
   });
   const authnz = new AuthnzStack(app, `${stackPrefix}-authnz`, {
     claimsMappings: auth.initialClaimsMappings,

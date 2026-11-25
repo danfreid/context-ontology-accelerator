@@ -197,7 +197,13 @@ class AuroraSearchIndex:
         try:
             self._client.execute(sql)
         except AuroraQueryError as exc:
-            if "already exists" not in str(exc).lower():
+            message = str(exc).lower()
+            if "already exists" in message:
+                pass
+            elif "must be owner" in message:
+                # The least-privilege rw role does not own search_doc; the migrator creates the index.
+                logger.warning("cannot create the HNSW index as this role; the migrator owns it: %s", exc)
+            else:
                 raise
         _ENSURED_INDEXES.add(cache_key)
 
