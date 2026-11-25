@@ -18,7 +18,7 @@ export interface AuroraPgProps {
 }
 
 /**
- * Aurora Serverless v2 (PostgreSQL 16) cluster that replaces Neptune, OpenSearch
+ * Aurora Serverless v2 (PostgreSQL 18) cluster that replaces Neptune, OpenSearch
  * Serverless and the DynamoDB metadata tables on the cost-optimised path.
  *
  * - pgvector: vector similarity search (replaces the AOSS VECTORSEARCH collection).
@@ -52,9 +52,9 @@ export class AuroraPg extends SCLConstruct {
 
     const parameterGroup = new rds.ParameterGroup(this, "ParameterGroup", {
       engine: rds.DatabaseClusterEngine.auroraPostgres({
-        version: rds.AuroraPostgresEngineVersion.VER_16_6,
+        version: rds.AuroraPostgresEngineVersion.VER_18_4,
       }),
-      description: "SemanticContext Aurora PostgreSQL 16 parameters",
+      description: "SemanticContext Aurora PostgreSQL 18 parameters",
       parameters: {
         // Only libraries that need preloading. vector and pgrouting are plain
         // CREATE EXTENSION; an unknown name here stops the instance starting.
@@ -67,7 +67,7 @@ export class AuroraPg extends SCLConstruct {
     const cluster = new rds.DatabaseCluster(this, "Cluster", {
       clusterIdentifier: this.prefixed("aurora"),
       engine: rds.DatabaseClusterEngine.auroraPostgres({
-        version: rds.AuroraPostgresEngineVersion.VER_16_6,
+        version: rds.AuroraPostgresEngineVersion.VER_18_4,
       }),
       parameterGroup,
       serverlessV2MinCapacity: 0,

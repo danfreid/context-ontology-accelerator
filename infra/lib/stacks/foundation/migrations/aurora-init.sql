@@ -1,4 +1,4 @@
--- Aurora PostgreSQL 16 initialisation for the switchable-backends Aurora path
+-- Aurora PostgreSQL 18 initialisation for the switchable-backends Aurora path
 -- (graph_backend=aurora, vector_backend=pgvector, metadata_backend=aurora).
 --
 -- Run once against the cluster after creation (RDS Data API or psql). Not
@@ -61,3 +61,37 @@ CREATE TABLE IF NOT EXISTS ontology_engine (
 -- benchmark deep traversal queries (tests/benchmark) before committing to an
 -- aurora-only graph backend. Apache AGE (openCypher) is the next option if
 -- hand-written CTEs fall short.
+
+-- ── Lexical + hybrid search (replaces AOSS keyword search) ─────────────────
+-- Aurora has no BM25 extension (no pg_search / pg_textsearch). Built-in ts_rank
+-- ignores corpus statistics, so ranking is done in two stages:
+--   1. Recall: tsvector + GIN pulls the top ~200 candidates per query.
+--   2. Rank: the caller computes true BM25 over those candidates from the
+--      term statistics below (k1 = 1.2, b = 0.75), then fuses with the pgvector
+--      ranking by reciprocal rank fusion (score = sum 1 / (60 + rank)).
+-- Phase 2 application code owns steps 2 and the statistics upkeep.
+CREATE TABLE IF NOT EXISTS search_doc (
+    doc_id     TEXT PRIMARY KEY,
+    namespace  TEXT NOT NULL,
+    body       TEXT NOT NULL,
+    doc_len    INTEGER NOT NULL,                       -- token count, for BM25 length normalisation
+    tsv        TSVECTOR NOT NULL,
+    embedding  VECTOR                                  -- dimension fixed per index at runtime
+);
+CREATE INDEX IF NOT EXISTS search_doc_tsv_idx ON search_doc USING GIN (tsv);
+CREATE INDEX IF NOT EXISTS search_doc_namespace_idx ON search_doc (namespace);
+
+-- Per-namespace corpus statistics: document count and average length.
+CREATE TABLE IF NOT EXISTS search_corpus_stats (
+    namespace  TEXT PRIMARY KEY,
+    doc_count  BIGINT NOT NULL DEFAULT 0,
+    avg_doc_len DOUBLE PRECISION NOT NULL DEFAULT 0
+);
+
+-- Per-namespace document frequency per term, for IDF.
+CREATE TABLE IF NOT EXISTS search_term_stats (
+    namespace  TEXT NOT NULL,
+    term       TEXT NOT NULL,
+    doc_freq   BIGINT NOT NULL DEFAULT 0,
+    PRIMARY KEY (namespace, term)
+);
