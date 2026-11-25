@@ -2,6 +2,8 @@
 
 Serve layer orchestration service hosted on Bedrock AgentCore Runtime. Receives queries from consumer surfaces (Data Layer API Lambda, Playground WebSocket, MCP) and coordinates downstream services through tiered resolution.
 
+Vector search can run on Aurora instead of OpenSearch Serverless when `vector_backend=pgvector`; see [aurora-search.md](../ontology-engine/docs/aurora-search.md).
+
 ## Endpoints
 
 ### POST /invocations
