@@ -27,6 +27,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
@@ -393,7 +394,7 @@ def post_review(
         "body": body,
         "comments": [{"path": f.path, "line": f.line, "side": "RIGHT", "body": render_inline_body(f)} for f in inline],
     }
-    path = Path(os.environ.get("RUNNER_TEMP", "/tmp")) / f"review-payload-{number}.json"
+    path = Path(os.environ.get("RUNNER_TEMP") or tempfile.gettempdir()) / f"review-payload-{number}.json"
     path.write_text(json.dumps(payload))
     runner(["api", "--method", "POST", f"repos/{repo}/pulls/{number}/reviews", "--input", str(path)])
 
@@ -486,7 +487,7 @@ def _publish(args: argparse.Namespace) -> int:
         except RuntimeError as exc:
             print(f"[review] WARNING: inline review rejected, falling back to a comment: {exc}", file=sys.stderr)
 
-    body_path = Path(os.environ.get("RUNNER_TEMP", "/tmp")) / f"review-{review}-{number}.md"
+    body_path = Path(os.environ.get("RUNNER_TEMP") or tempfile.gettempdir()) / f"review-{review}-{number}.md"
     body_path.write_text(comment)
     gh(["pr", "comment", str(number), "--repo", repo, "--body-file", str(body_path)])
     print(f"[review] posted {len(findings)} finding(s) to PR #{number}")

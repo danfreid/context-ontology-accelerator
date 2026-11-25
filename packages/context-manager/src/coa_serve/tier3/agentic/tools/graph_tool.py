@@ -754,9 +754,11 @@ class GraphTraversalTool:
         for connected, connected_statements in statements.items():
             label = labels.get(connected, "")
             for text in connected_statements:
+                # Content-derived id, not a security use of SHA-1.
+                digest = sha1(text.encode("utf-8"), usedforsecurity=False).hexdigest()[:12]
                 chunks.append(
                     ChunkResult(
-                        chunk_id=f"{connected}#stmt-{sha1(text.encode('utf-8')).hexdigest()[:12]}",
+                        chunk_id=f"{connected}#stmt-{digest}",
                         text=text,
                         source_doc="",
                         relevance_score=1.0,
