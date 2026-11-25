@@ -97,7 +97,7 @@ class MetricOpenSearchClient:
         if self._aurora_index is None:
             cfg = AuroraConfig.from_env()
             client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
-            self._aurora_index = AuroraSearchIndex(client, OSS_DIMENSIONS)
+            self._aurora_index = AuroraSearchIndex(client, cfg.dimensions)
         return self._aurora_index
 
     def _aoss(self) -> AossVectorClient:

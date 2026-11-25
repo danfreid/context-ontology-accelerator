@@ -42,6 +42,18 @@ def _aurora_client() -> tuple[MetricOpenSearchClient, MagicMock, MagicMock]:
     return client, index, aoss
 
 
+def test_aurora_index_dimension_comes_from_aurora_config(monkeypatch: pytest.MonkeyPatch) -> None:
+    from coa_metrics import opensearch_client as mod
+
+    cfg = MagicMock(cluster_arn="c", secret_arn="s", database="d", dimensions=512)
+    monkeypatch.setattr(mod.AuroraConfig, "from_env", lambda *a, **k: cfg)
+    monkeypatch.setattr(mod, "AuroraDataApiClient", lambda *a, **k: MagicMock())
+    built = MagicMock()
+    monkeypatch.setattr(mod, "AuroraSearchIndex", built)
+    MetricOpenSearchClient()._aurora()
+    assert built.call_args.args[1] == 512
+
+
 def test_default_environment_uses_aoss(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("HYBRID_SEARCH_BACKEND", raising=False)
     monkeypatch.delenv("WORKBENCH_BACKEND", raising=False)

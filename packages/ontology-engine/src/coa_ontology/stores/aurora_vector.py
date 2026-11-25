@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import json
 import logging
+import threading
 from collections import defaultdict
 from typing import Any
 
@@ -35,6 +36,10 @@ log = logging.getLogger(__name__)
 DOC_KIND = "ontology"
 _LIST_CAP = 10_000
 _ENTITY_CAP = 1000
+_PAGE_SIZE = 500
+_URI_PAGE_SIZE = 2000
+_DELETE_ENTITY_CHUNK = 500
+_VECTOR_PAGE_SIZE = 25  # a 1024-dim vector is about 20 KB as text
 
 
 def _vector_from_text(value: Any) -> list[float]:
@@ -68,17 +73,22 @@ class AuroraVectorStore(VectorStore):
 
     def __init__(self, namespace: str | None = None):
         """Bind the store to a namespace and defer Data API client creation."""
-        self.dimensions = OSS_DIMENSIONS
+        self.dimensions = OSS_DIMENSIONS  # replaced by AuroraConfig.dimensions once the index is built
         self._namespace = namespace
         self._index: AuroraSearchIndex | None = None
         self._client: AuroraDataApiClient | None = None
+        self._build_lock = threading.Lock()
 
     def _aurora(self) -> AuroraSearchIndex:
         """Lazily build the Data API client and search index from the environment."""
         if self._index is None:
-            cfg = AuroraConfig.from_env()
-            self._client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
-            self._index = AuroraSearchIndex(self._client, self.dimensions)
+            with self._build_lock:
+                if self._index is None:
+                    cfg = AuroraConfig.from_env()
+                    client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
+                    self.dimensions = cfg.dimensions
+                    self._client = client
+                    self._index = AuroraSearchIndex(client, cfg.dimensions)
         return self._index
 
     def _resolve_ns(self, namespace: str | None) -> str | None:
@@ -124,7 +134,8 @@ class AuroraVectorStore(VectorStore):
     def store_embedding(self, data: dict) -> dict:
         """Upsert one embedding document (idempotent)."""
         ns = self._resolve_ns(data.get("namespace"))
-        self._write_index().upsert_docs(self._scope(ns), [self._doc_from(data, ns)])
+        index = self._write_index()  # first: it sets self.dimensions from AuroraConfig
+        index.upsert_docs(self._scope(ns), [self._doc_from(data, ns)])
         return self._echo(data, ns)
 
     def store_embeddings_batch(self, items: list[dict]) -> list[dict]:
@@ -135,8 +146,9 @@ class AuroraVectorStore(VectorStore):
         for it in items:
             by_ns[self._resolve_ns(it.get("namespace"))].append(it)
         out: list[dict] = []
+        index = self._write_index()  # first: it sets self.dimensions from AuroraConfig
         for ns, ns_items in by_ns.items():
-            self._write_index().upsert_docs(self._scope(ns), [self._doc_from(it, ns) for it in ns_items])
+            index.upsert_docs(self._scope(ns), [self._doc_from(it, ns) for it in ns_items])
             out.extend(self._echo(it, ns) for it in ns_items)
         return out
 
@@ -174,19 +186,24 @@ class AuroraVectorStore(VectorStore):
         self._aurora()
         assert self._client is not None  # set by _aurora()
         vector_col = ", CAST(embedding AS text) AS embedding" if with_vector else ""
-        rows = self._client.execute(
+        # The Data API caps a response at 1 MiB, so read in pages (halved on overflow).
+        pages = self._client.iter_pages(
             f"SELECT doc_id, body, metadata{vector_col} FROM search_doc "
             "WHERE namespace = :ns AND doc_kind = :kind AND metadata @> CAST(:m AS jsonb) "
-            "ORDER BY doc_id LIMIT :lim",
-            {"ns": scope, "kind": DOC_KIND, "m": containment, "lim": int(limit)},
+            "ORDER BY doc_id",
+            {"ns": scope, "kind": DOC_KIND, "m": containment},
+            page_size=_VECTOR_PAGE_SIZE if with_vector else _PAGE_SIZE,
         )
-        out = []
-        for r in rows:
-            meta = _metadata(r.get("metadata"))
-            doc: dict[str, Any] = {**meta, "text": r.get("body", "") or ""}
-            if with_vector:
-                doc["embedding"] = _vector_from_text(r.get("embedding"))
-            out.append(doc)
+        out: list[dict] = []
+        for page in pages:
+            for r in page:
+                meta = _metadata(r.get("metadata"))
+                doc: dict[str, Any] = {**meta, "text": r.get("body", "") or ""}
+                if with_vector:
+                    doc["embedding"] = _vector_from_text(r.get("embedding"))
+                out.append(doc)
+                if len(out) >= limit:
+                    return out
         return out
 
     def get_embeddings_for_entity(
@@ -230,12 +247,14 @@ class AuroraVectorStore(VectorStore):
         """Return the entity URIs currently searchable for an ontology."""
         self._aurora()
         assert self._client is not None
-        rows = self._client.execute(
+        pages = self._client.iter_pages(
             "SELECT DISTINCT metadata ->> 'entity_uri' AS entity_uri FROM search_doc "
-            "WHERE namespace = :ns AND doc_kind = :kind AND metadata @> CAST(:m AS jsonb)",
+            "WHERE namespace = :ns AND doc_kind = :kind AND metadata @> CAST(:m AS jsonb) "
+            "ORDER BY entity_uri",
             {"ns": self._scope(namespace), "kind": DOC_KIND, "m": {"ontology_id": ontology_id}},
+            page_size=_URI_PAGE_SIZE,
         )
-        return [r["entity_uri"] for r in rows if r.get("entity_uri")]
+        return [r["entity_uri"] for page in pages for r in page if r.get("entity_uri")]
 
     def search_nearest(
         self,
@@ -289,10 +308,27 @@ class AuroraVectorStore(VectorStore):
         if not uris or not ontology_id:
             return 0
         index = self._aurora()
+        assert self._client is not None
         scope = self._scope(namespace)
-        return sum(
-            index.delete_docs(scope, filter_metadata={"ontology_id": ontology_id, "entity_uri": uri}) for uri in uris
-        )
+        deleted = 0
+        for start in range(0, len(uris), _DELETE_ENTITY_CHUNK):
+            chunk = uris[start : start + _DELETE_ENTITY_CHUNK]
+            doc_ids = [
+                r["doc_id"]
+                for page in self._client.iter_pages(
+                    "SELECT doc_id FROM search_doc WHERE namespace = :ns AND doc_kind = :kind "
+                    "AND metadata @> CAST(:m AS jsonb) "
+                    "AND metadata ->> 'entity_uri' IN (SELECT jsonb_array_elements_text(CAST(:uris AS jsonb))) "
+                    "ORDER BY doc_id",
+                    {"ns": scope, "kind": DOC_KIND, "m": {"ontology_id": ontology_id}, "uris": chunk},
+                    page_size=_URI_PAGE_SIZE,
+                )
+                for r in page
+            ]
+            if doc_ids:
+                # One call per chunk; the ontology_id filter stays so a sibling ontology is never touched.
+                deleted += index.delete_docs(scope, filter_metadata={"ontology_id": ontology_id}, doc_ids=doc_ids)
+        return deleted
 
     def delete_index(self, namespace: str | None = None) -> bool:
         """Delete every document of the namespace's scope. Returns True if any existed."""

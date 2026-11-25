@@ -12,7 +12,7 @@ from __future__ import annotations
 from unittest.mock import MagicMock
 
 import pytest
-from coa_common.aurora_search import SearchDoc, SearchHit
+from coa_common.aurora_search import AuroraDataApiClient, AuroraResponseTooLargeError, SearchDoc, SearchHit
 from coa_ontology.stores import factory
 from coa_ontology.stores.aurora_vector import AuroraVectorStore
 from coa_ontology.stores.base import EmbeddingHit
@@ -101,11 +101,11 @@ class TestReads:
 
     def test_get_embeddings_for_entity_selects_by_containment_and_parses_vector(self):
         store, _, client = _store()
-        client.execute.return_value = [
-            {"doc_id": "d1", "body": "Alpha", "metadata": {"entity_uri": "http://x/A"}, "embedding": "[0.5,0.25]"}
-        ]
+        client.iter_pages.return_value = iter(
+            [[{"doc_id": "d1", "body": "Alpha", "metadata": {"entity_uri": "http://x/A"}, "embedding": "[0.5,0.25]"}]]
+        )
         docs = store.get_embeddings_for_entity("http://x/A", entity_type="class", embedding_type="lexical")
-        sql, params = client.execute.call_args.args
+        sql, params = client.iter_pages.call_args.args
         assert "metadata @> CAST(:m AS jsonb)" in sql
         assert params["ns"] == SCOPE
         assert params["m"] == {"entity_uri": "http://x/A", "entity_type": "class", "embedding_type": "lexical"}
@@ -113,36 +113,64 @@ class TestReads:
 
     def test_list_embeddings_limit_excludes_vector(self):
         store, _, client = _store()
-        client.execute.return_value = [{"doc_id": "d1", "body": "t", "metadata": '{"entity_uri": "u"}'}]
+        client.iter_pages.return_value = iter([[{"doc_id": "d1", "body": "t", "metadata": '{"entity_uri": "u"}'}]])
         docs = store.list_embeddings_for_ontology("onto1", limit=5)
-        sql, params = client.execute.call_args.args
+        sql = client.iter_pages.call_args.args[0]
         assert "CAST(embedding AS text)" not in sql
-        assert params["lim"] == 5
         assert docs == [{"entity_uri": "u", "text": "t"}]
+
+    def test_list_embeddings_limit_stops_reading_pages(self):
+        store, _, client = _store()
+        rows = [{"doc_id": f"d{i}", "body": "t", "metadata": {"entity_uri": f"u{i}"}} for i in range(4)]
+        client.iter_pages.return_value = iter([rows[:2], rows[2:]])
+        assert [d["entity_uri"] for d in store.list_embeddings_for_ontology("onto1", limit=3)] == ["u0", "u1", "u2"]
 
     def test_list_embeddings_without_limit_includes_vector(self):
         store, _, client = _store()
-        client.execute.return_value = []
+        client.iter_pages.return_value = iter([])
         store.list_embeddings_for_ontology("onto1")
-        sql, params = client.execute.call_args.args
+        sql, params = client.iter_pages.call_args.args
         assert "CAST(embedding AS text)" in sql
+        assert "ORDER BY doc_id" in sql
         assert params["m"] == {"ontology_id": "onto1"}
 
     def test_list_embeddings_limit_below_one_returns_empty_without_query(self):
         store, _, client = _store()
         assert store.list_embeddings_for_ontology("onto1", limit=0) == []
-        client.execute.assert_not_called()
+        client.iter_pages.assert_not_called()
 
     def test_list_searchable_entity_uris(self):
         store, _, client = _store()
-        client.execute.return_value = [{"entity_uri": "u1"}, {"entity_uri": None}, {"entity_uri": "u2"}]
+        client.iter_pages.return_value = iter([[{"entity_uri": "u1"}, {"entity_uri": None}], [{"entity_uri": "u2"}]])
         assert store.list_searchable_entity_uris("onto1") == ["u1", "u2"]
+        assert "ORDER BY entity_uri" in client.iter_pages.call_args.args[0]
+
+    def test_lists_page_through_responses_over_the_data_api_limit(self):
+        """A real client pages a list whose first request overflows the 1 MiB response limit."""
+        rows = [{"entity_uri": f"u{i:03d}"} for i in range(10)]
+
+        class OverflowingClient(AuroraDataApiClient):
+            def __init__(self):
+                self.sizes = []
+
+            def execute(self, sql, params=None):
+                limit, offset = params["_page_limit"], params["_page_offset"]
+                self.sizes.append(limit)
+                if limit > 3:
+                    raise AuroraResponseTooLargeError("too large")
+                return rows[offset : offset + limit]
+
+        store, _, _ = _store()
+        client = OverflowingClient()
+        store._client = client
+        assert store.list_searchable_entity_uris("onto1") == [r["entity_uri"] for r in rows]
+        assert client.sizes[0] > 3 and client.sizes[-1] <= 3
 
     def test_per_call_namespace_override(self):
         store, _, client = _store()
-        client.execute.return_value = []
+        client.iter_pages.return_value = iter([])
         store.list_embeddings_for_ontology("onto1", namespace="other")
-        assert client.execute.call_args.args[1]["ns"] == "ontology-workbench-embeddings-other"
+        assert client.iter_pages.call_args.args[1]["ns"] == "ontology-workbench-embeddings-other"
 
 
 class TestSearchNearest:
@@ -196,14 +224,20 @@ class TestDeletes:
         index.delete_docs.assert_called_once_with(SCOPE, filter_metadata={"ontology_id": "onto1"})
 
     def test_delete_for_entities_always_includes_ontology_id(self):
-        store, index, _ = _store()
-        index.delete_docs.return_value = 1
+        store, index, client = _store()
+        client.iter_pages.return_value = iter([[{"doc_id": "d1"}, {"doc_id": "d2"}]])
+        index.delete_docs.return_value = 2
         assert store.delete_embeddings_for_entities(["u1", "u1", "", "u2"], "onto1") == 2
-        calls = [c.kwargs["filter_metadata"] for c in index.delete_docs.call_args_list]
-        assert calls == [
-            {"ontology_id": "onto1", "entity_uri": "u1"},
-            {"ontology_id": "onto1", "entity_uri": "u2"},
-        ]
+        index.delete_docs.assert_called_once_with(SCOPE, filter_metadata={"ontology_id": "onto1"}, doc_ids=["d1", "d2"])
+        sql, params = client.iter_pages.call_args.args
+        assert params["uris"] == ["u1", "u2"]
+        assert params["m"] == {"ontology_id": "onto1"}
+
+    def test_delete_for_entities_without_matches_deletes_nothing(self):
+        store, index, client = _store()
+        client.iter_pages.return_value = iter([])
+        assert store.delete_embeddings_for_entities(["u1"], "onto1") == 0
+        index.delete_docs.assert_not_called()
 
     def test_delete_for_entities_requires_ontology_id_and_uris(self):
         store, index, _ = _store()
