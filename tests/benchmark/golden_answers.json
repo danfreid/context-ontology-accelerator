@@ -1,0 +1,3 @@
+{
+  "_comment": "Format: { \"<query_id>\": { \"expected\": <result count>, \"tolerance\": <allowed absolute difference> } }. Keys starting with _ are ignored."
+}

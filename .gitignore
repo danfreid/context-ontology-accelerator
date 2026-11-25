@@ -260,3 +260,6 @@ infra/Python/
 
 # Agent orchestration task trees (ephemeral workflow state)
 .agents/
+# Benchmark run output (keep the directory)
+tests/benchmark/results/*
+!tests/benchmark/results/.gitkeep
