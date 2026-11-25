@@ -365,22 +365,24 @@ def delete_graphrag_indexes(namespace_id: str) -> list[str]:
     gone.
 
     With the Aurora backend selected (`HYBRID_SEARCH_BACKEND`) the scopes are cleared
-    with `AuroraSearchIndex.delete_scope`, which also removes the stats rows.
+    with `AuroraSearchIndex.delete_scope`, which also removes the stats rows. The
+    AOSS indexes are then deleted as well: the GraphRAG toolkit still writes them
+    on this path, and they count toward the collection cap.
     """
+    removed: list[str] = []
     if resolve_search_backend() == SearchBackend.PGVECTOR:
-        return _delete_aurora_scopes(namespace_id, graphrag_index_names(namespace_id))
+        removed.extend(_delete_aurora_scopes(namespace_id, graphrag_index_names(namespace_id)))
     endpoint = os.environ.get("OSS_ENDPOINT", "")
     if not endpoint:
         logger.warning("oss_endpoint_not_configured", namespace_id=namespace_id)
-        return []
+        return removed
 
     region = os.environ.get("AWS_REGION", "us-east-1")
     # dimensions is irrelevant for a delete but required by the client ctor.
     client = AossVectorClient(endpoint=endpoint, region=region, dimensions=1024, timeout=60)
 
-    removed: list[str] = []
     for index in graphrag_index_names(namespace_id):
-        if client.delete_index(index):
+        if client.delete_index(index) and index not in removed:
             removed.append(index)
 
     logger.info(

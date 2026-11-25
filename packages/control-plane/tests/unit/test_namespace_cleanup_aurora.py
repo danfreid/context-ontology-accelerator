@@ -32,18 +32,27 @@ def aurora_index(monkeypatch):
 
 @pytest.mark.unit
 class TestDeleteGraphragIndexesAurora:
-    def test_deletes_every_graphrag_scope_and_skips_aoss(self, aurora_index, monkeypatch):
+    def test_deletes_every_graphrag_scope_and_still_deletes_aoss_indexes(self, aurora_index, monkeypatch):
         from coa_control_plane.namespace import cleanup
 
         index, aoss = aurora_index
         monkeypatch.setenv("OSS_ENDPOINT", "https://x.aoss.us-east-1.on.aws")
-
+        aoss.return_value.delete_index.return_value = True
         removed = cleanup.delete_graphrag_indexes(NS)
-
         expected = graphrag_index_names(NS)
         assert [c.args[0] for c in index.delete_scope.call_args_list] == expected
+        assert [c.args[0] for c in aoss.return_value.delete_index.call_args_list] == expected
         assert removed == expected
-        aoss.assert_not_called()
+
+    def test_aoss_failure_propagates_after_aurora_clear(self, aurora_index, monkeypatch):
+        from coa_control_plane.namespace import cleanup
+
+        index, aoss = aurora_index
+        monkeypatch.setenv("OSS_ENDPOINT", "https://x.aoss.us-east-1.on.aws")
+        aoss.return_value.delete_index.side_effect = RuntimeError("aoss unavailable")
+        with pytest.raises(RuntimeError, match="aoss unavailable"):
+            cleanup.delete_graphrag_indexes(NS)
+        assert index.delete_scope.call_count == len(graphrag_index_names(NS))
 
     def test_empty_scopes_are_not_reported_and_work_is_idempotent(self, aurora_index):
         from coa_control_plane.namespace import cleanup
