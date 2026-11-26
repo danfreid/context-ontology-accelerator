@@ -497,7 +497,7 @@ foundational_ontologies:
       Buy-Ship-Pay trade vocabulary: consignment, transport, exchanged documents (invoice,
       bill of lading), product certificates, settlement and payment terms.
     format: turtle
-    license: "UNECE, free of charge to use; no explicit licence"
+    license: GPL-3.0-or-later
     license_tier: attribution
     upstream: https://vocabulary.uncefact.org/
     # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.

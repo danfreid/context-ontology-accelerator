@@ -12,7 +12,7 @@ publishes OWL at a URL: ISDA CDM and the DCSA electronic bill of lading.
 | `fibo` | 1244 | FIBO, combined subset | MIT |
 | `fibo-be`, `fibo-debt`, `fibo-debt-instruments`, `fibo-derivatives`, `fibo-loans`, `fibo-securities` | 114–492 each | FIBO modules | MIT |
 | `gleif-lei` | 40 | GLEIF Base, L1, L2 | GLEIF terms of use |
-| `uncefact` | 542 | UN/CEFACT Web Vocabulary, subset | UNECE: free to use, no explicit licence |
+| `uncefact` | 542 | UN/CEFACT Web Vocabulary, subset | GPL-3.0-or-later (UN/CEFACT vocabulary repo) |
 | `dcsa-ebl` | 106 | DCSA eBL, converted from OpenAPI | Apache-2.0 |
 | `isda-cdm` | 523 | ISDA/FINOS CDM, converted from Rosetta | Community Specification License 1.0 |
 | `folio` (optional, not committed) | 18327 | FOLIO legal ontology | CC-BY-4.0 |

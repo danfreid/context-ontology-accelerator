@@ -190,9 +190,12 @@ ontologies:
     title: UN/CEFACT Web Vocabulary (subset)
     ontology_type: foundational
     derived: false
-    # No licence file in uncefact/vocabulary-outputs or uncefact/spec-jsonld. UNECE states its
-    # deliverables are free of charge to use; no explicit redistribution licence was found.
-    license: "UNECE, free of charge to use; no explicit licence"
+    # The snapshot's source (unece.jsonld in github.com/uncefact/vocabulary-outputs) has no licence
+    # file. github.com/uncefact/governance says all UN/CEFACT GitHub content is free to use and repos
+    # carry their licence, "usually GPL3". The vocabulary's maintained successor,
+    # opensource.unicc.org/un/unece/uncefact/vocab-bsp (serves vocab.unece.org), is GPL-3.0-or-later.
+    # The ontology files declare no dcterms:license of their own.
+    license: GPL-3.0-or-later
     license_verified: true
     source: "https://github.com/uncefact/vocabulary-outputs"
     snapshot: v1
