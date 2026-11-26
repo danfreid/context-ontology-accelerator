@@ -251,11 +251,26 @@ Resources:
                   export PATH="$HOME/.local/bin:$PATH"
                   # Some stacks pin linux/amd64 images (ontology engine, sources tasks) while
                   # others are arm64; this arm64 host needs QEMU emulation for the amd64 ones.
-                  docker run --privileged --rm tonistiigi/binfmt --install amd64
-                  [ "$(docker run --rm --platform linux/amd64 public.ecr.aws/docker/library/alpine:latest uname -m)" = "x86_64" ] \
-                    || { echo "ERROR: linux/amd64 emulation is not available on this build host" >&2; exit 1; }
+                  # The ECR Public mirror comes first: CodeBuild hosts share IP addresses and
+                  # often hit Docker Hub's unauthenticated pull rate limit.
+                  amd64_emulation() { [ "$(docker run --rm --platform linux/amd64 public.ecr.aws/docker/library/alpine:latest uname -m 2>/dev/null)" = "x86_64" ]; }
+                  for binfmt in public.ecr.aws/eks-distro-build-tooling/binfmt-misc:qemu-v7.0.0 tonistiigi/binfmt tonistiigi/binfmt tonistiigi/binfmt; do
+                    amd64_emulation && break
+                    echo "Registering amd64 emulation with $binfmt"
+                    docker run --privileged --rm "$binfmt" --install amd64 || sleep 30
+                  done
+                  amd64_emulation || { echo "linux/amd64 emulation could not be registered on this build host" >&2; exit 1; }
                   make setup
-                  ./scripts/deploy.sh "$COA_DEPLOY_ENV"
+                  # COA_CDK_STACKS (optional, space-separated) deploys only those stacks with
+                  # --exclusively, so a deploy can be split across builds; unset deploys all.
+                  STACKS="${COA_CDK_STACKS:-}"
+                  if [ -n "$STACKS" ]; then
+                    [[ "$STACKS" =~ ^[A-Za-z0-9\ -]+$ ]] || { echo "COA_CDK_STACKS may only hold stack names separated by spaces" >&2; exit 1; }
+                    read -r -a STACK_LIST <<< "$STACKS"
+                    ./scripts/codebuild/deploy-stacks.sh "$COA_DEPLOY_ENV" "${STACK_LIST[@]}"
+                  else
+                    ./scripts/deploy.sh "$COA_DEPLOY_ENV"
+                  fi
 
 Outputs:
   ProjectName:

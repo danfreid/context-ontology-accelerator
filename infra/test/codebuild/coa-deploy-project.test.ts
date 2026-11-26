@@ -154,6 +154,140 @@ describe("CodeBuild project", () => {
     ).toBeGreaterThan(spec.indexOf("make setup"));
     expect(spec).not.toContain("deploy-all.sh");
   });
+
+  const buildSpec = (): string =>
+    Object.values(template.findResources("AWS::CodeBuild::Project"))[0]
+      .Properties.Source.BuildSpec;
+
+  it("registers amd64 emulation from the ECR Public mirror first, with a fallback, and checks it", () => {
+    const spec = buildSpec();
+    const mirror = spec.indexOf(
+      "public.ecr.aws/eks-distro-build-tooling/binfmt-misc",
+    );
+    const hub = spec.indexOf("tonistiigi/binfmt");
+    expect(mirror).toBeGreaterThan(-1);
+    expect(hub).toBeGreaterThan(mirror);
+    expect(spec).toContain("--platform linux/amd64");
+    expect(spec).toContain('= "x86_64"');
+    // The check runs before setup, so a host without emulation fails fast.
+    expect(spec.indexOf("could not be registered")).toBeLessThan(
+      spec.indexOf("make setup"),
+    );
+    // Echoed command text must not look like an error to log scanners.
+    expect(spec).not.toMatch(/ERROR:/);
+  });
+
+  it("deploys only COA_CDK_STACKS when it is set, validated, and everything when unset", () => {
+    const spec = buildSpec();
+    expect(spec).toContain('STACKS="${COA_CDK_STACKS:-}"');
+    expect(spec).toContain("^[A-Za-z0-9\\ -]+$");
+    const subset = spec.indexOf("./scripts/codebuild/deploy-stacks.sh");
+    const all = spec.indexOf('./scripts/deploy.sh "$COA_DEPLOY_ENV"');
+    expect(subset).toBeGreaterThan(spec.indexOf("make setup"));
+    expect(all).toBeGreaterThan(subset);
+  });
+});
+
+describe("deploy-stacks.sh (subset deploy for batched builds)", () => {
+  const script = read("scripts", "codebuild", "deploy-stacks.sh").replace(
+    /\r\n/g,
+    "\n",
+  );
+  const deploySh = read("scripts", "deploy.sh").replace(/\r\n/g, "\n");
+
+  it("deploys the given stacks exclusively with deploy.sh's context and flags", () => {
+    expect(script).toContain('cdk deploy "$@" --exclusively "${CONTEXT[@]}"');
+    expect(script).toContain('CONTEXT=(--context "env=$ENV")');
+    expect(script).toContain("scripts/lib/cdk-context.sh");
+    expect(script).toContain("--require-approval=never");
+    expect(script).toContain('--concurrency "${SCL_CDK_CONCURRENCY:-3}"');
+  });
+
+  it("runs the same checks and build steps as deploy.sh before deploying", () => {
+    for (const step of [
+      "check-smus-admin-principal.sh",
+      "coa_add_jdbc_peering_context",
+      "./scripts/preflight-deploy.sh",
+      "pnpm install --frozen-lockfile",
+      "pnpm nx run-many -t build",
+    ]) {
+      expect(deploySh).toContain(step);
+      expect(script).toContain(step);
+      expect(script.indexOf(step)).toBeLessThan(
+        script.indexOf("exec cdk deploy"),
+      );
+    }
+  });
+
+  it("rejects invalid stack names", () => {
+    expect(script).toMatch(/invalid stack name/);
+  });
+});
+
+describe("run-deploy.sh batched mode", () => {
+  const bash = fs.existsSync("C:\\Program Files\\Git\\bin\\bash.exe")
+    ? "C:\\Program Files\\Git\\bin\\bash.exe"
+    : "bash";
+  const dryRun = (env: Record<string, string>): string =>
+    execFileSync(
+      bash,
+      [path.join(REPO_ROOT, "scripts", "codebuild", "run-deploy.sh")],
+      {
+        env: {
+          ...process.env,
+          COA_CODEBUILD_BATCHED: "1",
+          COA_CODEBUILD_DRY_RUN: "1",
+          ...env,
+        },
+        encoding: "utf8",
+      },
+    );
+
+  it("plans the platform stacks in dependency order with the prefix and environment", () => {
+    const out = dryRun({ SCL_PREFIX: "abc", COA_DEPLOY_ENV: "test" });
+    const lines = out.split("\n").filter((l) => l.includes("batch "));
+    expect(lines).toHaveLength(5);
+    expect(lines[0]).toContain("abc-test-network");
+    expect(lines[1]).toContain("abc-test-storage");
+    expect(lines[2]).toContain("abc-test-sources");
+    expect(lines[3]).toContain("abc-test-ontology");
+    expect(lines[4]).toContain("abc-test-web");
+    const order = lines.join(" ");
+    // Each stack must come after the stacks it depends on.
+    for (const [dep, stack] of [
+      ["network", "storage"],
+      ["storage", "vkg"],
+      ["namespace", "sources"],
+      ["sources", "ontology"],
+      ["serve", "mcp"],
+      ["ontology", "api"],
+      ["api", "web"],
+    ]) {
+      expect(order.indexOf(`abc-test-${dep}`)).toBeLessThan(
+        order.indexOf(`abc-test-${stack}`),
+      );
+    }
+  });
+
+  it("resumes from a given batch", () => {
+    const out = dryRun({ COA_CODEBUILD_FROM_BATCH: "4" });
+    expect(out).not.toContain("batch 3:");
+    expect(out).toContain("batch 4: coa-dev-ontology coa-dev-serve coa-dev-mcp");
+  });
+
+  it("accepts an explicit batch list", () => {
+    const out = dryRun({ COA_CODEBUILD_BATCHES: "x-a x-b; x-c" });
+    expect(out).toContain("batch 1: x-a x-b");
+    expect(out).toContain("batch 2: x-c");
+  });
+
+  it("covers every stack the CDK app defines", () => {
+    const app = read("infra", "bin", "app.ts");
+    const out = dryRun({});
+    for (const m of app.matchAll(/`\$\{stackPrefix\}-([a-z-]+)`/g)) {
+      expect(out).toContain(`coa-dev-${m[1]}`);
+    }
+  });
 });
 
 describe("CodeBuild build role", () => {

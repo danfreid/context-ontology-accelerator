@@ -1492,6 +1492,41 @@ Settings travel as plain environment variables and show up in the build's config
 
 Ctrl-C stops only the display; the build keeps running. To stop it, use the `aws codebuild stop-build` command the script prints (stopping a deploy partway can leave a stack rolling back). To run the command, your own credentials need `cloudformation:DescribeStacks`, `codebuild:StartBuild`, `codebuild:BatchGetBuilds` and `logs:FilterLogEvents`.
 
+### When builds stop at 45 minutes (batched mode)
+
+New AWS accounts cap every CodeBuild build at 45 minutes, whatever the project's timeout says. You can tell from the build: it fails with `Build has timed out` and `aws codebuild batch-get-builds --ids <id> --query 'builds[0].timeoutInMinutes'` prints `45` although the project is set to 120. The cap is not in Service Quotas; only AWS Support can raise it. A full first deploy does not fit in 45 minutes: CDK builds every container image before it publishes any, so a timed-out run publishes nothing and the next run starts again from zero.
+
+Batched mode splits the deploy into one build per group of stacks, in dependency order. Each build deploys only its own stacks (`cdk deploy <stacks> --exclusively`, through `scripts/codebuild/deploy-stacks.sh`, after the same preflight, context and build steps as `scripts/deploy.sh`):
+
+```bash
+COA_CODEBUILD_BATCHED=1 \
+SCL_LAMBDA_RESERVED_CONCURRENCY=0 \
+SCL_SMUS_ADMIN_ARNS=arn:aws:iam::123456789012:role/<your-admin-role> \
+  make deploy-dev-codebuild
+```
+
+| Batch | Stacks (after `<prefix>-<env>-`) | Why grouped this way |
+|---|---|---|
+| 1 | `network eni-warm auth guardrail` | No dependencies |
+| 2 | `storage authnz edge-waf vkg namespace` | Neptune takes about 15 minutes; the VKG image is arm64 and builds natively |
+| 3 | `sources` | Two of its three images are `linux/amd64` and build under emulation on the arm64 host |
+| 4 | `ontology serve mcp` | The ontology engine image is `linux/amd64` (emulated); serve and MCP images are arm64 |
+| 5 | `metric-service data-layer api web` | No images; the web stack carries the UI |
+
+On a LARGE arm host, batches took between 11 and 40 minutes in a first deploy. A batch that times out is rerun automatically (`COA_CODEBUILD_BATCH_RETRIES`, default 2): images a timed-out build managed to publish are reused, so each rerun builds less. Any other failure stops the run and prints the command to resume once the cause is fixed:
+
+```bash
+COA_CODEBUILD_BATCHED=1 COA_CODEBUILD_FROM_BATCH=3 make deploy-dev-codebuild
+```
+
+`COA_CODEBUILD_DRY_RUN=1` prints the planned batches without calling AWS. `COA_CODEBUILD_BATCHES="a b;c d"` replaces the list (full stack names, `;` between batches), for example after adding a stack. Stacks a deployment does not define (`edge-waf` exists only with some WAF settings) are skipped. Batched mode also needs `codebuild:BatchGetProjects` on your own credentials, to read the project's default prefix and environment.
+
+To lift the cap instead, open an AWS Support case asking to raise the CodeBuild build timeout for the account; once builds run longer than 45 minutes, plain `make deploy-dev-codebuild` works.
+
+#### Docker Hub rate limit
+
+The build registers QEMU emulation for the `linux/amd64` images (the host is arm64). CodeBuild hosts share IP addresses and often hit Docker Hub's unauthenticated pull rate limit (`toomanyrequests`), so the buildspec pulls the emulation image from ECR Public (`public.ecr.aws/eks-distro-build-tooling/binfmt-misc`) first, falls back to `tonistiigi/binfmt` on Docker Hub with retries, and fails before setup if `linux/amd64` containers still cannot run.
+
 ### What it costs
 
 An idle project costs nothing. CodeBuild bills per build minute at the rate for the arm64 compute size you picked (see the [CodeBuild pricing page](https://aws.amazon.com/codebuild/pricing/)), for as long as a build runs: roughly the time the same deploy takes on your own machine, an hour or more for a first deploy and less for an update. CloudWatch Logs charges for the log data stored until the retention period passes. The stacks the build deploys cost what they cost from a laptop; the build adds nothing to them.
