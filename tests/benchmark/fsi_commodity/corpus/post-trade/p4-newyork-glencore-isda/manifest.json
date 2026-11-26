@@ -77,14 +77,14 @@
       "size": 6609
     },
     {
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "class_uri": "https://cdm.finos.org/model/cdm.event.common.MarginCallIssuance",
       "facts": {
         "amount_called": 3120000,
         "called_by": "Glencore Ltd.",
         "called_from": "NewCo Derivatives New York, Inc.",
         "class_uris": {
           "agreement": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
-          "contract_type": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement"
+          "contract_type": "https://cdm.finos.org/model/cdm.event.common.MarginCallIssuance"
         },
         "collateral_held": 0,
         "currency": "USD",
@@ -114,14 +114,14 @@
       "size": 4710
     },
     {
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "class_uri": "https://cdm.finos.org/model/cdm.event.common.MarginCallIssuance",
       "facts": {
         "amount_called": 620000,
         "called_by": "Glencore Ltd.",
         "called_from": "NewCo Derivatives New York, Inc.",
         "class_uris": {
           "agreement": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
-          "contract_type": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement"
+          "contract_type": "https://cdm.finos.org/model/cdm.event.common.MarginCallIssuance"
         },
         "collateral_held": 0,
         "currency": "USD",
@@ -342,7 +342,7 @@
         "NC-NYC-26-0001-margin-call-r1.pdf"
       ],
       "cc": [],
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "class_uri": "https://cdm.finos.org/model/cdm.event.common.MarginCallIssuance",
       "direction": "inbound",
       "facts": {
         "amount_called": 3120000,
@@ -436,7 +436,7 @@
         "NC-NYC-26-0001-margin-call-r2.pdf"
       ],
       "cc": [],
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/CollateralAgreement",
+      "class_uri": "https://cdm.finos.org/model/cdm.event.common.MarginCallIssuance",
       "direction": "inbound",
       "facts": {
         "amount_called": 620000,

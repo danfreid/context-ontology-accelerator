@@ -1,7 +1,7 @@
 {
   "attachments": [
     {
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "facts": {
         "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited",
         "based_on": "NC-LON-26-0001-ticket-v1.pdf",
@@ -114,7 +114,7 @@
       "size": 3484
     },
     {
-      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TransportMovement",
       "facts": {
         "laycan_from": "2026-04-13",
         "laycan_to": "2026-04-17",
@@ -141,16 +141,16 @@
       "size": 3437
     },
     {
-      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "class_uri": "urn:dcsa:ebl:TransportDocument",
       "facts": {
         "bl_date": "2026-04-15",
         "bl_number": "BL-NC-LON-26-0001-001",
         "class_uris": {
-          "cargo_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
-          "consignee": "https://schema.org/Organization",
-          "consignment": "https://vocabulary.uncefact.org/Consignment",
-          "notify_party": "https://schema.org/Organization",
-          "shipper": "https://schema.org/Organization"
+          "cargo_item": "urn:dcsa:ebl:CargoItem",
+          "consignee": "urn:dcsa:ebl:Consignee",
+          "consignment": "https://test.uncefact.org/vocabulary/Consignment",
+          "notify_party": "urn:dcsa:ebl:NotifyParty",
+          "shipper": "urn:dcsa:ebl:Shipper"
         },
         "consignee": "Kestrel Bunkering Limited",
         "discharge_port": "Fujairah",
@@ -177,7 +177,7 @@
       "size": 3706
     },
     {
-      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "class_uri": "https://test.uncefact.org/vocabulary/Assessment",
       "facts": {
         "basis": "load-port",
         "bl_number": "BL-NC-LON-26-0001-001",
@@ -207,7 +207,7 @@
       "size": 3258
     },
     {
-      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "class_uri": "https://test.uncefact.org/vocabulary/Assessment",
       "facts": {
         "bl_number": "BL-NC-LON-26-0001-001",
         "class_uris": {
@@ -313,7 +313,7 @@
         "NC-LON-26-0001-prepayment-invoice.pdf"
       ],
       "cc": [],
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "direction": "outbound",
       "facts": {
         "prepayment": 4360000,
@@ -449,7 +449,7 @@
         "NC-LON-26-0001-nomination.pdf"
       ],
       "cc": [],
-      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TransportMovement",
       "direction": "inbound",
       "facts": {
         "trade_id": "NC-LON-26-0001",
@@ -537,7 +537,7 @@
         "NC-LON-26-0001-bill-of-lading.pdf"
       ],
       "cc": [],
-      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "class_uri": "urn:dcsa:ebl:TransportDocument",
       "direction": "outbound",
       "facts": {
         "bl_number": "BL-NC-LON-26-0001-001",
@@ -586,7 +586,7 @@
         "NC-LON-26-0001-quality-certificate.pdf"
       ],
       "cc": [],
-      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "class_uri": "https://test.uncefact.org/vocabulary/Assessment",
       "direction": "inbound",
       "facts": {
         "quantity": 8085,

@@ -36,22 +36,23 @@ def is_allowed(uri: str) -> bool:
     return uri in allowed_uris()
 
 
-# The brief names these classes, but the pack as it stands lists a differently named class for the same
-# concept. ``cls`` uses the exact name when the pack lists it, otherwise the stand-in.
+# The brief names these classes, but the pack lists a differently named class for the same concept.
+# ``cls`` uses the exact name when the pack lists it, otherwise the stand-in. DCSA's Shipper, Consignee,
+# NotifyParty and CargoItem resolve exactly, so they need no entry.
 FALLBACKS = {
-    "TradeTransaction": "Agreement",
+    # UN/CEFACT latest vocabulary (test.uncefact.org) renamed or dropped these D23B terms.
+    "TradeTransaction": "TradeAgreement",
+    "SupplyChainTradeLineItem": "TradeItem",
+    "SpecifiedInspection": "Assessment",
     "CreditFacility": "LoanOrCreditAccount",
     "LEIRegistration": "LegalEntityIdentifierRegistryEntry",
     "PartyInRole": "PartyRoleIdentifier",
     "SettlementTerms": "DerivativeSettlementTerms",
-    # The pack no longer lists DCSA eBL or ACTUS classes (it marks them "not loadable").
-    "BillOfLading": "Consignment",
-    "Shipper": "Organization",
-    "Consignee": "Organization",
-    "NotifyParty": "Organization",
-    "CargoItem": "SupplyChainTradeLineItem",
-    "CEG": "BilateralContract",
-    "CLM": "CollateralAgreement",
+    # DCSA calls the bill of lading a transport document.
+    "BillOfLading": "TransportDocument",
+    # ACTUS publishes no ontology; these map to the closest class in the loaded snapshots.
+    "CEG": "RBWWm7M917awGxBEiWI5XsG",  # FOLIO "Letter of Credit" (the s3 standby LC)
+    "CLM": "cdm.event.common.MarginCallIssuance",  # ISDA CDM margin call
     "SWAPS": "OverTheCounterDerivativeInstrument",
     "FXOUT": "OverTheCounterDerivativeInstrument",
 }
@@ -62,7 +63,8 @@ PREFERRED = {"Invoice": "schema.org"}
 
 
 def _hits(name: str, within: str | None) -> list[str]:
-    hits = [u for u in _class_uris() if u.rsplit("/", 1)[-1].rsplit("#", 1)[-1] == name]
+    # Local name after the last "/" or "#", or after the last ":" for URNs such as urn:dcsa:ebl:Shipper.
+    hits = [u for u in _class_uris() if u.rsplit("/", 1)[-1].rsplit("#", 1)[-1].rsplit(":", 1)[-1] == name]
     if within:
         hits = [u for u in hits if within.lower() in u.lower()]
     return hits

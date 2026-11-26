@@ -372,7 +372,7 @@
       "size": 3103
     },
     {
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/BilateralContract",
+      "class_uri": "https://folio.openlegalstandard.org/RBWWm7M917awGxBEiWI5XsG",
       "facts": {
         "advising_bank": "bank-bluegum",
         "amount": 10000000,
@@ -1469,7 +1469,7 @@
         "harbourline-sblc-confirmation.pdf"
       ],
       "cc": [],
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/BilateralContract",
+      "class_uri": "https://folio.openlegalstandard.org/RBWWm7M917awGxBEiWI5XsG",
       "direction": "inbound",
       "facts": {
         "confirmed": true,

@@ -1,9 +1,9 @@
 # Pinned ontology snapshots for the FSI / commodity benchmark.
 #
 # These are Turtle snapshots generated from published sources. The demo pack
-# (packages/ontology-engine/demo/config-fsi-commodity.yaml) loads six of them
+# (packages/ontology-engine/demo/config-fsi-commodity.yaml) loads seven of them
 # through source_file entries under the same ontology_id: gleif-lei, fibo,
-# uncefact, isda-cdm, dcsa-ebl, bfo-2020. The fibo-* modules overlap fibo.
+# uncefact, isda-cdm, dcsa-ebl, bfo-2020, folio. The fibo-* modules overlap fibo.
 #
 # Fields
 #   key            short name; also the file stem
@@ -24,8 +24,8 @@
 #   snapshot       version suffix of the generated file (-v1, -v2)
 #   sha256, bytes  pin the exact file; the unit test fails if either changes
 #   classes        owl:Class / rdfs:Class count at generation time
-#   optional       not committed (too large); the loader skips it unless the
-#                  file is present and --include-optional is given
+#   optional       not committed; the loader skips it unless the file is
+#                  present and --include-optional is given (no entry uses it now)
 #   notes          anything a caller must know before loading
 
 ontologies:
@@ -188,35 +188,8 @@ ontologies:
   - key: uncefact
     file: uncefact.ttl
     ontology_id: "urn:coa:fixture:fsi-commodity:uncefact"
-    declared_iri: "https://vocabulary.uncefact.org/unece.jsonld"
-    title: UN/CEFACT Web Vocabulary (subset)
-    ontology_type: foundational
-    derived: false
-    # The snapshot's source (unece.jsonld in github.com/uncefact/vocabulary-outputs) has no licence
-    # file. github.com/uncefact/governance says all UN/CEFACT GitHub content is free to use and repos
-    # carry their licence, "usually GPL3". The vocabulary's maintained successor,
-    # opensource.unicc.org/un/unece/uncefact/vocab-bsp (serves vocab.unece.org), is GPL-3.0-or-later.
-    # The ontology files declare no dcterms:license of their own.
-    license: GPL-3.0-or-later
-    license_verified: true
-    license_file: LICENSES/GPL-3.0.txt
-    source: "https://github.com/uncefact/vocabulary-outputs"
-    snapshot: v1
-    sha256: 46504be25a600261f1f23ae17b1cf6661f7dee4ae11d599e4ea55cd46a07089a
-    bytes: 832313
-    classes: 542
-    domain_tags: [trade, logistics, documents, settlement]
-    notes: >
-      The latest published release (Buy-Ship-Pay D23B; unece.jsonld last changed 2023-03-24).
-      Classes and properties without the code lists' members, so a modified version under
-      GPL section 5. Also declares the namespace (https://vocabulary.uncefact.org/unece.jsonld#)
-      as a class. The demo pack and the benchmark corpus ground to this one.
-
-  - key: uncefact-vocab
-    file: uncefact-vocab.ttl
-    ontology_id: "urn:coa:fixture:fsi-commodity:uncefact-vocab"
     declared_iri: "https://test.uncefact.org/vocabulary/module/core"
-    title: UN/CEFACT Web Vocabulary (working draft)
+    title: UN/CEFACT Web Vocabulary
     ontology_type: foundational
     derived: false
     license: GPL-3.0-or-later
@@ -229,11 +202,10 @@ ontologies:
     classes: 103
     domain_tags: [trade, logistics, transport, finance, regulatory, conformity]
     notes: >
-      Latest working draft behind vocab.unece.org: the seven domain modules merged into one
-      file, code lists left out; triples unchanged. New namespace https://test.uncefact.org/vocabulary/
-      and a smaller model (documents are reduced to TradeDocument plus a type code). Every term is
-      "proposed". Of the pack's 12 UN/CEFACT sample terms only Consignment, TransportMovement,
-      PaymentTerms and RegulatoryProcedure exist here, under the new namespace.
+      The latest vocabulary, behind vocab.unece.org: the seven domain modules merged into one
+      file, code lists left out; triples unchanged. Namespace https://test.uncefact.org/vocabulary/.
+      Documents are reduced to TradeDocument plus a type code. Every term is "proposed". Replaces
+      the Buy-Ship-Pay D23B snapshot (vocabulary.uncefact.org namespace) used before.
 
   - key: dcsa-ebl
     file: dcsa-ebl.ttl
@@ -278,7 +250,6 @@ ontologies:
 
   - key: folio
     file: folio.ttl
-    optional: true
     ontology_id: "urn:coa:fixture:fsi-commodity:folio"
     declared_iri: "https://folio.openlegalstandard.org/"
     title: FOLIO (Federated Open Legal Information Ontology)
@@ -293,7 +264,6 @@ ontologies:
     classes: 18327
     domain_tags: [legal, contracts, clauses]
     notes: >
-      Not committed (9.4 MB, 18k classes). Copy FOLIO-v1.ttl here as folio.ttl to load it.
       Same 18,327 classes as the latest FOLIO.owl (commit e36f3f8, 2026-05-27); the snapshot
       omits about 44k annotation triples. Has Letter of Credit, Letter of Indemnity Clause, KYC
       and AML classes. Class IRIs are opaque; labels carry the meaning. CC-BY-4.0 needs

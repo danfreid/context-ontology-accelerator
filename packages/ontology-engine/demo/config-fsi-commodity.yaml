@@ -13,8 +13,8 @@
 #   • source_file — an uploaded snapshot (tests/benchmark/fsi_commodity/
 #     ontologies/, pinned by sha256), loaded through the upload route under a
 #     urn:coa:fixture:fsi-commodity:<key> id: GLEIF LEI, FIBO (combined),
-#     UN/CEFACT (published D23B and the working draft), ISDA CDM, DCSA eBL,
-#     BFO 2020. The upload embeds every class. Licences and attribution:
+#     UN/CEFACT (latest draft), ISDA CDM, DCSA eBL, BFO 2020, FOLIO.
+#     The upload embeds every class. Licences and attribution:
 #     tests/benchmark/fsi_commodity/ontologies/NOTICE.md.
 #
 # Covered:
@@ -25,15 +25,16 @@
 #   • ISDA Master Agreement and clauses, CSA thresholds and IM/VM margin,
 #     trade lifecycle, confirmations (ISDA CDM)
 #   • Bill of lading, shipper, consignee, notify party, cargo (DCSA eBL)
-#   • Trade documents, product certificates, settlement, payment terms (UN/CEFACT)
+#   • Consignments, trade agreements and items, trade documents, conformity
+#     assessment and attestation, settlement, payment terms (UN/CEFACT)
+#   • Letters of credit (incl. standby), letter of indemnity clauses, legal
+#     concepts (FOLIO)
 #   • Lot tracking / chain of custody (GS1 EPCIS)
 #   • Document and email provenance (PROV-O, Dublin Core)
 #
 # Gaps — model in a customer ontology:
 #   • NAESB and EEI contract clauses; ACTUS contract types
-#   • Letter of indemnity, letters of credit (UCP 600 / ISP98), netting sets
-#     (the optional FOLIO snapshot has Letter of Credit and Letter of
-#     Indemnity Clause classes; not loaded by default, 18k classes)
+#   • Netting sets; UCP 600 / ISP98 rule detail for letters of credit
 #   • Commodity price benchmarks (Platts, Argus, Henry Hub)
 #
 # sample_classes: bound client-side embedding for source_url entries, and list
@@ -492,88 +493,76 @@ foundational_ontologies:
         labels: [Credit Index]
         comments: [A credit index such as CDX or iTraxx]
 
-  # ── UN/CEFACT (uploaded snapshot) ─────────────────────────────────────────
+  # ── UN/CEFACT Web Vocabulary (uploaded snapshot, latest draft) ────────────
+  # The vocabulary behind vocab.unece.org (UN GitLab vocab-bsp, commit ccd62cc,
+  # 2026-11-25). Namespace https://test.uncefact.org/vocabulary/; every term is "proposed".
+  # Documents are a thin TradeDocument anchor plus a documentType code.
   - uri: "urn:coa:fixture:fsi-commodity:uncefact"
-    title: UN/CEFACT Web Vocabulary (subset)
+    title: UN/CEFACT Web Vocabulary
     description: >
-      Buy-Ship-Pay trade vocabulary: consignment, transport, exchanged documents (invoice,
-      bill of lading), product certificates, settlement and payment terms.
-    format: turtle
-    license: GPL-3.0-or-later
-    license_tier: attribution
-    upstream: https://vocabulary.uncefact.org/
-    # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.
-    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/uncefact.ttl
-    sha256: 46504be25a600261f1f23ae17b1cf6661f7dee4ae11d599e4ea55cd46a07089a
-    domain_tags: [trade, logistics, shipping, documents, settlement]
-    sample_classes:
-      - class_uri: "https://vocabulary.uncefact.org/Consignment"
-        labels: [Consignment]
-        comments: [Goods consigned under a bill of lading — cargo shipment]
-      - class_uri: "https://vocabulary.uncefact.org/TransportMovement"
-        labels: [Transport Movement]
-        comments: [A voyage or transit leg — vessel voyage, pipeline nomination]
-      - class_uri: "https://vocabulary.uncefact.org/LogisticsTransportEquipment"
-        labels: [Logistics Transport Equipment]
-        comments: [Container, tank car, pipeline — the physical carrier of commodity]
-      # UN/CEFACT models documents generically; the DocumentCodeList type code
-      # distinguishes commercial invoice, bill of lading, certificate, etc.
-      - class_uri: "https://vocabulary.uncefact.org/ExchangedDocument"
-        labels: [Exchanged Document]
-        comments: [A trade document exchanged between parties — commercial invoice, bill of lading, confirmation]
-      - class_uri: "https://vocabulary.uncefact.org/ProductCertificate"
-        labels: [Product Certificate]
-        comments: [Certificate evidencing product properties — certificate of quality, certificate of quantity]
-      - class_uri: "https://vocabulary.uncefact.org/HeaderTradeSettlement"
-        labels: [Header Trade Settlement]
-        comments: [Invoice-level settlement details — amounts due, currency, payee]
-      - class_uri: "https://vocabulary.uncefact.org/PaymentTerms"
-        labels: [Payment Terms]
-        comments: [Terms by which payment is made — credit days, due date, LC payment terms]
-      - class_uri: "https://vocabulary.uncefact.org/SupplyChainTradeLineItem"
-        labels: [Supply Chain Trade Line Item]
-        comments: [A line item in a commercial document — invoice line, CoQ measurement]
-      - class_uri: "https://vocabulary.uncefact.org/SpecifiedInspection"
-        labels: [Specified Inspection]
-        comments: [An inspection event — independent inspector for CoQ / CoC]
-      - class_uri: "https://vocabulary.uncefact.org/RegulatoryProcedure"
-        labels: [Regulatory Procedure]
-        comments: [Customs clearance, export license, import permit]
-    sample_properties:
-      - property_uri: "https://vocabulary.uncefact.org/grossWeightMeasure"
-        labels: [gross weight measure]
-        comments: [Gross weight of the goods — metric tonnes for commodity shipments]
-        domain: "https://vocabulary.uncefact.org/Consignment"
-        range: "xsd:decimal"
-      - property_uri: "https://vocabulary.uncefact.org/loadingLocation"
-        labels: [loading location]
-        comments: [Port or terminal where cargo is loaded — FOB loading point]
-        domain: "https://vocabulary.uncefact.org/TransportMovement"
-        range: "xsd:string"
-
-  # ── UN/CEFACT working draft (uploaded snapshot) ───────────────────────────
-  # The latest UN/CEFACT vocabulary (vocab.unece.org source, UN GitLab vocab-bsp,
-  # commit ccd62cc). New namespace https://test.uncefact.org/vocabulary/; all terms
-  # "proposed". Loaded next to the published D23B release above, which the sample
-  # classes and the benchmark corpus use. No sample_classes: the upload embeds every class.
-  - uri: "urn:coa:fixture:fsi-commodity:uncefact-vocab"
-    title: UN/CEFACT Web Vocabulary (working draft)
-    description: >
-      UN/CEFACT supply-chain vocabulary draft: trade, transport, regulatory, finance,
-      production and conformity modules. Successor model to Buy-Ship-Pay D23B.
+      UN/CEFACT supply-chain vocabulary: consignment, transport movement and equipment, trade
+      agreement and items, trade documents, conformity assessment and attestation, settlement
+      and payment terms, customs procedures.
     format: turtle
     license: GPL-3.0-or-later
     license_tier: attribution
     upstream: https://opensource.unicc.org/un/unece/uncefact/vocab-bsp
     # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.
-    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/uncefact-vocab.ttl
+    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/uncefact.ttl
     sha256: 418b68e487f178ae56dc0a78512688ca4e2676647836227301d9974ed8bf7617
-    domain_tags: [trade, logistics, transport, finance, regulatory, conformity]
+    domain_tags: [trade, logistics, shipping, documents, conformity, settlement]
+    sample_classes:
+      - class_uri: "https://test.uncefact.org/vocabulary/Consignment"
+        labels: [Consignment]
+        comments: [Goods consigned under a bill of lading — cargo shipment]
+      - class_uri: "https://test.uncefact.org/vocabulary/ConsignmentItem"
+        labels: [Consignment Item]
+        comments: [A quantity of goods within a consignment — a cargo parcel]
+      - class_uri: "https://test.uncefact.org/vocabulary/TransportMovement"
+        labels: [Transport Movement]
+        comments: [A voyage or transit leg — vessel voyage, pipeline nomination]
+      - class_uri: "https://test.uncefact.org/vocabulary/TransportEquipment"
+        labels: [Transport Equipment]
+        comments: [Container, tank, trailer — the physical carrier of commodity]
+      - class_uri: "https://test.uncefact.org/vocabulary/TradeAgreement"
+        labels: [Trade Agreement]
+        comments: [The sales contract between buyer and seller — a physical commodity deal]
+      - class_uri: "https://test.uncefact.org/vocabulary/TradeItem"
+        labels: [Trade Item]
+        comments: [A commercial line — product, quantity and unit price on a deal or invoice]
+      - class_uri: "https://test.uncefact.org/vocabulary/TradeDocument"
+        labels: [Trade Document]
+        comments: [A trade document typed by a document code — commercial invoice, bill of lading, confirmation]
+      - class_uri: "https://test.uncefact.org/vocabulary/Assessment"
+        labels: [Assessment]
+        comments: [A conformity assessment activity — independent inspection for a certificate of quality or quantity]
+      - class_uri: "https://test.uncefact.org/vocabulary/Attestation"
+        labels: [Attestation]
+        comments: [The outcome of conformity assessment — certificate of quality, certificate of quantity]
+      - class_uri: "https://test.uncefact.org/vocabulary/TradeSettlement"
+        labels: [Trade Settlement]
+        comments: [Settlement terms and totals of a trade agreement — amounts due, currency, payee]
+      - class_uri: "https://test.uncefact.org/vocabulary/PaymentTerms"
+        labels: [Payment Terms]
+        comments: [Terms by which payment is made — credit days, due date, LC payment terms]
+      - class_uri: "https://test.uncefact.org/vocabulary/RegulatoryProcedure"
+        labels: [Regulatory Procedure]
+        comments: [Customs clearance, export license, import permit]
+    sample_properties:
+      - property_uri: "https://test.uncefact.org/vocabulary/grossWeight"
+        labels: [gross weight]
+        comments: [Gross weight of the goods — metric tonnes for commodity shipments]
+        domain: "https://test.uncefact.org/vocabulary/Consignment"
+        range: "https://test.uncefact.org/vocabulary/Measure"
+      - property_uri: "https://test.uncefact.org/vocabulary/loadCall"
+        labels: [load call]
+        comments: [The port call at which cargo is loaded — FOB loading point]
+        domain: "https://test.uncefact.org/vocabulary/TransportLeg"
+        range: "https://test.uncefact.org/vocabulary/TransportCall"
 
   # ── ISDA CDM, DCSA eBL, BFO (uploaded snapshots) ──────────────────────────
-  # No published OWL exists for CDM or DCSA; these are converted snapshots. They have
-  # no sample_classes: the upload ingest embeds every class, and the benchmark corpus
-  # only grounds to classes listed in sample_classes.
+  # No published OWL exists for CDM or DCSA; these are converted snapshots. The upload
+  # ingest embeds every class; sample_classes list the ones the benchmark corpus grounds to.
   - uri: "urn:coa:fixture:fsi-commodity:isda-cdm"
     title: ISDA / FINOS Common Domain Model
     description: >
@@ -588,6 +577,22 @@ foundational_ontologies:
     source_file: ../../../tests/benchmark/fsi_commodity/ontologies/isda-cdm.ttl
     sha256: 09823e12c6d94a716e36973a32dd6fdba72759a483fc2cb56da9df298db8813f
     domain_tags: [derivatives, isda, csa, collateral, margin, trade-lifecycle]
+    sample_classes:
+      - class_uri: "https://cdm.finos.org/model/cdm.event.common.MarginCallIssuance"
+        labels: [Margin Call Issuance]
+        comments: [A margin call issued under a CSA — variation margin demand]
+      - class_uri: "https://cdm.finos.org/model/cdm.event.common.Trade"
+        labels: [Trade]
+        comments: [A CDM trade — the executed transaction with its product and parties]
+      - class_uri: "https://cdm.finos.org/model/cdm.legaldocumentation.master.isda.MasterAgreement"
+        labels: [ISDA Master Agreement]
+        comments: [The ISDA Master Agreement between two parties]
+      - class_uri: "https://cdm.finos.org/model/cdm.legaldocumentation.csa.CreditSupportAgreementElections"
+        labels: [Credit Support Agreement Elections]
+        comments: [CSA elections — eligible collateral, valuation, transfer timing]
+      - class_uri: "https://cdm.finos.org/model/cdm.legaldocumentation.csa.Threshold"
+        labels: [Threshold]
+        comments: [The CSA threshold below which no collateral is called]
 
   - uri: "urn:coa:fixture:fsi-commodity:dcsa-ebl"
     title: DCSA Electronic Bill of Lading
@@ -602,6 +607,22 @@ foundational_ontologies:
     source_file: ../../../tests/benchmark/fsi_commodity/ontologies/dcsa-ebl.ttl
     sha256: 4094888d43b10b48a7ef5d46a834719910e53d6b527a2e37cd490f921d441208
     domain_tags: [shipping, ebl, post-trade, logistics]
+    sample_classes:
+      - class_uri: "urn:dcsa:ebl:TransportDocument"
+        labels: [Transport Document, Bill of Lading]
+        comments: [The bill of lading — title document for shipped commodity]
+      - class_uri: "urn:dcsa:ebl:Shipper"
+        labels: [Shipper]
+        comments: [The party shipping the commodity — seller under FOB or CIF terms]
+      - class_uri: "urn:dcsa:ebl:Consignee"
+        labels: [Consignee]
+        comments: [The party receiving the commodity — buyer or nominated receiver]
+      - class_uri: "urn:dcsa:ebl:NotifyParty"
+        labels: [Notify Party]
+        comments: [Party notified on arrival — often the LC issuing bank or agent]
+      - class_uri: "urn:dcsa:ebl:CargoItem"
+        labels: [Cargo Item]
+        comments: [The cargo described on the B/L — commodity, quantity, grade]
 
   - uri: "urn:coa:fixture:fsi-commodity:bfo-2020"
     title: Basic Formal Ontology 2020
@@ -615,6 +636,30 @@ foundational_ontologies:
     source_file: ../../../tests/benchmark/fsi_commodity/ontologies/bfo-2020.ttl
     sha256: bf783f99e72479fd46cb8c17c204adfd43c9e43beea5f79c79bd61752d416aad
     domain_tags: [upper-ontology]
+
+  # ── FOLIO (uploaded snapshot) ─────────────────────────────────────────────
+  # Federated Open Legal Information Ontology: 18,327 legal concept classes. The upload
+  # embeds every class, so this is the slowest and most expensive entry in the pack.
+  - uri: "urn:coa:fixture:fsi-commodity:folio"
+    title: FOLIO (Federated Open Legal Information Ontology)
+    description: >
+      Legal concepts: contract types and clauses, letters of credit, indemnity clauses,
+      KYC and AML. Class IRIs are opaque; labels carry the meaning.
+    format: turtle
+    license: CC-BY-4.0
+    license_tier: attribution
+    upstream: https://github.com/alea-institute/FOLIO
+    # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.
+    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/folio.ttl
+    sha256: 41801ad1b08dd8fbacc6452baef52e7c61930c46af03d68c65764708975254c7
+    domain_tags: [legal, contracts, clauses, letters-of-credit, kyc, aml]
+    sample_classes:
+      - class_uri: "https://folio.openlegalstandard.org/RBWWm7M917awGxBEiWI5XsG"
+        labels: [Letter of Credit, Standby Letter of Credit]
+        comments: [A letter of credit — documentary LC or standby LC securing payment]
+      - class_uri: "https://folio.openlegalstandard.org/RB8v1h0OiUgX3iXn0LXUg7g"
+        labels: [Letter of Indemnity Clause]
+        comments: [A letter of indemnity clause — delivery without the original bill of lading]
 
   # ── GS1 EPCIS — Physical Commodity Event Tracking ─────────────────────────
   # GS1 EPCIS (Electronic Product Code Information Services) is the standard

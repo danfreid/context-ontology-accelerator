@@ -1,7 +1,7 @@
 {
   "attachments": [
     {
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "facts": {
         "agreement": "Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.",
         "based_on": "NC-HOU-26-0001-ticket-v1.pdf",
@@ -36,7 +36,7 @@
       "size": 5620
     },
     {
-      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TransportMovement",
       "facts": {
         "laycan_from": "2026-04-13",
         "laycan_to": "2026-04-22",
@@ -63,16 +63,16 @@
       "size": 3435
     },
     {
-      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "class_uri": "urn:dcsa:ebl:TransportDocument",
       "facts": {
         "bl_date": "2026-04-16",
         "bl_number": "BL-NC-HOU-26-0001-001",
         "class_uris": {
-          "cargo_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
-          "consignee": "https://schema.org/Organization",
-          "consignment": "https://vocabulary.uncefact.org/Consignment",
-          "notify_party": "https://schema.org/Organization",
-          "shipper": "https://schema.org/Organization"
+          "cargo_item": "urn:dcsa:ebl:CargoItem",
+          "consignee": "urn:dcsa:ebl:Consignee",
+          "consignment": "https://test.uncefact.org/vocabulary/Consignment",
+          "notify_party": "urn:dcsa:ebl:NotifyParty",
+          "shipper": "urn:dcsa:ebl:Shipper"
         },
         "consignee": "NewCo Trading Houston LLC",
         "discharge_port": "Rotterdam",
@@ -99,7 +99,7 @@
       "size": 3705
     },
     {
-      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "class_uri": "https://test.uncefact.org/vocabulary/Assessment",
       "facts": {
         "basis": "load-port",
         "bl_number": "BL-NC-HOU-26-0001-001",
@@ -128,7 +128,7 @@
       "size": 3068
     },
     {
-      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "class_uri": "https://test.uncefact.org/vocabulary/Assessment",
       "facts": {
         "api_gravity": 39.6,
         "bl_number": "BL-NC-HOU-26-0001-001",
@@ -371,7 +371,7 @@
         "NC-HOU-26-0001-confirmation.pdf"
       ],
       "cc": [],
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "direction": "outbound",
       "facts": {
         "premium_usd_per_bbl": 0.85,
@@ -459,7 +459,7 @@
         "NC-HOU-26-0001-nomination.pdf"
       ],
       "cc": [],
-      "class_uri": "https://vocabulary.uncefact.org/TransportMovement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TransportMovement",
       "direction": "outbound",
       "facts": {
         "trade_id": "NC-HOU-26-0001",
@@ -547,7 +547,7 @@
         "NC-HOU-26-0001-bill-of-lading.pdf"
       ],
       "cc": [],
-      "class_uri": "https://vocabulary.uncefact.org/Consignment",
+      "class_uri": "urn:dcsa:ebl:TransportDocument",
       "direction": "inbound",
       "facts": {
         "bl_number": "BL-NC-HOU-26-0001-001",
@@ -596,7 +596,7 @@
         "NC-HOU-26-0001-quality-certificate.pdf"
       ],
       "cc": [],
-      "class_uri": "https://vocabulary.uncefact.org/SpecifiedInspection",
+      "class_uri": "https://test.uncefact.org/vocabulary/Assessment",
       "direction": "inbound",
       "facts": {
         "quantity": 251381.194,

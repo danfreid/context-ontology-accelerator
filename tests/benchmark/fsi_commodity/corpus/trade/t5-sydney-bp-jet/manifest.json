@@ -34,7 +34,7 @@
       "size": 4111
     },
     {
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "facts": {
         "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and BP Oil International Limited",
         "currency": "USD",
@@ -252,9 +252,9 @@
         "agreement"
       ],
       "class_uris": {
-        "line_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+        "line_item": "https://test.uncefact.org/vocabulary/TradeItem",
         "order": "https://schema.org/Order",
-        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+        "transaction": "https://test.uncefact.org/vocabulary/TradeAgreement"
       },
       "counterparty": "cp-bp-au",
       "credit_check": {
@@ -564,7 +564,7 @@
         "NC-SYD-26-0003-ticket-v1.pdf"
       ],
       "cc": [],
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "direction": "internal",
       "facts": {
         "incoterm": "CIF",

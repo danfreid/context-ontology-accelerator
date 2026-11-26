@@ -29,7 +29,7 @@
       "size": 3484
     },
     {
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "facts": {
         "agreement": "Master Physical Trading Agreement between NewCo Trading London Limited and Kestrel Bunkering Limited",
         "currency": "USD",
@@ -258,9 +258,9 @@
         "price"
       ],
       "class_uris": {
-        "line_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+        "line_item": "https://test.uncefact.org/vocabulary/TradeItem",
         "order": "https://schema.org/Order",
-        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+        "transaction": "https://test.uncefact.org/vocabulary/TradeAgreement"
       },
       "counterparty": "cp-kestrel",
       "credit_check": {
@@ -476,7 +476,7 @@
         "NC-LON-26-0001-ticket-v1.pdf"
       ],
       "cc": [],
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "direction": "internal",
       "facts": {
         "price_usd_per_mt": 545,

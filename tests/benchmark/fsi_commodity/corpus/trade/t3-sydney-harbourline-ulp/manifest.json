@@ -1,7 +1,7 @@
 {
   "attachments": [
     {
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "facts": {
         "agreement": "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd",
         "currency": "USD",
@@ -62,7 +62,7 @@
       "size": 3506
     },
     {
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "facts": {
         "agreement": "Master Physical Trading Agreement between NewCo Trading Sydney Pty Ltd and Harbourline Petroleum Pty Ltd",
         "currency": "USD",
@@ -335,9 +335,9 @@
         "cargo-1"
       ],
       "class_uris": {
-        "line_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+        "line_item": "https://test.uncefact.org/vocabulary/TradeItem",
         "order": "https://schema.org/Order",
-        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+        "transaction": "https://test.uncefact.org/vocabulary/TradeAgreement"
       },
       "counterparty": "cp-harbourline",
       "credit_check": {
@@ -414,9 +414,9 @@
         "cargo-2-resize"
       ],
       "class_uris": {
-        "line_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+        "line_item": "https://test.uncefact.org/vocabulary/TradeItem",
         "order": "https://schema.org/Order",
-        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+        "transaction": "https://test.uncefact.org/vocabulary/TradeAgreement"
       },
       "counterparty": "cp-harbourline",
       "credit_check": {
@@ -604,7 +604,7 @@
         "NC-SYD-26-0001-ticket-v1.pdf"
       ],
       "cc": [],
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "direction": "internal",
       "facts": {
         "payment_days": 45,
@@ -806,7 +806,7 @@
         "NC-SYD-26-0002-ticket-v1.pdf"
       ],
       "cc": [],
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "direction": "internal",
       "facts": {
         "price_usd_per_mt": 765,

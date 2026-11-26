@@ -495,8 +495,8 @@ def test_deal_classes_follow_the_brief(deals: dict[str, dict[str, Any]]) -> None
     for deal in deals.values():
         c = deal["class_uris"]
         if deal["kind"] == "physical":
-            assert c["transaction"].endswith(("/TradeTransaction", "/Agreement"))
-            assert c["line_item"].endswith("/SupplyChainTradeLineItem")
+            assert c["transaction"].endswith(("/TradeTransaction", "/TradeAgreement"))
+            assert c["line_item"].endswith(("/SupplyChainTradeLineItem", "/TradeItem"))
             assert c["order"].endswith("/Order")
         else:
             assert c["instrument"].endswith("/DerivativeInstrument")

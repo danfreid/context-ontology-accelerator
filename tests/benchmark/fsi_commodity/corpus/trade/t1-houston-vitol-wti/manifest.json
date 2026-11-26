@@ -58,7 +58,7 @@
       "size": 4410
     },
     {
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "facts": {
         "agreement": "Master Physical Trading Agreement between NewCo Trading Houston LLC and Vitol Inc.",
         "currency": "USD",
@@ -331,9 +331,9 @@
         "logistics"
       ],
       "class_uris": {
-        "line_item": "https://vocabulary.uncefact.org/SupplyChainTradeLineItem",
+        "line_item": "https://test.uncefact.org/vocabulary/TradeItem",
         "order": "https://schema.org/Order",
-        "transaction": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement"
+        "transaction": "https://test.uncefact.org/vocabulary/TradeAgreement"
       },
       "counterparty": "cp-vitol",
       "credit_check": {
@@ -592,7 +592,7 @@
         "NC-HOU-26-0001-ticket-v1.pdf"
       ],
       "cc": [],
-      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Agreements/Agreement",
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
       "direction": "internal",
       "facts": {
         "premium_usd_per_bbl": 0.85,
