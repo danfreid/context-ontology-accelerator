@@ -247,6 +247,8 @@ Resources:
                 - |
                   set -euo pipefail
                   cd /tmp/coa
+                  # setup-dev.sh installs pre-commit with `uv tool`, into ~/.local/bin.
+                  export PATH="$HOME/.local/bin:$PATH"
                   make setup
                   ./scripts/deploy.sh "$COA_DEPLOY_ENV"
 
