@@ -249,6 +249,11 @@ Resources:
                   cd /tmp/coa
                   # setup-dev.sh installs pre-commit with `uv tool`, into ~/.local/bin.
                   export PATH="$HOME/.local/bin:$PATH"
+                  # Some stacks pin linux/amd64 images (ontology engine, sources tasks) while
+                  # others are arm64; this arm64 host needs QEMU emulation for the amd64 ones.
+                  docker run --privileged --rm tonistiigi/binfmt --install amd64
+                  [ "$(docker run --rm --platform linux/amd64 public.ecr.aws/docker/library/alpine:latest uname -m)" = "x86_64" ] \
+                    || { echo "ERROR: linux/amd64 emulation is not available on this build host" >&2; exit 1; }
                   make setup
                   ./scripts/deploy.sh "$COA_DEPLOY_ENV"
 
