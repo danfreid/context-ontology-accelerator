@@ -63,11 +63,13 @@ coa_check_container_engine
 # host without a qemu-aarch64 binfmt handler the engine pulls the arm64 base
 # image and the first RUN step dies with `exec /bin/sh: exec format error` —
 # ~20 minutes into the deploy, surfaced only as "Failed to build asset ...".
-# Checked offline (no test image pull). On Linux the kernel's binfmt registry
-# is authoritative for Docker and Finch alike. Elsewhere (Docker Desktop's VM)
-# fall back to buildx, counting only platforms a *running* node detected: a
-# trailing `*` (e.g. `linux/arm64*` on a stopped docker-container builder)
-# marks a platform someone configured, not one the host can execute.
+# On Linux the kernel's binfmt registry is authoritative for Docker and Finch
+# alike, and the check is offline. Elsewhere (Docker Desktop's VM) fall back to
+# buildx, counting only platforms a *running* node detected: a trailing `*`
+# (e.g. `linux/arm64*` on a stopped docker-container builder) marks a platform
+# someone configured, not one the host can execute. If buildx shows none, run a
+# small arm64 container (the arm64 images' own base image, so the pull is reused).
+ARM64_PROBE_IMAGE="public.ecr.aws/amazonlinux/amazonlinux:2023-minimal"
 _arm64_binfmt_registered() {
   for _bf in "${1:-/proc/sys/fs/binfmt_misc}"/qemu-aarch64*; do
     [ -f "$_bf" ] && head -n 1 "$_bf" 2>/dev/null | grep -q '^enabled' && return 0
@@ -90,7 +92,20 @@ if [ -n "$CONTAINER_ENGINE" ]; then
   elif [ "$HOST_OS" = "Linux" ]; then
     err "Host is $HOST_ARCH and $CONTAINER_ENGINE cannot build linux/arm64 images (needed by the vkg, serve and mcp stacks). Register emulation: docker run --privileged --rm tonistiigi/binfmt --install arm64 — see external-docs/content/deploying.md, 'Cross-architecture container builds'"
   else
-    warn "Could not confirm $CONTAINER_ENGINE can build linux/arm64 images on this $HOST_ARCH host. Verify with: $CONTAINER_ENGINE run --rm --platform linux/arm64 alpine uname -m (should print aarch64)"
+    # Not Linux (Docker Desktop on Windows or an Intel Mac) and buildx shows no
+    # running arm64 node: run an arm64 container to find out. Docker Desktop
+    # drops a binfmt registration made with tonistiigi/binfmt when it restarts.
+    # Only `exec format error` (or a non-arm64 result) is a confirmed failure;
+    # anything else (e.g. the image pull failed) stays a warning, as before.
+    _arm64_probe="$("$CONTAINER_ENGINE" run --rm --platform linux/arm64 "$ARM64_PROBE_IMAGE" uname -m 2>&1)" || true
+    if [ "$(printf '%s' "$_arm64_probe" | tail -n 1 | tr -d '\r')" = aarch64 ]; then
+      ok "arm64 emulation available on $HOST_ARCH host ($CONTAINER_ENGINE ran a linux/arm64 container)"
+    elif printf '%s' "$_arm64_probe" | grep -q 'exec format error' \
+        || printf '%s' "$_arm64_probe" | tail -n 1 | grep -Eqx '(x86_64|amd64)[[:space:]]*'; then
+      err "Host is $HOST_ARCH and $CONTAINER_ENGINE cannot run linux/arm64 containers (needed by the vkg, serve and mcp stacks). Register emulation: docker run --privileged --rm tonistiigi/binfmt --install arm64 (repeat after every Docker Desktop restart) — see external-docs/content/deploying.md, 'Cross-architecture container builds'"
+    else
+      warn "Could not confirm $CONTAINER_ENGINE can build linux/arm64 images on this $HOST_ARCH host: '$CONTAINER_ENGINE run --rm --platform linux/arm64 $ARM64_PROBE_IMAGE uname -m' failed. Verify it prints aarch64 before deploying"
+    fi
   fi
 fi
 
@@ -110,7 +125,14 @@ case "$SMITHY_STATE" in
 esac
 
 if [ "$SMITHY_STATE" = missing ] || [ "$SMITHY_STATE" = unstamped ] || [ "$SMITHY_STATE" = stale ]; then
-  if (cd "$REPO_ROOT" && make generate); then
+  # `make generate` only runs scripts/smithy-generate.sh; run that directly
+  # where there is no make (Git Bash on Windows).
+  if command -v make >/dev/null 2>&1; then
+    SMITHY_GENERATE=(make generate)
+  else
+    SMITHY_GENERATE=(./scripts/smithy-generate.sh)
+  fi
+  if (cd "$REPO_ROOT" && "${SMITHY_GENERATE[@]}"); then
     if [ "$("$FINGERPRINT" state "$REPO_ROOT")" = current ]; then
       ok "Smithy code generation complete"
     else
