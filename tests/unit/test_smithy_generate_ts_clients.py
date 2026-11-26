@@ -74,7 +74,7 @@ def _recorder(tool: str, root: Path, log: Path) -> str:
 def _run(tmp_path: Path) -> tuple[subprocess.CompletedProcess[str], Path, list[dict]]:
     root = tmp_path / "repo"
     (root / "scripts").mkdir(parents=True)
-    for name in ("smithy-generate.sh", "smithy-fingerprint.sh"):
+    for name in ("smithy-generate.sh", "smithy-fingerprint.sh", "fix-ts-import-specifiers.mjs"):
         shutil.copy(_ROOT / "scripts" / name, root / "scripts" / name)
     (root / "models" / "src" / "main" / "smithy").mkdir(parents=True)
     (root / "models" / "src" / "main" / "smithy" / "x.smithy").write_text("namespace x\n")
@@ -131,7 +131,7 @@ def test_a_missing_pnpm_fails_first_with_a_clear_message(tmp_path: Path) -> None
     """Run on its own, without pnpm, the script must say what is missing before the slow Gradle build."""
     root = tmp_path / "repo"
     (root / "scripts").mkdir(parents=True)
-    for name in ("smithy-generate.sh", "smithy-fingerprint.sh"):
+    for name in ("smithy-generate.sh", "smithy-fingerprint.sh", "fix-ts-import-specifiers.mjs"):
         shutil.copy(_ROOT / "scripts" / name, root / "scripts" / name)
     gradle_log = tmp_path / "gradle-ran"
     _stub(root / "models" / "gradlew", f"#!/usr/bin/env bash\ntouch {gradle_log}\n")

@@ -14,7 +14,9 @@
 #       stale      an input changed since the output was generated
 #
 # The fingerprint covers file CONTENTS and repo-relative paths only, so it is
-# the same in any clone and unaffected by timestamps. smithy-generate.sh writes
+# the same in any clone and unaffected by timestamps. Carriage returns are
+# dropped before hashing, so CRLF and LF checkouts of the same text agree (on
+# Windows the Gradle smithyFormat task rewrites the models with CRLF). smithy-generate.sh writes
 # it to STAMP_FILE as its last step, so a failed generation leaves no stamp and
 # is re-run by the next deploy.
 set -euo pipefail
@@ -40,7 +42,7 @@ inputs_hash() {
       -type f -print0 2>/dev/null || true; } \
     | LC_ALL=C sort -z \
     | while IFS= read -r -d '' f; do
-        printf '%s %s\n' "$(sha < "$f" | cut -d' ' -f1)" "$f"
+        printf '%s %s\n' "$(tr -d '\r' < "$f" | sha | cut -d' ' -f1)" "$f"
       done \
     | sha | cut -d' ' -f1
 }

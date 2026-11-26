@@ -46,10 +46,6 @@ if [ -n "${CODEARTIFACT_MAVEN_URL:-}" ]; then
     fi
 fi
 
-# Fingerprint the inputs BEFORE generating: the stamp written at the end then
-# describes exactly what this run read, even if a model is edited mid-run.
-INPUTS_HASH="$("$REPO_ROOT/scripts/smithy-fingerprint.sh" hash "$REPO_ROOT")"
-
 # ── Clean previous generated output ──────────────────────────────────────────
 echo ""
 echo "Cleaning previous generated output..."
@@ -69,6 +65,26 @@ cd "$MODELS_DIR"
 PROJ_DIR="build/smithyprojections/models"
 cd "$REPO_ROOT"
 
+# On Windows the build's smithyFormat task rewrites the models with CRLF.
+# .gitattributes keeps them LF, so strip the CRs again (only files that have
+# any are touched, so this is a no-op on Linux and macOS).
+while IFS= read -r -d '' model; do
+    # Not grep: Git for Windows' grep ignores CRs unless given -U.
+    tr -d '\r' < "$model" > "$model.lf"
+    if cmp -s "$model" "$model.lf"; then
+        rm -f "$model.lf"
+    else
+        mv "$model.lf" "$model"
+    fi
+done < <(find "$MODELS_DIR/src" -name '*.smithy' -type f -print0)
+
+# Fingerprint the inputs right after the Gradle build, before anything else is
+# generated. The build runs smithyFormat, which can rewrite the models, and the
+# codegen read those formatted files, so the stamp written at the end matches
+# what the build left on disk. A model edited later in this run still shows up
+# as stale.
+INPUTS_HASH="$("$REPO_ROOT/scripts/smithy-fingerprint.sh" hash "$REPO_ROOT")"
+
 # ── Copy TypeScript clients ──────────────────────────────────────────────────
 echo ""
 echo "Copying TypeScript clients..."
@@ -83,6 +99,16 @@ for svc in "control-plane-ts:control-plane-typescript-client" "data-layer-ts:dat
     fi
     cp -r "$src" "$GENERATED_DIR/$dest"
 done
+
+# On Windows the codegen writes some import specifiers with backslashes or
+# relative to the package root, and tsc fails with TS2307. The helper rewrites
+# only specifiers that do not resolve (a no-op on Linux and macOS) and fails if
+# any still do not.
+if ! node "$REPO_ROOT/scripts/fix-ts-import-specifiers.mjs" \
+        "$GENERATED_DIR/control-plane-typescript-client" "$GENERATED_DIR/data-layer-typescript-client"; then
+    echo "✗ Generated TypeScript clients have import specifiers that do not resolve"
+    exit 1
+fi
 
 echo "✓ TypeScript clients copied"
 
