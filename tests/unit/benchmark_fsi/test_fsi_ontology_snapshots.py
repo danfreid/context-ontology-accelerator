@@ -62,6 +62,18 @@ def test_pack_source_file_entries_match_their_manifest_snapshot(snapshots: list[
             assert o["uri"] not in by_id
 
 
+def test_gpl_snapshots_ship_with_the_licence_text_and_every_file_has_a_notice() -> None:
+    entries = yaml.safe_load(lo.MANIFEST_PATH.read_text(encoding="utf-8"))["ontologies"]
+    notice = (lo.ONTOLOGY_DIR / "NOTICE.md").read_text(encoding="utf-8")
+    gpl = [e for e in entries if "GPL" in e["license"]]
+    assert gpl, "expected the UN/CEFACT snapshots to be GPL"
+    for e in gpl:
+        text = (lo.ONTOLOGY_DIR / e["license_file"]).read_text(encoding="utf-8")
+        assert text.lstrip().startswith("GNU GENERAL PUBLIC LICENSE") and "Version 3" in text
+    for e in entries:
+        assert f"`{e['file']}`" in notice or e["file"].startswith("fibo"), e["file"]
+
+
 def test_every_ttl_in_the_directory_is_in_the_manifest(snapshots: list[lo.Snapshot]) -> None:
     on_disk = {p.name for p in lo.ONTOLOGY_DIR.glob("*.ttl")}
     assert on_disk <= {s.path.name for s in snapshots}

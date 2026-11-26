@@ -13,7 +13,9 @@
 #   • source_file — an uploaded snapshot (tests/benchmark/fsi_commodity/
 #     ontologies/, pinned by sha256), loaded through the upload route under a
 #     urn:coa:fixture:fsi-commodity:<key> id: GLEIF LEI, FIBO (combined),
-#     UN/CEFACT, ISDA CDM, DCSA eBL, BFO 2020. The upload embeds every class.
+#     UN/CEFACT (published D23B and the working draft), ISDA CDM, DCSA eBL,
+#     BFO 2020. The upload embeds every class. Licences and attribution:
+#     tests/benchmark/fsi_commodity/ontologies/NOTICE.md.
 #
 # Covered:
 #   • Legal entity identity, LEI registration, ownership (GLEIF, FIBO BE)
@@ -548,6 +550,25 @@ foundational_ontologies:
         comments: [Port or terminal where cargo is loaded — FOB loading point]
         domain: "https://vocabulary.uncefact.org/TransportMovement"
         range: "xsd:string"
+
+  # ── UN/CEFACT working draft (uploaded snapshot) ───────────────────────────
+  # The latest UN/CEFACT vocabulary (vocab.unece.org source, UN GitLab vocab-bsp,
+  # commit ccd62cc). New namespace https://test.uncefact.org/vocabulary/; all terms
+  # "proposed". Loaded next to the published D23B release above, which the sample
+  # classes and the benchmark corpus use. No sample_classes: the upload embeds every class.
+  - uri: "urn:coa:fixture:fsi-commodity:uncefact-vocab"
+    title: UN/CEFACT Web Vocabulary (working draft)
+    description: >
+      UN/CEFACT supply-chain vocabulary draft: trade, transport, regulatory, finance,
+      production and conformity modules. Successor model to Buy-Ship-Pay D23B.
+    format: turtle
+    license: GPL-3.0-or-later
+    license_tier: attribution
+    upstream: https://opensource.unicc.org/un/unece/uncefact/vocab-bsp
+    # Uploaded snapshot, pinned in tests/benchmark/fsi_commodity/ontologies/manifest.yaml.
+    source_file: ../../../tests/benchmark/fsi_commodity/ontologies/uncefact-vocab.ttl
+    sha256: 418b68e487f178ae56dc0a78512688ca4e2676647836227301d9974ed8bf7617
+    domain_tags: [trade, logistics, transport, finance, regulatory, conformity]
 
   # ── ISDA CDM, DCSA eBL, BFO (uploaded snapshots) ──────────────────────────
   # No published OWL exists for CDM or DCSA; these are converted snapshots. They have

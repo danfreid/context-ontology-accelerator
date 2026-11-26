@@ -18,6 +18,8 @@
 #                  by the converter rather than the standards body
 #   license        upstream licence as checked at its source; license_verified
 #                  false means it has not been checked yet
+#   license_file   licence text shipped next to the snapshot (required for GPL);
+#                  NOTICE.md carries the attribution for every snapshot
 #   source         where the upstream content comes from
 #   snapshot       version suffix of the generated file (-v1, -v2)
 #   sha256, bytes  pin the exact file; the unit test fails if either changes
@@ -197,6 +199,7 @@ ontologies:
     # The ontology files declare no dcterms:license of their own.
     license: GPL-3.0-or-later
     license_verified: true
+    license_file: LICENSES/GPL-3.0.txt
     source: "https://github.com/uncefact/vocabulary-outputs"
     snapshot: v1
     sha256: 46504be25a600261f1f23ae17b1cf6661f7dee4ae11d599e4ea55cd46a07089a
@@ -204,8 +207,33 @@ ontologies:
     classes: 542
     domain_tags: [trade, logistics, documents, settlement]
     notes: >
-      542 of the vocabulary's classes, without the code lists' members. Also
-      declares the namespace (https://vocabulary.uncefact.org/unece.jsonld#) as a class.
+      The latest published release (Buy-Ship-Pay D23B; unece.jsonld last changed 2023-03-24).
+      Classes and properties without the code lists' members, so a modified version under
+      GPL section 5. Also declares the namespace (https://vocabulary.uncefact.org/unece.jsonld#)
+      as a class. The demo pack and the benchmark corpus ground to this one.
+
+  - key: uncefact-vocab
+    file: uncefact-vocab.ttl
+    ontology_id: "urn:coa:fixture:fsi-commodity:uncefact-vocab"
+    declared_iri: "https://test.uncefact.org/vocabulary/module/core"
+    title: UN/CEFACT Web Vocabulary (working draft)
+    ontology_type: foundational
+    derived: false
+    license: GPL-3.0-or-later
+    license_verified: true
+    license_file: LICENSES/GPL-3.0.txt
+    source: "https://opensource.unicc.org/un/unece/uncefact/vocab-bsp (commit ccd62cc95f42942d1932f558290556353eddd880, 2026-11-25)"
+    snapshot: ccd62cc
+    sha256: 418b68e487f178ae56dc0a78512688ca4e2676647836227301d9974ed8bf7617
+    bytes: 362772
+    classes: 103
+    domain_tags: [trade, logistics, transport, finance, regulatory, conformity]
+    notes: >
+      Latest working draft behind vocab.unece.org: the seven domain modules merged into one
+      file, code lists left out; triples unchanged. New namespace https://test.uncefact.org/vocabulary/
+      and a smaller model (documents are reduced to TradeDocument plus a type code). Every term is
+      "proposed". Of the pack's 12 UN/CEFACT sample terms only Consignment, TransportMovement,
+      PaymentTerms and RegulatoryProcedure exist here, under the new namespace.
 
   - key: dcsa-ebl
     file: dcsa-ebl.ttl
@@ -266,5 +294,7 @@ ontologies:
     domain_tags: [legal, contracts, clauses]
     notes: >
       Not committed (9.4 MB, 18k classes). Copy FOLIO-v1.ttl here as folio.ttl to load it.
-      Has Letter of Credit, Letter of Indemnity Clause, KYC and AML classes. Class IRIs are
-      opaque; labels carry the meaning.
+      Same 18,327 classes as the latest FOLIO.owl (commit e36f3f8, 2026-05-27); the snapshot
+      omits about 44k annotation triples. Has Letter of Credit, Letter of Indemnity Clause, KYC
+      and AML classes. Class IRIs are opaque; labels carry the meaning. CC-BY-4.0 needs
+      attribution and a licence link, not the licence text; see NOTICE.md.

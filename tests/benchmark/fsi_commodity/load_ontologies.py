@@ -141,6 +141,25 @@ def _filename(snapshot: Snapshot) -> str:
     return "".join(c if c.isalnum() or c in "._-" else "_" for c in snapshot.ontology_id) + ".ttl"
 
 
+def auth_headers(method: str, url: str, body: str | None, region: str) -> dict[str, str]:
+    """Auth headers, as in ``tests.benchmark.query_runner``: a bearer token if set, else SigV4."""
+    headers = {"Content-Type": "application/json"}
+    token = os.environ.get("BENCHMARK_ID_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+        return headers
+    import boto3
+    from botocore.auth import SigV4Auth
+    from botocore.awsrequest import AWSRequest
+
+    credentials = boto3.Session().get_credentials()
+    if credentials is None:
+        raise RuntimeError("no AWS credentials found; set BENCHMARK_ID_TOKEN or configure AWS credentials")
+    request = AWSRequest(method=method, url=url, data=body, headers=headers)
+    SigV4Auth(credentials, "execute-api", region).add_auth(request)
+    return dict(request.headers)
+
+
 class DeployedTarget:
     """Public API of a deployed stack: upload-url, S3 PUT, ingest-from-s3, ingest-status."""
 
@@ -153,10 +172,8 @@ class DeployedTarget:
     def _call(self, method: str, url: str, body: dict[str, Any] | None = None):
         import requests
 
-        from tests.benchmark.query_runner import build_headers
-
         data = json.dumps(body) if body is not None else None
-        headers = build_headers(method, url, data, self.region)
+        headers = auth_headers(method, url, data, self.region)
         return requests.request(method, url, data=data, headers=headers, timeout=REQUEST_TIMEOUT_SECONDS)
 
     def _url(self, snapshot: Snapshot, suffix: str = "") -> str:
