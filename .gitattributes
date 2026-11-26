@@ -1,0 +1,69 @@
+# Line endings. The repository index is LF. Without these rules a Windows
+# checkout with core.autocrlf=true turns every text file into CRLF, which breaks
+# anything a Linux container or Linux tool reads: shell scripts fail with
+# `set: -\r: invalid option`, Dockerfiles and Smithy models carry stray \r, and
+# hashes of file contents differ from Linux.
+
+# Default: let git detect text files and check them out with LF everywhere.
+* text=auto eol=lf
+
+# Scripts and build files that run (or are parsed) on Linux.
+*.sh text eol=lf
+*.bash text eol=lf
+Dockerfile* text eol=lf
+*.dockerfile text eol=lf
+.dockerignore text eol=lf
+Makefile text eol=lf
+*.mk text eol=lf
+gradlew text eol=lf
+
+# Source, models, data and config that are copied into images or parsed on Linux.
+*.smithy text eol=lf
+*.py text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+*.java text eol=lf
+*.kts text eol=lf
+*.lua text eol=lf
+*.sql text eol=lf
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.properties text eol=lf
+*.xml text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.svg text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.ttl text eol=lf
+*.nt text eol=lf
+*.obda text eol=lf
+*.cedar text eol=lf
+*.prompt text eol=lf
+*.example text eol=lf
+*.lock text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+.python-version text eol=lf
+VERSION text eol=lf
+
+# Windows-only scripts keep CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binaries.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.jar binary
+*.zip binary
+*.gz binary
+*.drawio text eol=lf
