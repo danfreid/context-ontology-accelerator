@@ -43,7 +43,7 @@ TERM_DAYS = 365  # trading period the credit must cover
 CLAIM_DAYS = 30  # days after the last payment due date that a drawing must still be possible
 STALE_DAYS = 420  # age of the good-standing certificate Harbourline supplies
 
-BASE = {
+BASE: dict[str, dict[str, Any]] = {
     "payment": {"days": 30, "currency": "USD"},
     "quantity_tolerance": {"tolerance": 5},
     "quantity_basis": {"basis": "discharge"},

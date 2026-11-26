@@ -293,7 +293,7 @@ def test_x4_statement_recomputes_from_the_prices(
     assert len(first["prices"]) == len(second["prices"]) == first["price_count"] == 23
     assert [p["date"] for p in first["prices"]] == [p["date"] for p in second["prices"]]
     for facts in (first, second):
-        avg = (sum(d(p["price"]) for p in facts["prices"]) / len(facts["prices"])).quantize(
+        avg = (sum((d(p["price"]) for p in facts["prices"]), Decimal(0)) / len(facts["prices"])).quantize(
             Decimal("0.0001"), rounding=ROUND_HALF_UP
         )
         assert d(facts["average"]) == avg

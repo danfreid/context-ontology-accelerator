@@ -40,7 +40,7 @@ EXPECT = {"emails": 26, "attachments": 17, "chats": 0}
 OURS, THEIRS = "newco-hou", "cp-vitol"
 REQUESTED, UNSECURED = 60_000_000, 40_000_000
 
-BASE = {
+BASE: dict[str, dict[str, Any]] = {
     "payment": {"days": 30, "currency": "USD"},
     "quantity_tolerance": {"tolerance": 5},
     "quantity_basis": {"basis": "load-port"},

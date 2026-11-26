@@ -34,7 +34,7 @@ POLICY_MONTHS = 12  # KYC must have been refreshed within this many months
 STALE_DAYS = 500  # age of the London good-standing certificate on file
 
 # The agreement NewCo London signed with BP before this scenario; Sydney accedes to it.
-LONDON_AGREEMENT = {
+LONDON_AGREEMENT: dict[str, dict[str, Any]] = {
     "payment": {"days": 30, "currency": "USD"},
     "quantity_tolerance": {"tolerance": 5},
     "quantity_basis": {"basis": "discharge"},

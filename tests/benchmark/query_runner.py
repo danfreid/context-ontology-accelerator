@@ -32,6 +32,8 @@ def build_headers(method: str, url: str, body: str | None, region: str) -> dict[
         headers["Authorization"] = f"Bearer {token}"
         return headers
     credentials = boto3.Session().get_credentials()
+    if credentials is None:
+        raise RuntimeError("no AWS credentials found; set BENCHMARK_ID_TOKEN or configure AWS credentials")
     request = AWSRequest(method=method, url=url, data=body, headers=headers)
     SigV4Auth(credentials, "execute-api", region).add_auth(request)
     return dict(request.headers)
@@ -42,7 +44,7 @@ def run_query(query: dict, api_endpoint: str, region: str) -> dict:
     url = api_endpoint.rstrip("/") + query["path"]
     body = json.dumps(query["body"]) if "body" in query else None
     params = query.get("params")
-    prepared_url = requests.Request(query["method"], url, params=params).prepare().url
+    prepared_url = requests.Request(query["method"], url, params=params).prepare().url or url
     headers = build_headers(query["method"], prepared_url, body, region)
 
     start = time.perf_counter()

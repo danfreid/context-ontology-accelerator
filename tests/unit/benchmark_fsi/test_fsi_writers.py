@@ -9,6 +9,7 @@ import io
 import xml.etree.ElementTree as ET
 import zipfile
 from datetime import UTC, datetime
+from typing import Any
 
 import pypdfium2
 import pytest
@@ -67,7 +68,8 @@ def test_eml_is_byte_identical_and_headers_survive(with_attachment: bool) -> Non
     assert "bo.chen@vitol.example" in msg["To"]
     if with_attachment:
         assert msg.is_multipart()
-        assert msg.get_boundary().startswith("=_nc_")
+        boundary = msg.get_boundary()
+        assert boundary is not None and boundary.startswith("=_nc_")
         (att,) = [p for p in msg.walk() if p.get_filename()]
         assert att.get_filename() == "mpta-r2.docx"
         assert att.get_payload(decode=True) == spec.attachments[0].content
@@ -154,7 +156,8 @@ def test_docx_is_byte_identical_and_has_tracked_changes() -> None:
     (dele,) = root.findall(f".//{W}del")
     assert dele.get(f"{W}author") == "Vitol legal"
     assert dele.get(f"{W}date") == "2026-03-02T09:15:00Z"
-    assert dele.find(f".//{W}delText").text == "30"
+    del_text = dele.find(f".//{W}delText")
+    assert del_text is not None and del_text.text == "30"
     ids_ = [e.get(f"{W}id") for e in root.iter() if e.tag in (f"{W}ins", f"{W}del")]
     assert len(set(ids_)) == len(ids_)
     assert "2026-03-02T09:15:00Z" in core
@@ -168,7 +171,10 @@ def test_docx_rejects_naive_created_and_untimed_tracked_runs() -> None:
 
 
 def test_redline_rounds_track_changes_and_carry_final_values() -> None:
-    base = {"payment": {"days": 30, "currency": "USD"}, "quantity_tolerance": {"tolerance": 5}}
+    base: dict[str, dict[str, Any]] = {
+        "payment": {"days": 30, "currency": "USD"},
+        "quantity_tolerance": {"tolerance": 5},
+    }
     rounds = [
         Round("Vitol legal", WHEN, {"payment": {"days": 20}}),
         Round("NewCo legal", WHEN, {"payment": {"days": 25}, "quantity_tolerance": {"tolerance": 10}}),

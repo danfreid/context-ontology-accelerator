@@ -287,9 +287,9 @@ def build_universe(seed: int = DEFAULT_SEED, extra_counterparties: Sequence[Mapp
         specs.append(dict(id=oid, name=name, legal_form=form, jurisdiction=jur, country=country, state=state, city=city,
                           postcode=post, calendar=cal, domain=domain, kind="newco", roles=ROLES, accounts=accts))  # fmt: skip
     cp_rows: list[dict[str, Any]] = []
-    for oid, name, form, jur, country, state, city, post, cal, domain, real, accts in _COUNTERPARTIES:
+    for oid, name, form, jur, country, state, city, post, cal, domain, real, cp_accts in _COUNTERPARTIES:
         cp_rows.append(dict(id=oid, name=name, legal_form=form, jurisdiction=jur, country=country, state=state, city=city,
-                            postcode=post, calendar=cal, domain=domain, real_name=real, accounts=accts))  # fmt: skip
+                            postcode=post, calendar=cal, domain=domain, real_name=real, accounts=cp_accts))  # fmt: skip
     cp_rows.extend(dict(c) for c in extra_counterparties)
     for c in cp_rows:
         specs.append({**c, "kind": "counterparty", "roles": ROLES, "accounts": tuple(c.get("accounts", ()))})

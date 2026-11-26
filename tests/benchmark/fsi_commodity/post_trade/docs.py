@@ -18,7 +18,7 @@ from typing import Any
 
 from ..ontology import cls
 from ..scenario import Attachment
-from ..writers.pdf_writer import Grid, Heading, Mono, Text, build_pdf
+from ..writers.pdf_writer import Block, Grid, Heading, Mono, Text, build_pdf
 from .common import Desk, dec, fmt, form, num, q2, show
 
 _SKIP = ("trade_id", "issued_by", "version")
@@ -253,7 +253,11 @@ class InvLine:
     def fact(self) -> dict[str, Any]:
         out: dict[str, Any] = {"description": self.description, "amount": num(self.amount)}
         if self.quantity is not None:
-            out |= {"quantity": num(self.quantity), "unit": self.unit, "price": num(self.price)}
+            out |= {
+                "quantity": num(self.quantity),
+                "unit": self.unit,
+                "price": None if self.price is None else num(self.price),
+            }
         return out
 
 
@@ -644,7 +648,7 @@ def swift_copy(
         "sell_amount": ticket["sell_amount"],
         "debit_account": pay_account_shown,
     }
-    blocks = [Heading("Message text"), Mono("\n".join(lines)), Text("Copy of the message as sent.")]
+    blocks: list[Block] = [Heading("Message text"), Mono("\n".join(lines)), Text("Copy of the message as sent.")]
     return Attachment(filename, build_pdf(title, blocks), "swift-copy", cls("SettlementTerms"), facts)
 
 

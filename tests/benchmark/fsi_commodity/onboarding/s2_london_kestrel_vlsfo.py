@@ -37,7 +37,7 @@ OURS, THEIRS = "newco-lon", "cp-kestrel"
 REQUESTED, CONDITIONAL_LIMIT = 10_000_000, 8_000_000
 PEP_ID, TRUST_ID = "own-kestrel-pep", "hold-kestrel-trust"
 
-BASE = {
+BASE: dict[str, dict[str, Any]] = {
     "payment": {"days": 10, "currency": "USD"},
     "quantity_tolerance": {"tolerance": 5},
     "quantity_basis": {"basis": "load-port"},

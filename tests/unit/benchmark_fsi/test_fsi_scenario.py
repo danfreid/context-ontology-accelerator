@@ -5,8 +5,10 @@
 from __future__ import annotations
 
 import email
+from collections.abc import Mapping
 from datetime import UTC, datetime
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -27,7 +29,7 @@ def _addr(u: dict, org: str, role: str) -> str:
     return next(a for a, e in u["directory"].items() if e["org"] == org and e["role"] == role)
 
 
-def demo_builder(universe: dict, upstream: dict) -> Scenario:
+def demo_builder(universe: dict[str, Any], upstream: Mapping[str, Scenario]) -> Scenario:
     sc = Scenario("t0-demo", "trade", universe, START, expect={"emails": 2, "attachments": 1, "chats": 1}, title="demo")
     ours = _addr(universe, "newco-hou", "trader")
     theirs = _addr(universe, "cp-vitol", "trader")
@@ -102,7 +104,7 @@ def test_duplicate_keys_and_unknown_mailboxes_fail(result) -> None:
 
 
 def test_expected_counts_are_enforced() -> None:
-    def wrong(universe: dict, upstream: dict) -> Scenario:
+    def wrong(universe: dict[str, Any], upstream: Mapping[str, Scenario]) -> Scenario:
         return Scenario("t0-wrong", "trade", universe, START, expect={"emails": 1, "attachments": 0, "chats": 0})
 
     with pytest.raises(build_mod.BuildError):

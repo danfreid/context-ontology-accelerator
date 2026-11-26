@@ -37,13 +37,13 @@ COUNSEL = "svc-calloway"
 REQUESTED, UNSECURED = 30_000_000, 20_000_000
 COLLATERAL_ACCOUNT = "acct-newco-nyc-usd-collateral"
 
-SCHEDULE = {
+SCHEDULE: dict[str, dict[str, Any]] = {
     "netting": {"scope": "a single net amount payable by one party"},
     "cross_default": {"threshold": 5_000_000},
     "governing_law": {"law": "the State of New York", "venue": "New York County"},
     "termination": {"notice": 30},
 }
-CSA = {
+CSA: dict[str, dict[str, Any]] = {
     "threshold": {"amount": 0},
     "min_transfer": {"amount": 500_000},
     "eligible_collateral": {"assets": "cash in US dollars"},
@@ -204,7 +204,7 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
     sched_title = f"ISDA Schedule between {me['name']} and {alias}"
     csa_title = f"Credit Support Annex between {me['name']} and {alias}"
     sneg, cneg = Negotiation(d, sched_title, SCHEDULE, CONTRACT), Negotiation(d, csa_title, CSA, CSA_CLASS)
-    rounds = (
+    rounds: tuple[tuple[str, dict[str, dict[str, Any]], dict[str, dict[str, Any]]], ...] = (
         (f"{COUNSEL}:partner", {"cross_default": {"threshold": 10_000_000}}, {"threshold": {"amount": 1_000_000}}),
         (
             g("lawyer"),
@@ -355,11 +355,11 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
         {"opinion_qualified": True, "summary": "no qualifications"},
         False,
     )
-    ca = u["accounts"][COLLATERAL_ACCOUNT]
+    coll = u["accounts"][COLLATERAL_ACCOUNT]
     d.mail(
         "collateral-request",
         n("ops"),
-        f"{ca['bank']}:operations",
+        f"{coll['bank']}:operations",
         "Please confirm the segregated collateral account for the CSA, as set out in the attached form.",
         form(
             "collateral-account-setup.pdf",
@@ -367,12 +367,12 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
             "Collateral account set-up",
             [
                 ("Account holder", me["name"]),
-                ("Account", ca["number"]),
-                ("Currency", ca["currency"]),
-                ("Purpose", ca["purpose"]),
+                ("Account", coll["number"]),
+                ("Currency", coll["currency"]),
+                ("Purpose", coll["purpose"]),
             ],
             cls("Account", "fibo"),
-            {"account": COLLATERAL_ACCOUNT, "number": ca["number"]},
+            {"account": COLLATERAL_ACCOUNT, "number": coll["number"]},
         ),
         subject="Collateral account set-up",
         days=1,
@@ -381,14 +381,14 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
     )
     d.mail(
         "collateral-confirm",
-        f"{ca['bank']}:operations",
+        f"{coll['bank']}:operations",
         n("ops"),
         "The account is open and segregated for collateral.",
         form(
             "collateral-account-confirmation.pdf",
             "account-confirmation",
             "Collateral account confirmation",
-            [("Account", ca["number"]), ("Bank", d.org(ca["bank"])["name"]), ("Status", "Open, segregated")],
+            [("Account", coll["number"]), ("Bank", d.org(coll["bank"])["name"]), ("Status", "Open, segregated")],
             cls("AccountHolder"),
             {"account": COLLATERAL_ACCOUNT, "status": "open"},
         ),
