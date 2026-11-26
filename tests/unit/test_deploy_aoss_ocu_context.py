@@ -47,7 +47,8 @@ def _deploy(tmp_path: Path, **env_overrides: str) -> dict[str, list[str]]:
     scripts.mkdir(parents=True)
     shutil.copy(_ROOT / "scripts" / "deploy.sh", scripts / "deploy.sh")
     (scripts / "lib").mkdir()
-    shutil.copy(_ROOT / "scripts" / "lib" / "cdk-context.sh", scripts / "lib" / "cdk-context.sh")
+    for lib in ("cdk-context.sh", "cdk-synth.sh"):
+        shutil.copy(_ROOT / "scripts" / "lib" / lib, scripts / "lib" / lib)
     bin_dir = tmp_path / "bin"
     bin_dir.mkdir()
     for path, body in (
