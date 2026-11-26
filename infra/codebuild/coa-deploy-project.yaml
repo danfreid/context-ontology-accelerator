@@ -1,0 +1,260 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: Apache-2.0
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >-
+  OPTIONAL. An AWS CodeBuild project that deploys the Context Ontology Accelerator
+  (scripts/deploy.sh) from a native arm64 build host instead of a laptop. Not part
+  of infra/bin/app.ts: `cdk deploy --all` and `make deploy-dev` never create it.
+  Create it once with `make codebuild-setup`; remove it with `make codebuild-remove`.
+  See external-docs/content/deploying.md, "Optional: deploy from AWS CodeBuild".
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: coa-deploy
+    AllowedPattern: "^[A-Za-z][A-Za-z0-9_-]{1,60}$"
+    Description: Name of the CodeBuild project, its IAM role and its log group.
+  RepoUrl:
+    Type: String
+    AllowedPattern: "^https://[A-Za-z0-9._~/:-]+$"
+    ConstraintDescription: >-
+      An https:// Git URL with no credentials in it (a public repository).
+    Description: >-
+      Git repository the build clones. Public repositories only; no credentials are
+      stored or passed. There is no default on purpose.
+  RepoRef:
+    Type: String
+    Default: main
+    AllowedPattern: "^[A-Za-z0-9][A-Za-z0-9._/-]{0,199}$"
+    Description: >-
+      Default branch, tag or commit to deploy. Each build can override it
+      (COA_CODEBUILD_REF with make deploy-dev-codebuild).
+  DeployEnv:
+    Type: String
+    Default: dev
+    AllowedPattern: "^[A-Za-z0-9][A-Za-z0-9-]{0,19}$"
+    Description: >-
+      Default deploy environment name (the argument to scripts/deploy.sh). Each build
+      can override it (COA_DEPLOY_ENV).
+  ResourcePrefix:
+    Type: String
+    Default: coa
+    AllowedPattern: "^[A-Za-z][A-Za-z0-9-]{0,19}$"
+    Description: >-
+      The SCL_PREFIX the deployment uses (default coa). Scopes the role's read access
+      to this deployment's stacks and its /<prefix>/config SSM parameter. Set it to the
+      same value as SCL_PREFIX on every deploy.
+  BootstrapQualifier:
+    Type: String
+    Default: hnb659fds
+    AllowedPattern: "^[A-Za-z0-9]{1,10}$"
+    Description: The CDK bootstrap qualifier (hnb659fds unless you bootstrapped with another).
+  ComputeType:
+    Type: String
+    Default: BUILD_GENERAL1_LARGE
+    AllowedValues:
+      - BUILD_GENERAL1_SMALL
+      - BUILD_GENERAL1_MEDIUM
+      - BUILD_GENERAL1_LARGE
+      - BUILD_GENERAL1_XLARGE
+      - BUILD_GENERAL1_2XLARGE
+    Description: >-
+      Arm compute size. The deploy builds several container images and runs Gradle,
+      so SMALL and MEDIUM are likely to run out of memory.
+  TimeoutInMinutes:
+    Type: Number
+    Default: 120
+    MinValue: 5
+    MaxValue: 480
+    Description: Build timeout. A first deploy takes roughly an hour; updates are shorter.
+  LogRetentionInDays:
+    Type: Number
+    Default: 30
+    AllowedValues: [1, 3, 5, 7, 14, 30, 60, 90, 120, 150, 180, 365, 400, 545, 731, 1096, 1827, 2192, 2557, 2922, 3288, 3653]
+    Description: Days CloudWatch Logs keeps the build output.
+
+Resources:
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/codebuild/${ProjectName}"
+      RetentionInDays: !Ref LogRetentionInDays
+
+  BuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Description: Build role of the optional COA CodeBuild deploy project. Not an administrator.
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: codebuild.amazonaws.com
+            Action: sts:AssumeRole
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+      Policies:
+        - PolicyName: coa-codebuild-deploy
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              # Every CDK operation (synth lookups, asset upload, image push, deploy)
+              # runs as one of the CDK bootstrap roles. us-east-1 is always needed:
+              # the edge-waf stack deploys there whatever the deploy region.
+              - Sid: AssumeCdkBootstrapRoles
+                Effect: Allow
+                Action: sts:AssumeRole
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${BootstrapQualifier}-deploy-role-${AWS::AccountId}-${AWS::Region}"
+                  - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${BootstrapQualifier}-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+                  - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${BootstrapQualifier}-image-publishing-role-${AWS::AccountId}-${AWS::Region}"
+                  - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${BootstrapQualifier}-lookup-role-${AWS::AccountId}-${AWS::Region}"
+                  - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${BootstrapQualifier}-deploy-role-${AWS::AccountId}-us-east-1"
+                  - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${BootstrapQualifier}-file-publishing-role-${AWS::AccountId}-us-east-1"
+                  - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${BootstrapQualifier}-image-publishing-role-${AWS::AccountId}-us-east-1"
+                  - !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${BootstrapQualifier}-lookup-role-${AWS::AccountId}-us-east-1"
+              # preflight-deploy.sh (CDKToolkit), check-teardown-pending.sh and
+              # check-vpc-limit.sh (the network stack), coa_add_jdbc_peering_context in
+              # scripts/lib/cdk-context.sh (the optional integ-test-databases stack).
+              - Sid: ReadDeploymentStacks
+                Effect: Allow
+                Action:
+                  - cloudformation:DescribeStacks
+                  - cloudformation:ListStackResources
+                Resource:
+                  - !Sub "arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/CDKToolkit/*"
+                  - !Sub "arn:${AWS::Partition}:cloudformation:us-east-1:${AWS::AccountId}:stack/CDKToolkit/*"
+                  - !Sub "arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/${ResourcePrefix}-*-network/*"
+                  - !Sub "arn:${AWS::Partition}:cloudformation:${AWS::Region}:${AWS::AccountId}:stack/${ResourcePrefix}-integ-test-databases/*"
+              # preflight-deploy.sh reads /<prefix>/config; infra/bin/app.ts reads it at synth.
+              - Sid: ReadDeploymentConfig
+                Effect: Allow
+                Action: ssm:GetParameter
+                Resource: !Sub "arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${ResourcePrefix}/config"
+              # check-teardown-pending.sh (security groups), check-vpc-limit.sh (VPCs,
+              # internet gateways, addresses), check-aoss-endpoint.sh (VPC endpoints),
+              # infra/lib/utils/agentcore-az.ts at synth (zones, endpoint services).
+              # EC2 Describe actions take no resource-level scope, so Resource is *; the
+              # condition limits them to the deploy region.
+              - Sid: ReadEc2Describe
+                Effect: Allow
+                Action:
+                  - ec2:DescribeAddresses
+                  - ec2:DescribeAvailabilityZones
+                  - ec2:DescribeInternetGateways
+                  - ec2:DescribeSecurityGroups
+                  - ec2:DescribeVpcEndpoints
+                  - ec2:DescribeVpcEndpointServices
+                  - ec2:DescribeVpcs
+                Resource: "*"
+                Condition:
+                  StringEquals:
+                    aws:RequestedRegion: !Ref AWS::Region
+              # check-vpc-limit.sh (quota values), preflight-deploy.sh (Lambda headroom and
+              # Bedrock model lists). None of these take a resource-level scope.
+              - Sid: ReadQuotasAndModelAvailability
+                Effect: Allow
+                Action:
+                  - servicequotas:GetServiceQuota
+                  - lambda:GetAccountSettings
+                  - bedrock:ListFoundationModels
+                  - bedrock:ListInferenceProfiles
+                Resource: "*"
+                Condition:
+                  StringEquals:
+                    aws:RequestedRegion: !Ref AWS::Region
+              # check-smus-admin-principal.sh: only when SCL_SMUS_ADMIN_ARNS is unset.
+              - Sid: ReadSmusAdminFallbackRole
+                Effect: Allow
+                Action: iam:GetRole
+                Resource: !Sub "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/Admin"
+              # preflight-deploy.sh logs in to ECR Public (us-east-1 only) so base-image
+              # pulls are authenticated. Neither action supports a resource scope.
+              - Sid: EcrPublicLogin
+                Effect: Allow
+                Action:
+                  - ecr-public:GetAuthorizationToken
+                  - sts:GetServiceBearerToken
+                Resource: "*"
+              - Sid: WriteBuildLogs
+                Effect: Allow
+                Action:
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !GetAtt LogGroup.Arn
+                  - !Sub "${LogGroup.Arn}:*"
+
+  Project:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Name: !Ref ProjectName
+      Description: Optional deploy of the Context Ontology Accelerator (scripts/deploy.sh).
+      ServiceRole: !GetAtt BuildRole.Arn
+      TimeoutInMinutes: !Ref TimeoutInMinutes
+      Artifacts:
+        Type: NO_ARTIFACTS
+      Environment:
+        Type: ARM_CONTAINER
+        Image: aws/codebuild/amazonlinux-aarch64-standard:3.0
+        ComputeType: !Ref ComputeType
+        # Docker for CDK asset bundling and image builds.
+        PrivilegedMode: true
+        EnvironmentVariables:
+          - Name: COA_REPO_URL
+            Type: PLAINTEXT
+            Value: !Ref RepoUrl
+          - Name: COA_REPO_REF
+            Type: PLAINTEXT
+            Value: !Ref RepoRef
+          - Name: COA_DEPLOY_ENV
+            Type: PLAINTEXT
+            Value: !Ref DeployEnv
+          - Name: SCL_PREFIX
+            Type: PLAINTEXT
+            Value: !Ref ResourcePrefix
+      LogsConfig:
+        CloudWatchLogs:
+          Status: ENABLED
+          GroupName: !Ref LogGroup
+      # No CodeBuild source: the build clones a plain https URL, so any public Git host
+      # works without a GitHub OAuth token in the account.
+      Source:
+        Type: NO_SOURCE
+        BuildSpec: |
+          version: 0.2
+          env:
+            shell: bash
+          phases:
+            install:
+              commands:
+                - |
+                  set -euo pipefail
+                  [[ "$COA_REPO_URL" =~ ^https://[A-Za-z0-9._~/:-]+$ ]] || { echo "COA_REPO_URL must be an https:// URL without credentials" >&2; exit 1; }
+                  [[ "$COA_REPO_REF" =~ ^[A-Za-z0-9][A-Za-z0-9._/-]{0,199}$ ]] || { echo "COA_REPO_REF is not a valid branch, tag or commit" >&2; exit 1; }
+                  [[ "$COA_DEPLOY_ENV" =~ ^[A-Za-z0-9][A-Za-z0-9-]{0,19}$ ]] || { echo "COA_DEPLOY_ENV is not a valid environment name" >&2; exit 1; }
+                  command -v git >/dev/null 2>&1 || dnf install -y git
+                  mkdir -p /tmp/coa && cd /tmp/coa
+                  git init -q .
+                  git remote add origin "$COA_REPO_URL"
+                  git fetch --depth 1 origin "$COA_REPO_REF"
+                  git checkout -q FETCH_HEAD
+                  echo "Deploying $COA_REPO_URL @ $(git rev-parse HEAD) to environment $COA_DEPLOY_ENV"
+                  bash scripts/codebuild/install-tools.sh
+            build:
+              commands:
+                - |
+                  set -euo pipefail
+                  cd /tmp/coa
+                  make setup
+                  ./scripts/deploy.sh "$COA_DEPLOY_ENV"
+
+Outputs:
+  ProjectName:
+    Value: !Ref Project
+    Description: Name of the CodeBuild project (make deploy-dev-codebuild starts builds on it).
+  BuildRoleArn:
+    Value: !GetAtt BuildRole.Arn
+  LogGroupName:
+    Value: !Ref LogGroup

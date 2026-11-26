@@ -172,6 +172,9 @@ The default region is `us-east-1`. To deploy to a different region:
    AWS_DEFAULT_REGION=us-east-2 SCL_PREFIX=coa-use2 make deploy-dev
    ```
 
+### Optional: deploying from AWS CodeBuild
+
+`make codebuild-setup` creates a CodeBuild project (the standalone template `codebuild/coa-deploy-project.yaml`, not a stack in `bin/app.ts`) and `make deploy-dev-codebuild` runs the platform deploy on it. It is opt-in: `make deploy-dev` and `cdk deploy --all` never create or use it. See [Optional: deploy from AWS CodeBuild](../external-docs/content/deploying.md#optional-deploy-from-aws-codebuild).
 ### Pre-deploy preflight
 
 `make deploy-dev` runs `scripts/preflight-deploy.sh` before building. It validates:

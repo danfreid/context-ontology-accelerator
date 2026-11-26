@@ -1432,6 +1432,192 @@ For the operator-facing scale-to-zero cost/latency tradeoff (cold-start return
 time and how it interacts with ingest), see the `aoss_min_ocu` section in
 [Getting Started](getting-started.md#opensearch-serverless-capacity-and-scale-to-zero).
 
+## Optional: deploy from AWS CodeBuild
+
+Most teams deploy from their own CI/CD or a laptop, and `make deploy-dev` is unchanged. This section is for people who would rather run the platform deploy on an AWS-hosted build machine, for example because their laptop is Windows (the Smithy code generation and CDK asset staging fail there) or an x86 machine without arm64 emulation, or because they want to close the lid during a one-hour deploy.
+
+Nothing here is required or on by default. The CodeBuild project is not a CDK stack: `infra/bin/app.ts` does not know about it, so `cdk deploy --all`, `make deploy-dev`, `scripts/deploy.sh` and `scripts/deploy-all.sh` never create or use it, and no CI workflow refers to it. It exists only if you run `make codebuild-setup`, and `make codebuild-remove` deletes it.
+
+### What it is
+
+One CloudFormation template, `infra/codebuild/coa-deploy-project.yaml`, creates three things: a CodeBuild project, its IAM role and a CloudWatch log group. A plain template was chosen over a second CDK app so that setting it up needs only the AWS CLI, with no Node, no `make setup` and no CDK bootstrap on the machine you are trying to avoid.
+
+The build runs on a native arm64 host (`ARM_CONTAINER`, image `aws/codebuild/amazonlinux-aarch64-standard:3.0`) with privileged mode so Docker works. The vkg, serve and mcp images are linux/arm64, so they build natively and no emulation is needed. The build:
+
+1. clones the repository and ref you configured (a plain `git fetch` of a public HTTPS URL; no credentials are stored or used),
+2. installs what is missing: Node.js at the version in `.mise.toml`, uv, pnpm at the `.mise.toml` version, Java 17 to 24 (Corretto 21 if the image has none). The existing `check-*-version.sh` scripts decide what counts as present. The Gradle wrapper downloads its own Gradle.
+3. runs `make setup`, then `./scripts/deploy.sh <env>`, the same platform deploy `make deploy-dev` runs.
+
+It does not run `scripts/deploy-all.sh`, so the Databricks SQL Warehouse connector (which needs Maven and a second set of permissions) is not deployed by CodeBuild. If you use that connector, run `make deploy-databricks-connector` from a machine that has Maven after the CodeBuild deploy.
+
+Only public repositories work. Cloning a private repository would need an AWS CodeConnections connection, which can only be authorized by hand in the console; that is left out for now.
+
+### Setup (once)
+
+Prerequisites: the AWS CLI v2, credentials that may create a CloudFormation stack with an IAM role, a CodeBuild project and a log group, and CDK bootstrap in the deploy region and in `us-east-1` (the deploy preflight requires both). Your fork or branch must be pushed to a public repository.
+
+```bash
+# Optional settings, all with defaults. The URL defaults to this checkout's "origin".
+COA_CODEBUILD_REPO_URL=https://github.com/<owner>/<repo> \
+COA_CODEBUILD_REF=main \
+SCL_PREFIX=coa \
+  make codebuild-setup
+```
+
+| Setting | Default | Meaning |
+|---|---|---|
+| `COA_CODEBUILD_REPO_URL` | the `origin` remote | Public `https://` Git URL to clone. Credentials in the URL are refused. |
+| `COA_CODEBUILD_REF` | `main` | Default branch, tag or commit. |
+| `COA_CODEBUILD_COMPUTE` | `BUILD_GENERAL1_LARGE` | Arm compute size (`SMALL`, `MEDIUM`, `LARGE`, `XLARGE`, `2XLARGE`). The deploy builds several images and runs Gradle; `SMALL` and `MEDIUM` are likely to run out of memory. |
+| `COA_CODEBUILD_TIMEOUT` | `120` | Build timeout in minutes (5 to 480). |
+| `COA_CODEBUILD_LOG_DAYS` | `30` | How long CloudWatch Logs keeps the build output. |
+| `COA_CODEBUILD_QUALIFIER` | `hnb659fds` | CDK bootstrap qualifier. |
+| `COA_DEPLOY_ENV` | `dev` | Default deploy environment. |
+| `SCL_PREFIX` | `coa` | The prefix your deployment uses. It scopes the role's read access to your stacks, so set the same value on every deploy. |
+| `COA_CODEBUILD_STACK` | `coa-codebuild-deploy` | Name of the CloudFormation stack that holds the project. |
+
+The project deploys into the region it was created in (resolved like the deploy scripts do: `AWS_REGION`, `AWS_DEFAULT_REGION`, then your profile). Run the setup again with new values to update the project.
+
+### Running a deploy
+
+```bash
+SCL_LAMBDA_RESERVED_CONCURRENCY=0 \
+SCL_SMUS_ADMIN_ARNS=arn:aws:iam::123456789012:role/<your-admin-role> \
+  make deploy-dev-codebuild
+```
+
+The command starts a build, passes the deploy environment and every `SCL_*` variable set in your shell to it (the ones listed at the top of `scripts/deploy.sh` and in `scripts/lib/cdk-context.sh`), follows the build log, and exits 0 when the build succeeds and 1 otherwise. It prints each setting it passes. Set `COA_CODEBUILD_REF` to deploy a different branch, tag or commit, and `COA_DEPLOY_ENV` for another environment.
+
+Settings travel as plain environment variables and show up in the build's configuration and log, so put only non-secret values in `SCL_*` (ARNs, IDs, numbers). None of the deploy settings is a secret. The build gets AWS access from its IAM role, not from keys.
+
+Ctrl-C stops only the display; the build keeps running. To stop it, use the `aws codebuild stop-build` command the script prints (stopping a deploy partway can leave a stack rolling back). To run the command, your own credentials need `cloudformation:DescribeStacks`, `codebuild:StartBuild`, `codebuild:BatchGetBuilds` and `logs:FilterLogEvents`.
+
+### What it costs
+
+An idle project costs nothing. CodeBuild bills per build minute at the rate for the arm64 compute size you picked (see the [CodeBuild pricing page](https://aws.amazon.com/codebuild/pricing/)), for as long as a build runs: roughly the time the same deploy takes on your own machine, an hour or more for a first deploy and less for an update. CloudWatch Logs charges for the log data stored until the retention period passes. The stacks the build deploys cost what they cost from a laptop; the build adds nothing to them.
+
+### The IAM policy and why
+
+The build role is not an administrator and has no managed policies. It can assume the CDK bootstrap roles, and read what the deploy scripts read. CDK does the actual changes through those bootstrap roles, as it does from a laptop.
+
+Scope note: a role that may assume the CDK deploy role can ask CloudFormation to create anything the bootstrap's CloudFormation execution role may create, and `cdk bootstrap` gives that role `AdministratorAccess` unless you bootstrapped with `--cloudformation-execution-policies`. The policy below limits what the build role can do directly, not what a template it deploys can do. Anyone who can change the repository ref or the project can therefore change your account, as with any deploy pipeline. Restrict who can start builds and edit the project, and point the project at a repository you control.
+
+Resources in the policy use `<account>`, `<region>` (the region the project is in), `<prefix>` (`SCL_PREFIX`) and `<qualifier>` (the bootstrap qualifier); the template fills them in.
+
+| Statement | Why it is needed |
+|---|---|
+| `AssumeCdkBootstrapRoles` | `sts:AssumeRole` on the four CDK bootstrap roles (`cdk-<qualifier>-deploy-role-*`, `-file-publishing-role-*`, `-image-publishing-role-*`, `-lookup-role-*`) for `<account>` in `<region>` and in `us-east-1`. The edge-waf stack always deploys to `us-east-1`. Nothing else can be assumed. |
+| `ReadDeploymentStacks` | `cloudformation:DescribeStacks` and `cloudformation:ListStackResources`. `preflight-deploy.sh` reads the `CDKToolkit` stack (bootstrap check, both regions). `check-teardown-pending.sh` and `check-vpc-limit.sh` read `<prefix>-*-network`. `scripts/lib/cdk-context.sh` reads `<prefix>-integ-test-databases`; if that read were denied the script would treat the stack as absent and the deploy would remove JDBC peering rules, so it is allowed. |
+| `ReadDeploymentConfig` | `ssm:GetParameter` on `/<prefix>/config`. `preflight-deploy.sh` reads the model IDs there, and `infra/bin/app.ts` reads the whole config while synthesizing. If you store it as a `SecureString` with a customer-managed key, add `kms:Decrypt` on that key yourself. |
+| `ReadEc2Describe` | `ec2:DescribeAddresses`, `DescribeAvailabilityZones`, `DescribeInternetGateways`, `DescribeSecurityGroups`, `DescribeVpcEndpoints`, `DescribeVpcEndpointServices`, `DescribeVpcs`. Used by `check-teardown-pending.sh`, `check-vpc-limit.sh`, `check-aoss-endpoint.sh` and `infra/lib/utils/agentcore-az.ts` at synth. EC2 `Describe*` calls cannot be limited to resources, so `Resource` is `*`; a condition limits them to `<region>`. |
+| `ReadQuotasAndModelAvailability` | `servicequotas:GetServiceQuota` (`check-vpc-limit.sh`), `lambda:GetAccountSettings` (the reserved-concurrency headroom check), `bedrock:ListFoundationModels` and `bedrock:ListInferenceProfiles` (the Bedrock model check). None supports resource scoping, so `Resource` is `*` with the same region condition. |
+| `ReadSmusAdminFallbackRole` | `iam:GetRole` on `role/Admin` only. `check-smus-admin-principal.sh` calls it when `SCL_SMUS_ADMIN_ARNS` is unset. With that variable set the call is skipped. |
+| `EcrPublicLogin` | `ecr-public:GetAuthorizationToken` and `sts:GetServiceBearerToken`, for the ECR Public login in `preflight-deploy.sh` (base image pulls). They take no resource scope, so `Resource` is `*`, and they cannot be limited by region (ECR Public is `us-east-1` only). The preflight only warns if this fails, and pulls then run anonymously and may be rate limited. |
+| `WriteBuildLogs` | `logs:CreateLogStream` and `logs:PutLogEvents` on the project's own log group. |
+
+Calls that need no permission: `sts get-caller-identity`, `aws configure get region`. `smithy-generate.sh` calls `codeartifact get-authorization-token` only when `CODEARTIFACT_MAVEN_URL` is set, which the project does not set; if you set it in the build, add that permission yourself.
+
+Two things that could not be limited and are not hidden: the `Resource: "*"` statements above (AWS does not offer resource-level scoping for them), and the CloudFormation execution role point in the scope note. The policy was checked against the scripts by reading them, and the unit tests pin the exact action list; it has not been exercised in a live account, so the first build is the real test. If a build fails with `AccessDenied`, the log names the action.
+
+The full policy document the template attaches (`<account>`, `<region>`, `<prefix>` and `<qualifier>` filled in by CloudFormation):
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AssumeCdkBootstrapRoles",
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Resource": [
+        "arn:aws:iam::<account>:role/cdk-<qualifier>-deploy-role-<account>-<region>",
+        "arn:aws:iam::<account>:role/cdk-<qualifier>-file-publishing-role-<account>-<region>",
+        "arn:aws:iam::<account>:role/cdk-<qualifier>-image-publishing-role-<account>-<region>",
+        "arn:aws:iam::<account>:role/cdk-<qualifier>-lookup-role-<account>-<region>",
+        "arn:aws:iam::<account>:role/cdk-<qualifier>-deploy-role-<account>-us-east-1",
+        "arn:aws:iam::<account>:role/cdk-<qualifier>-file-publishing-role-<account>-us-east-1",
+        "arn:aws:iam::<account>:role/cdk-<qualifier>-image-publishing-role-<account>-us-east-1",
+        "arn:aws:iam::<account>:role/cdk-<qualifier>-lookup-role-<account>-us-east-1"
+      ]
+    },
+    {
+      "Sid": "ReadDeploymentStacks",
+      "Effect": "Allow",
+      "Action": ["cloudformation:DescribeStacks", "cloudformation:ListStackResources"],
+      "Resource": [
+        "arn:aws:cloudformation:<region>:<account>:stack/CDKToolkit/*",
+        "arn:aws:cloudformation:us-east-1:<account>:stack/CDKToolkit/*",
+        "arn:aws:cloudformation:<region>:<account>:stack/<prefix>-*-network/*",
+        "arn:aws:cloudformation:<region>:<account>:stack/<prefix>-integ-test-databases/*"
+      ]
+    },
+    {
+      "Sid": "ReadDeploymentConfig",
+      "Effect": "Allow",
+      "Action": "ssm:GetParameter",
+      "Resource": "arn:aws:ssm:<region>:<account>:parameter/<prefix>/config"
+    },
+    {
+      "Sid": "ReadEc2Describe",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeAddresses",
+        "ec2:DescribeAvailabilityZones",
+        "ec2:DescribeInternetGateways",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeVpcEndpoints",
+        "ec2:DescribeVpcEndpointServices",
+        "ec2:DescribeVpcs"
+      ],
+      "Resource": "*",
+      "Condition": { "StringEquals": { "aws:RequestedRegion": "<region>" } }
+    },
+    {
+      "Sid": "ReadQuotasAndModelAvailability",
+      "Effect": "Allow",
+      "Action": [
+        "servicequotas:GetServiceQuota",
+        "lambda:GetAccountSettings",
+        "bedrock:ListFoundationModels",
+        "bedrock:ListInferenceProfiles"
+      ],
+      "Resource": "*",
+      "Condition": { "StringEquals": { "aws:RequestedRegion": "<region>" } }
+    },
+    {
+      "Sid": "ReadSmusAdminFallbackRole",
+      "Effect": "Allow",
+      "Action": "iam:GetRole",
+      "Resource": "arn:aws:iam::<account>:role/Admin"
+    },
+    {
+      "Sid": "EcrPublicLogin",
+      "Effect": "Allow",
+      "Action": ["ecr-public:GetAuthorizationToken", "sts:GetServiceBearerToken"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "WriteBuildLogs",
+      "Effect": "Allow",
+      "Action": ["logs:CreateLogStream", "logs:PutLogEvents"],
+      "Resource": [
+        "arn:aws:logs:<region>:<account>:log-group:/aws/codebuild/coa-deploy",
+        "arn:aws:logs:<region>:<account>:log-group:/aws/codebuild/coa-deploy:*"
+      ]
+    }
+  ]
+}
+```
+
+The role's trust policy lets only `codebuild.amazonaws.com` assume it, and only for builds in your account (`aws:SourceAccount`).
+
+### Removing it
+
+```bash
+make codebuild-remove
+```
+
+This deletes the CloudFormation stack: the project, its role and the log group with its build logs. It asks first (set `COA_CODEBUILD_YES=1` to skip the prompt). The COA stacks that earlier builds deployed are not touched; tear those down with `make destroy-dev` as usual. There is no destroy through CodeBuild.
 ## Updating
 
 To deploy updates after pulling new code:
