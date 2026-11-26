@@ -54,7 +54,10 @@ needs amd64 emulation. Docker can only run a build's `RUN` steps for another
 architecture once binfmt/QEMU is registered for it; otherwise the build
 commonly stops with `exec format error`.
 The preflight check (`scripts/preflight-deploy.sh`) fails on an x86_64 Linux
-host where it finds no ARM64 emulation, before CDK starts building.
+host where it finds no ARM64 emulation, before CDK starts building. On other
+x86_64 hosts (Docker Desktop on Windows or an Intel Mac) where `docker buildx ls`
+shows no running `linux/arm64` builder, it runs a small `linux/arm64` container
+and fails if that container cannot run (`exec format error`).
 
 Docker Desktop includes multi-platform emulation on supported installations.
 Verify the active Docker builder before deploying:
@@ -357,6 +360,57 @@ make setup
 ```
 
 `make deploy-dev` re-checks required toolchain versions and re-runs Smithy codegen (`make generate`) automatically if `smithy-generated/` is missing or stale — stale meaning a Smithy model or the codegen configuration changed since it was last generated, as after a `git pull` that changes an API — so a manual re-run is only needed if you want generated artifacts refreshed without doing a full deploy.
+
+## Deploying from Windows
+
+The scripts are bash and run in **Git Bash** (installed with Git for Windows).
+Run every command below from a Git Bash prompt at the repository root, not from
+PowerShell or `cmd`. The repository's `.gitattributes` checks out scripts,
+Dockerfiles and other files that run on Linux with LF line endings, whatever
+`core.autocrlf` is set to, so a fresh clone needs no line-ending changes.
+
+Git Bash has no `make`. Each target only runs scripts, so run them directly:
+
+| Instead of | Run |
+|---|---|
+| `make setup` | `./scripts/install-pnpm.sh && ./scripts/smithy-generate.sh && ./scripts/setup-dev.sh` |
+| `make generate` | `./scripts/smithy-generate.sh` |
+| `make preflight` | `./scripts/preflight-deploy.sh` |
+| `make deploy-dev` | `./scripts/deploy-all.sh dev` |
+| `make destroy-dev` | `./scripts/smithy-generate.sh && pnpm install --frozen-lockfile && ./scripts/destroy.sh dev` |
+
+Set options the same way as on Linux, for example
+`SCL_PREFIX=myproj ./scripts/deploy-all.sh dev`.
+
+**Docker Desktop** must be running with Linux containers. Docker Desktop on an
+x86_64 PC needs ARM64 emulation for the Serve, MCP and VKG images (see
+[Cross-architecture container builds](#cross-architecture-container-builds)).
+Register it, and check that it works:
+
+```bash
+docker run --privileged --rm tonistiigi/binfmt --install arm64
+docker run --rm --platform linux/arm64 alpine uname -m   # should print aarch64
+```
+
+Restarting Docker Desktop (or Windows) drops this registration, so run the
+install again after every restart. The preflight check runs an arm64 container
+and stops the deploy with this command when emulation is missing.
+
+**Keep the machine awake.** A first deploy takes well over an hour, and the
+deploy stops if Windows sleeps or hibernates. Keep the laptop plugged in, and
+in Power settings set sleep to "Never" when plugged in and the lid-close action
+to "Do nothing" for the length of the deploy.
+
+Synthesis on Windows sometimes fails with
+`EPERM: operation not permitted, rename '...asset.<hash>-building' -> '...asset.<hash>'`,
+usually because a virus scanner still has the new asset folder open.
+`scripts/deploy.sh` retries synthesis up to five times on that error only;
+assets that finished bundling are kept, so each attempt continues where the
+last one stopped.
+
+To avoid running a long deploy on a laptop at all, a CodeBuild-based deploy
+is being developed on the `feature/codebuild-deploy-option` branch. It is
+optional and not part of this branch; the steps above do not need it.
 
 ## Deploy
 
