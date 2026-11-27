@@ -21,7 +21,9 @@ import { NetworkStack } from "./network-stack";
 
 /**
  * Foundation stack: Neptune graph database and OpenSearch Serverless
- * vector store, shared by all SemanticContext services.
+ * vector store, shared by all SemanticContext services. On the full Aurora path
+ * Aurora replaces Neptune and the search indexes, and a scale-to-zero AOSS
+ * collection remains for the GraphRAG chunk, topic and statement indexes.
  *
  * Neptune uses L1 (Cfn) constructs with IAM authentication enabled.
  * OpenSearch uses Serverless (VECTORSEARCH collection type) for
@@ -154,147 +156,10 @@ export class StorageStack extends SCLStack {
         resourceName: "*",
         arnFormat: cdk.ArnFormat.SLASH_RESOURCE_NAME,
       });
-
-      // OpenSearch Serverless — NEXTGEN Collection Group
-      //
-      // Uses NEXTGEN generation for improved indexing performance, lower latency,
-      // and support for larger vector dimensions. The Collection Group provides:
-      // - NEXTGEN generation: 2x indexing throughput, sub-100ms p99 search latency
-      // - Standby replicas: must be ENABLED for NEXTGEN (AWS rejects DISABLED).
-      //   NEXTGEN strict mode rejects knn_vector method blocks — catches regressions.
-      // - Capacity limits: min 2 OCU (default, override via `aoss_min_ocu`; set 0
-
-      const collectionName = this.aossName(VECTOR_COLLECTION_SUFFIX);
-
-      // Encryption policy - required before collection creation
-      const encryptionPolicy = new opensearchserverless.CfnSecurityPolicy(
-        this,
-        "OSSEncryptionPolicy",
-        {
-          name: this.aossName("encryption"),
-          type: "encryption",
-          policy: JSON.stringify({
-            Rules: [
-              {
-                ResourceType: "collection",
-                Resource: [`collection/${collectionName}`],
-              },
-            ],
-            AWSOwnedKey: true,
-          }),
-        },
-      );
-
-      // Network policy — VPC-only on every stage: only the deployment's AOSS
-      // interface endpoint may reach the collection. No public rule, dev included.
-      const networkRules = [
-        {
-          Rules: [
-            {
-              ResourceType: "collection",
-              Resource: [`collection/${collectionName}`],
-            },
-            {
-              ResourceType: "dashboard",
-              Resource: [`collection/${collectionName}`],
-            },
-          ],
-          SourceVPCEs: [network.aossVpcEndpointId],
-        },
-      ];
-
-      const networkPolicy = new opensearchserverless.CfnSecurityPolicy(
-        this,
-        "OSSNetworkPolicy",
-        {
-          name: this.aossName("network"),
-          type: "network",
-          policy: JSON.stringify(networkRules),
-        },
-      );
-
-      const maxOcu = Number(this.node.tryGetContext("aoss_max_ocu") ?? 96);
-      const minOcu = Number(this.node.tryGetContext("aoss_min_ocu") ?? 2);
-
-      // Validate min/max OCU explicitly: an out-of-range `-c aoss_min_ocu` is otherwise only
-      // rejected by CloudFormation late, with an opaque error. minOcu=0 is valid but lets
-      // indexing capacity scale to zero, so under load the NEXTGEN circuit breaker sheds bulk
-      // writes with 429s. Valid min values are 0, 2, 4, 8, 16 or multiples of 16 up to 1696
-      // (collection-group capacity limit); max cannot be 0 (it is a ceiling).
-      const MAX_OCU_LIMIT = 1696;
-      const BASE_VALID_OCU = new Set([0, 2, 4, 8, 16]);
-      const isValidOcuValue = (v: number) =>
-        Number.isInteger(v) &&
-        v >= 0 &&
-        v <= MAX_OCU_LIMIT &&
-        (BASE_VALID_OCU.has(v) || (v > 16 && v % 16 === 0));
-      if (!isValidOcuValue(minOcu)) {
-        throw new Error(
-          `aoss_min_ocu=${this.node.tryGetContext("aoss_min_ocu")} is invalid. ` +
-            `NEXTGEN min OCU must be 0, 2, 4, 8, 16, or a multiple of 16, up to ${MAX_OCU_LIMIT}.`,
-        );
-      }
-      if (!isValidOcuValue(maxOcu) || maxOcu < 2) {
-        throw new Error(
-          `aoss_max_ocu=${this.node.tryGetContext("aoss_max_ocu")} is invalid. ` +
-            `NEXTGEN max OCU must be 2, 4, 8, 16, or a multiple of 16, up to ${MAX_OCU_LIMIT}.`,
-        );
-      }
-      if (minOcu > maxOcu) {
-        throw new Error(
-          `aoss_min_ocu (${minOcu}) cannot exceed aoss_max_ocu (${maxOcu}).`,
-        );
-      }
-      if (minOcu === 0) {
-        cdk.Annotations.of(this).addWarning(
-          `AOSS min OCU is 0: indexing capacity can scale to zero, so under load the ` +
-            `NEXTGEN circuit breaker sheds bulk writes with HTTP 429. Ingest re-submits and ` +
-            `now fails LOUD on unrecoverable partial writes, but 0 makes throttling ` +
-            `far more likely. Use a non-zero floor (e.g. 2) for ingest-heavy environments.`,
-        );
-      }
-
-      const cfnCollectionGroup = new opensearchserverless.CfnCollectionGroup(
-        this,
-        "VectorStoreGroup",
-        {
-          name: this.aossName("vector-store-group"),
-          standbyReplicas: "ENABLED",
-          generation: "NEXTGEN",
-          capacityLimits: {
-            maxIndexingCapacityInOcu: maxOcu,
-            maxSearchCapacityInOcu: maxOcu,
-            minIndexingCapacityInOcu: minOcu,
-            minSearchCapacityInOcu: minOcu,
-          },
-          description:
-            "Group for SemanticContext vector store for embeddings and similarity search",
-        },
-      );
-      const collection = new opensearchserverless.CfnCollection(
-        this,
-        "VectorStore",
-        {
-          name: collectionName,
-          collectionGroupName: cfnCollectionGroup.name,
-          type: "VECTORSEARCH",
-          description:
-            "SemanticContext vector store for embeddings and similarity search",
-        },
-      );
-      collection.addDependency(cfnCollectionGroup);
-      collection.addDependency(encryptionPolicy);
-      collection.addDependency(networkPolicy);
-
-      this.opensearchEndpoint = collection.attrCollectionEndpoint;
-      this.opensearchCollectionName = collectionName;
-      this.opensearchCollectionArn = collection.attrArn;
     } else {
-      // Aurora path: one cluster serves graph + vector + metadata. The Neptune and
-      // OpenSearch fields carry the Aurora equivalents so callers (serve, metric
-      // service, ontology) read them without change.
-      // TODO: IAM grants in those stacks still target neptune-db / aoss actions;
-      // switch them to rds-data on this path.
+      // Aurora path: one cluster serves graph + vector + metadata. The Neptune fields
+      // carry the Aurora equivalents. The OpenSearch fields always come from the AOSS
+      // collection below, which on this path only holds the GraphRAG indexes.
       const aurora = new AuroraPg(this, "AuroraPg", {
         vpc: network.vpc,
         securityGroup: network.auroraSecurityGroup!,
@@ -306,10 +171,146 @@ export class StorageStack extends SCLStack {
       this.neptuneClusterEndpoint = aurora.clusterEndpoint.hostname;
       this.neptuneClusterArn = aurora.clusterArn;
 
-      this.opensearchEndpoint = aurora.clusterEndpoint.socketAddress; // pgvector endpoint
-      this.opensearchCollectionName = this.prefixed("pgvector");
-      this.opensearchCollectionArn = aurora.clusterArn;
     }
+
+    // OpenSearch Serverless — NEXTGEN Collection Group
+    //
+    // Uses NEXTGEN generation for improved indexing performance, lower latency,
+    // and support for larger vector dimensions. The Collection Group provides:
+    // - NEXTGEN generation: 2x indexing throughput, sub-100ms p99 search latency
+    // - Standby replicas: must be ENABLED for NEXTGEN (AWS rejects DISABLED).
+    //   NEXTGEN strict mode rejects knn_vector method blocks — catches regressions.
+    // - Capacity limits: min 2 OCU (default, override via `aoss_min_ocu`; set 0
+
+    const collectionName = this.aossName(VECTOR_COLLECTION_SUFFIX);
+
+    // Encryption policy - required before collection creation
+    const encryptionPolicy = new opensearchserverless.CfnSecurityPolicy(
+      this,
+      "OSSEncryptionPolicy",
+      {
+        name: this.aossName("encryption"),
+        type: "encryption",
+        policy: JSON.stringify({
+          Rules: [
+            {
+              ResourceType: "collection",
+              Resource: [`collection/${collectionName}`],
+            },
+          ],
+          AWSOwnedKey: true,
+        }),
+      },
+    );
+
+    // Network policy — VPC-only on every stage: only the deployment's AOSS
+    // interface endpoint may reach the collection. No public rule, dev included.
+    const networkRules = [
+      {
+        Rules: [
+          {
+            ResourceType: "collection",
+            Resource: [`collection/${collectionName}`],
+          },
+          {
+            ResourceType: "dashboard",
+            Resource: [`collection/${collectionName}`],
+          },
+        ],
+        SourceVPCEs: [network.aossVpcEndpointId],
+      },
+    ];
+
+    const networkPolicy = new opensearchserverless.CfnSecurityPolicy(
+      this,
+      "OSSNetworkPolicy",
+      {
+        name: this.aossName("network"),
+        type: "network",
+        policy: JSON.stringify(networkRules),
+      },
+    );
+
+    const maxOcu = Number(
+      this.node.tryGetContext("aoss_max_ocu") ?? (useAurora ? 4 : 96),
+    );
+    const minOcu = Number(
+      this.node.tryGetContext("aoss_min_ocu") ?? (useAurora ? 0 : 2),
+    );
+
+    // Validate min/max OCU explicitly: an out-of-range `-c aoss_min_ocu` is otherwise only
+    // rejected by CloudFormation late, with an opaque error. minOcu=0 is valid but lets
+    // indexing capacity scale to zero, so under load the NEXTGEN circuit breaker sheds bulk
+    // writes with 429s. Valid min values are 0, 2, 4, 8, 16 or multiples of 16 up to 1696
+    // (collection-group capacity limit); max cannot be 0 (it is a ceiling).
+    const MAX_OCU_LIMIT = 1696;
+    const BASE_VALID_OCU = new Set([0, 2, 4, 8, 16]);
+    const isValidOcuValue = (v: number) =>
+      Number.isInteger(v) &&
+      v >= 0 &&
+      v <= MAX_OCU_LIMIT &&
+      (BASE_VALID_OCU.has(v) || (v > 16 && v % 16 === 0));
+    if (!isValidOcuValue(minOcu)) {
+      throw new Error(
+        `aoss_min_ocu=${this.node.tryGetContext("aoss_min_ocu")} is invalid. ` +
+          `NEXTGEN min OCU must be 0, 2, 4, 8, 16, or a multiple of 16, up to ${MAX_OCU_LIMIT}.`,
+      );
+    }
+    if (!isValidOcuValue(maxOcu) || maxOcu < 2) {
+      throw new Error(
+        `aoss_max_ocu=${this.node.tryGetContext("aoss_max_ocu")} is invalid. ` +
+          `NEXTGEN max OCU must be 2, 4, 8, 16, or a multiple of 16, up to ${MAX_OCU_LIMIT}.`,
+      );
+    }
+    if (minOcu > maxOcu) {
+      throw new Error(
+        `aoss_min_ocu (${minOcu}) cannot exceed aoss_max_ocu (${maxOcu}).`,
+      );
+    }
+    if (minOcu === 0 && !useAurora) {
+      cdk.Annotations.of(this).addWarning(
+        `AOSS min OCU is 0: indexing capacity can scale to zero, so under load the ` +
+          `NEXTGEN circuit breaker sheds bulk writes with HTTP 429. Ingest re-submits and ` +
+          `now fails LOUD on unrecoverable partial writes, but 0 makes throttling ` +
+          `far more likely. Use a non-zero floor (e.g. 2) for ingest-heavy environments.`,
+      );
+    }
+
+    const cfnCollectionGroup = new opensearchserverless.CfnCollectionGroup(
+      this,
+      "VectorStoreGroup",
+      {
+        name: this.aossName("vector-store-group"),
+        standbyReplicas: "ENABLED",
+        generation: "NEXTGEN",
+        capacityLimits: {
+          maxIndexingCapacityInOcu: maxOcu,
+          maxSearchCapacityInOcu: maxOcu,
+          minIndexingCapacityInOcu: minOcu,
+          minSearchCapacityInOcu: minOcu,
+        },
+        description:
+          "Group for SemanticContext vector store for embeddings and similarity search",
+      },
+    );
+    const collection = new opensearchserverless.CfnCollection(
+      this,
+      "VectorStore",
+      {
+        name: collectionName,
+        collectionGroupName: cfnCollectionGroup.name,
+        type: "VECTORSEARCH",
+        description:
+          "SemanticContext vector store for embeddings and similarity search",
+      },
+    );
+    collection.addDependency(cfnCollectionGroup);
+    collection.addDependency(encryptionPolicy);
+    collection.addDependency(networkPolicy);
+
+    this.opensearchEndpoint = collection.attrCollectionEndpoint;
+    this.opensearchCollectionName = collectionName;
+    this.opensearchCollectionArn = collection.attrArn;
 
     // =====================================================================
     //  Athena Query Buckets

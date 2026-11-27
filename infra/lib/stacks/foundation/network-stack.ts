@@ -263,21 +263,21 @@ export class NetworkStack extends SCLStack {
         privateDnsEnabled: true,
       });
       if (useAurora) {
-        // Lambda reaches Aurora through the RDS Data API; no AOSS on this path.
+        // Lambda reaches Aurora through the RDS Data API.
         createdVpc.addInterfaceEndpoint("RdsDataEndpoint", {
           service: ec2.InterfaceVpcEndpointAwsService.RDS_DATA,
           privateDnsEnabled: true,
         });
-        this.aossVpcEndpointId = ""; // aurora-path: unused
-      } else {
-        const aossEndpoint = createdVpc.addInterfaceEndpoint("AossEndpoint", {
-          service: new ec2.InterfaceVpcEndpointService(
-            `com.amazonaws.${cdk.Stack.of(this).region}.aoss-data`,
-          ),
-          privateDnsEnabled: true,
-        });
-        this.aossVpcEndpointId = aossEndpoint.vpcEndpointId;
       }
+      // The AOSS collection exists on both paths (on the Aurora path it holds the
+      // GraphRAG indexes), so the aoss-data endpoint is always created.
+      const aossEndpoint = createdVpc.addInterfaceEndpoint("AossEndpoint", {
+        service: new ec2.InterfaceVpcEndpointService(
+          `com.amazonaws.${cdk.Stack.of(this).region}.aoss-data`,
+        ),
+        privateDnsEnabled: true,
+      });
+      this.aossVpcEndpointId = aossEndpoint.vpcEndpointId;
 
       // Additional interface endpoints: keep AWS API traffic private so
       // egress can be scoped away from the public internet. These cover the

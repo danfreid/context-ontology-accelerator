@@ -707,14 +707,19 @@ describe("NetworkStack Aurora path", () => {
     buildStack(AURORA_CONTEXT).resourceCountIs("AWS::EC2::Subnet", 6);
   });
 
-  it("creates no AOSS endpoints", () => {
-    const endpoints = buildStack(AURORA_CONTEXT).findResources(
-      "AWS::EC2::VPCEndpoint",
-    );
+  it("creates the aoss-data endpoint (the GraphRAG collection still exists)", () => {
+    const template = buildStack(AURORA_CONTEXT);
+    const endpoints = template.findResources("AWS::EC2::VPCEndpoint");
     const services = Object.values(endpoints).map((e: any) =>
       JSON.stringify(e.Properties.ServiceName),
     );
-    expect(services.some((s) => /aoss/.test(s))).toBe(false);
+    expect(services.filter((s) => /aoss-data/.test(s))).toHaveLength(1);
+  });
+  it("exports the aoss-data endpoint ID for the storage network policy", () => {
+    const app = new cdk.App({ context: AURORA_CONTEXT });
+    const network = new NetworkStack(app, "TestNetwork");
+    expect(cdk.Token.isUnresolved(network.aossVpcEndpointId)).toBe(true);
+    expect(network.aossVpcEndpointId).not.toBe("");
   });
 
   it("creates an RDS Data API endpoint", () => {

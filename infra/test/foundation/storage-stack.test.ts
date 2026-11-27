@@ -480,14 +480,35 @@ describe("StorageStack Aurora path", () => {
     metadata_backend: "aurora",
   };
 
-  function buildAurora(): Template {
-    const app = new cdk.App({ context: AURORA_CONTEXT });
+  function buildAuroraStack(
+    extraContext: Record<string, string> = {},
+    bedrockEmbedDimensions?: number,
+  ): StorageStack {
+    const app = new cdk.App({
+      context: { ...AURORA_CONTEXT, ...extraContext },
+    });
     const network = new NetworkStack(app, "TestNetwork", { env: TEST_ENV });
-    const storage = new StorageStack(app, "TestStorage", {
+    return new StorageStack(app, "TestStorage", {
       network,
       env: TEST_ENV,
+      bedrockEmbedDimensions,
     });
-    return Template.fromStack(storage);
+  }
+  function buildAurora(
+    extraContext: Record<string, string> = {},
+    bedrockEmbedDimensions?: number,
+  ): Template {
+    return Template.fromStack(
+      buildAuroraStack(extraContext, bedrockEmbedDimensions),
+    );
+  }
+  function ssmValue(template: Template, name: string): unknown {
+    const [param] = Object.values(
+      template.findResources("AWS::SSM::Parameter", {
+        Properties: { Name: name },
+      }),
+    );
+    return param.Properties.Value;
   }
 
   it("creates no Neptune resources", () => {
@@ -496,8 +517,84 @@ describe("StorageStack Aurora path", () => {
     template.resourceCountIs("AWS::Neptune::DBInstance", 0);
   });
 
-  it("creates no OpenSearch Serverless collection", () => {
-    buildAurora().resourceCountIs("AWS::OpenSearchServerless::Collection", 0);
+  it("keeps a scale-to-zero AOSS collection group and collection for GraphRAG", () => {
+    const storage = buildAuroraStack();
+    const template = Template.fromStack(storage);
+    template.resourceCountIs("AWS::OpenSearchServerless::CollectionGroup", 1);
+    template.resourceCountIs("AWS::OpenSearchServerless::Collection", 1);
+    template.hasResourceProperties(
+      "AWS::OpenSearchServerless::CollectionGroup",
+      {
+        CapacityLimits: {
+          MinIndexingCapacityInOcu: 0,
+          MinSearchCapacityInOcu: 0,
+          MaxIndexingCapacityInOcu: 4,
+          MaxSearchCapacityInOcu: 4,
+        },
+      },
+    );
+    Annotations.fromStack(storage).hasNoWarning(
+      "*",
+      Match.stringLikeRegexp("AOSS min OCU is 0"),
+    );
+  });
+  it("uses the same construct IDs for the AOSS resources as the default path", () => {
+    const ids = (t: Template, type: string) =>
+      Object.keys(t.findResources(type)).sort();
+    const aurora = buildAurora();
+    const { template: neptunePath } = buildStacks();
+    for (const type of [
+      "AWS::OpenSearchServerless::CollectionGroup",
+      "AWS::OpenSearchServerless::Collection",
+      "AWS::OpenSearchServerless::SecurityPolicy",
+    ]) {
+      expect(ids(aurora, type)).toEqual(ids(neptunePath, type));
+    }
+  });
+  it("still lets aoss_min_ocu and aoss_max_ocu override the Aurora defaults", () => {
+    buildAurora({ aoss_min_ocu: "2", aoss_max_ocu: "8" }).hasResourceProperties(
+      "AWS::OpenSearchServerless::CollectionGroup",
+      {
+        CapacityLimits: {
+          MinIndexingCapacityInOcu: 2,
+          MinSearchCapacityInOcu: 2,
+          MaxIndexingCapacityInOcu: 8,
+          MaxSearchCapacityInOcu: 8,
+        },
+      },
+    );
+  });
+  it("publishes the real AOSS endpoint, name and ARN, never the Aurora socket address", () => {
+    const template = buildAurora();
+    const endpoint = ssmValue(template, "/coa/opensearch/endpoint");
+    expect(endpoint).toEqual({
+      "Fn::GetAtt": ["VectorStore", "CollectionEndpoint"],
+    });
+    expect(ssmValue(template, "/coa/opensearch/collection-arn")).toEqual({
+      "Fn::GetAtt": ["VectorStore", "Arn"],
+    });
+    const published = ["endpoint", "collection-name", "collection-arn"].map(
+      (n) => JSON.stringify(ssmValue(template, `/coa/opensearch/${n}`)),
+    );
+    for (const value of published) {
+      expect(value).not.toContain(":5432");
+      expect(value).not.toContain("pgvector");
+      expect(value).not.toContain("AuroraPg");
+    }
+    expect(ssmValue(template, "/coa/opensearch/collection-name")).toMatch(
+      /vector-store/,
+    );
+    expect(
+      JSON.stringify(
+        Object.values(template.findOutputs("OpenSearchEndpointOutput")),
+      ),
+    ).not.toContain(":5432");
+  });
+  it("passes a non-default embedding dimension to the migrator", () => {
+    buildAurora({}, 768).hasResourceProperties(
+      "AWS::CloudFormation::CustomResource",
+      { VectorDimensions: 768 },
+    );
   });
 
   it("creates an Aurora Serverless v2 cluster scaling 0 to 8 ACU with the Data API", () => {
