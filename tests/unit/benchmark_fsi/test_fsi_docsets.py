@@ -93,7 +93,7 @@ def _docset(s: Scenario) -> dict[str, Any]:
 def test_phase_has_its_own_counts_and_is_registered_after_settlement(
     result: build_mod.BuildResult, sc: dict[str, Scenario]
 ) -> None:
-    assert build_mod.PHASES[-1] == "docsets"
+    assert build_mod.PHASES.index("docsets") == build_mod.PHASES.index("settlement") + 1
     assert [s.id for s in result.scenarios if s.phase == "docsets"] == [D1, D2]
     totals = tuple(sum(s.counts[k] for s in sc.values()) for k in ("emails", "attachments", "chats"))
     assert totals == build_mod.EXPECTED_TOTALS["docsets"]

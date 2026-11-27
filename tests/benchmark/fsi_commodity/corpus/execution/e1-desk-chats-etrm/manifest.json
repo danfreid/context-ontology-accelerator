@@ -1,0 +1,4401 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "deals": [
+          "RA-026101",
+          "RA-026102",
+          "RA-026103",
+          "RA-026104"
+        ],
+        "rows": 4,
+        "system": "RightAngle"
+      },
+      "filename": "rightangle-deal-capture-2026-11-10.csv",
+      "kind": "etrm-export",
+      "message": "export-h1",
+      "path": "attachments/001-rightangle-deal-capture-2026-11-10.csv",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<0e716a657bd84f0010e8@newco-houston.example>"
+      },
+      "sha256": "c5c2265eb7b62a914bbb174398f28f71dd53418149048b9840afec01083b4333",
+      "size": 830
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "deals": [
+          "RA-026105",
+          "RA-026106",
+          "RA-026107",
+          "RA-026108"
+        ],
+        "rows": 4,
+        "system": "RightAngle"
+      },
+      "filename": "rightangle-deal-capture-2026-11-17.csv",
+      "kind": "etrm-export",
+      "message": "export-h2",
+      "path": "attachments/002-rightangle-deal-capture-2026-11-17.csv",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<b9ee2bb496cfe18ae6e3@newco-houston.example>"
+      },
+      "sha256": "550eaf02ec3f6ec0722ab1987b996b0341dab20ebe448652ed6708ea1462a675",
+      "size": 864
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "deals": [
+          "RA-026109",
+          "RA-026110",
+          "RA-026111",
+          "RA-026112"
+        ],
+        "rows": 4,
+        "system": "RightAngle"
+      },
+      "filename": "rightangle-deal-capture-2026-11-23.csv",
+      "kind": "etrm-export",
+      "message": "export-h3",
+      "path": "attachments/003-rightangle-deal-capture-2026-11-23.csv",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<74c868ab94b7cbf0b893@newco-houston.example>"
+      },
+      "sha256": "e63e474870dbd44248bb029bfb175e8df0e384f9f264384d60589ee2763efb52",
+      "size": 830
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "buyer": "newco-hou",
+        "incoterm": "FOB",
+        "index": "Platts WTI Midland 5-day average",
+        "location": "Corpus Christi",
+        "period": "Jul",
+        "premium": 0.75,
+        "price_type": "index",
+        "product": "WTI Midland",
+        "quantity": 200000,
+        "seller": "cp-vitol",
+        "side": "buy",
+        "trade_id": "NC-HOU-26-0311",
+        "unit": "bbl"
+      },
+      "filename": "NC-HOU-26-0311-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirm-1",
+      "path": "attachments/004-NC-HOU-26-0311-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<ec0fc9d28fc74510901e@newco-houston.example>"
+      },
+      "sha256": "3f70340b2094c7baf72e3269196c19491cbd64dc0a34c4ac44772a5084010bed",
+      "size": 3327
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "buyer": "newco-hou",
+        "incoterm": "FOB",
+        "index": "Platts WTI Midland 5-day average",
+        "location": "Houston",
+        "period": "Jul",
+        "premium": 0.45,
+        "price_type": "index",
+        "product": "Mars blend",
+        "quantity": 150000,
+        "seller": "cp-vitol",
+        "side": "buy",
+        "trade_id": "NC-HOU-26-0312",
+        "unit": "bbl"
+      },
+      "filename": "NC-HOU-26-0312-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirm-2",
+      "path": "attachments/005-NC-HOU-26-0312-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<294f7ad21691d2dd8168@newco-houston.example>"
+      },
+      "sha256": "4a628d92f82f69aee7b5edb7481d08df2bd7801096d97a58da495d2b5f4b6f4e",
+      "size": 3319
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "buyer": "cp-bp",
+        "incoterm": "FOB",
+        "index": "ICE gasoil front month",
+        "location": "Amsterdam-Rotterdam-Antwerp",
+        "period": "Jul",
+        "premium": 13.0,
+        "price_type": "index",
+        "product": "Gasoil 0.1%",
+        "quantity": 10000,
+        "seller": "newco-lon",
+        "side": "sell",
+        "trade_id": "NC-LON-26-0311",
+        "unit": "mt"
+      },
+      "filename": "NC-LON-26-0311-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirm-3",
+      "path": "attachments/006-NC-LON-26-0311-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "elliott.herbert@bp.example",
+        "wasDerivedFrom": "<16c01b34714a1390d10c@bp.example>"
+      },
+      "sha256": "98ec3aa071b28cd7e8093fdd9379e2b11da34194939228d3bcfb61e5c8a8e6c7",
+      "size": 3344
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "buyer": "newco-lon",
+        "incoterm": "FOB",
+        "index": "ICE gasoil front month",
+        "location": "Amsterdam-Rotterdam-Antwerp",
+        "period": "Jul",
+        "premium": 12.0,
+        "price_type": "index",
+        "product": "Gasoil 0.1%",
+        "quantity": 9000,
+        "seller": "cp-bp",
+        "side": "buy",
+        "trade_id": "NC-LON-26-0312",
+        "unit": "mt"
+      },
+      "filename": "NC-LON-26-0312-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirm-4",
+      "path": "attachments/007-NC-LON-26-0312-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "elliott.herbert@bp.example",
+        "wasDerivedFrom": "<b0cff08f33c0a6af57f6@bp.example>"
+      },
+      "sha256": "980cf7f5398c7840aa12659a2c679b74a16911cf21ca28a7c94d3d6cb417f2dd",
+      "size": 3343
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "buyer": "newco-hou",
+        "incoterm": "FOB",
+        "location": "Houston",
+        "period": "Jul",
+        "price": 441.0,
+        "price_type": "fixed",
+        "product": "HSFO 3.5%",
+        "quantity": 30000,
+        "seller": "cp-shell",
+        "side": "buy",
+        "trade_id": "NC-HOU-26-0313",
+        "unit": "mt"
+      },
+      "filename": "NC-HOU-26-0313-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirm-5",
+      "path": "attachments/008-NC-HOU-26-0313-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<8c652bdda2cad26d27db@newco-houston.example>"
+      },
+      "sha256": "28681ce6e7afecd9882255010eeed07d7b7d4ba9afef1cbffd35ad7697f7ab42",
+      "size": 3307
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "buyer": "newco-hou",
+        "incoterm": "FOB",
+        "index": "Platts WTI Midland 5-day average",
+        "location": "Corpus Christi",
+        "period": "Jul",
+        "premium": 1.05,
+        "price_type": "index",
+        "product": "WTI Midland",
+        "quantity": 100000,
+        "seller": "cp-glencore",
+        "side": "buy",
+        "trade_id": "NC-HOU-26-0314",
+        "unit": "bbl"
+      },
+      "filename": "NC-HOU-26-0314-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirm-6",
+      "path": "attachments/009-NC-HOU-26-0314-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<84e05332a79d6285f1db@newco-houston.example>"
+      },
+      "sha256": "4dad366bdae94d4ec0cc1ceee2b09f908bbc9048e307cc46be8a7371bd1fa8b9",
+      "size": 3333
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "deals": [
+          "RA-026113",
+          "RA-026114",
+          "RA-026115",
+          "RA-026116",
+          "RA-026117",
+          "RA-026118"
+        ],
+        "rows": 6,
+        "system": "RightAngle"
+      },
+      "filename": "rightangle-deal-capture-2026-11-25.csv",
+      "kind": "etrm-export",
+      "message": "export-current",
+      "path": "attachments/010-rightangle-deal-capture-2026-11-25.csv",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<fdb22b2768cc6396efdd@newco-houston.example>"
+      },
+      "sha256": "b7baab58b3c87c745ad60767b91099d1d158f6794c5e2e2d2c85f3838329a94f",
+      "size": 1153
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "deals": [
+          "RA-026114",
+          "RA-026115",
+          "RA-026117"
+        ],
+        "rows": 3,
+        "system": "RightAngle"
+      },
+      "filename": "rightangle-deal-capture-2026-11-27.csv",
+      "kind": "etrm-export",
+      "message": "export-amended",
+      "path": "attachments/013-rightangle-deal-capture-2026-11-27.csv",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<112aed7753b261e687ef@newco-houston.example>"
+      },
+      "sha256": "075108ecd927e582e49b218fe14426198e6c5aaad7d893536c92a0f561dbaf94",
+      "size": 795
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0301",
+      "file": "chats/001-h01.json",
+      "key": "h01",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Corpus Christi",
+            "period": "Apr",
+            "product": "WTI Midland",
+            "quantity": 250000,
+            "unit": "bbl"
+          },
+          "text": "WTI Mid 250k fob CC Apr, your offer?",
+          "timestamp": "2026-11-05T09:45:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 0.85
+          },
+          "text": "+85",
+          "timestamp": "2026-11-05T09:48:56-06:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +85 250k, done?",
+          "timestamp": "2026-11-05T09:50:44-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "Platts WTI Midland 5-day average",
+            "location": "Corpus Christi",
+            "period": "Apr",
+            "premium": 0.85,
+            "price_type": "index",
+            "product": "WTI Midland",
+            "quantity": 250000,
+            "side": "buy",
+            "unit": "bbl"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-05T09:54:18-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 1,
+      "tags": [
+        "bloomberg",
+        "hou-vitol"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0302",
+      "file": "chats/002-h02.json",
+      "key": "h02",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Houston",
+            "period": "Apr",
+            "product": "Mars blend",
+            "quantity": 150000,
+            "unit": "bbl"
+          },
+          "text": "Mars 150k fob HOU Apr, your bid?",
+          "timestamp": "2026-11-06T09:30:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 0.4
+          },
+          "text": "+40",
+          "timestamp": "2026-11-06T09:31:46-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "sell"
+          },
+          "text": "offer +40 150k, done?",
+          "timestamp": "2026-11-06T09:34:06-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "Platts WTI Midland 5-day average",
+            "location": "Houston",
+            "period": "Apr",
+            "premium": 0.4,
+            "price_type": "index",
+            "product": "Mars blend",
+            "quantity": 150000,
+            "side": "sell",
+            "unit": "bbl"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-06T09:35:53-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 2,
+      "tags": [
+        "bloomberg",
+        "hou-vitol"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-LON-26-0301",
+      "file": "chats/003-h03.json",
+      "key": "h03",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "Apr",
+            "product": "Gasoil 0.1%",
+            "quantity": 10000,
+            "unit": "mt"
+          },
+          "text": "GO 10k fob ARA Apr, your offer?",
+          "timestamp": "2026-11-09T09:29:00+00:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 12.0
+          },
+          "text": "+12",
+          "timestamp": "2026-11-09T09:30:36+00:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +12 10k, done?",
+          "timestamp": "2026-11-09T09:31:41+00:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "ICE gasoil front month",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "Apr",
+            "premium": 12.0,
+            "price_type": "index",
+            "product": "Gasoil 0.1%",
+            "quantity": 10000,
+            "side": "buy",
+            "unit": "mt"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-09T09:34:36+00:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        },
+        {
+          "address": "jean.smith@bp.example",
+          "name": "Jean Smith",
+          "org": "cp-bp",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 3,
+      "tags": [
+        "bloomberg",
+        "lon-bp"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0303",
+      "file": "chats/004-h04.json",
+      "key": "h04",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Houston",
+            "period": "Apr",
+            "product": "HSFO 3.5%",
+            "quantity": 25000,
+            "unit": "mt"
+          },
+          "text": "HSFO 25k fob HOU Apr, your offer?",
+          "timestamp": "2026-11-10T10:48:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "victoria.wood@shell.example",
+            "name": "Victoria Wood",
+            "org": "cp-shell",
+            "role": "trader"
+          },
+          "terms": {
+            "price": 438.0
+          },
+          "text": "flat 438",
+          "timestamp": "2026-11-10T10:51:18-06:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid flat 438 25k, done?",
+          "timestamp": "2026-11-10T10:52:52-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "victoria.wood@shell.example",
+            "name": "Victoria Wood",
+            "org": "cp-shell",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Houston",
+            "period": "Apr",
+            "price": 438.0,
+            "price_type": "fixed",
+            "product": "HSFO 3.5%",
+            "quantity": 25000,
+            "side": "buy",
+            "unit": "mt"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-10T10:54:55-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "victoria.wood@shell.example",
+          "name": "Victoria Wood",
+          "org": "cp-shell",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 4,
+      "tags": [
+        "bloomberg",
+        "hou-shell"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0304",
+      "file": "chats/005-h05.json",
+      "key": "h05",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Corpus Christi",
+            "period": "May",
+            "product": "WTI Midland",
+            "quantity": 300000,
+            "unit": "bbl"
+          },
+          "text": "WTI Mid 300k fob CC May, your offer?",
+          "timestamp": "2026-11-12T09:44:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 0.9
+          },
+          "text": "+90",
+          "timestamp": "2026-11-12T09:47:56-06:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +90 300k, done?",
+          "timestamp": "2026-11-12T09:49:11-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "Platts WTI Midland 5-day average",
+            "location": "Corpus Christi",
+            "period": "May",
+            "premium": 0.9,
+            "price_type": "index",
+            "product": "WTI Midland",
+            "quantity": 300000,
+            "side": "buy",
+            "unit": "bbl"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-12T09:51:39-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 5,
+      "tags": [
+        "bloomberg",
+        "hou-vitol"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-LON-26-0302",
+      "file": "chats/006-h06.json",
+      "key": "h06",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "May",
+            "product": "Jet A-1",
+            "quantity": 15000,
+            "unit": "mt"
+          },
+          "text": "Jet 15k fob ARA May, your bid?",
+          "timestamp": "2026-11-13T10:08:00+00:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 18.0
+          },
+          "text": "+18",
+          "timestamp": "2026-11-13T10:10:51+00:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "sell"
+          },
+          "text": "offer +18 15k, done?",
+          "timestamp": "2026-11-13T10:11:24+00:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "ICE gasoil front month",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "May",
+            "premium": 18.0,
+            "price_type": "index",
+            "product": "Jet A-1",
+            "quantity": 15000,
+            "side": "sell",
+            "unit": "mt"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-13T10:13:28+00:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        },
+        {
+          "address": "jean.smith@bp.example",
+          "name": "Jean Smith",
+          "org": "cp-bp",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 6,
+      "tags": [
+        "bloomberg",
+        "lon-bp"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0305",
+      "file": "chats/007-h07.json",
+      "key": "h07",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Houston",
+            "period": "May",
+            "product": "WTI Midland",
+            "quantity": 200000,
+            "unit": "bbl"
+          },
+          "text": "WTI Mid 200k fob HOU May, your bid?",
+          "timestamp": "2026-11-16T10:49:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 0.7
+          },
+          "text": "+70",
+          "timestamp": "2026-11-16T10:50:42-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "sell"
+          },
+          "text": "offer +70 200k, done?",
+          "timestamp": "2026-11-16T10:53:26-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "Platts WTI Midland 5-day average",
+            "location": "Houston",
+            "period": "May",
+            "premium": 0.7,
+            "price_type": "index",
+            "product": "WTI Midland",
+            "quantity": 200000,
+            "side": "sell",
+            "unit": "bbl"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-16T10:57:22-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 7,
+      "tags": [
+        "bloomberg",
+        "hou-vitol"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-LON-26-0303",
+      "file": "chats/008-h08.json",
+      "key": "h08",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "May",
+            "product": "Gasoil 0.1%",
+            "quantity": 12000,
+            "unit": "mt"
+          },
+          "text": "GO 12k fob ARA May, your offer?",
+          "timestamp": "2026-11-17T10:29:00+00:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 11.0
+          },
+          "text": "+11",
+          "timestamp": "2026-11-17T10:29:29+00:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +11 12k, done?",
+          "timestamp": "2026-11-17T10:33:05+00:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "ICE gasoil front month",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "May",
+            "premium": 11.0,
+            "price_type": "index",
+            "product": "Gasoil 0.1%",
+            "quantity": 12000,
+            "side": "buy",
+            "unit": "mt"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-17T10:33:28+00:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        },
+        {
+          "address": "jean.smith@bp.example",
+          "name": "Jean Smith",
+          "org": "cp-bp",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 8,
+      "tags": [
+        "bloomberg",
+        "lon-bp"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0306",
+      "file": "chats/009-h09.json",
+      "key": "h09",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Houston",
+            "period": "May",
+            "product": "VLSFO 0.5%",
+            "quantity": 20000,
+            "unit": "mt"
+          },
+          "text": "VLS 20k fob HOU May, your bid?",
+          "timestamp": "2026-11-18T10:34:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "victoria.wood@shell.example",
+            "name": "Victoria Wood",
+            "org": "cp-shell",
+            "role": "trader"
+          },
+          "terms": {
+            "price": 512.5
+          },
+          "text": "flat 512.5",
+          "timestamp": "2026-11-18T10:34:32-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "sell"
+          },
+          "text": "offer flat 512.5 20k, done?",
+          "timestamp": "2026-11-18T10:35:19-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "victoria.wood@shell.example",
+            "name": "Victoria Wood",
+            "org": "cp-shell",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Houston",
+            "period": "May",
+            "price": 512.5,
+            "price_type": "fixed",
+            "product": "VLSFO 0.5%",
+            "quantity": 20000,
+            "side": "sell",
+            "unit": "mt"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-18T10:37:52-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "victoria.wood@shell.example",
+          "name": "Victoria Wood",
+          "org": "cp-shell",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 9,
+      "tags": [
+        "bloomberg",
+        "hou-shell"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0307",
+      "file": "chats/010-h10.json",
+      "key": "h10",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Houston",
+            "period": "Jun",
+            "product": "Mars blend",
+            "quantity": 100000,
+            "unit": "bbl"
+          },
+          "text": "Mars 100k fob HOU Jun, your offer?",
+          "timestamp": "2026-11-19T10:32:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 0.35
+          },
+          "text": "+35",
+          "timestamp": "2026-11-19T10:32:37-06:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +35 100k, done?",
+          "timestamp": "2026-11-19T10:36:02-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "Platts WTI Midland 5-day average",
+            "location": "Houston",
+            "period": "Jun",
+            "premium": 0.35,
+            "price_type": "index",
+            "product": "Mars blend",
+            "quantity": 100000,
+            "side": "buy",
+            "unit": "bbl"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-19T10:36:52-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 10,
+      "tags": [
+        "bloomberg",
+        "hou-vitol"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-LON-26-0304",
+      "file": "chats/011-h11.json",
+      "key": "h11",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "Jun",
+            "product": "Gasoil 0.1%",
+            "quantity": 8000,
+            "unit": "mt"
+          },
+          "text": "GO 8k fob ARA Jun, your offer?",
+          "timestamp": "2026-11-20T10:09:00+00:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 14.0
+          },
+          "text": "+14",
+          "timestamp": "2026-11-20T10:12:04+00:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +14 8k, done?",
+          "timestamp": "2026-11-20T10:13:19+00:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "ICE gasoil front month",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "Jun",
+            "premium": 14.0,
+            "price_type": "index",
+            "product": "Gasoil 0.1%",
+            "quantity": 8000,
+            "side": "buy",
+            "unit": "mt"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-20T10:17:12+00:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        },
+        {
+          "address": "jean.smith@bp.example",
+          "name": "Jean Smith",
+          "org": "cp-bp",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 11,
+      "tags": [
+        "bloomberg",
+        "lon-bp"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0308",
+      "file": "chats/012-h12.json",
+      "key": "h12",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Corpus Christi",
+            "period": "Jun",
+            "product": "WTI Midland",
+            "quantity": 250000,
+            "unit": "bbl"
+          },
+          "text": "WTI Mid 250k fob CC Jun, your offer?",
+          "timestamp": "2026-11-23T09:53:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 0.8
+          },
+          "text": "+80",
+          "timestamp": "2026-11-23T09:53:44-06:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +80 250k, done?",
+          "timestamp": "2026-11-23T09:56:02-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "Platts WTI Midland 5-day average",
+            "location": "Corpus Christi",
+            "period": "Jun",
+            "premium": 0.8,
+            "price_type": "index",
+            "product": "WTI Midland",
+            "quantity": 250000,
+            "side": "buy",
+            "unit": "bbl"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-23T09:58:13-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 12,
+      "tags": [
+        "bloomberg",
+        "hou-vitol"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0311",
+      "file": "chats/013-c01.json",
+      "key": "c01",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Corpus Christi",
+            "period": "Jul",
+            "product": "WTI Midland",
+            "quantity": 200000,
+            "unit": "bbl"
+          },
+          "text": "WTI Mid 200k fob CC Jul, your offer?",
+          "timestamp": "2026-11-23T11:25:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 0.75
+          },
+          "text": "+75",
+          "timestamp": "2026-11-23T11:26:40-06:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +75 200k, done?",
+          "timestamp": "2026-11-23T11:29:58-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "Platts WTI Midland 5-day average",
+            "location": "Corpus Christi",
+            "period": "Jul",
+            "premium": 0.75,
+            "price_type": "index",
+            "product": "WTI Midland",
+            "quantity": 200000,
+            "side": "buy",
+            "unit": "bbl"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-23T11:32:41-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 13,
+      "tags": [
+        "bloomberg",
+        "hou-vitol"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0312",
+      "file": "chats/014-c02.json",
+      "key": "c02",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Houston",
+            "period": "Jul",
+            "product": "Mars blend",
+            "quantity": 150000,
+            "unit": "bbl"
+          },
+          "text": "Mars 150k fob HOU Jul, your offer?",
+          "timestamp": "2026-11-23T13:09:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 0.45
+          },
+          "text": "+45",
+          "timestamp": "2026-11-23T13:09:57-06:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +45 150k, done?",
+          "timestamp": "2026-11-23T13:13:24-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "crystal.king@vitol.example",
+            "name": "Crystal King",
+            "org": "cp-vitol",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "Platts WTI Midland 5-day average",
+            "location": "Houston",
+            "period": "Jul",
+            "premium": 0.45,
+            "price_type": "index",
+            "product": "Mars blend",
+            "quantity": 150000,
+            "side": "buy",
+            "unit": "bbl"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-23T13:16:25-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "crystal.king@vitol.example",
+          "name": "Crystal King",
+          "org": "cp-vitol",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 14,
+      "tags": [
+        "bloomberg",
+        "hou-vitol"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-LON-26-0311",
+      "file": "chats/015-c03.json",
+      "key": "c03",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "Jul",
+            "product": "Gasoil 0.1%",
+            "quantity": 10000,
+            "unit": "mt"
+          },
+          "text": "GO 10k fob ARA Jul, your bid?",
+          "timestamp": "2026-11-24T09:47:00+00:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 13.0
+          },
+          "text": "+13",
+          "timestamp": "2026-11-24T09:48:08+00:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "sell"
+          },
+          "text": "offer +13 10k, done?",
+          "timestamp": "2026-11-24T09:49:08+00:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "ICE gasoil front month",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "Jul",
+            "premium": 13.0,
+            "price_type": "index",
+            "product": "Gasoil 0.1%",
+            "quantity": 10000,
+            "side": "sell",
+            "unit": "mt"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-24T09:52:34+00:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        },
+        {
+          "address": "jean.smith@bp.example",
+          "name": "Jean Smith",
+          "org": "cp-bp",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 15,
+      "tags": [
+        "bloomberg",
+        "lon-bp"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-LON-26-0312",
+      "file": "chats/016-c04.json",
+      "key": "c04",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "Jul",
+            "product": "Gasoil 0.1%",
+            "quantity": 9000,
+            "unit": "mt"
+          },
+          "text": "GO 9k fob ARA Jul, your offer?",
+          "timestamp": "2026-11-24T11:31:00+00:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 12.0
+          },
+          "text": "+12",
+          "timestamp": "2026-11-24T11:34:51+00:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "graham.carr@newco-london.example",
+            "name": "Graham Carr",
+            "org": "newco-lon",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +12 9k, done?",
+          "timestamp": "2026-11-24T11:35:14+00:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "jean.smith@bp.example",
+            "name": "Jean Smith",
+            "org": "cp-bp",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "ICE gasoil front month",
+            "location": "Amsterdam-Rotterdam-Antwerp",
+            "period": "Jul",
+            "premium": 12.0,
+            "price_type": "index",
+            "product": "Gasoil 0.1%",
+            "quantity": 9000,
+            "side": "buy",
+            "unit": "mt"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-24T11:36:08+00:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        },
+        {
+          "address": "jean.smith@bp.example",
+          "name": "Jean Smith",
+          "org": "cp-bp",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 16,
+      "tags": [
+        "bloomberg",
+        "lon-bp"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0313",
+      "file": "chats/017-c05.json",
+      "key": "c05",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Houston",
+            "period": "Jul",
+            "product": "HSFO 3.5%",
+            "quantity": 30000,
+            "unit": "mt"
+          },
+          "text": "HSFO 30k fob HOU Jul, your offer?",
+          "timestamp": "2026-11-24T10:41:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "victoria.wood@shell.example",
+            "name": "Victoria Wood",
+            "org": "cp-shell",
+            "role": "trader"
+          },
+          "terms": {
+            "price": 441.0
+          },
+          "text": "flat 441",
+          "timestamp": "2026-11-24T10:44:56-06:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid flat 441 30k, done?",
+          "timestamp": "2026-11-24T10:48:18-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "victoria.wood@shell.example",
+            "name": "Victoria Wood",
+            "org": "cp-shell",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Houston",
+            "period": "Jul",
+            "price": 441.0,
+            "price_type": "fixed",
+            "product": "HSFO 3.5%",
+            "quantity": 30000,
+            "side": "buy",
+            "unit": "mt"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-24T10:50:49-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "victoria.wood@shell.example",
+          "name": "Victoria Wood",
+          "org": "cp-shell",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 17,
+      "tags": [
+        "bloomberg",
+        "hou-shell"
+      ]
+    },
+    {
+      "channel": "bloomberg",
+      "class_uri": "https://schema.org/Order",
+      "deal": "NC-HOU-26-0314",
+      "file": "chats/018-c06.json",
+      "key": "c06",
+      "lines": [
+        {
+          "intent": "enquiry",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "location": "Corpus Christi",
+            "period": "Jul",
+            "product": "WTI Midland",
+            "quantity": 100000,
+            "unit": "bbl"
+          },
+          "text": "WTI Mid 100k fob CC Jul, your offer?",
+          "timestamp": "2026-11-24T11:55:00-06:00"
+        },
+        {
+          "intent": "offer",
+          "speaker": {
+            "address": "gregory.everett@glencore.example",
+            "name": "Gregory Everett",
+            "org": "cp-glencore",
+            "role": "trader"
+          },
+          "terms": {
+            "premium": 1.05
+          },
+          "text": "+105",
+          "timestamp": "2026-11-24T11:56:59-06:00"
+        },
+        {
+          "intent": "counter",
+          "speaker": {
+            "address": "jenna.campbell@newco-houston.example",
+            "name": "Jenna Campbell",
+            "org": "newco-hou",
+            "role": "trader"
+          },
+          "terms": {
+            "side": "buy"
+          },
+          "text": "bid +105 100k, done?",
+          "timestamp": "2026-11-24T12:00:54-06:00"
+        },
+        {
+          "intent": "accept",
+          "speaker": {
+            "address": "gregory.everett@glencore.example",
+            "name": "Gregory Everett",
+            "org": "cp-glencore",
+            "role": "trader"
+          },
+          "terms": {
+            "incoterm": "FOB",
+            "index": "Platts WTI Midland 5-day average",
+            "location": "Corpus Christi",
+            "period": "Jul",
+            "premium": 1.05,
+            "price_type": "index",
+            "product": "WTI Midland",
+            "quantity": 100000,
+            "side": "buy",
+            "unit": "bbl"
+          },
+          "text": "done. pls send conf",
+          "timestamp": "2026-11-24T12:04:15-06:00"
+        }
+      ],
+      "participants": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "gregory.everett@glencore.example",
+          "name": "Gregory Everett",
+          "org": "cp-glencore",
+          "role": "trader"
+        }
+      ],
+      "phase": "execution",
+      "seq": 18,
+      "tags": [
+        "bloomberg",
+        "hou-glencore"
+      ]
+    }
+  ],
+  "counts": {
+    "attachments": 11,
+    "chats": 18,
+    "emails": 13
+  },
+  "deals": [],
+  "execution": {
+    "breaks": [
+      {
+        "caught": true,
+        "deal_number": "RA-026114",
+        "fields": [
+          {
+            "confirmation": "buy",
+            "etrm": "sell",
+            "field": "side"
+          }
+        ],
+        "remediation_version": 2,
+        "status": "remediated",
+        "trade_id": "NC-HOU-26-0312"
+      },
+      {
+        "caught": true,
+        "deal_number": "RA-026115",
+        "fields": [
+          {
+            "confirmation": "mt",
+            "etrm": "bbl",
+            "field": "unit"
+          }
+        ],
+        "remediation_version": 2,
+        "status": "remediated",
+        "trade_id": "NC-LON-26-0311"
+      },
+      {
+        "caught": false,
+        "deal_number": "RA-026116",
+        "fields": [
+          {
+            "confirmation": 12.0,
+            "etrm": 0.12,
+            "field": "premium"
+          }
+        ],
+        "remediation_version": null,
+        "status": "open",
+        "trade_id": "NC-LON-26-0312"
+      },
+      {
+        "caught": true,
+        "deal_number": "RA-026117",
+        "fields": [
+          {
+            "confirmation": "HSFO 3.5%",
+            "etrm": "VLSFO 0.5%",
+            "field": "product"
+          }
+        ],
+        "remediation_version": 2,
+        "status": "remediated",
+        "trade_id": "NC-HOU-26-0313"
+      }
+    ],
+    "confirmations": {
+      "NC-HOU-26-0311": {
+        "incoterm": "FOB",
+        "index": "Platts WTI Midland 5-day average",
+        "issuer": "newco-hou",
+        "location": "Corpus Christi",
+        "message": "confirm-1",
+        "period": "Jul",
+        "premium": 0.75,
+        "price_type": "index",
+        "product": "WTI Midland",
+        "quantity": 200000,
+        "side": "buy",
+        "unit": "bbl"
+      },
+      "NC-HOU-26-0312": {
+        "incoterm": "FOB",
+        "index": "Platts WTI Midland 5-day average",
+        "issuer": "newco-hou",
+        "location": "Houston",
+        "message": "confirm-2",
+        "period": "Jul",
+        "premium": 0.45,
+        "price_type": "index",
+        "product": "Mars blend",
+        "quantity": 150000,
+        "side": "buy",
+        "unit": "bbl"
+      },
+      "NC-HOU-26-0313": {
+        "incoterm": "FOB",
+        "issuer": "newco-hou",
+        "location": "Houston",
+        "message": "confirm-5",
+        "period": "Jul",
+        "price": 441.0,
+        "price_type": "fixed",
+        "product": "HSFO 3.5%",
+        "quantity": 30000,
+        "side": "buy",
+        "unit": "mt"
+      },
+      "NC-HOU-26-0314": {
+        "incoterm": "FOB",
+        "index": "Platts WTI Midland 5-day average",
+        "issuer": "newco-hou",
+        "location": "Corpus Christi",
+        "message": "confirm-6",
+        "period": "Jul",
+        "premium": 1.05,
+        "price_type": "index",
+        "product": "WTI Midland",
+        "quantity": 100000,
+        "side": "buy",
+        "unit": "bbl"
+      },
+      "NC-LON-26-0311": {
+        "incoterm": "FOB",
+        "index": "ICE gasoil front month",
+        "issuer": "cp-bp",
+        "location": "Amsterdam-Rotterdam-Antwerp",
+        "message": "confirm-3",
+        "period": "Jul",
+        "premium": 13.0,
+        "price_type": "index",
+        "product": "Gasoil 0.1%",
+        "quantity": 10000,
+        "side": "sell",
+        "unit": "mt"
+      },
+      "NC-LON-26-0312": {
+        "incoterm": "FOB",
+        "index": "ICE gasoil front month",
+        "issuer": "cp-bp",
+        "location": "Amsterdam-Rotterdam-Antwerp",
+        "message": "confirm-4",
+        "period": "Jul",
+        "premium": 12.0,
+        "price_type": "index",
+        "product": "Gasoil 0.1%",
+        "quantity": 9000,
+        "side": "buy",
+        "unit": "mt"
+      }
+    },
+    "dialects": [
+      {
+        "counterparty": "cp-vitol",
+        "etrm_ba": "VITOLINC",
+        "firm": "VITOL INC",
+        "k_unit": "bbl",
+        "locations": {
+          "CC": "Corpus Christi",
+          "HOU": "Houston"
+        },
+        "ours": "jenna.campbell@newco-houston.example",
+        "pair": "hou-vitol",
+        "price_scale": 0.01,
+        "products": {
+          "Mars": "Mars blend",
+          "WTI Mid": "WTI Midland"
+        },
+        "theirs": "crystal.king@vitol.example"
+      },
+      {
+        "counterparty": "cp-shell",
+        "etrm_ba": "SHELLSTIL",
+        "firm": "SHELL INTL TRADING",
+        "k_unit": "mt",
+        "locations": {
+          "HOU": "Houston"
+        },
+        "ours": "jenna.campbell@newco-houston.example",
+        "pair": "hou-shell",
+        "price_scale": 1.0,
+        "products": {
+          "HSFO": "HSFO 3.5%",
+          "VLS": "VLSFO 0.5%"
+        },
+        "theirs": "victoria.wood@shell.example"
+      },
+      {
+        "counterparty": "cp-bp",
+        "etrm_ba": "BPOIL",
+        "firm": "BP OIL INTL",
+        "k_unit": "mt",
+        "locations": {
+          "ARA": "Amsterdam-Rotterdam-Antwerp"
+        },
+        "ours": "graham.carr@newco-london.example",
+        "pair": "lon-bp",
+        "price_scale": 1.0,
+        "products": {
+          "GO": "Gasoil 0.1%",
+          "Jet": "Jet A-1"
+        },
+        "theirs": "jean.smith@bp.example"
+      },
+      {
+        "counterparty": "cp-glencore",
+        "etrm_ba": "GLENCOREUS",
+        "firm": "GLENCORE LTD",
+        "k_unit": "bbl",
+        "locations": {
+          "CC": "Corpus Christi"
+        },
+        "ours": "jenna.campbell@newco-houston.example",
+        "pair": "hou-glencore",
+        "price_scale": 0.01,
+        "products": {
+          "WTI Mid": "WTI Midland"
+        },
+        "theirs": "gregory.everett@glencore.example"
+      }
+    ],
+    "etrm_rows": [
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-05",
+        "DealNumber": "RA-026101",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "VITOLINC",
+        "ExternalRef": "NC-HOU-26-0301",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Corpus Christi",
+        "Period": "Apr",
+        "Premium": "0.850",
+        "PriceIndex": "Platts WTI Midland 5-day average",
+        "PriceType": "INDEX",
+        "ProductCode": "WTIMID",
+        "Quantity": 250000,
+        "Trader": "JCAMPBELL",
+        "UOM": "BBL",
+        "Version": 1
+      },
+      {
+        "BuySell": "S",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-06",
+        "DealNumber": "RA-026102",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "VITOLINC",
+        "ExternalRef": "NC-HOU-26-0302",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Houston",
+        "Period": "Apr",
+        "Premium": "0.400",
+        "PriceIndex": "Platts WTI Midland 5-day average",
+        "PriceType": "INDEX",
+        "ProductCode": "MARS",
+        "Quantity": 150000,
+        "Trader": "JCAMPBELL",
+        "UOM": "BBL",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-09",
+        "DealNumber": "RA-026103",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "BPOIL",
+        "ExternalRef": "NC-LON-26-0301",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOLON",
+        "Location": "Amsterdam-Rotterdam-Antwerp",
+        "Period": "Apr",
+        "Premium": "12.000",
+        "PriceIndex": "ICE gasoil front month",
+        "PriceType": "INDEX",
+        "ProductCode": "GO01",
+        "Quantity": 10000,
+        "Trader": "GCARR",
+        "UOM": "MT",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-10",
+        "DealNumber": "RA-026104",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "SHELLSTIL",
+        "ExternalRef": "NC-HOU-26-0303",
+        "FixedPrice": "438.000",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Houston",
+        "Period": "Apr",
+        "Premium": "",
+        "PriceIndex": "",
+        "PriceType": "FIXED",
+        "ProductCode": "HSFO35",
+        "Quantity": 25000,
+        "Trader": "JCAMPBELL",
+        "UOM": "MT",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-12",
+        "DealNumber": "RA-026105",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "VITOLINC",
+        "ExternalRef": "NC-HOU-26-0304",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Corpus Christi",
+        "Period": "May",
+        "Premium": "0.900",
+        "PriceIndex": "Platts WTI Midland 5-day average",
+        "PriceType": "INDEX",
+        "ProductCode": "WTIMID",
+        "Quantity": 300000,
+        "Trader": "JCAMPBELL",
+        "UOM": "BBL",
+        "Version": 1
+      },
+      {
+        "BuySell": "S",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-13",
+        "DealNumber": "RA-026106",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "BPOIL",
+        "ExternalRef": "NC-LON-26-0302",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOLON",
+        "Location": "Amsterdam-Rotterdam-Antwerp",
+        "Period": "May",
+        "Premium": "18.000",
+        "PriceIndex": "ICE gasoil front month",
+        "PriceType": "INDEX",
+        "ProductCode": "JETA1",
+        "Quantity": 15000,
+        "Trader": "GCARR",
+        "UOM": "MT",
+        "Version": 1
+      },
+      {
+        "BuySell": "S",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-16",
+        "DealNumber": "RA-026107",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "VITOLINC",
+        "ExternalRef": "NC-HOU-26-0305",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Houston",
+        "Period": "May",
+        "Premium": "0.700",
+        "PriceIndex": "Platts WTI Midland 5-day average",
+        "PriceType": "INDEX",
+        "ProductCode": "WTIMID",
+        "Quantity": 200000,
+        "Trader": "JCAMPBELL",
+        "UOM": "BBL",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-17",
+        "DealNumber": "RA-026108",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "BPOIL",
+        "ExternalRef": "NC-LON-26-0303",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOLON",
+        "Location": "Amsterdam-Rotterdam-Antwerp",
+        "Period": "May",
+        "Premium": "11.000",
+        "PriceIndex": "ICE gasoil front month",
+        "PriceType": "INDEX",
+        "ProductCode": "GO01",
+        "Quantity": 12000,
+        "Trader": "GCARR",
+        "UOM": "MT",
+        "Version": 1
+      },
+      {
+        "BuySell": "S",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-18",
+        "DealNumber": "RA-026109",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "SHELLSTIL",
+        "ExternalRef": "NC-HOU-26-0306",
+        "FixedPrice": "512.500",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Houston",
+        "Period": "May",
+        "Premium": "",
+        "PriceIndex": "",
+        "PriceType": "FIXED",
+        "ProductCode": "VLSFO05",
+        "Quantity": 20000,
+        "Trader": "JCAMPBELL",
+        "UOM": "MT",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-19",
+        "DealNumber": "RA-026110",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "VITOLINC",
+        "ExternalRef": "NC-HOU-26-0307",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Houston",
+        "Period": "Jun",
+        "Premium": "0.350",
+        "PriceIndex": "Platts WTI Midland 5-day average",
+        "PriceType": "INDEX",
+        "ProductCode": "MARS",
+        "Quantity": 100000,
+        "Trader": "JCAMPBELL",
+        "UOM": "BBL",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-20",
+        "DealNumber": "RA-026111",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "BPOIL",
+        "ExternalRef": "NC-LON-26-0304",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOLON",
+        "Location": "Amsterdam-Rotterdam-Antwerp",
+        "Period": "Jun",
+        "Premium": "14.000",
+        "PriceIndex": "ICE gasoil front month",
+        "PriceType": "INDEX",
+        "ProductCode": "GO01",
+        "Quantity": 8000,
+        "Trader": "GCARR",
+        "UOM": "MT",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-23",
+        "DealNumber": "RA-026112",
+        "DealStatus": "CONFIRMED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "VITOLINC",
+        "ExternalRef": "NC-HOU-26-0308",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Corpus Christi",
+        "Period": "Jun",
+        "Premium": "0.800",
+        "PriceIndex": "Platts WTI Midland 5-day average",
+        "PriceType": "INDEX",
+        "ProductCode": "WTIMID",
+        "Quantity": 250000,
+        "Trader": "JCAMPBELL",
+        "UOM": "BBL",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-25",
+        "DealNumber": "RA-026113",
+        "DealStatus": "ENTERED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "VITOLINC",
+        "ExternalRef": "NC-HOU-26-0311",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Corpus Christi",
+        "Period": "Jul",
+        "Premium": "0.750",
+        "PriceIndex": "Platts WTI Midland 5-day average",
+        "PriceType": "INDEX",
+        "ProductCode": "WTIMID",
+        "Quantity": 200000,
+        "Trader": "JCAMPBELL",
+        "UOM": "BBL",
+        "Version": 1
+      },
+      {
+        "BuySell": "S",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-25",
+        "DealNumber": "RA-026114",
+        "DealStatus": "ENTERED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "VITOLINC",
+        "ExternalRef": "NC-HOU-26-0312",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Houston",
+        "Period": "Jul",
+        "Premium": "0.450",
+        "PriceIndex": "Platts WTI Midland 5-day average",
+        "PriceType": "INDEX",
+        "ProductCode": "MARS",
+        "Quantity": 150000,
+        "Trader": "JCAMPBELL",
+        "UOM": "BBL",
+        "Version": 1
+      },
+      {
+        "BuySell": "S",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-25",
+        "DealNumber": "RA-026115",
+        "DealStatus": "ENTERED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "BPOIL",
+        "ExternalRef": "NC-LON-26-0311",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOLON",
+        "Location": "Amsterdam-Rotterdam-Antwerp",
+        "Period": "Jul",
+        "Premium": "13.000",
+        "PriceIndex": "ICE gasoil front month",
+        "PriceType": "INDEX",
+        "ProductCode": "GO01",
+        "Quantity": 10000,
+        "Trader": "GCARR",
+        "UOM": "BBL",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-25",
+        "DealNumber": "RA-026116",
+        "DealStatus": "ENTERED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "BPOIL",
+        "ExternalRef": "NC-LON-26-0312",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOLON",
+        "Location": "Amsterdam-Rotterdam-Antwerp",
+        "Period": "Jul",
+        "Premium": "0.120",
+        "PriceIndex": "ICE gasoil front month",
+        "PriceType": "INDEX",
+        "ProductCode": "GO01",
+        "Quantity": 9000,
+        "Trader": "GCARR",
+        "UOM": "MT",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-25",
+        "DealNumber": "RA-026117",
+        "DealStatus": "ENTERED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "SHELLSTIL",
+        "ExternalRef": "NC-HOU-26-0313",
+        "FixedPrice": "441.000",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Houston",
+        "Period": "Jul",
+        "Premium": "",
+        "PriceIndex": "",
+        "PriceType": "FIXED",
+        "ProductCode": "VLSFO05",
+        "Quantity": 30000,
+        "Trader": "JCAMPBELL",
+        "UOM": "MT",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "",
+        "Currency": "USD",
+        "DealDate": "2026-11-25",
+        "DealNumber": "RA-026118",
+        "DealStatus": "ENTERED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "GLENCOREUS",
+        "ExternalRef": "NC-HOU-26-0314",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Corpus Christi",
+        "Period": "Jul",
+        "Premium": "1.050",
+        "PriceIndex": "Platts WTI Midland 5-day average",
+        "PriceType": "INDEX",
+        "ProductCode": "WTIMID",
+        "Quantity": 100000,
+        "Trader": "JCAMPBELL",
+        "UOM": "BBL",
+        "Version": 1
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "Corrected to confirmation NC-HOU-26-0312: side",
+        "Currency": "USD",
+        "DealDate": "2026-11-25",
+        "DealNumber": "RA-026114",
+        "DealStatus": "AMENDED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "VITOLINC",
+        "ExternalRef": "NC-HOU-26-0312",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Houston",
+        "Period": "Jul",
+        "Premium": "0.450",
+        "PriceIndex": "Platts WTI Midland 5-day average",
+        "PriceType": "INDEX",
+        "ProductCode": "MARS",
+        "Quantity": 150000,
+        "Trader": "JCAMPBELL",
+        "UOM": "BBL",
+        "Version": 2
+      },
+      {
+        "BuySell": "S",
+        "ChangeReason": "Corrected to confirmation NC-LON-26-0311: unit",
+        "Currency": "USD",
+        "DealDate": "2026-11-25",
+        "DealNumber": "RA-026115",
+        "DealStatus": "AMENDED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "BPOIL",
+        "ExternalRef": "NC-LON-26-0311",
+        "FixedPrice": "",
+        "InternalBA": "NEWCOLON",
+        "Location": "Amsterdam-Rotterdam-Antwerp",
+        "Period": "Jul",
+        "Premium": "13.000",
+        "PriceIndex": "ICE gasoil front month",
+        "PriceType": "INDEX",
+        "ProductCode": "GO01",
+        "Quantity": 10000,
+        "Trader": "GCARR",
+        "UOM": "MT",
+        "Version": 2
+      },
+      {
+        "BuySell": "B",
+        "ChangeReason": "Corrected to confirmation NC-HOU-26-0313: product",
+        "Currency": "USD",
+        "DealDate": "2026-11-25",
+        "DealNumber": "RA-026117",
+        "DealStatus": "AMENDED",
+        "DeliveryTerm": "FOB",
+        "ExternalBA": "SHELLSTIL",
+        "ExternalRef": "NC-HOU-26-0313",
+        "FixedPrice": "441.000",
+        "InternalBA": "NEWCOHOU",
+        "Location": "Houston",
+        "Period": "Jul",
+        "Premium": "",
+        "PriceIndex": "",
+        "PriceType": "FIXED",
+        "ProductCode": "HSFO35",
+        "Quantity": 30000,
+        "Trader": "JCAMPBELL",
+        "UOM": "MT",
+        "Version": 2
+      }
+    ],
+    "history": [
+      {
+        "chat": "h01",
+        "deal_number": "RA-026101",
+        "pair": "hou-vitol",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "Platts WTI Midland 5-day average",
+          "location": "Corpus Christi",
+          "period": "Apr",
+          "premium": 0.85,
+          "price_type": "index",
+          "product": "WTI Midland",
+          "quantity": 250000,
+          "side": "buy",
+          "unit": "bbl"
+        },
+        "tokens": {
+          "firm:VITOL INC": "cp-vitol",
+          "location:CC": "Corpus Christi",
+          "price:+n": 0.01,
+          "product:WTI Mid": "WTI Midland",
+          "qty:k": "bbl"
+        },
+        "trade_id": "NC-HOU-26-0301"
+      },
+      {
+        "chat": "h02",
+        "deal_number": "RA-026102",
+        "pair": "hou-vitol",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "Platts WTI Midland 5-day average",
+          "location": "Houston",
+          "period": "Apr",
+          "premium": 0.4,
+          "price_type": "index",
+          "product": "Mars blend",
+          "quantity": 150000,
+          "side": "sell",
+          "unit": "bbl"
+        },
+        "tokens": {
+          "firm:VITOL INC": "cp-vitol",
+          "location:HOU": "Houston",
+          "price:+n": 0.01,
+          "product:Mars": "Mars blend",
+          "qty:k": "bbl"
+        },
+        "trade_id": "NC-HOU-26-0302"
+      },
+      {
+        "chat": "h03",
+        "deal_number": "RA-026103",
+        "pair": "lon-bp",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "ICE gasoil front month",
+          "location": "Amsterdam-Rotterdam-Antwerp",
+          "period": "Apr",
+          "premium": 12.0,
+          "price_type": "index",
+          "product": "Gasoil 0.1%",
+          "quantity": 10000,
+          "side": "buy",
+          "unit": "mt"
+        },
+        "tokens": {
+          "firm:BP OIL INTL": "cp-bp",
+          "location:ARA": "Amsterdam-Rotterdam-Antwerp",
+          "price:+n": 1.0,
+          "product:GO": "Gasoil 0.1%",
+          "qty:k": "mt"
+        },
+        "trade_id": "NC-LON-26-0301"
+      },
+      {
+        "chat": "h04",
+        "deal_number": "RA-026104",
+        "pair": "hou-shell",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "location": "Houston",
+          "period": "Apr",
+          "price": 438.0,
+          "price_type": "fixed",
+          "product": "HSFO 3.5%",
+          "quantity": 25000,
+          "side": "buy",
+          "unit": "mt"
+        },
+        "tokens": {
+          "firm:SHELL INTL TRADING": "cp-shell",
+          "location:HOU": "Houston",
+          "product:HSFO": "HSFO 3.5%",
+          "qty:k": "mt"
+        },
+        "trade_id": "NC-HOU-26-0303"
+      },
+      {
+        "chat": "h05",
+        "deal_number": "RA-026105",
+        "pair": "hou-vitol",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "Platts WTI Midland 5-day average",
+          "location": "Corpus Christi",
+          "period": "May",
+          "premium": 0.9,
+          "price_type": "index",
+          "product": "WTI Midland",
+          "quantity": 300000,
+          "side": "buy",
+          "unit": "bbl"
+        },
+        "tokens": {
+          "firm:VITOL INC": "cp-vitol",
+          "location:CC": "Corpus Christi",
+          "price:+n": 0.01,
+          "product:WTI Mid": "WTI Midland",
+          "qty:k": "bbl"
+        },
+        "trade_id": "NC-HOU-26-0304"
+      },
+      {
+        "chat": "h06",
+        "deal_number": "RA-026106",
+        "pair": "lon-bp",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "ICE gasoil front month",
+          "location": "Amsterdam-Rotterdam-Antwerp",
+          "period": "May",
+          "premium": 18.0,
+          "price_type": "index",
+          "product": "Jet A-1",
+          "quantity": 15000,
+          "side": "sell",
+          "unit": "mt"
+        },
+        "tokens": {
+          "firm:BP OIL INTL": "cp-bp",
+          "location:ARA": "Amsterdam-Rotterdam-Antwerp",
+          "price:+n": 1.0,
+          "product:Jet": "Jet A-1",
+          "qty:k": "mt"
+        },
+        "trade_id": "NC-LON-26-0302"
+      },
+      {
+        "chat": "h07",
+        "deal_number": "RA-026107",
+        "pair": "hou-vitol",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "Platts WTI Midland 5-day average",
+          "location": "Houston",
+          "period": "May",
+          "premium": 0.7,
+          "price_type": "index",
+          "product": "WTI Midland",
+          "quantity": 200000,
+          "side": "sell",
+          "unit": "bbl"
+        },
+        "tokens": {
+          "firm:VITOL INC": "cp-vitol",
+          "location:HOU": "Houston",
+          "price:+n": 0.01,
+          "product:WTI Mid": "WTI Midland",
+          "qty:k": "bbl"
+        },
+        "trade_id": "NC-HOU-26-0305"
+      },
+      {
+        "chat": "h08",
+        "deal_number": "RA-026108",
+        "pair": "lon-bp",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "ICE gasoil front month",
+          "location": "Amsterdam-Rotterdam-Antwerp",
+          "period": "May",
+          "premium": 11.0,
+          "price_type": "index",
+          "product": "Gasoil 0.1%",
+          "quantity": 12000,
+          "side": "buy",
+          "unit": "mt"
+        },
+        "tokens": {
+          "firm:BP OIL INTL": "cp-bp",
+          "location:ARA": "Amsterdam-Rotterdam-Antwerp",
+          "price:+n": 1.0,
+          "product:GO": "Gasoil 0.1%",
+          "qty:k": "mt"
+        },
+        "trade_id": "NC-LON-26-0303"
+      },
+      {
+        "chat": "h09",
+        "deal_number": "RA-026109",
+        "pair": "hou-shell",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "location": "Houston",
+          "period": "May",
+          "price": 512.5,
+          "price_type": "fixed",
+          "product": "VLSFO 0.5%",
+          "quantity": 20000,
+          "side": "sell",
+          "unit": "mt"
+        },
+        "tokens": {
+          "firm:SHELL INTL TRADING": "cp-shell",
+          "location:HOU": "Houston",
+          "product:VLS": "VLSFO 0.5%",
+          "qty:k": "mt"
+        },
+        "trade_id": "NC-HOU-26-0306"
+      },
+      {
+        "chat": "h10",
+        "deal_number": "RA-026110",
+        "pair": "hou-vitol",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "Platts WTI Midland 5-day average",
+          "location": "Houston",
+          "period": "Jun",
+          "premium": 0.35,
+          "price_type": "index",
+          "product": "Mars blend",
+          "quantity": 100000,
+          "side": "buy",
+          "unit": "bbl"
+        },
+        "tokens": {
+          "firm:VITOL INC": "cp-vitol",
+          "location:HOU": "Houston",
+          "price:+n": 0.01,
+          "product:Mars": "Mars blend",
+          "qty:k": "bbl"
+        },
+        "trade_id": "NC-HOU-26-0307"
+      },
+      {
+        "chat": "h11",
+        "deal_number": "RA-026111",
+        "pair": "lon-bp",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "ICE gasoil front month",
+          "location": "Amsterdam-Rotterdam-Antwerp",
+          "period": "Jun",
+          "premium": 14.0,
+          "price_type": "index",
+          "product": "Gasoil 0.1%",
+          "quantity": 8000,
+          "side": "buy",
+          "unit": "mt"
+        },
+        "tokens": {
+          "firm:BP OIL INTL": "cp-bp",
+          "location:ARA": "Amsterdam-Rotterdam-Antwerp",
+          "price:+n": 1.0,
+          "product:GO": "Gasoil 0.1%",
+          "qty:k": "mt"
+        },
+        "trade_id": "NC-LON-26-0304"
+      },
+      {
+        "chat": "h12",
+        "deal_number": "RA-026112",
+        "pair": "hou-vitol",
+        "status": "confirmed",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "Platts WTI Midland 5-day average",
+          "location": "Corpus Christi",
+          "period": "Jun",
+          "premium": 0.8,
+          "price_type": "index",
+          "product": "WTI Midland",
+          "quantity": 250000,
+          "side": "buy",
+          "unit": "bbl"
+        },
+        "tokens": {
+          "firm:VITOL INC": "cp-vitol",
+          "location:CC": "Corpus Christi",
+          "price:+n": 0.01,
+          "product:WTI Mid": "WTI Midland",
+          "qty:k": "bbl"
+        },
+        "trade_id": "NC-HOU-26-0308"
+      }
+    ],
+    "interpretations": [
+      {
+        "chat": "c01",
+        "decision": "auto",
+        "pair": "hou-vitol",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "Platts WTI Midland 5-day average",
+          "location": "Corpus Christi",
+          "period": "Jul",
+          "premium": 0.75,
+          "price_type": "index",
+          "product": "WTI Midland",
+          "quantity": 200000,
+          "side": "buy",
+          "unit": "bbl"
+        },
+        "tokens": [
+          {
+            "basis": "pair",
+            "confidence": 0.8,
+            "decision": "auto",
+            "evidence": [
+              "h01",
+              "h05",
+              "h07",
+              "h12"
+            ],
+            "field": "product",
+            "meaning": "WTI Midland",
+            "token": "product:WTI Mid"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.75,
+            "decision": "auto",
+            "evidence": [
+              "h01",
+              "h05",
+              "h12"
+            ],
+            "field": "location",
+            "meaning": "Corpus Christi",
+            "token": "location:CC"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.857,
+            "decision": "auto",
+            "evidence": [
+              "h01",
+              "h02",
+              "h05",
+              "h07",
+              "h10",
+              "h12"
+            ],
+            "field": "unit",
+            "meaning": "bbl",
+            "token": "qty:k"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.857,
+            "decision": "auto",
+            "evidence": [
+              "h01",
+              "h02",
+              "h05",
+              "h07",
+              "h10",
+              "h12"
+            ],
+            "field": "counterparty",
+            "meaning": "cp-vitol",
+            "token": "firm:VITOL INC"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.857,
+            "decision": "auto",
+            "evidence": [
+              "h01",
+              "h02",
+              "h05",
+              "h07",
+              "h10",
+              "h12"
+            ],
+            "field": "price_scale",
+            "meaning": 0.01,
+            "token": "price:+n"
+          }
+        ],
+        "trade_id": "NC-HOU-26-0311"
+      },
+      {
+        "chat": "c02",
+        "decision": "review",
+        "pair": "hou-vitol",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "Platts WTI Midland 5-day average",
+          "location": "Houston",
+          "period": "Jul",
+          "premium": 0.45,
+          "price_type": "index",
+          "product": "Mars blend",
+          "quantity": 150000,
+          "side": "buy",
+          "unit": "bbl"
+        },
+        "tokens": [
+          {
+            "basis": "pair",
+            "confidence": 0.667,
+            "decision": "review",
+            "evidence": [
+              "h02",
+              "h10"
+            ],
+            "field": "product",
+            "meaning": "Mars blend",
+            "token": "product:Mars"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.75,
+            "decision": "auto",
+            "evidence": [
+              "h02",
+              "h07",
+              "h10"
+            ],
+            "field": "location",
+            "meaning": "Houston",
+            "token": "location:HOU"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.857,
+            "decision": "auto",
+            "evidence": [
+              "h01",
+              "h02",
+              "h05",
+              "h07",
+              "h10",
+              "h12"
+            ],
+            "field": "unit",
+            "meaning": "bbl",
+            "token": "qty:k"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.857,
+            "decision": "auto",
+            "evidence": [
+              "h01",
+              "h02",
+              "h05",
+              "h07",
+              "h10",
+              "h12"
+            ],
+            "field": "counterparty",
+            "meaning": "cp-vitol",
+            "token": "firm:VITOL INC"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.857,
+            "decision": "auto",
+            "evidence": [
+              "h01",
+              "h02",
+              "h05",
+              "h07",
+              "h10",
+              "h12"
+            ],
+            "field": "price_scale",
+            "meaning": 0.01,
+            "token": "price:+n"
+          }
+        ],
+        "trade_id": "NC-HOU-26-0312"
+      },
+      {
+        "chat": "c03",
+        "decision": "auto",
+        "pair": "lon-bp",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "ICE gasoil front month",
+          "location": "Amsterdam-Rotterdam-Antwerp",
+          "period": "Jul",
+          "premium": 13.0,
+          "price_type": "index",
+          "product": "Gasoil 0.1%",
+          "quantity": 10000,
+          "side": "sell",
+          "unit": "mt"
+        },
+        "tokens": [
+          {
+            "basis": "pair",
+            "confidence": 0.75,
+            "decision": "auto",
+            "evidence": [
+              "h03",
+              "h08",
+              "h11"
+            ],
+            "field": "product",
+            "meaning": "Gasoil 0.1%",
+            "token": "product:GO"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.8,
+            "decision": "auto",
+            "evidence": [
+              "h03",
+              "h06",
+              "h08",
+              "h11"
+            ],
+            "field": "location",
+            "meaning": "Amsterdam-Rotterdam-Antwerp",
+            "token": "location:ARA"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.8,
+            "decision": "auto",
+            "evidence": [
+              "h03",
+              "h06",
+              "h08",
+              "h11"
+            ],
+            "field": "unit",
+            "meaning": "mt",
+            "token": "qty:k"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.8,
+            "decision": "auto",
+            "evidence": [
+              "h03",
+              "h06",
+              "h08",
+              "h11"
+            ],
+            "field": "counterparty",
+            "meaning": "cp-bp",
+            "token": "firm:BP OIL INTL"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.8,
+            "decision": "auto",
+            "evidence": [
+              "h03",
+              "h06",
+              "h08",
+              "h11"
+            ],
+            "field": "price_scale",
+            "meaning": 1.0,
+            "token": "price:+n"
+          }
+        ],
+        "trade_id": "NC-LON-26-0311"
+      },
+      {
+        "chat": "c04",
+        "decision": "auto",
+        "pair": "lon-bp",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "ICE gasoil front month",
+          "location": "Amsterdam-Rotterdam-Antwerp",
+          "period": "Jul",
+          "premium": 12.0,
+          "price_type": "index",
+          "product": "Gasoil 0.1%",
+          "quantity": 9000,
+          "side": "buy",
+          "unit": "mt"
+        },
+        "tokens": [
+          {
+            "basis": "pair",
+            "confidence": 0.75,
+            "decision": "auto",
+            "evidence": [
+              "h03",
+              "h08",
+              "h11"
+            ],
+            "field": "product",
+            "meaning": "Gasoil 0.1%",
+            "token": "product:GO"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.8,
+            "decision": "auto",
+            "evidence": [
+              "h03",
+              "h06",
+              "h08",
+              "h11"
+            ],
+            "field": "location",
+            "meaning": "Amsterdam-Rotterdam-Antwerp",
+            "token": "location:ARA"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.8,
+            "decision": "auto",
+            "evidence": [
+              "h03",
+              "h06",
+              "h08",
+              "h11"
+            ],
+            "field": "unit",
+            "meaning": "mt",
+            "token": "qty:k"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.8,
+            "decision": "auto",
+            "evidence": [
+              "h03",
+              "h06",
+              "h08",
+              "h11"
+            ],
+            "field": "counterparty",
+            "meaning": "cp-bp",
+            "token": "firm:BP OIL INTL"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.8,
+            "decision": "auto",
+            "evidence": [
+              "h03",
+              "h06",
+              "h08",
+              "h11"
+            ],
+            "field": "price_scale",
+            "meaning": 1.0,
+            "token": "price:+n"
+          }
+        ],
+        "trade_id": "NC-LON-26-0312"
+      },
+      {
+        "chat": "c05",
+        "decision": "review",
+        "pair": "hou-shell",
+        "terms": {
+          "incoterm": "FOB",
+          "location": "Houston",
+          "period": "Jul",
+          "price": 441.0,
+          "price_type": "fixed",
+          "product": "HSFO 3.5%",
+          "quantity": 30000,
+          "side": "buy",
+          "unit": "mt"
+        },
+        "tokens": [
+          {
+            "basis": "pair",
+            "confidence": 0.5,
+            "decision": "review",
+            "evidence": [
+              "h04"
+            ],
+            "field": "product",
+            "meaning": "HSFO 3.5%",
+            "token": "product:HSFO"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.667,
+            "decision": "review",
+            "evidence": [
+              "h04",
+              "h09"
+            ],
+            "field": "location",
+            "meaning": "Houston",
+            "token": "location:HOU"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.667,
+            "decision": "review",
+            "evidence": [
+              "h04",
+              "h09"
+            ],
+            "field": "unit",
+            "meaning": "mt",
+            "token": "qty:k"
+          },
+          {
+            "basis": "pair",
+            "confidence": 0.667,
+            "decision": "review",
+            "evidence": [
+              "h04",
+              "h09"
+            ],
+            "field": "counterparty",
+            "meaning": "cp-shell",
+            "token": "firm:SHELL INTL TRADING"
+          }
+        ],
+        "trade_id": "NC-HOU-26-0313"
+      },
+      {
+        "chat": "c06",
+        "decision": "review",
+        "pair": "hou-glencore",
+        "terms": {
+          "incoterm": "FOB",
+          "index": "Platts WTI Midland 5-day average",
+          "location": "Corpus Christi",
+          "period": "Jul",
+          "premium": 1.05,
+          "price_type": "index",
+          "product": "WTI Midland",
+          "quantity": 100000,
+          "side": "buy",
+          "unit": "bbl"
+        },
+        "tokens": [
+          {
+            "basis": "desk",
+            "confidence": 0.4,
+            "decision": "review",
+            "evidence": [
+              "h01",
+              "h05",
+              "h07",
+              "h12"
+            ],
+            "field": "product",
+            "meaning": "WTI Midland",
+            "token": "product:WTI Mid"
+          },
+          {
+            "basis": "desk",
+            "confidence": 0.375,
+            "decision": "review",
+            "evidence": [
+              "h01",
+              "h05",
+              "h12"
+            ],
+            "field": "location",
+            "meaning": "Corpus Christi",
+            "token": "location:CC"
+          },
+          {
+            "basis": "conflict",
+            "confidence": 0.0,
+            "decision": "review",
+            "evidence": [
+              "h03",
+              "h04",
+              "h06",
+              "h08",
+              "h09",
+              "h11"
+            ],
+            "field": "unit",
+            "meaning": "bbl",
+            "token": "qty:k"
+          },
+          {
+            "basis": "none",
+            "confidence": 0.0,
+            "decision": "review",
+            "evidence": [],
+            "field": "counterparty",
+            "meaning": "cp-glencore",
+            "token": "firm:GLENCORE LTD"
+          },
+          {
+            "basis": "conflict",
+            "confidence": 0.0,
+            "decision": "review",
+            "evidence": [
+              "h03",
+              "h06",
+              "h08",
+              "h11"
+            ],
+            "field": "price_scale",
+            "meaning": 0.01,
+            "token": "price:+n"
+          }
+        ],
+        "trade_id": "NC-HOU-26-0314"
+      }
+    ],
+    "product_codes": {
+      "GO01": "Gasoil 0.1%",
+      "HSFO35": "HSFO 3.5%",
+      "JETA1": "Jet A-1",
+      "MARS": "Mars blend",
+      "VLSFO05": "VLSFO 0.5%",
+      "WTIMID": "WTI Midland"
+    },
+    "system_of_record": "email confirmation",
+    "threshold": 0.75
+  },
+  "expected_contradictions": [
+    {
+      "caught": true,
+      "caught_by": "breaks",
+      "description": "RightAngle books NC-HOU-26-0312 with a different side from the email confirmation.",
+      "id": "e1-desk-chats-etrm:etrm-side-NC-HOU-26-0312",
+      "type": "etrm-vs-confirmation",
+      "values": {
+        "confirmation": "buy",
+        "etrm": "sell",
+        "field": "side"
+      },
+      "where": [
+        "NC-HOU-26-0312-confirmation.pdf",
+        "rightangle-deal-capture-2026-11-05.csv"
+      ]
+    },
+    {
+      "caught": true,
+      "caught_by": "breaks",
+      "description": "RightAngle books NC-LON-26-0311 with a different unit from the email confirmation.",
+      "id": "e1-desk-chats-etrm:etrm-unit-NC-LON-26-0311",
+      "type": "etrm-vs-confirmation",
+      "values": {
+        "confirmation": "mt",
+        "etrm": "bbl",
+        "field": "unit"
+      },
+      "where": [
+        "NC-LON-26-0311-confirmation.pdf",
+        "rightangle-deal-capture-2026-11-05.csv"
+      ]
+    },
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "RightAngle books NC-LON-26-0312 with a different premium from the email confirmation.",
+      "id": "e1-desk-chats-etrm:etrm-premium-NC-LON-26-0312",
+      "type": "etrm-vs-confirmation",
+      "values": {
+        "confirmation": 12.0,
+        "etrm": 0.12,
+        "field": "premium"
+      },
+      "where": [
+        "NC-LON-26-0312-confirmation.pdf",
+        "rightangle-deal-capture-2026-11-05.csv"
+      ]
+    },
+    {
+      "caught": true,
+      "caught_by": "breaks",
+      "description": "RightAngle books NC-HOU-26-0313 with a different product from the email confirmation.",
+      "id": "e1-desk-chats-etrm:etrm-product-NC-HOU-26-0313",
+      "type": "etrm-vs-confirmation",
+      "values": {
+        "confirmation": "HSFO 3.5%",
+        "etrm": "VLSFO 0.5%",
+        "field": "product"
+      },
+      "where": [
+        "NC-HOU-26-0313-confirmation.pdf",
+        "rightangle-deal-capture-2026-11-05.csv"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "rightangle-deal-capture-2026-11-10.csv"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/001-export-h1.eml",
+        "md": "messages/001-export-h1.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "export-h1",
+      "message_id": "<0e716a657bd84f0010e8@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 1,
+      "subject": "RightAngle deal capture 2026-11-10",
+      "tags": [
+        "etrm",
+        "export"
+      ],
+      "thread": "export-h1",
+      "timestamp": "2026-11-10T12:17:00-06:00",
+      "to": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "rightangle-deal-capture-2026-11-17.csv"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-export-h2.eml",
+        "md": "messages/002-export-h2.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "export-h2",
+      "message_id": "<b9ee2bb496cfe18ae6e3@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 2,
+      "subject": "RightAngle deal capture 2026-11-17",
+      "tags": [
+        "etrm",
+        "export"
+      ],
+      "thread": "export-h2",
+      "timestamp": "2026-11-17T09:14:00-06:00",
+      "to": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "rightangle-deal-capture-2026-11-23.csv"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/003-export-h3.eml",
+        "md": "messages/003-export-h3.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "export-h3",
+      "message_id": "<74c868ab94b7cbf0b893@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 3,
+      "subject": "RightAngle deal capture 2026-11-23",
+      "tags": [
+        "etrm",
+        "export"
+      ],
+      "thread": "export-h3",
+      "timestamp": "2026-11-23T10:18:00-06:00",
+      "to": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0311-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/004-confirm-1.eml",
+        "md": "messages/004-confirm-1.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirm-1",
+      "message_id": "<ec0fc9d28fc74510901e@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 4,
+      "subject": "Confirmation NC-HOU-26-0311",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "confirm-1",
+      "timestamp": "2026-11-24T12:55:00-06:00",
+      "to": [
+        {
+          "address": "jeff.guzman@vitol.example",
+          "name": "Jeff Guzman",
+          "org": "cp-vitol",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0312-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/005-confirm-2.eml",
+        "md": "messages/005-confirm-2.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirm-2",
+      "message_id": "<294f7ad21691d2dd8168@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 5,
+      "subject": "Confirmation NC-HOU-26-0312",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "confirm-2",
+      "timestamp": "2026-11-24T13:35:00-06:00",
+      "to": [
+        {
+          "address": "jeff.guzman@vitol.example",
+          "name": "Jeff Guzman",
+          "org": "cp-vitol",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0311-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/006-confirm-3.eml",
+        "md": "messages/006-confirm-3.md"
+      },
+      "from": {
+        "address": "elliott.herbert@bp.example",
+        "name": "Elliott Herbert",
+        "org": "cp-bp",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirm-3",
+      "message_id": "<16c01b34714a1390d10c@bp.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "elliott.herbert@bp.example"
+      },
+      "seq": 6,
+      "subject": "Confirmation NC-LON-26-0311",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "confirm-3",
+      "timestamp": "2026-11-25T09:11:00+00:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0312-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/007-confirm-4.eml",
+        "md": "messages/007-confirm-4.md"
+      },
+      "from": {
+        "address": "elliott.herbert@bp.example",
+        "name": "Elliott Herbert",
+        "org": "cp-bp",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirm-4",
+      "message_id": "<b0cff08f33c0a6af57f6@bp.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "elliott.herbert@bp.example"
+      },
+      "seq": 7,
+      "subject": "Confirmation NC-LON-26-0312",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "confirm-4",
+      "timestamp": "2026-11-25T10:39:00+00:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0313-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/008-confirm-5.eml",
+        "md": "messages/008-confirm-5.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirm-5",
+      "message_id": "<8c652bdda2cad26d27db@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 8,
+      "subject": "Confirmation NC-HOU-26-0313",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "confirm-5",
+      "timestamp": "2026-11-25T09:12:00-06:00",
+      "to": [
+        {
+          "address": "janet.law@shell.example",
+          "name": "Janet Law",
+          "org": "cp-shell",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0314-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/009-confirm-6.eml",
+        "md": "messages/009-confirm-6.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirm-6",
+      "message_id": "<84e05332a79d6285f1db@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 9,
+      "subject": "Confirmation NC-HOU-26-0314",
+      "tags": [
+        "confirmation"
+      ],
+      "thread": "confirm-6",
+      "timestamp": "2026-11-25T10:06:00-06:00",
+      "to": [
+        {
+          "address": "samuel.cowan@glencore.example",
+          "name": "Samuel Cowan",
+          "org": "cp-glencore",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "rightangle-deal-capture-2026-11-25.csv"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/010-export-current.eml",
+        "md": "messages/010-export-current.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "export-current",
+      "message_id": "<fdb22b2768cc6396efdd@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 10,
+      "subject": "RightAngle deal capture 2026-11-25",
+      "tags": [
+        "etrm",
+        "export"
+      ],
+      "thread": "export-current",
+      "timestamp": "2026-11-27T09:16:00-06:00",
+      "to": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/011-breaks.eml",
+        "md": "messages/011-breaks.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "breaks",
+      "message_id": "<5212339cd39f90fe0a13@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 11,
+      "subject": "RightAngle breaks against confirmations",
+      "tags": [
+        "break",
+        "etrm"
+      ],
+      "thread": "breaks",
+      "timestamp": "2026-11-27T10:40:00-06:00",
+      "to": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/012-breaks-confirmed.eml",
+        "md": "messages/012-breaks-confirmed.md"
+      },
+      "from": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "in_reply_to": "breaks",
+      "key": "breaks-confirmed",
+      "message_id": "<1265c2bb0d7b4194e005@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jenna.campbell@newco-houston.example"
+      },
+      "seq": 12,
+      "subject": "Re: RightAngle breaks against confirmations",
+      "tags": [
+        "break",
+        "etrm"
+      ],
+      "thread": "breaks",
+      "timestamp": "2026-11-27T10:58:00-06:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "rightangle-deal-capture-2026-11-27.csv"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/013-export-amended.eml",
+        "md": "messages/013-export-amended.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": "breaks",
+      "key": "export-amended",
+      "message_id": "<112aed7753b261e687ef@newco-houston.example>",
+      "phase": "execution",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 13,
+      "subject": "RightAngle amendments 2026-11-27",
+      "tags": [
+        "etrm",
+        "export"
+      ],
+      "thread": "breaks",
+      "timestamp": "2026-11-27T11:29:00-06:00",
+      "to": [
+        {
+          "address": "jenna.campbell@newco-houston.example",
+          "name": "Jenna Campbell",
+          "org": "newco-hou",
+          "role": "trader"
+        },
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    }
+  ],
+  "outcome": {},
+  "ownership_edges": [],
+  "phase": "execution",
+  "positions": [],
+  "questions": [
+    {
+      "expected": [
+        "NC-HOU-26-0312",
+        "NC-HOU-26-0313",
+        "NC-LON-26-0311",
+        "NC-LON-26-0312"
+      ],
+      "id": "e1-desk-chats-etrm-q1",
+      "question": "Which deals in the RightAngle export differ from their email confirmations?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": [
+        "NC-LON-26-0312"
+      ],
+      "id": "e1-desk-chats-etrm-q2",
+      "question": "Which RightAngle breaks against the confirmations are still open?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": [
+        "buy",
+        "sell"
+      ],
+      "id": "e1-desk-chats-etrm-q3",
+      "question": "For NC-HOU-26-0312, what side does the email confirmation state and what side did RightAngle book first?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": "mt",
+      "id": "e1-desk-chats-etrm-q4",
+      "question": "In the London desk's Bloomberg chats with BP, what unit does a quantity like 10k mean?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": 0.85,
+      "id": "e1-desk-chats-etrm-q5",
+      "question": "In the Houston desk's Bloomberg chats with Vitol, what premium in USD per bbl does +85 mean?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": [
+        "h03",
+        "h06",
+        "h08",
+        "h11"
+      ],
+      "id": "e1-desk-chats-etrm-q6",
+      "question": "Which earlier confirmed chats support reading +12 as USD 12.00 per mt in the London/BP chat for NC-LON-26-0312?",
+      "tolerance_pct": 0,
+      "type": "graph_traversal"
+    },
+    {
+      "expected": [
+        "c02",
+        "c05",
+        "c06"
+      ],
+      "id": "e1-desk-chats-etrm-q7",
+      "question": "Which new Bloomberg chats should go to review before booking?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": 2,
+      "id": "e1-desk-chats-etrm-q8",
+      "question": "How many versions of the RightAngle deal for NC-LON-26-0311 exist?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": "Shell Trading International Ltd",
+      "id": "e1-desk-chats-etrm-q9",
+      "question": "Which counterparty is the Bloomberg firm SHELL INTL TRADING?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    }
+  ],
+  "review_events": [],
+  "scenario": "e1-desk-chats-etrm",
+  "title": "Houston and London desks: Bloomberg shorthand learned per trader pair, ETRM bookings checked against the confirmations"
+}

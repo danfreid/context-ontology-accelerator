@@ -13,7 +13,7 @@ from .scenario import PHASE_DIRS, Scenario
 from .universe import DEFAULT_SEED, build_universe, dumps
 
 CORPUS_DIR = Path(__file__).resolve().parent / "corpus"
-PHASES = ("onboarding", "trade", "post_trade", "settlement", "docsets")
+PHASES = ("onboarding", "trade", "post_trade", "settlement", "docsets", "lifecycle", "execution")
 
 # (emails, attachments, chats) per phase: BRIEF.md section 1 for the first four phases; the docsets phase
 # (multi-format and merged document sets, see docsets/__init__.py) adds its own. Enforced once a phase has
@@ -24,6 +24,8 @@ EXPECTED_TOTALS: dict[str, tuple[int, int, int]] = {
     "post_trade": (55, 39, 0),
     "settlement": (34, 19, 0),
     "docsets": (8, 14, 0),
+    "lifecycle": (26, 17, 0),
+    "execution": (13, 11, 18),
 }
 SCENARIOS_PER_PHASE: dict[str, int] = {
     "onboarding": 6,
@@ -31,6 +33,8 @@ SCENARIOS_PER_PHASE: dict[str, int] = {
     "post_trade": 6,
     "settlement": 6,
     "docsets": 2,
+    "lifecycle": 1,
+    "execution": 1,
 }
 
 ScenarioBuilder = Callable[[dict[str, Any], Mapping[str, Scenario]], Scenario]
@@ -52,6 +56,8 @@ class BuildResult:
 def _registry() -> dict[str, Sequence[ScenarioBuilder]]:
     """Return the phase registries. Add a new workflow phase here (see BRIEF.md section 10)."""
     from .docsets import DOCSETS
+    from .execution import EXECUTION
+    from .lifecycle import LIFECYCLE
     from .onboarding import ONBOARDING
     from .post_trade import POST_TRADE
     from .settlement import SETTLEMENT
@@ -63,6 +69,8 @@ def _registry() -> dict[str, Sequence[ScenarioBuilder]]:
         "post_trade": POST_TRADE,
         "settlement": SETTLEMENT,
         "docsets": DOCSETS,
+        "lifecycle": LIFECYCLE,
+        "execution": EXECUTION,
     }
 
 

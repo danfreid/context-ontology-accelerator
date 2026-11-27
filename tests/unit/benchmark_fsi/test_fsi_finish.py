@@ -56,8 +56,8 @@ def _pack_uris() -> set[str]:
 
 
 def test_scenario_and_phase_totals_match_the_brief(result: BuildResult) -> None:
-    # BRIEF.md's 24 scenarios plus the docsets phase (2 scenarios, 8 emails, 14 attachments).
-    assert len(result.scenarios) == 26
+    # BRIEF.md's 24 scenarios plus the docsets (2), lifecycle (1) and execution (1) phases.
+    assert len(result.scenarios) == 28
     per_phase: dict[str, list[int]] = {}
     for s in result.scenarios:
         c = s.counts
@@ -72,23 +72,25 @@ def test_scenario_and_phase_totals_match_the_brief(result: BuildResult) -> None:
         "post_trade": [6, 55, 39, 0],
         "settlement": [6, 34, 19, 0],
         "docsets": [2, 8, 14, 0],
+        "lifecycle": [1, 26, 17, 0],
+        "execution": [1, 13, 11, 18],
     }
-    assert sum(s.counts["emails"] for s in result.scenarios) == 277
-    assert sum(s.counts["attachments"] for s in result.scenarios) == 185
-    assert sum(s.counts["chats"] for s in result.scenarios) == 13
+    assert sum(s.counts["emails"] for s in result.scenarios) == 316
+    assert sum(s.counts["attachments"] for s in result.scenarios) == 213
+    assert sum(s.counts["chats"] for s in result.scenarios) == 31
     assert sum(len(s.data["deals"]) for s in result.scenarios if s.phase == "trade") == 7
 
 
 def test_committed_corpus_has_the_brief_counts() -> None:
     manifests = [json.loads(p.read_text(encoding="utf-8")) for p in CORPUS_DIR.glob("*/*/manifest.json")]
-    assert len(manifests) == 26
-    assert sum(m["counts"]["emails"] for m in manifests) == 277
-    assert sum(m["counts"]["attachments"] for m in manifests) == 185
-    assert sum(m["counts"]["chats"] for m in manifests) == 13
-    assert len(list(CORPUS_DIR.glob("*/*/messages/*.eml"))) == 277
-    assert len(list(CORPUS_DIR.glob("*/*/messages/*.md"))) == 277
-    assert len(list(CORPUS_DIR.glob("*/*/chats/*.json"))) == 13
-    assert len(list(CORPUS_DIR.glob("*/*/attachments/*"))) == 185
+    assert len(manifests) == 28
+    assert sum(m["counts"]["emails"] for m in manifests) == 316
+    assert sum(m["counts"]["attachments"] for m in manifests) == 213
+    assert sum(m["counts"]["chats"] for m in manifests) == 31
+    assert len(list(CORPUS_DIR.glob("*/*/messages/*.eml"))) == 316
+    assert len(list(CORPUS_DIR.glob("*/*/messages/*.md"))) == 316
+    assert len(list(CORPUS_DIR.glob("*/*/chats/*.json"))) == 31
+    assert len(list(CORPUS_DIR.glob("*/*/attachments/*"))) == 213
 
 
 # --- the committed corpus against the brief's rules ---------------------------------------------
@@ -267,7 +269,7 @@ def test_golden_file_is_current_and_compare_py_can_read_it(result: BuildResult) 
 def test_replay_runs_offline_and_exits_zero(capsys: pytest.CaptureFixture[str]) -> None:
     assert replay_main([]) == 0
     out = capsys.readouterr().out
-    assert "observed totals: 277 emails, 185 attachments, 13 chats" in out
+    assert "observed totals: 316 emails, 213 attachments, 31 chats" in out
 
 
 def test_replay_fails_when_an_attachment_changes(tmp_path: Path, files: dict[str, bytes]) -> None:

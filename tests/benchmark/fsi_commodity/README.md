@@ -5,7 +5,7 @@ the decisions taken while building it. Nothing here calls AWS or the network.
 
 ## Status
 
-All four phases and the finish work are done. Totals: 24 scenarios, 269 emails, 13 chats, 171 attachments (7 deals), written as 760 files under `corpus/`.
+BRIEF.md's four phases (24 scenarios, 269 emails, 13 chats, 171 attachments, 7 deals) plus three phases added after the brief (see [Added phases](#added-phases)). Totals: 28 scenarios, 316 emails, 31 chats, 213 attachments, written as 918 files under `corpus/`.
 
 | Phase | Scenarios | Emails | Attachments | Chats | Folder |
 |---|---|---|---|---|---|
@@ -13,8 +13,27 @@ All four phases and the finish work are done. Totals: 24 scenarios, 269 emails, 
 | Trade | `t1` to `t6` | 42 | 18 | 13 | `corpus/trade/` |
 | Post-trade | `p1` to `p6` | 55 | 39 | 0 | `corpus/post-trade/` |
 | Settlement | `x1` to `x6` | 34 | 19 | 0 | `corpus/settlement/` |
+| Docsets | `d1`, `d2` | 8 | 14 | 0 | `corpus/docsets/` |
+| Lifecycle | `l1` | 26 | 17 | 0 | `corpus/lifecycle/` |
+| Execution | `e1` | 13 | 11 | 18 | `corpus/execution/` |
 
 Also written: `corpus/universe.json`, `corpus/structured/` (CSV, `schema.sql`, `seed.sql`, `data-catalog/`) and `golden_answers.json` (next to this README).
+
+## Added phases
+
+Three phases follow the brief's four. Each has its own counts in `build.EXPECTED_TOTALS`, its own manifest key and
+its own tests, and none changes a byte of the earlier phases.
+
+| Phase | What it tests | Ground truth (manifest key) | Tests |
+|---|---|---|---|
+| `docsets` | Cargo document sets for multi-product deals. `d1`: five batches from four senders as DOCX, text PDF, scanned image-only PDF and XLSX; everything reconciles. `d2`: one merged 23-page PDF holding 12 documents, blank separators in some places only, scanned pages; a missing third original B/L and an invoice quantity that is not the B/L quantity. | `docsets[]`: the deal (quantity ranges, fixed and formula prices, documents clause), logical documents with file and page range, a page map per file, and the reconciliation (counts per requirement, quantities against ranges and each other, prices against the formula, invoice arithmetic, exceptions) | `test_fsi_docsets.py` |
+| `lifecycle` | A master agreement from draft to use. One file name carries three revisions; forwards and a "clean" return repeat two of them; terms move in tracked changes, Word comments and email bodies; quoted history repeats superseded terms; internal credit and business instructions are not offers; one email is resent; legal, credit and business approve; the executed copy is a scan; an amendment is signed before it takes effect. Netting, late interest, a margin call and the renewal notice deadline then use the term in force on the right date. | `lifecycle`: a clause event timeline (status, source, message, attachment hash, effective date), revisions by hash, comments, forwards, duplicates, approvals and calculations. `lifecycle/common.py` `terms_as_of` answers "on the table" and "agreed and in effect" at any moment. | `test_fsi_lifecycle.py` |
+| `execution` | Bloomberg shorthand and ETRM bookings. Twelve historical chats across three trader pairs end in confirmed bookings in a RightAngle-style CSV export; the same tokens mean different things per pair (`k` is kbbl for Houston/Vitol, kt for London/BP; `+n` is cents per bbl or dollars per mt). Six new chats are read with confidence learned from the pair's own confirmed history; a pair with no history goes to review. Email confirmations are the binding record; the ETRM export carries four breaks (side, product, unit, premium); three are caught and amended to version 2, one stays open. | `execution`: dialects, history, per-token interpretation with evidence and confidence, confirmations, every ETRM row and version, and breaks with status | `test_fsi_execution.py` |
+
+New writers: `writers/xlsx_writer.py` (SpreadsheetML), `writers/pdf_tools.py` (page merge with blank pages, and seeded
+raster scans with no text layer) and comments in `writers/docx_writer.py`. Scan and merge bytes depend on the pinned
+`pypdfium2` and `pillow` versions in `requirements.txt` and `uv.lock`. `Scenario.send` takes `forward_of` (a `Fwd:`
+subject and `References` without `In-Reply-To`); `Desk.mail` takes `fwd` and `quote`.
 
 ## Run
 

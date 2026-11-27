@@ -136,7 +136,9 @@ def test_phase_totals(sc: dict[str, Any]) -> None:
 
 
 def test_whole_corpus_totals(result: BuildResult) -> None:
-    brief = [s for s in result.scenarios if s.phase != "docsets"]  # BRIEF.md's four phases
+    brief = [
+        s for s in result.scenarios if s.phase not in ("docsets", "lifecycle", "execution")
+    ]  # BRIEF.md's four phases
     assert len(brief) == 24
     assert sum(s.counts["emails"] for s in brief) == 269
     assert sum(s.counts["attachments"] for s in brief) == 171

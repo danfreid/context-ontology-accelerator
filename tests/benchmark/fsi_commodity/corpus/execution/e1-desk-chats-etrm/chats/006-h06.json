@@ -1,0 +1,99 @@
+{
+  "channel": "bloomberg",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-LON-26-0302",
+  "file": "chats/006-h06.json",
+  "key": "h06",
+  "lines": [
+    {
+      "intent": "enquiry",
+      "speaker": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "terms": {
+        "incoterm": "FOB",
+        "location": "Amsterdam-Rotterdam-Antwerp",
+        "period": "May",
+        "product": "Jet A-1",
+        "quantity": 15000,
+        "unit": "mt"
+      },
+      "text": "Jet 15k fob ARA May, your bid?",
+      "timestamp": "2026-11-13T10:08:00+00:00"
+    },
+    {
+      "intent": "offer",
+      "speaker": {
+        "address": "jean.smith@bp.example",
+        "name": "Jean Smith",
+        "org": "cp-bp",
+        "role": "trader"
+      },
+      "terms": {
+        "premium": 18.0
+      },
+      "text": "+18",
+      "timestamp": "2026-11-13T10:10:51+00:00"
+    },
+    {
+      "intent": "offer",
+      "speaker": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "terms": {
+        "side": "sell"
+      },
+      "text": "offer +18 15k, done?",
+      "timestamp": "2026-11-13T10:11:24+00:00"
+    },
+    {
+      "intent": "accept",
+      "speaker": {
+        "address": "jean.smith@bp.example",
+        "name": "Jean Smith",
+        "org": "cp-bp",
+        "role": "trader"
+      },
+      "terms": {
+        "incoterm": "FOB",
+        "index": "ICE gasoil front month",
+        "location": "Amsterdam-Rotterdam-Antwerp",
+        "period": "May",
+        "premium": 18.0,
+        "price_type": "index",
+        "product": "Jet A-1",
+        "quantity": 15000,
+        "side": "sell",
+        "unit": "mt"
+      },
+      "text": "done. pls send conf",
+      "timestamp": "2026-11-13T10:13:28+00:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "graham.carr@newco-london.example",
+      "name": "Graham Carr",
+      "org": "newco-lon",
+      "role": "trader"
+    },
+    {
+      "address": "jean.smith@bp.example",
+      "name": "Jean Smith",
+      "org": "cp-bp",
+      "role": "trader"
+    }
+  ],
+  "phase": "execution",
+  "seq": 6,
+  "tags": [
+    "bloomberg",
+    "lon-bp"
+  ]
+}

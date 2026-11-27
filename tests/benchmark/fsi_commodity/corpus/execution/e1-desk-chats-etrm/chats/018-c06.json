@@ -1,0 +1,99 @@
+{
+  "channel": "bloomberg",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-HOU-26-0314",
+  "file": "chats/018-c06.json",
+  "key": "c06",
+  "lines": [
+    {
+      "intent": "enquiry",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {
+        "incoterm": "FOB",
+        "location": "Corpus Christi",
+        "period": "Jul",
+        "product": "WTI Midland",
+        "quantity": 100000,
+        "unit": "bbl"
+      },
+      "text": "WTI Mid 100k fob CC Jul, your offer?",
+      "timestamp": "2026-11-24T11:55:00-06:00"
+    },
+    {
+      "intent": "offer",
+      "speaker": {
+        "address": "gregory.everett@glencore.example",
+        "name": "Gregory Everett",
+        "org": "cp-glencore",
+        "role": "trader"
+      },
+      "terms": {
+        "premium": 1.05
+      },
+      "text": "+105",
+      "timestamp": "2026-11-24T11:56:59-06:00"
+    },
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {
+        "side": "buy"
+      },
+      "text": "bid +105 100k, done?",
+      "timestamp": "2026-11-24T12:00:54-06:00"
+    },
+    {
+      "intent": "accept",
+      "speaker": {
+        "address": "gregory.everett@glencore.example",
+        "name": "Gregory Everett",
+        "org": "cp-glencore",
+        "role": "trader"
+      },
+      "terms": {
+        "incoterm": "FOB",
+        "index": "Platts WTI Midland 5-day average",
+        "location": "Corpus Christi",
+        "period": "Jul",
+        "premium": 1.05,
+        "price_type": "index",
+        "product": "WTI Midland",
+        "quantity": 100000,
+        "side": "buy",
+        "unit": "bbl"
+      },
+      "text": "done. pls send conf",
+      "timestamp": "2026-11-24T12:04:15-06:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "jenna.campbell@newco-houston.example",
+      "name": "Jenna Campbell",
+      "org": "newco-hou",
+      "role": "trader"
+    },
+    {
+      "address": "gregory.everett@glencore.example",
+      "name": "Gregory Everett",
+      "org": "cp-glencore",
+      "role": "trader"
+    }
+  ],
+  "phase": "execution",
+  "seq": 18,
+  "tags": [
+    "bloomberg",
+    "hou-glencore"
+  ]
+}

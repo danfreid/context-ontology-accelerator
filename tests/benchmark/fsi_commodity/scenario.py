@@ -24,12 +24,15 @@ PHASE_DIRS = {
     "post_trade": "post-trade",
     "settlement": "settlement",
     "docsets": "docsets",
+    "lifecycle": "lifecycle",
+    "execution": "execution",
 }
 
 _MIME_FALLBACK = {
     ".pdf": "application/pdf",
     ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ".csv": "text/csv",
     ".md": "text/markdown",
     ".txt": "text/plain",
 }
@@ -66,7 +69,7 @@ class Scenario:
 
     Args:
         scenario_id: Folder name, for example ``s1-houston-vitol-wti``.
-        phase: ``onboarding``, ``trade``, ``post_trade``, ``settlement`` or ``docsets``.
+        phase: ``onboarding``, ``trade``, ``post_trade``, ``settlement``, ``docsets``, ``lifecycle`` or ``execution``.
         universe: The dict from ``build_universe``.
         start: Timezone-aware start of the scenario clock.
         seed: The corpus seed; per-message jitter derives from ``seed + crc32(key)``.
@@ -113,6 +116,10 @@ class Scenario:
         self.data: dict[str, Any] = {}  # computed values later phases read (limits, prices, due dates, ...)
         # Document sets (docsets phase): logical documents, how files split into them, and the reconciliation.
         self.docsets: list[dict[str, Any]] = []
+        # Contract lifecycle (lifecycle phase): clause events, revisions, approvals and the calculations using terms.
+        self.lifecycle: dict[str, Any] = {}
+        # Trade execution (execution phase): chat dialects, learned interpretations, ETRM rows and breaks.
+        self.execution: dict[str, Any] = {}
 
     # --- clock ------------------------------------------------------------------------------------
 
@@ -179,28 +186,36 @@ class Scenario:
         facts: Mapping[str, Any] | None = None,
         cc: Sequence[str] = (),
         after_business_days: int = 0,
+        forward_of: str | None = None,
     ) -> dict[str, Any]:
         """Record and render one email; returns the message record.
 
         ``reply_to`` is the key of an earlier message in this scenario: it sets ``In-Reply-To``,
-        ``References``, the thread and (unless ``subject`` is given) a ``Re:`` subject.
+        ``References``, the thread and (unless ``subject`` is given) a ``Re:`` subject. ``forward_of`` does the
+        same for a forward (``Fwd:`` subject, ``References`` but no ``In-Reply-To``); the record keeps the key.
         """
         if key in self._specs:
             raise ValueError(f"duplicate message key {key!r} in {self.id}")
+        if reply_to and forward_of:
+            raise ValueError("a message is a reply or a forward, not both")
         recipients = [to] if isinstance(to, str) else list(to)
         sender_party, sender_info = self._party(fm)
         to_parties = [self._party(a) for a in recipients]
         cc_parties = [self._party(a) for a in cc]
         when = self._advance(fm, key, business_days=after_business_days)
 
-        parent = self._specs[reply_to] if reply_to else None
-        if reply_to and parent is None:
-            raise KeyError(reply_to)
-        thread = next(m["thread"] for m in self.messages if m["key"] == reply_to) if reply_to else key
+        ref = reply_to or forward_of
+        if ref is not None and ref not in self._specs:
+            raise KeyError(ref)
+        parent = self._specs[ref] if ref else None
+        thread = next(m["thread"] for m in self.messages if m["key"] == ref) if ref else key
         if subject is None:
             if parent is None:
                 raise ValueError("subject is required for a message that is not a reply")
-            subject = parent.subject if parent.subject.lower().startswith("re:") else f"Re: {parent.subject}"
+            if forward_of:
+                subject = f"Fwd: {parent.subject}"
+            else:
+                subject = parent.subject if parent.subject.lower().startswith("re:") else f"Re: {parent.subject}"
         domain = fm.split("@", 1)[1]
         message_id = make_message_id(self.id, key, domain)
         seq = len(self.messages) + 1
@@ -214,7 +229,7 @@ class Scenario:
             subject=subject,
             body=body,
             cc=tuple(p for p, _ in cc_parties),
-            in_reply_to=parent.message_id if parent else None,
+            in_reply_to=parent.message_id if parent and not forward_of else None,
             references=(*parent.references, parent.message_id) if parent else (),
             attachments=files,
         )
@@ -268,12 +283,17 @@ class Scenario:
             "tags": sorted(tags),
             "facts": dict(facts or {}),
             "in_reply_to": reply_to,
+            **({"forward_of": forward_of} if forward_of else {}),
             "attachments": [a.filename for a in attachments],
             "files": {"eml": f"messages/{stem}.eml", "md": f"messages/{stem}.md"},
         }
         self.messages.append(record)
         self._specs[key] = spec
         return record
+
+    def body(self, key: str) -> str:
+        """The text body of an earlier message (for quoting it in a reply or forward)."""
+        return self._specs[key].body
 
     # --- chat -------------------------------------------------------------------------------------
 
@@ -363,7 +383,11 @@ class Scenario:
 
     def manifest(self) -> dict[str, Any]:
         """Return the per-scenario ground truth. ``docsets`` is present only for scenarios that record one."""
-        extra = {"docsets": self.docsets} if self.docsets else {}
+        extra: dict[str, Any] = {"docsets": self.docsets} if self.docsets else {}
+        if self.lifecycle:
+            extra["lifecycle"] = self.lifecycle
+        if self.execution:
+            extra["execution"] = self.execution
         return {
             "scenario": self.id,
             "phase": self.phase,

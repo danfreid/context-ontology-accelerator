@@ -1,0 +1,98 @@
+{
+  "channel": "bloomberg",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-HOU-26-0313",
+  "file": "chats/017-c05.json",
+  "key": "c05",
+  "lines": [
+    {
+      "intent": "enquiry",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {
+        "incoterm": "FOB",
+        "location": "Houston",
+        "period": "Jul",
+        "product": "HSFO 3.5%",
+        "quantity": 30000,
+        "unit": "mt"
+      },
+      "text": "HSFO 30k fob HOU Jul, your offer?",
+      "timestamp": "2026-11-24T10:41:00-06:00"
+    },
+    {
+      "intent": "offer",
+      "speaker": {
+        "address": "victoria.wood@shell.example",
+        "name": "Victoria Wood",
+        "org": "cp-shell",
+        "role": "trader"
+      },
+      "terms": {
+        "price": 441.0
+      },
+      "text": "flat 441",
+      "timestamp": "2026-11-24T10:44:56-06:00"
+    },
+    {
+      "intent": "counter",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {
+        "side": "buy"
+      },
+      "text": "bid flat 441 30k, done?",
+      "timestamp": "2026-11-24T10:48:18-06:00"
+    },
+    {
+      "intent": "accept",
+      "speaker": {
+        "address": "victoria.wood@shell.example",
+        "name": "Victoria Wood",
+        "org": "cp-shell",
+        "role": "trader"
+      },
+      "terms": {
+        "incoterm": "FOB",
+        "location": "Houston",
+        "period": "Jul",
+        "price": 441.0,
+        "price_type": "fixed",
+        "product": "HSFO 3.5%",
+        "quantity": 30000,
+        "side": "buy",
+        "unit": "mt"
+      },
+      "text": "done. pls send conf",
+      "timestamp": "2026-11-24T10:50:49-06:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "jenna.campbell@newco-houston.example",
+      "name": "Jenna Campbell",
+      "org": "newco-hou",
+      "role": "trader"
+    },
+    {
+      "address": "victoria.wood@shell.example",
+      "name": "Victoria Wood",
+      "org": "cp-shell",
+      "role": "trader"
+    }
+  ],
+  "phase": "execution",
+  "seq": 17,
+  "tags": [
+    "bloomberg",
+    "hou-shell"
+  ]
+}

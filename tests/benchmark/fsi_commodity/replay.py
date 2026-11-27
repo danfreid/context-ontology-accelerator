@@ -23,7 +23,7 @@ from typing import Any
 from .build import CORPUS_DIR
 from .writers.manifest import sha256_hex
 
-PHASE_ORDER = ("onboarding", "trade", "post-trade", "settlement", "docsets")
+PHASE_ORDER = ("onboarding", "trade", "post-trade", "settlement", "docsets", "lifecycle", "execution")
 
 
 @dataclass

@@ -686,6 +686,226 @@
     "question": "Are all bill of lading quantities for NC-LON-26-0101 within the confirmation's quantity ranges?",
     "answer": true
   },
+  "l1-london-shell-mpta-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "As of NewCo legal's forward to credit, what payment term (days) was on the table for the Shell MPTA?",
+    "answer": 20
+  },
+  "l1-london-shell-mpta-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "What threshold did NewCo's credit team say it could accept for the Shell MPTA?",
+    "answer": 7500000
+  },
+  "l1-london-shell-mpta-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which message first agreed the USD 7,500,000 threshold with Shell?",
+    "answer": "<8382a1ae3e0d5c0ca409@shell.example>"
+  },
+  "l1-london-shell-mpta-q4": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What late payment interest rate did the executed Shell MPTA set?",
+    "answer": 3
+  },
+  "l1-london-shell-mpta-q5": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What late payment interest rate applied on the day Amendment No. 1 was signed?",
+    "answer": 3
+  },
+  "l1-london-shell-mpta-q6": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What late payment interest rate applied to the net payment due 2026-10-26?",
+    "answer": 2.5
+  },
+  "l1-london-shell-mpta-q7": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "How many different revisions of MPTA_NewCo_Shell.docx are in the mailbox?",
+    "answer": 3
+  },
+  "l1-london-shell-mpta-q8": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "How many messages carry revision 3 of MPTA_NewCo_Shell.docx?",
+    "answer": 2
+  },
+  "l1-london-shell-mpta-q9": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "What did Shell's comment on the netting clause ask for?",
+    "answer": "separate net amounts for each product group"
+  },
+  "l1-london-shell-mpta-q10": {
+    "expected": 2,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What net amount is payable on 2026-10-26 under the Shell MPTA, and by whom?",
+    "answer": [
+      9720608.25,
+      "Shell Trading International Ltd"
+    ]
+  },
+  "l1-london-shell-mpta-q11": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What late payment interest is due on the late net payment?",
+    "answer": 2700.17
+  },
+  "l1-london-shell-mpta-q12": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What amount does the margin call to Shell request?",
+    "answer": 2312400
+  },
+  "l1-london-shell-mpta-q13": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "By what date must notice of non-renewal of the Shell MPTA be given?",
+    "answer": "2027-07-11"
+  },
+  "l1-london-shell-mpta-q14": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which email in the Shell negotiation is a duplicate of another?",
+    "answer": [
+      "<2d70dd6d8512ef167fb5@shell.example>"
+    ]
+  },
+  "l1-london-shell-mpta-q15": {
+    "expected": 3,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which approvals were given before the Shell MPTA was executed?",
+    "answer": [
+      "legal",
+      "credit",
+      "business"
+    ]
+  },
+  "e1-desk-chats-etrm-q1": {
+    "expected": 4,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Which deals in the RightAngle export differ from their email confirmations?",
+    "answer": [
+      "NC-HOU-26-0312",
+      "NC-HOU-26-0313",
+      "NC-LON-26-0311",
+      "NC-LON-26-0312"
+    ]
+  },
+  "e1-desk-chats-etrm-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Which RightAngle breaks against the confirmations are still open?",
+    "answer": [
+      "NC-LON-26-0312"
+    ]
+  },
+  "e1-desk-chats-etrm-q3": {
+    "expected": 2,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "For NC-HOU-26-0312, what side does the email confirmation state and what side did RightAngle book first?",
+    "answer": [
+      "buy",
+      "sell"
+    ]
+  },
+  "e1-desk-chats-etrm-q4": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "In the London desk's Bloomberg chats with BP, what unit does a quantity like 10k mean?",
+    "answer": "mt"
+  },
+  "e1-desk-chats-etrm-q5": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "In the Houston desk's Bloomberg chats with Vitol, what premium in USD per bbl does +85 mean?",
+    "answer": 0.85
+  },
+  "e1-desk-chats-etrm-q6": {
+    "expected": 4,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "graph_traversal",
+    "question": "Which earlier confirmed chats support reading +12 as USD 12.00 per mt in the London/BP chat for NC-LON-26-0312?",
+    "answer": [
+      "h03",
+      "h06",
+      "h08",
+      "h11"
+    ]
+  },
+  "e1-desk-chats-etrm-q7": {
+    "expected": 3,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which new Bloomberg chats should go to review before booking?",
+    "answer": [
+      "c02",
+      "c05",
+      "c06"
+    ]
+  },
+  "e1-desk-chats-etrm-q8": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "How many versions of the RightAngle deal for NC-LON-26-0311 exist?",
+    "answer": 2
+  },
+  "e1-desk-chats-etrm-q9": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "Which counterparty is the Bloomberg firm SHELL INTL TRADING?",
+    "answer": "Shell Trading International Ltd"
+  },
   "graph-q01": {
     "expected": 2,
     "tolerance_pct": 0,

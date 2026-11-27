@@ -1,0 +1,99 @@
+{
+  "channel": "bloomberg",
+  "class_uri": "https://schema.org/Order",
+  "deal": "NC-HOU-26-0302",
+  "file": "chats/002-h02.json",
+  "key": "h02",
+  "lines": [
+    {
+      "intent": "enquiry",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {
+        "incoterm": "FOB",
+        "location": "Houston",
+        "period": "Apr",
+        "product": "Mars blend",
+        "quantity": 150000,
+        "unit": "bbl"
+      },
+      "text": "Mars 150k fob HOU Apr, your bid?",
+      "timestamp": "2026-11-06T09:30:00-06:00"
+    },
+    {
+      "intent": "offer",
+      "speaker": {
+        "address": "crystal.king@vitol.example",
+        "name": "Crystal King",
+        "org": "cp-vitol",
+        "role": "trader"
+      },
+      "terms": {
+        "premium": 0.4
+      },
+      "text": "+40",
+      "timestamp": "2026-11-06T09:31:46-06:00"
+    },
+    {
+      "intent": "offer",
+      "speaker": {
+        "address": "jenna.campbell@newco-houston.example",
+        "name": "Jenna Campbell",
+        "org": "newco-hou",
+        "role": "trader"
+      },
+      "terms": {
+        "side": "sell"
+      },
+      "text": "offer +40 150k, done?",
+      "timestamp": "2026-11-06T09:34:06-06:00"
+    },
+    {
+      "intent": "accept",
+      "speaker": {
+        "address": "crystal.king@vitol.example",
+        "name": "Crystal King",
+        "org": "cp-vitol",
+        "role": "trader"
+      },
+      "terms": {
+        "incoterm": "FOB",
+        "index": "Platts WTI Midland 5-day average",
+        "location": "Houston",
+        "period": "Apr",
+        "premium": 0.4,
+        "price_type": "index",
+        "product": "Mars blend",
+        "quantity": 150000,
+        "side": "sell",
+        "unit": "bbl"
+      },
+      "text": "done. pls send conf",
+      "timestamp": "2026-11-06T09:35:53-06:00"
+    }
+  ],
+  "participants": [
+    {
+      "address": "jenna.campbell@newco-houston.example",
+      "name": "Jenna Campbell",
+      "org": "newco-hou",
+      "role": "trader"
+    },
+    {
+      "address": "crystal.king@vitol.example",
+      "name": "Crystal King",
+      "org": "cp-vitol",
+      "role": "trader"
+    }
+  ],
+  "phase": "execution",
+  "seq": 2,
+  "tags": [
+    "bloomberg",
+    "hou-vitol"
+  ]
+}
