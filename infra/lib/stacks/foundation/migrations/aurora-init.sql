@@ -1,8 +1,9 @@
 -- Aurora PostgreSQL 18 initialisation for the switchable-backends Aurora path
 -- (graph_backend=aurora, vector_backend=pgvector, metadata_backend=aurora).
 --
--- Run once against the cluster after creation (RDS Data API or psql). Not
--- synthesised into CloudFormation.
+-- Applied by the aurora-migrator custom resource at deploy time (RDS Data API, as the
+-- cluster admin). Every statement is idempotent, so a re-deploy re-applies it safely.
+-- Not synthesised into CloudFormation.
 
 -- ── Extensions ─────────────────────────────────────────────────────────────
 CREATE EXTENSION IF NOT EXISTS vector;     -- pgvector: embedding similarity search
@@ -85,9 +86,10 @@ CREATE INDEX IF NOT EXISTS search_doc_namespace_idx ON search_doc (namespace);
 -- Added by the Aurora search layer (coa_common.aurora_search). 'namespace' holds the
 -- AOSS-equivalent index name (the search scope, e.g. coa_common.constants
 -- ontology_vector_index_name / graphrag_index_names). The HNSW index on
--- embedding is NOT created here: the vector dimension is runtime-configured,
--- so AuroraSearchIndex.ensure_vector_index() creates
--- search_doc_embedding_hnsw_<dim> on the write path.
+-- embedding is NOT created in this file: the vector dimension is configured per
+-- deployment, so the migrator creates search_doc_embedding_hnsw_<dim> (CREATE INDEX
+-- CONCURRENTLY) as the table owner; coa_search_rw deliberately cannot create it.
+-- AuroraSearchIndex.ensure_vector_index() only checks that it exists.
 ALTER TABLE search_doc ADD COLUMN IF NOT EXISTS doc_kind TEXT NOT NULL DEFAULT 'doc';
 ALTER TABLE search_doc ADD COLUMN IF NOT EXISTS metadata JSONB NOT NULL DEFAULT '{}'::jsonb;
 CREATE INDEX IF NOT EXISTS search_doc_metadata_idx ON search_doc USING GIN (metadata jsonb_path_ops);
@@ -119,7 +121,9 @@ CREATE TABLE IF NOT EXISTS entity_label (
     PRIMARY KEY (namespace, entity_id, label)
 );
 -- Existing tables were created with PRIMARY KEY (entity_id, label), which let one
--- namespace overwrite another's labels. Re-key idempotently.
+-- namespace overwrite another's labels. Re-key idempotently. The re-key keeps the rows
+-- that survived under the old key; labels already overwritten or lost under that key are
+-- not recoverable from SQL, so re-index each namespace after upgrading.
 DO $$
 BEGIN
     IF EXISTS (
@@ -155,6 +159,24 @@ BEGIN
     END IF;
 END
 $$;
+-- The migrator sets each role password through this function, so the password travels
+-- only as a bound Data API parameter and is never part of any SQL text. It can set the
+-- password of the two search roles only, and only the admin may execute it.
+CREATE OR REPLACE FUNCTION coa_set_role_password(name text, pw text) RETURNS boolean
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = pg_catalog, public
+AS $$
+BEGIN
+    IF name NOT IN ('coa_search_rw', 'coa_search_ro') THEN
+        RAISE EXCEPTION 'coa_set_role_password: role % is not allowed', name;
+    END IF;
+    EXECUTE format('ALTER ROLE %I PASSWORD %L', name, pw);
+    RETURN true;
+END
+$$;
+REVOKE ALL ON FUNCTION coa_set_role_password(text, text) FROM PUBLIC;
+
 GRANT USAGE ON SCHEMA public TO coa_search_rw, coa_search_ro;
 GRANT SELECT, INSERT, UPDATE, DELETE
     ON search_doc, search_corpus_stats, search_term_stats, entity_label TO coa_search_rw;

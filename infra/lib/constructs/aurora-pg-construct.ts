@@ -222,7 +222,7 @@ export class AuroraPg extends SCLConstruct {
     const onEvent = new lambda.Function(this, "MigratorFn", {
       runtime: lambda.Runtime.PYTHON_3_12,
       handler: "index.handler",
-      timeout: cdk.Duration.minutes(5),
+      timeout: cdk.Duration.minutes(15),
       code: lambda.Code.fromAsset(stage),
       description: "Applies aurora-init.sql to the Aurora search database",
     });
