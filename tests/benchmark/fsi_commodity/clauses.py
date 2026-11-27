@@ -79,6 +79,11 @@ CLAUSES: dict[str, tuple[str, str]] = {
         "Valuation",
         "Exposure is valued each business day at {time}, using the calculation agent's mid-market prices.",
     ),
+    "term": (
+        "Term and renewal",
+        "This agreement runs for {months} months from the date it is signed by both parties and renews for "
+        "further periods of {months} months unless a party gives notice at least {notice} days before a term ends.",
+    ),
 }
 
 
@@ -98,6 +103,7 @@ KEY_PARAMS: dict[str, str] = {
     "min_transfer": "amount",
     "eligible_collateral": "assets",
     "valuation": "time",
+    "term": "notice",
 }
 
 

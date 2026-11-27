@@ -1,0 +1,2830 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "comments": 0,
+        "revision": 1,
+        "tracked_changes": 0,
+        "values": {
+          "governing_law": {
+            "law": "England and Wales",
+            "venue": "London"
+          },
+          "late_interest": {
+            "rate": 4
+          },
+          "min_transfer": {
+            "amount": 250000
+          },
+          "netting": {
+            "scope": "a single net amount across all transactions"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 30
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "term": {
+            "months": 12,
+            "notice": 60
+          },
+          "threshold": {
+            "amount": 5000000
+          }
+        }
+      },
+      "filename": "MPTA_NewCo_Shell.docx",
+      "kind": "agreement-draft",
+      "message": "draft",
+      "path": "attachments/001-MPTA_NewCo_Shell.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example",
+        "wasDerivedFrom": "<2d2c31d0574d41e781a5@newco-london.example>"
+      },
+      "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+      "size": 5116
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "changes": {
+          "payment": {
+            "days": 20
+          },
+          "term": {
+            "notice": 30
+          },
+          "threshold": {
+            "amount": 10000000
+          }
+        },
+        "comments": 2,
+        "revision": 2,
+        "tracked_changes": 6
+      },
+      "filename": "MPTA_NewCo_Shell.docx",
+      "kind": "agreement-draft",
+      "message": "shell-redline",
+      "path": "attachments/002-MPTA_NewCo_Shell.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jodie.obrien@shell.example",
+        "wasDerivedFrom": "<e0774541ad39bbf6cd91@shell.example>"
+      },
+      "sha256": "4f969394f68018172e775387964092cf58678079b8a9960defef2f15565ce5ab",
+      "size": 7243
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "changes": {
+          "payment": {
+            "days": 20
+          },
+          "term": {
+            "notice": 30
+          },
+          "threshold": {
+            "amount": 10000000
+          }
+        },
+        "comments": 2,
+        "revision": 2,
+        "tracked_changes": 6
+      },
+      "filename": "MPTA_NewCo_Shell.docx",
+      "kind": "agreement-draft",
+      "message": "fwd-credit",
+      "path": "attachments/003-MPTA_NewCo_Shell.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example",
+        "wasDerivedFrom": "<604790e2ec3541784caf@newco-london.example>"
+      },
+      "sha256": "4f969394f68018172e775387964092cf58678079b8a9960defef2f15565ce5ab",
+      "size": 7243
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "changes": {
+          "late_interest": {
+            "rate": 3
+          },
+          "term": {
+            "notice": 45
+          },
+          "threshold": {
+            "amount": 7500000
+          }
+        },
+        "comments": 1,
+        "revision": 3,
+        "values_after": {
+          "governing_law": {
+            "law": "England and Wales",
+            "venue": "London"
+          },
+          "late_interest": {
+            "rate": 3
+          },
+          "min_transfer": {
+            "amount": 250000
+          },
+          "netting": {
+            "scope": "a single net amount across all transactions"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 20
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "term": {
+            "months": 12,
+            "notice": 45
+          },
+          "threshold": {
+            "amount": 7500000
+          }
+        }
+      },
+      "filename": "MPTA_NewCo_Shell.docx",
+      "kind": "agreement-draft",
+      "message": "newco-revised",
+      "path": "attachments/010-MPTA_NewCo_Shell.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example",
+        "wasDerivedFrom": "<52d65c9270e2ff814a4a@newco-london.example>"
+      },
+      "sha256": "66f139be9b81bcb1107d087fee097764024567ba8dd5b2ef4d8b49411c93c96d",
+      "size": 6906
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "changes": {
+          "late_interest": {
+            "rate": 3
+          },
+          "term": {
+            "notice": 45
+          },
+          "threshold": {
+            "amount": 7500000
+          }
+        },
+        "comments": 1,
+        "revision": 3,
+        "values_after": {
+          "governing_law": {
+            "law": "England and Wales",
+            "venue": "London"
+          },
+          "late_interest": {
+            "rate": 3
+          },
+          "min_transfer": {
+            "amount": 250000
+          },
+          "netting": {
+            "scope": "a single net amount across all transactions"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 20
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "term": {
+            "months": 12,
+            "notice": 45
+          },
+          "threshold": {
+            "amount": 7500000
+          }
+        }
+      },
+      "filename": "MPTA_NewCo_Shell.docx",
+      "kind": "agreement-draft",
+      "message": "shell-clean",
+      "path": "attachments/011-MPTA_NewCo_Shell.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jodie.obrien@shell.example",
+        "wasDerivedFrom": "<7ff90908df49a15cebe7@shell.example>"
+      },
+      "sha256": "66f139be9b81bcb1107d087fee097764024567ba8dd5b2ef4d8b49411c93c96d",
+      "size": 6906
+    },
+    {
+      "class_uri": "http://purl.org/dc/terms/BibliographicResource",
+      "facts": {
+        "final_terms": {
+          "governing_law": {
+            "law": "England and Wales",
+            "venue": "London"
+          },
+          "late_interest": {
+            "rate": 3
+          },
+          "min_transfer": {
+            "amount": 250000
+          },
+          "netting": {
+            "scope": "a single net amount across all transactions"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 20
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "term": {
+            "months": 12,
+            "notice": 45
+          },
+          "threshold": {
+            "amount": 7500000
+          }
+        },
+        "recommendation": "execute"
+      },
+      "filename": "mpta-legal-review.pdf",
+      "kind": "legal-review",
+      "message": "legal-approval",
+      "path": "attachments/012-mpta-legal-review.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example",
+        "wasDerivedFrom": "<97a2f9d01add0d0b3df6@newco-london.example>"
+      },
+      "sha256": "16a04a5a02d2a835feaf1bdc14a0f2ec5fae9ad8e631176c7793afb8b9ea5c0f",
+      "size": 4443
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FBC/ProductsAndServices/ClientsAndAccounts/LoanOrCreditAccount",
+      "facts": {
+        "credit_limit": 40000000,
+        "decision": "approved",
+        "threshold": 7500000
+      },
+      "filename": "mpta-credit-approval.pdf",
+      "kind": "credit-approval",
+      "message": "credit-approval",
+      "path": "attachments/013-mpta-credit-approval.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example",
+        "wasDerivedFrom": "<5c05e7daab1204ac1546@newco-london.example>"
+      },
+      "sha256": "7f5e29437b16b0eb37d5edf7afefbcaf01801394ffb524816cce7ff3feefd792",
+      "size": 2743
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "final_terms": {
+          "governing_law": {
+            "law": "England and Wales",
+            "venue": "London"
+          },
+          "late_interest": {
+            "rate": 3
+          },
+          "min_transfer": {
+            "amount": 250000
+          },
+          "netting": {
+            "scope": "a single net amount across all transactions"
+          },
+          "payment": {
+            "currency": "USD",
+            "days": 20
+          },
+          "quantity_tolerance": {
+            "tolerance": 5
+          },
+          "term": {
+            "months": 12,
+            "notice": 45
+          },
+          "threshold": {
+            "amount": 7500000
+          }
+        },
+        "signed_by": [
+          "NewCo Trading London Limited"
+        ]
+      },
+      "filename": "MPTA_NewCo_Shell_signed_NewCo.pdf",
+      "kind": "agreement-execution",
+      "message": "execution-newco",
+      "path": "attachments/015-MPTA_NewCo_Shell_signed_NewCo.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example",
+        "wasDerivedFrom": "<cbbee836774b23d7858c@newco-london.example>"
+      },
+      "sha256": "2c70dbfd55ead969c30605fb6938ca2605fb5201cfd38edd8a5e7fe74761590d",
+      "size": 5656
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "effective": "2026-08-26",
+        "format": "pdf-scan",
+        "signed_by": [
+          "NewCo Trading London Limited",
+          "Shell Trading International Ltd"
+        ]
+      },
+      "filename": "MPTA_NewCo_Shell_executed.pdf",
+      "kind": "agreement-executed",
+      "message": "executed",
+      "path": "attachments/016-MPTA_NewCo_Shell_executed.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jodie.obrien@shell.example",
+        "wasDerivedFrom": "<c8d7b6c66906c2e5766f@shell.example>"
+      },
+      "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+      "size": 72420
+    },
+    {
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "facts": {
+        "clause": "late_interest",
+        "effective_from": "2026-10-01",
+        "rate": 2.5,
+        "signed": "2026-09-03"
+      },
+      "filename": "MPTA_NewCo_Shell_amendment_1.pdf",
+      "kind": "agreement-amendment",
+      "message": "amendment-signed",
+      "path": "attachments/019-MPTA_NewCo_Shell_amendment_1.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example",
+        "wasDerivedFrom": "<8a679b69611af256198a@newco-london.example>"
+      },
+      "sha256": "78596794a41e2794ff495fe7d95a31aeb8771267d6f9a09d0107418722793f85",
+      "size": 2667
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "bl_date": "2026-10-05",
+        "price": 712.4,
+        "quantity": 25118.412,
+        "side": "sell",
+        "trade_id": "NC-LON-26-0201"
+      },
+      "filename": "NC-LON-26-0201-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirmations",
+      "path": "attachments/020-NC-LON-26-0201-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example",
+        "wasDerivedFrom": "<4928795f4c2e21e1c94d@newco-london.example>"
+      },
+      "sha256": "3e00490c9cb7b1f3f3b6763c82184ecdb3bbdf0c55559810c38bb4bf5a4c29d5",
+      "size": 3273
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "bl_date": "2026-10-05",
+        "price": 455.1,
+        "quantity": 17960.335,
+        "side": "buy",
+        "trade_id": "NC-LON-26-0202"
+      },
+      "filename": "NC-LON-26-0202-confirmation.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirmations",
+      "path": "attachments/020-NC-LON-26-0202-confirmation.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example",
+        "wasDerivedFrom": "<4928795f4c2e21e1c94d@newco-london.example>"
+      },
+      "sha256": "c2e1d98ee15ceb0443229682f267d9d98fef29f9eb5ad04c573c6ac45b0303c1",
+      "size": 3275
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "billed_to": "Shell Trading International Ltd",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "currency": "USD",
+        "deductions": [],
+        "due_date": "2026-10-26",
+        "issue_date": "2026-10-05",
+        "issued_by": "NewCo Trading London Limited",
+        "lines": [
+          {
+            "amount": 17894356.71,
+            "description": "Gasoil 0.1%",
+            "price": 712.4,
+            "quantity": 25118.412,
+            "unit": "mt"
+          }
+        ],
+        "number": "NCL-INV-NC-LON-26-0201",
+        "pay_to": {
+          "account_id": "acct-newco-lon-usd-operating",
+          "bank": "Northgate Bank plc",
+          "bic": "ZIXWGBH6",
+          "iban": "GB75KHMP38669819276547",
+          "number": "19276547"
+        },
+        "subtotal": 17894356.71,
+        "total_due": 17894356.71,
+        "trade_id": "NC-LON-26-0201"
+      },
+      "filename": "NC-LON-26-0201-invoice.pdf",
+      "kind": "invoice",
+      "message": "invoice-ours",
+      "path": "attachments/021-NC-LON-26-0201-invoice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example",
+        "wasDerivedFrom": "<77efe1b584b659b9ca3e@newco-london.example>"
+      },
+      "sha256": "40e80b99f1f8b84433488bd90c7cda0b515cfdd460f656a1bf3529974fedc76b",
+      "size": 5964
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "billed_to": "NewCo Trading London Limited",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "currency": "USD",
+        "deductions": [],
+        "due_date": "2026-10-26",
+        "issue_date": "2026-10-06",
+        "issued_by": "Shell Trading International Ltd",
+        "lines": [
+          {
+            "amount": 8173748.46,
+            "description": "Fuel oil 3.5%",
+            "price": 455.1,
+            "quantity": 17960.335,
+            "unit": "mt"
+          }
+        ],
+        "number": "STI-INV-NC-LON-26-0202",
+        "pay_to": {
+          "account_id": "acct-cp-shell-usd-operating",
+          "bank": "Northgate Bank plc",
+          "bic": "ZIXWGBH6",
+          "iban": "GB06SABJ22278071166260",
+          "number": "71166260"
+        },
+        "subtotal": 8173748.46,
+        "total_due": 8173748.46,
+        "trade_id": "NC-LON-26-0202"
+      },
+      "filename": "NC-LON-26-0202-invoice.pdf",
+      "kind": "invoice",
+      "message": "invoice-theirs",
+      "path": "attachments/022-NC-LON-26-0202-invoice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "molly.pearce@shell.example",
+        "wasDerivedFrom": "<758a23ec34694d6a1109@shell.example>"
+      },
+      "sha256": "64da8d57d3962abe8436fe2ba2c90b5299d759703e85e3bcf425754639985ac6",
+      "size": 5938
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "net": 9720608.25,
+        "payable": 8173748.46,
+        "payer": "cp-shell",
+        "receivable": 17894356.71,
+        "value_date": "2026-10-26"
+      },
+      "filename": "netting-2026-10-26.pdf",
+      "kind": "netting-statement",
+      "message": "netting",
+      "path": "attachments/023-netting-2026-10-26.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example",
+        "wasDerivedFrom": "<f17430d6dc6e66a84e11@newco-london.example>"
+      },
+      "sha256": "6c45133b40a3e88a4b37f1cd4cafe901f3df6f27b71903fe78a1016769dafb3f",
+      "size": 3206
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "billed_to": "Shell Trading International Ltd",
+        "class_uris": {
+          "amount": "https://schema.org/MonetaryAmount"
+        },
+        "currency": "USD",
+        "deductions": [],
+        "due_date": "2026-11-06",
+        "issue_date": "2026-10-30",
+        "issued_by": "NewCo Trading London Limited",
+        "lines": [
+          {
+            "amount": 2700.17,
+            "description": "Interest on USD 9,720,608.25 at 2.5% a year for 4 days (actual/360)",
+            "price": 2700.17,
+            "quantity": 1,
+            "unit": ""
+          }
+        ],
+        "number": "NCL-INT-2026-10-26",
+        "pay_to": {
+          "account_id": "acct-newco-lon-usd-operating",
+          "bank": "Northgate Bank plc",
+          "bic": "ZIXWGBH6",
+          "iban": "GB75KHMP38669819276547",
+          "number": "19276547"
+        },
+        "subtotal": 2700.17,
+        "total_due": 2700.17,
+        "trade_id": "NC-LON-26-0201"
+      },
+      "filename": "late-interest-invoice.pdf",
+      "kind": "invoice",
+      "message": "late-interest",
+      "path": "attachments/024-late-interest-invoice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example",
+        "wasDerivedFrom": "<1c059d500c1e26b4d621@newco-london.example>"
+      },
+      "sha256": "5b8b6e0aaf179a64de049cd0f3cedff8261bb15b578d0f345db5a49e3a1667ae",
+      "size": 5723
+    },
+    {
+      "class_uri": "https://cdm.finos.org/model/cdm.event.common.MarginCallIssuance",
+      "facts": {
+        "call": 2312400,
+        "exposure": 9812400,
+        "min_transfer": 250000,
+        "threshold": 7500000
+      },
+      "filename": "margin-call-2026-10-30.pdf",
+      "kind": "margin-call",
+      "message": "margin-call",
+      "path": "attachments/025-margin-call-2026-10-30.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example",
+        "wasDerivedFrom": "<dd47094ab269280229eb@newco-london.example>"
+      },
+      "sha256": "c7de0923c4cc8a9e70728764219058f3fd7ee9664cf71af07fcdde151d1388e5",
+      "size": 2731
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 17,
+    "chats": 0,
+    "emails": 26
+  },
+  "deals": [],
+  "expected_contradictions": [],
+  "lifecycle": {
+    "agreement": {
+      "amendments": [
+        {
+          "clause": "late_interest",
+          "effective_from": "2026-10-01",
+          "message": "amendment-signed",
+          "param": "rate",
+          "signed": "2026-09-03",
+          "value": 2.5
+        }
+      ],
+      "effective": "2026-08-26",
+      "executed_message": "executed",
+      "final_terms": {
+        "governing_law": {
+          "law": "England and Wales",
+          "venue": "London"
+        },
+        "late_interest": {
+          "rate": 3
+        },
+        "min_transfer": {
+          "amount": 250000
+        },
+        "netting": {
+          "scope": "a single net amount across all transactions"
+        },
+        "payment": {
+          "currency": "USD",
+          "days": 20
+        },
+        "quantity_tolerance": {
+          "tolerance": 5
+        },
+        "term": {
+          "months": 12,
+          "notice": 45
+        },
+        "threshold": {
+          "amount": 7500000
+        }
+      },
+      "parties": [
+        "newco-lon",
+        "cp-shell"
+      ],
+      "title": "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd"
+    },
+    "approvals": [
+      {
+        "at": "2026-08-24T09:13:00+01:00",
+        "by": "nicholas.banks@newco-london.example",
+        "decision": "approved",
+        "message": "legal-approval",
+        "stage": "legal"
+      },
+      {
+        "at": "2026-08-24T10:00:00+01:00",
+        "by": "marian.gibbs@newco-london.example",
+        "decision": "approved",
+        "message": "credit-approval",
+        "stage": "credit"
+      },
+      {
+        "at": "2026-08-24T11:21:00+01:00",
+        "by": "graham.carr@newco-london.example",
+        "decision": "approved",
+        "message": "business-approval",
+        "stage": "business"
+      }
+    ],
+    "calculations": [
+      {
+        "as_of": "2026-10-07T09:15:00+01:00",
+        "id": "netting",
+        "inputs": {
+          "bl_date": "2026-10-05",
+          "due": "2026-10-26",
+          "payable": 8173748.46,
+          "receivable": 17894356.71
+        },
+        "result": {
+          "net": 9720608.25,
+          "payer": "cp-shell"
+        },
+        "terms": {
+          "netting.scope": "a single net amount across all transactions",
+          "payment.days": 20
+        }
+      },
+      {
+        "as_of": "2026-10-26",
+        "id": "late-interest",
+        "inputs": {
+          "amount": 9720608.25,
+          "basis": "actual/360",
+          "days_late": 4
+        },
+        "result": {
+          "interest": 2700.17
+        },
+        "terms": {
+          "late_interest.rate": 2.5
+        }
+      },
+      {
+        "as_of": "2026-11-02T09:24:00+00:00",
+        "id": "margin-call",
+        "inputs": {
+          "exposure": 9812400
+        },
+        "result": {
+          "call": 2312400
+        },
+        "terms": {
+          "min_transfer.amount": 250000,
+          "threshold.amount": 7500000
+        }
+      },
+      {
+        "as_of": "2026-11-03T09:11:00+00:00",
+        "id": "renewal-notice",
+        "inputs": {
+          "effective": "2026-08-26"
+        },
+        "result": {
+          "notice_deadline": "2027-07-11",
+          "term_end": "2027-08-25"
+        },
+        "terms": {
+          "term.months": 12,
+          "term.notice": 45
+        }
+      }
+    ],
+    "comments": [
+      {
+        "author": "Jodie O'Brien",
+        "clause": "netting",
+        "message": "shell-redline",
+        "replies_to": null,
+        "revision": 2,
+        "text": "Shell needs separate net amounts for each product group; a single net amount does not work for our product books."
+      },
+      {
+        "author": "Jodie O'Brien",
+        "clause": "governing_law",
+        "message": "shell-redline",
+        "replies_to": null,
+        "revision": 2,
+        "text": "English law and London courts agreed."
+      },
+      {
+        "author": "Nicholas Banks",
+        "clause": "netting",
+        "message": "newco-revised",
+        "replies_to": 0,
+        "revision": 3,
+        "text": "Single net amount kept, as agreed in your email of 2026-08-18."
+      }
+    ],
+    "duplicate_messages": [
+      [
+        "shell-agrees",
+        "shell-agrees-resent"
+      ]
+    ],
+    "events": [
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "payment",
+        "effective_from": null,
+        "message": "draft",
+        "param": "days",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 1,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": 30
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "payment",
+        "effective_from": null,
+        "message": "draft",
+        "param": "currency",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 2,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": "USD"
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "late_interest",
+        "effective_from": null,
+        "message": "draft",
+        "param": "rate",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 3,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": 4
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "quantity_tolerance",
+        "effective_from": null,
+        "message": "draft",
+        "param": "tolerance",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 4,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": 5
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "netting",
+        "effective_from": null,
+        "message": "draft",
+        "param": "scope",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 5,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": "a single net amount across all transactions"
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "threshold",
+        "effective_from": null,
+        "message": "draft",
+        "param": "amount",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 6,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": 5000000
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "min_transfer",
+        "effective_from": null,
+        "message": "draft",
+        "param": "amount",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 7,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": 250000
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "term",
+        "effective_from": null,
+        "message": "draft",
+        "param": "months",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 8,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": 12
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "term",
+        "effective_from": null,
+        "message": "draft",
+        "param": "notice",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 9,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": 60
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "governing_law",
+        "effective_from": null,
+        "message": "draft",
+        "param": "law",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 10,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": "England and Wales"
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "governing_law",
+        "effective_from": null,
+        "message": "draft",
+        "param": "venue",
+        "recorded_at": "2026-08-10T09:21:00+01:00",
+        "seq": 11,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0",
+        "source": "draft",
+        "status": "proposed",
+        "value": "London"
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "cp-shell",
+        "clause": "payment",
+        "effective_from": null,
+        "message": "shell-redline",
+        "param": "days",
+        "recorded_at": "2026-08-13T09:48:00+01:00",
+        "seq": 12,
+        "sha256": "4f969394f68018172e775387964092cf58678079b8a9960defef2f15565ce5ab",
+        "source": "redline",
+        "status": "countered",
+        "value": 20
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "cp-shell",
+        "clause": "threshold",
+        "effective_from": null,
+        "message": "shell-redline",
+        "param": "amount",
+        "recorded_at": "2026-08-13T09:48:00+01:00",
+        "seq": 13,
+        "sha256": "4f969394f68018172e775387964092cf58678079b8a9960defef2f15565ce5ab",
+        "source": "redline",
+        "status": "countered",
+        "value": 10000000
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "cp-shell",
+        "clause": "term",
+        "effective_from": null,
+        "message": "shell-redline",
+        "param": "notice",
+        "recorded_at": "2026-08-13T09:48:00+01:00",
+        "seq": 14,
+        "sha256": "4f969394f68018172e775387964092cf58678079b8a9960defef2f15565ce5ab",
+        "source": "redline",
+        "status": "countered",
+        "value": 30
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "cp-shell",
+        "clause": "netting",
+        "effective_from": null,
+        "message": "shell-redline",
+        "param": "scope",
+        "recorded_at": "2026-08-13T09:48:00+01:00",
+        "seq": 15,
+        "sha256": "4f969394f68018172e775387964092cf58678079b8a9960defef2f15565ce5ab",
+        "source": "comment",
+        "status": "countered",
+        "value": "separate net amounts for each product group"
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "cp-shell",
+        "clause": "governing_law",
+        "effective_from": null,
+        "message": "shell-redline",
+        "param": "law",
+        "recorded_at": "2026-08-13T09:48:00+01:00",
+        "seq": 16,
+        "sha256": "4f969394f68018172e775387964092cf58678079b8a9960defef2f15565ce5ab",
+        "source": "comment",
+        "status": "accepted",
+        "value": "England and Wales"
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "cp-shell",
+        "clause": "governing_law",
+        "effective_from": null,
+        "message": "shell-redline",
+        "param": "venue",
+        "recorded_at": "2026-08-13T09:48:00+01:00",
+        "seq": 17,
+        "sha256": "4f969394f68018172e775387964092cf58678079b8a9960defef2f15565ce5ab",
+        "source": "comment",
+        "status": "accepted",
+        "value": "London"
+      },
+      {
+        "attachment": null,
+        "by": "newco-lon",
+        "clause": "threshold",
+        "effective_from": null,
+        "message": "credit-instruction",
+        "param": "amount",
+        "recorded_at": "2026-08-14T09:05:00+01:00",
+        "seq": 18,
+        "sha256": null,
+        "source": "internal",
+        "status": "internal",
+        "value": 7500000
+      },
+      {
+        "attachment": null,
+        "by": "newco-lon",
+        "clause": "payment",
+        "effective_from": null,
+        "message": "credit-instruction",
+        "param": "days",
+        "recorded_at": "2026-08-14T09:05:00+01:00",
+        "seq": 19,
+        "sha256": null,
+        "source": "internal",
+        "status": "internal",
+        "value": 20
+      },
+      {
+        "attachment": null,
+        "by": "newco-lon",
+        "clause": "payment",
+        "effective_from": null,
+        "message": "newco-counter",
+        "param": "days",
+        "recorded_at": "2026-08-17T09:12:00+01:00",
+        "seq": 20,
+        "sha256": null,
+        "source": "email-body",
+        "status": "agreed",
+        "value": 20
+      },
+      {
+        "attachment": null,
+        "by": "newco-lon",
+        "clause": "threshold",
+        "effective_from": null,
+        "message": "newco-counter",
+        "param": "amount",
+        "recorded_at": "2026-08-17T09:12:00+01:00",
+        "seq": 21,
+        "sha256": null,
+        "source": "email-body",
+        "status": "countered",
+        "value": 7500000
+      },
+      {
+        "attachment": null,
+        "by": "newco-lon",
+        "clause": "netting",
+        "effective_from": null,
+        "message": "newco-counter",
+        "param": "scope",
+        "recorded_at": "2026-08-17T09:12:00+01:00",
+        "seq": 22,
+        "sha256": null,
+        "source": "email-body",
+        "status": "countered",
+        "value": "a single net amount across all transactions"
+      },
+      {
+        "attachment": null,
+        "by": "newco-lon",
+        "clause": "term",
+        "effective_from": null,
+        "message": "newco-counter",
+        "param": "notice",
+        "recorded_at": "2026-08-17T09:12:00+01:00",
+        "seq": 23,
+        "sha256": null,
+        "source": "email-body",
+        "status": "countered",
+        "value": 45
+      },
+      {
+        "attachment": null,
+        "by": "cp-shell",
+        "clause": "threshold",
+        "effective_from": null,
+        "message": "shell-agrees",
+        "param": "amount",
+        "recorded_at": "2026-08-18T09:16:00+01:00",
+        "seq": 24,
+        "sha256": null,
+        "source": "email-body",
+        "status": "agreed",
+        "value": 7500000
+      },
+      {
+        "attachment": null,
+        "by": "cp-shell",
+        "clause": "term",
+        "effective_from": null,
+        "message": "shell-agrees",
+        "param": "notice",
+        "recorded_at": "2026-08-18T09:16:00+01:00",
+        "seq": 25,
+        "sha256": null,
+        "source": "email-body",
+        "status": "agreed",
+        "value": 45
+      },
+      {
+        "attachment": null,
+        "by": "cp-shell",
+        "clause": "netting",
+        "effective_from": null,
+        "message": "shell-agrees",
+        "param": "scope",
+        "recorded_at": "2026-08-18T09:16:00+01:00",
+        "seq": 26,
+        "sha256": null,
+        "source": "email-body",
+        "status": "agreed",
+        "value": "a single net amount across all transactions"
+      },
+      {
+        "attachment": null,
+        "by": "cp-shell",
+        "clause": "late_interest",
+        "effective_from": null,
+        "message": "shell-agrees",
+        "param": "rate",
+        "recorded_at": "2026-08-18T09:16:00+01:00",
+        "seq": 27,
+        "sha256": null,
+        "source": "email-body",
+        "status": "proposed",
+        "value": 3
+      },
+      {
+        "attachment": null,
+        "by": "newco-lon",
+        "clause": "late_interest",
+        "effective_from": null,
+        "message": "business-ok",
+        "param": "rate",
+        "recorded_at": "2026-08-19T09:06:00+01:00",
+        "seq": 28,
+        "sha256": null,
+        "source": "internal",
+        "status": "internal",
+        "value": 3
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "threshold",
+        "effective_from": null,
+        "message": "newco-revised",
+        "param": "amount",
+        "recorded_at": "2026-08-20T09:09:00+01:00",
+        "seq": 29,
+        "sha256": "66f139be9b81bcb1107d087fee097764024567ba8dd5b2ef4d8b49411c93c96d",
+        "source": "redline",
+        "status": "agreed",
+        "value": 7500000
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "term",
+        "effective_from": null,
+        "message": "newco-revised",
+        "param": "notice",
+        "recorded_at": "2026-08-20T09:09:00+01:00",
+        "seq": 30,
+        "sha256": "66f139be9b81bcb1107d087fee097764024567ba8dd5b2ef4d8b49411c93c96d",
+        "source": "redline",
+        "status": "agreed",
+        "value": 45
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell.docx",
+        "by": "newco-lon",
+        "clause": "late_interest",
+        "effective_from": null,
+        "message": "newco-revised",
+        "param": "rate",
+        "recorded_at": "2026-08-20T09:09:00+01:00",
+        "seq": 31,
+        "sha256": "66f139be9b81bcb1107d087fee097764024567ba8dd5b2ef4d8b49411c93c96d",
+        "source": "redline",
+        "status": "agreed",
+        "value": 3
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "payment",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "days",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 32,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": 20
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "payment",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "currency",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 33,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": "USD"
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "late_interest",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "rate",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 34,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": 3
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "quantity_tolerance",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "tolerance",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 35,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": 5
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "netting",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "scope",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 36,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": "a single net amount across all transactions"
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "threshold",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "amount",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 37,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": 7500000
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "min_transfer",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "amount",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 38,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": 250000
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "term",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "months",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 39,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": 12
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "term",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "notice",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 40,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": 45
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "governing_law",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "law",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 41,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": "England and Wales"
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_executed.pdf",
+        "by": "newco-lon",
+        "clause": "governing_law",
+        "effective_from": "2026-08-26",
+        "message": "executed",
+        "param": "venue",
+        "recorded_at": "2026-08-26T09:24:00+01:00",
+        "seq": 42,
+        "sha256": "43ba8c1f4ac79e58666d613a7cf0513d84d93d84242a4115736188e0da816047",
+        "source": "executed",
+        "status": "executed",
+        "value": "London"
+      },
+      {
+        "attachment": null,
+        "by": "cp-shell",
+        "clause": "late_interest",
+        "effective_from": null,
+        "message": "amendment-request",
+        "param": "rate",
+        "recorded_at": "2026-09-03T10:37:00+01:00",
+        "seq": 43,
+        "sha256": null,
+        "source": "email-body",
+        "status": "proposed",
+        "value": 2.5
+      },
+      {
+        "attachment": "MPTA_NewCo_Shell_amendment_1.pdf",
+        "by": "newco-lon",
+        "clause": "late_interest",
+        "effective_from": "2026-10-01",
+        "message": "amendment-signed",
+        "param": "rate",
+        "recorded_at": "2026-09-03T10:51:00+01:00",
+        "seq": 44,
+        "sha256": "78596794a41e2794ff495fe7d95a31aeb8771267d6f9a09d0107418722793f85",
+        "source": "amendment",
+        "status": "amended",
+        "value": 2.5
+      }
+    ],
+    "forwards": [
+      {
+        "forward_of": "shell-redline",
+        "message": "fwd-credit"
+      },
+      {
+        "forward_of": "shell-agrees",
+        "message": "fwd-business"
+      }
+    ],
+    "quoted_history": [
+      {
+        "message": "credit-instruction",
+        "quotes": "fwd-credit"
+      },
+      {
+        "message": "newco-counter",
+        "quotes": "shell-redline"
+      },
+      {
+        "message": "shell-agrees",
+        "quotes": "newco-counter"
+      },
+      {
+        "message": "shell-agrees-resent",
+        "quotes": "newco-counter"
+      }
+    ],
+    "revisions": [
+      {
+        "filename": "MPTA_NewCo_Shell.docx",
+        "messages": [
+          "draft"
+        ],
+        "revision": 1,
+        "sha256": "bdb650e7446bfc3b2d819c09a214f350f8df3cf2b1ecb57716096efb8d21d5b0"
+      },
+      {
+        "filename": "MPTA_NewCo_Shell.docx",
+        "messages": [
+          "shell-redline",
+          "fwd-credit"
+        ],
+        "revision": 2,
+        "sha256": "4f969394f68018172e775387964092cf58678079b8a9960defef2f15565ce5ab"
+      },
+      {
+        "filename": "MPTA_NewCo_Shell.docx",
+        "messages": [
+          "newco-revised",
+          "shell-clean"
+        ],
+        "revision": 3,
+        "sha256": "66f139be9b81bcb1107d087fee097764024567ba8dd5b2ef4d8b49411c93c96d"
+      }
+    ]
+  },
+  "messages": [
+    {
+      "attachments": [
+        "MPTA_NewCo_Shell.docx"
+      ],
+      "cc": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/001-draft.eml",
+        "md": "messages/001-draft.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "draft",
+      "message_id": "<2d2c31d0574d41e781a5@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 1,
+      "subject": "NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "draft",
+        "legal",
+        "mpta"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-10T09:21:00+01:00",
+      "to": [
+        {
+          "address": "jodie.obrien@shell.example",
+          "name": "Jodie O'Brien",
+          "org": "cp-shell",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "MPTA_NewCo_Shell.docx"
+      ],
+      "cc": [
+        {
+          "address": "leigh.cook@shell.example",
+          "name": "Leigh Cook",
+          "org": "cp-shell",
+          "role": "credit_analyst"
+        }
+      ],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-shell-redline.eml",
+        "md": "messages/002-shell-redline.md"
+      },
+      "from": {
+        "address": "jodie.obrien@shell.example",
+        "name": "Jodie O'Brien",
+        "org": "cp-shell",
+        "role": "lawyer"
+      },
+      "in_reply_to": "draft",
+      "key": "shell-redline",
+      "message_id": "<e0774541ad39bbf6cd91@shell.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jodie.obrien@shell.example"
+      },
+      "seq": 2,
+      "subject": "Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "comments",
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-13T09:48:00+01:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "MPTA_NewCo_Shell.docx"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/003-fwd-credit.eml",
+        "md": "messages/003-fwd-credit.md"
+      },
+      "forward_of": "shell-redline",
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "fwd-credit",
+      "message_id": "<604790e2ec3541784caf@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 3,
+      "subject": "Fwd: Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "credit",
+        "forward",
+        "internal",
+        "legal"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-13T10:51:00+01:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/004-credit-instruction.eml",
+        "md": "messages/004-credit-instruction.md"
+      },
+      "from": {
+        "address": "marian.gibbs@newco-london.example",
+        "name": "Marian Gibbs",
+        "org": "newco-lon",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "fwd-credit",
+      "key": "credit-instruction",
+      "message_id": "<ce1cc0ef845488e22b8d@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example"
+      },
+      "seq": 4,
+      "subject": "Re: Fwd: Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "credit",
+        "internal"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-14T09:05:00+01:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/005-newco-counter.eml",
+        "md": "messages/005-newco-counter.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": "shell-redline",
+      "key": "newco-counter",
+      "message_id": "<90b10a963f7e56abf45b@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 5,
+      "subject": "Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "email-terms",
+        "legal",
+        "mpta"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-17T09:12:00+01:00",
+      "to": [
+        {
+          "address": "jodie.obrien@shell.example",
+          "name": "Jodie O'Brien",
+          "org": "cp-shell",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [
+        {
+          "address": "leigh.cook@shell.example",
+          "name": "Leigh Cook",
+          "org": "cp-shell",
+          "role": "credit_analyst"
+        }
+      ],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/006-shell-agrees.eml",
+        "md": "messages/006-shell-agrees.md"
+      },
+      "from": {
+        "address": "jodie.obrien@shell.example",
+        "name": "Jodie O'Brien",
+        "org": "cp-shell",
+        "role": "lawyer"
+      },
+      "in_reply_to": "newco-counter",
+      "key": "shell-agrees",
+      "message_id": "<8382a1ae3e0d5c0ca409@shell.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jodie.obrien@shell.example"
+      },
+      "seq": 6,
+      "subject": "Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "email-terms",
+        "legal",
+        "mpta"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-18T09:16:00+01:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        },
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [
+        {
+          "address": "leigh.cook@shell.example",
+          "name": "Leigh Cook",
+          "org": "cp-shell",
+          "role": "credit_analyst"
+        }
+      ],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/007-shell-agrees-resent.eml",
+        "md": "messages/007-shell-agrees-resent.md"
+      },
+      "from": {
+        "address": "jodie.obrien@shell.example",
+        "name": "Jodie O'Brien",
+        "org": "cp-shell",
+        "role": "lawyer"
+      },
+      "in_reply_to": "newco-counter",
+      "key": "shell-agrees-resent",
+      "message_id": "<2d70dd6d8512ef167fb5@shell.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jodie.obrien@shell.example"
+      },
+      "seq": 7,
+      "subject": "Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "duplicate",
+        "legal",
+        "mpta"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-18T09:29:00+01:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        },
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/008-fwd-business.eml",
+        "md": "messages/008-fwd-business.md"
+      },
+      "forward_of": "shell-agrees",
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "fwd-business",
+      "message_id": "<e3d11e6cbee76b6b80db@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 8,
+      "subject": "Fwd: Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "business",
+        "forward",
+        "internal",
+        "legal"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-18T10:36:00+01:00",
+      "to": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/009-business-ok.eml",
+        "md": "messages/009-business-ok.md"
+      },
+      "from": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "in_reply_to": "fwd-business",
+      "key": "business-ok",
+      "message_id": "<7de39d6d368cc82aa76a@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "graham.carr@newco-london.example"
+      },
+      "seq": 9,
+      "subject": "Re: Fwd: Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "business",
+        "internal"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-19T09:06:00+01:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "MPTA_NewCo_Shell.docx"
+      ],
+      "cc": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/010-newco-revised.eml",
+        "md": "messages/010-newco-revised.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": "shell-agrees",
+      "key": "newco-revised",
+      "message_id": "<52d65c9270e2ff814a4a@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 10,
+      "subject": "Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "comments",
+        "legal",
+        "mpta",
+        "redline"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-20T09:09:00+01:00",
+      "to": [
+        {
+          "address": "jodie.obrien@shell.example",
+          "name": "Jodie O'Brien",
+          "org": "cp-shell",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "MPTA_NewCo_Shell.docx"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/011-shell-clean.eml",
+        "md": "messages/011-shell-clean.md"
+      },
+      "from": {
+        "address": "jodie.obrien@shell.example",
+        "name": "Jodie O'Brien",
+        "org": "cp-shell",
+        "role": "lawyer"
+      },
+      "in_reply_to": "newco-revised",
+      "key": "shell-clean",
+      "message_id": "<7ff90908df49a15cebe7@shell.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jodie.obrien@shell.example"
+      },
+      "seq": 11,
+      "subject": "Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "legal",
+        "mpta"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-21T09:03:00+01:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-legal-review.pdf"
+      ],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/012-legal-approval.eml",
+        "md": "messages/012-legal-approval.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "legal-approval",
+      "message_id": "<97a2f9d01add0d0b3df6@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 12,
+      "subject": "Approval: NewCo / Shell MPTA",
+      "tags": [
+        "approval",
+        "internal",
+        "legal"
+      ],
+      "thread": "legal-approval",
+      "timestamp": "2026-08-24T09:13:00+01:00",
+      "to": [
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        },
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "mpta-credit-approval.pdf"
+      ],
+      "cc": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        }
+      ],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/013-credit-approval.eml",
+        "md": "messages/013-credit-approval.md"
+      },
+      "from": {
+        "address": "marian.gibbs@newco-london.example",
+        "name": "Marian Gibbs",
+        "org": "newco-lon",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": "legal-approval",
+      "key": "credit-approval",
+      "message_id": "<5c05e7daab1204ac1546@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example"
+      },
+      "seq": 13,
+      "subject": "Re: Approval: NewCo / Shell MPTA",
+      "tags": [
+        "approval",
+        "credit",
+        "internal"
+      ],
+      "thread": "legal-approval",
+      "timestamp": "2026-08-24T10:00:00+01:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/014-business-approval.eml",
+        "md": "messages/014-business-approval.md"
+      },
+      "from": {
+        "address": "graham.carr@newco-london.example",
+        "name": "Graham Carr",
+        "org": "newco-lon",
+        "role": "trader"
+      },
+      "in_reply_to": "legal-approval",
+      "key": "business-approval",
+      "message_id": "<080cb5c0bcb823b01b5b@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "graham.carr@newco-london.example"
+      },
+      "seq": 14,
+      "subject": "Re: Approval: NewCo / Shell MPTA",
+      "tags": [
+        "approval",
+        "business",
+        "internal"
+      ],
+      "thread": "legal-approval",
+      "timestamp": "2026-08-24T11:21:00+01:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "MPTA_NewCo_Shell_signed_NewCo.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/015-execution-newco.eml",
+        "md": "messages/015-execution-newco.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": "shell-clean",
+      "key": "execution-newco",
+      "message_id": "<cbbee836774b23d7858c@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 15,
+      "subject": "Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "execution",
+        "legal"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-25T09:25:00+01:00",
+      "to": [
+        {
+          "address": "jodie.obrien@shell.example",
+          "name": "Jodie O'Brien",
+          "org": "cp-shell",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "MPTA_NewCo_Shell_executed.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/016-executed.eml",
+        "md": "messages/016-executed.md"
+      },
+      "from": {
+        "address": "jodie.obrien@shell.example",
+        "name": "Jodie O'Brien",
+        "org": "cp-shell",
+        "role": "lawyer"
+      },
+      "in_reply_to": "execution-newco",
+      "key": "executed",
+      "message_id": "<c8d7b6c66906c2e5766f@shell.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jodie.obrien@shell.example"
+      },
+      "seq": 16,
+      "subject": "Re: NewCo / Shell: master physical trading agreement",
+      "tags": [
+        "execution",
+        "legal",
+        "scan"
+      ],
+      "thread": "draft",
+      "timestamp": "2026-08-26T09:24:00+01:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        }
+      ],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/017-systems-notice.eml",
+        "md": "messages/017-systems-notice.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "systems-notice",
+      "message_id": "<d20a1c3a682624e6d223@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 17,
+      "subject": "Executed: NewCo / Shell MPTA",
+      "tags": [
+        "execution",
+        "internal",
+        "legal"
+      ],
+      "thread": "systems-notice",
+      "timestamp": "2026-08-26T09:58:00+01:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        },
+        {
+          "address": "paige.ball@newco-london.example",
+          "name": "Paige Ball",
+          "org": "newco-lon",
+          "role": "settlements"
+        },
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/018-amendment-request.eml",
+        "md": "messages/018-amendment-request.md"
+      },
+      "from": {
+        "address": "jodie.obrien@shell.example",
+        "name": "Jodie O'Brien",
+        "org": "cp-shell",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "amendment-request",
+      "message_id": "<539a74bea858fee08b4b@shell.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jodie.obrien@shell.example"
+      },
+      "seq": 18,
+      "subject": "NewCo / Shell MPTA: late payment interest",
+      "tags": [
+        "amendment",
+        "email-terms",
+        "legal"
+      ],
+      "thread": "amendment-request",
+      "timestamp": "2026-09-03T10:37:00+01:00",
+      "to": [
+        {
+          "address": "nicholas.banks@newco-london.example",
+          "name": "Nicholas Banks",
+          "org": "newco-lon",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "MPTA_NewCo_Shell_amendment_1.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://spec.edmcouncil.org/fibo/ontology/FND/Agreements/Contracts/Contract",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/019-amendment-signed.eml",
+        "md": "messages/019-amendment-signed.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": "amendment-request",
+      "key": "amendment-signed",
+      "message_id": "<8a679b69611af256198a@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 19,
+      "subject": "Re: NewCo / Shell MPTA: late payment interest",
+      "tags": [
+        "amendment",
+        "legal"
+      ],
+      "thread": "amendment-request",
+      "timestamp": "2026-09-03T10:51:00+01:00",
+      "to": [
+        {
+          "address": "jodie.obrien@shell.example",
+          "name": "Jodie O'Brien",
+          "org": "cp-shell",
+          "role": "lawyer"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0201-confirmation.pdf",
+        "NC-LON-26-0202-confirmation.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/020-confirmations.eml",
+        "md": "messages/020-confirmations.md"
+      },
+      "from": {
+        "address": "tom.scott@newco-london.example",
+        "name": "Tom Scott",
+        "org": "newco-lon",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirmations",
+      "message_id": "<4928795f4c2e21e1c94d@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "tom.scott@newco-london.example"
+      },
+      "seq": 20,
+      "subject": "Confirmations NC-LON-26-0201 and -0202",
+      "tags": [
+        "confirmation",
+        "trade"
+      ],
+      "thread": "confirmations",
+      "timestamp": "2026-10-05T10:34:00+01:00",
+      "to": [
+        {
+          "address": "janet.law@shell.example",
+          "name": "Janet Law",
+          "org": "cp-shell",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0201-invoice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/021-invoice-ours.eml",
+        "md": "messages/021-invoice-ours.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "invoice-ours",
+      "message_id": "<77efe1b584b659b9ca3e@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 21,
+      "subject": "Invoice NCL-INV-NC-LON-26-0201",
+      "tags": [
+        "invoice"
+      ],
+      "thread": "invoice-ours",
+      "timestamp": "2026-10-06T09:14:00+01:00",
+      "to": [
+        {
+          "address": "molly.pearce@shell.example",
+          "name": "Molly Pearce",
+          "org": "cp-shell",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-LON-26-0202-invoice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/022-invoice-theirs.eml",
+        "md": "messages/022-invoice-theirs.md"
+      },
+      "from": {
+        "address": "molly.pearce@shell.example",
+        "name": "Molly Pearce",
+        "org": "cp-shell",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "invoice-theirs",
+      "message_id": "<758a23ec34694d6a1109@shell.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "molly.pearce@shell.example"
+      },
+      "seq": 22,
+      "subject": "Invoice STI-INV-NC-LON-26-0202",
+      "tags": [
+        "invoice"
+      ],
+      "thread": "invoice-theirs",
+      "timestamp": "2026-10-06T09:53:00+01:00",
+      "to": [
+        {
+          "address": "paige.ball@newco-london.example",
+          "name": "Paige Ball",
+          "org": "newco-lon",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "netting-2026-10-26.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/023-netting.eml",
+        "md": "messages/023-netting.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": "invoice-theirs",
+      "key": "netting",
+      "message_id": "<f17430d6dc6e66a84e11@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 23,
+      "subject": "Re: Invoice STI-INV-NC-LON-26-0202",
+      "tags": [
+        "netting"
+      ],
+      "thread": "invoice-theirs",
+      "timestamp": "2026-10-07T09:15:00+01:00",
+      "to": [
+        {
+          "address": "molly.pearce@shell.example",
+          "name": "Molly Pearce",
+          "org": "cp-shell",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "late-interest-invoice.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/024-late-interest.eml",
+        "md": "messages/024-late-interest.md"
+      },
+      "from": {
+        "address": "paige.ball@newco-london.example",
+        "name": "Paige Ball",
+        "org": "newco-lon",
+        "role": "settlements"
+      },
+      "in_reply_to": "netting",
+      "key": "late-interest",
+      "message_id": "<1c059d500c1e26b4d621@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "paige.ball@newco-london.example"
+      },
+      "seq": 24,
+      "subject": "Re: Invoice STI-INV-NC-LON-26-0202",
+      "tags": [
+        "invoice",
+        "late-interest"
+      ],
+      "thread": "invoice-theirs",
+      "timestamp": "2026-10-30T09:54:00+00:00",
+      "to": [
+        {
+          "address": "molly.pearce@shell.example",
+          "name": "Molly Pearce",
+          "org": "cp-shell",
+          "role": "settlements"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "margin-call-2026-10-30.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://cdm.finos.org/model/cdm.event.common.MarginCallIssuance",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/025-margin-call.eml",
+        "md": "messages/025-margin-call.md"
+      },
+      "from": {
+        "address": "marian.gibbs@newco-london.example",
+        "name": "Marian Gibbs",
+        "org": "newco-lon",
+        "role": "credit_analyst"
+      },
+      "in_reply_to": null,
+      "key": "margin-call",
+      "message_id": "<dd47094ab269280229eb@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "marian.gibbs@newco-london.example"
+      },
+      "seq": 25,
+      "subject": "Margin call: NewCo / Shell",
+      "tags": [
+        "credit",
+        "margin-call"
+      ],
+      "thread": "margin-call",
+      "timestamp": "2026-11-02T09:24:00+00:00",
+      "to": [
+        {
+          "address": "leigh.cook@shell.example",
+          "name": "Leigh Cook",
+          "org": "cp-shell",
+          "role": "credit_analyst"
+        }
+      ]
+    },
+    {
+      "attachments": [],
+      "cc": [],
+      "class_uri": "http://www.w3.org/ns/prov#Entity",
+      "direction": "internal",
+      "facts": {},
+      "files": {
+        "eml": "messages/026-renewal-diary.eml",
+        "md": "messages/026-renewal-diary.md"
+      },
+      "from": {
+        "address": "nicholas.banks@newco-london.example",
+        "name": "Nicholas Banks",
+        "org": "newco-lon",
+        "role": "lawyer"
+      },
+      "in_reply_to": null,
+      "key": "renewal-diary",
+      "message_id": "<1dcb206034d95eae76c7@newco-london.example>",
+      "phase": "lifecycle",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "nicholas.banks@newco-london.example"
+      },
+      "seq": 26,
+      "subject": "Diary: Shell MPTA renewal",
+      "tags": [
+        "internal",
+        "legal",
+        "renewal"
+      ],
+      "thread": "renewal-diary",
+      "timestamp": "2026-11-03T09:11:00+00:00",
+      "to": [
+        {
+          "address": "graham.carr@newco-london.example",
+          "name": "Graham Carr",
+          "org": "newco-lon",
+          "role": "trader"
+        },
+        {
+          "address": "marian.gibbs@newco-london.example",
+          "name": "Marian Gibbs",
+          "org": "newco-lon",
+          "role": "credit_analyst"
+        }
+      ]
+    }
+  ],
+  "outcome": {},
+  "ownership_edges": [],
+  "phase": "lifecycle",
+  "positions": [],
+  "questions": [
+    {
+      "expected": 20,
+      "id": "l1-london-shell-mpta-q1",
+      "question": "As of NewCo legal's forward to credit, what payment term (days) was on the table for the Shell MPTA?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 7500000,
+      "id": "l1-london-shell-mpta-q2",
+      "question": "What threshold did NewCo's credit team say it could accept for the Shell MPTA?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": "<8382a1ae3e0d5c0ca409@shell.example>",
+      "id": "l1-london-shell-mpta-q3",
+      "question": "Which message first agreed the USD 7,500,000 threshold with Shell?",
+      "tolerance_pct": 0,
+      "type": "graph_traversal"
+    },
+    {
+      "expected": 3,
+      "id": "l1-london-shell-mpta-q4",
+      "question": "What late payment interest rate did the executed Shell MPTA set?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 3,
+      "id": "l1-london-shell-mpta-q5",
+      "question": "What late payment interest rate applied on the day Amendment No. 1 was signed?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 2.5,
+      "id": "l1-london-shell-mpta-q6",
+      "question": "What late payment interest rate applied to the net payment due 2026-10-26?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 3,
+      "id": "l1-london-shell-mpta-q7",
+      "question": "How many different revisions of MPTA_NewCo_Shell.docx are in the mailbox?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": 2,
+      "id": "l1-london-shell-mpta-q8",
+      "question": "How many messages carry revision 3 of MPTA_NewCo_Shell.docx?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": "separate net amounts for each product group",
+      "id": "l1-london-shell-mpta-q9",
+      "question": "What did Shell's comment on the netting clause ask for?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": [
+        9720608.25,
+        "Shell Trading International Ltd"
+      ],
+      "id": "l1-london-shell-mpta-q10",
+      "question": "What net amount is payable on 2026-10-26 under the Shell MPTA, and by whom?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 2700.17,
+      "id": "l1-london-shell-mpta-q11",
+      "question": "What late payment interest is due on the late net payment?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 2312400,
+      "id": "l1-london-shell-mpta-q12",
+      "question": "What amount does the margin call to Shell request?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": "2027-07-11",
+      "id": "l1-london-shell-mpta-q13",
+      "question": "By what date must notice of non-renewal of the Shell MPTA be given?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": [
+        "<2d70dd6d8512ef167fb5@shell.example>"
+      ],
+      "id": "l1-london-shell-mpta-q14",
+      "question": "Which email in the Shell negotiation is a duplicate of another?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": [
+        "legal",
+        "credit",
+        "business"
+      ],
+      "id": "l1-london-shell-mpta-q15",
+      "question": "Which approvals were given before the Shell MPTA was executed?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    }
+  ],
+  "review_events": [],
+  "scenario": "l1-london-shell-mpta",
+  "title": "London and Shell: negotiate, approve, execute and amend an MPTA, then trade, net, call margin and diary the renewal"
+}

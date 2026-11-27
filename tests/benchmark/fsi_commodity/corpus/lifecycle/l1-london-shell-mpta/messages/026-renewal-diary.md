@@ -1,0 +1,16 @@
+# Diary: Shell MPTA renewal
+
+- **Message-ID:** <1dcb206034d95eae76c7@newco-london.example>
+- **Date:** Tue, 03 Nov 2026 09:11:00 +0000
+- **From:** Nicholas Banks <nicholas.banks@newco-london.example>
+- **To:** Graham Carr <graham.carr@newco-london.example>, Marian Gibbs <marian.gibbs@newco-london.example>
+
+## Body
+
+Hi Graham,
+
+Diary note: the Shell MPTA's first term ends 2027-08-25. Notice of non-renewal must be given by 2027-07-11 (45 days).
+
+Regards,
+Nicholas Banks
+NewCo Trading London Limited

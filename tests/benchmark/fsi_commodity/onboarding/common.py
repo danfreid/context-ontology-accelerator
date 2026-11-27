@@ -69,12 +69,19 @@ class Desk:
         facts: Mapping[str, Any] | None = None,
         doc: str | None = None,
         cc: Sequence[str] = (),
+        fwd: str | None = None,
+        quote: str = "",
     ) -> dict[str, Any]:
-        """Send one email. ``text`` is the body between the greeting and the sign-off."""
+        """Send one email. ``text`` is the body between the greeting and the sign-off.
+
+        ``fwd`` makes it a forward of that message key. ``quote`` is appended after the sign-off (quoted history).
+        """
         tos = [to] if isinstance(to, str) else list(to)
         first = self.person(tos[0])["name"].split()[0]
         sender = self.person(frm)
         body = f"Hi {first},\n\n{text.strip()}\n\nRegards,\n{sender['name']}\n{self.org(frm.split(':')[0])['name']}\n"
+        if quote:
+            body += "\n" + quote
         return self.sc.send(
             key,
             self.addr(frm),
@@ -88,6 +95,7 @@ class Desk:
             facts=facts,
             cc=[self.addr(c) for c in cc],
             after_business_days=days,
+            forward_of=fwd,
         )
 
     def contradiction(

@@ -1,0 +1,18 @@
+# Re: Approval: NewCo / Shell MPTA
+
+- **Message-ID:** <080cb5c0bcb823b01b5b@newco-london.example>
+- **Date:** Mon, 24 Aug 2026 11:21:00 +0100
+- **From:** Graham Carr <graham.carr@newco-london.example>
+- **To:** Nicholas Banks <nicholas.banks@newco-london.example>
+- **In-Reply-To:** <97a2f9d01add0d0b3df6@newco-london.example>
+- **References:** <97a2f9d01add0d0b3df6@newco-london.example>
+
+## Body
+
+Hi Nicholas,
+
+Business approves. Go ahead and sign.
+
+Regards,
+Graham Carr
+NewCo Trading London Limited

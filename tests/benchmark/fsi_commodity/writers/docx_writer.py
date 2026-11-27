@@ -30,11 +30,21 @@ class Run:
 
 
 @dataclass(frozen=True)
+class Comment:
+    """A reviewer comment (``word/comments.xml``) anchored to a whole paragraph."""
+
+    author: str
+    when: datetime
+    text: str
+
+
+@dataclass(frozen=True)
 class Para:
-    """A paragraph made of runs; ``heading`` renders it bold and larger."""
+    """A paragraph made of runs; ``heading`` renders it bold and larger; ``comments`` anchor to it in order."""
 
     runs: tuple[Run, ...]
     heading: bool = False
+    comments: tuple[Comment, ...] = ()
 
 
 def plain(text: str, heading: bool = False) -> Para:
@@ -74,12 +84,21 @@ def build_docx(title: str, paragraphs: list[Para], *, author: str, created: date
         raise ValueError("created must be timezone-aware")
     rid = 0
     body: list[str] = []
+    comments: list[tuple[int, Comment]] = []
     for para in paragraphs:
         runs = []
         for run in para.runs:
             rid += 1
             runs.append(_run_xml(run, rid, para.heading))
-        body.append(f"<w:p>{''.join(runs)}</w:p>")
+        ids = []
+        for c in para.comments:
+            if c.when.tzinfo is None:
+                raise ValueError("comment dates must be timezone-aware")
+            ids.append(len(comments))
+            comments.append((len(comments), c))
+        starts = "".join(f'<w:commentRangeStart w:id="{i}"/>' for i in ids)
+        ends = "".join(f'<w:commentRangeEnd w:id="{i}"/><w:r><w:commentReference w:id="{i}"/></w:r>' for i in ids)
+        body.append(f"<w:p>{starts}{''.join(runs)}{ends}</w:p>")
     document = (
         '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
         f'<w:document xmlns:w="{_W}"><w:body>{"".join(body)}'
@@ -127,6 +146,36 @@ def build_docx(title: str, paragraphs: list[Para], *, author: str, created: date
         ("word/document.xml", document),
         ("docProps/core.xml", core),
     ]
+    if comments:  # only documents with comments get the extra parts, so other bytes are unchanged
+        parts[0] = (
+            parts[0][0],
+            parts[0][1].replace(
+                "</Types>",
+                '<Override PartName="/word/comments.xml" '
+                'ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.comments+xml"/></Types>',
+            ),
+        )
+        parts[2] = (
+            parts[2][0],
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+            '<Relationship Id="rId1" '
+            'Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/comments" '
+            'Target="comments.xml"/></Relationships>',
+        )
+        items = "".join(
+            f'<w:comment w:id="{i}" w:author={quoteattr(c.author)} w:date="{_stamp(c.when)}" '
+            f"w:initials={quoteattr(''.join(w[0] for w in c.author.split()))}>"
+            f'<w:p><w:r><w:t xml:space="preserve">{escape(c.text)}</w:t></w:r></w:p></w:comment>'
+            for i, c in comments
+        )
+        parts.append(
+            (
+                "word/comments.xml",
+                '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+                f'<w:comments xmlns:w="{_W}">{items}</w:comments>',
+            )
+        )
     buf = BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_STORED) as zf:
         for name, xml in parts:
