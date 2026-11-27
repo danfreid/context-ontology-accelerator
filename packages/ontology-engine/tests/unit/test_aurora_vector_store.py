@@ -9,10 +9,13 @@ these tests assert only that the store delegates correctly. No AWS access.
 
 from __future__ import annotations
 
+import logging
 from unittest.mock import MagicMock
 
 import pytest
 from coa_common.aurora_search import AuroraDataApiClient, AuroraResponseTooLargeError, SearchDoc, SearchHit
+from coa_common.aurora_search.index import _fit_vector
+from coa_ontology.stores import aurora_vector as aurora_vector_module
 from coa_ontology.stores import factory
 from coa_ontology.stores.aurora_vector import AuroraVectorStore
 from coa_ontology.stores.base import EmbeddingHit
@@ -64,6 +67,7 @@ class TestWrites:
         assert doc.metadata["query_backend"] == "RDF_SPARQL"
         assert doc.metadata["context_text"] == "ctx"
         assert doc.label is None
+        assert doc.aliases is None
         assert out["embedding"] == doc.embedding
         assert out["context_text"] == "ctx"
 
@@ -73,6 +77,33 @@ class TestWrites:
         doc = index.upsert_docs.call_args.args[1][0]
         assert doc.label == "Alpha Corp"
         assert list(doc.aliases) == ["Alpha", "AC"]
+
+    def test_label_and_aliases_are_passed_as_given(self):
+        store, index, _ = _store()
+        store.store_embedding(_item(label="", aliases=[]))
+        doc = index.upsert_docs.call_args.args[1][0]
+        assert doc.label == ""
+        assert doc.aliases == ()
+
+    def test_short_vectors_are_zero_padded_and_warn_once(self, monkeypatch, caplog):
+        monkeypatch.setattr(aurora_vector_module, "_pad_warned", False)
+        store, index, _ = _store()
+        with caplog.at_level(logging.WARNING, logger=aurora_vector_module.log.name):
+            store.store_embedding(_item())
+            store.store_embedding(_item(entity_uri="http://x/B"))
+        for call in index.upsert_docs.call_args_list:
+            emb = call.args[1][0].embedding
+            assert len(emb) == store.dimensions
+            assert emb[2:] == [0.0] * (store.dimensions - 2)
+        padding = [r for r in caplog.records if "zero-padding" in r.getMessage()]
+        assert len(padding) == 1
+
+    def test_over_length_vectors_are_not_truncated_and_the_index_rejects_them(self):
+        store, _, _ = _store()
+        doc = store._doc_from(_item(vector=[0.1] * (store.dimensions + 1)), "ns1")
+        assert len(doc.embedding) == store.dimensions + 1
+        with pytest.raises(ValueError, match="dimensions"):
+            _fit_vector(doc.embedding, store.dimensions)
 
     def test_batch_groups_by_namespace(self):
         store, index, _ = _store()
@@ -106,6 +137,7 @@ class TestReads:
         )
         docs = store.get_embeddings_for_entity("http://x/A", entity_type="class", embedding_type="lexical")
         sql, params = client.iter_pages.call_args.args
+        assert client.iter_pages.call_args.kwargs["key_columns"] == ("doc_id",)
         assert "metadata @> CAST(:m AS jsonb)" in sql
         assert params["ns"] == SCOPE
         assert params["m"] == {"entity_uri": "http://x/A", "entity_type": "class", "embedding_type": "lexical"}
@@ -143,7 +175,10 @@ class TestReads:
         store, _, client = _store()
         client.iter_pages.return_value = iter([[{"entity_uri": "u1"}, {"entity_uri": None}], [{"entity_uri": "u2"}]])
         assert store.list_searchable_entity_uris("onto1") == ["u1", "u2"]
-        assert "ORDER BY entity_uri" in client.iter_pages.call_args.args[0]
+        sql = client.iter_pages.call_args.args[0]
+        assert "ORDER BY entity_uri" in sql
+        assert "metadata ->> 'entity_uri' IS NOT NULL" in sql
+        assert client.iter_pages.call_args.kwargs["key_columns"] == ("entity_uri",)
 
     def test_lists_page_through_responses_over_the_data_api_limit(self):
         """A real client pages a list whose first request overflows the 1 MiB response limit."""
@@ -154,11 +189,12 @@ class TestReads:
                 self.sizes = []
 
             def execute(self, sql, params=None):
-                limit, offset = params["_page_limit"], params["_page_offset"]
+                limit = params["_page_limit"]
                 self.sizes.append(limit)
                 if limit > 3:
                     raise AuroraResponseTooLargeError("too large")
-                return rows[offset : offset + limit]
+                after = params.get("_k0", "")
+                return [r for r in rows if r["entity_uri"] > after][:limit]
 
         store, _, _ = _store()
         client = OverflowingClient()
@@ -230,6 +266,7 @@ class TestDeletes:
         assert store.delete_embeddings_for_entities(["u1", "u1", "", "u2"], "onto1") == 2
         index.delete_docs.assert_called_once_with(SCOPE, filter_metadata={"ontology_id": "onto1"}, doc_ids=["d1", "d2"])
         sql, params = client.iter_pages.call_args.args
+        assert client.iter_pages.call_args.kwargs["key_columns"] == ("doc_id",)
         assert params["uris"] == ["u1", "u2"]
         assert params["m"] == {"ontology_id": "onto1"}
 

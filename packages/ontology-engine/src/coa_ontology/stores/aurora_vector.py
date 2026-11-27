@@ -15,7 +15,8 @@ selected with ``WORKBENCH_BACKEND=aurora_pgvector``. It mirrors
   - ``search_nearest`` returns raw cosine similarity in ``[-1, 1]``, as the
     :class:`VectorStore` protocol documents.
 
-Reads never create the HNSW index; writes do (``ensure_vector_index``).
+Reads never create the HNSW index. The schema migrator applies ``aurora-init.sql`` and owns
+the HNSW index; writes only call ``ensure_vector_index`` to check that it exists.
 """
 
 from __future__ import annotations
@@ -32,6 +33,8 @@ from coa_ontology.stores.base import EmbeddingHit, VectorStore
 from coa_ontology.stores.opensearch_vector import DEFAULT_NAMESPACE, OSS_DIMENSIONS, _index_for_namespace
 
 log = logging.getLogger(__name__)
+
+_pad_warned = False
 
 DOC_KIND = "ontology"
 _LIST_CAP = 10_000
@@ -107,11 +110,24 @@ class AuroraVectorStore(VectorStore):
 
     # Writes -----------------------------------------------------------
 
+    def _padded(self, vector: Any) -> list[float]:
+        """Zero-pad a short vector to ``self.dimensions`` (the VectorStore contract); warn once per process."""
+        global _pad_warned
+        vec = list(vector)
+        if len(vec) < self.dimensions:
+            if not _pad_warned:
+                _pad_warned = True
+                log.warning(
+                    "zero-padding vectors shorter than the index dimension (%d < %d); further padding is not logged",
+                    len(vec),
+                    self.dimensions,
+                )
+            vec = vec + [0.0] * (self.dimensions - len(vec))
+        return vec
+
     def _doc_from(self, item: dict, ns: str | None) -> SearchDoc:
         """Shape a store item into a :class:`SearchDoc`."""
-        vec = list(item["vector"])
-        if len(vec) < self.dimensions:
-            vec = vec + [0.0] * (self.dimensions - len(vec))
+        vec = self._padded(item["vector"])
         metadata: dict[str, Any] = {"namespace": ns or DEFAULT_NAMESPACE}
         if item.get("entity_type"):
             metadata["entity_type"] = item["entity_type"]
@@ -128,7 +144,7 @@ class AuroraVectorStore(VectorStore):
             embedding=vec,
             metadata=metadata,
             label=item.get("label"),
-            aliases=tuple(item.get("aliases") or ()),
+            aliases=tuple(item["aliases"] or ()) if "aliases" in item else None,
         )
 
     def store_embedding(self, data: dict) -> dict:
@@ -154,9 +170,7 @@ class AuroraVectorStore(VectorStore):
 
     def _echo(self, item: dict, ns: str | None) -> dict:
         """Return the stored document in the shape the AOSS store returns."""
-        vec = list(item["vector"])
-        if len(vec) < self.dimensions:
-            vec = vec + [0.0] * (self.dimensions - len(vec))
+        vec = self._padded(item["vector"])
         doc = {
             "entity_uri": item["entity_uri"],
             "ontology_id": item.get("ontology_id"),
@@ -193,6 +207,7 @@ class AuroraVectorStore(VectorStore):
             "ORDER BY doc_id",
             {"ns": scope, "kind": DOC_KIND, "m": containment},
             page_size=_VECTOR_PAGE_SIZE if with_vector else _PAGE_SIZE,
+            key_columns=("doc_id",),
         )
         out: list[dict] = []
         for page in pages:
@@ -250,9 +265,10 @@ class AuroraVectorStore(VectorStore):
         pages = self._client.iter_pages(
             "SELECT DISTINCT metadata ->> 'entity_uri' AS entity_uri FROM search_doc "
             "WHERE namespace = :ns AND doc_kind = :kind AND metadata @> CAST(:m AS jsonb) "
-            "ORDER BY entity_uri",
+            "AND metadata ->> 'entity_uri' IS NOT NULL ORDER BY entity_uri",
             {"ns": self._scope(namespace), "kind": DOC_KIND, "m": {"ontology_id": ontology_id}},
             page_size=_URI_PAGE_SIZE,
+            key_columns=("entity_uri",),
         )
         return [r["entity_uri"] for page in pages for r in page if r.get("entity_uri")]
 
@@ -322,6 +338,7 @@ class AuroraVectorStore(VectorStore):
                     "ORDER BY doc_id",
                     {"ns": scope, "kind": DOC_KIND, "m": {"ontology_id": ontology_id}, "uris": chunk},
                     page_size=_URI_PAGE_SIZE,
+                    key_columns=("doc_id",),
                 )
                 for r in page
             ]

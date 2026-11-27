@@ -89,6 +89,13 @@ class TestVectorBackendSelection:
         monkeypatch.delenv("OPENSEARCH_ENDPOINT", raising=False)
         assert isinstance(self._build().vector, AuroraVectorClient)
 
+    def test_pgvector_tsvector_with_opensearch_endpoint_builds_routing_client(self, monkeypatch):
+        from coa_serve.clients.routing import RoutingVectorClient
+
+        monkeypatch.setenv("HYBRID_SEARCH_BACKEND", "pgvector+tsvector")
+        monkeypatch.setenv("OPENSEARCH_ENDPOINT", "test.aoss.amazonaws.com")
+        assert isinstance(self._build().vector, RoutingVectorClient)
+
 
 @pytest.mark.unit
 class TestBuildVectorClient:
@@ -99,7 +106,27 @@ class TestBuildVectorClient:
         from coa_serve.clients.factory import build_vector_client
 
         monkeypatch.setenv("HYBRID_SEARCH_BACKEND", "pgvector+tsvector")
-        assert isinstance(build_vector_client("ignored.aoss.amazonaws.com"), AuroraVectorClient)
+        monkeypatch.delenv("OPENSEARCH_ENDPOINT", raising=False)
+        assert isinstance(build_vector_client(), AuroraVectorClient)
+
+    @pytest.mark.parametrize("via_arg", [True, False])
+    def test_pgvector_tsvector_with_an_endpoint_builds_a_routing_client(self, monkeypatch, via_arg):
+        from coa_serve.clients.aurora import AuroraVectorClient
+        from coa_serve.clients.factory import build_vector_client
+        from coa_serve.clients.opensearch import OpenSearchVectorClient
+        from coa_serve.clients.routing import RoutingVectorClient
+
+        monkeypatch.setenv("HYBRID_SEARCH_BACKEND", "pgvector+tsvector")
+        if via_arg:
+            monkeypatch.delenv("OPENSEARCH_ENDPOINT", raising=False)
+            client = build_vector_client("test.aoss.amazonaws.com")
+        else:
+            monkeypatch.setenv("OPENSEARCH_ENDPOINT", "test.aoss.amazonaws.com")
+            client = build_vector_client()
+        assert isinstance(client, RoutingVectorClient)
+        assert isinstance(client._aurora, AuroraVectorClient)
+        assert isinstance(client._aoss, OpenSearchVectorClient)
+        assert client._aoss._endpoint == "test.aoss.amazonaws.com"
 
     def test_default_builds_opensearch_client_for_the_given_endpoint(self, monkeypatch):
         from coa_serve.clients.factory import build_vector_client

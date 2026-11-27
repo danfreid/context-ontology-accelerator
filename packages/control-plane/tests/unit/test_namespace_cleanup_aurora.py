@@ -44,6 +44,20 @@ class TestDeleteGraphragIndexesAurora:
         assert [c.args[0] for c in aoss.return_value.delete_index.call_args_list] == expected
         assert removed == expected
 
+    def test_pgvector_backend_with_real_aoss_host_clears_both_legs_with_that_endpoint(self, aurora_index, monkeypatch):
+        from coa_control_plane.namespace import cleanup
+
+        index, aoss = aurora_index
+        host = "abc123def456.us-east-1.aoss.amazonaws.com"
+        monkeypatch.setenv("OSS_ENDPOINT", host)
+        aoss.return_value.delete_index.return_value = True
+
+        cleanup.delete_graphrag_indexes(NS)
+
+        assert aoss.call_args.kwargs["endpoint"] == host
+        assert index.delete_scope.call_count == len(graphrag_index_names(NS))
+        assert aoss.return_value.delete_index.call_count == len(graphrag_index_names(NS))
+
     def test_aoss_failure_propagates_after_aurora_clear(self, aurora_index, monkeypatch):
         from coa_control_plane.namespace import cleanup
 

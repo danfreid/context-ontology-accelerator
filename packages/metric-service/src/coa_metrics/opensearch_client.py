@@ -18,6 +18,7 @@ Embedding generation via Bedrock Cohere Embed v4 (DEFAULT_EMBED_MODEL_ID).
 from __future__ import annotations
 
 import os
+import threading
 from typing import Any
 
 import structlog
@@ -87,6 +88,7 @@ class MetricOpenSearchClient:
         self._client: AossVectorClient | None = None
         self._embedder: BedrockEmbedder | None = None
         self._aurora_index: AuroraSearchIndex | None = None
+        self._aurora_lock = threading.Lock()
 
     def _use_aurora(self) -> bool:
         """Return True when the Aurora pgvector backend is selected (AOSS is the default)."""
@@ -95,9 +97,11 @@ class MetricOpenSearchClient:
     def _aurora(self) -> AuroraSearchIndex:
         """Lazily build the Aurora search index from the environment."""
         if self._aurora_index is None:
-            cfg = AuroraConfig.from_env()
-            client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
-            self._aurora_index = AuroraSearchIndex(client, cfg.dimensions)
+            with self._aurora_lock:
+                if self._aurora_index is None:
+                    cfg = AuroraConfig.from_env()
+                    client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
+                    self._aurora_index = AuroraSearchIndex(client, cfg.dimensions)
         return self._aurora_index
 
     def _aoss(self) -> AossVectorClient:

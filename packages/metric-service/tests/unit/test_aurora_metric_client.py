@@ -5,6 +5,8 @@
 
 from __future__ import annotations
 
+import threading
+import time
 from unittest.mock import MagicMock
 
 import pytest
@@ -52,6 +54,32 @@ def test_aurora_index_dimension_comes_from_aurora_config(monkeypatch: pytest.Mon
     monkeypatch.setattr(mod, "AuroraSearchIndex", built)
     MetricOpenSearchClient()._aurora()
     assert built.call_args.args[1] == 512
+
+
+def test_concurrent_first_calls_build_one_aurora_client(monkeypatch: pytest.MonkeyPatch) -> None:
+    from coa_metrics import opensearch_client as mod
+
+    cfg = MagicMock(cluster_arn="c", secret_arn="s", database="d", dimensions=512)
+    monkeypatch.setattr(mod.AuroraConfig, "from_env", lambda *a, **k: cfg)
+    monkeypatch.setattr(mod, "AuroraDataApiClient", lambda *a, **k: MagicMock())
+    built: list[object] = []
+
+    def slow_build(*_a: object, **_k: object) -> object:
+        time.sleep(0.05)  # widen the race window
+        obj = object()
+        built.append(obj)
+        return obj
+
+    monkeypatch.setattr(mod, "AuroraSearchIndex", slow_build)
+    client = MetricOpenSearchClient()
+    results: list[object] = []
+    threads = [threading.Thread(target=lambda: results.append(client._aurora())) for _ in range(8)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    assert len(built) == 1
+    assert all(r is built[0] for r in results)
 
 
 def test_default_environment_uses_aoss(monkeypatch: pytest.MonkeyPatch) -> None:

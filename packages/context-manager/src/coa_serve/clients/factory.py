@@ -98,12 +98,21 @@ def build_clients() -> ClientSet:
 def build_vector_client(opensearch_endpoint: str | None = None) -> VectorClient:
     """Return the vector client for the configured search backend.
 
-    ``AuroraVectorClient`` when ``HYBRID_SEARCH_BACKEND=pgvector+tsvector``,
-    otherwise ``OpenSearchVectorClient`` bound to ``opensearch_endpoint``.
+    ``AuroraVectorClient`` when ``HYBRID_SEARCH_BACKEND=pgvector+tsvector``. When an
+    AOSS endpoint is also configured (argument or ``OPENSEARCH_ENDPOINT``), a
+    ``RoutingVectorClient`` sends the GraphRAG ``chunk_``/``topic_``/``statement_``
+    scopes to AOSS and everything else to Aurora. Otherwise
+    ``OpenSearchVectorClient`` bound to ``opensearch_endpoint``.
     """
     if resolve_search_backend() == SearchBackend.PGVECTOR:
         from .aurora import AuroraVectorClient
 
+        endpoint = opensearch_endpoint or os.environ.get("OPENSEARCH_ENDPOINT", "")
+        if endpoint:
+            from .opensearch import OpenSearchVectorClient
+            from .routing import RoutingVectorClient
+
+            return RoutingVectorClient(AuroraVectorClient(), OpenSearchVectorClient(endpoint=endpoint))
         return AuroraVectorClient()
     from .opensearch import OpenSearchVectorClient
 
