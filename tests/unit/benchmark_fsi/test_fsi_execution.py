@@ -2,8 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 """Execution phase: Bloomberg shorthand read per trader pair, and ETRM bookings checked against the confirmations.
 
-The checks read the built chat JSON, the RightAngle-style CSV exports and the confirmation PDFs, and recompute the
-interpretation confidence and every break from the manifest alone.
+The checks read the built chat JSON, the RightAngle-style ETRM tables (a structured source, not email) and the
+confirmation PDFs, and recompute the interpretation confidence and every break.
 """
 
 from __future__ import annotations
@@ -19,6 +19,8 @@ import pypdfium2 as pdfium
 import pytest
 
 from tests.benchmark.fsi_commodity import build as build_mod
+from tests.benchmark.fsi_commodity.etrm import ETRM_DIR
+from tests.benchmark.fsi_commodity.etrm import TABLES as ETRM_TABLES
 from tests.benchmark.fsi_commodity.execution.common import ETRM_COLUMNS, THRESHOLD, breaks, confidence
 from tests.benchmark.fsi_commodity.execution.e1_desk_chats_etrm import CURRENT, PLANTED, SCENARIO_ID
 from tests.benchmark.fsi_commodity.golden import build_golden
@@ -51,12 +53,44 @@ def _answer(sc: Scenario, n: int) -> Any:
     return next(q["expected"] for q in sc.questions if q["id"] == f"{SCENARIO_ID}-q{n}")
 
 
-def _exports(sc: Scenario, files: dict[str, bytes]) -> list[tuple[str, list[dict[str, str]]]]:
-    out = []
-    for a in sc.attachments:
-        if a["kind"] == "etrm-export":
-            out.append((a["message"], list(csv.DictReader(io.StringIO(files[a["path"]].decode("utf-8"))))))
-    return out
+def _etrm(result: build_mod.BuildResult) -> dict[str, list[dict[str, str]]]:
+    files = build_mod.render_files(result)
+    return {
+        t.name: list(csv.DictReader(io.StringIO(files[f"{ETRM_DIR}/{t.name}.csv"].decode("utf-8"))))
+        for t in ETRM_TABLES
+    }
+
+
+def _booked(h: dict[str, str], d: dict[str, str]) -> dict[str, str]:
+    """Join a deal_header and deal_detail row back into the manifest's ETRM row shape."""
+    return {
+        "DealNumber": h["deal_number"],
+        "Version": h["version"],
+        "DealDate": h["deal_date"],
+        "Trader": h["trader"],
+        "InternalBA": h["internal_ba"],
+        "ExternalBA": h["external_ba"],
+        "BuySell": h["buy_sell"],
+        "ProductCode": d["product_code"],
+        "Location": d["location"],
+        "DeliveryTerm": d["delivery_term"],
+        "Period": d["period"],
+        "Quantity": d["quantity"],
+        "UOM": d["uom"],
+        "PriceType": d["price_type"],
+        "FixedPrice": d["fixed_price"],
+        "PriceIndex": d["price_index"],
+        "Premium": d["premium"],
+        "Currency": d["currency"],
+        "DealStatus": h["deal_status"],
+        "ExternalRef": h["external_ref"],
+        "ChangeReason": h["change_reason"],
+    }
+
+
+def _joined(result: build_mod.BuildResult) -> list[dict[str, str]]:
+    t = _etrm(result)
+    return [_booked(h, d) for h, d in zip(t["deal_header"], t["deal_detail"], strict=True)]
 
 
 # --- phase ----------------------------------------------------------------------------------------------
@@ -120,12 +154,67 @@ def test_a_new_trader_pair_goes_to_review(ex: dict[str, Any], sc: Scenario) -> N
 
 
 # --- ETRM against confirmations -------------------------------------------------------------------------
-def test_exports_parse_and_match_the_manifest_rows(sc: Scenario, files: dict[str, bytes], ex: dict[str, Any]) -> None:
-    parsed = [r for _, rows in _exports(sc, files) for r in rows]
-    assert len(parsed) == len(ex["etrm_rows"]) == 12 + 6 + 3
-    for got, want in zip(parsed, ex["etrm_rows"], strict=True):
-        assert list(got) == list(ETRM_COLUMNS)
-        assert got == {k: str(want[k]) for k in ETRM_COLUMNS}
+_NUMERIC = ("Quantity", "FixedPrice", "Premium")
+
+
+def _norm(row: dict[str, Any]) -> dict[str, Any]:
+    """Compare CSV text and manifest values: empty means null, numbers by value."""
+    out: dict[str, Any] = {}
+    for k, v in row.items():
+        v = "" if v is None else str(v)
+        out[k] = Decimal(v) if k in _NUMERIC and v else v
+    return out
+
+
+def test_etrm_is_a_structured_source_not_email(result: build_mod.BuildResult, sc: Scenario) -> None:
+    assert not [a for a in sc.attachments if a["path"].lower().endswith(".csv")]
+    assert not [m for m in sc.messages if m["key"].startswith("export")]
+    files = build_mod.render_files(result)
+    for t in ETRM_TABLES:
+        assert f"{ETRM_DIR}/{t.name}.csv" in files
+    schema = files[f"{ETRM_DIR}/schema.sql"].decode("utf-8")
+    assert "PRIMARY KEY (deal_number, version)" in schema
+    assert "REFERENCES rightangle.deal_header (deal_number, version)" in schema
+    sample = json.loads(files[f"{ETRM_DIR}/data-catalog/sample_data/rightangle.json"])
+    (src,) = sample["sources"]
+    assert src["datasourceId"] == "ds-etrm-rightangle" and src["sourceType"] == "JDBC_DATABASE"
+    assert {t["name"] for t in src["databases"][0]["tables"]} == {t.name for t in ETRM_TABLES}
+
+
+def test_etrm_tables_join_back_to_the_manifest_rows_with_valid_keys(
+    result: build_mod.BuildResult, ex: dict[str, Any]
+) -> None:
+    t = _etrm(result)
+    assert len(t["deal_header"]) == len(t["deal_detail"]) == len(ex["etrm_rows"]) == 12 + 6 + 3
+    keys = [(h["deal_number"], h["version"]) for h in t["deal_header"]]
+    assert len(set(keys)) == len(keys)
+    assert keys == [(d["deal_number"], d["version"]) for d in t["deal_detail"]]
+    bas = {b["ba_code"] for b in t["business_associates"]}
+    assert all(h["internal_ba"] in bas and h["external_ba"] in bas for h in t["deal_header"])
+    products = {p["product_code"] for p in t["products"]}
+    assert all(d["product_code"] in products for d in t["deal_detail"])
+    want = sorted(ex["etrm_rows"], key=lambda r: (r["DealNumber"], r["Version"]))
+    assert all(list(r) == list(ETRM_COLUMNS) for r in _joined(result))
+    assert [_norm(r) for r in _joined(result)] == [_norm(r) for r in want]
+    seed = build_mod.render_files(result)[f"{ETRM_DIR}/seed.sql"].decode("utf-8")
+    for name, rows in t.items():
+        assert seed.count(f"INSERT INTO rightangle.{name} ") == len(rows)
+
+
+def test_breaks_recompute_from_the_etrm_tables(result: build_mod.BuildResult, ex: dict[str, Any]) -> None:
+    def typed(r: dict[str, str]) -> dict[str, Any]:
+        return {**r, "Version": int(r["Version"]), "Quantity": int(Decimal(r["Quantity"]))}
+
+    rows = [typed(r) for r in _joined(result)]
+    v1 = [r for r in rows if r["Version"] == 1 and r["DealStatus"] == "ENTERED"]
+    found = {r["ExternalRef"]: breaks(ex["confirmations"][r["ExternalRef"]], r, ex["product_codes"]) for r in v1}
+    assert {k for k, v in found.items() if v} == set(PLANTED)
+    latest: dict[str, dict[str, Any]] = {}
+    for r in rows:
+        if r["ExternalRef"] in ex["confirmations"]:
+            latest[r["ExternalRef"]] = r  # rows are sorted by (deal_number, version)
+    still = {k for k, r in latest.items() if breaks(ex["confirmations"][k], r, ex["product_codes"])}
+    assert still == {"NC-LON-26-0312"}
 
 
 def test_confirmation_pdfs_state_the_binding_side_and_terms(

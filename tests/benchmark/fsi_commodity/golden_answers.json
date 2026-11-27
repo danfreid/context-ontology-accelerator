@@ -820,7 +820,7 @@
     "tolerance_pct": 0,
     "tolerance": 0,
     "type": "reconciliation",
-    "question": "Which deals in the RightAngle export differ from their email confirmations?",
+    "question": "Which deals booked in RightAngle differ from their email confirmations?",
     "answer": [
       "NC-HOU-26-0312",
       "NC-HOU-26-0313",

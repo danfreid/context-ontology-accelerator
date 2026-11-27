@@ -25,7 +25,7 @@ EXPECTED_TOTALS: dict[str, tuple[int, int, int]] = {
     "settlement": (34, 19, 0),
     "docsets": (8, 14, 0),
     "lifecycle": (26, 17, 0),
-    "execution": (13, 11, 18),
+    "execution": (8, 6, 18),
 }
 SCENARIOS_PER_PHASE: dict[str, int] = {
     "onboarding": 6,
@@ -122,9 +122,11 @@ def render_files(result: BuildResult, only: str | None = None) -> dict[str, byte
         for rel, data in scenario.files().items():
             files[f"{PHASE_DIRS[scenario.phase]}/{scenario.id}/{rel}"] = data
     if only is None:
+        from .etrm import render_etrm
         from .structured import render_structured
 
         files.update(render_structured(result))
+        files.update(render_etrm(result))
     if only is not None and not matched:
         known = ", ".join(s.id for s in result.scenarios) or "(none registered)"
         raise KeyError(f"unknown scenario {only!r}; known: {known}")

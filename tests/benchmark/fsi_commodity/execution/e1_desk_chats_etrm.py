@@ -6,8 +6,10 @@ History (12 chats, three trader pairs) ends in confirmed RightAngle-style bookin
 learnable. The same tokens mean different things per pair: ``k`` is thousand bbl for Houston/Vitol but thousand
 mt for London/BP and Houston/Shell, and ``+n`` is cents per bbl for crude but dollars per mt for gasoil. Six new deals
 follow, one with a trader pair never seen before. Their email confirmations are the system of record. The ETRM
-export carries four breaks; ops catches three (side, product, unit), the trader confirms and the ETRM amends them
-to version 2. The fourth (a gasoil premium read with the crude price scale) is left open.
+bookings carry four breaks; ops catches three (side, product, unit), the trader confirms and the ETRM amends them
+to version 2. The fourth (a gasoil premium read with the crude price scale) is left open. The ETRM is a
+structured datasource (``etrm.py``, ``corpus/structured/etrm/``), not email: every booking and amendment is a
+versioned row there.
 """
 
 # ruff: noqa: E501
@@ -19,11 +21,11 @@ from typing import Any
 
 from ..ontology import cls
 from ..post_trade.common import Desk, fmt, form
-from ..scenario import Attachment, ChatLine, Scenario
-from .common import THRESHOLD, ChatDeal, Dialect, booked_terms, breaks, confidence, etrm_csv, etrm_row
+from ..scenario import ChatLine, Scenario
+from .common import THRESHOLD, ChatDeal, Dialect, booked_terms, breaks, confidence, etrm_row
 
 SCENARIO_ID = "e1-desk-chats-etrm"
-EXPECT = {"emails": 13, "attachments": 11, "chats": 18}
+EXPECT = {"emails": 8, "attachments": 6, "chats": 18}
 
 HOU_VIT = Dialect(
     "hou-vitol",
@@ -136,28 +138,7 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
             class_uri=cls("Order"),
         )
 
-    def export(key: str, batch: list[dict[str, Any]], text: str, **kw: Any) -> Attachment:
-        att = Attachment(
-            f"rightangle-deal-capture-{sc.clock.date().isoformat()}.csv",
-            etrm_csv(batch),
-            "etrm-export",
-            cls("TradeTransaction"),
-            {"system": "RightAngle", "rows": len(batch), "deals": [r["DealNumber"] for r in batch]},
-        )
-        d.mail(
-            key,
-            "newco-hou:ops",
-            ["newco-hou:trader", "newco-lon:ops"],
-            text,
-            att,
-            tags=["etrm", "export"],
-            doc=cls("TradeTransaction"),
-            **kw,
-        )
-        return att
-
-    # --- history: chat, confirmed booking; one export per four deals ---------------------------------------
-    batch: list[dict[str, Any]] = []
+    # --- history: chat, then a confirmed booking in the ETRM (a structured source, see etrm.py) ------------
     for i, deal in enumerate(HISTORY, start=1):
         sc.wait_business_days(d.addr(deal.dialect.ours), 1)
         chat(deal, f"h{i:02d}")
@@ -170,7 +151,7 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
             internal=internal(deal),
             status="CONFIRMED",
         )
-        batch.append(row)
+        rows.append(row)
         history.append(
             {
                 "chat": f"h{i:02d}",
@@ -182,15 +163,6 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
                 "status": "confirmed",
             }
         )
-        if i % 4 == 0:
-            export(
-                f"export-h{i // 4}",
-                batch,
-                f"RightAngle deal capture export: {len(batch)} deals, all confirmed and matched.",
-                subject=f"RightAngle deal capture {sc.clock.date().isoformat()}",
-            )
-            rows += batch
-            batch = []
 
     # --- current deals: chat, interpretation from history, email confirmation --------------------------------
     interpretations: list[dict[str, Any]] = []
@@ -275,13 +247,6 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
                 overrides=overrides,
             )
         )
-    export(
-        "export-current",
-        current_rows,
-        f"RightAngle deal capture export: {len(current_rows)} new deals entered today.",
-        subject=f"RightAngle deal capture {sc.clock.date().isoformat()}",
-        days=1,
-    )
     rows += current_rows
 
     found: dict[str, list[dict[str, Any]]] = {}
@@ -328,13 +293,6 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
             fixed["UOM"] = binding["unit"].upper()
             fixed["ProductCode"] = next(code for code, name in PRODUCT_CODES.items() if name == binding["product"])
             amended.append(fixed)
-    export(
-        "export-amended",
-        amended,
-        f"RightAngle amendments: {len(amended)} deals corrected to their confirmations (version 2).",
-        subject=f"RightAngle amendments {sc.clock.date().isoformat()}",
-        reply="breaks",
-    )
     rows += amended
 
     remaining = {tid: diff for tid, diff in found.items() if tid not in caught}
@@ -345,7 +303,7 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
             f"etrm-{field}-{tid}",
             "etrm-vs-confirmation",
             f"RightAngle books {tid} with a different {field} from the email confirmation.",
-            [f"{tid}-confirmation.pdf", f"rightangle-deal-capture-{rows[0]['DealDate']}.csv"],
+            [f"{tid}-confirmation.pdf", f"etrm:rightangle.deal_header/{numbers[tid]}/1"],
             {"field": field, "confirmation": found[tid][0]["confirmation"], "etrm": found[tid][0]["etrm"]},
             was_caught,
             "breaks" if was_caught else None,
@@ -394,7 +352,7 @@ def build(u: dict[str, Any], upstream: Any) -> Scenario:
     d.question(
         1,
         "reconciliation",
-        "Which deals in the RightAngle export differ from their email confirmations?",
+        "Which deals booked in RightAngle differ from their email confirmations?",
         sorted(found),
     )
     d.question(

@@ -1,0 +1,7 @@
+ba_code,name,org_id,ba_type
+BPOIL,BP Oil International Limited,cp-bp,EXTERNAL
+GLENCOREUS,Glencore Ltd.,cp-glencore,EXTERNAL
+NEWCOHOU,NewCo Trading Houston LLC,newco-hou,INTERNAL
+NEWCOLON,NewCo Trading London Limited,newco-lon,INTERNAL
+SHELLSTIL,Shell Trading International Ltd,cp-shell,EXTERNAL
+VITOLINC,Vitol Inc.,cp-vitol,EXTERNAL

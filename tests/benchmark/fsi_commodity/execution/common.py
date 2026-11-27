@@ -8,14 +8,13 @@
   another). Chats are rendered from the dialect, so the ground truth knows every token's meaning.
 * **Confidence** in reading a token comes from earlier chats of the *same pair* that ended in a confirmed booking
   with the same meaning; evidence from other pairs counts for less and conflicting evidence counts for nothing.
-* The **ETRM export** is a RightAngle-style deal capture CSV. The email confirmation is the legally binding record;
-  a booking that differs from it is a break to remediate with a new deal version.
+* The **ETRM** is a RightAngle-style deal capture database (a structured source, ``etrm.py``). The email
+  confirmation is the legally binding record; a booking that differs from it is a break to remediate with a new
+  deal version.
 """
 
 from __future__ import annotations
 
-import csv
-import io
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from decimal import Decimal
@@ -223,15 +222,6 @@ def etrm_row(
     }
     row.update(overrides or {})
     return row
-
-
-def etrm_csv(rows: Sequence[Mapping[str, Any]]) -> bytes:
-    buf = io.StringIO()
-    w = csv.DictWriter(buf, fieldnames=ETRM_COLUMNS, lineterminator="\n")
-    w.writeheader()
-    for r in rows:
-        w.writerow({k: r[k] for k in ETRM_COLUMNS})
-    return buf.getvalue().encode("utf-8")
 
 
 # Fields compared between the confirmation (system of record) and the ETRM booking.

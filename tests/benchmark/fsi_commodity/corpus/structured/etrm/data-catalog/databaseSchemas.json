@@ -1,0 +1,15 @@
+[
+  {
+    "id": "schema-etrm-001",
+    "name": "rightangle",
+    "displayName": "RightAngle deal capture",
+    "fullyQualifiedName": "etrm_sqlserver.rightangle.rightangle",
+    "description": "",
+    "database": {
+      "id": "db-etrm-001",
+      "type": "database",
+      "name": "rightangle",
+      "fullyQualifiedName": "etrm_sqlserver.rightangle"
+    }
+  }
+]

@@ -22,7 +22,7 @@
         "unit": "mt"
       },
       "text": "GO 10k fob ARA Jul, your bid?",
-      "timestamp": "2026-11-24T09:47:00+00:00"
+      "timestamp": "2026-11-24T09:51:00+00:00"
     },
     {
       "intent": "offer",
@@ -36,7 +36,7 @@
         "premium": 13.0
       },
       "text": "+13",
-      "timestamp": "2026-11-24T09:48:08+00:00"
+      "timestamp": "2026-11-24T09:52:08+00:00"
     },
     {
       "intent": "offer",
@@ -50,7 +50,7 @@
         "side": "sell"
       },
       "text": "offer +13 10k, done?",
-      "timestamp": "2026-11-24T09:49:08+00:00"
+      "timestamp": "2026-11-24T09:53:08+00:00"
     },
     {
       "intent": "accept",
@@ -73,7 +73,7 @@
         "unit": "mt"
       },
       "text": "done. pls send conf",
-      "timestamp": "2026-11-24T09:52:34+00:00"
+      "timestamp": "2026-11-24T09:56:34+00:00"
     }
   ],
   "participants": [

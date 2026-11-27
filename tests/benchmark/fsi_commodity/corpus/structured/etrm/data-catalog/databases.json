@@ -1,0 +1,18 @@
+[
+  {
+    "id": "db-etrm-001",
+    "name": "rightangle",
+    "displayName": "RightAngle ETRM",
+    "fullyQualifiedName": "etrm_sqlserver.rightangle",
+    "description": "",
+    "service": {
+      "id": "svc-etrm-001",
+      "type": "databaseService",
+      "name": "etrm_sqlserver",
+      "fullyQualifiedName": "etrm_sqlserver",
+      "serviceType": "Mssql"
+    },
+    "tags": [],
+    "owners": []
+  }
+]

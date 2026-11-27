@@ -1,5 +1,0 @@
-DealNumber,Version,DealDate,Trader,InternalBA,ExternalBA,BuySell,ProductCode,Location,DeliveryTerm,Period,Quantity,UOM,PriceType,FixedPrice,PriceIndex,Premium,Currency,DealStatus,ExternalRef,ChangeReason
-RA-026105,1,2026-11-12,JCAMPBELL,NEWCOHOU,VITOLINC,B,WTIMID,Corpus Christi,FOB,May,300000,BBL,INDEX,,Platts WTI Midland 5-day average,0.900,USD,CONFIRMED,NC-HOU-26-0304,
-RA-026106,1,2026-11-13,GCARR,NEWCOLON,BPOIL,S,JETA1,Amsterdam-Rotterdam-Antwerp,FOB,May,15000,MT,INDEX,,ICE gasoil front month,18.000,USD,CONFIRMED,NC-LON-26-0302,
-RA-026107,1,2026-11-16,JCAMPBELL,NEWCOHOU,VITOLINC,S,WTIMID,Houston,FOB,May,200000,BBL,INDEX,,Platts WTI Midland 5-day average,0.700,USD,CONFIRMED,NC-HOU-26-0305,
-RA-026108,1,2026-11-17,GCARR,NEWCOLON,BPOIL,B,GO01,Amsterdam-Rotterdam-Antwerp,FOB,May,12000,MT,INDEX,,ICE gasoil front month,11.000,USD,CONFIRMED,NC-LON-26-0303,

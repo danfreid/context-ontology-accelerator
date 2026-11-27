@@ -1,0 +1,323 @@
+[
+  {
+    "id": "etrm-001",
+    "name": "business_associates",
+    "fullyQualifiedName": "etrm_sqlserver.rightangle.rightangle.business_associates",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-etrm-001",
+      "type": "databaseSchema",
+      "name": "rightangle",
+      "fullyQualifiedName": "etrm_sqlserver.rightangle.rightangle"
+    },
+    "columns": [
+      {
+        "name": "ba_code",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 20,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "name",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 2,
+        "dataLength": 120,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "org_id",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 3,
+        "dataLength": 40
+      },
+      {
+        "name": "ba_type",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 4,
+        "dataLength": 10,
+        "constraint": "NOT_NULL"
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "ba_code"
+        ]
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": "etrm-002",
+    "name": "products",
+    "fullyQualifiedName": "etrm_sqlserver.rightangle.rightangle.products",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-etrm-001",
+      "type": "databaseSchema",
+      "name": "rightangle",
+      "fullyQualifiedName": "etrm_sqlserver.rightangle.rightangle"
+    },
+    "columns": [
+      {
+        "name": "product_code",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 20,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "name",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 2,
+        "dataLength": 60,
+        "constraint": "NOT_NULL"
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "product_code"
+        ]
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": "etrm-003",
+    "name": "deal_header",
+    "fullyQualifiedName": "etrm_sqlserver.rightangle.rightangle.deal_header",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-etrm-001",
+      "type": "databaseSchema",
+      "name": "rightangle",
+      "fullyQualifiedName": "etrm_sqlserver.rightangle.rightangle"
+    },
+    "columns": [
+      {
+        "name": "deal_number",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 20,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "version",
+        "dataType": "INT",
+        "ordinalPosition": 2,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "deal_date",
+        "dataType": "DATE",
+        "ordinalPosition": 3,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "trader",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 4,
+        "dataLength": 20
+      },
+      {
+        "name": "internal_ba",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 5,
+        "dataLength": 20,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "external_ba",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 6,
+        "dataLength": 20,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "buy_sell",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 7,
+        "dataLength": 1,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "deal_status",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 8,
+        "dataLength": 20,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "external_ref",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 9,
+        "dataLength": 30
+      },
+      {
+        "name": "change_reason",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 10,
+        "dataLength": 200
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "deal_number",
+          "version"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "internal_ba"
+        ],
+        "referredColumns": [
+          "etrm_sqlserver.rightangle.rightangle.business_associates.ba_code"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "external_ba"
+        ],
+        "referredColumns": [
+          "etrm_sqlserver.rightangle.rightangle.business_associates.ba_code"
+        ]
+      }
+    ],
+    "tags": []
+  },
+  {
+    "id": "etrm-004",
+    "name": "deal_detail",
+    "fullyQualifiedName": "etrm_sqlserver.rightangle.rightangle.deal_detail",
+    "tableType": "Regular",
+    "databaseSchema": {
+      "id": "schema-etrm-001",
+      "type": "databaseSchema",
+      "name": "rightangle",
+      "fullyQualifiedName": "etrm_sqlserver.rightangle.rightangle"
+    },
+    "columns": [
+      {
+        "name": "deal_number",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 1,
+        "dataLength": 20,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "version",
+        "dataType": "INT",
+        "ordinalPosition": 2,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "product_code",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 3,
+        "dataLength": 20,
+        "constraint": "NOT_NULL"
+      },
+      {
+        "name": "location",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 4,
+        "dataLength": 60
+      },
+      {
+        "name": "delivery_term",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 5,
+        "dataLength": 10
+      },
+      {
+        "name": "period",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 6,
+        "dataLength": 10
+      },
+      {
+        "name": "quantity",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 7,
+        "precision": 20,
+        "scale": 3
+      },
+      {
+        "name": "uom",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 8,
+        "dataLength": 5
+      },
+      {
+        "name": "price_type",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 9,
+        "dataLength": 10
+      },
+      {
+        "name": "fixed_price",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 10,
+        "precision": 20,
+        "scale": 3
+      },
+      {
+        "name": "price_index",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 11,
+        "dataLength": 60
+      },
+      {
+        "name": "premium",
+        "dataType": "NUMERIC",
+        "ordinalPosition": 12,
+        "precision": 20,
+        "scale": 3
+      },
+      {
+        "name": "currency",
+        "dataType": "VARCHAR",
+        "ordinalPosition": 13,
+        "dataLength": 3
+      }
+    ],
+    "tableConstraints": [
+      {
+        "constraintType": "PRIMARY_KEY",
+        "columns": [
+          "deal_number",
+          "version"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "product_code"
+        ],
+        "referredColumns": [
+          "etrm_sqlserver.rightangle.rightangle.products.product_code"
+        ]
+      },
+      {
+        "constraintType": "FOREIGN_KEY",
+        "columns": [
+          "deal_number",
+          "version"
+        ],
+        "referredColumns": [
+          "etrm_sqlserver.rightangle.rightangle.deal_header.deal_number",
+          "etrm_sqlserver.rightangle.rightangle.deal_header.version"
+        ]
+      }
+    ],
+    "tags": []
+  }
+]

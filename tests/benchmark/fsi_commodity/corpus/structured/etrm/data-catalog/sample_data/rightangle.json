@@ -1,0 +1,311 @@
+{
+  "namespaceId": "ns-fsi-commodity",
+  "sources": [
+    {
+      "datasourceId": "ds-etrm-rightangle",
+      "sourceType": "JDBC_DATABASE",
+      "databases": [
+        {
+          "name": "rightangle",
+          "description": "RightAngle-style deal capture for the NewCo Houston and London desks: business associates, products, and versioned deal headers and details as booked by the traders. All values are invented.",
+          "tables": [
+            {
+              "name": "business_associates",
+              "technicalMetadata": {
+                "columnCount": 4,
+                "format": "mssql"
+              },
+              "businessMetadata": {
+                "description": "Internal and external business associates (legal entities) known to the ETRM.",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "ba_code"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [],
+              "columns": [
+                {
+                  "name": "ba_code",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "name",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "org_id",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "ba_type",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                }
+              ]
+            },
+            {
+              "name": "products",
+              "technicalMetadata": {
+                "columnCount": 2,
+                "format": "mssql"
+              },
+              "businessMetadata": {
+                "description": "ETRM product codes.",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "product_code"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [],
+              "columns": [
+                {
+                  "name": "product_code",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "name",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                }
+              ]
+            },
+            {
+              "name": "deal_header",
+              "technicalMetadata": {
+                "columnCount": 10,
+                "format": "mssql"
+              },
+              "businessMetadata": {
+                "description": "One row per deal version: parties, side, status and the reference to the email confirmation.",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "deal_number",
+                  "version"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [
+                {
+                  "column": "internal_ba",
+                  "targetTable": "business_associates",
+                  "targetColumn": "ba_code",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                },
+                {
+                  "column": "external_ba",
+                  "targetTable": "business_associates",
+                  "targetColumn": "ba_code",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                }
+              ],
+              "columns": [
+                {
+                  "name": "deal_number",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "version",
+                  "dataType": "INT",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "deal_date",
+                  "dataType": "DATE",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "trader",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "internal_ba",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "external_ba",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "buy_sell",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "deal_status",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "external_ref",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "change_reason",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                }
+              ]
+            },
+            {
+              "name": "deal_detail",
+              "technicalMetadata": {
+                "columnCount": 13,
+                "format": "mssql"
+              },
+              "businessMetadata": {
+                "description": "Commodity, delivery, quantity and price of each deal version.",
+                "enrichmentSource": "DETERMINISTIC",
+                "reviewStatus": "APPROVED"
+              },
+              "primaryKey": {
+                "columns": [
+                  "deal_number",
+                  "version"
+                ],
+                "source": "DETERMINISTIC",
+                "confidence": 1.0
+              },
+              "foreignKeys": [
+                {
+                  "column": "product_code",
+                  "targetTable": "products",
+                  "targetColumn": "product_code",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                },
+                {
+                  "column": "deal_number, version",
+                  "targetTable": "deal_header",
+                  "targetColumn": "deal_number, version",
+                  "source": "DETERMINISTIC",
+                  "confidence": 1.0
+                }
+              ],
+              "columns": [
+                {
+                  "name": "deal_number",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "version",
+                  "dataType": "INT",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "product_code",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": "NOT_NULL"
+                },
+                {
+                  "name": "location",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "delivery_term",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "period",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "quantity",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "uom",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "price_type",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "fixed_price",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "price_index",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "premium",
+                  "dataType": "NUMERIC",
+                  "description": "",
+                  "constraint": null
+                },
+                {
+                  "name": "currency",
+                  "dataType": "VARCHAR",
+                  "description": "",
+                  "constraint": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

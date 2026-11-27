@@ -22,7 +22,7 @@
         "unit": "bbl"
       },
       "text": "WTI Mid 100k fob CC Jul, your offer?",
-      "timestamp": "2026-11-24T11:55:00-06:00"
+      "timestamp": "2026-11-24T12:21:00-06:00"
     },
     {
       "intent": "offer",
@@ -36,7 +36,7 @@
         "premium": 1.05
       },
       "text": "+105",
-      "timestamp": "2026-11-24T11:56:59-06:00"
+      "timestamp": "2026-11-24T12:22:59-06:00"
     },
     {
       "intent": "counter",
@@ -50,7 +50,7 @@
         "side": "buy"
       },
       "text": "bid +105 100k, done?",
-      "timestamp": "2026-11-24T12:00:54-06:00"
+      "timestamp": "2026-11-24T12:26:54-06:00"
     },
     {
       "intent": "accept",
@@ -73,7 +73,7 @@
         "unit": "bbl"
       },
       "text": "done. pls send conf",
-      "timestamp": "2026-11-24T12:04:15-06:00"
+      "timestamp": "2026-11-24T12:30:15-06:00"
     }
   ],
   "participants": [

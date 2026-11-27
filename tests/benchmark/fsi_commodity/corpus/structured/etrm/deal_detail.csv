@@ -1,0 +1,22 @@
+deal_number,version,product_code,location,delivery_term,period,quantity,uom,price_type,fixed_price,price_index,premium,currency
+RA-026101,1,WTIMID,Corpus Christi,FOB,Apr,250000,BBL,INDEX,,Platts WTI Midland 5-day average,0.850,USD
+RA-026102,1,MARS,Houston,FOB,Apr,150000,BBL,INDEX,,Platts WTI Midland 5-day average,0.400,USD
+RA-026103,1,GO01,Amsterdam-Rotterdam-Antwerp,FOB,Apr,10000,MT,INDEX,,ICE gasoil front month,12.000,USD
+RA-026104,1,HSFO35,Houston,FOB,Apr,25000,MT,FIXED,438.000,,,USD
+RA-026105,1,WTIMID,Corpus Christi,FOB,May,300000,BBL,INDEX,,Platts WTI Midland 5-day average,0.900,USD
+RA-026106,1,JETA1,Amsterdam-Rotterdam-Antwerp,FOB,May,15000,MT,INDEX,,ICE gasoil front month,18.000,USD
+RA-026107,1,WTIMID,Houston,FOB,May,200000,BBL,INDEX,,Platts WTI Midland 5-day average,0.700,USD
+RA-026108,1,GO01,Amsterdam-Rotterdam-Antwerp,FOB,May,12000,MT,INDEX,,ICE gasoil front month,11.000,USD
+RA-026109,1,VLSFO05,Houston,FOB,May,20000,MT,FIXED,512.500,,,USD
+RA-026110,1,MARS,Houston,FOB,Jun,100000,BBL,INDEX,,Platts WTI Midland 5-day average,0.350,USD
+RA-026111,1,GO01,Amsterdam-Rotterdam-Antwerp,FOB,Jun,8000,MT,INDEX,,ICE gasoil front month,14.000,USD
+RA-026112,1,WTIMID,Corpus Christi,FOB,Jun,250000,BBL,INDEX,,Platts WTI Midland 5-day average,0.800,USD
+RA-026113,1,WTIMID,Corpus Christi,FOB,Jul,200000,BBL,INDEX,,Platts WTI Midland 5-day average,0.750,USD
+RA-026114,1,MARS,Houston,FOB,Jul,150000,BBL,INDEX,,Platts WTI Midland 5-day average,0.450,USD
+RA-026114,2,MARS,Houston,FOB,Jul,150000,BBL,INDEX,,Platts WTI Midland 5-day average,0.450,USD
+RA-026115,1,GO01,Amsterdam-Rotterdam-Antwerp,FOB,Jul,10000,BBL,INDEX,,ICE gasoil front month,13.000,USD
+RA-026115,2,GO01,Amsterdam-Rotterdam-Antwerp,FOB,Jul,10000,MT,INDEX,,ICE gasoil front month,13.000,USD
+RA-026116,1,GO01,Amsterdam-Rotterdam-Antwerp,FOB,Jul,9000,MT,INDEX,,ICE gasoil front month,0.120,USD
+RA-026117,1,VLSFO05,Houston,FOB,Jul,30000,MT,FIXED,441.000,,,USD
+RA-026117,2,HSFO35,Houston,FOB,Jul,30000,MT,FIXED,441.000,,,USD
+RA-026118,1,WTIMID,Corpus Christi,FOB,Jul,100000,BBL,INDEX,,Platts WTI Midland 5-day average,1.050,USD

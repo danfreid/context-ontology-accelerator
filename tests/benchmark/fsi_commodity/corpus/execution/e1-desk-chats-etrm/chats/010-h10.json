@@ -22,7 +22,7 @@
         "unit": "bbl"
       },
       "text": "Mars 100k fob HOU Jun, your offer?",
-      "timestamp": "2026-11-19T10:32:00-06:00"
+      "timestamp": "2026-11-19T10:46:00-06:00"
     },
     {
       "intent": "offer",
@@ -36,7 +36,7 @@
         "premium": 0.35
       },
       "text": "+35",
-      "timestamp": "2026-11-19T10:32:37-06:00"
+      "timestamp": "2026-11-19T10:46:37-06:00"
     },
     {
       "intent": "counter",
@@ -50,7 +50,7 @@
         "side": "buy"
       },
       "text": "bid +35 100k, done?",
-      "timestamp": "2026-11-19T10:36:02-06:00"
+      "timestamp": "2026-11-19T10:50:02-06:00"
     },
     {
       "intent": "accept",
@@ -73,7 +73,7 @@
         "unit": "bbl"
       },
       "text": "done. pls send conf",
-      "timestamp": "2026-11-19T10:36:52-06:00"
+      "timestamp": "2026-11-19T10:50:52-06:00"
     }
   ],
   "participants": [

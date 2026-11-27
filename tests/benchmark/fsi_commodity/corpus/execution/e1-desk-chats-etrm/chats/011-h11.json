@@ -22,7 +22,7 @@
         "unit": "mt"
       },
       "text": "GO 8k fob ARA Jun, your offer?",
-      "timestamp": "2026-11-20T10:09:00+00:00"
+      "timestamp": "2026-11-20T10:23:00+00:00"
     },
     {
       "intent": "offer",
@@ -36,7 +36,7 @@
         "premium": 14.0
       },
       "text": "+14",
-      "timestamp": "2026-11-20T10:12:04+00:00"
+      "timestamp": "2026-11-20T10:26:04+00:00"
     },
     {
       "intent": "counter",
@@ -50,7 +50,7 @@
         "side": "buy"
       },
       "text": "bid +14 8k, done?",
-      "timestamp": "2026-11-20T10:13:19+00:00"
+      "timestamp": "2026-11-20T10:27:19+00:00"
     },
     {
       "intent": "accept",
@@ -73,7 +73,7 @@
         "unit": "mt"
       },
       "text": "done. pls send conf",
-      "timestamp": "2026-11-20T10:17:12+00:00"
+      "timestamp": "2026-11-20T10:31:12+00:00"
     }
   ],
   "participants": [
