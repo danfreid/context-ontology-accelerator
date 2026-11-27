@@ -1,4 +1,4 @@
-.PHONY: setup generate format lint test test-unit test-integ build load-test load-test-slow load-test-teardown deploy-dev deploy-dev-neptune deploy-dev-aurora deploy-serve deploy-example-connector deploy-databricks-connector destroy-dev gc-assets preflight docs web-dev vkg-dev version version-check
+.PHONY: setup generate format lint test test-unit test-integ build load-test load-test-slow load-test-teardown deploy-dev deploy-dev-neptune deploy-dev-aurora deploy-serve deploy-example-connector deploy-databricks-connector codebuild-setup deploy-dev-codebuild codebuild-remove destroy-dev gc-assets preflight docs web-dev vkg-dev version version-check
 
 # smithy-generate.sh needs pnpm, and setup-dev.sh needs the members it generates,
 # so setup first installs the pnpm version .mise.toml pins when pnpm is missing.
@@ -168,3 +168,16 @@ web-dev:
 vkg-dev:
 	docker build -t vkg-local packages/vkg/
 	docker run --rm -p 8080:8080 -e ONTOLOGY_BUCKET=local -e NAMESPACE=default -e VERSION=latest vkg-local
+## OPTIONAL: deploy from AWS CodeBuild instead of this machine. None of this runs as part of
+## deploy-dev or any other target; see "Optional: deploy from AWS CodeBuild" in
+## external-docs/content/deploying.md. codebuild-setup creates the project once (a CloudFormation
+## stack, infra/codebuild/coa-deploy-project.yaml); deploy-dev-codebuild starts a platform deploy
+## (scripts/deploy.sh, not the Databricks connector; with COA_CODEBUILD_BATCHED=1, one build per
+## group of stacks through scripts/codebuild/deploy-stacks.sh) on it and follows the log;
+## codebuild-remove deletes the project again.
+codebuild-setup:
+	./scripts/codebuild/setup.sh
+deploy-dev-codebuild:
+	./scripts/codebuild/run-deploy.sh
+codebuild-remove:
+	./scripts/codebuild/remove.sh

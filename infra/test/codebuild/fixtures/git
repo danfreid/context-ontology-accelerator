@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Test double for git ls-remote: prints $FAKE_AWS_DIR/git.refs ("<sha><TAB><ref>" lines).
+echo "git $*" >> "$FAKE_AWS_DIR/calls.log"
+if [ "$1" = "ls-remote" ]; then cat "$FAKE_AWS_DIR/git.refs" 2>/dev/null || true; exit 0; fi
+echo "unexpected git call: $*" >&2
+exit 9
