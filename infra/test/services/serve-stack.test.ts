@@ -32,7 +32,10 @@ const BASE_CONTEXT = {
   "aws:cdk:bundling-stacks": [],
 };
 
-function createStack(contextOverrides: Record<string, unknown> = {}): Template {
+function createStack(
+  contextOverrides: Record<string, unknown> = {},
+  extraProps: { bedrockEmbedDimensions?: number } = {},
+): Template {
   const app = new cdk.App({
     context: { ...BASE_CONTEXT, ...contextOverrides },
   });
@@ -62,6 +65,7 @@ function createStack(contextOverrides: Record<string, unknown> = {}): Template {
     vkgEndpoint: "http://vkg.coa-dev-services.local:8080",
     rolesTable: mkTable("Roles"),
     resourceRoleMappingsTable: mkTable("RRM"),
+    ...extraProps,
   });
 
   return Template.fromStack(stack);
@@ -1172,5 +1176,25 @@ describe("ServeStack - Aurora search backend", () => {
     expect(s).toContain("rds-data:ExecuteStatement");
     expect(s).toContain("rds-data:BatchExecuteStatement");
     expect(s).toContain("secretsmanager:GetSecretValue");
+  });
+  const FULL = {
+    graph_backend: "aurora",
+    vector_backend: "pgvector",
+    metadata_backend: "aurora",
+  };
+  it("passes the embedding dimension on the full-flag path", () => {
+    const s = json(createStack(FULL, { bedrockEmbedDimensions: 768 }));
+    expect(s).toContain(`"AURORA_VECTOR_DIMENSIONS":"768"`);
+    expect(s).toContain(`"OSS_DIMENSIONS":"768"`);
+  });
+  it("defaults the embedding dimension to 1024 on the full-flag path", () => {
+    expect(json(createStack(FULL))).toContain(
+      `"AURORA_VECTOR_DIMENSIONS":"1024"`,
+    );
+  });
+  it("adds no dimension variables on default flags even when the prop is set", () => {
+    const s = json(createStack({}, { bedrockEmbedDimensions: 768 }));
+    expect(s).not.toContain("AURORA_VECTOR_DIMENSIONS");
+    expect(s).not.toContain(`"OSS_DIMENSIONS":"768"`);
   });
 });

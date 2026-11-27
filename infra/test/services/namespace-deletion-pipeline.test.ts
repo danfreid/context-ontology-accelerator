@@ -418,7 +418,10 @@ describe("NamespaceDeletionPipeline GraphRAG index teardown", () => {
 });
 
 describe("NamespaceDeletionPipeline - Aurora search backend", () => {
-  function render(context: Record<string, unknown>): string {
+  function render(
+    context: Record<string, unknown>,
+    opensearchEndpoint?: string,
+  ): string {
     const app = new cdk.App({ context });
     const stack = new cdk.Stack(app, "TestStack");
     const vpc = new ec2.Vpc(stack, "Vpc");
@@ -438,6 +441,7 @@ describe("NamespaceDeletionPipeline - Aurora search backend", () => {
       sourcesApiFnName: "coa-dev-sources-api",
       metricApiFnName: "coa-dev-metric-api",
       resourcePrefix: "coa-dev-",
+      ...(opensearchEndpoint && { opensearchEndpoint }),
     });
     return JSON.stringify(Template.fromStack(stack).toJSON());
   }
@@ -448,8 +452,33 @@ describe("NamespaceDeletionPipeline - Aurora search backend", () => {
     expect(s).not.toContain("rds-data:ExecuteStatement");
   });
 
-  test("pgvector: DeleteSources gets the env and Data API grants", () => {
-    expect(render({ vector_backend: "pgvector" })).not.toContain("rds-data:");
+  test("pgvector: OSS_ENDPOINT is the real AOSS endpoint passed in", () => {
+    const endpoint = "https://abc.us-east-1.aoss.amazonaws.com";
+    const s = render(
+      {
+        graph_backend: "aurora",
+        vector_backend: "pgvector",
+        metadata_backend: "aurora",
+      },
+      endpoint,
+    );
+    expect(s).toContain(`"OSS_ENDPOINT":"${endpoint}"`);
+    expect(s).not.toContain(":5432");
+  });
+  test("pgvector: OSS_ENDPOINT is the real AOSS endpoint passed in", () => {
+    const endpoint = "https://abc.us-east-1.aoss.amazonaws.com";
+    const s = render(
+      {
+        graph_backend: "aurora",
+        vector_backend: "pgvector",
+        metadata_backend: "aurora",
+      },
+      endpoint,
+    );
+    expect(s).toContain(`"OSS_ENDPOINT":"${endpoint}"`);
+    expect(s).not.toContain(":5432");
+  });
+  test("pgvector: DeleteSources gets the env and Data API grants", () => {    expect(render({ vector_backend: "pgvector" })).not.toContain("rds-data:");
     const s = render({
       graph_backend: "aurora",
       vector_backend: "pgvector",

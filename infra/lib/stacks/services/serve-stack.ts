@@ -94,6 +94,8 @@ export interface ServeStackProps extends cdk.StackProps {
    *  SSM deploy config so a non-US deploy can set a region-appropriate model
    *  Falls back to the shared default when omitted. */
   readonly bedrockEmbedModelId?: string;
+  /** Embedding dimension of the Aurora HNSW index (full Aurora path only). Default 1024. */
+  readonly bedrockEmbedDimensions?: number;
 
   /** Comma-separated list of model IDs allowed for per-request override.
    *  When omitted, any valid model ID is accepted (open by default). */
@@ -540,7 +542,12 @@ export class ServeStack extends SCLStack {
           OPENSEARCH_ENDPOINT: opensearchEndpoint,
           // TODO(aoss-proxy): Remove when AgentCore supports AOSS directly
           OPENSEARCH_PROXY_LAMBDA_ARN: aossProxyFn.functionArn,
-          ...auroraSearchEnv(ssmPrefix, flags, "ro"),
+          ...auroraSearchEnv(
+            ssmPrefix,
+            flags,
+            "ro",
+            props.bedrockEmbedDimensions ?? 1024,
+          ),
           ATHENA_OUTPUT_S3: `s3://${props.athenaResultsBucketName ?? this.prefixed("athena-results")}/`,
           // Platform bucket that holds UPLOADED documents (<namespaceId>/raw/<uploadId>/...).
           // Upload sources carry no bucket of their own, so Deep Reasoning's document

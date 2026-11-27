@@ -228,7 +228,12 @@ export class OntologyStack extends SCLStack {
       OSS_INDEX: opensearchCollectionName,
       OSS_DIMENSIONS: embedDimensions,
       // Aurora search backend config; empty unless vector_backend=pgvector.
-      ...auroraSearchEnv(ssmPrefix, flags),
+      ...auroraSearchEnv(
+        ssmPrefix,
+        flags,
+        "rw",
+        props.bedrockEmbedDimensions ?? 1024,
+      ),
       ONTOLOGY_ARTIFACTS_BUCKET: props.ontologyArtifactsBucket.bucketName,
       DYNAMODB_TABLE: this.table.tableName,
       DYNAMODB_REGION: cdk.Aws.REGION,
@@ -455,32 +460,6 @@ export class OntologyStack extends SCLStack {
             },
           ]),
         },
-      );
-    } else {
-      // Aurora path: RDS Data API plus the admin secret replace neptune-db and aoss.
-      workloadRole.addToPrincipalPolicy(
-        new iam.PolicyStatement({
-          actions: [
-            "rds-data:ExecuteStatement",
-            "rds-data:BatchExecuteStatement",
-            "rds-data:BeginTransaction",
-            "rds-data:CommitTransaction",
-            "rds-data:RollbackTransaction",
-          ],
-          // On the Aurora path neptuneClusterArn carries the Aurora cluster ARN.
-          resources: [props.neptuneClusterArn],
-        }),
-      );
-      workloadRole.addToPrincipalPolicy(
-        new iam.PolicyStatement({
-          actions: ["secretsmanager:GetSecretValue"],
-          resources: [
-            ssm.StringParameter.valueForStringParameter(
-              this,
-              `${ssmPrefix}/aurora/secret-arn`,
-            ),
-          ],
-        }),
       );
     }
 

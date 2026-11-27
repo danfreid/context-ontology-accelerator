@@ -51,11 +51,14 @@ function secretParameterName(ssmPrefix: string, role: AuroraSearchRole): string 
  * Python side resolve the cluster ARN from `{ssmPrefix}/aurora/cluster-arn`.
  * `AURORA_SECRET_ARN` names the SSM parameter that holds the secret of the role's
  * database user (AuroraConfig resolves a value that starts with `/` through SSM).
+ * When `dimensions` is given, `AURORA_VECTOR_DIMENSIONS` and `OSS_DIMENSIONS` carry the
+ * embedding dimension so every workload uses the one the HNSW index was built for.
  */
 export function auroraSearchEnv(
   ssmPrefix: string,
   flags: BackendFlags,
   role: AuroraSearchRole = "rw",
+  dimensions?: number,
 ): Record<string, string> {
   if (!isAuroraSearchEnabled(flags)) {
     return {};
@@ -64,6 +67,12 @@ export function auroraSearchEnv(
     HYBRID_SEARCH_BACKEND: "pgvector+tsvector",
     AURORA_SSM_PREFIX: ssmPrefix,
     AURORA_SECRET_ARN: secretParameterName(ssmPrefix, role),
+    ...(dimensions === undefined
+      ? {}
+      : {
+          AURORA_VECTOR_DIMENSIONS: String(dimensions),
+          OSS_DIMENSIONS: String(dimensions),
+        }),
   };
 }
 

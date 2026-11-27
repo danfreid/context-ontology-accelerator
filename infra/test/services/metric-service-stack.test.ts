@@ -686,7 +686,10 @@ describe("MetricServiceStack with a long resource_prefix", () => {
 });
 
 describe("MetricServiceStack - Aurora search backend", () => {
-  function render(context: Record<string, unknown>): string {
+  function render(
+    context: Record<string, unknown>,
+    extraProps: { bedrockEmbedDimensions?: number } = {},
+  ): string {
     const app = new cdk.App({ context: { ...TEST_CONTEXT, ...context } });
     const network = new NetworkStack(app, "TestNetwork", { env: TEST_ENV });
     const stack = new MetricServiceStack(app, "TestMetricService", {
@@ -698,12 +701,31 @@ describe("MetricServiceStack - Aurora search backend", () => {
       neptuneClusterArn:
         "arn:aws:neptune-db:us-east-1:123456789012:cluster-abc123/*",
       env: TEST_ENV,
+      ...extraProps,
     });
     return JSON.stringify(Template.fromStack(stack).toJSON());
   }
 
-  test("aoss: no Aurora env and no rds-data statement", () => {
-    const s = render({});
+  const FULL = {
+    graph_backend: "aurora",
+    vector_backend: "pgvector",
+    metadata_backend: "aurora",
+  };
+  test("full flags: metric API and import worker both get the embedding dimension", () => {
+    const s = render(FULL, { bedrockEmbedDimensions: 768 });
+    expect(s.split(`"AURORA_VECTOR_DIMENSIONS":"768"`).length - 1).toBe(2);
+    expect(s.split(`"OSS_DIMENSIONS":"768"`).length - 1).toBe(2);
+  });
+  test("full flags: the dimension defaults to 1024", () => {
+    const s = render(FULL);
+    expect(s.split(`"AURORA_VECTOR_DIMENSIONS":"1024"`).length - 1).toBe(2);
+  });
+  test("default flags: no dimension variables even when the prop is set", () => {
+    expect(render({}, { bedrockEmbedDimensions: 768 })).not.toContain(
+      "AURORA_VECTOR_DIMENSIONS",
+    );
+  });
+  test("aoss: no Aurora env and no rds-data statement", () => {    const s = render({});
     expect(s).not.toContain("HYBRID_SEARCH_BACKEND");
     expect(s).not.toContain("rds-data:ExecuteStatement");
   });

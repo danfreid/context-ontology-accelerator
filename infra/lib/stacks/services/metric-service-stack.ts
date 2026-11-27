@@ -63,6 +63,8 @@ export interface MetricServiceStackProps extends cdk.StackProps {
 
   /** Bedrock model ID for embeddings. */
   readonly bedrockModelId?: string;
+  /** Embedding dimension of the Aurora HNSW index (full Aurora path only). Default 1024. */
+  readonly bedrockEmbedDimensions?: number;
 
   /** Allowed CORS origin (e.g. "https://app.example.com"). Defaults to "*". */
   readonly allowedOrigin?: string;
@@ -81,6 +83,7 @@ export class MetricServiceStack extends SCLStack {
     const flags = resolveBackendFlags(this.node);
     const eventBusName = props.eventBusName ?? DEFAULT_EVENT_BUS_NAME;
     const bedrockModelId = props.bedrockModelId ?? DEFAULT_BEDROCK_MODEL_ID;
+    const embedDimensions = props.bedrockEmbedDimensions ?? 1024;
 
     // ── OpenSearch config via SSM ──────────────────────────────────────
     const opensearchEndpoint = ssm.StringParameter.valueForStringParameter(
@@ -179,7 +182,7 @@ export class MetricServiceStack extends SCLStack {
         NDB_GRAPH_URI_BASE: DEFAULT_GRAPH_URI_BASE,
         OPENSEARCH_ENDPOINT: opensearchEndpoint,
         OSS_INDEX_PREFIX: opensearchCollectionName,
-        ...auroraSearchEnv(ssmPrefix, flags),
+        ...auroraSearchEnv(ssmPrefix, flags, "rw", embedDimensions),
         EVENTBRIDGE_BUS_NAME: eventBusName,
         BEDROCK_MODEL_ID: bedrockModelId,
         BEDROCK_REGION: this.region,
@@ -341,7 +344,7 @@ export class MetricServiceStack extends SCLStack {
         NDB_GRAPH_URI_BASE: DEFAULT_GRAPH_URI_BASE,
         OPENSEARCH_ENDPOINT: opensearchEndpoint,
         OSS_INDEX_PREFIX: opensearchCollectionName,
-        ...auroraSearchEnv(ssmPrefix, flags),
+        ...auroraSearchEnv(ssmPrefix, flags, "rw", embedDimensions),
         BEDROCK_MODEL_ID: bedrockModelId,
         BEDROCK_REGION: this.region,
         OSI_BUCKET_NAME: osiBucket.bucketName,

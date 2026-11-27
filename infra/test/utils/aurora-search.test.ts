@@ -25,16 +25,14 @@ function flagsFor(context: Record<string, unknown>) {
 describe("isAuroraSearchEnabled", () => {
   test("is false by default and for pgvector alone", () => {
     expect(isAuroraSearchEnabled(flagsFor({}))).toBe(false);
-    expect(isAuroraSearchEnabled(flagsFor({ vector_backend: "pgvector" }))).toBe(
-      false,
-    );
+    expect(
+      isAuroraSearchEnabled(flagsFor({ vector_backend: "pgvector" })),
+    ).toBe(false);
   });
 
   test("is false when any one of the three flags is missing", () => {
     expect(
-      isAuroraSearchEnabled(
-        flagsFor({ ...FULL, graph_backend: "neptune" }),
-      ),
+      isAuroraSearchEnabled(flagsFor({ ...FULL, graph_backend: "neptune" })),
     ).toBe(false);
     expect(
       isAuroraSearchEnabled(
@@ -85,6 +83,28 @@ describe("auroraSearchEnv", () => {
     });
   });
 
+  test("adds the vector dimension only when given, as strings", () => {
+    expect(
+      auroraSearchEnv(SSM_PREFIX, flagsFor(FULL), "rw", 768),
+    ).toMatchObject({
+      AURORA_VECTOR_DIMENSIONS: "768",
+      OSS_DIMENSIONS: "768",
+    });
+    const without = auroraSearchEnv(SSM_PREFIX, flagsFor(FULL));
+    expect(without).not.toHaveProperty("AURORA_VECTOR_DIMENSIONS");
+    expect(without).not.toHaveProperty("OSS_DIMENSIONS");
+  });
+  test("adds no dimension variables unless the full flag set is on", () => {
+    expect(auroraSearchEnv(SSM_PREFIX, flagsFor({}), "rw", 768)).toEqual({});
+    expect(
+      auroraSearchEnv(
+        SSM_PREFIX,
+        flagsFor({ vector_backend: "pgvector" }),
+        "rw",
+        768,
+      ),
+    ).toEqual({});
+  });
   test("names the ro secret parameter for the ro role", () => {
     expect(
       auroraSearchEnv(SSM_PREFIX, flagsFor(FULL), "ro").AURORA_SECRET_ARN,

@@ -14,6 +14,7 @@ import {
   DEFAULT_ENV,
 } from "../lib/constants";
 import { resolveBackendFlags } from "../lib/context";
+import { isAuroraSearchEnabled } from "../lib/utils/aurora-search";
 import { Paths } from "../lib/paths";
 import { SsmConfig, CustomDomainConfig, IdpType } from "../lib/types";
 import {
@@ -134,9 +135,10 @@ async function deploy(): Promise<void> {
     // Runtime ENIs and the AOSS endpoint land on valid zones (e.g. in
     // us-east-1, AgentCore allows {1a,1b,1c} but AOSS only {1b,1c,1d} — the
     // intersection {1b,1c} avoids the 1a endpoint-create failure).
-    // Skipped with vector_backend=pgvector: that path creates no AOSS endpoint.
+    // Skipped with vector_backend=pgvector alone (no AOSS endpoint); the full Aurora
+    // path keeps an AOSS collection for GraphRAG, so it still creates the endpoint.
     const aossAzNames =
-      flags.vectorBackend !== "pgvector"
+      flags.vectorBackend !== "pgvector" || isAuroraSearchEnabled(flags)
         ? await resolveEndpointServiceAzNames(
             deployRegion,
             `com.amazonaws.${deployRegion}.aoss`,
@@ -286,6 +288,7 @@ async function deploy(): Promise<void> {
       neptuneClusterArn: storage.neptuneClusterArn,
       allowedOrigin,
       bedrockModelId: config.bedrockEmbedModelId,
+      bedrockEmbedDimensions: config.bedrockEmbedDimensions,
       alarmAction,
     },
   );
@@ -422,6 +425,7 @@ async function deploy(): Promise<void> {
     bedrockLlmModelId: config.bedrockLlmModelId,
     bedrockEmbedModelId: config.bedrockEmbedModelId,
     allowedOverrideModels: config.allowedOverrideModels,
+    bedrockEmbedDimensions: config.bedrockEmbedDimensions,
     alarmAction,
   });
   serve.addDependency(smusDomain); // needs /namespace/namespaces-table-name SSM param

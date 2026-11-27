@@ -848,6 +848,24 @@ describe("OntologyStack Aurora search backend", () => {
     expect(s).toContain("/coa/aurora/search-rw-secret-arn");
     expect(s).not.toContain("parameter/coa/aurora/*");
   });
+  test("full Aurora set: no policy references the admin secret", () => {
+    const t = renderOntology({}, "AuroraSearchNoAdmin", FULL);
+    const policies = Object.values(t.findResources("AWS::IAM::Policy"));
+    expect(policies.length).toBeGreaterThan(0);
+    for (const p of policies) {
+      expect(JSON.stringify(p)).not.toContain("/aurora/secret-arn");
+    }
+    expect(json(t)).not.toContain("/aurora/secret-arn");
+  });
+  test("full Aurora set: the embedding dimension reaches AURORA_VECTOR_DIMENSIONS", () => {
+    const t = renderOntology(
+      { bedrockEmbedDimensions: 768 },
+      "AuroraSearchDims",
+      FULL,
+    );
+    expect(envValue(t, "AURORA_VECTOR_DIMENSIONS")).toBe("768");
+    expect(envValue(t, "OSS_DIMENSIONS")).toBe("768");
+  });
 
   test("full Aurora set on the Lambda path: rw secret env and cluster endpoint grant", () => {
     const t = renderOntology({}, "AuroraSearchLambda", {
