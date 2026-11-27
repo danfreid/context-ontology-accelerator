@@ -89,6 +89,12 @@ describe("CodeBuild project", () => {
     });
   });
 
+  it("runs on an Amazon Linux 2023 host kernel, not the end-of-life Amazon Linux 2 default", () => {
+    template.hasResourceProperties("AWS::CodeBuild::Project", {
+      Environment: Match.objectLike({ HostKernel: "LINUX_KERNEL_6" }),
+    });
+  });
+
   it("defaults to a large compute size and a 120-minute timeout, both configurable", () => {
     template.hasResourceProperties("AWS::CodeBuild::Project", {
       TimeoutInMinutes: { Ref: "TimeoutInMinutes" },

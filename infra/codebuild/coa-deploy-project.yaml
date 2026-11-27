@@ -201,6 +201,10 @@ Resources:
       Environment:
         Type: ARM_CONTAINER
         Image: aws/codebuild/amazonlinux-aarch64-standard:3.0
+        # Amazon Linux 2023 host (kernel 6.x). Unset defaults to Amazon Linux 2 (kernel 4.x),
+        # which reached end of life on 2026-06-30. Pinned rather than LINUX_KERNEL_LATEST so
+        # the host changes only with this template. The build image above is separate.
+        HostKernel: LINUX_KERNEL_6
         ComputeType: !Ref ComputeType
         # Docker for CDK asset bundling and image builds.
         PrivilegedMode: true
