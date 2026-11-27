@@ -13,8 +13,10 @@ Neptune Database + OpenSearch Serverless.
 for the RDF/OWL terminology (including reification and RDF-star), how a
 relational schema is represented, where metadata lives, and the tradeoffs of
 that design.
-**Aurora search:** see [`docs/aurora-search.md`](docs/aurora-search.md) for the
-opt-in pgvector + tsvector alternative to OpenSearch Serverless.
+**Aurora backend:** see [`docs/aurora-search.md`](docs/aurora-search.md) for the
+opt-in `aurora_pgvector` backend: graph, vectors, hybrid search and engine
+metadata in Aurora PostgreSQL over the RDS Data API (schema, roles, env vars,
+follow-ups).
 
 ## Layout
 
