@@ -23,10 +23,13 @@ def aurora_index(monkeypatch):
     monkeypatch.setenv("AURORA_SECRET_ARN", "arn:aws:secretsmanager:us-east-1:123456789012:secret:s")
     index = MagicMock()
     index.delete_scope.return_value = 1
-    monkeypatch.setattr(cleanup, "build_client_from_env", lambda *a, **k: MagicMock())
+    client = MagicMock()
+    client.execute.return_value = [{"n": 0}]
+    monkeypatch.setattr(cleanup, "build_client_from_env", lambda *a, **k: client)
     monkeypatch.setattr(cleanup, "AuroraSearchIndex", lambda *a, **k: index)
     aoss = MagicMock()
     monkeypatch.setattr(cleanup, "AossVectorClient", aoss)
+    index.client = client
     return index, aoss
 
 
@@ -74,6 +77,45 @@ class TestDeleteGraphragIndexesAurora:
 
         index, _ = aurora_index
         index.delete_scope.side_effect = RuntimeError("aurora unavailable")
+        with pytest.raises(RuntimeError, match="aurora unavailable"):
+            cleanup.delete_graphrag_indexes(NS)
+
+
+@pytest.mark.unit
+class TestDeleteAuroraNamespaceRows:
+    def test_aurora_branch_deletes_triples_and_ontology_rows(self, aurora_index, monkeypatch):
+        from coa_control_plane.namespace import cleanup
+
+        index, _ = aurora_index
+        monkeypatch.delenv("OSS_ENDPOINT", raising=False)
+        cleanup.delete_graphrag_indexes(NS)
+        sqls = [c.args[0] for c in index.client.execute.call_args_list]
+        assert any("DELETE FROM coa_triple" in s and "namespace = :ns" in s for s in sqls)
+        assert any("DELETE FROM ontology_engine" in s and "pk LIKE :prefix" in s for s in sqls)
+
+    def test_batches_until_a_short_batch(self, aurora_index):
+        from coa_control_plane.namespace import cleanup
+
+        index, _ = aurora_index
+        full = cleanup._AURORA_DELETE_BATCH
+        index.client.execute.side_effect = [[{"n": full}], [{"n": 7}], [{"n": 0}]]
+        assert cleanup._delete_aurora_namespace_rows(NS) == {"coa_triple": full + 7, "ontology_engine": 0}
+        calls = index.client.execute.call_args_list
+        assert len(calls) == 3
+        assert all(c.args[1]["batch"] == full for c in calls)
+        assert calls[0].args[1]["ns"] == NS
+        assert calls[2].args[1] == {"prefix": f"{NS}#%", "ns_pk": f"NAMESPACE#{NS}", "batch": full}
+
+    def test_like_prefix_escapes_wildcards(self):
+        from coa_control_plane.namespace import cleanup
+
+        assert cleanup._like_escape("a_b%c\\d") == "a\\_b\\%c\\\\d"
+
+    def test_failure_propagates(self, aurora_index):
+        from coa_control_plane.namespace import cleanup
+
+        index, _ = aurora_index
+        index.client.execute.side_effect = RuntimeError("aurora unavailable")
         with pytest.raises(RuntimeError, match="aurora unavailable"):
             cleanup.delete_graphrag_indexes(NS)
 

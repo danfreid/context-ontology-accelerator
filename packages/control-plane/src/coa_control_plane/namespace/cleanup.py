@@ -344,6 +344,52 @@ def _delete_aurora_scopes(namespace_id: str, scopes: list[str]) -> list[str]:
     return removed
 
 
+_AURORA_DELETE_BATCH = 5000
+
+# Rows the ontology engine keeps per namespace in the DynamoDB-mirror table: ``{ns}#JOB#...``,
+# ``{ns}#PROPOSAL#...``, ``{ns}#INDUCTIONLOCK`` and ``NAMESPACE#{ns}``. LIKE uses ``\`` as the escape.
+_ONTOLOGY_ROWS_WHERE = "(pk LIKE :prefix ESCAPE '\\' OR pk = :ns_pk)"
+
+
+def _like_escape(value: str) -> str:
+    return value.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
+
+
+def _delete_aurora_namespace_rows(namespace_id: str) -> dict[str, int]:
+    """Delete the namespace's triples and ontology metadata rows in bounded batches. Raises on failure.
+
+    Each statement removes at most ``_AURORA_DELETE_BATCH`` rows so it stays inside the Data API
+    statement timeout. Safe to retry: a second pass finds nothing.
+    """
+    client = build_client_from_env()
+    statements = {
+        "coa_triple": (
+            "WITH d AS (DELETE FROM coa_triple WHERE id IN "
+            "(SELECT id FROM coa_triple WHERE namespace = :ns LIMIT :batch) RETURNING 1) "
+            "SELECT count(*) AS n FROM d",
+            {"ns": namespace_id},
+        ),
+        "ontology_engine": (
+            "WITH d AS (DELETE FROM ontology_engine WHERE (pk, sk) IN "
+            f"(SELECT pk, sk FROM ontology_engine WHERE {_ONTOLOGY_ROWS_WHERE} LIMIT :batch) RETURNING 1) "
+            "SELECT count(*) AS n FROM d",
+            {"prefix": _like_escape(f"{namespace_id}#") + "%", "ns_pk": f"NAMESPACE#{namespace_id}"},
+        ),
+    }
+    deleted: dict[str, int] = {}
+    for table, (sql, params) in statements.items():
+        total = 0
+        while True:
+            rows = client.execute(sql, {**params, "batch": _AURORA_DELETE_BATCH})
+            n = int(rows[0]["n"]) if rows else 0
+            total += n
+            if n < _AURORA_DELETE_BATCH:
+                break
+        deleted[table] = total
+    logger.info("aurora_namespace_rows_deleted", namespace_id=namespace_id, deleted=deleted)
+    return deleted
+
+
 def delete_graphrag_indexes(namespace_id: str) -> list[str]:
     """Delete the namespace's GraphRAG doc-KG vector indexes. Returns those removed.
 
@@ -365,6 +411,7 @@ def delete_graphrag_indexes(namespace_id: str) -> list[str]:
     removed: list[str] = []
     if resolve_search_backend() == SearchBackend.PGVECTOR:
         removed.extend(_delete_aurora_scopes(namespace_id, graphrag_index_names(namespace_id)))
+        _delete_aurora_namespace_rows(namespace_id)
     endpoint = os.environ.get("OSS_ENDPOINT", "")
     if not endpoint:
         logger.warning("oss_endpoint_not_configured", namespace_id=namespace_id)
