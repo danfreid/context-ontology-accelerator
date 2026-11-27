@@ -1,0 +1,1714 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "documents": [
+          "confirmation"
+        ],
+        "format": "docx",
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "NC-HOU-26-0101-confirmation.docx",
+      "kind": "trade-confirmation",
+      "message": "confirmation",
+      "path": "attachments/001-NC-HOU-26-0101-confirmation.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example",
+        "wasDerivedFrom": "<19a3670503b7839bc500@newco-houston.example>"
+      },
+      "sha256": "0288fb65590984052c0762d874a5419201d6b7cd21df32c77b49ed419f12d2ed",
+      "size": 4910
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "facts": {
+        "documents": [
+          "confirmation-signed"
+        ],
+        "format": "pdf",
+        "page_count": 1,
+        "pages": [
+          {
+            "doc_id": "confirmation-signed",
+            "kind": "trade-confirmation",
+            "page": 1,
+            "scanned": true
+          }
+        ],
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "NC-HOU-26-0101-confirmation-signed.pdf",
+      "kind": "trade-confirmation",
+      "message": "confirmation-signed",
+      "path": "attachments/002-NC-HOU-26-0101-confirmation-signed.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeff.guzman@vitol.example",
+        "wasDerivedFrom": "<3831a333a1b18559d236@vitol.example>"
+      },
+      "sha256": "919cb71cc7f4351eafa03d449172851f394c99cf16b5ae44667849b2b64d1d46",
+      "size": 54603
+    },
+    {
+      "class_uri": "urn:dcsa:ebl:TransportDocument",
+      "facts": {
+        "documents": [
+          "bl-ulsd"
+        ],
+        "format": "pdf",
+        "page_count": 4,
+        "pages": [
+          {
+            "doc_id": "bl-ulsd",
+            "kind": "bill-of-lading",
+            "page": 1,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-ulsd",
+            "kind": "bill-of-lading",
+            "page": 2,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-ulsd",
+            "kind": "bill-of-lading",
+            "page": 3,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-ulsd",
+            "kind": "bill-of-lading",
+            "page": 4,
+            "scanned": false
+          }
+        ],
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "bl-GSMA-NC-HOU-26-0101-01.pdf",
+      "kind": "bill-of-lading",
+      "message": "bills-ulsd-rbob",
+      "path": "attachments/003-bl-GSMA-NC-HOU-26-0101-01.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "brandon.lawson@gulfstreammarine.example",
+        "wasDerivedFrom": "<f0c1845ba52f0f651042@gulfstreammarine.example>"
+      },
+      "sha256": "4fe3ed025aa1b87466c908db54caeb526503a9f506f108e39350f584fcb7ce6a",
+      "size": 5180
+    },
+    {
+      "class_uri": "urn:dcsa:ebl:TransportDocument",
+      "facts": {
+        "documents": [
+          "bl-rbob"
+        ],
+        "format": "pdf",
+        "page_count": 4,
+        "pages": [
+          {
+            "doc_id": "bl-rbob",
+            "kind": "bill-of-lading",
+            "page": 1,
+            "scanned": true
+          },
+          {
+            "doc_id": "bl-rbob",
+            "kind": "bill-of-lading",
+            "page": 2,
+            "scanned": true
+          },
+          {
+            "doc_id": "bl-rbob",
+            "kind": "bill-of-lading",
+            "page": 3,
+            "scanned": true
+          },
+          {
+            "doc_id": "bl-rbob",
+            "kind": "bill-of-lading",
+            "page": 4,
+            "scanned": true
+          }
+        ],
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "bl-GSMA-NC-HOU-26-0101-02.pdf",
+      "kind": "bill-of-lading",
+      "message": "bills-ulsd-rbob",
+      "path": "attachments/003-bl-GSMA-NC-HOU-26-0101-02.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "brandon.lawson@gulfstreammarine.example",
+        "wasDerivedFrom": "<f0c1845ba52f0f651042@gulfstreammarine.example>"
+      },
+      "sha256": "e85102f32260a5746cd35bfcef8bf053e54b5eede97a8545389827d76017a512",
+      "size": 106737
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/Attestation",
+      "facts": {
+        "documents": [
+          "coq-ulsd",
+          "cqty-ulsd"
+        ],
+        "format": "pdf",
+        "page_count": 2,
+        "pages": [
+          {
+            "doc_id": "coq-ulsd",
+            "kind": "quality-certificate",
+            "page": 1,
+            "scanned": false
+          },
+          {
+            "doc_id": "cqty-ulsd",
+            "kind": "quantity-certificate",
+            "page": 2,
+            "scanned": false
+          }
+        ],
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "certificates-ulsd.pdf",
+      "kind": "inspection-certificates",
+      "message": "certificates-ulsd-rbob",
+      "path": "attachments/004-certificates-ulsd.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example",
+        "wasDerivedFrom": "<eef03d5320b137f43d3d@cardinalinspection.example>"
+      },
+      "sha256": "846cc47c15516747335c364caad23bdde78f14a3bea9341ce60eed1e3e2b3c48",
+      "size": 2667
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/Attestation",
+      "facts": {
+        "documents": [
+          "coq-rbob",
+          "cqty-rbob"
+        ],
+        "format": "pdf",
+        "page_count": 2,
+        "pages": [
+          {
+            "doc_id": "coq-rbob",
+            "kind": "quality-certificate",
+            "page": 1,
+            "scanned": false
+          },
+          {
+            "doc_id": "cqty-rbob",
+            "kind": "quantity-certificate",
+            "page": 2,
+            "scanned": false
+          }
+        ],
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "certificates-rbob.pdf",
+      "kind": "inspection-certificates",
+      "message": "certificates-ulsd-rbob",
+      "path": "attachments/004-certificates-rbob.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example",
+        "wasDerivedFrom": "<eef03d5320b137f43d3d@cardinalinspection.example>"
+      },
+      "sha256": "3321e0818e996c1f17b6a41e5178a00b05973dbdba31644671ffc16668322a54",
+      "size": 2654
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/Assessment",
+      "facts": {
+        "documents": [
+          "quantity-report"
+        ],
+        "format": "xlsx",
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "load-port-quantities.xlsx",
+      "kind": "quantity-report",
+      "message": "certificates-ulsd-rbob",
+      "path": "attachments/004-load-port-quantities.xlsx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example",
+        "wasDerivedFrom": "<eef03d5320b137f43d3d@cardinalinspection.example>"
+      },
+      "sha256": "540ee0da7ec0311082ad19e496d3458d6aee7d4d214df45f26e5f117b76d4805",
+      "size": 4438
+    },
+    {
+      "class_uri": "urn:dcsa:ebl:TransportDocument",
+      "facts": {
+        "documents": [
+          "bl-jet"
+        ],
+        "format": "pdf",
+        "page_count": 4,
+        "pages": [
+          {
+            "doc_id": "bl-jet",
+            "kind": "bill-of-lading",
+            "page": 1,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-jet",
+            "kind": "bill-of-lading",
+            "page": 2,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-jet",
+            "kind": "bill-of-lading",
+            "page": 3,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-jet",
+            "kind": "bill-of-lading",
+            "page": 4,
+            "scanned": false
+          }
+        ],
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "bl-GSMA-NC-HOU-26-0101-03.pdf",
+      "kind": "bill-of-lading",
+      "message": "documents-jet",
+      "path": "attachments/005-bl-GSMA-NC-HOU-26-0101-03.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeff.guzman@vitol.example",
+        "wasDerivedFrom": "<ed531d13fe1ca7c4a9fe@vitol.example>"
+      },
+      "sha256": "522909ec4622d5058cbd78f759a767d5fdc9c4e2089ba375b08ef96338bb80fa",
+      "size": 5193
+    },
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/Attestation",
+      "facts": {
+        "documents": [
+          "coq-jet",
+          "cqty-jet"
+        ],
+        "format": "pdf",
+        "page_count": 2,
+        "pages": [
+          {
+            "doc_id": "coq-jet",
+            "kind": "quality-certificate",
+            "page": 1,
+            "scanned": true
+          },
+          {
+            "doc_id": "cqty-jet",
+            "kind": "quantity-certificate",
+            "page": 2,
+            "scanned": true
+          }
+        ],
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "jet-certificates-scan.pdf",
+      "kind": "inspection-certificates",
+      "message": "documents-jet",
+      "path": "attachments/005-jet-certificates-scan.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeff.guzman@vitol.example",
+        "wasDerivedFrom": "<ed531d13fe1ca7c4a9fe@vitol.example>"
+      },
+      "sha256": "fddc83fa562beb02cd526b79b60a9c81d4323ffff4d23fbb3ed3d5ed44e75626",
+      "size": 46189
+    },
+    {
+      "class_uri": "https://schema.org/Invoice",
+      "facts": {
+        "documents": [
+          "invoice"
+        ],
+        "format": "pdf",
+        "page_count": 1,
+        "pages": [
+          {
+            "doc_id": "invoice",
+            "kind": "invoice",
+            "page": 1,
+            "scanned": false
+          }
+        ],
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "invoice.pdf",
+      "kind": "invoice",
+      "message": "invoice-set",
+      "path": "attachments/006-invoice.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "emily.gonzales@vitol.example",
+        "wasDerivedFrom": "<fd21aa7e7b3a58cb5b85@vitol.example>"
+      },
+      "sha256": "51602f25413da0f777d92936bb652291ba0b098c522840829d5a6921b994468f",
+      "size": 7253
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "documents": [
+          "pricing"
+        ],
+        "format": "xlsx",
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "pricing-NC-HOU-26-0101.xlsx",
+      "kind": "price-workbook",
+      "message": "invoice-set",
+      "path": "attachments/006-pricing-NC-HOU-26-0101.xlsx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "emily.gonzales@vitol.example",
+        "wasDerivedFrom": "<fd21aa7e7b3a58cb5b85@vitol.example>"
+      },
+      "sha256": "c075c259acb66e2d24d0d27eec08715ce4968a3097d665542dce9df48e858d65",
+      "size": 7521
+    },
+    {
+      "class_uri": "https://folio.openlegalstandard.org/RB8v1h0OiUgX3iXn0LXUg7g",
+      "facts": {
+        "documents": [
+          "loi"
+        ],
+        "format": "docx",
+        "trade_id": "NC-HOU-26-0101"
+      },
+      "filename": "loi-NC-HOU-26-0101.docx",
+      "kind": "letter-of-indemnity",
+      "message": "invoice-set",
+      "path": "attachments/006-loi-NC-HOU-26-0101.docx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "emily.gonzales@vitol.example",
+        "wasDerivedFrom": "<fd21aa7e7b3a58cb5b85@vitol.example>"
+      },
+      "sha256": "0c524110174b96ec611f91f16313e4cc248ef473c65b43ead5ac9dca69137800",
+      "size": 4115
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 12,
+    "chats": 0,
+    "emails": 6
+  },
+  "deals": [],
+  "docsets": [
+    {
+      "deal": {
+        "buyer": "newco-hou",
+        "confirmation_date": "2026-07-09",
+        "countersigned": "2026-07-10",
+        "currency": "USD",
+        "discharge_port": "Santos",
+        "incoterm": "FOB",
+        "laycan_from": "2026-07-17",
+        "laycan_to": "2026-07-21",
+        "load_port": "Houston Ship Channel",
+        "paper_org": "newco-hou",
+        "payment_days": 30,
+        "products": [
+          {
+            "differential": null,
+            "final_price": 97.85,
+            "fixed_price": 97.85,
+            "index": null,
+            "key": "ulsd",
+            "name": "ULSD (62 grade)",
+            "nominal": 300000,
+            "price_type": "fixed",
+            "quantity_max": 315000,
+            "quantity_min": 285000,
+            "quotes": [],
+            "tolerance_pct": 5,
+            "unit": "bbl"
+          },
+          {
+            "differential": 1.15,
+            "final_price": 89.896,
+            "fixed_price": null,
+            "index": "Platts USGC RBOB pipeline",
+            "key": "rbob",
+            "name": "RBOB gasoline (M4)",
+            "nominal": 250000,
+            "price_type": "floating",
+            "quantity_max": 262500,
+            "quantity_min": 237500,
+            "quotes": [
+              {
+                "date": "2026-07-16",
+                "price": 88.41
+              },
+              {
+                "date": "2026-07-17",
+                "price": 88.92
+              },
+              {
+                "date": "2026-07-20",
+                "price": 89.135
+              },
+              {
+                "date": "2026-07-21",
+                "price": 88.76
+              },
+              {
+                "date": "2026-07-22",
+                "price": 88.505
+              }
+            ],
+            "tolerance_pct": 5,
+            "unit": "bbl"
+          },
+          {
+            "differential": -0.85,
+            "final_price": 94.324,
+            "fixed_price": null,
+            "index": "Platts USGC Jet 54 pipeline",
+            "key": "jet",
+            "name": "Jet fuel (54 grade)",
+            "nominal": 200000,
+            "price_type": "floating",
+            "quantity_max": 220000,
+            "quantity_min": 180000,
+            "quotes": [
+              {
+                "date": "2026-07-16",
+                "price": 95.3
+              },
+              {
+                "date": "2026-07-17",
+                "price": 95.015
+              },
+              {
+                "date": "2026-07-20",
+                "price": 94.88
+              },
+              {
+                "date": "2026-07-21",
+                "price": 95.41
+              },
+              {
+                "date": "2026-07-22",
+                "price": 95.265
+              }
+            ],
+            "tolerance_pct": 10,
+            "unit": "bbl"
+          }
+        ],
+        "requirements": [
+          {
+            "copies": 1,
+            "kind": "bill-of-lading",
+            "originals": 3,
+            "per": "product"
+          },
+          {
+            "count": 1,
+            "kind": "quality-certificate",
+            "per": "product"
+          },
+          {
+            "count": 1,
+            "kind": "quantity-certificate",
+            "per": "product"
+          },
+          {
+            "count": 1,
+            "kind": "letter-of-indemnity",
+            "per": "set"
+          },
+          {
+            "count": 1,
+            "kind": "invoice",
+            "per": "set"
+          }
+        ],
+        "seller": "cp-vitol",
+        "trade_id": "NC-HOU-26-0101",
+        "vessel": "MT Gulf Sentinel"
+      },
+      "documents": [
+        {
+          "doc_id": "confirmation",
+          "file": "NC-HOU-26-0101-confirmation.docx",
+          "format": "docx",
+          "issuer": "NewCo Trading Houston LLC",
+          "kind": "trade-confirmation",
+          "message": "confirmation",
+          "page_range": null,
+          "products": [
+            "ulsd",
+            "rbob",
+            "jet"
+          ],
+          "signed": false,
+          "source": "donald.flores@newco-houston.example"
+        },
+        {
+          "doc_id": "confirmation-signed",
+          "file": "NC-HOU-26-0101-confirmation-signed.pdf",
+          "format": "pdf-scan",
+          "issuer": "NewCo Trading Houston LLC",
+          "kind": "trade-confirmation",
+          "message": "confirmation-signed",
+          "page_range": [
+            1,
+            1
+          ],
+          "products": [
+            "ulsd",
+            "rbob",
+            "jet"
+          ],
+          "signed": true,
+          "source": "jeff.guzman@vitol.example"
+        },
+        {
+          "class_uris": {
+            "cargo_item": "urn:dcsa:ebl:CargoItem",
+            "consignee": "urn:dcsa:ebl:Consignee",
+            "notify_party": "urn:dcsa:ebl:NotifyParty",
+            "shipper": "urn:dcsa:ebl:Shipper"
+          },
+          "copies": 1,
+          "date": "2026-07-20",
+          "doc_id": "bl-ulsd",
+          "file": "bl-GSMA-NC-HOU-26-0101-01.pdf",
+          "format": "pdf",
+          "issuer": "MT Gulf Sentinel (master)",
+          "kind": "bill-of-lading",
+          "message": "bills-ulsd-rbob",
+          "number": "GSMA-NC-HOU-26-0101-01",
+          "originals": [
+            1,
+            2,
+            3
+          ],
+          "originals_issued": 3,
+          "page_range": [
+            1,
+            4
+          ],
+          "products": [
+            "ulsd"
+          ],
+          "quantities": {
+            "ulsd": 301284.16
+          },
+          "source": "brandon.lawson@gulfstreammarine.example",
+          "unit": "bbl"
+        },
+        {
+          "class_uris": {
+            "cargo_item": "urn:dcsa:ebl:CargoItem",
+            "consignee": "urn:dcsa:ebl:Consignee",
+            "notify_party": "urn:dcsa:ebl:NotifyParty",
+            "shipper": "urn:dcsa:ebl:Shipper"
+          },
+          "copies": 1,
+          "date": "2026-07-20",
+          "doc_id": "bl-rbob",
+          "file": "bl-GSMA-NC-HOU-26-0101-02.pdf",
+          "format": "pdf-scan",
+          "issuer": "MT Gulf Sentinel (master)",
+          "kind": "bill-of-lading",
+          "message": "bills-ulsd-rbob",
+          "number": "GSMA-NC-HOU-26-0101-02",
+          "originals": [
+            1,
+            2,
+            3
+          ],
+          "originals_issued": 3,
+          "page_range": [
+            1,
+            4
+          ],
+          "products": [
+            "rbob"
+          ],
+          "quantities": {
+            "rbob": 246905.33
+          },
+          "source": "brandon.lawson@gulfstreammarine.example",
+          "unit": "bbl"
+        },
+        {
+          "bl_number": "GSMA-NC-HOU-26-0101-01",
+          "date": "2026-07-20",
+          "doc_id": "coq-ulsd",
+          "file": "certificates-ulsd.pdf",
+          "format": "pdf",
+          "issuer": "Cardinal Inspection Services",
+          "kind": "quality-certificate",
+          "message": "certificates-ulsd-rbob",
+          "page_range": [
+            1,
+            1
+          ],
+          "products": [
+            "ulsd"
+          ],
+          "results": {
+            "API gravity": "34.8",
+            "Flash point, C": "61",
+            "Sulphur, ppm": "8.6"
+          },
+          "source": "veronica.smith@cardinalinspection.example"
+        },
+        {
+          "bl_number": "GSMA-NC-HOU-26-0101-01",
+          "date": "2026-07-20",
+          "doc_id": "cqty-ulsd",
+          "file": "certificates-ulsd.pdf",
+          "format": "pdf",
+          "issuer": "Cardinal Inspection Services",
+          "kind": "quantity-certificate",
+          "message": "certificates-ulsd-rbob",
+          "page_range": [
+            2,
+            2
+          ],
+          "products": [
+            "ulsd"
+          ],
+          "quantities": {
+            "ulsd": 301284.16
+          },
+          "source": "veronica.smith@cardinalinspection.example",
+          "unit": "bbl"
+        },
+        {
+          "bl_number": "GSMA-NC-HOU-26-0101-02",
+          "date": "2026-07-20",
+          "doc_id": "coq-rbob",
+          "file": "certificates-rbob.pdf",
+          "format": "pdf",
+          "issuer": "Cardinal Inspection Services",
+          "kind": "quality-certificate",
+          "message": "certificates-ulsd-rbob",
+          "page_range": [
+            1,
+            1
+          ],
+          "products": [
+            "rbob"
+          ],
+          "results": {
+            "Octane (R+M)/2": "83.1",
+            "RVP, psi": "9.0"
+          },
+          "source": "veronica.smith@cardinalinspection.example"
+        },
+        {
+          "bl_number": "GSMA-NC-HOU-26-0101-02",
+          "date": "2026-07-20",
+          "doc_id": "cqty-rbob",
+          "file": "certificates-rbob.pdf",
+          "format": "pdf",
+          "issuer": "Cardinal Inspection Services",
+          "kind": "quantity-certificate",
+          "message": "certificates-ulsd-rbob",
+          "page_range": [
+            2,
+            2
+          ],
+          "products": [
+            "rbob"
+          ],
+          "quantities": {
+            "rbob": 246905.33
+          },
+          "source": "veronica.smith@cardinalinspection.example",
+          "unit": "bbl"
+        },
+        {
+          "doc_id": "quantity-report",
+          "file": "load-port-quantities.xlsx",
+          "format": "xlsx",
+          "issuer": "Cardinal Inspection Services",
+          "kind": "quantity-report",
+          "message": "certificates-ulsd-rbob",
+          "page_range": null,
+          "products": [
+            "ulsd",
+            "rbob"
+          ],
+          "quantities": {
+            "rbob": 246905.33,
+            "ulsd": 301284.16
+          },
+          "source": "veronica.smith@cardinalinspection.example",
+          "supporting": true
+        },
+        {
+          "class_uris": {
+            "cargo_item": "urn:dcsa:ebl:CargoItem",
+            "consignee": "urn:dcsa:ebl:Consignee",
+            "notify_party": "urn:dcsa:ebl:NotifyParty",
+            "shipper": "urn:dcsa:ebl:Shipper"
+          },
+          "copies": 1,
+          "date": "2026-07-20",
+          "doc_id": "bl-jet",
+          "file": "bl-GSMA-NC-HOU-26-0101-03.pdf",
+          "format": "pdf",
+          "issuer": "MT Gulf Sentinel (master)",
+          "kind": "bill-of-lading",
+          "message": "documents-jet",
+          "number": "GSMA-NC-HOU-26-0101-03",
+          "originals": [
+            1,
+            2,
+            3
+          ],
+          "originals_issued": 3,
+          "page_range": [
+            1,
+            4
+          ],
+          "products": [
+            "jet"
+          ],
+          "quantities": {
+            "jet": 208117.045
+          },
+          "source": "jeff.guzman@vitol.example",
+          "unit": "bbl"
+        },
+        {
+          "bl_number": "GSMA-NC-HOU-26-0101-03",
+          "date": "2026-07-20",
+          "doc_id": "coq-jet",
+          "file": "jet-certificates-scan.pdf",
+          "format": "pdf-scan",
+          "issuer": "Bayou Petroleum Inspection Co.",
+          "kind": "quality-certificate",
+          "message": "documents-jet",
+          "page_range": [
+            1,
+            1
+          ],
+          "products": [
+            "jet"
+          ],
+          "results": {
+            "Density at 15C, kg/m3": "805.2",
+            "Freeze point, C": "-42"
+          },
+          "source": "jeff.guzman@vitol.example"
+        },
+        {
+          "bl_number": "GSMA-NC-HOU-26-0101-03",
+          "date": "2026-07-20",
+          "doc_id": "cqty-jet",
+          "file": "jet-certificates-scan.pdf",
+          "format": "pdf-scan",
+          "issuer": "Bayou Petroleum Inspection Co.",
+          "kind": "quantity-certificate",
+          "message": "documents-jet",
+          "page_range": [
+            2,
+            2
+          ],
+          "products": [
+            "jet"
+          ],
+          "quantities": {
+            "jet": 208117.045
+          },
+          "source": "jeff.guzman@vitol.example",
+          "unit": "bbl"
+        },
+        {
+          "amounts": {
+            "jet": 19630432.15,
+            "rbob": 22195801.55,
+            "ulsd": 29480655.06
+          },
+          "date": "2026-07-23",
+          "doc_id": "invoice",
+          "due": "2026-08-19",
+          "file": "invoice.pdf",
+          "format": "pdf",
+          "issuer": "Vitol Inc.",
+          "kind": "invoice",
+          "message": "invoice-set",
+          "number": "VIT-INV-NC-HOU-26-0101",
+          "page_range": [
+            1,
+            1
+          ],
+          "prices": {
+            "jet": 94.324,
+            "rbob": 89.896,
+            "ulsd": 97.85
+          },
+          "products": [
+            "ulsd",
+            "rbob",
+            "jet"
+          ],
+          "quantities": {
+            "jet": 208117.045,
+            "rbob": 246905.33,
+            "ulsd": 301284.16
+          },
+          "source": "emily.gonzales@vitol.example",
+          "total": 71306888.76
+        },
+        {
+          "doc_id": "pricing",
+          "file": "pricing-NC-HOU-26-0101.xlsx",
+          "format": "xlsx",
+          "issuer": "Vitol Inc.",
+          "kind": "price-workbook",
+          "message": "invoice-set",
+          "page_range": null,
+          "prices": {
+            "jet": 94.324,
+            "rbob": 89.896,
+            "ulsd": 97.85
+          },
+          "products": [
+            "ulsd",
+            "rbob",
+            "jet"
+          ],
+          "source": "emily.gonzales@vitol.example",
+          "supporting": true
+        },
+        {
+          "bl_numbers": {
+            "jet": "GSMA-NC-HOU-26-0101-03",
+            "rbob": "GSMA-NC-HOU-26-0101-02",
+            "ulsd": "GSMA-NC-HOU-26-0101-01"
+          },
+          "cargo_value": 71306888.76,
+          "class_uri": "https://folio.openlegalstandard.org/RB8v1h0OiUgX3iXn0LXUg7g",
+          "countersigned_by": "Hudson Meridian Trust Company",
+          "date": "2026-07-23",
+          "doc_id": "loi",
+          "file": "loi-NC-HOU-26-0101.docx",
+          "format": "docx",
+          "indemnity_amount": 78437577.64,
+          "issuer": "Vitol Inc.",
+          "kind": "letter-of-indemnity",
+          "message": "invoice-set",
+          "page_range": null,
+          "products": [
+            "ulsd",
+            "rbob",
+            "jet"
+          ],
+          "quantities": {
+            "jet": 208117.045,
+            "rbob": 246905.33,
+            "ulsd": 301284.16
+          },
+          "source": "emily.gonzales@vitol.example"
+        }
+      ],
+      "files": [
+        {
+          "documents": [
+            "confirmation"
+          ],
+          "file": "NC-HOU-26-0101-confirmation.docx",
+          "format": "docx",
+          "message": "confirmation",
+          "page_count": null,
+          "pages": []
+        },
+        {
+          "documents": [
+            "confirmation-signed"
+          ],
+          "file": "NC-HOU-26-0101-confirmation-signed.pdf",
+          "format": "pdf",
+          "message": "confirmation-signed",
+          "page_count": 1,
+          "pages": [
+            {
+              "doc_id": "confirmation-signed",
+              "kind": "trade-confirmation",
+              "page": 1,
+              "scanned": true
+            }
+          ]
+        },
+        {
+          "documents": [
+            "bl-ulsd"
+          ],
+          "file": "bl-GSMA-NC-HOU-26-0101-01.pdf",
+          "format": "pdf",
+          "message": "bills-ulsd-rbob",
+          "page_count": 4,
+          "pages": [
+            {
+              "doc_id": "bl-ulsd",
+              "kind": "bill-of-lading",
+              "page": 1,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-ulsd",
+              "kind": "bill-of-lading",
+              "page": 2,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-ulsd",
+              "kind": "bill-of-lading",
+              "page": 3,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-ulsd",
+              "kind": "bill-of-lading",
+              "page": 4,
+              "scanned": false
+            }
+          ]
+        },
+        {
+          "documents": [
+            "bl-rbob"
+          ],
+          "file": "bl-GSMA-NC-HOU-26-0101-02.pdf",
+          "format": "pdf",
+          "message": "bills-ulsd-rbob",
+          "page_count": 4,
+          "pages": [
+            {
+              "doc_id": "bl-rbob",
+              "kind": "bill-of-lading",
+              "page": 1,
+              "scanned": true
+            },
+            {
+              "doc_id": "bl-rbob",
+              "kind": "bill-of-lading",
+              "page": 2,
+              "scanned": true
+            },
+            {
+              "doc_id": "bl-rbob",
+              "kind": "bill-of-lading",
+              "page": 3,
+              "scanned": true
+            },
+            {
+              "doc_id": "bl-rbob",
+              "kind": "bill-of-lading",
+              "page": 4,
+              "scanned": true
+            }
+          ]
+        },
+        {
+          "documents": [
+            "coq-ulsd",
+            "cqty-ulsd"
+          ],
+          "file": "certificates-ulsd.pdf",
+          "format": "pdf",
+          "message": "certificates-ulsd-rbob",
+          "page_count": 2,
+          "pages": [
+            {
+              "doc_id": "coq-ulsd",
+              "kind": "quality-certificate",
+              "page": 1,
+              "scanned": false
+            },
+            {
+              "doc_id": "cqty-ulsd",
+              "kind": "quantity-certificate",
+              "page": 2,
+              "scanned": false
+            }
+          ]
+        },
+        {
+          "documents": [
+            "coq-rbob",
+            "cqty-rbob"
+          ],
+          "file": "certificates-rbob.pdf",
+          "format": "pdf",
+          "message": "certificates-ulsd-rbob",
+          "page_count": 2,
+          "pages": [
+            {
+              "doc_id": "coq-rbob",
+              "kind": "quality-certificate",
+              "page": 1,
+              "scanned": false
+            },
+            {
+              "doc_id": "cqty-rbob",
+              "kind": "quantity-certificate",
+              "page": 2,
+              "scanned": false
+            }
+          ]
+        },
+        {
+          "documents": [
+            "quantity-report"
+          ],
+          "file": "load-port-quantities.xlsx",
+          "format": "xlsx",
+          "message": "certificates-ulsd-rbob",
+          "page_count": null,
+          "pages": []
+        },
+        {
+          "documents": [
+            "bl-jet"
+          ],
+          "file": "bl-GSMA-NC-HOU-26-0101-03.pdf",
+          "format": "pdf",
+          "message": "documents-jet",
+          "page_count": 4,
+          "pages": [
+            {
+              "doc_id": "bl-jet",
+              "kind": "bill-of-lading",
+              "page": 1,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-jet",
+              "kind": "bill-of-lading",
+              "page": 2,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-jet",
+              "kind": "bill-of-lading",
+              "page": 3,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-jet",
+              "kind": "bill-of-lading",
+              "page": 4,
+              "scanned": false
+            }
+          ]
+        },
+        {
+          "documents": [
+            "coq-jet",
+            "cqty-jet"
+          ],
+          "file": "jet-certificates-scan.pdf",
+          "format": "pdf",
+          "message": "documents-jet",
+          "page_count": 2,
+          "pages": [
+            {
+              "doc_id": "coq-jet",
+              "kind": "quality-certificate",
+              "page": 1,
+              "scanned": true
+            },
+            {
+              "doc_id": "cqty-jet",
+              "kind": "quantity-certificate",
+              "page": 2,
+              "scanned": true
+            }
+          ]
+        },
+        {
+          "documents": [
+            "invoice"
+          ],
+          "file": "invoice.pdf",
+          "format": "pdf",
+          "message": "invoice-set",
+          "page_count": 1,
+          "pages": [
+            {
+              "doc_id": "invoice",
+              "kind": "invoice",
+              "page": 1,
+              "scanned": false
+            }
+          ]
+        },
+        {
+          "documents": [
+            "pricing"
+          ],
+          "file": "pricing-NC-HOU-26-0101.xlsx",
+          "format": "xlsx",
+          "message": "invoice-set",
+          "page_count": null,
+          "pages": []
+        },
+        {
+          "documents": [
+            "loi"
+          ],
+          "file": "loi-NC-HOU-26-0101.docx",
+          "format": "docx",
+          "message": "invoice-set",
+          "page_count": null,
+          "pages": []
+        }
+      ],
+      "id": "d1-houston-vitol-products-batched:docset",
+      "reconciliation": {
+        "counts": [
+          {
+            "found": 3,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "ulsd",
+            "required": 3,
+            "unit": "originals"
+          },
+          {
+            "found": 1,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "ulsd",
+            "required": 1,
+            "unit": "copies"
+          },
+          {
+            "found": 3,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "rbob",
+            "required": 3,
+            "unit": "originals"
+          },
+          {
+            "found": 1,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "rbob",
+            "required": 1,
+            "unit": "copies"
+          },
+          {
+            "found": 3,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "jet",
+            "required": 3,
+            "unit": "originals"
+          },
+          {
+            "found": 1,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "jet",
+            "required": 1,
+            "unit": "copies"
+          },
+          {
+            "found": 1,
+            "kind": "quality-certificate",
+            "ok": true,
+            "product": "ulsd",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "quality-certificate",
+            "ok": true,
+            "product": "rbob",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "quality-certificate",
+            "ok": true,
+            "product": "jet",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "quantity-certificate",
+            "ok": true,
+            "product": "ulsd",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "quantity-certificate",
+            "ok": true,
+            "product": "rbob",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "quantity-certificate",
+            "ok": true,
+            "product": "jet",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "letter-of-indemnity",
+            "ok": true,
+            "product": null,
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "invoice",
+            "ok": true,
+            "product": null,
+            "required": 1,
+            "unit": "documents"
+          }
+        ],
+        "exceptions": [],
+        "invoice_arithmetic_ok": true,
+        "prices": [
+          {
+            "expected": 97.85,
+            "invoiced": 97.85,
+            "ok": true,
+            "product": "ulsd",
+            "type": "fixed"
+          },
+          {
+            "expected": 89.896,
+            "invoiced": 89.896,
+            "ok": true,
+            "product": "rbob",
+            "type": "floating"
+          },
+          {
+            "expected": 94.324,
+            "invoiced": 94.324,
+            "ok": true,
+            "product": "jet",
+            "type": "floating"
+          }
+        ],
+        "quantities": [
+          {
+            "bill-of-lading": 301284.16,
+            "documents_agree": true,
+            "invoice": 301284.16,
+            "letter-of-indemnity": 301284.16,
+            "product": "ulsd",
+            "quantity-certificate": 301284.16,
+            "range": [
+              285000,
+              315000
+            ],
+            "within_range": true
+          },
+          {
+            "bill-of-lading": 246905.33,
+            "documents_agree": true,
+            "invoice": 246905.33,
+            "letter-of-indemnity": 246905.33,
+            "product": "rbob",
+            "quantity-certificate": 246905.33,
+            "range": [
+              237500,
+              262500
+            ],
+            "within_range": true
+          },
+          {
+            "bill-of-lading": 208117.045,
+            "documents_agree": true,
+            "invoice": 208117.045,
+            "letter-of-indemnity": 208117.045,
+            "product": "jet",
+            "quantity-certificate": 208117.045,
+            "range": [
+              180000,
+              220000
+            ],
+            "within_range": true
+          }
+        ],
+        "result": "pass"
+      },
+      "trade_id": "NC-HOU-26-0101"
+    }
+  ],
+  "expected_contradictions": [],
+  "messages": [
+    {
+      "attachments": [
+        "NC-HOU-26-0101-confirmation.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "outbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/001-confirmation.eml",
+        "md": "messages/001-confirmation.md"
+      },
+      "from": {
+        "address": "donald.flores@newco-houston.example",
+        "name": "Donald Flores",
+        "org": "newco-hou",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "confirmation",
+      "message_id": "<19a3670503b7839bc500@newco-houston.example>",
+      "phase": "docsets",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "donald.flores@newco-houston.example"
+      },
+      "seq": 1,
+      "subject": "Confirmation NC-HOU-26-0101: ULSD, RBOB, jet",
+      "tags": [
+        "confirmation",
+        "docset"
+      ],
+      "thread": "confirmation",
+      "timestamp": "2026-07-09T09:28:00-05:00",
+      "to": [
+        {
+          "address": "jeff.guzman@vitol.example",
+          "name": "Jeff Guzman",
+          "org": "cp-vitol",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "NC-HOU-26-0101-confirmation-signed.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeAgreement",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-confirmation-signed.eml",
+        "md": "messages/002-confirmation-signed.md"
+      },
+      "from": {
+        "address": "jeff.guzman@vitol.example",
+        "name": "Jeff Guzman",
+        "org": "cp-vitol",
+        "role": "ops"
+      },
+      "in_reply_to": "confirmation",
+      "key": "confirmation-signed",
+      "message_id": "<3831a333a1b18559d236@vitol.example>",
+      "phase": "docsets",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeff.guzman@vitol.example"
+      },
+      "seq": 2,
+      "subject": "Re: Confirmation NC-HOU-26-0101: ULSD, RBOB, jet",
+      "tags": [
+        "confirmation",
+        "docset",
+        "scan"
+      ],
+      "thread": "confirmation",
+      "timestamp": "2026-07-10T09:16:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "bl-GSMA-NC-HOU-26-0101-01.pdf",
+        "bl-GSMA-NC-HOU-26-0101-02.pdf"
+      ],
+      "cc": [],
+      "class_uri": "urn:dcsa:ebl:TransportDocument",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/003-bills-ulsd-rbob.eml",
+        "md": "messages/003-bills-ulsd-rbob.md"
+      },
+      "from": {
+        "address": "brandon.lawson@gulfstreammarine.example",
+        "name": "Brandon Lawson",
+        "org": "svc-gulfstream",
+        "role": "agent"
+      },
+      "in_reply_to": null,
+      "key": "bills-ulsd-rbob",
+      "message_id": "<f0c1845ba52f0f651042@gulfstreammarine.example>",
+      "phase": "docsets",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "brandon.lawson@gulfstreammarine.example"
+      },
+      "seq": 3,
+      "subject": "MT Gulf Sentinel: bills of lading ULSD and RBOB",
+      "tags": [
+        "bill-of-lading",
+        "docset"
+      ],
+      "thread": "bills-ulsd-rbob",
+      "timestamp": "2026-07-20T10:08:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "certificates-ulsd.pdf",
+        "certificates-rbob.pdf",
+        "load-port-quantities.xlsx"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/Attestation",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/004-certificates-ulsd-rbob.eml",
+        "md": "messages/004-certificates-ulsd-rbob.md"
+      },
+      "from": {
+        "address": "veronica.smith@cardinalinspection.example",
+        "name": "Veronica Smith",
+        "org": "svc-cardinal",
+        "role": "inspector"
+      },
+      "in_reply_to": null,
+      "key": "certificates-ulsd-rbob",
+      "message_id": "<eef03d5320b137f43d3d@cardinalinspection.example>",
+      "phase": "docsets",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "veronica.smith@cardinalinspection.example"
+      },
+      "seq": 4,
+      "subject": "Certificates MT Gulf Sentinel: ULSD, RBOB",
+      "tags": [
+        "certificate",
+        "docset",
+        "spreadsheet"
+      ],
+      "thread": "certificates-ulsd-rbob",
+      "timestamp": "2026-07-21T09:23:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "bl-GSMA-NC-HOU-26-0101-03.pdf",
+        "jet-certificates-scan.pdf"
+      ],
+      "cc": [],
+      "class_uri": "urn:dcsa:ebl:TransportDocument",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/005-documents-jet.eml",
+        "md": "messages/005-documents-jet.md"
+      },
+      "from": {
+        "address": "jeff.guzman@vitol.example",
+        "name": "Jeff Guzman",
+        "org": "cp-vitol",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "documents-jet",
+      "message_id": "<ed531d13fe1ca7c4a9fe@vitol.example>",
+      "phase": "docsets",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "jeff.guzman@vitol.example"
+      },
+      "seq": 5,
+      "subject": "Jet documents NC-HOU-26-0101",
+      "tags": [
+        "bill-of-lading",
+        "certificate",
+        "docset",
+        "scan"
+      ],
+      "thread": "documents-jet",
+      "timestamp": "2026-07-22T09:02:00-05:00",
+      "to": [
+        {
+          "address": "donald.flores@newco-houston.example",
+          "name": "Donald Flores",
+          "org": "newco-hou",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "invoice.pdf",
+        "pricing-NC-HOU-26-0101.xlsx",
+        "loi-NC-HOU-26-0101.docx"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/Invoice",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/006-invoice-set.eml",
+        "md": "messages/006-invoice-set.md"
+      },
+      "from": {
+        "address": "emily.gonzales@vitol.example",
+        "name": "Emily Gonzales",
+        "org": "cp-vitol",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "invoice-set",
+      "message_id": "<fd21aa7e7b3a58cb5b85@vitol.example>",
+      "phase": "docsets",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "emily.gonzales@vitol.example"
+      },
+      "seq": 6,
+      "subject": "Invoice and LOI NC-HOU-26-0101",
+      "tags": [
+        "docset",
+        "invoice",
+        "letter-of-indemnity",
+        "spreadsheet"
+      ],
+      "thread": "invoice-set",
+      "timestamp": "2026-07-23T09:32:00-05:00",
+      "to": [
+        {
+          "address": "steve.harris@newco-houston.example",
+          "name": "Steve Harris",
+          "org": "newco-hou",
+          "role": "accounting"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "invoice_total": 71306888.76,
+    "result": "pass",
+    "trade_id": "NC-HOU-26-0101"
+  },
+  "ownership_edges": [],
+  "phase": "docsets",
+  "positions": [],
+  "questions": [
+    {
+      "expected": true,
+      "id": "d1-houston-vitol-products-batched-q1",
+      "question": "Does the document set for NC-HOU-26-0101 meet every document requirement of its confirmation?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 246905.33,
+      "id": "d1-houston-vitol-products-batched-q2",
+      "question": "What quantity of RBOB was loaded under bill of lading GSMA-NC-HOU-26-0101-02?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": 94.324,
+      "id": "d1-houston-vitol-products-batched-q3",
+      "question": "What price per barrel does the confirmation's formula give for the jet fuel in NC-HOU-26-0101?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 3,
+      "id": "d1-houston-vitol-products-batched-q4",
+      "question": "How many original bills of lading does the confirmation for NC-HOU-26-0101 require per product?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": 71306888.76,
+      "id": "d1-houston-vitol-products-batched-q5",
+      "question": "What is the invoiced total for NC-HOU-26-0101?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": "Bayou Petroleum Inspection Co.",
+      "id": "d1-houston-vitol-products-batched-q6",
+      "question": "Who issued the certificates for the jet fuel in NC-HOU-26-0101?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    }
+  ],
+  "review_events": [],
+  "scenario": "d1-houston-vitol-products-batched",
+  "title": "Houston buys ULSD, RBOB and jet from Vitol: five batches, mixed formats, all documents in order"
+}

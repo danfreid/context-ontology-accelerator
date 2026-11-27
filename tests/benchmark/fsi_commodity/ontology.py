@@ -55,6 +55,9 @@ FALLBACKS = {
     "CLM": "cdm.event.common.MarginCallIssuance",  # ISDA CDM margin call
     "SWAPS": "OverTheCounterDerivativeInstrument",
     "FXOUT": "OverTheCounterDerivativeInstrument",
+    # FOLIO class IRIs are opaque; these readable names resolve to them.
+    "LetterOfCredit": "RBWWm7M917awGxBEiWI5XsG",
+    "LetterOfIndemnity": "RB8v1h0OiUgX3iXn0LXUg7g",
 }
 
 

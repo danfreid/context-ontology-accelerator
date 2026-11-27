@@ -4,3 +4,6 @@ Faker==40.63.0
 reportlab==5.1.1
 tzdata==2026.6
 PyYAML==6.0.4
+# Raster scans and page merges in the docsets phase (writers/pdf_tools.py); output bytes depend on these.
+pypdfium2==5.13.0
+pillow==13.0.0

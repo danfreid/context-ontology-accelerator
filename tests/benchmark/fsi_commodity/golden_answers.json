@@ -586,6 +586,106 @@
     "question": "Which account received the GBP for NC-LON-26-0002?",
     "answer": "acct-newco-lon-gbp-operating"
   },
+  "d1-houston-vitol-products-batched-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Does the document set for NC-HOU-26-0101 meet every document requirement of its confirmation?",
+    "answer": true
+  },
+  "d1-houston-vitol-products-batched-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "What quantity of RBOB was loaded under bill of lading GSMA-NC-HOU-26-0101-02?",
+    "answer": 246905.33
+  },
+  "d1-houston-vitol-products-batched-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What price per barrel does the confirmation's formula give for the jet fuel in NC-HOU-26-0101?",
+    "answer": 94.324
+  },
+  "d1-houston-vitol-products-batched-q4": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "How many original bills of lading does the confirmation for NC-HOU-26-0101 require per product?",
+    "answer": 3
+  },
+  "d1-houston-vitol-products-batched-q5": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "What is the invoiced total for NC-HOU-26-0101?",
+    "answer": 71306888.76
+  },
+  "d1-houston-vitol-products-batched-q6": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "Who issued the certificates for the jet fuel in NC-HOU-26-0101?",
+    "answer": "Bayou Petroleum Inspection Co."
+  },
+  "d2-london-bp-products-merged-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Which document requirements of the confirmation for NC-LON-26-0101 are not met?",
+    "answer": [
+      "bill-of-lading originals for Jet A-1: 2 of 3"
+    ]
+  },
+  "d2-london-bp-products-merged-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "For which products of NC-LON-26-0101 does the invoiced quantity differ from the B/L quantity?",
+    "answer": [
+      "Eurobob gasoline"
+    ]
+  },
+  "d2-london-bp-products-merged-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "How many pages does the merged document set for NC-LON-26-0101 have?",
+    "answer": 23
+  },
+  "d2-london-bp-products-merged-q4": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "How many blank pages does the merged document set for NC-LON-26-0101 contain?",
+    "answer": 3
+  },
+  "d2-london-bp-products-merged-q5": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "How many separate documents does the merged document set for NC-LON-26-0101 contain?",
+    "answer": 12
+  },
+  "d2-london-bp-products-merged-q6": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "reconciliation",
+    "question": "Are all bill of lading quantities for NC-LON-26-0101 within the confirmation's quantity ranges?",
+    "answer": true
+  },
   "graph-q01": {
     "expected": 2,
     "tolerance_pct": 0,

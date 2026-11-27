@@ -18,11 +18,18 @@ from .writers.eml import AttachmentFile, EmailSpec, Party, build_eml, make_messa
 from .writers.manifest import dumps_json, sha256_hex
 from .writers.md import build_md
 
-PHASE_DIRS = {"onboarding": "onboarding", "trade": "trade", "post_trade": "post-trade", "settlement": "settlement"}
+PHASE_DIRS = {
+    "onboarding": "onboarding",
+    "trade": "trade",
+    "post_trade": "post-trade",
+    "settlement": "settlement",
+    "docsets": "docsets",
+}
 
 _MIME_FALLBACK = {
     ".pdf": "application/pdf",
     ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     ".md": "text/markdown",
     ".txt": "text/plain",
 }
@@ -59,7 +66,7 @@ class Scenario:
 
     Args:
         scenario_id: Folder name, for example ``s1-houston-vitol-wti``.
-        phase: ``onboarding``, ``trade``, ``post_trade`` or ``settlement``.
+        phase: ``onboarding``, ``trade``, ``post_trade``, ``settlement`` or ``docsets``.
         universe: The dict from ``build_universe``.
         start: Timezone-aware start of the scenario clock.
         seed: The corpus seed; per-message jitter derives from ``seed + crc32(key)``.
@@ -104,6 +111,8 @@ class Scenario:
         self.questions: list[dict[str, Any]] = []
         self.review_events: list[dict[str, Any]] = []
         self.data: dict[str, Any] = {}  # computed values later phases read (limits, prices, due dates, ...)
+        # Document sets (docsets phase): logical documents, how files split into them, and the reconciliation.
+        self.docsets: list[dict[str, Any]] = []
 
     # --- clock ------------------------------------------------------------------------------------
 
@@ -353,7 +362,8 @@ class Scenario:
             raise ValueError(f"{self.id}: built {self.counts}, expected {self.expect}")
 
     def manifest(self) -> dict[str, Any]:
-        """Return the per-scenario ground truth."""
+        """Return the per-scenario ground truth. ``docsets`` is present only for scenarios that record one."""
+        extra = {"docsets": self.docsets} if self.docsets else {}
         return {
             "scenario": self.id,
             "phase": self.phase,
@@ -370,6 +380,7 @@ class Scenario:
             "outcome": self.outcome,
             "questions": self.questions,
             "review_events": self.review_events,
+            **extra,
         }
 
     def files(self) -> dict[str, bytes]:

@@ -56,7 +56,8 @@ def _pack_uris() -> set[str]:
 
 
 def test_scenario_and_phase_totals_match_the_brief(result: BuildResult) -> None:
-    assert len(result.scenarios) == 24
+    # BRIEF.md's 24 scenarios plus the docsets phase (2 scenarios, 8 emails, 14 attachments).
+    assert len(result.scenarios) == 26
     per_phase: dict[str, list[int]] = {}
     for s in result.scenarios:
         c = s.counts
@@ -70,23 +71,24 @@ def test_scenario_and_phase_totals_match_the_brief(result: BuildResult) -> None:
         "trade": [6, 42, 18, 13],
         "post_trade": [6, 55, 39, 0],
         "settlement": [6, 34, 19, 0],
+        "docsets": [2, 8, 14, 0],
     }
-    assert sum(s.counts["emails"] for s in result.scenarios) == 269
-    assert sum(s.counts["attachments"] for s in result.scenarios) == 171
+    assert sum(s.counts["emails"] for s in result.scenarios) == 277
+    assert sum(s.counts["attachments"] for s in result.scenarios) == 185
     assert sum(s.counts["chats"] for s in result.scenarios) == 13
     assert sum(len(s.data["deals"]) for s in result.scenarios if s.phase == "trade") == 7
 
 
 def test_committed_corpus_has_the_brief_counts() -> None:
     manifests = [json.loads(p.read_text(encoding="utf-8")) for p in CORPUS_DIR.glob("*/*/manifest.json")]
-    assert len(manifests) == 24
-    assert sum(m["counts"]["emails"] for m in manifests) == 269
-    assert sum(m["counts"]["attachments"] for m in manifests) == 171
+    assert len(manifests) == 26
+    assert sum(m["counts"]["emails"] for m in manifests) == 277
+    assert sum(m["counts"]["attachments"] for m in manifests) == 185
     assert sum(m["counts"]["chats"] for m in manifests) == 13
-    assert len(list(CORPUS_DIR.glob("*/*/messages/*.eml"))) == 269
-    assert len(list(CORPUS_DIR.glob("*/*/messages/*.md"))) == 269
+    assert len(list(CORPUS_DIR.glob("*/*/messages/*.eml"))) == 277
+    assert len(list(CORPUS_DIR.glob("*/*/messages/*.md"))) == 277
     assert len(list(CORPUS_DIR.glob("*/*/chats/*.json"))) == 13
-    assert len(list(CORPUS_DIR.glob("*/*/attachments/*"))) == 171
+    assert len(list(CORPUS_DIR.glob("*/*/attachments/*"))) == 185
 
 
 # --- the committed corpus against the brief's rules ---------------------------------------------
@@ -265,7 +267,7 @@ def test_golden_file_is_current_and_compare_py_can_read_it(result: BuildResult) 
 def test_replay_runs_offline_and_exits_zero(capsys: pytest.CaptureFixture[str]) -> None:
     assert replay_main([]) == 0
     out = capsys.readouterr().out
-    assert "observed totals: 269 emails, 171 attachments, 13 chats" in out
+    assert "observed totals: 277 emails, 185 attachments, 13 chats" in out
 
 
 def test_replay_fails_when_an_attachment_changes(tmp_path: Path, files: dict[str, bytes]) -> None:

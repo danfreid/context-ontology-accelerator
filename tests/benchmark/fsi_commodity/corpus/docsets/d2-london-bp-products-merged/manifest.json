@@ -1,0 +1,1246 @@
+{
+  "attachments": [
+    {
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeDocument",
+      "facts": {
+        "documents": [
+          "confirmation",
+          "bl-ulsd",
+          "bl-jet",
+          "bl-eurobob",
+          "coq-ulsd",
+          "cqty-ulsd",
+          "coq-jet",
+          "cqty-jet",
+          "coq-eurobob",
+          "cqty-eurobob",
+          "loi",
+          "invoice"
+        ],
+        "format": "pdf",
+        "page_count": 23,
+        "pages": [
+          {
+            "doc_id": "confirmation",
+            "kind": "trade-confirmation",
+            "page": 1,
+            "scanned": false
+          },
+          {
+            "doc_id": null,
+            "kind": "blank",
+            "page": 2,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-ulsd",
+            "kind": "bill-of-lading",
+            "page": 3,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-ulsd",
+            "kind": "bill-of-lading",
+            "page": 4,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-ulsd",
+            "kind": "bill-of-lading",
+            "page": 5,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-ulsd",
+            "kind": "bill-of-lading",
+            "page": 6,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-jet",
+            "kind": "bill-of-lading",
+            "page": 7,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-jet",
+            "kind": "bill-of-lading",
+            "page": 8,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-jet",
+            "kind": "bill-of-lading",
+            "page": 9,
+            "scanned": false
+          },
+          {
+            "doc_id": null,
+            "kind": "blank",
+            "page": 10,
+            "scanned": false
+          },
+          {
+            "doc_id": "bl-eurobob",
+            "kind": "bill-of-lading",
+            "page": 11,
+            "scanned": true
+          },
+          {
+            "doc_id": "bl-eurobob",
+            "kind": "bill-of-lading",
+            "page": 12,
+            "scanned": true
+          },
+          {
+            "doc_id": "bl-eurobob",
+            "kind": "bill-of-lading",
+            "page": 13,
+            "scanned": true
+          },
+          {
+            "doc_id": "bl-eurobob",
+            "kind": "bill-of-lading",
+            "page": 14,
+            "scanned": true
+          },
+          {
+            "doc_id": "coq-ulsd",
+            "kind": "quality-certificate",
+            "page": 15,
+            "scanned": false
+          },
+          {
+            "doc_id": "cqty-ulsd",
+            "kind": "quantity-certificate",
+            "page": 16,
+            "scanned": false
+          },
+          {
+            "doc_id": "coq-jet",
+            "kind": "quality-certificate",
+            "page": 17,
+            "scanned": false
+          },
+          {
+            "doc_id": "cqty-jet",
+            "kind": "quantity-certificate",
+            "page": 18,
+            "scanned": false
+          },
+          {
+            "doc_id": null,
+            "kind": "blank",
+            "page": 19,
+            "scanned": false
+          },
+          {
+            "doc_id": "coq-eurobob",
+            "kind": "quality-certificate",
+            "page": 20,
+            "scanned": true
+          },
+          {
+            "doc_id": "cqty-eurobob",
+            "kind": "quantity-certificate",
+            "page": 21,
+            "scanned": true
+          },
+          {
+            "doc_id": "loi",
+            "kind": "letter-of-indemnity",
+            "page": 22,
+            "scanned": false
+          },
+          {
+            "doc_id": "invoice",
+            "kind": "invoice",
+            "page": 23,
+            "scanned": false
+          }
+        ],
+        "trade_id": "NC-LON-26-0101"
+      },
+      "filename": "NC-LON-26-0101-document-set.pdf",
+      "kind": "document-set",
+      "message": "document-set",
+      "path": "attachments/001-NC-LON-26-0101-document-set.pdf",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "elliott.herbert@bp.example",
+        "wasDerivedFrom": "<86f4def52d22742fa98c@bp.example>"
+      },
+      "sha256": "2a2c8475c524d6ffa5b7030dccf1d857042ed1424263d31cb6f223c0bb7e7ff3",
+      "size": 163881
+    },
+    {
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "facts": {
+        "documents": [
+          "pricing"
+        ],
+        "format": "xlsx",
+        "trade_id": "NC-LON-26-0101"
+      },
+      "filename": "pricing-NC-LON-26-0101.xlsx",
+      "kind": "price-workbook",
+      "message": "pricing",
+      "path": "attachments/002-pricing-NC-LON-26-0101.xlsx",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "shirley.kelly@bp.example",
+        "wasDerivedFrom": "<d60a23361f2e7b361c2c@bp.example>"
+      },
+      "sha256": "d592d146c8c26b21f83d9f22ff5434166941f3ca13c215226241ca98122a788c",
+      "size": 7522
+    }
+  ],
+  "beneficial_owners": {},
+  "chats": [],
+  "counts": {
+    "attachments": 2,
+    "chats": 0,
+    "emails": 2
+  },
+  "deals": [],
+  "docsets": [
+    {
+      "deal": {
+        "buyer": "newco-lon",
+        "confirmation_date": "2026-07-24",
+        "countersigned": "2026-07-24",
+        "currency": "USD",
+        "discharge_port": "Rotterdam",
+        "incoterm": "FOB",
+        "laycan_from": "2026-07-31",
+        "laycan_to": "2026-08-04",
+        "load_port": "Fawley",
+        "paper_org": "cp-bp",
+        "payment_days": 5,
+        "products": [
+          {
+            "differential": null,
+            "final_price": 718.25,
+            "fixed_price": 718.25,
+            "index": null,
+            "key": "ulsd",
+            "name": "ULSD 10 ppm",
+            "nominal": 30000,
+            "price_type": "fixed",
+            "quantity_max": 31500,
+            "quantity_min": 28500,
+            "quotes": [],
+            "tolerance_pct": 5,
+            "unit": "mt"
+          },
+          {
+            "differential": 16.5,
+            "final_price": 759.85,
+            "fixed_price": null,
+            "index": "Platts Jet CIF NWE cargoes",
+            "key": "jet",
+            "name": "Jet A-1",
+            "nominal": 20000,
+            "price_type": "floating",
+            "quantity_max": 21000,
+            "quantity_min": 19000,
+            "quotes": [
+              {
+                "date": "2026-07-30",
+                "price": 742.25
+              },
+              {
+                "date": "2026-07-31",
+                "price": 745.5
+              },
+              {
+                "date": "2026-08-03",
+                "price": 744.75
+              },
+              {
+                "date": "2026-08-04",
+                "price": 741
+              },
+              {
+                "date": "2026-08-05",
+                "price": 743.25
+              }
+            ],
+            "tolerance_pct": 5,
+            "unit": "mt"
+          },
+          {
+            "differential": -6.75,
+            "final_price": 774.85,
+            "fixed_price": null,
+            "index": "Platts Eurobob FOB AR barges",
+            "key": "eurobob",
+            "name": "Eurobob gasoline",
+            "nominal": 15000,
+            "price_type": "floating",
+            "quantity_max": 16500,
+            "quantity_min": 13500,
+            "quotes": [
+              {
+                "date": "2026-07-30",
+                "price": 781.5
+              },
+              {
+                "date": "2026-07-31",
+                "price": 779.25
+              },
+              {
+                "date": "2026-08-03",
+                "price": 784
+              },
+              {
+                "date": "2026-08-04",
+                "price": 782.75
+              },
+              {
+                "date": "2026-08-05",
+                "price": 780.5
+              }
+            ],
+            "tolerance_pct": 10,
+            "unit": "mt"
+          }
+        ],
+        "requirements": [
+          {
+            "copies": 1,
+            "kind": "bill-of-lading",
+            "originals": 3,
+            "per": "product"
+          },
+          {
+            "count": 1,
+            "kind": "quality-certificate",
+            "per": "product"
+          },
+          {
+            "count": 1,
+            "kind": "quantity-certificate",
+            "per": "product"
+          },
+          {
+            "count": 1,
+            "kind": "letter-of-indemnity",
+            "per": "set"
+          },
+          {
+            "count": 1,
+            "kind": "invoice",
+            "per": "set"
+          }
+        ],
+        "seller": "cp-bp",
+        "trade_id": "NC-LON-26-0101",
+        "vessel": "MT Northern Laurel"
+      },
+      "documents": [
+        {
+          "doc_id": "confirmation",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf",
+          "issuer": "BP Oil International Limited",
+          "kind": "trade-confirmation",
+          "message": "document-set",
+          "page_range": [
+            1,
+            1
+          ],
+          "products": [
+            "ulsd",
+            "jet",
+            "eurobob"
+          ],
+          "signed": true,
+          "source": "elliott.herbert@bp.example"
+        },
+        {
+          "class_uris": {
+            "cargo_item": "urn:dcsa:ebl:CargoItem",
+            "consignee": "urn:dcsa:ebl:Consignee",
+            "notify_party": "urn:dcsa:ebl:NotifyParty",
+            "shipper": "urn:dcsa:ebl:Shipper"
+          },
+          "copies": 1,
+          "date": "2026-08-03",
+          "doc_id": "bl-ulsd",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf",
+          "issuer": "MT Northern Laurel (master)",
+          "kind": "bill-of-lading",
+          "message": "document-set",
+          "number": "NLV-2608-001",
+          "originals": [
+            1,
+            2,
+            3
+          ],
+          "originals_issued": 3,
+          "page_range": [
+            3,
+            6
+          ],
+          "products": [
+            "ulsd"
+          ],
+          "quantities": {
+            "ulsd": 30412.556
+          },
+          "source": "elliott.herbert@bp.example",
+          "unit": "mt"
+        },
+        {
+          "class_uris": {
+            "cargo_item": "urn:dcsa:ebl:CargoItem",
+            "consignee": "urn:dcsa:ebl:Consignee",
+            "notify_party": "urn:dcsa:ebl:NotifyParty",
+            "shipper": "urn:dcsa:ebl:Shipper"
+          },
+          "copies": 1,
+          "date": "2026-08-03",
+          "doc_id": "bl-jet",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf",
+          "issuer": "MT Northern Laurel (master)",
+          "kind": "bill-of-lading",
+          "message": "document-set",
+          "number": "NLV-2608-002",
+          "originals": [
+            1,
+            2
+          ],
+          "originals_issued": 3,
+          "page_range": [
+            7,
+            9
+          ],
+          "products": [
+            "jet"
+          ],
+          "quantities": {
+            "jet": 19874.31
+          },
+          "source": "elliott.herbert@bp.example",
+          "unit": "mt"
+        },
+        {
+          "class_uris": {
+            "cargo_item": "urn:dcsa:ebl:CargoItem",
+            "consignee": "urn:dcsa:ebl:Consignee",
+            "notify_party": "urn:dcsa:ebl:NotifyParty",
+            "shipper": "urn:dcsa:ebl:Shipper"
+          },
+          "copies": 1,
+          "date": "2026-08-03",
+          "doc_id": "bl-eurobob",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf-scan",
+          "issuer": "MT Northern Laurel (master)",
+          "kind": "bill-of-lading",
+          "message": "document-set",
+          "number": "NLV-2608-003",
+          "originals": [
+            1,
+            2,
+            3
+          ],
+          "originals_issued": 3,
+          "page_range": [
+            11,
+            14
+          ],
+          "products": [
+            "eurobob"
+          ],
+          "quantities": {
+            "eurobob": 15902.004
+          },
+          "source": "elliott.herbert@bp.example",
+          "unit": "mt"
+        },
+        {
+          "bl_number": "NLV-2608-001",
+          "date": "2026-08-03",
+          "doc_id": "coq-ulsd",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf",
+          "issuer": "Halvorsen Marine Surveyors Ltd",
+          "kind": "quality-certificate",
+          "message": "document-set",
+          "page_range": [
+            15,
+            15
+          ],
+          "products": [
+            "ulsd"
+          ],
+          "results": {
+            "Cetane index": "51.2",
+            "Density at 15C, kg/m3": "838.4",
+            "Sulphur, mg/kg": "7.9"
+          },
+          "source": "elliott.herbert@bp.example"
+        },
+        {
+          "bl_number": "NLV-2608-001",
+          "date": "2026-08-03",
+          "doc_id": "cqty-ulsd",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf",
+          "issuer": "Halvorsen Marine Surveyors Ltd",
+          "kind": "quantity-certificate",
+          "message": "document-set",
+          "page_range": [
+            16,
+            16
+          ],
+          "products": [
+            "ulsd"
+          ],
+          "quantities": {
+            "ulsd": 30412.556
+          },
+          "source": "elliott.herbert@bp.example",
+          "unit": "mt"
+        },
+        {
+          "bl_number": "NLV-2608-002",
+          "date": "2026-08-03",
+          "doc_id": "coq-jet",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf",
+          "issuer": "Halvorsen Marine Surveyors Ltd",
+          "kind": "quality-certificate",
+          "message": "document-set",
+          "page_range": [
+            17,
+            17
+          ],
+          "products": [
+            "jet"
+          ],
+          "results": {
+            "Density at 15C, kg/m3": "798.6",
+            "Flash point, C": "42",
+            "Freeze point, C": "-48"
+          },
+          "source": "elliott.herbert@bp.example"
+        },
+        {
+          "bl_number": "NLV-2608-002",
+          "date": "2026-08-03",
+          "doc_id": "cqty-jet",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf",
+          "issuer": "Halvorsen Marine Surveyors Ltd",
+          "kind": "quantity-certificate",
+          "message": "document-set",
+          "page_range": [
+            18,
+            18
+          ],
+          "products": [
+            "jet"
+          ],
+          "quantities": {
+            "jet": 19874.31
+          },
+          "source": "elliott.herbert@bp.example",
+          "unit": "mt"
+        },
+        {
+          "bl_number": "NLV-2608-003",
+          "date": "2026-08-03",
+          "doc_id": "coq-eurobob",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf-scan",
+          "issuer": "Halvorsen Marine Surveyors Ltd",
+          "kind": "quality-certificate",
+          "message": "document-set",
+          "page_range": [
+            20,
+            20
+          ],
+          "products": [
+            "eurobob"
+          ],
+          "results": {
+            "DVPE, kPa": "58.0",
+            "Density at 15C, kg/m3": "742.9",
+            "RON": "95.4"
+          },
+          "source": "elliott.herbert@bp.example"
+        },
+        {
+          "bl_number": "NLV-2608-003",
+          "date": "2026-08-03",
+          "doc_id": "cqty-eurobob",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf-scan",
+          "issuer": "Halvorsen Marine Surveyors Ltd",
+          "kind": "quantity-certificate",
+          "message": "document-set",
+          "page_range": [
+            21,
+            21
+          ],
+          "products": [
+            "eurobob"
+          ],
+          "quantities": {
+            "eurobob": 15902.004
+          },
+          "source": "elliott.herbert@bp.example",
+          "unit": "mt"
+        },
+        {
+          "bl_numbers": {
+            "eurobob": "NLV-2608-003",
+            "jet": "NLV-2608-002",
+            "ulsd": "NLV-2608-001"
+          },
+          "cargo_value": 49266980.6,
+          "class_uri": "https://folio.openlegalstandard.org/RB8v1h0OiUgX3iXn0LXUg7g",
+          "countersigned_by": "Northgate Bank plc",
+          "date": "2026-08-06",
+          "doc_id": "loi",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf",
+          "indemnity_amount": 54193678.66,
+          "issuer": "BP Oil International Limited",
+          "kind": "letter-of-indemnity",
+          "message": "document-set",
+          "page_range": [
+            22,
+            22
+          ],
+          "products": [
+            "ulsd",
+            "jet",
+            "eurobob"
+          ],
+          "quantities": {
+            "eurobob": 15902.004,
+            "jet": 19874.31,
+            "ulsd": 30412.556
+          },
+          "source": "elliott.herbert@bp.example"
+        },
+        {
+          "amounts": {
+            "eurobob": 11622750,
+            "jet": 15101494.45,
+            "ulsd": 21843818.35
+          },
+          "date": "2026-08-06",
+          "doc_id": "invoice",
+          "due": "2026-08-10",
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf",
+          "issuer": "BP Oil International Limited",
+          "kind": "invoice",
+          "message": "document-set",
+          "number": "BPOI-NC-LON-26-0101",
+          "page_range": [
+            23,
+            23
+          ],
+          "prices": {
+            "eurobob": 774.85,
+            "jet": 759.85,
+            "ulsd": 718.25
+          },
+          "products": [
+            "ulsd",
+            "jet",
+            "eurobob"
+          ],
+          "quantities": {
+            "eurobob": 15000,
+            "jet": 19874.31,
+            "ulsd": 30412.556
+          },
+          "source": "elliott.herbert@bp.example",
+          "total": 48568062.8
+        },
+        {
+          "doc_id": "pricing",
+          "file": "pricing-NC-LON-26-0101.xlsx",
+          "format": "xlsx",
+          "issuer": "BP Oil International Limited",
+          "kind": "price-workbook",
+          "message": "pricing",
+          "page_range": null,
+          "prices": {
+            "eurobob": 774.85,
+            "jet": 759.85,
+            "ulsd": 718.25
+          },
+          "products": [
+            "ulsd",
+            "jet",
+            "eurobob"
+          ],
+          "source": "shirley.kelly@bp.example",
+          "supporting": true
+        }
+      ],
+      "files": [
+        {
+          "documents": [
+            "confirmation",
+            "bl-ulsd",
+            "bl-jet",
+            "bl-eurobob",
+            "coq-ulsd",
+            "cqty-ulsd",
+            "coq-jet",
+            "cqty-jet",
+            "coq-eurobob",
+            "cqty-eurobob",
+            "loi",
+            "invoice"
+          ],
+          "file": "NC-LON-26-0101-document-set.pdf",
+          "format": "pdf",
+          "message": "document-set",
+          "page_count": 23,
+          "pages": [
+            {
+              "doc_id": "confirmation",
+              "kind": "trade-confirmation",
+              "page": 1,
+              "scanned": false
+            },
+            {
+              "doc_id": null,
+              "kind": "blank",
+              "page": 2,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-ulsd",
+              "kind": "bill-of-lading",
+              "page": 3,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-ulsd",
+              "kind": "bill-of-lading",
+              "page": 4,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-ulsd",
+              "kind": "bill-of-lading",
+              "page": 5,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-ulsd",
+              "kind": "bill-of-lading",
+              "page": 6,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-jet",
+              "kind": "bill-of-lading",
+              "page": 7,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-jet",
+              "kind": "bill-of-lading",
+              "page": 8,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-jet",
+              "kind": "bill-of-lading",
+              "page": 9,
+              "scanned": false
+            },
+            {
+              "doc_id": null,
+              "kind": "blank",
+              "page": 10,
+              "scanned": false
+            },
+            {
+              "doc_id": "bl-eurobob",
+              "kind": "bill-of-lading",
+              "page": 11,
+              "scanned": true
+            },
+            {
+              "doc_id": "bl-eurobob",
+              "kind": "bill-of-lading",
+              "page": 12,
+              "scanned": true
+            },
+            {
+              "doc_id": "bl-eurobob",
+              "kind": "bill-of-lading",
+              "page": 13,
+              "scanned": true
+            },
+            {
+              "doc_id": "bl-eurobob",
+              "kind": "bill-of-lading",
+              "page": 14,
+              "scanned": true
+            },
+            {
+              "doc_id": "coq-ulsd",
+              "kind": "quality-certificate",
+              "page": 15,
+              "scanned": false
+            },
+            {
+              "doc_id": "cqty-ulsd",
+              "kind": "quantity-certificate",
+              "page": 16,
+              "scanned": false
+            },
+            {
+              "doc_id": "coq-jet",
+              "kind": "quality-certificate",
+              "page": 17,
+              "scanned": false
+            },
+            {
+              "doc_id": "cqty-jet",
+              "kind": "quantity-certificate",
+              "page": 18,
+              "scanned": false
+            },
+            {
+              "doc_id": null,
+              "kind": "blank",
+              "page": 19,
+              "scanned": false
+            },
+            {
+              "doc_id": "coq-eurobob",
+              "kind": "quality-certificate",
+              "page": 20,
+              "scanned": true
+            },
+            {
+              "doc_id": "cqty-eurobob",
+              "kind": "quantity-certificate",
+              "page": 21,
+              "scanned": true
+            },
+            {
+              "doc_id": "loi",
+              "kind": "letter-of-indemnity",
+              "page": 22,
+              "scanned": false
+            },
+            {
+              "doc_id": "invoice",
+              "kind": "invoice",
+              "page": 23,
+              "scanned": false
+            }
+          ]
+        },
+        {
+          "documents": [
+            "pricing"
+          ],
+          "file": "pricing-NC-LON-26-0101.xlsx",
+          "format": "xlsx",
+          "message": "pricing",
+          "page_count": null,
+          "pages": []
+        }
+      ],
+      "id": "d2-london-bp-products-merged:docset",
+      "reconciliation": {
+        "counts": [
+          {
+            "found": 3,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "ulsd",
+            "required": 3,
+            "unit": "originals"
+          },
+          {
+            "found": 1,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "ulsd",
+            "required": 1,
+            "unit": "copies"
+          },
+          {
+            "found": 2,
+            "kind": "bill-of-lading",
+            "ok": false,
+            "product": "jet",
+            "required": 3,
+            "unit": "originals"
+          },
+          {
+            "found": 1,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "jet",
+            "required": 1,
+            "unit": "copies"
+          },
+          {
+            "found": 3,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "eurobob",
+            "required": 3,
+            "unit": "originals"
+          },
+          {
+            "found": 1,
+            "kind": "bill-of-lading",
+            "ok": true,
+            "product": "eurobob",
+            "required": 1,
+            "unit": "copies"
+          },
+          {
+            "found": 1,
+            "kind": "quality-certificate",
+            "ok": true,
+            "product": "ulsd",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "quality-certificate",
+            "ok": true,
+            "product": "jet",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "quality-certificate",
+            "ok": true,
+            "product": "eurobob",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "quantity-certificate",
+            "ok": true,
+            "product": "ulsd",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "quantity-certificate",
+            "ok": true,
+            "product": "jet",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "quantity-certificate",
+            "ok": true,
+            "product": "eurobob",
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "letter-of-indemnity",
+            "ok": true,
+            "product": null,
+            "required": 1,
+            "unit": "documents"
+          },
+          {
+            "found": 1,
+            "kind": "invoice",
+            "ok": true,
+            "product": null,
+            "required": 1,
+            "unit": "documents"
+          }
+        ],
+        "exceptions": [
+          "bill-of-lading originals for Jet A-1: 2 of 3",
+          "invoice quantity for Eurobob gasoline 15000 mt differs from the B/L quantity 15902.004 mt"
+        ],
+        "invoice_arithmetic_ok": true,
+        "prices": [
+          {
+            "expected": 718.25,
+            "invoiced": 718.25,
+            "ok": true,
+            "product": "ulsd",
+            "type": "fixed"
+          },
+          {
+            "expected": 759.85,
+            "invoiced": 759.85,
+            "ok": true,
+            "product": "jet",
+            "type": "floating"
+          },
+          {
+            "expected": 774.85,
+            "invoiced": 774.85,
+            "ok": true,
+            "product": "eurobob",
+            "type": "floating"
+          }
+        ],
+        "quantities": [
+          {
+            "bill-of-lading": 30412.556,
+            "documents_agree": true,
+            "invoice": 30412.556,
+            "letter-of-indemnity": 30412.556,
+            "product": "ulsd",
+            "quantity-certificate": 30412.556,
+            "range": [
+              28500,
+              31500
+            ],
+            "within_range": true
+          },
+          {
+            "bill-of-lading": 19874.31,
+            "documents_agree": true,
+            "invoice": 19874.31,
+            "letter-of-indemnity": 19874.31,
+            "product": "jet",
+            "quantity-certificate": 19874.31,
+            "range": [
+              19000,
+              21000
+            ],
+            "within_range": true
+          },
+          {
+            "bill-of-lading": 15902.004,
+            "documents_agree": false,
+            "invoice": 15000,
+            "letter-of-indemnity": 15902.004,
+            "product": "eurobob",
+            "quantity-certificate": 15902.004,
+            "range": [
+              13500,
+              16500
+            ],
+            "within_range": true
+          }
+        ],
+        "result": "fail"
+      },
+      "trade_id": "NC-LON-26-0101"
+    }
+  ],
+  "expected_contradictions": [
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "The confirmation requires 3/3 original bills of lading per product; the set holds originals 1 and 2 of the jet B/L NLV-2608-002.",
+      "id": "d2-london-bp-products-merged:missing-original-bl",
+      "type": "document-count",
+      "values": {
+        "found": 2,
+        "missing": [
+          3
+        ],
+        "product": "jet",
+        "required": 3
+      },
+      "where": [
+        "NC-LON-26-0101-document-set.pdf"
+      ]
+    },
+    {
+      "caught": false,
+      "caught_by": null,
+      "description": "The invoice bills Eurobob on the nominated 15,000.000 mt; the B/L, certificate and LOI say 15,902.004 mt.",
+      "id": "d2-london-bp-products-merged:invoice-quantity-not-bl",
+      "type": "invoice-vs-bl",
+      "values": {
+        "bl": 15902.004,
+        "invoiced": 15000,
+        "product": "eurobob"
+      },
+      "where": [
+        "NC-LON-26-0101-document-set.pdf"
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "attachments": [
+        "NC-LON-26-0101-document-set.pdf"
+      ],
+      "cc": [],
+      "class_uri": "https://test.uncefact.org/vocabulary/TradeDocument",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/001-document-set.eml",
+        "md": "messages/001-document-set.md"
+      },
+      "from": {
+        "address": "elliott.herbert@bp.example",
+        "name": "Elliott Herbert",
+        "org": "cp-bp",
+        "role": "ops"
+      },
+      "in_reply_to": null,
+      "key": "document-set",
+      "message_id": "<86f4def52d22742fa98c@bp.example>",
+      "phase": "docsets",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "elliott.herbert@bp.example"
+      },
+      "seq": 1,
+      "subject": "MT Northern Laurel: document set NC-LON-26-0101",
+      "tags": [
+        "docset",
+        "merged",
+        "scan"
+      ],
+      "thread": "document-set",
+      "timestamp": "2026-08-06T09:14:00+01:00",
+      "to": [
+        {
+          "address": "tom.scott@newco-london.example",
+          "name": "Tom Scott",
+          "org": "newco-lon",
+          "role": "ops"
+        }
+      ]
+    },
+    {
+      "attachments": [
+        "pricing-NC-LON-26-0101.xlsx"
+      ],
+      "cc": [],
+      "class_uri": "https://schema.org/MonetaryAmount",
+      "direction": "inbound",
+      "facts": {},
+      "files": {
+        "eml": "messages/002-pricing.eml",
+        "md": "messages/002-pricing.md"
+      },
+      "from": {
+        "address": "shirley.kelly@bp.example",
+        "name": "Shirley Kelly",
+        "org": "cp-bp",
+        "role": "settlements"
+      },
+      "in_reply_to": null,
+      "key": "pricing",
+      "message_id": "<d60a23361f2e7b361c2c@bp.example>",
+      "phase": "docsets",
+      "provenance": {
+        "bibliographic_class_uri": "http://purl.org/dc/terms/BibliographicResource",
+        "class_uri": "http://www.w3.org/ns/prov#Entity",
+        "wasAttributedTo": "shirley.kelly@bp.example"
+      },
+      "seq": 2,
+      "subject": "Pricing workbook NC-LON-26-0101",
+      "tags": [
+        "docset",
+        "invoice",
+        "spreadsheet"
+      ],
+      "thread": "pricing",
+      "timestamp": "2026-08-07T09:10:00+01:00",
+      "to": [
+        {
+          "address": "kathleen.garner@newco-london.example",
+          "name": "Kathleen Garner",
+          "org": "newco-lon",
+          "role": "accounting"
+        }
+      ]
+    }
+  ],
+  "outcome": {
+    "exceptions": [
+      "bill-of-lading originals for Jet A-1: 2 of 3",
+      "invoice quantity for Eurobob gasoline 15000 mt differs from the B/L quantity 15902.004 mt"
+    ],
+    "invoice_total": 48568062.8,
+    "result": "fail",
+    "trade_id": "NC-LON-26-0101"
+  },
+  "ownership_edges": [],
+  "phase": "docsets",
+  "positions": [],
+  "questions": [
+    {
+      "expected": [
+        "bill-of-lading originals for Jet A-1: 2 of 3"
+      ],
+      "id": "d2-london-bp-products-merged-q1",
+      "question": "Which document requirements of the confirmation for NC-LON-26-0101 are not met?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": [
+        "Eurobob gasoline"
+      ],
+      "id": "d2-london-bp-products-merged-q2",
+      "question": "For which products of NC-LON-26-0101 does the invoiced quantity differ from the B/L quantity?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    },
+    {
+      "expected": 23,
+      "id": "d2-london-bp-products-merged-q3",
+      "question": "How many pages does the merged document set for NC-LON-26-0101 have?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": 3,
+      "id": "d2-london-bp-products-merged-q4",
+      "question": "How many blank pages does the merged document set for NC-LON-26-0101 contain?",
+      "tolerance_pct": 0,
+      "type": "metadata"
+    },
+    {
+      "expected": 12,
+      "id": "d2-london-bp-products-merged-q5",
+      "question": "How many separate documents does the merged document set for NC-LON-26-0101 contain?",
+      "tolerance_pct": 0,
+      "type": "hybrid_retrieval"
+    },
+    {
+      "expected": true,
+      "id": "d2-london-bp-products-merged-q6",
+      "question": "Are all bill of lading quantities for NC-LON-26-0101 within the confirmation's quantity ranges?",
+      "tolerance_pct": 0,
+      "type": "reconciliation"
+    }
+  ],
+  "review_events": [],
+  "scenario": "d2-london-bp-products-merged",
+  "title": "London buys ULSD, jet and Eurobob from BP: one merged PDF, a missing original B/L, an invoice quantity off the B/L"
+}

@@ -13,16 +13,25 @@ from .scenario import PHASE_DIRS, Scenario
 from .universe import DEFAULT_SEED, build_universe, dumps
 
 CORPUS_DIR = Path(__file__).resolve().parent / "corpus"
-PHASES = ("onboarding", "trade", "post_trade", "settlement")
+PHASES = ("onboarding", "trade", "post_trade", "settlement", "docsets")
 
-# (emails, attachments, chats) per phase, from BRIEF.md section 1. Enforced once a phase has six scenarios.
+# (emails, attachments, chats) per phase: BRIEF.md section 1 for the first four phases; the docsets phase
+# (multi-format and merged document sets, see docsets/__init__.py) adds its own. Enforced once a phase has
+# its full number of scenarios.
 EXPECTED_TOTALS: dict[str, tuple[int, int, int]] = {
     "onboarding": (138, 95, 0),
     "trade": (42, 18, 13),
     "post_trade": (55, 39, 0),
     "settlement": (34, 19, 0),
+    "docsets": (8, 14, 0),
 }
-SCENARIOS_PER_PHASE = 6
+SCENARIOS_PER_PHASE: dict[str, int] = {
+    "onboarding": 6,
+    "trade": 6,
+    "post_trade": 6,
+    "settlement": 6,
+    "docsets": 2,
+}
 
 ScenarioBuilder = Callable[[dict[str, Any], Mapping[str, Scenario]], Scenario]
 
@@ -42,12 +51,19 @@ class BuildResult:
 
 def _registry() -> dict[str, Sequence[ScenarioBuilder]]:
     """Return the phase registries. Add a new workflow phase here (see BRIEF.md section 10)."""
+    from .docsets import DOCSETS
     from .onboarding import ONBOARDING
     from .post_trade import POST_TRADE
     from .settlement import SETTLEMENT
     from .trade import TRADE
 
-    return {"onboarding": ONBOARDING, "trade": TRADE, "post_trade": POST_TRADE, "settlement": SETTLEMENT}
+    return {
+        "onboarding": ONBOARDING,
+        "trade": TRADE,
+        "post_trade": POST_TRADE,
+        "settlement": SETTLEMENT,
+        "docsets": DOCSETS,
+    }
 
 
 def build(seed: int = DEFAULT_SEED, registry: Mapping[str, Sequence[ScenarioBuilder]] | None = None) -> BuildResult:
@@ -76,7 +92,7 @@ def build(seed: int = DEFAULT_SEED, registry: Mapping[str, Sequence[ScenarioBuil
 
 
 def _check_phase_totals(phase: str, built: Sequence[Scenario]) -> None:
-    if len(built) != SCENARIOS_PER_PHASE:
+    if len(built) != SCENARIOS_PER_PHASE[phase]:
         return
     got = (
         sum(s.counts["emails"] for s in built),
