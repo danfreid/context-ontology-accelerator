@@ -28,13 +28,33 @@ needs all three flags. With the defaults (`vector_backend=aoss`) the synthesized
 templates contain none of it. The ontology ECS task also gets
 `WORKBENCH_BACKEND=aurora_pgvector` on the full-flag path.
 
+### OpenSearch Serverless for GraphRAG on the full-flag path
+
+The GraphRAG toolkit still writes its `chunk_*`, `topic_*` and `statement_*`
+indexes to AOSS. The full-flag path therefore keeps a small AOSS collection
+(the same collection group and collection as the default path, min OCU 0 and
+max OCU 4 unless `aoss_min_ocu` / `aoss_max_ocu` are set) and the `aoss-data`
+VPC endpoint. `{ssmPrefix}/opensearch/endpoint`, `/collection-name` and
+`/collection-arn` carry the real AOSS values, never the Aurora address, so
+namespace deletion drops the GraphRAG indexes as before. In serve,
+`build_vector_client` returns a `RoutingVectorClient`
+(`coa_serve/clients/routing.py`) when an OpenSearch endpoint is configured:
+index names starting with `chunk_`, `topic_` or `statement_` go to AOSS and
+every other scope goes to Aurora. With min OCU 0 the collection can scale to
+zero, so the first GraphRAG query after an idle period is slower.
+
+Later phase: GraphRAG chunk ingestion to Aurora. Once the toolkit writes chunks
+to Aurora, the AOSS collection and endpoint on this path can be removed.
+
 Services wired: ontology (ECS task, engine Lambda, task role), serve
 (AgentCore runtime and its role), metric-service (API and import-worker
 Lambdas) and the namespace-deletion pipeline (`DeleteSources` Lambda, which runs
 the Aurora scope cleanup).
 
-Connection settings: `AURORA_CLUSTER_ARN` and `AURORA_SECRET_ARN` if set, else
-SSM `{AURORA_SSM_PREFIX}/aurora/cluster-arn` and the secret parameter.
+Connection settings: `AURORA_CLUSTER_ARN` if set, else SSM
+`{AURORA_SSM_PREFIX}/aurora/cluster-arn`. `AURORA_SECRET_ARN` is required; there
+is no fallback to the admin secret (`/aurora/secret-arn`), and a missing value
+raises `RuntimeError`.
 `AURORA_DATABASE` defaults to `postgres`. An `AURORA_SECRET_ARN` value starting
 with `/` is treated as an SSM parameter name; the CDK sets it to
 `{ssmPrefix}/aurora/search-rw-secret-arn` or `/aurora/search-ro-secret-arn`.
@@ -42,10 +62,18 @@ with `/` is treated as an SSM parameter name; the CDK sets it to
 Vector dimensions come from `AuroraConfig.dimensions`: `AURORA_VECTOR_DIMENSIONS`,
 then `OSS_DIMENSIONS`, then 1024. Every writer and reader takes the dimension
 from there. Values outside 1..2000 are rejected (pgvector HNSW on `vector`
-supports at most 2000), and a vector of the wrong length raises `ValueError`
-instead of being truncated or padded. A deployment that sets
-`AURORA_VECTOR_DIMENSIONS` must set `OSS_DIMENSIONS` to the same value for the
-embedders.
+supports at most 2000). In `libs/common` a vector of the wrong length raises
+`ValueError`. The ontology `AuroraVectorStore` follows the `VectorStore`
+contract (`stores/base.py`), as the OpenSearch store does: it zero-pads a vector
+shorter than the dimension and logs one warning per process when it does. A
+longer vector raises `ValueError`.
+
+On the full-flag path the CDK uses one value, `bedrockEmbedDimensions` from the
+deploy config, for the migrator (`VectorDimensions`, which names and builds the
+HNSW index) and sets `AURORA_VECTOR_DIMENSIONS` and `OSS_DIMENSIONS` to it on
+the ontology task and engine Lambda, the serve runtime, and the metric API and
+import-worker Lambdas. A deployment that sets `AURORA_VECTOR_DIMENSIONS` by hand
+must set `OSS_DIMENSIONS` to the same value for the embedders.
 
 ### Per-role credentials
 
@@ -62,7 +90,8 @@ and `entity_label`. IAM per workload (`grantAuroraDataApi(..., role)`): the
 Data API actions on the cluster ARN, `secretsmanager:GetSecretValue` on that
 role's secret only, and `ssm:GetParameter` on the two exact parameters it reads
 (`cluster-arn` and `search-<role>-secret-arn`). No wildcards. The admin secret
-stays with the graph and metadata path and the migrator.
+stays with the migrator; no search workload, the ontology task included, is
+granted it.
 
 ### Schema migrator
 
@@ -70,9 +99,25 @@ A Lambda-backed custom resource (`infra/lib/lambdas/aurora-migrator`, outside a
 VPC, Data API only) applies `aurora-init.sql` when the cluster is created and
 whenever the SHA-256 of the file changes. It connects with the admin secret,
 runs the idempotent DDL (extensions, tables, the `entity_label` re-key, roles
-and grants) and sets each role password from its generated secret with a bound
-parameter and server-side `format('%I', '%L')`. Passwords never appear in the
-template. `aurora-init.sql` must not contain bind parameters (`:name`).
+and grants) and owns the HNSW index. The Lambda timeout is 15 minutes.
+
+- DDL runs with `continueAfterTimeout=True`. After each statement the migrator
+  polls `pg_stat_activity` until no other DDL of the same user is still active,
+  bounded by the Lambda's remaining time minus 30 s.
+- The index `search_doc_embedding_hnsw_<dim>` is built with `CREATE INDEX
+  CONCURRENTLY IF NOT EXISTS`. An invalid leftover of the same name is dropped
+  first, and the migrator then polls `pg_index.indisvalid` until the index is
+  valid (same time bound). After that it drops every other
+  `search_doc_embedding_hnsw_<n>` index, so a dimension change leaves no stale
+  index behind.
+- Role passwords are set through `coa_set_role_password(name, pw)`, a
+  `SECURITY DEFINER` function in `aurora-init.sql` that accepts only
+  `coa_search_rw` and `coa_search_ro` and is revoked from `PUBLIC`. The migrator
+  calls `SELECT coa_set_role_password(:name, :pw)` with bound parameters, so no
+  SQL text it sends carries a password. Passwords never appear in the template.
+- `aurora-init.sql` must not contain bind parameters (`:name`), tagged dollar
+  quotes (`$tag$`) or `E'...'` strings. `split_statements` raises `ValueError`
+  on the last two.
 
 The alternative is to run the SQL once by hand through the Data API. The custom
 resource costs an extra Lambda and gives it admin-secret access.
@@ -85,12 +130,23 @@ URI, embedding type, model and ontology, so re-ingesting a document overwrites
 it (AOSS appends). `metadata` (JSONB) carries filterable fields. `search_term_stats`
 and `search_corpus_stats` hold per-scope term document frequencies and corpus
 size. `entity_label` holds entity names and aliases for fuzzy matching, keyed by
-`(namespace, entity_id, label)`. An upsert deletes the entity's labels that are
-no longer in its label and alias set.
+`(namespace, entity_id, label)`. `SearchDoc.label` and `aliases` default to
+`None`, meaning no label information: the entity's labels are left alone. A
+document that sets either one is authoritative: the entity's labels in the
+scope become the union over its authoritative documents, and an empty union
+deletes them.
 
-The HNSW index (`search_doc_embedding_hnsw_<dim>`, cosine) is created by the
-write path because the dimension is configured at runtime. Reads never create
-indexes.
+Re-index requirement: `entity_label` used to be keyed by `(entity_id, label)`,
+so two namespaces that shared an entity and label kept only one row. The re-key
+in `aurora-init.sql` keeps the existing rows but cannot restore the lost ones.
+Namespaces ingested under the old key must be re-indexed to get their labels
+back.
+
+The HNSW index (`search_doc_embedding_hnsw_<dim>`, cosine) is owned by the
+migrator. The write path checks `pg_indexes`. If the index is missing it tries
+to create it; when that fails with `must be owner` (`coa_search_rw` does not own
+the table) it logs `aurora_hnsw_index_missing` at ERROR and checks again on the
+next write. Reads never create indexes.
 
 ## Search
 
@@ -128,19 +184,28 @@ Every upsert and delete runs in a transaction and applies net term and corpus
 deltas (document counts, lengths, term frequencies) computed from the stored
 `tsvector`. Each writer first takes
 `pg_advisory_xact_lock(hashtextextended(scope, 0))`, so writers of one scope are
-serialised and the statistics stay equal to a recount. `delete_docs` applies
-deltas only for the rows its `DELETE ... RETURNING` removed. Rows with
-`doc_freq <= 0` are removed. `delete_scope` runs in one transaction under the
-lock, deletes documents in 5000-row batches (Data API calls time out near 45 s),
-then clears the scope's stats and label rows. Searches take no lock. Namespace
+serialised and the statistics stay equal to a recount. `delete_docs` selects a
+batch `FOR UPDATE` (halving the batch on the 1 MiB response limit), applies the
+deltas for those rows and deletes them by id, with no `RETURNING`. Rows with
+`doc_freq <= 0` are removed, and corpus counts are clamped at 0. `delete_scope`
+runs one transaction per 5000-row batch (Data API calls time out near 45 s), so
+progress survives a timeout. A last transaction checks that the scope has no
+documents left, then clears its stats and label rows; if documents reappeared,
+it loops again. Searches take no lock.
+
+Keyword recall projects only the ranking columns and halves the candidate count
+(floor 10) on the 1 MiB response limit. `body` and `metadata` are fetched
+afterwards for the top results only, in batches that halve on the same error. Namespace
 deletion calls `delete_scope` for each GraphRAG index scope.
 
 The Data API client keeps the transaction id per thread, creates the boto client
 under a lock, batches at 500 parameter sets or 2 MiB (one parameter set over the
 limit is rejected locally), and retries up to about 60 s while a paused cluster
-resumes. `iter_pages` pages large reads with a caller-supplied total `ORDER BY`
-and halves the page size on the 1 MiB response limit. The ontology store lists
-use it.
+resumes. `iter_pages(sql, params, page_size, key_columns=("doc_id",))` uses
+keyset paging: it wraps the statement as `SELECT * FROM (<sql>) q WHERE (keys) >
+(last keys) ORDER BY keys LIMIT n`, with no `OFFSET`, and halves the page size on
+the 1 MiB response limit. Key columns must be non-null output columns of the
+statement. The ontology store lists use it.
 
 ## Running the Postgres integration test
 
@@ -155,35 +220,34 @@ then set `COA_PG_TEST_DSN` and run
 `pytest -m integ libs/common/tests/integ`. Without the variable the test is
 skipped. The fixture applies `aurora-init.sql` itself and drops only the
 `CREATE EXTENSION ... pgrouting` line, because the image has no pgrouting. The
-test covers concurrent writers, statistics against a recount, paging, phrase
-recall over the cap and namespace-keyed labels.
+tests cover concurrent writers, statistics against a recount, keyset paging,
+phrase recall over the cap, namespace-keyed and authoritative labels, scope
+deletion, the HNSW index probe, the per-role grants, `coa_set_role_password`
+and the `entity_label` re-key.
 
 ## Not covered or not verified yet
 
-Verified on a real PostgreSQL 16 with pgvector (the integration test, 12 cases)
+Verified on a real PostgreSQL 16 with pgvector (the integration tests, 29 cases)
 and, for everything else, with mocked Data API clients, Python unit tests and CDK
 Jest synthesis tests:
 
 - Nothing ran on Aurora or through the RDS Data API. Data API JSON typing, the
   1 MiB and 45 s limits, IAM, the custom resource and the Aurora PostgreSQL
   version are unverified. The integration test uses psycopg, not the Data API.
-- `ensure_vector_index` runs `CREATE INDEX` from the write path. On a real
-  server the `coa_search_rw` role is rejected with `must be owner of table
-  search_doc`, because it does not own the table. The first write with an
-  embedding fails under that role until an owner creates the index.
+- The migrator's `continueAfterTimeout`, `pg_stat_activity` and `indisvalid`
+  waits, and the AOSS collection, endpoint and routing on the full-flag path,
+  are verified only with mocks and CDK synthesis.
 - No deployment or end-to-end search was done. Relevance versus AOSS is unmeasured.
 
 Not wired:
 
-- GraphRAG toolkit chunk ingestion and retrieval talk to AOSS directly. The
-  Aurora tables and client can hold chunk rows, but nothing writes them.
-  Namespace deletion therefore still deletes the AOSS GraphRAG indexes as well as
-  clearing the Aurora scopes.
+- GraphRAG toolkit chunk ingestion talks to AOSS directly on both paths (see
+  above). The Aurora tables and client can hold chunk rows, but nothing writes
+  them. Namespace deletion deletes the AOSS GraphRAG indexes and clears the
+  Aurora scopes.
 - Sources stack `graph_build` and `graph_cleanup`, which use the toolkit. The
   sources stack is unchanged for that reason.
 - `aoss-search-proxy` Lambda (AOSS only).
 - Graph traversal, the DynamoDB metadata swap, VKG, and skill embeddings (no
   skill index exists).
 - Fuzzy matching only applies where entity labels are supplied.
-- The ontology ECS task role keeps its admin-secret grant for the graph and
-  metadata path. Search itself uses the rw role.
