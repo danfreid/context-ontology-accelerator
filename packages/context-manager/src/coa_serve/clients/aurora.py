@@ -20,13 +20,8 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
 import structlog
-from coa_common.aurora_search import (
-    AuroraConfig,
-    AuroraDataApiClient,
-    AuroraSearchIndex,
-    SearchHit,
-    SearchMode,
-)
+from coa_common.aurora_data_api import build_client_from_env
+from coa_common.aurora_search import AuroraSearchIndex, SearchHit, SearchMode
 from coa_common.constants import StructuredBackend
 
 from .base import VectorClient, VectorHit
@@ -70,10 +65,9 @@ class AuroraVectorClient(VectorClient):
         if self._search_index is None:
             with self._build_lock:
                 if self._search_index is None:
-                    cfg = AuroraConfig.from_env()
-                    client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
+                    client = build_client_from_env()
                     self._client = client
-                    self._search_index = AuroraSearchIndex(client, cfg.dimensions)
+                    self._search_index = AuroraSearchIndex(client, client.config.dimensions)
         return self._search_index
 
     async def _run(self, fn, *args, **kwargs):

@@ -23,7 +23,7 @@ def aurora_index(monkeypatch):
     monkeypatch.setenv("AURORA_SECRET_ARN", "arn:aws:secretsmanager:us-east-1:123456789012:secret:s")
     index = MagicMock()
     index.delete_scope.return_value = 1
-    monkeypatch.setattr(cleanup, "AuroraDataApiClient", lambda *a, **k: MagicMock())
+    monkeypatch.setattr(cleanup, "build_client_from_env", lambda *a, **k: MagicMock())
     monkeypatch.setattr(cleanup, "AuroraSearchIndex", lambda *a, **k: index)
     aoss = MagicMock()
     monkeypatch.setattr(cleanup, "AossVectorClient", aoss)

@@ -8,10 +8,9 @@ Alternative to the OpenSearch Serverless (AOSS) path. Select it with
 
 from __future__ import annotations
 
-from coa_common.aurora_search.bm25 import bm25_score, idf, rank_bm25
-from coa_common.aurora_search.config import AuroraConfig, SearchBackend, resolve_search_backend
-from coa_common.aurora_search.data_api import (
+from coa_common.aurora_data_api import (
     AuroraAccessError,
+    AuroraConfig,
     AuroraDataApiClient,
     AuroraDataApiError,
     AuroraQueryError,
@@ -19,6 +18,8 @@ from coa_common.aurora_search.data_api import (
     AuroraTimeoutError,
     AuroraUnavailableError,
 )
+from coa_common.aurora_search.bm25 import bm25_score, idf, rank_bm25
+from coa_common.aurora_search.config import SearchBackend, resolve_search_backend
 from coa_common.aurora_search.fusion import FusedHit, SearchMode, reciprocal_rank_fusion
 from coa_common.aurora_search.index import AuroraSearchIndex, FuzzyHit, SearchDoc, SearchHit
 

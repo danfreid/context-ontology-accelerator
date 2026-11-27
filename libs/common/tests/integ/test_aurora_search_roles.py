@@ -75,7 +75,7 @@ def roles_ready() -> Iterator[None]:
         admin.execute("CREATE TABLE graph_node (id TEXT PRIMARY KEY, label TEXT)")
         admin.execute("INSERT INTO graph_node VALUES ('n1', 'secret')")
         # Seed one document as the owner so ro has something to read.
-        owner_index = AuroraSearchIndex(PgDataApi(admin), DIMENSIONS)  # type: ignore[arg-type]
+        owner_index = AuroraSearchIndex(PgDataApi(admin), DIMENSIONS)
         owner_index.delete_scope(SCOPE)
         owner_index.upsert_docs(
             SCOPE, [SearchDoc(body="seeded owner document zirconium", entity_uri="urn:seed", embedding=[0, 1, 0])]
@@ -106,7 +106,7 @@ def _denied(conn: Any, sql: str) -> None:
 
 
 def test_rw_upserts_document_with_embedding_without_creating_index(rw_conn: Any) -> None:
-    index = AuroraSearchIndex(PgDataApi(rw_conn), DIMENSIONS)  # type: ignore[arg-type]
+    index = AuroraSearchIndex(PgDataApi(rw_conn), DIMENSIONS)
     index.delete_scope(SCOPE + "-rw")
     assert index.upsert_docs(
         SCOPE + "-rw", [SearchDoc(body="rw embedded document hafnium", entity_uri="urn:rw", embedding=[1, 0, 0])]
@@ -117,7 +117,7 @@ def test_rw_upserts_document_with_embedding_without_creating_index(rw_conn: Any)
 
 
 def test_rw_keyword_search_and_delete_scope(rw_conn: Any) -> None:
-    index = AuroraSearchIndex(PgDataApi(rw_conn), DIMENSIONS)  # type: ignore[arg-type]
+    index = AuroraSearchIndex(PgDataApi(rw_conn), DIMENSIONS)
     scope = SCOPE + "-rw-kw"
     index.upsert_docs(scope, [SearchDoc(body="niobium alloy shipment", entity_uri="urn:nb", embedding=[0, 0, 1])])
     assert [h.key for h in index.keyword_search(scope, "niobium", top_k=3)] == ["urn:nb"]
@@ -126,13 +126,13 @@ def test_rw_keyword_search_and_delete_scope(rw_conn: Any) -> None:
 
 
 def test_ro_can_search(ro_conn: Any) -> None:
-    index = AuroraSearchIndex(PgDataApi(ro_conn), DIMENSIONS)  # type: ignore[arg-type]
+    index = AuroraSearchIndex(PgDataApi(ro_conn), DIMENSIONS)
     assert [h.key for h in index.keyword_search(SCOPE, "zirconium", top_k=3)] == ["urn:seed"]
     assert [h.key for h in index.vector_search(SCOPE, [0, 1, 0], top_k=3)] == ["urn:seed"]
 
 
 def test_ro_writes_are_denied(ro_conn: Any) -> None:
-    index = AuroraSearchIndex(PgDataApi(ro_conn), DIMENSIONS)  # type: ignore[arg-type]
+    index = AuroraSearchIndex(PgDataApi(ro_conn), DIMENSIONS)
     with pytest.raises(psycopg.errors.InsufficientPrivilege):
         index.upsert_docs(SCOPE, [SearchDoc(body="ro must not write", entity_uri="urn:ro", embedding=[1, 1, 0])])
     ro_conn.rollback()

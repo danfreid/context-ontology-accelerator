@@ -11,8 +11,8 @@ from contextlib import contextmanager
 from typing import Any
 
 import pytest
+from coa_common.aurora_data_api import AuroraQueryError
 from coa_common.aurora_search import index as index_mod
-from coa_common.aurora_search.data_api import AuroraQueryError
 from coa_common.aurora_search.fusion import SearchMode
 from coa_common.aurora_search.index import AuroraSearchIndex, SearchDoc, doc_id_for
 
@@ -24,6 +24,16 @@ PLACEHOLDER = re.compile(r"(?<![:\w]):([a-z_][a-z0-9_]*)")
 Handler = Callable[[str, dict[str, Any]], list[dict[str, Any]]]
 
 
+class FakeTx:
+    """Stand-in for `coa_common.aurora_data_api.Transaction`: statements go through the fake client."""
+
+    def __init__(self, client: FakeClient) -> None:
+        self._client = client
+
+    def execute(self, sql: str, params: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+        return self._client.execute(sql, params, tx=self)
+
+
 class FakeClient:
     cluster_arn = "arn:test"
 
@@ -31,18 +41,18 @@ class FakeClient:
         self.handler = handler or (lambda sql, params: [])
         self.events: list[tuple[str, str, Any]] = []
 
-    def execute(self, sql: str, params: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    def execute(self, sql: str, params: dict[str, Any] | None = None, *, tx: Any = None) -> list[dict[str, Any]]:
         self.events.append(("execute", sql, params or {}))
         return self.handler(sql, params or {})
 
-    def batch_execute(self, sql: str, param_sets: list[dict[str, Any]]) -> int:
+    def batch_execute(self, sql: str, param_sets: list[dict[str, Any]], *, tx: Any = None) -> int:
         self.events.append(("batch", sql, param_sets))
         return len(param_sets)
 
     @contextmanager
-    def transaction(self) -> Iterator[None]:
+    def transaction(self) -> Iterator[FakeTx]:
         self.events.append(("tx", "BEGIN", None))
-        yield
+        yield FakeTx(self)
         self.events.append(("tx", "COMMIT", None))
 
     def sqls(self) -> list[str]:

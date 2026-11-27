@@ -12,7 +12,8 @@ from __future__ import annotations
 from unittest.mock import MagicMock
 
 import pytest
-from coa_common.aurora_search import AuroraDataApiClient, AuroraResponseTooLargeError, SearchDoc, SearchHit
+from coa_common.aurora_data_api import AuroraDataApiClient, AuroraResponseTooLargeError
+from coa_common.aurora_search import AuroraSearchIndex, SearchDoc, SearchHit
 from coa_ontology.stores import factory
 from coa_ontology.stores.aurora_vector import AuroraVectorStore
 from coa_ontology.stores.base import EmbeddingHit
@@ -29,6 +30,12 @@ def _store() -> tuple[AuroraVectorStore, MagicMock, MagicMock]:
     store._index = index
     store._client = client
     return store, index, client
+
+
+def _first_page(client: MagicMock) -> tuple[str, dict]:
+    """The SQL and parameters of the first keyset page the store asked `client.iter_pages` for."""
+    build = client.iter_pages.call_args.args[0]
+    return build(None, 7)
 
 
 def _item(**over):
@@ -105,7 +112,7 @@ class TestReads:
             [[{"doc_id": "d1", "body": "Alpha", "metadata": {"entity_uri": "http://x/A"}, "embedding": "[0.5,0.25]"}]]
         )
         docs = store.get_embeddings_for_entity("http://x/A", entity_type="class", embedding_type="lexical")
-        sql, params = client.iter_pages.call_args.args
+        sql, params = _first_page(client)
         assert "metadata @> CAST(:m AS jsonb)" in sql
         assert params["ns"] == SCOPE
         assert params["m"] == {"entity_uri": "http://x/A", "entity_type": "class", "embedding_type": "lexical"}
@@ -115,7 +122,7 @@ class TestReads:
         store, _, client = _store()
         client.iter_pages.return_value = iter([[{"doc_id": "d1", "body": "t", "metadata": '{"entity_uri": "u"}'}]])
         docs = store.list_embeddings_for_ontology("onto1", limit=5)
-        sql = client.iter_pages.call_args.args[0]
+        sql = _first_page(client)[0]
         assert "CAST(embedding AS text)" not in sql
         assert docs == [{"entity_uri": "u", "text": "t"}]
 
@@ -129,7 +136,7 @@ class TestReads:
         store, _, client = _store()
         client.iter_pages.return_value = iter([])
         store.list_embeddings_for_ontology("onto1")
-        sql, params = client.iter_pages.call_args.args
+        sql, params = _first_page(client)
         assert "CAST(embedding AS text)" in sql
         assert "ORDER BY doc_id" in sql
         assert params["m"] == {"ontology_id": "onto1"}
@@ -143,7 +150,11 @@ class TestReads:
         store, _, client = _store()
         client.iter_pages.return_value = iter([[{"entity_uri": "u1"}, {"entity_uri": None}], [{"entity_uri": "u2"}]])
         assert store.list_searchable_entity_uris("onto1") == ["u1", "u2"]
-        assert "ORDER BY entity_uri" in client.iter_pages.call_args.args[0]
+        build = client.iter_pages.call_args.args[0]
+        assert "ORDER BY entity_uri LIMIT :lim" in build(None, 5)[0]
+        sql, params = build({"entity_uri": "u1"}, 5)
+        assert "> :after ORDER BY entity_uri" in sql
+        assert (params["after"], params["lim"]) == ("u1", 5)
 
     def test_lists_page_through_responses_over_the_data_api_limit(self):
         """A real client pages a list whose first request overflows the 1 MiB response limit."""
@@ -153,12 +164,12 @@ class TestReads:
             def __init__(self):
                 self.sizes = []
 
-            def execute(self, sql, params=None):
-                limit, offset = params["_page_limit"], params["_page_offset"]
+            def execute(self, sql, params=None, *, tx=None):
+                limit, after = params["lim"], params.get("after")
                 self.sizes.append(limit)
                 if limit > 3:
                     raise AuroraResponseTooLargeError("too large")
-                return rows[offset : offset + limit]
+                return [r for r in rows if after is None or r["entity_uri"] > after][:limit]
 
         store, _, _ = _store()
         client = OverflowingClient()
@@ -170,7 +181,7 @@ class TestReads:
         store, _, client = _store()
         client.iter_pages.return_value = iter([])
         store.list_embeddings_for_ontology("onto1", namespace="other")
-        assert client.iter_pages.call_args.args[1]["ns"] == "ontology-workbench-embeddings-other"
+        assert _first_page(client)[1]["ns"] == "ontology-workbench-embeddings-other"
 
 
 class TestSearchNearest:
@@ -229,7 +240,7 @@ class TestDeletes:
         index.delete_docs.return_value = 2
         assert store.delete_embeddings_for_entities(["u1", "u1", "", "u2"], "onto1") == 2
         index.delete_docs.assert_called_once_with(SCOPE, filter_metadata={"ontology_id": "onto1"}, doc_ids=["d1", "d2"])
-        sql, params = client.iter_pages.call_args.args
+        sql, params = _first_page(client)
         assert params["uris"] == ["u1", "u2"]
         assert params["m"] == {"ontology_id": "onto1"}
 
@@ -289,3 +300,62 @@ class TestFactory:
         monkeypatch.setenv("WORKBENCH_BACKEND", "nope")
         with pytest.raises(ValueError, match="aurora_pgvector"):
             factory.build_stores("ns-bad")
+
+
+class TestVectorSearchLargeK:
+    """``AuroraSearchIndex.vector_search`` behind ``search_nearest``: ef_search widening and the oversize fallback."""
+
+    @staticmethod
+    def _index() -> tuple[AuroraSearchIndex, MagicMock, MagicMock]:
+        client = MagicMock()
+        tx = MagicMock()
+        client.transaction.return_value.__enter__.return_value = tx
+        return AuroraSearchIndex(client, 4), client, tx
+
+    def test_default_top_k_runs_one_plain_statement(self):
+        index, client, _ = self._index()
+        client.execute.return_value = []
+        index.vector_search("s", [0.1] * 4, 10)
+        client.transaction.assert_not_called()
+        assert client.execute.call_count == 1
+
+    def test_large_top_k_raises_ef_search_in_a_transaction(self):
+        index, client, tx = self._index()
+        tx.execute.return_value = []
+        index.vector_search("s", [0.1] * 4, 200)
+        sql, params = tx.execute.call_args_list[0].args
+        assert "hnsw.ef_search" in sql
+        assert params == {"v": "200"}
+        assert "ORDER BY" in tx.execute.call_args_list[-1].args[0]
+        client.execute.assert_not_called()
+
+    def test_ef_search_is_capped_at_1000(self):
+        index, _, tx = self._index()
+        tx.execute.return_value = []
+        index.vector_search("s", [0.1] * 4, 5000)
+        assert tx.execute.call_args_list[0].args[1] == {"v": "1000"}
+
+    def test_oversize_response_ranks_first_then_fetches_documents_in_groups(self):
+        index, client, _ = self._index()
+        ranked = [{"doc_id": f"d{i}", "score": 1.0 - i / 100} for i in range(30)]
+        docs = {
+            f"d{i}": {"doc_id": f"d{i}", "doc_kind": "ontology", "body": f"b{i}", "metadata": {}} for i in range(30)
+        }
+
+        calls: list[dict] = []
+
+        def execute(sql, params=None):
+            calls.append({"sql": sql, "params": params})
+            if len(calls) == 1:
+                raise AuroraResponseTooLargeError("too large")
+            if len(calls) == 2:
+                return ranked
+            return [docs[i] for i in params["ids"]]
+
+        client.execute.side_effect = execute
+        hits = index.vector_search("s", [0.1] * 4, 30)
+        assert [h.doc_id for h in hits] == [f"d{i}" for i in range(30)]
+        assert hits[3].score == pytest.approx(0.97)
+        assert hits[3].body == "b3"
+        assert "body" not in calls[1]["sql"].split("FROM")[0]
+        assert [len(c["params"]["ids"]) for c in calls[2:]] == [25, 5]

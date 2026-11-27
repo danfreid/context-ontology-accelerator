@@ -28,14 +28,8 @@ from coa_common import (
     BedrockEmbedder,
     ontology_vector_index_name,
 )
-from coa_common.aurora_search import (
-    AuroraConfig,
-    AuroraDataApiClient,
-    AuroraSearchIndex,
-    SearchBackend,
-    SearchDoc,
-    resolve_search_backend,
-)
+from coa_common.aurora_data_api import build_client_from_env
+from coa_common.aurora_search import AuroraSearchIndex, SearchBackend, SearchDoc, resolve_search_backend
 from coa_common.opensearch import DeleteIncompleteError
 
 from coa_metrics.neptune_client import MetricDefinition, _metric_uri
@@ -95,9 +89,8 @@ class MetricOpenSearchClient:
     def _aurora(self) -> AuroraSearchIndex:
         """Lazily build the Aurora search index from the environment."""
         if self._aurora_index is None:
-            cfg = AuroraConfig.from_env()
-            client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
-            self._aurora_index = AuroraSearchIndex(client, cfg.dimensions)
+            client = build_client_from_env()
+            self._aurora_index = AuroraSearchIndex(client, client.config.dimensions)
         return self._aurora_index
 
     def _aoss(self) -> AossVectorClient:

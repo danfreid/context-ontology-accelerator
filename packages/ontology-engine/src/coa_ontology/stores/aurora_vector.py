@@ -24,9 +24,11 @@ import json
 import logging
 import threading
 from collections import defaultdict
+from collections.abc import Mapping
 from typing import Any
 
-from coa_common.aurora_search import AuroraConfig, AuroraDataApiClient, AuroraSearchIndex, SearchDoc
+from coa_common.aurora_data_api import AuroraDataApiClient, build_client_from_env
+from coa_common.aurora_search import AuroraSearchIndex, SearchDoc
 
 from coa_ontology.stores.base import EmbeddingHit, VectorStore
 from coa_ontology.stores.opensearch_vector import DEFAULT_NAMESPACE, OSS_DIMENSIONS, _index_for_namespace
@@ -84,11 +86,11 @@ class AuroraVectorStore(VectorStore):
         if self._index is None:
             with self._build_lock:
                 if self._index is None:
-                    cfg = AuroraConfig.from_env()
-                    client = AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database)
-                    self.dimensions = cfg.dimensions
+                    client = build_client_from_env()
+                    dimensions = client.config.dimensions
+                    self.dimensions = dimensions
                     self._client = client
-                    self._index = AuroraSearchIndex(client, cfg.dimensions)
+                    self._index = AuroraSearchIndex(client, dimensions)
         return self._index
 
     def _resolve_ns(self, namespace: str | None) -> str | None:
@@ -187,13 +189,19 @@ class AuroraVectorStore(VectorStore):
         assert self._client is not None  # set by _aurora()
         vector_col = ", CAST(embedding AS text) AS embedding" if with_vector else ""
         # The Data API caps a response at 1 MiB, so read in pages (halved on overflow).
-        pages = self._client.iter_pages(
-            f"SELECT doc_id, body, metadata{vector_col} FROM search_doc "
-            "WHERE namespace = :ns AND doc_kind = :kind AND metadata @> CAST(:m AS jsonb) "
-            "ORDER BY doc_id",
-            {"ns": scope, "kind": DOC_KIND, "m": containment},
-            page_size=_VECTOR_PAGE_SIZE if with_vector else _PAGE_SIZE,
-        )
+
+        def build(last: Mapping[str, Any] | None, limit: int) -> tuple[str, dict[str, Any]]:
+            params: dict[str, Any] = {"ns": scope, "kind": DOC_KIND, "m": containment, "lim": limit}
+            if last is not None:
+                params["after"] = last["doc_id"]
+            return (
+                f"SELECT doc_id, body, metadata{vector_col} FROM search_doc "
+                "WHERE namespace = :ns AND doc_kind = :kind AND metadata @> CAST(:m AS jsonb)"
+                f"{' AND doc_id > :after' if last is not None else ''} ORDER BY doc_id LIMIT :lim",
+                params,
+            )
+
+        pages = self._client.iter_pages(build, page_size=_VECTOR_PAGE_SIZE if with_vector else _PAGE_SIZE)
         out: list[dict] = []
         for page in pages:
             for r in page:
@@ -247,13 +255,21 @@ class AuroraVectorStore(VectorStore):
         """Return the entity URIs currently searchable for an ontology."""
         self._aurora()
         assert self._client is not None
-        pages = self._client.iter_pages(
-            "SELECT DISTINCT metadata ->> 'entity_uri' AS entity_uri FROM search_doc "
-            "WHERE namespace = :ns AND doc_kind = :kind AND metadata @> CAST(:m AS jsonb) "
-            "ORDER BY entity_uri",
-            {"ns": self._scope(namespace), "kind": DOC_KIND, "m": {"ontology_id": ontology_id}},
-            page_size=_URI_PAGE_SIZE,
-        )
+        scope = self._scope(namespace)
+
+        def build(last: Mapping[str, Any] | None, limit: int) -> tuple[str, dict[str, Any]]:
+            params: dict[str, Any] = {"ns": scope, "kind": DOC_KIND, "m": {"ontology_id": ontology_id}, "lim": limit}
+            if last is not None:
+                params["after"] = last["entity_uri"]
+            return (
+                "SELECT DISTINCT metadata ->> 'entity_uri' AS entity_uri FROM search_doc "
+                "WHERE namespace = :ns AND doc_kind = :kind AND metadata @> CAST(:m AS jsonb) "
+                f"AND metadata ->> 'entity_uri' {'> :after' if last is not None else 'IS NOT NULL'} "
+                "ORDER BY entity_uri LIMIT :lim",
+                params,
+            )
+
+        pages = self._client.iter_pages(build, page_size=_URI_PAGE_SIZE)
         return [r["entity_uri"] for page in pages for r in page if r.get("entity_uri")]
 
     def search_nearest(
@@ -313,18 +329,28 @@ class AuroraVectorStore(VectorStore):
         deleted = 0
         for start in range(0, len(uris), _DELETE_ENTITY_CHUNK):
             chunk = uris[start : start + _DELETE_ENTITY_CHUNK]
-            doc_ids = [
-                r["doc_id"]
-                for page in self._client.iter_pages(
+
+            def build(
+                last: Mapping[str, Any] | None, limit: int, chunk: list[str] = chunk
+            ) -> tuple[str, dict[str, Any]]:
+                params: dict[str, Any] = {
+                    "ns": scope,
+                    "kind": DOC_KIND,
+                    "m": {"ontology_id": ontology_id},
+                    "uris": chunk,
+                    "lim": limit,
+                }
+                if last is not None:
+                    params["after"] = last["doc_id"]
+                return (
                     "SELECT doc_id FROM search_doc WHERE namespace = :ns AND doc_kind = :kind "
                     "AND metadata @> CAST(:m AS jsonb) "
-                    "AND metadata ->> 'entity_uri' IN (SELECT jsonb_array_elements_text(CAST(:uris AS jsonb))) "
-                    "ORDER BY doc_id",
-                    {"ns": scope, "kind": DOC_KIND, "m": {"ontology_id": ontology_id}, "uris": chunk},
-                    page_size=_URI_PAGE_SIZE,
+                    "AND metadata ->> 'entity_uri' IN (SELECT jsonb_array_elements_text(CAST(:uris AS jsonb)))"
+                    f"{' AND doc_id > :after' if last is not None else ''} ORDER BY doc_id LIMIT :lim",
+                    params,
                 )
-                for r in page
-            ]
+
+            doc_ids = [r["doc_id"] for page in self._client.iter_pages(build, page_size=_URI_PAGE_SIZE) for r in page]
             if doc_ids:
                 # One call per chunk; the ontology_id filter stays so a sibling ontology is never touched.
                 deleted += index.delete_docs(scope, filter_metadata={"ontology_id": ontology_id}, doc_ids=doc_ids)

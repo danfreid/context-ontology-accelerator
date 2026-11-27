@@ -20,13 +20,8 @@ from urllib.error import HTTPError, URLError
 import boto3
 import structlog
 from coa_common import async_boto_config
-from coa_common.aurora_search import (
-    AuroraConfig,
-    AuroraDataApiClient,
-    AuroraSearchIndex,
-    SearchBackend,
-    resolve_search_backend,
-)
+from coa_common.aurora_data_api import build_client_from_env
+from coa_common.aurora_search import AuroraSearchIndex, SearchBackend, resolve_search_backend
 from coa_common.constants import graphrag_index_names
 from coa_common.dao import DynamoDBDAO, QueryParams
 from coa_common.opensearch import AossVectorClient
@@ -342,10 +337,8 @@ def _delete_vkg_log_group(logs_client: Any, namespace_id: str, log_group: str) -
 
 def _delete_aurora_scopes(namespace_id: str, scopes: list[str]) -> list[str]:
     """Clear each Aurora search scope. Returns the scopes that held documents. Raises on failure."""
-    cfg = AuroraConfig.from_env()
-    index = AuroraSearchIndex(
-        AuroraDataApiClient(cfg.cluster_arn, cfg.secret_arn, database=cfg.database), cfg.dimensions
-    )
+    client = build_client_from_env()
+    index = AuroraSearchIndex(client, client.config.dimensions)
     removed = [scope for scope in scopes if index.delete_scope(scope) > 0]
     logger.info("aurora_search_scopes_deleted", namespace_id=namespace_id, removed=removed, checked=scopes)
     return removed

@@ -20,9 +20,14 @@ from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
 from typing import Any
 
+from coa_common.aurora_data_api import (
+    AuroraDataApiClient,
+    AuroraQueryError,
+    AuroraResponseTooLargeError,
+    Transaction,
+)
 from coa_common.aurora_search.bm25 import Candidate, CorpusStats, rank_bm25
 from coa_common.aurora_search.config import MAX_DIMENSIONS, MIN_DIMENSIONS
-from coa_common.aurora_search.data_api import AuroraDataApiClient, AuroraQueryError
 from coa_common.aurora_search.fusion import SearchMode, reciprocal_rank_fusion
 from coa_common.aurora_search.text import (
     build_or_prefix_tsquery,
@@ -36,6 +41,9 @@ logger = logging.getLogger(__name__)
 DOC_GROUP_SIZE = 50
 DELETE_BATCH_SIZE = 1000
 SCOPE_DELETE_CHUNK = 5000
+DEFAULT_EF_SEARCH = 40  # pgvector's hnsw.ef_search default
+MAX_EF_SEARCH = 1000  # pgvector's upper bound for hnsw.ef_search
+_FETCH_GROUP_SIZE = 25  # documents fetched per call when a ranked result does not fit one response
 
 # (cluster_arn, dimensions) pairs whose HNSW index has been ensured in this process.
 _ENSURED_INDEXES: set[tuple[str, int]] = set()
@@ -172,9 +180,9 @@ class AuroraSearchIndex:
         self._client = client
         self._dimensions = _validate_dimensions(dimensions)
 
-    def _lock_scope(self, scope: str) -> None:
-        """Serialise writers of one scope until the surrounding transaction ends."""
-        self._client.execute("SELECT pg_advisory_xact_lock(hashtextextended(:scope, 0))", {"scope": scope})
+    def _lock_scope(self, scope: str, tx: Transaction) -> None:
+        """Serialise writers of one scope until the transaction `tx` ends."""
+        tx.execute("SELECT pg_advisory_xact_lock(hashtextextended(:scope, 0))", {"scope": scope})
 
     @property
     def dimensions(self) -> int:
@@ -223,15 +231,15 @@ class AuroraSearchIndex:
 
     def _upsert_group(self, scope: str, group: list[tuple[str, SearchDoc]]) -> None:
         c = self._client
-        with c.transaction():
-            self._lock_scope(scope)
-            existing_rows = c.execute(
+        with c.transaction() as tx:
+            self._lock_scope(scope, tx)
+            existing_rows = tx.execute(
                 "SELECT doc_id, to_jsonb(tsvector_to_array(tsv)) AS terms, doc_len FROM search_doc "
                 "WHERE doc_id IN (SELECT jsonb_array_elements_text(CAST(:ids AS jsonb)))",
                 {"ids": [doc_id for doc_id, _ in group]},
             )
             existing = {r["doc_id"]: (_terms(r["terms"]), int(r["doc_len"])) for r in existing_rows}
-            tsv_rows = c.execute(
+            tsv_rows = tx.execute(
                 "SELECT CAST(e.ord AS integer) AS ord, CAST(to_tsvector('english', e.val) AS text) AS tsv_text "
                 "FROM jsonb_array_elements_text(CAST(:bodies AS jsonb)) WITH ORDINALITY AS e(val, ord)",
                 {"bodies": [doc.body for _, doc in group]},
@@ -265,7 +273,7 @@ class AuroraSearchIndex:
                     if value:
                         metadata[key] = value
                 embedding = None if doc.embedding is None else _fit_vector(doc.embedding, self._dimensions)
-                c.execute(
+                tx.execute(
                     "INSERT INTO search_doc (doc_id, namespace, body, doc_len, tsv, embedding, doc_kind, metadata) "
                     "VALUES (:doc_id, :ns, :body, :doc_len, to_tsvector('english', :body), "
                     "CAST(:embedding AS vector), :doc_kind, CAST(:metadata AS jsonb)) "
@@ -289,7 +297,7 @@ class AuroraSearchIndex:
                     if alias:
                         labels.setdefault((entity_id, alias), "alias")
 
-            self._apply_stats(scope, term_delta, count_delta, len_delta)
+            self._apply_stats(scope, term_delta, count_delta, len_delta, tx)
             if labels:
                 c.batch_execute(
                     "INSERT INTO entity_label (entity_id, namespace, label, kind) "
@@ -299,6 +307,7 @@ class AuroraSearchIndex:
                         {"entity_id": eid, "ns": scope, "label": label, "kind": kind}
                         for (eid, label), kind in labels.items()
                     ],
+                    tx=tx,
                 )
                 by_entity: dict[str, list[str]] = {}
                 for eid, label in labels:
@@ -307,22 +316,25 @@ class AuroraSearchIndex:
                     "DELETE FROM entity_label WHERE namespace = :ns AND entity_id = :entity_id "
                     "AND label NOT IN (SELECT jsonb_array_elements_text(CAST(:labels AS jsonb)))",
                     [{"ns": scope, "entity_id": eid, "labels": sorted(ls)} for eid, ls in by_entity.items()],
+                    tx=tx,
                 )
 
-    def _apply_stats(self, scope: str, term_delta: Counter[str], count_delta: int, len_delta: int) -> None:
-        """Apply net term and corpus deltas. Call inside a transaction."""
-        c = self._client
+    def _apply_stats(
+        self, scope: str, term_delta: Counter[str], count_delta: int, len_delta: int, tx: Transaction
+    ) -> None:
+        """Apply net term and corpus deltas inside the open transaction `tx`."""
         sets = [{"ns": scope, "term": t, "delta": d} for t, d in term_delta.items() if d != 0]
         if sets:
-            c.batch_execute(
+            self._client.batch_execute(
                 "INSERT INTO search_term_stats (namespace, term, doc_freq) VALUES (:ns, :term, :delta) "
                 "ON CONFLICT (namespace, term) DO UPDATE SET doc_freq = search_term_stats.doc_freq + EXCLUDED.doc_freq",
                 sets,
+                tx=tx,
             )
         if any(d < 0 for d in term_delta.values()):
-            c.execute("DELETE FROM search_term_stats WHERE namespace = :ns AND doc_freq <= 0", {"ns": scope})
+            tx.execute("DELETE FROM search_term_stats WHERE namespace = :ns AND doc_freq <= 0", {"ns": scope})
         if count_delta or len_delta:
-            c.execute(
+            tx.execute(
                 "INSERT INTO search_corpus_stats AS s (namespace, doc_count, avg_doc_len) "
                 "VALUES (:ns, :dc, CASE WHEN :dc <= 0 THEN 0 ELSE CAST(:dl AS double precision) / :dc END) "
                 "ON CONFLICT (namespace) DO UPDATE SET "
@@ -352,9 +364,9 @@ class AuroraSearchIndex:
         total = 0
         c = self._client
         while True:
-            with c.transaction():
-                self._lock_scope(scope)
-                rows = c.execute(
+            with c.transaction() as tx:
+                self._lock_scope(scope, tx)
+                rows = tx.execute(
                     "DELETE FROM search_doc WHERE doc_id IN "
                     f"(SELECT doc_id FROM search_doc WHERE {where} ORDER BY doc_id LIMIT :lim) "
                     "RETURNING doc_id, to_jsonb(tsvector_to_array(tsv)) AS terms, doc_len, "
@@ -369,8 +381,8 @@ class AuroraSearchIndex:
                     for term in _terms(r["terms"]):
                         term_delta[term] -= 1
                     len_delta -= int(r["doc_len"])
-                self._apply_stats(scope, term_delta, -len(rows), len_delta)
-                c.execute(
+                self._apply_stats(scope, term_delta, -len(rows), len_delta, tx)
+                tx.execute(
                     "DELETE FROM entity_label WHERE namespace = :ns "
                     "AND entity_id IN (SELECT jsonb_array_elements_text(CAST(:eids AS jsonb))) "
                     "AND NOT EXISTS (SELECT 1 FROM search_doc d WHERE d.namespace = :ns "
@@ -383,10 +395,10 @@ class AuroraSearchIndex:
         """Delete every document, statistic and label of a scope. Idempotent."""
         c = self._client
         total = 0
-        with c.transaction():
-            self._lock_scope(scope)
+        with c.transaction() as tx:
+            self._lock_scope(scope, tx)
             while True:
-                rows = c.execute(
+                rows = tx.execute(
                     "WITH d AS (DELETE FROM search_doc WHERE ctid IN "
                     "(SELECT ctid FROM search_doc WHERE namespace = :ns LIMIT :lim) RETURNING 1) "
                     "SELECT count(*) AS n FROM d",
@@ -396,9 +408,9 @@ class AuroraSearchIndex:
                 if deleted <= 0:
                     break
                 total += deleted
-            c.execute("DELETE FROM entity_label WHERE namespace = :ns", {"ns": scope})
-            c.execute("DELETE FROM search_term_stats WHERE namespace = :ns", {"ns": scope})
-            c.execute("DELETE FROM search_corpus_stats WHERE namespace = :ns", {"ns": scope})
+            tx.execute("DELETE FROM entity_label WHERE namespace = :ns", {"ns": scope})
+            tx.execute("DELETE FROM search_term_stats WHERE namespace = :ns", {"ns": scope})
+            tx.execute("DELETE FROM search_corpus_stats WHERE namespace = :ns", {"ns": scope})
         return total
 
     # ── read path ─────────────────────────────────────────────────────────
@@ -427,18 +439,47 @@ class AuroraSearchIndex:
         dim = _validate_dimensions(self._dimensions)
         filter_sql, filter_params = _build_filters(filters)
         distance = f"CAST(embedding AS vector({dim})) <=> CAST(:q AS vector({dim}))"
-        sql = (
-            f"SELECT doc_id, doc_kind, body, metadata, 1 - ({distance}) AS score FROM search_doc "
-            f"WHERE namespace = :ns AND embedding IS NOT NULL{filter_sql} ORDER BY {distance} LIMIT :k"
-        )
+        where = f"namespace = :ns AND embedding IS NOT NULL{filter_sql}"
         params = {"ns": scope, "q": _fit_vector(vector, dim), "k": int(top_k), **filter_params}
-        if filter_sql:
-            with self._client.transaction():
-                self._client.execute("SET LOCAL hnsw.iterative_scan = 'relaxed_order'")
-                rows = self._client.execute(sql, params)
-        else:
-            rows = self._client.execute(sql, params)
+        ef_search = min(max(int(top_k), DEFAULT_EF_SEARCH), MAX_EF_SEARCH)
+
+        def run(sql: str) -> list[dict[str, Any]]:
+            if not filter_sql and ef_search == DEFAULT_EF_SEARCH:
+                return self._client.execute(sql, params)
+            with self._client.transaction() as tx:
+                if ef_search != DEFAULT_EF_SEARCH:
+                    # HNSW returns at most ef_search rows, so widen it when more are asked for.
+                    tx.execute("SELECT set_config('hnsw.ef_search', :v, true)", {"v": str(ef_search)})
+                if filter_sql:
+                    tx.execute("SET LOCAL hnsw.iterative_scan = 'relaxed_order'")
+                return tx.execute(sql, params)
+
+        try:
+            rows = run(
+                f"SELECT doc_id, doc_kind, body, metadata, 1 - ({distance}) AS score FROM search_doc "
+                f"WHERE {where} ORDER BY {distance} LIMIT :k"
+            )
+        except AuroraResponseTooLargeError:
+            # top_k documents do not fit in one response: rank first, then fetch them in small groups.
+            ranked = run(
+                f"SELECT doc_id, 1 - ({distance}) AS score FROM search_doc WHERE {where} "
+                f"ORDER BY {distance}, doc_id LIMIT :k"
+            )
+            rows = self._fetch_docs_by_id(ranked)
         return [self._hit(r, float(r["score"])) for r in rows]
+
+    def _fetch_docs_by_id(self, ranked: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        """Load ``doc_kind``, ``body`` and ``metadata`` for ranked ``doc_id`` rows, keeping their order and score."""
+        by_id: dict[str, dict[str, Any]] = {}
+        ids = [str(r["doc_id"]) for r in ranked]
+        for start in range(0, len(ids), _FETCH_GROUP_SIZE):
+            for r in self._client.execute(
+                "SELECT doc_id, doc_kind, body, metadata FROM search_doc "
+                "WHERE doc_id IN (SELECT jsonb_array_elements_text(CAST(:ids AS jsonb)))",
+                {"ids": ids[start : start + _FETCH_GROUP_SIZE]},
+            ):
+                by_id[str(r["doc_id"])] = r
+        return [{**by_id[str(r["doc_id"])], "score": r["score"]} for r in ranked if str(r["doc_id"]) in by_id]
 
     def keyword_search(
         self,
@@ -554,11 +595,9 @@ class AuroraSearchIndex:
             if filter_sql
             else ""
         )
-        with self._client.transaction():
-            self._client.execute(
-                "SELECT set_config('pg_trgm.similarity_threshold', :th, true)", {"th": str(float(threshold))}
-            )
-            rows = self._client.execute(
+        with self._client.transaction() as tx:
+            tx.execute("SELECT set_config('pg_trgm.similarity_threshold', :th, true)", {"th": str(float(threshold))})
+            rows = tx.execute(
                 "SELECT entity_id, label, similarity(label, :t) AS s FROM entity_label "
                 f"WHERE namespace = :ns AND label % :t{recheck_sql}{filter_clause} ORDER BY s DESC, entity_id, label "
                 "LIMIT :n",

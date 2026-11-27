@@ -38,9 +38,7 @@ def test_concurrent_first_use_builds_the_index_once(monkeypatch):
     from coa_serve.clients import aurora
 
     built = []
-    cfg = MagicMock(cluster_arn="c", secret_arn="s", database="d", dimensions=8)
-    monkeypatch.setattr(aurora.AuroraConfig, "from_env", lambda *a, **k: cfg)
-    monkeypatch.setattr(aurora, "AuroraDataApiClient", lambda *a, **k: MagicMock())
+    monkeypatch.setattr(aurora, "build_client_from_env", lambda *a, **k: MagicMock(config=MagicMock(dimensions=8)))
 
     def slow_index(client, dimensions):
         time.sleep(0.05)
