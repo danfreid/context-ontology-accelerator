@@ -89,9 +89,9 @@ describe("CodeBuild project", () => {
     });
   });
 
-  it("runs on an Amazon Linux 2023 host kernel, not the end-of-life Amazon Linux 2 default", () => {
+  it("pins the kernel 4 host: amd64 emulation fails on the LINUX_KERNEL_6 host", () => {
     template.hasResourceProperties("AWS::CodeBuild::Project", {
-      Environment: Match.objectLike({ HostKernel: "LINUX_KERNEL_6" }),
+      Environment: Match.objectLike({ HostKernel: "LINUX_KERNEL_4" }),
     });
   });
 
