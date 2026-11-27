@@ -220,6 +220,7 @@ export class OntologyStack extends SCLStack {
 
     const engineEnvironment = {
       WORKBENCH_BACKEND: useAurora ? "aurora_pgvector" : "opensearch_neptune",
+      ...(useAurora && { METADATA_BACKEND: "aurora" }),
       NDB_ENDPOINT: `https://${props.neptuneClusterEndpoint}:8182`,
       NDB_IAM_AUTH: "true",
       NDB_REGION: cdk.Aws.REGION,
@@ -231,7 +232,7 @@ export class OntologyStack extends SCLStack {
       ...auroraSearchEnv(
         ssmPrefix,
         flags,
-        "rw",
+        "engine-rw",
         props.bedrockEmbedDimensions ?? 1024,
       ),
       ONTOLOGY_ARTIFACTS_BUCKET: props.ontologyArtifactsBucket.bucketName,
@@ -387,9 +388,10 @@ export class OntologyStack extends SCLStack {
         environment: {
           ...engineEnvironment,
           // The cluster endpoint is read from this SSM parameter at runtime; the search
-          // secret comes from auroraSearchEnv (AURORA_SECRET_ARN, read-write role).
+          // secret comes from auroraSearchEnv (AURORA_SECRET_ARN, engine role).
           ...(useAurora && {
             WORKBENCH_BACKEND: "aurora_pgvector",
+            METADATA_BACKEND: "aurora",
             AURORA_CLUSTER_ENDPOINT: `${ssmPrefix}/aurora/cluster-endpoint`,
           }),
         },
@@ -463,11 +465,11 @@ export class OntologyStack extends SCLStack {
       );
     }
 
-    // Full Aurora flag set: the search code calls the Data API as the read-write role.
+    // Full Aurora flag set: the search code calls the Data API as the engine role (coa_engine_rw).
     // The Lambda also reads the cluster endpoint from the SSM parameter its env names.
     // Nothing is granted for vector_backend=pgvector alone: that path has no cluster.
     if (useAurora) {
-      grantAuroraDataApi(this, workloadRole, ssmPrefix, "rw");
+      grantAuroraDataApi(this, workloadRole, ssmPrefix, "engine-rw");
       if (useLambda) {
         workloadRole.addToPrincipalPolicy(
           new iam.PolicyStatement({

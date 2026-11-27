@@ -20,7 +20,11 @@ PROPS = {
     "ClusterArn": "arn:aws:rds:us-east-1:111122223333:cluster:c",
     "AdminSecretArn": "arn:aws:secretsmanager:us-east-1:111122223333:secret:admin",
     "Database": "postgres",
-    "Roles": [{"Name": "coa_search_rw", "SecretArn": "arn:rw"}, {"Name": "coa_search_ro", "SecretArn": "arn:ro"}],
+    "Roles": [
+        {"Name": "coa_search_rw", "SecretArn": "arn:rw"},
+        {"Name": "coa_search_ro", "SecretArn": "arn:ro"},
+        {"Name": "coa_engine_rw", "SecretArn": "arn:engine"},
+    ],
 }
 
 
@@ -115,6 +119,8 @@ def test_init_sql_splits_without_empty_statements(index):
     assert statements
     assert all(s.strip() for s in statements)
     assert any("coa_search_rw" in s and s.startswith("DO $$") for s in statements)
+    assert any("coa_engine_rw" in s and s.startswith("DO $$") for s in statements)
+    assert any(s.startswith("CREATE TABLE IF NOT EXISTS coa_triple") for s in statements)
     assert any(s.startswith("GRANT SELECT ON") or s.startswith("GRANT SELECT\n") for s in statements)
     assert any(s.startswith("CREATE OR REPLACE FUNCTION coa_set_role_password") for s in statements)
 
@@ -132,6 +138,10 @@ def test_create_sets_passwords_through_function_with_bound_parameters_only(index
         ],
         [
             {"name": "name", "value": {"stringValue": "coa_search_ro"}},
+            {"name": "pw", "value": {"stringValue": PASSWORD}},
+        ],
+        [
+            {"name": "name", "value": {"stringValue": "coa_engine_rw"}},
             {"name": "pw", "value": {"stringValue": PASSWORD}},
         ],
     ]

@@ -631,6 +631,7 @@ describe("StorageStack Aurora path", () => {
     for (const name of [
       "/coa/aurora/search-rw-secret-arn",
       "/coa/aurora/search-ro-secret-arn",
+      "/coa/aurora/engine-rw-secret-arn",
     ]) {
       template.hasResourceProperties("AWS::SSM::Parameter", { Name: name });
     }
@@ -638,7 +639,11 @@ describe("StorageStack Aurora path", () => {
 
   it("generates one secret per search role with a username and password key", () => {
     const template = buildAurora();
-    for (const username of ["coa_search_rw", "coa_search_ro"]) {
+    for (const username of [
+      "coa_search_rw",
+      "coa_search_ro",
+      "coa_engine_rw",
+    ]) {
       template.hasResourceProperties("AWS::SecretsManager::Secret", {
         GenerateSecretString: Match.objectLike({
           GenerateStringKey: "password",
@@ -648,7 +653,7 @@ describe("StorageStack Aurora path", () => {
     }
   });
 
-  it("runs the migrator as a custom resource with the SQL hash and both roles", () => {
+  it("runs the migrator as a custom resource with the SQL hash and all three roles", () => {
     const template = buildAurora();
     template.resourceCountIs("AWS::CloudFormation::CustomResource", 1);
     template.hasResourceProperties("AWS::CloudFormation::CustomResource", {
@@ -658,11 +663,12 @@ describe("StorageStack Aurora path", () => {
       Roles: [
         Match.objectLike({ Name: "coa_search_rw" }),
         Match.objectLike({ Name: "coa_search_ro" }),
+        Match.objectLike({ Name: "coa_engine_rw" }),
       ],
     });
   });
 
-  it("limits the migrator to the Data API on this cluster and the three secrets", () => {
+  it("limits the migrator to the Data API on this cluster and the four secrets", () => {
     const template = buildAurora();
     const policies = Object.values(
       template.findResources("AWS::IAM::Policy"),
@@ -673,7 +679,7 @@ describe("StorageStack Aurora path", () => {
       (s: { Action: unknown }) =>
         JSON.stringify(s.Action) === '"secretsmanager:GetSecretValue"',
     );
-    expect(secretStatement.Resource).toHaveLength(3);
+    expect(secretStatement.Resource).toHaveLength(4);
     expect(JSON.stringify(statements)).not.toContain('"*"');
   });
 

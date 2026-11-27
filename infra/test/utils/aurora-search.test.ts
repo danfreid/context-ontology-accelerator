@@ -110,10 +110,16 @@ describe("auroraSearchEnv", () => {
       auroraSearchEnv(SSM_PREFIX, flagsFor(FULL), "ro").AURORA_SECRET_ARN,
     ).toBe("/coa/dev/aurora/search-ro-secret-arn");
   });
+
+  test("names the engine-rw secret parameter for the engine role", () => {
+    expect(
+      auroraSearchEnv(SSM_PREFIX, flagsFor(FULL), "engine-rw").AURORA_SECRET_ARN,
+    ).toBe("/coa/dev/aurora/engine-rw-secret-arn");
+  });
 });
 
 describe("grantAuroraDataApi", () => {
-  function grant(role: "rw" | "ro") {
+  function grant(role: "rw" | "ro" | "engine-rw") {
     const stack = new cdk.Stack(new cdk.App(), "S");
     const principal = new iam.Role(stack, "R", {
       assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
@@ -151,6 +157,13 @@ describe("grantAuroraDataApi", () => {
     expect(json).toContain("/coa/dev/aurora/search-ro-secret-arn");
     expect(json).not.toContain("search-rw-secret-arn");
     expect(json).not.toContain("/aurora/secret-arn");
+  });
+
+  test("engine-rw reads only the engine-rw secret parameter", () => {
+    const { json } = grant("engine-rw");
+    expect(json).toContain("/coa/dev/aurora/engine-rw-secret-arn");
+    expect(json).not.toContain("search-rw-secret-arn");
+    expect(json).not.toContain("search-ro-secret-arn");
   });
 
   test("names exact parameters and never uses a wildcard resource", () => {

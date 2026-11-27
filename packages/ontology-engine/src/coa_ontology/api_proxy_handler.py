@@ -163,7 +163,19 @@ def _handle_system_health() -> dict:
 
     # DynamoDB
     sources_table = os.environ.get("SOURCES_TABLE", "")
-    if sources_table:
+    from coa_ontology.aurora_metadata import BACKEND_AURORA, metadata_backend
+
+    if metadata_backend() == BACKEND_AURORA:
+        # The metadata tables live in Aurora: probe it through the Data API instead of DynamoDB.
+        try:
+            from coa_ontology.stores.aurora.schema import default_client
+
+            default_client().execute("SELECT 1")
+            results["dynamodb"] = "ok"
+        except Exception:
+            _log.error("health_check_dynamodb_failed", exc_info=True)
+            results["dynamodb"] = "error"
+    elif sources_table:
         try:
             ddb = boto3.client("dynamodb", region_name=region)
             resp = ddb.describe_table(TableName=sources_table)

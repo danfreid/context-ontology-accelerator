@@ -230,7 +230,6 @@ _LAZY_OPENSEARCH = {
     "oss_retry",
 }
 _LAZY_AURORA_SEARCH = {
-    "AuroraDataApiClient",
     "AuroraSearchIndex",
     "SearchBackend",
     "SearchMode",
@@ -243,6 +242,10 @@ def __getattr__(name: str):
         import coa_common.opensearch as _osm
 
         return getattr(_osm, name)
+    if name == "AuroraDataApiClient":
+        import coa_common.aurora_data_api as _ada
+
+        return _ada.AuroraDataApiClient
     if name in _LAZY_AURORA_SEARCH:
         import coa_common.aurora_search as _aur
 

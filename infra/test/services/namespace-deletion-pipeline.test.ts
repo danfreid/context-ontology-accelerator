@@ -484,7 +484,8 @@ describe("NamespaceDeletionPipeline - Aurora search backend", () => {
       vector_backend: "pgvector",
       metadata_backend: "aurora",
     });
-    expect(s).toContain("/coa/aurora/search-rw-secret-arn");
+    expect(s).toContain("/coa/aurora/engine-rw-secret-arn");
+    expect(s).not.toContain("search-rw-secret-arn");
     expect(s).not.toContain("search-ro-secret-arn");
     expect(s).toContain("HYBRID_SEARCH_BACKEND");
     expect(s).toContain("rds-data:ExecuteStatement");

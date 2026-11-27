@@ -47,9 +47,7 @@ def _aurora_client() -> tuple[MetricOpenSearchClient, MagicMock, MagicMock]:
 def test_aurora_index_dimension_comes_from_aurora_config(monkeypatch: pytest.MonkeyPatch) -> None:
     from coa_metrics import opensearch_client as mod
 
-    cfg = MagicMock(cluster_arn="c", secret_arn="s", database="d", dimensions=512)
-    monkeypatch.setattr(mod.AuroraConfig, "from_env", lambda *a, **k: cfg)
-    monkeypatch.setattr(mod, "AuroraDataApiClient", lambda *a, **k: MagicMock())
+    monkeypatch.setattr(mod, "build_client_from_env", lambda *a, **k: MagicMock(config=MagicMock(dimensions=512)))
     built = MagicMock()
     monkeypatch.setattr(mod, "AuroraSearchIndex", built)
     MetricOpenSearchClient()._aurora()
@@ -59,9 +57,7 @@ def test_aurora_index_dimension_comes_from_aurora_config(monkeypatch: pytest.Mon
 def test_concurrent_first_calls_build_one_aurora_client(monkeypatch: pytest.MonkeyPatch) -> None:
     from coa_metrics import opensearch_client as mod
 
-    cfg = MagicMock(cluster_arn="c", secret_arn="s", database="d", dimensions=512)
-    monkeypatch.setattr(mod.AuroraConfig, "from_env", lambda *a, **k: cfg)
-    monkeypatch.setattr(mod, "AuroraDataApiClient", lambda *a, **k: MagicMock())
+    monkeypatch.setattr(mod, "build_client_from_env", lambda *a, **k: MagicMock(config=MagicMock(dimensions=512)))
     built: list[object] = []
 
     def slow_build(*_a: object, **_k: object) -> object:

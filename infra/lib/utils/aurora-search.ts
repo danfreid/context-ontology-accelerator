@@ -6,8 +6,8 @@ import * as ssm from "aws-cdk-lib/aws-ssm";
 import { Construct } from "constructs";
 import type { BackendFlags } from "../context";
 
-/** Database role a workload connects as: read-write or read-only on the search tables. */
-export type AuroraSearchRole = "rw" | "ro";
+/** Database role a workload connects as: read-write or read-only on the search tables, or the engine role (coa_engine_rw, also owns triples and metadata). */
+export type AuroraSearchRole = "rw" | "ro" | "engine-rw";
 
 /**
  * True when the Aurora cluster that backs search is deployed. The cluster exists
@@ -40,7 +40,9 @@ export function warnIfAuroraSearchIncomplete(
 
 /** SSM parameter (under `{ssmPrefix}/aurora/`) that holds the secret ARN for a role. */
 function secretParameterName(ssmPrefix: string, role: AuroraSearchRole): string {
-  return `${ssmPrefix}/aurora/search-${role}-secret-arn`;
+  return role === "engine-rw"
+    ? `${ssmPrefix}/aurora/engine-rw-secret-arn`
+    : `${ssmPrefix}/aurora/search-${role}-secret-arn`;
 }
 
 /**

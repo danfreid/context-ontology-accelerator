@@ -19,8 +19,12 @@ Usage:
 
 from __future__ import annotations
 
-import resource
 import threading
+
+try:
+    import resource
+except ImportError:  # Windows has no POSIX ``resource`` module (local dev and tests only)
+    resource = None  # type: ignore[assignment]
 
 import boto3
 import structlog
@@ -402,7 +406,10 @@ def _worker_rss_bytes() -> int:
     ``ru_maxrss`` is a high-water mark (peak RSS since process start), which is
     exactly what OOM observability wants — the pre-kill ramp, not the momentary
     value. On Linux it is reported in kibibytes, so scale by 1024 for bytes.
+    Returns 0 where ``resource`` is unavailable (Windows); deployed code runs on Linux.
     """
+    if resource is None:
+        return 0
     return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss * 1024
 
 

@@ -141,12 +141,12 @@ export class NamespaceDeletionPipeline extends Construct {
         ...(props.opensearchEndpoint && {
           OSS_ENDPOINT: props.opensearchEndpoint,
         }),
-        ...auroraSearchEnv(ssmPrefix, flags),
+        ...auroraSearchEnv(ssmPrefix, flags, "engine-rw"),
       },
     });
     // Aurora scope deletion (coa_control_plane cleanup) runs in this Lambda.
     if (isAuroraSearchEnabled(flags)) {
-      grantAuroraDataApi(this, deleteSourcesFn, ssmPrefix, "rw");
+      grantAuroraDataApi(this, deleteSourcesFn, ssmPrefix, "engine-rw");
     }
     deleteSourcesFn.addToRolePolicy(
       new iam.PolicyStatement({

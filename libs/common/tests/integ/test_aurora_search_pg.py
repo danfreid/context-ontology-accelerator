@@ -15,14 +15,14 @@ import os
 import re
 import threading
 import uuid
-from collections.abc import Iterator, Sequence
+from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
 import pytest
+from coa_common.aurora_data_api import AuroraConfig, AuroraDataApiClient, AuroraResponseTooLargeError
 from coa_common.aurora_search import index as index_mod
-from coa_common.aurora_search.data_api import AuroraDataApiClient, AuroraResponseTooLargeError
 from coa_common.aurora_search.index import AuroraSearchIndex, SearchDoc
 
 pytestmark = pytest.mark.integ
@@ -47,54 +47,60 @@ def _init_sql() -> str:
     return "\n".join(kept)
 
 
-class PgDataApi:
-    """Minimal stand-in for AuroraDataApiClient that runs the real SQL through psycopg."""
+class PgDataApi(AuroraDataApiClient):
+    """The shared AuroraDataApiClient with its rds-data calls replaced by psycopg.
 
-    cluster_arn = "local-pg"
+    Everything above ``_call`` (parameter binding, transactions, batching, keyset paging, JSON
+    results) is the production code. Database errors propagate as psycopg errors.
+    """
 
     def __init__(self, conn: Any) -> None:
+        super().__init__(AuroraConfig(resource_arn="local-pg", secret_arn="local-secret"))
         self.conn = conn
-        self._depth = 0
+        self._tx_count = 0
 
     @staticmethod
-    def _translate(sql: str, params: dict[str, Any]) -> tuple[str, dict[str, Any]]:
-        pg_params = {k: (json.dumps(v) if isinstance(v, dict | list) else v) for k, v in params.items()}
-        return _PLACEHOLDER.sub(lambda m: f"%({m.group(1)})s", sql.replace("%", "%%")), pg_params
+    def _translate(sql: str, parameters: list[dict[str, Any]]) -> tuple[str, dict[str, Any]]:
+        values: dict[str, Any] = {}
+        for p in parameters:
+            (kind, value), *_ = p["value"].items()
+            values[p["name"]] = None if kind == "isNull" else value
+        return _PLACEHOLDER.sub(lambda m: f"%({m.group(1)})s", sql.replace("%", "%%")), values
 
-    def execute(self, sql: str, params: dict[str, Any] | None = None) -> list[dict[str, Any]]:
-        text, pg_params = self._translate(sql, params or {})
+    def _run(self, sql: str, parameters: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], int]:
+        text, values = self._translate(sql, parameters)
         with self.conn.cursor(row_factory=psycopg.rows.dict_row) as cur:
-            cur.execute(text, pg_params)
-            return list(cur.fetchall()) if cur.description else []
+            cur.execute(text, values)
+            return (list(cur.fetchall()) if cur.description else []), max(cur.rowcount, 0)
 
-    def batch_execute(self, sql: str, param_sets: list[dict[str, Any]]) -> int:
-        for params in param_sets:
-            self.execute(sql, params)
-        return len(param_sets)
-
-    def iter_pages(
-        self,
-        sql: str,
-        params: dict[str, Any] | None = None,
-        page_size: int = 500,
-        key_columns: Sequence[str] = ("doc_id",),
-    ) -> Iterator[list[dict[str, Any]]]:
-        return AuroraDataApiClient.iter_pages(self, sql, params, page_size, key_columns)  # type: ignore[arg-type]
-
-    @contextmanager
-    def transaction(self) -> Iterator[None]:
-        if self._depth:
-            yield
-            return
-        self._depth += 1
-        try:
-            yield
+    def _call(self, op: str, kwargs: dict[str, Any], *, retry_resume: bool) -> dict[str, Any]:
+        if op == "begin_transaction":
+            self._tx_count += 1
+            return {"transactionId": f"tx-{self._tx_count}"}
+        if op == "commit_transaction":
             self.conn.commit()
-        except BaseException:
+            return {}
+        if op == "rollback_transaction":
             self.conn.rollback()
+            return {}
+        in_tx = "transactionId" in kwargs
+        try:
+            if op == "execute_statement":
+                rows, updated = self._run(kwargs["sql"], kwargs["parameters"])
+                response: dict[str, Any] = {"numberOfRecordsUpdated": updated}
+                if rows:
+                    response["formattedRecords"] = json.dumps(rows, default=str)
+            else:
+                for parameters in kwargs["parameterSets"]:
+                    self._run(kwargs["sql"], parameters)
+                response = {}
+        except BaseException:
+            if not in_tx:
+                self.conn.rollback()
             raise
-        finally:
-            self._depth -= 1
+        if not in_tx:
+            self.conn.commit()  # outside a transaction the Data API commits each statement
+        return response
 
 
 class SizeLimitedPgDataApi(PgDataApi):
@@ -105,9 +111,9 @@ class SizeLimitedPgDataApi(PgDataApi):
         self.limit = limit
         self.statements: list[tuple[str, dict[str, Any]]] = []
 
-    def execute(self, sql: str, params: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+    def execute(self, sql: str, params: dict[str, Any] | None = None, *, tx: Any = None) -> list[dict[str, Any]]:
         self.statements.append((sql, dict(params or {})))
-        rows = super().execute(sql, params)
+        rows = super().execute(sql, params, tx=tx)
         if len(json.dumps(rows, default=str)) > self.limit:
             raise AuroraResponseTooLargeError("Database response exceeded size limit")
         return rows
@@ -118,7 +124,7 @@ def index() -> Iterator[AuroraSearchIndex]:
     with psycopg.connect(DSN) as conn:
         conn.execute(_init_sql())
         conn.commit()
-        idx = AuroraSearchIndex(PgDataApi(conn), DIMENSIONS)  # type: ignore[arg-type]
+        idx = AuroraSearchIndex(PgDataApi(conn), DIMENSIONS)
         idx.delete_scope(SCOPE)
         idx.upsert_docs(
             SCOPE,
@@ -194,7 +200,7 @@ def test_stats_consistent_after_delete(index: AuroraSearchIndex) -> None:
 def _fresh_scope() -> Iterator[tuple[str, AuroraSearchIndex]]:
     scope = f"coa-test-{uuid.uuid4().hex[:8]}"
     with psycopg.connect(DSN) as conn:
-        idx = AuroraSearchIndex(PgDataApi(conn), DIMENSIONS)  # type: ignore[arg-type]
+        idx = AuroraSearchIndex(PgDataApi(conn), DIMENSIONS)
         try:
             yield scope, idx
         finally:
@@ -301,11 +307,13 @@ def test_update_and_delete_stats_equal_recount() -> None:
 def test_iter_pages_over_many_rows_with_small_pages() -> None:
     with _fresh_scope() as (scope, index):
         index.upsert_docs(scope, [SearchDoc(body=f"paged row {i}", entity_uri=f"urn:p{i:02d}") for i in range(25)])
-        pages = list(
-            index._client.iter_pages(  # type: ignore[attr-defined]
-                "SELECT doc_id FROM search_doc WHERE namespace = :ns ORDER BY doc_id", {"ns": scope}, page_size=7
-            )
-        )
+
+        def build(last: Any, limit: int) -> tuple[str, dict[str, Any]]:
+            after = " AND doc_id > :after" if last else ""
+            params = {"ns": scope, "lim": limit, **({"after": last["doc_id"]} if last else {})}
+            return f"SELECT doc_id FROM search_doc WHERE namespace = :ns{after} ORDER BY doc_id LIMIT :lim", params
+
+        pages = list(index._client.iter_pages(build, page_size=7))  # type: ignore[attr-defined]
         assert [len(p) for p in pages] == [7, 7, 7, 4]
         ids = [r["doc_id"] for p in pages for r in p]
         assert len(ids) == len(set(ids)) == 25
@@ -391,12 +399,18 @@ def test_delete_docs_halves_batches_under_the_response_limit_and_keeps_stats_exa
 def test_iter_pages_keyset_is_stable_under_concurrent_insert_and_delete() -> None:
     with _fresh_scope() as (scope, index):
         index.upsert_docs(scope, [SearchDoc(body=f"paged row {i}", entity_uri=f"urn:p{i:02d}") for i in range(20)])
-        sql = (
-            "SELECT metadata ->> 'entity_uri' AS uri FROM search_doc WHERE namespace = :ns "
-            "ORDER BY metadata ->> 'entity_uri'"
-        )
+
+        def build(last: Any, limit: int) -> tuple[str, dict[str, Any]]:
+            after = " AND metadata ->> 'entity_uri' > :after" if last else ""
+            params = {"ns": scope, "lim": limit, **({"after": last["uri"]} if last else {})}
+            return (
+                "SELECT metadata ->> 'entity_uri' AS uri FROM search_doc WHERE namespace = :ns"
+                f"{after} ORDER BY metadata ->> 'entity_uri' LIMIT :lim",
+                params,
+            )
+
         seen: list[str] = []
-        for page_no, page in enumerate(index._client.iter_pages(sql, {"ns": scope}, page_size=5, key_columns=("uri",))):  # type: ignore[attr-defined]
+        for page_no, page in enumerate(index._client.iter_pages(build, page_size=5)):  # type: ignore[attr-defined]
             seen.extend(r["uri"] for r in page)
             if page_no == 0:
                 # behind the cursor: one new row sorting first and one removed row; ahead: one removed, one added
@@ -439,9 +453,9 @@ def test_empty_authoritative_label_set_clears_labels_and_unlabelled_docs_keep_th
 
 
 def test_lock_scope_statement_executes_and_returns_a_typed_column() -> None:
-    with _fresh_scope() as (scope, index), index._client.transaction():  # type: ignore[attr-defined]
-        index._lock_scope(scope)
-        rows = index._client.execute(
+    with _fresh_scope() as (scope, index), index._client.transaction() as tx:  # type: ignore[attr-defined]
+        index._lock_scope(scope, tx)
+        rows = tx.execute(
             "SELECT 1 AS locked FROM (SELECT pg_advisory_xact_lock(hashtextextended(:scope, 0))) AS l", {"scope": scope}
         )
         assert rows == [{"locked": 1}]

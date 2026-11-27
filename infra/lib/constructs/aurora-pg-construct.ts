@@ -21,6 +21,7 @@ import { SCLConstruct } from "./scl-construct";
 /** Database roles created by aurora-init.sql. Names are fixed because the SQL grants reference them. */
 const SEARCH_RW_ROLE = "coa_search_rw";
 const SEARCH_RO_ROLE = "coa_search_ro";
+const ENGINE_RW_ROLE = "coa_engine_rw";
 
 export interface AuroraPgProps {
   /** VPC that holds the cluster. Needs PRIVATE_ISOLATED subnets. */
@@ -67,6 +68,8 @@ export class AuroraPg extends SCLConstruct {
   public readonly searchRwSecretArn: string;
   /** ARN of the secret for the read-only search role ("coa_search_ro"). */
   public readonly searchRoSecretArn: string;
+  /** ARN of the secret for the ontology engine role ("coa_engine_rw"). */
+  public readonly engineRwSecretArn: string;
 
   constructor(scope: Construct, id: string, props: AuroraPgProps) {
     super(scope, id);
@@ -134,11 +137,18 @@ export class AuroraPg extends SCLConstruct {
     const rwSecret = roleSecret("SearchRwSecret", "search-rw", SEARCH_RW_ROLE);
     const roSecret = roleSecret("SearchRoSecret", "search-ro", SEARCH_RO_ROLE);
     this.searchRwSecretArn = rwSecret.secretArn;
+    const engineSecret = roleSecret(
+      "EngineRwSecret",
+      "engine-rw",
+      ENGINE_RW_ROLE,
+    );
     this.searchRoSecretArn = roSecret.secretArn;
+    this.engineRwSecretArn = engineSecret.secretArn;
 
     this.addMigrator(cluster, props.vectorDimensions ?? 1024, [
       { name: SEARCH_RW_ROLE, secret: rwSecret },
       { name: SEARCH_RO_ROLE, secret: roSecret },
+      { name: ENGINE_RW_ROLE, secret: engineSecret },
     ]);
 
     new ssm.StringParameter(this, "SsmAuroraClusterEndpoint", {
@@ -170,6 +180,11 @@ export class AuroraPg extends SCLConstruct {
       description: "Secret ARN for the read-only Aurora search role",
     });
 
+    new ssm.StringParameter(this, "SsmAuroraEngineRwSecretArn", {
+      parameterName: `${ssmPrefix}/aurora/engine-rw-secret-arn`,
+      stringValue: this.engineRwSecretArn,
+      description: "Secret ARN for the Aurora ontology engine role",
+    });
     // Parallel to /opensearch/endpoint: tells app code which search path to use.
     new ssm.StringParameter(this, "SsmHybridSearchBackend", {
       parameterName: `${ssmPrefix}/opensearch/hybrid-search-backend`,
