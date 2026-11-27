@@ -203,9 +203,11 @@ class AuroraVectorClient(VectorClient):
         out: list[dict[str, Any]] = []
         for hit in hits:
             metadata = _toolkit_metadata(hit.metadata)
-            chunk_meta = metadata.get("chunk") if isinstance(metadata.get("chunk"), dict) else {}
+            chunk = metadata.get("chunk")
+            chunk_meta: dict[str, Any] = chunk if isinstance(chunk, dict) else {}
             nested = _nested_source({"metadata": metadata})
-            nested_meta = nested.get("metadata") if isinstance(nested.get("metadata"), dict) else {}
+            raw_nested_meta = nested.get("metadata")
+            nested_meta: dict[str, Any] = raw_nested_meta if isinstance(raw_nested_meta, dict) else {}
             matched_text = set(hit.matched_phrases)
             out.append(
                 {
