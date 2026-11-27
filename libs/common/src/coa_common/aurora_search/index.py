@@ -336,7 +336,8 @@ class AuroraSearchIndex:
         if count_delta or len_delta:
             tx.execute(
                 "INSERT INTO search_corpus_stats AS s (namespace, doc_count, avg_doc_len) "
-                "VALUES (:ns, :dc, CASE WHEN :dc <= 0 THEN 0 ELSE CAST(:dl AS double precision) / :dc END) "
+                "VALUES (:ns, :dc, CASE WHEN CAST(:dc AS bigint) <= 0 THEN 0 "
+                "ELSE CAST(:dl AS double precision) / CAST(:dc AS bigint) END) "
                 "ON CONFLICT (namespace) DO UPDATE SET "
                 "doc_count = s.doc_count + :dc, "
                 "avg_doc_len = CASE WHEN s.doc_count + :dc <= 0 THEN 0 "
