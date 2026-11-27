@@ -61,18 +61,15 @@ def roles_ready() -> Iterator[None]:
     """Apply the schema, build the HNSW index as owner, set role passwords, add a dummy graph table."""
     with psycopg.connect(DSN, autocommit=True) as admin:
         admin.execute(_init_sql())
-        # The migrator builds this index as the owner, so the rw role never needs CREATE INDEX.
+        # The migrator builds this index as the owner (CONCURRENTLY, so autocommit), so the rw role
+        # never needs CREATE INDEX.
         admin.execute(
-            f"CREATE INDEX IF NOT EXISTS search_doc_embedding_hnsw_{DIMENSIONS} ON search_doc "
+            f"CREATE INDEX CONCURRENTLY IF NOT EXISTS search_doc_embedding_hnsw_{DIMENSIONS} ON search_doc "
             f"USING hnsw (CAST(embedding AS vector({DIMENSIONS})) vector_cosine_ops) WHERE embedding IS NOT NULL"
         )
+        # Same path as the migrator: the SQL function from aurora-init.sql, password as a bound parameter.
         for role in ("coa_search_rw", "coa_search_ro"):
-            statement = admin.execute(
-                "SELECT format('ALTER ROLE %%I PASSWORD %%L', CAST(%s AS text), CAST(%s AS text))",
-                (role, ROLE_PASSWORD),
-            ).fetchone()
-            assert statement is not None
-            admin.execute(statement[0])  # type: ignore[arg-type]
+            admin.execute("SELECT coa_set_role_password(%s, %s)", (role, ROLE_PASSWORD))
         admin.execute("DROP TABLE IF EXISTS graph_node")
         admin.execute("CREATE TABLE graph_node (id TEXT PRIMARY KEY, label TEXT)")
         admin.execute("INSERT INTO graph_node VALUES ('n1', 'secret')")
@@ -154,6 +151,26 @@ def test_roles_cannot_touch_tables_outside_search(role_conn: str, request: pytes
     _denied(conn, "INSERT INTO graph_node VALUES ('n2', 'x')")
     _denied(conn, "UPDATE graph_node SET label = 'x'")
     _denied(conn, "DELETE FROM graph_node")
+
+
+def test_set_role_password_function_is_not_executable_by_search_roles(rw_conn: Any, ro_conn: Any) -> None:
+    for conn in (rw_conn, ro_conn):
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            conn.execute("SELECT coa_set_role_password(%s, %s)", ("coa_search_rw", "attacker-chosen"))
+        conn.rollback()
+
+
+def test_set_role_password_function_rejects_other_role_names(roles_ready: None) -> None:
+    with psycopg.connect(DSN, autocommit=True) as admin:
+        for name in ("postgres", "coa_search_rw; DROP TABLE search_doc", "pg_monitor", ""):
+            with pytest.raises(psycopg.errors.RaiseException):
+                admin.execute("SELECT coa_set_role_password(%s, %s)", (name, "x"))
+        # The allowed roles still work, and the password change is effective for login.
+        assert admin.execute("SELECT coa_set_role_password(%s, %s)", ("coa_search_ro", ROLE_PASSWORD)).fetchone() == (
+            True,
+        )
+    with psycopg.connect(_dsn_for("coa_search_ro")) as conn:
+        assert conn.execute("SELECT 1").fetchone() == (1,)
 
 
 class _MappedErrorsPgDataApi(PgDataApi):
