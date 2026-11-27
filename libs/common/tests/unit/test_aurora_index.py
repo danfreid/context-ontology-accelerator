@@ -12,7 +12,7 @@ from typing import Any
 
 import pytest
 from coa_common.aurora_search import index as index_mod
-from coa_common.aurora_search.data_api import AuroraQueryError
+from coa_common.aurora_search.data_api import AuroraQueryError, AuroraResponseTooLargeError, AuroraTimeoutError
 from coa_common.aurora_search.fusion import SearchMode
 from coa_common.aurora_search.index import AuroraSearchIndex, SearchDoc, doc_id_for
 
@@ -82,7 +82,7 @@ def test_ensure_vector_index_runs_once_per_process() -> None:
     idx.ensure_vector_index()
     idx.ensure_vector_index()
     other, _ = make(dimensions=3)
-    other._client = fake  # same cluster and dimension
+    other._client = fake  # type: ignore[assignment]  # same cluster and dimension
     other.ensure_vector_index()
     creates = fake.find("CREATE INDEX")
     assert len(creates) == 1
@@ -116,25 +116,50 @@ def test_ensure_vector_index_revalidates_dimension() -> None:
     assert fake.events == []
 
 
+def test_ensure_vector_index_probes_pg_indexes_and_skips_create_when_present() -> None:
+    idx, fake = make(lambda sql, params: [{"present": 1}] if "FROM pg_indexes" in sql else [])
+    idx.ensure_vector_index()
+    idx.ensure_vector_index()
+    probes = fake.find("FROM pg_indexes", "execute")
+    assert len(probes) == 1  # cached after the first hit
+    assert "tablename = 'search_doc' AND indexname = :n" in probes[0][1]
+    assert probes[0][2] == {"n": "search_doc_embedding_hnsw_3"}
+    assert fake.find("CREATE INDEX") == []
+
+
 def test_ensure_vector_index_swallows_already_exists_race() -> None:
     def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
-        raise AuroraQueryError('relation "search_doc_embedding_hnsw_3" already exists')
+        if "CREATE INDEX" in sql:
+            raise AuroraQueryError('relation "search_doc_embedding_hnsw_3" already exists')
+        return []
 
     idx, _ = make(handler)
     idx.ensure_vector_index()
 
 
-def test_ensure_vector_index_tolerates_non_owner_role() -> None:
+def test_ensure_vector_index_logs_error_for_non_owner_role_and_does_not_cache(
+    caplog: pytest.LogCaptureFixture,
+) -> None:
     def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
-        raise AuroraQueryError("must be owner of table search_doc")
+        if "CREATE INDEX" in sql:
+            raise AuroraQueryError("must be owner of table search_doc")
+        return []
 
-    idx, _ = make(handler)
-    idx.ensure_vector_index()
+    idx, fake = make(handler)
+    with caplog.at_level("ERROR", logger=index_mod.logger.name):
+        idx.ensure_vector_index()
+        idx.ensure_vector_index()
+    errors = [r for r in caplog.records if r.levelname == "ERROR" and "aurora_hnsw_index_missing" in r.getMessage()]
+    assert len(errors) == 2  # not cached: probed again on the next write
+    assert len(fake.find("FROM pg_indexes")) == 2
+    assert not index_mod._ENSURED_INDEXES
 
 
 def test_ensure_vector_index_reraises_other_errors() -> None:
     def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
-        raise AuroraQueryError("connection reset")
+        if "CREATE INDEX" in sql:
+            raise AuroraQueryError("connection reset")
+        return []
 
     idx, _ = make(handler)
     with pytest.raises(AuroraQueryError):
@@ -187,7 +212,7 @@ def test_upsert_new_doc_adds_term_deltas_and_corpus_stats() -> None:
     assert params["doc_len"] == 3
     assert params["embedding"] == "[0.5,1,0]"
     lock = fake.find("pg_advisory_xact_lock", "execute")[0]
-    assert "hashtextextended(:scope, 0)" in lock[1]
+    assert lock[1] == "SELECT 1 AS locked FROM (SELECT pg_advisory_xact_lock(hashtextextended(:scope, 0))) AS l"
     assert lock[2] == {"scope": "coa-onto-vec"}
     begin = next(i for i, e in enumerate(fake.events) if e[0] == "tx")
     assert fake.events[begin + 1][1] == lock[1]  # first statement inside the transaction
@@ -233,6 +258,40 @@ def test_upsert_reconciles_removed_labels() -> None:
     assert_only_placeholders(fake, ["New Name"])
 
 
+def test_upsert_empty_authoritative_label_set_deletes_entity_labels() -> None:
+    idx, fake = make(upsert_handler([], "'a':1"))
+    idx.upsert_docs("s", [SearchDoc(body="a", entity_uri="e1", aliases=())])
+    assert fake.find("INSERT INTO entity_label") == []
+    stale = fake.find("DELETE FROM entity_label", "batch")[0]
+    assert stale[2] == [{"ns": "s", "entity_id": "e1", "labels": []}]
+
+
+def test_upsert_empty_label_string_is_authoritative_too() -> None:
+    idx, fake = make(upsert_handler([], "'a':1"))
+    idx.upsert_docs("s", [SearchDoc(body="a", entity_uri="e1", label="")])
+    assert fake.find("DELETE FROM entity_label", "batch")[0][2][0]["labels"] == []
+
+
+def test_upsert_label_set_is_union_over_authoritative_docs_of_the_entity() -> None:
+    def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
+        if "to_tsvector('english', e.val)" in sql:
+            return [{"ord": i + 1, "tsv_text": "'a':1"} for i in range(len(params["bodies"]))]
+        return []
+
+    idx, fake = make(handler)
+    idx.upsert_docs(
+        "s",
+        [
+            SearchDoc(body="one", entity_uri="e1", embedding_type="x", label="Name"),
+            SearchDoc(body="two", entity_uri="e1", embedding_type="y", aliases=["Alias"]),
+            SearchDoc(body="three", entity_uri="e1", embedding_type="z"),  # no label information: ignored
+        ],
+    )
+    assert fake.find("DELETE FROM entity_label", "batch")[0][2] == [
+        {"ns": "s", "entity_id": "e1", "labels": ["Alias", "Name"]}
+    ]
+
+
 def test_upsert_without_labels_keeps_existing_labels() -> None:
     idx, fake = make(upsert_handler([], "'a':1"))
     idx.upsert_docs("s", [SearchDoc(body="a", entity_uri="e1")])
@@ -254,6 +313,15 @@ def test_upsert_existing_doc_applies_old_minus_new_deltas() -> None:
     assert term_sets(fake) == {"new": 1, "old": -1}
     assert corpus_params(fake) == {"ns": "s", "dc": 0, "dl": -3}
     assert len(fake.find("DELETE FROM search_term_stats WHERE namespace = :ns AND doc_freq <= 0")) == 1
+
+
+def test_stats_upsert_clamps_counts_and_average_at_zero() -> None:
+    idx, fake = make(upsert_handler([], "'a':1"))
+    idx.upsert_docs("s", [SearchDoc(body="a", entity_uri="e")])
+    sql = fake.find("INSERT INTO search_corpus_stats", "execute")[0][1]
+    assert "doc_count = GREATEST(s.doc_count + :dc, 0)" in sql
+    assert "avg_doc_len = GREATEST(CASE WHEN" in sql
+    assert "VALUES (:ns, GREATEST(:dc, 0)," in sql
 
 
 def test_upsert_is_idempotent_for_identical_content() -> None:
@@ -291,11 +359,15 @@ def test_doc_id_is_stable_and_scope_sensitive() -> None:
 # ── delete ────────────────────────────────────────────────────────────────
 
 
+def select_matches(sql: str) -> bool:
+    return "FROM search_doc WHERE namespace = :ns" in sql and "FOR UPDATE" in sql
+
+
 def test_delete_docs_applies_negative_deltas_and_removes_zero_rows() -> None:
     calls = {"n": 0}
 
     def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
-        if "DELETE FROM search_doc WHERE doc_id IN" in sql:
+        if select_matches(sql):
             calls["n"] += 1
             if calls["n"] == 1:
                 return [
@@ -309,24 +381,27 @@ def test_delete_docs_applies_negative_deltas_and_removes_zero_rows() -> None:
     assert term_sets(fake) == {"a": -2, "b": -1}
     assert corpus_params(fake) == {"ns": "s", "dc": -2, "dl": -6}
     assert len(fake.find("DELETE FROM search_term_stats WHERE namespace = :ns AND doc_freq <= 0")) == 1
+    selects = [e for e in fake.events if e[0] == "execute" and select_matches(e[1])]
+    assert len(selects) == 2  # one batch with rows, one empty batch ending the loop
+    assert "ORDER BY doc_id LIMIT :lim FOR UPDATE" in selects[0][1]
+    assert "RETURNING" not in " ".join(fake.sqls())
     deletes = fake.find("DELETE FROM search_doc", "execute")
-    assert len(deletes) == 2  # one batch with rows, one empty batch ending the loop
-    assert "RETURNING doc_id" in deletes[0][1]
+    assert len(deletes) == 1
+    assert deletes[0][2] == {"ids": ["d1", "d2"]}
     assert len(fake.find("pg_advisory_xact_lock", "execute")) == 2
     label_delete = fake.find("DELETE FROM entity_label", "execute")[0]
     assert label_delete[2]["eids"] == ["e1", "e2"]
-    select = deletes[0]
-    assert "metadata @> CAST(:fm AS jsonb)" in select[1]
-    assert select[2]["fm"] == {"ontology_id": ADVERSARIAL}
+    assert "metadata @> CAST(:fm AS jsonb)" in selects[0][1]
+    assert selects[0][2]["fm"] == {"ontology_id": ADVERSARIAL}
     assert_only_placeholders(fake, [ADVERSARIAL])
 
 
-def test_delete_docs_applies_deltas_only_for_rows_actually_deleted() -> None:
-    # The statement returns one row although two ids matched earlier: a concurrent delete won the other.
+def test_delete_docs_counts_only_the_rows_it_locked_and_deleted() -> None:
+    # FOR UPDATE waits for a concurrent deleter and then skips the rows it removed, so only d1 is returned.
     returned = iter([[{"doc_id": "d1", "terms": ["a"], "doc_len": 3, "entity_key": "e1"}], []])
 
     def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
-        return next(returned) if "DELETE FROM search_doc WHERE doc_id IN" in sql else []
+        return next(returned) if select_matches(sql) else []
 
     idx, fake = make(handler)
     assert idx.delete_docs("s", doc_ids=["d1", "d2"]) == 1
@@ -334,10 +409,42 @@ def test_delete_docs_applies_deltas_only_for_rows_actually_deleted() -> None:
     assert corpus_params(fake) == {"ns": "s", "dc": -1, "dl": -3}
 
 
+def test_delete_docs_halves_the_batch_on_too_large_response_and_retries() -> None:
+    state = {"calls": 0}
+
+    def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
+        if select_matches(sql):
+            state["calls"] += 1
+            if state["calls"] <= 2:
+                raise AuroraResponseTooLargeError("too large")
+            if state["calls"] == 3:
+                return [{"doc_id": "d1", "terms": ["a"], "doc_len": 1, "entity_key": "e1"}]
+        return []
+
+    idx, fake = make(handler)
+    assert idx.delete_docs("s", filter_metadata={"k": "v"}) == 1
+    limits = [e[2]["lim"] for e in fake.events if e[0] == "execute" and select_matches(e[1])]
+    assert limits == [1000, 500, 250, 250]
+    # Nothing was deleted by the failed attempts.
+    assert len(fake.find("DELETE FROM search_doc", "execute")) == 1
+
+
+def test_delete_docs_raises_when_a_single_row_is_too_large() -> None:
+    def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
+        if select_matches(sql):
+            raise AuroraResponseTooLargeError("too large")
+        return []
+
+    idx, fake = make(handler)
+    with pytest.raises(AuroraResponseTooLargeError):
+        idx.delete_docs("s", filter_metadata={"k": "v"})
+    assert fake.find("DELETE FROM search_doc", "execute") == []
+
+
 def test_delete_docs_by_ids() -> None:
     idx, fake = make()
     assert idx.delete_docs("s", doc_ids=["d1"]) == 0
-    select = fake.find("DELETE FROM search_doc", "execute")[0]
+    select = next(e for e in fake.events if e[0] == "execute" and select_matches(e[1]))
     assert "doc_id IN" in select[1]
     assert select[2]["dids"] == ["d1"]
 
@@ -349,32 +456,71 @@ def test_delete_docs_requires_a_selector() -> None:
     assert fake.events == []
 
 
-def test_delete_scope_loops_until_empty_and_clears_stats() -> None:
-    counts = iter([5000, 120, 0])
+def scope_handler(counts: list[int], remaining: list[list[dict[str, Any]]] | None = None) -> Handler:
+    chunk_counts = iter(counts)
+    present = iter(remaining or [])
 
     def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
         if "WITH d AS (DELETE FROM search_doc" in sql:
-            return [{"n": next(counts)}]
+            return [{"n": next(chunk_counts)}]
+        if "SELECT 1 AS present FROM search_doc" in sql:
+            return next(present, [])
         return []
 
-    idx, fake = make(handler)
+    return handler
+
+
+def test_delete_scope_one_transaction_per_chunk_then_final_stats_clear() -> None:
+    idx, fake = make(scope_handler([5000, 120, 0]))
     assert idx.delete_scope("s") == 5120
     chunk_deletes = fake.find("WITH d AS (DELETE FROM search_doc", "execute")
     assert len(chunk_deletes) == 3
     assert "ctid IN" in chunk_deletes[0][1]
     assert chunk_deletes[0][2]["lim"] == 5000
+    # Three chunk transactions plus the final one, each starting with the scope lock.
     kinds = [e[1] for e in fake.events]
-    assert kinds[0] == "BEGIN" and kinds[-1] == "COMMIT"
-    assert "pg_advisory_xact_lock" in kinds[1]
-    assert kinds[-4:-1] == [
+    assert kinds.count("BEGIN") == kinds.count("COMMIT") == 4
+    assert all("pg_advisory_xact_lock" in kinds[i + 1] for i, k in enumerate(kinds) if k == "BEGIN")
+    # Stats are cleared only in the last transaction, after the empty check.
+    last_begin = len(kinds) - 1 - kinds[::-1].index("BEGIN")
+    assert kinds[last_begin + 2].startswith("SELECT 1 AS present FROM search_doc")
+    assert kinds[last_begin + 3 : -1] == [
         "DELETE FROM entity_label WHERE namespace = :ns",
         "DELETE FROM search_term_stats WHERE namespace = :ns",
         "DELETE FROM search_corpus_stats WHERE namespace = :ns",
     ]
 
 
+def test_delete_scope_progress_survives_failure_in_a_later_chunk() -> None:
+    chunk_counts = iter([5000])
+
+    def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
+        if "WITH d AS (DELETE FROM search_doc" in sql:
+            try:
+                return [{"n": next(chunk_counts)}]
+            except StopIteration:
+                raise AuroraTimeoutError("timeout") from None
+        return []
+
+    idx, fake = make(handler)
+    with pytest.raises(AuroraTimeoutError):
+        idx.delete_scope("s")
+    kinds = [e[1] for e in fake.events]
+    assert kinds[0] == "BEGIN" and kinds[3] == "COMMIT"  # the first chunk was committed on its own
+    assert fake.find("DELETE FROM search_corpus_stats") == []
+
+
+def test_delete_scope_loops_again_when_rows_reappear_before_the_final_check() -> None:
+    idx, fake = make(scope_handler([3, 0, 2, 0], remaining=[[{"present": 1}], []]))
+    assert idx.delete_scope("s") == 5
+    assert len(fake.find("DELETE FROM search_corpus_stats")) == 1
+    kinds = [e[1] for e in fake.events]
+    stats_at = next(i for i, k in enumerate(kinds) if k.startswith("DELETE FROM search_corpus_stats"))
+    assert sum(1 for k in kinds[:stats_at] if k.startswith("WITH d AS")) == 4
+
+
 def test_delete_scope_is_idempotent_on_empty_scope() -> None:
-    idx, fake = make(lambda sql, params: [{"n": 0}] if "WITH d AS" in sql else [])
+    idx, fake = make(scope_handler([0]))
     assert idx.delete_scope("s") == 0
     assert len(fake.find("DELETE FROM search_corpus_stats")) == 1
 
@@ -430,10 +576,15 @@ def test_vector_search_exclude_metadata_filter_negates_containment() -> None:
     assert {"query_backend": "RDF_SPARQL"} in params.values()
 
 
+DETAIL_SQL = "SELECT doc_id, doc_kind, body, metadata FROM search_doc WHERE namespace = :ns AND doc_id IN"
+
+
 def keyword_handler(recall: list[dict[str, Any]], stats: list[dict[str, Any]]) -> Handler:
     def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
         if "unnest(tsvector_to_array" in sql:
             return [{"lexeme": "copper"}, {"lexeme": "harbor"}]
+        if DETAIL_SQL in sql:
+            return [r for r in recall if r["doc_id"] in params["ids"]]
         if "ts_rank" in sql:
             return recall
         if "search_corpus_stats" in sql:
@@ -471,12 +622,95 @@ def test_keyword_search_recalls_then_ranks_by_bm25() -> None:
 
     recall_sql, recall_params = fake.find("ts_rank", "execute")[0][1:]
     assert "to_tsquery('english', :q)" in recall_sql
+    select_list = recall_sql.split(" FROM search_doc")[0]
+    assert "body" not in select_list
+    assert "metadata" not in select_list
+    assert "doc_kind" not in select_list
+    assert select_list.startswith("SELECT doc_id, doc_len, CAST(tsv AS text) AS tsv_text, ")
+    details = fake.find(DETAIL_SQL, "execute")
+    assert len(details) == 1
+    assert sorted(details[0][2]["ids"]) == ["long", "short"]  # only the ranked top_k, never the "none" candidate
     assert "ORDER BY rank DESC" in recall_sql
     assert recall_params["recall"] == 200
     assert all(re.fullmatch(r"'[a-z0-9_]+':\*", t) for t in recall_params["q"].split(" | "))
     stats_params = fake.find("search_corpus_stats", "execute")[0][2]
     assert stats_params["terms"] == ["copper"]
     assert_only_placeholders(fake, [ADVERSARIAL, "DROP TABLE search_doc;"])
+
+
+def too_large_row(doc_id: str) -> dict[str, Any]:
+    return {"doc_id": doc_id, "doc_kind": "doc", "doc_len": 2, "tsv_text": "'copper':1", "metadata": "{}", "body": "b"}
+
+
+def test_keyword_search_halves_recall_on_too_large_response_with_floor() -> None:
+    recall_calls: list[int] = []
+
+    def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
+        if "unnest(tsvector_to_array" in sql:
+            return [{"lexeme": "copper"}]
+        if "ts_rank" in sql:
+            recall_calls.append(params["recall"])
+            if len(recall_calls) < 3:
+                raise AuroraResponseTooLargeError("too large")
+            return [too_large_row("d1")]
+        if DETAIL_SQL in sql:
+            return [too_large_row("d1")]
+        return []
+
+    idx, _ = make(handler)
+    assert [h.doc_id for h in idx.keyword_search("s", "copper", top_k=5, recall=200)] == ["d1"]
+    assert recall_calls == [200, 100, 50]
+
+    def always_too_large(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
+        if "ts_rank" in sql:
+            recall_calls.append(params["recall"])
+            raise AuroraResponseTooLargeError("too large")
+        return [{"lexeme": "copper"}] if "unnest(" in sql else []
+
+    recall_calls.clear()
+    idx2, _ = make(always_too_large)
+    with pytest.raises(AuroraResponseTooLargeError):
+        idx2.keyword_search("s", "copper", top_k=5, recall=40)
+    assert recall_calls == [40, 20, 10]
+
+
+def test_keyword_search_halves_detail_fetch_batch_on_too_large_response() -> None:
+    rows = [too_large_row(f"d{i}") for i in range(4)]
+    detail_batches: list[int] = []
+
+    def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
+        if "unnest(tsvector_to_array" in sql:
+            return [{"lexeme": "copper"}]
+        if DETAIL_SQL in sql:
+            detail_batches.append(len(params["ids"]))
+            if len(params["ids"]) > 1:
+                raise AuroraResponseTooLargeError("too large")
+            return [r for r in rows if r["doc_id"] in params["ids"]]
+        if "ts_rank" in sql:
+            return rows
+        return []
+
+    idx, _ = make(handler)
+    hits = idx.keyword_search("s", "copper", top_k=4)
+    assert sorted(h.doc_id for h in hits) == ["d0", "d1", "d2", "d3"]
+    assert detail_batches == [4, 2, 1, 1, 1, 1]
+    assert all(h.body == "b" for h in hits)
+
+
+def test_keyword_search_skips_documents_deleted_between_the_two_queries() -> None:
+    rows = [too_large_row("d1"), too_large_row("d2")]
+
+    def handler(sql: str, params: dict[str, Any]) -> list[dict[str, Any]]:
+        if "unnest(tsvector_to_array" in sql:
+            return [{"lexeme": "copper"}]
+        if DETAIL_SQL in sql:
+            return [r for r in rows if r["doc_id"] == "d2"]
+        if "ts_rank" in sql:
+            return rows
+        return []
+
+    idx, _ = make(handler)
+    assert [h.doc_id for h in idx.keyword_search("s", "copper", top_k=5)] == ["d2"]
 
 
 def test_keyword_search_phrases_report_matches() -> None:

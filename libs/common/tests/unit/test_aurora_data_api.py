@@ -227,14 +227,15 @@ def test_iter_pages_pages_until_short_page() -> None:
         {"formattedRecords": json.dumps([{"i": 2}])},
     ]
     fake = FakeRds({"execute_statement": pages})
-    out = list(make(fake).iter_pages("SELECT i FROM t ORDER BY i", {"x": 1}, page_size=2))
+    out = list(make(fake).iter_pages("SELECT i FROM t ORDER BY i", {"x": 1}, page_size=2, key_columns=("i",)))
     assert out == [[{"i": 0}, {"i": 1}], [{"i": 2}]]
-    sql = fake.calls[0][1]["sql"]
-    assert sql.endswith("LIMIT :_page_limit OFFSET :_page_offset")
-    offsets = [
-        next(p for p in kw["parameters"] if p["name"] == "_page_offset")["value"]["longValue"] for _, kw in fake.calls
-    ]
-    assert offsets == [0, 2]
+    first, second = (kw["sql"] for _, kw in fake.calls)
+    assert first == "SELECT * FROM (SELECT i FROM t ORDER BY i) q ORDER BY i LIMIT :_page_limit"
+    assert second == ("SELECT * FROM (SELECT i FROM t ORDER BY i) q WHERE (i) > (:_k0) ORDER BY i LIMIT :_page_limit")
+    assert "OFFSET" not in second
+    assert not any(p["name"].startswith("_k") for p in fake.calls[0][1]["parameters"])
+    cursor = next(p for p in fake.calls[1][1]["parameters"] if p["name"] == "_k0")
+    assert cursor["value"] == {"longValue": 1}  # last key of the previous page
 
 
 def test_iter_pages_halves_on_response_limit() -> None:
@@ -248,19 +249,31 @@ def test_iter_pages_halves_on_response_limit() -> None:
             ]
         }
     )
-    out = list(make(fake).iter_pages("SELECT i FROM t ORDER BY i", page_size=4))
+    out = list(make(fake).iter_pages("SELECT i FROM t ORDER BY i", page_size=4, key_columns=("i",)))
     assert out == [[{"i": 0}]]
     limits = [
         next(p for p in kw["parameters"] if p["name"] == "_page_limit")["value"]["longValue"] for _, kw in fake.calls
     ]
     assert limits == [4, 2, 1, 1]  # the full page of 1 row triggers one more fetch
+    # The retries after halving reuse the same (absent) cursor; only the final fetch starts after row 0.
+    assert [any(p["name"] == "_k0" for p in kw["parameters"]) for _, kw in fake.calls] == [False, False, False, True]
+
+
+def test_iter_pages_composite_key_and_identifier_check() -> None:
+    page = {"formattedRecords": json.dumps([{"a": "x", "b": 1}, {"a": "x", "b": 2}])}
+    fake = FakeRds({"execute_statement": [page, {"formattedRecords": "[]"}]})
+    list(make(fake).iter_pages("SELECT a, b FROM t ORDER BY a, b", page_size=2, key_columns=("a", "b")))
+    assert fake.calls[1][1]["sql"].endswith("WHERE (a, b) > (:_k0, :_k1) ORDER BY a, b LIMIT :_page_limit")
+    for bad in ((), ("a; DROP TABLE t",), ("a b",)):
+        with pytest.raises(ValueError, match="key_columns"):
+            list(make(FakeRds()).iter_pages("SELECT a FROM t ORDER BY a", key_columns=bad))
 
 
 def test_iter_pages_raises_when_single_row_too_large() -> None:
     too_large = client_error("BadRequestException", "Database response exceeded size limit")
     fake = FakeRds({"execute_statement": [too_large] * 5})
     with pytest.raises(AuroraResponseTooLargeError):
-        list(make(fake).iter_pages("SELECT i FROM t ORDER BY i", page_size=1))
+        list(make(fake).iter_pages("SELECT i FROM t ORDER BY i", page_size=1, key_columns=("i",)))
 
 
 @pytest.mark.parametrize(

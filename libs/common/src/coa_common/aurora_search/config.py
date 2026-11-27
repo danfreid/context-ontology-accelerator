@@ -8,8 +8,10 @@
 Environment variables:
     HYBRID_SEARCH_BACKEND: ``aoss`` (default) or ``pgvector+tsvector`` / ``pgvector``.
     WORKBENCH_BACKEND: ``aurora_pgvector`` also selects the Aurora backend.
-    AURORA_CLUSTER_ARN, AURORA_SECRET_ARN: ARNs, or SSM parameter names (leading ``/``).
-    AURORA_SSM_PREFIX: prefix for ``/aurora/cluster-arn`` and ``/aurora/secret-arn``.
+    AURORA_CLUSTER_ARN: ARN, or SSM parameter name (leading ``/``).
+    AURORA_SECRET_ARN: required. ARN, or SSM parameter name (leading ``/``). There is no fallback,
+        so a workload cannot silently pick up the admin secret.
+    AURORA_SSM_PREFIX: prefix for ``/aurora/cluster-arn``.
     AURORA_DATABASE: database name (default ``postgres``).
     AURORA_VECTOR_DIMENSIONS, OSS_DIMENSIONS: embedding dimension (default 1024).
 """
@@ -80,7 +82,7 @@ class AuroraConfig:
 
     @classmethod
     def from_env(cls, env: Mapping[str, str] | None = None) -> AuroraConfig:
-        """Build the config from env vars, falling back to SSM parameters under AURORA_SSM_PREFIX."""
+        """Build the config from env vars. Only the cluster ARN falls back to SSM under AURORA_SSM_PREFIX."""
         env = os.environ if env is None else env
         prefix = (env.get("AURORA_SSM_PREFIX") or "").rstrip("/")
 
@@ -93,7 +95,10 @@ class AuroraConfig:
             raise RuntimeError(f"Aurora search needs {var} (or AURORA_SSM_PREFIX) to be set")
 
         cluster_arn = pick("AURORA_CLUSTER_ARN", "cluster-arn")
-        secret_arn = pick("AURORA_SECRET_ARN", "secret-arn")
+        secret_value = env.get("AURORA_SECRET_ARN")
+        if not secret_value:
+            raise RuntimeError("Aurora search needs AURORA_SECRET_ARN (the search role secret); it has no fallback")
+        secret_arn = _resolve(secret_value)
         raw_dim = env.get("AURORA_VECTOR_DIMENSIONS") or env.get("OSS_DIMENSIONS") or str(DEFAULT_DIMENSIONS)
         try:
             dimensions = int(raw_dim)

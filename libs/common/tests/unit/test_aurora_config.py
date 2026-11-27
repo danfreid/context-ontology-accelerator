@@ -68,10 +68,17 @@ def test_from_env_uses_arns_without_ssm(fake_ssm: list[str]) -> None:
     assert fake_ssm == []
 
 
-def test_from_env_falls_back_to_ssm_prefix(fake_ssm: list[str]) -> None:
-    cfg = AuroraConfig.from_env({"AURORA_SSM_PREFIX": "/coa/dev/"})
-    assert fake_ssm == ["/coa/dev/aurora/cluster-arn", "/coa/dev/aurora/secret-arn"]
+def test_from_env_falls_back_to_ssm_prefix_for_cluster_only(fake_ssm: list[str]) -> None:
+    cfg = AuroraConfig.from_env({"AURORA_SSM_PREFIX": "/coa/dev/", "AURORA_SECRET_ARN": "arn:aws:secret:s"})
+    assert fake_ssm == ["/coa/dev/aurora/cluster-arn"]
     assert cfg.cluster_arn == "resolved:/coa/dev/aurora/cluster-arn"
+    assert cfg.secret_arn == "arn:aws:secret:s"
+
+
+def test_secret_arn_has_no_ssm_prefix_fallback(fake_ssm: list[str]) -> None:
+    with pytest.raises(RuntimeError, match="AURORA_SECRET_ARN"):
+        AuroraConfig.from_env({"AURORA_SSM_PREFIX": "/coa/dev/", "AURORA_CLUSTER_ARN": "arn:aws:rds:c"})
+    assert "/coa/dev/aurora/secret-arn" not in fake_ssm
 
 
 def test_slash_prefixed_secret_is_ssm_name(fake_ssm: list[str]) -> None:

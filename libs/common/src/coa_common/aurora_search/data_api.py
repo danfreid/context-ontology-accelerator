@@ -10,9 +10,10 @@ from __future__ import annotations
 
 import json
 import logging
+import re
 import threading
 import time
-from collections.abc import Iterator
+from collections.abc import Iterator, Sequence
 from contextlib import contextmanager
 from typing import Any
 
@@ -27,6 +28,7 @@ MAX_BATCH_BYTES = 2 * 1024 * 1024
 _REQUEST_OVERHEAD_BYTES = 1024
 RESUME_MAX_WAIT_S = 60.0
 _RESUME_MAX_DELAY_S = 16.0
+_IDENTIFIER = re.compile(r"[A-Za-z_][A-Za-z0-9_]*")
 
 
 class AuroraDataApiError(Exception):
@@ -264,22 +266,37 @@ class AuroraDataApiClient:
             )
 
     def iter_pages(
-        self, sql: str, params: dict[str, Any] | None = None, page_size: int = 500
+        self,
+        sql: str,
+        params: dict[str, Any] | None = None,
+        page_size: int = 500,
+        key_columns: Sequence[str] = ("doc_id",),
     ) -> Iterator[list[dict[str, Any]]]:
-        """Yield result pages for a caller-ordered statement using LIMIT/OFFSET.
+        """Yield result pages for a caller-ordered statement using keyset paging.
 
-        The statement must end in a total ``ORDER BY`` (unique key last), otherwise pages can
-        overlap or skip rows. Halves the page size and retries when the Data API response
-        limit is hit.
+        The statement is wrapped as ``SELECT * FROM (<sql>) q WHERE (keys) > (cursor) ORDER BY keys
+        LIMIT n``. ``key_columns`` must be output columns of the statement that are unique together
+        and never null; the statement itself must contain an ``ORDER BY``. Rows inserted or deleted
+        behind the cursor do not shift later pages. Halves the page size and retries from the same
+        cursor when the Data API response limit is hit.
         """
         if "order by" not in sql.lower():
             raise ValueError("iter_pages needs a statement with a total ORDER BY")
-        offset = 0
+        keys = list(key_columns)
+        if not keys or not all(_IDENTIFIER.fullmatch(k) for k in keys):
+            raise ValueError(f"iter_pages key_columns must be plain column names, got {keys!r}")
+        key_list = ", ".join(keys)
+        base = f"SELECT * FROM ({sql.rstrip().rstrip(';')}) q"
+        cursor: dict[str, Any] = {}
         size = max(1, page_size)
-        paged_sql = f"{sql.rstrip().rstrip(';')} LIMIT :_page_limit OFFSET :_page_offset"
         while True:
+            paged_sql = base
+            if cursor:
+                placeholders = ", ".join(f":{name}" for name in cursor)
+                paged_sql += f" WHERE ({key_list}) > ({placeholders})"
+            paged_sql += f" ORDER BY {key_list} LIMIT :_page_limit"
             try:
-                rows = self.execute(paged_sql, {**(params or {}), "_page_limit": size, "_page_offset": offset})
+                rows = self.execute(paged_sql, {**(params or {}), **cursor, "_page_limit": size})
             except AuroraResponseTooLargeError:
                 if size <= 1:
                     raise
@@ -290,4 +307,4 @@ class AuroraDataApiClient:
                 yield rows
             if len(rows) < size:
                 return
-            offset += len(rows)
+            cursor = {f"_k{i}": rows[-1][k] for i, k in enumerate(keys)}

@@ -22,7 +22,7 @@ from typing import Any
 
 from coa_common.aurora_search.bm25 import Candidate, CorpusStats, rank_bm25
 from coa_common.aurora_search.config import MAX_DIMENSIONS, MIN_DIMENSIONS
-from coa_common.aurora_search.data_api import AuroraDataApiClient, AuroraQueryError
+from coa_common.aurora_search.data_api import AuroraDataApiClient, AuroraQueryError, AuroraResponseTooLargeError
 from coa_common.aurora_search.fusion import SearchMode, reciprocal_rank_fusion
 from coa_common.aurora_search.text import (
     build_or_prefix_tsquery,
@@ -36,6 +36,7 @@ logger = logging.getLogger(__name__)
 DOC_GROUP_SIZE = 50
 DELETE_BATCH_SIZE = 1000
 SCOPE_DELETE_CHUNK = 5000
+RECALL_FLOOR = 10
 
 # (cluster_arn, dimensions) pairs whose HNSW index has been ensured in this process.
 _ENSURED_INDEXES: set[tuple[str, int]] = set()
@@ -55,8 +56,10 @@ class SearchDoc:
     ontology_id: str = ""
     embedding: Sequence[float] | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
+    # None for both means "no label information": existing labels of the entity are left alone.
+    # Setting either one (even to "" or ()) makes this document authoritative for the entity's labels.
     label: str | None = None
-    aliases: Sequence[str] = ()
+    aliases: Sequence[str] | None = None
 
 
 @dataclass
@@ -174,7 +177,11 @@ class AuroraSearchIndex:
 
     def _lock_scope(self, scope: str) -> None:
         """Serialise writers of one scope until the surrounding transaction ends."""
-        self._client.execute("SELECT pg_advisory_xact_lock(hashtextextended(:scope, 0))", {"scope": scope})
+        # The inner SELECT keeps the void result of the lock function out of the Data API response.
+        self._client.execute(
+            "SELECT 1 AS locked FROM (SELECT pg_advisory_xact_lock(hashtextextended(:scope, 0))) AS l",
+            {"scope": scope},
+        )
 
     @property
     def dimensions(self) -> int:
@@ -184,13 +191,25 @@ class AuroraSearchIndex:
     # ── write path ────────────────────────────────────────────────────────
 
     def ensure_vector_index(self) -> None:
-        """Create the HNSW index for this dimension. Runs once per process per dimension."""
+        """Make sure the HNSW index for this dimension exists. Probed once per process per dimension.
+
+        A present index is cached. If it is missing and this role cannot create it (the migrator owns
+        it), an ERROR ``aurora_hnsw_index_missing`` is logged and nothing is cached, so the next write
+        probes again. This never raises for a missing index.
+        """
         dim = _validate_dimensions(self._dimensions)
         cache_key = (getattr(self._client, "cluster_arn", ""), dim)
         if cache_key in _ENSURED_INDEXES:
             return
+        name = f"search_doc_embedding_hnsw_{int(dim)}"
+        probe = self._client.execute(
+            "SELECT 1 AS present FROM pg_indexes WHERE tablename = 'search_doc' AND indexname = :n", {"n": name}
+        )
+        if probe:
+            _ENSURED_INDEXES.add(cache_key)
+            return
         sql = (
-            f"CREATE INDEX IF NOT EXISTS search_doc_embedding_hnsw_{int(dim)} ON search_doc "
+            f"CREATE INDEX IF NOT EXISTS {name} ON search_doc "
             f"USING hnsw (CAST(embedding AS vector({int(dim)})) vector_cosine_ops) "
             "WHERE embedding IS NOT NULL"
         )
@@ -198,12 +217,13 @@ class AuroraSearchIndex:
             self._client.execute(sql)
         except AuroraQueryError as exc:
             message = str(exc).lower()
-            if "already exists" in message:
-                pass
-            elif "must be owner" in message:
+            if "must be owner" in message:
                 # The least-privilege rw role does not own search_doc; the migrator creates the index.
-                logger.warning("cannot create the HNSW index as this role; the migrator owns it: %s", exc)
-            else:
+                logger.error(
+                    "aurora_hnsw_index_missing: index %s does not exist and this role cannot create it: %s", name, exc
+                )
+                return
+            if "already exists" not in message:
                 raise
         _ENSURED_INDEXES.add(cache_key)
 
@@ -242,6 +262,7 @@ class AuroraSearchIndex:
             count_delta = 0
             len_delta = 0
             labels: dict[tuple[str, str], str] = {}
+            authoritative: set[str] = set()  # entities whose label set this group defines exactly
             for i, (doc_id, doc) in enumerate(group, start=1):
                 tf = tsv_by_ord.get(i, {})
                 new_terms = set(tf)
@@ -283,9 +304,11 @@ class AuroraSearchIndex:
                     },
                 )
                 entity_id = doc.entity_uri or doc_id
+                if doc.label is not None or doc.aliases is not None:
+                    authoritative.add(entity_id)
                 if doc.label:
                     labels[(entity_id, doc.label)] = "label"
-                for alias in doc.aliases:
+                for alias in doc.aliases or ():
                     if alias:
                         labels.setdefault((entity_id, alias), "alias")
 
@@ -300,13 +323,15 @@ class AuroraSearchIndex:
                         for (eid, label), kind in labels.items()
                     ],
                 )
-                by_entity: dict[str, list[str]] = {}
+            if authoritative:
+                # An empty label list makes NOT IN match every row, so the entity ends with no labels.
+                by_entity: dict[str, list[str]] = {eid: [] for eid in authoritative}
                 for eid, label in labels:
-                    by_entity.setdefault(eid, []).append(label)
+                    by_entity[eid].append(label)
                 c.batch_execute(
                     "DELETE FROM entity_label WHERE namespace = :ns AND entity_id = :entity_id "
                     "AND label NOT IN (SELECT jsonb_array_elements_text(CAST(:labels AS jsonb)))",
-                    [{"ns": scope, "entity_id": eid, "labels": sorted(ls)} for eid, ls in by_entity.items()],
+                    [{"ns": scope, "entity_id": eid, "labels": sorted(ls)} for eid, ls in sorted(by_entity.items())],
                 )
 
     def _apply_stats(self, scope: str, term_delta: Counter[str], count_delta: int, len_delta: int) -> None:
@@ -324,11 +349,12 @@ class AuroraSearchIndex:
         if count_delta or len_delta:
             c.execute(
                 "INSERT INTO search_corpus_stats AS s (namespace, doc_count, avg_doc_len) "
-                "VALUES (:ns, :dc, CASE WHEN :dc <= 0 THEN 0 ELSE CAST(:dl AS double precision) / :dc END) "
+                "VALUES (:ns, GREATEST(:dc, 0), "
+                "CASE WHEN :dc <= 0 THEN 0 ELSE GREATEST(CAST(:dl AS double precision), 0) / :dc END) "
                 "ON CONFLICT (namespace) DO UPDATE SET "
-                "doc_count = s.doc_count + :dc, "
-                "avg_doc_len = CASE WHEN s.doc_count + :dc <= 0 THEN 0 "
-                "ELSE (s.avg_doc_len * s.doc_count + :dl) / (s.doc_count + :dc) END",
+                "doc_count = GREATEST(s.doc_count + :dc, 0), "
+                "avg_doc_len = GREATEST(CASE WHEN s.doc_count + :dc <= 0 THEN 0 "
+                "ELSE (s.avg_doc_len * s.doc_count + :dl) / (s.doc_count + :dc) END, 0)",
                 {"ns": scope, "dc": count_delta, "dl": len_delta},
             )
 
@@ -350,56 +376,79 @@ class AuroraSearchIndex:
             where += " AND doc_id IN (SELECT jsonb_array_elements_text(CAST(:dids AS jsonb)))"
             params["dids"] = list(doc_ids)
         total = 0
+        limit = DELETE_BATCH_SIZE
         c = self._client
         while True:
-            with c.transaction():
-                self._lock_scope(scope)
-                rows = c.execute(
-                    "DELETE FROM search_doc WHERE doc_id IN "
-                    f"(SELECT doc_id FROM search_doc WHERE {where} ORDER BY doc_id LIMIT :lim) "
-                    "RETURNING doc_id, to_jsonb(tsvector_to_array(tsv)) AS terms, doc_len, "
-                    f"{_ENTITY_KEY_SQL} AS entity_key",
-                    {**params, "lim": DELETE_BATCH_SIZE},
-                )
-                if not rows:
-                    return total
-                term_delta: Counter[str] = Counter()
-                len_delta = 0
-                for r in rows:
-                    for term in _terms(r["terms"]):
-                        term_delta[term] -= 1
-                    len_delta -= int(r["doc_len"])
-                self._apply_stats(scope, term_delta, -len(rows), len_delta)
-                c.execute(
-                    "DELETE FROM entity_label WHERE namespace = :ns "
-                    "AND entity_id IN (SELECT jsonb_array_elements_text(CAST(:eids AS jsonb))) "
-                    "AND NOT EXISTS (SELECT 1 FROM search_doc d WHERE d.namespace = :ns "
-                    "AND COALESCE(NULLIF(d.metadata ->> 'entity_uri', ''), d.doc_id) = entity_label.entity_id)",
-                    {"ns": scope, "eids": sorted({r["entity_key"] for r in rows})},
-                )
+            try:
+                with c.transaction():
+                    self._lock_scope(scope)
+                    # Select first (locking the rows), delete second: a response-size error can then be
+                    # retried with a smaller batch, which a DELETE ... RETURNING could not.
+                    rows = c.execute(
+                        "SELECT doc_id, to_jsonb(tsvector_to_array(tsv)) AS terms, doc_len, "
+                        f"{_ENTITY_KEY_SQL} AS entity_key FROM search_doc WHERE {where} "
+                        "ORDER BY doc_id LIMIT :lim FOR UPDATE",
+                        {**params, "lim": limit},
+                    )
+                    if not rows:
+                        return total
+                    c.execute(
+                        "DELETE FROM search_doc "
+                        "WHERE doc_id IN (SELECT jsonb_array_elements_text(CAST(:ids AS jsonb)))",
+                        {"ids": [r["doc_id"] for r in rows]},
+                    )
+                    term_delta: Counter[str] = Counter()
+                    len_delta = 0
+                    for r in rows:
+                        for term in _terms(r["terms"]):
+                            term_delta[term] -= 1
+                        len_delta -= int(r["doc_len"])
+                    self._apply_stats(scope, term_delta, -len(rows), len_delta)
+                    c.execute(
+                        "DELETE FROM entity_label WHERE namespace = :ns "
+                        "AND entity_id IN (SELECT jsonb_array_elements_text(CAST(:eids AS jsonb))) "
+                        "AND NOT EXISTS (SELECT 1 FROM search_doc d WHERE d.namespace = :ns "
+                        "AND COALESCE(NULLIF(d.metadata ->> 'entity_uri', ''), d.doc_id) = entity_label.entity_id)",
+                        {"ns": scope, "eids": sorted({r["entity_key"] for r in rows})},
+                    )
+            except AuroraResponseTooLargeError:
+                if limit <= 1:
+                    raise
+                limit = max(1, limit // 2)
+                logger.info("Aurora response too large; delete batch reduced to %d", limit)
+                continue
             total += len(rows)
 
     def delete_scope(self, scope: str) -> int:
-        """Delete every document, statistic and label of a scope. Idempotent."""
+        """Delete every document, statistic and label of a scope. Idempotent.
+
+        Documents go in chunks of ``SCOPE_DELETE_CHUNK``, one transaction per chunk, so progress
+        survives a timeout. Statistics and labels are cleared last, in a transaction that first
+        confirms the scope has no documents left (a concurrent writer may have added some).
+        """
         c = self._client
         total = 0
-        with c.transaction():
-            self._lock_scope(scope)
-            while True:
+        while True:
+            with c.transaction():
+                self._lock_scope(scope)
                 rows = c.execute(
                     "WITH d AS (DELETE FROM search_doc WHERE ctid IN "
                     "(SELECT ctid FROM search_doc WHERE namespace = :ns LIMIT :lim) RETURNING 1) "
                     "SELECT count(*) AS n FROM d",
                     {"ns": scope, "lim": SCOPE_DELETE_CHUNK},
                 )
-                deleted = int(rows[0]["n"]) if rows else 0
-                if deleted <= 0:
-                    break
+            deleted = int(rows[0]["n"]) if rows else 0
+            if deleted > 0:
                 total += deleted
-            c.execute("DELETE FROM entity_label WHERE namespace = :ns", {"ns": scope})
-            c.execute("DELETE FROM search_term_stats WHERE namespace = :ns", {"ns": scope})
-            c.execute("DELETE FROM search_corpus_stats WHERE namespace = :ns", {"ns": scope})
-        return total
+                continue
+            with c.transaction():
+                self._lock_scope(scope)
+                if c.execute("SELECT 1 AS present FROM search_doc WHERE namespace = :ns LIMIT 1", {"ns": scope}):
+                    continue
+                c.execute("DELETE FROM entity_label WHERE namespace = :ns", {"ns": scope})
+                c.execute("DELETE FROM search_term_stats WHERE namespace = :ns", {"ns": scope})
+                c.execute("DELETE FROM search_corpus_stats WHERE namespace = :ns", {"ns": scope})
+            return total
 
     # ── read path ─────────────────────────────────────────────────────────
 
@@ -477,30 +526,39 @@ class AuroraSearchIndex:
             match_clauses.append(f"tsv @@ phraseto_tsquery('english', :ph{i})")
             rank_parts.append(f"ts_rank(tsv, phraseto_tsquery('english', :ph{i}))")
         rank_sql = rank_parts[0] if len(rank_parts) == 1 else f"GREATEST({', '.join(rank_parts)})"
-        rows = c.execute(
-            "SELECT doc_id, doc_kind, doc_len, CAST(tsv AS text) AS tsv_text, metadata, body, "
-            f"{rank_sql} AS rank{phrase_cols} FROM search_doc "
-            f"WHERE namespace = :ns AND ({' OR '.join(match_clauses)}){filter_sql} "
-            "ORDER BY rank DESC, doc_id LIMIT :recall",
-            params,
-        )
+        # Stage 1 projects only what BM25 needs. body and metadata (the large columns) are fetched
+        # in stage 2 for the ranked top_k only.
+        limit = max(1, int(recall))
+        while True:
+            params["recall"] = limit
+            try:
+                rows = c.execute(
+                    "SELECT doc_id, doc_len, CAST(tsv AS text) AS tsv_text, "
+                    f"{rank_sql} AS rank{phrase_cols} FROM search_doc "
+                    f"WHERE namespace = :ns AND ({' OR '.join(match_clauses)}){filter_sql} "
+                    "ORDER BY rank DESC, doc_id LIMIT :recall",
+                    params,
+                )
+                break
+            except AuroraResponseTooLargeError:
+                if limit <= RECALL_FLOOR:
+                    raise
+                limit = max(RECALL_FLOOR, limit // 2)
+                logger.info("Aurora response too large; keyword recall reduced to %d", limit)
         if not rows:
             return []
 
         candidates: list[Candidate] = []
         for r in rows:
             matched = [p for i, p in enumerate(phrase_list) if r.get(f"ph{i}")]
-            hit = self._hit(r, 0.0)
-            hit.matched_phrases = matched
             candidates.append(
                 Candidate(
-                    key=hit.doc_id,
+                    key=str(r["doc_id"]),
                     tf=parse_tsvector_text(r.get("tsv_text") or ""),
                     doc_len=int(r["doc_len"]),
-                    payload=hit,
+                    payload=matched,
                 )
             )
-
         prefixes = [t[:-2] for t in query_terms]
         expanded = sorted({lex for cand in candidates for lex in cand.tf if any(lex.startswith(p) for p in prefixes)})
         stats_rows = c.execute(
@@ -522,14 +580,41 @@ class AuroraSearchIndex:
             else:
                 doc_freqs[str(r["term"])] = int(r["n"])
 
-        ranked = rank_bm25(candidates, CorpusStats(n_docs, avg_len, doc_freqs), query_terms)
+        ranked = rank_bm25(candidates, CorpusStats(n_docs, avg_len, doc_freqs), query_terms)[: int(top_k)]
+        details = self._fetch_docs(scope, [cand.key for cand, _ in ranked])
         hits: list[SearchHit] = []
-        for cand, score in ranked[: int(top_k)]:
-            ranked_hit = cand.payload
-            assert isinstance(ranked_hit, SearchHit)
-            ranked_hit.score = score
-            hits.append(ranked_hit)
+        for cand, score in ranked:
+            row = details.get(cand.key)
+            if row is None:  # deleted between the two queries
+                continue
+            hit = self._hit(row, score)
+            hit.matched_phrases = cand.payload if isinstance(cand.payload, list) else []
+            hits.append(hit)
         return hits
+
+    def _fetch_docs(self, scope: str, doc_ids: list[str]) -> dict[str, dict[str, Any]]:
+        """Fetch doc_kind, body and metadata for the given ids, halving the batch on too-large responses."""
+        out: dict[str, dict[str, Any]] = {}
+        batch = max(1, len(doc_ids))
+        start = 0
+        while start < len(doc_ids):
+            ids = doc_ids[start : start + batch]
+            try:
+                rows = self._client.execute(
+                    "SELECT doc_id, doc_kind, body, metadata FROM search_doc WHERE namespace = :ns "
+                    "AND doc_id IN (SELECT jsonb_array_elements_text(CAST(:ids AS jsonb)))",
+                    {"ns": scope, "ids": ids},
+                )
+            except AuroraResponseTooLargeError:
+                if batch <= 1:
+                    raise
+                batch = max(1, batch // 2)
+                logger.info("Aurora response too large; document fetch batch reduced to %d", batch)
+                continue
+            for r in rows:
+                out[str(r["doc_id"])] = r
+            start += len(ids)
+        return out
 
     def fuzzy_entities(
         self,
