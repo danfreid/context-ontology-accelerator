@@ -22,6 +22,8 @@ dependencies = [
     "structlog>=24.0",
     "botocore>=1.35.0",
     "pydantic>=2.13.4",
+    # coa_common.aurora_sparql evaluates SPARQL over coa_triple (GRAPH_BACKEND=aurora).
+    "rdflib>=7.0",
 ]
 
 # Opt-in Aurora search integration test (libs/common/tests/integ), run against a local Postgres:

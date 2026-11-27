@@ -926,6 +926,22 @@ def _put_induced_turtle(namespace: str, ontology_id: str, turtle: str, s3=None) 
     _log.info("s3 persist: wrote %s (%d bytes)", key, len(turtle))
 
 
+def _graph_turtle(ontology_id: str, namespace: str, graph_uri: str) -> str | None:
+    """Serialize the ontology's named graph as Turtle from the active graph store.
+
+    With `WORKBENCH_BACKEND=aurora_pgvector` the Aurora graph store reads it from `coa_triple`; otherwise
+    the Neptune graph store protocol endpoint serves it, as before.
+    """
+    if os.environ.get("WORKBENCH_BACKEND", "").strip().lower() == "aurora_pgvector":
+        from coa_ontology.stores import build_stores
+
+        graph_store, _ = build_stores(namespace=namespace)
+        return graph_store.get_graph_turtle(ontology_id)
+    from coa_ontology.stores.neptune_db_graph import _gsp_get_turtle
+
+    return _gsp_get_turtle(graph_uri)
+
+
 def _persist_induced_to_s3(
     ontology_id: str, namespace: str, graph_uri: str, current_datasource_ids: list[str] | None = None
 ) -> None:
@@ -944,9 +960,7 @@ def _persist_induced_to_s3(
     """
     import boto3
 
-    from coa_ontology.stores.neptune_db_graph import _gsp_get_turtle
-
-    ontology_turtle = _gsp_get_turtle(graph_uri) if graph_uri else None
+    ontology_turtle = _graph_turtle(ontology_id, namespace, graph_uri) if graph_uri else None
     if not ontology_turtle:
         _log.warning("s3 persist: no turtle from graph %s, skipping", graph_uri)
         return

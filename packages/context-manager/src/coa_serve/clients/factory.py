@@ -16,8 +16,9 @@ from urllib.parse import urlsplit
 
 import structlog
 from coa_common.aurora_search import SearchBackend, resolve_search_backend
+from coa_common.aurora_sparql import aurora_graph_enabled
 
-from .base import ClientSet, VectorClient
+from .base import ClientSet, GraphClient, VectorClient
 
 if TYPE_CHECKING:
     from ..config import ServiceConfig
@@ -125,9 +126,16 @@ def _build_default_clients() -> ClientSet:
     from .source_db import SourceDBQueryExecutor
 
     vector = build_vector_client()
+    graph: GraphClient
+    if aurora_graph_enabled():
+        from .aurora_graph import AuroraSparqlGraphClient
+
+        graph = AuroraSparqlGraphClient()
+    else:
+        graph = NeptuneGraphClient()
 
     return ClientSet(
-        graph=NeptuneGraphClient(),
+        graph=graph,
         vector=vector,
         llm=BedrockLLMClient(),
         # Executes authorized SQL directly against customer relational databases.

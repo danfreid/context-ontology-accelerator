@@ -21,6 +21,7 @@ from typing import TYPE_CHECKING, Any
 
 import structlog
 from bedrock_agentcore.runtime import BedrockAgentCoreApp
+from coa_common.aurora_sparql import aurora_graph_enabled
 from coa_common.constants import validate_query_text
 from coa_common.label_language import LabelPreference
 from coa_common.language_tags import LanguageTagError
@@ -29,6 +30,7 @@ from coa_common.sparql_config import graph_sources_enabled
 from pydantic import ValidationError
 
 from .clients.athena import AthenaQueryExecutor
+from .clients.aurora_graph import AuroraSparqlGraphClient
 from .clients.bedrock import BedrockLLMClient
 from .clients.composite_executor import CompositeQueryExecutor
 from .clients.factory import build_vector_client
@@ -228,7 +230,10 @@ async def _ensure_initialized():
             )
 
         # Build client layer
-        neptune_client = NeptuneGraphClient(endpoint=config.neptune_endpoint)
+        if aurora_graph_enabled():
+            neptune_client = AuroraSparqlGraphClient()
+        else:
+            neptune_client = NeptuneGraphClient(endpoint=config.neptune_endpoint)
         opensearch_client = build_vector_client(config.opensearch_endpoint)
         bedrock_client = BedrockLLMClient(model_id=config.bedrock_model_id, region=config.bedrock_region)
         # Imports llama-index (about 1s): off the event loop, and a broken install fails init.

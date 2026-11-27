@@ -32,6 +32,7 @@ import botocore.awsrequest
 import httpx
 import structlog
 from coa_common import GOVERNED_METRICS_ONTOLOGY_ID
+from coa_common.aurora_sparql import aurora_graph_enabled, shared_sparql
 from coa_common.constants import URN_PREFIX
 
 logger = structlog.get_logger(__name__)
@@ -132,6 +133,8 @@ def _sign(method: str, url: str, body: str | bytes) -> dict[str, str]:
 
 def _sparql_query(query: str) -> dict[str, Any]:
     """Execute a SPARQL SELECT/ASK query and return the JSON result."""
+    if aurora_graph_enabled():
+        return shared_sparql().query_json(query)
     if not NEPTUNE_ENDPOINT:
         raise RuntimeError("NEPTUNE_ENDPOINT not set")
     url = f"{NEPTUNE_ENDPOINT.rstrip('/')}/sparql"
@@ -156,6 +159,9 @@ def _sparql_query(query: str) -> dict[str, Any]:
 
 def _sparql_update(update: str) -> None:
     """Execute a SPARQL UPDATE (INSERT/DELETE)."""
+    if aurora_graph_enabled():
+        shared_sparql().update(update)
+        return
     if not NEPTUNE_ENDPOINT:
         raise RuntimeError("NEPTUNE_ENDPOINT not set")
     url = f"{NEPTUNE_ENDPOINT.rstrip('/')}/sparql"
