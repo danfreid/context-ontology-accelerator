@@ -52,7 +52,7 @@ from typing import Any
 
 from botocore.exceptions import ClientError
 from coa_common.constants import SOURCE_ACTIVE_STATUSES
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_control_plane_server.models.source_status import SourceStatus
 
 from coa_sources.database.scan_run import CURRENT_SCAN_JOB_FIELD, scan_run_fence
@@ -69,7 +69,7 @@ _dao: DynamoDBDAO | None = None
 def _get_dao() -> DynamoDBDAO:
     global _dao
     if _dao is None:
-        _dao = DynamoDBDAO(SOURCES_TABLE, region=AWS_REGION)
+        _dao = make_dao(SOURCES_TABLE, region=AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _dao
 
 

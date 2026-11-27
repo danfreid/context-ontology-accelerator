@@ -18,7 +18,7 @@ from botocore.exceptions import ClientError
 from coa_common import sanitize_principal_key
 from coa_common.authnz_types import ResourceType
 from coa_common.constants import validate_namespace_id
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.idempotency import idempotent
 from coa_common.logging import setup_logging
 from coa_common.response import api_response, get_caller_identity
@@ -78,8 +78,8 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:  # noqa: ARG
         return api_response(500, {"message": "Internal server error"})
 
     try:
-        roles_dao = DynamoDBDAO(roles_table, region=region)
-        mappings_dao = DynamoDBDAO(mappings_table, region=region)
+        roles_dao = make_dao(roles_table, region=region, dynamodb_cls=DynamoDBDAO)
+        mappings_dao = make_dao(mappings_table, region=region, dynamodb_cls=DynamoDBDAO)
 
         role_item = roles_dao.get({"PK": f"NS#{namespace_id}", "SK": f"{_ROLE_SK_PREFIX}{role}"})
         if not role_item:

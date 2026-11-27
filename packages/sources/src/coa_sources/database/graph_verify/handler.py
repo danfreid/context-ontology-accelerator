@@ -41,7 +41,7 @@ from botocore.exceptions import BotoCoreError, ClientError, HTTPClientError
 from botocore.exceptions import ConnectionError as BotoConnectionError
 from coa_common.aws_config import THROTTLE_ERROR_CODES, sync_boto_config
 from coa_common.constants import GRAPH_BACKED_SUB_TYPES
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.dao.base import QueryParams
 from coa_common.logging import setup_logging
 from coa_common.neptune_endpoints import (
@@ -83,14 +83,14 @@ _scan_dao: DynamoDBDAO | None = None
 def _get_dao() -> DynamoDBDAO:
     global _dao
     if _dao is None:
-        _dao = DynamoDBDAO(SOURCES_TABLE, region=AWS_REGION)
+        _dao = make_dao(SOURCES_TABLE, region=AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _dao
 
 
 def _get_scan_dao() -> DynamoDBDAO | None:
     global _scan_dao
     if _scan_dao is None and SOURCE_SCAN_JOBS_TABLE:
-        _scan_dao = DynamoDBDAO(SOURCE_SCAN_JOBS_TABLE, region=AWS_REGION)
+        _scan_dao = make_dao(SOURCE_SCAN_JOBS_TABLE, region=AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _scan_dao
 
 

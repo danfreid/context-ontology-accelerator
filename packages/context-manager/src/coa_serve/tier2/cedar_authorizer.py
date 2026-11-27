@@ -54,7 +54,7 @@ import structlog
 from coa_authorization.policy_evaluator import evaluate, load_seed_policies
 from coa_authorization.policy_loader import load_policies_for_roles
 from coa_common.aws_config import sync_boto_config
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 
 logger = structlog.get_logger(__name__)
 
@@ -250,7 +250,7 @@ class _RolePolicyCache:
         # at once (authorize is reached through asyncio.to_thread), and building a
         # DAO per read would create a boto3 resource on the shared default session
         # each time, which is slow and not thread-safe.
-        self._dao = DynamoDBDAO(table_name, region=region, config=sync_boto_config())
+        self._dao = make_dao(table_name, region=region, config=sync_boto_config(), dynamodb_cls=DynamoDBDAO)
         self._ttl_s = (
             _env_seconds("SCL_CEDAR_POLICY_CACHE_TTL_S", _DEFAULT_POLICY_CACHE_TTL_S) if ttl_s is None else ttl_s
         )

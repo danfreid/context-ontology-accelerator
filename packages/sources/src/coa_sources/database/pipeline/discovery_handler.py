@@ -41,7 +41,7 @@ from typing import Any
 
 from botocore.exceptions import ClientError
 from coa_common.constants import datasource_external_id
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.domain_models import DiscoveredMetadata, ReviewStatus
 from coa_common.metadata_store.reader import read_assets_for_datasource
 from coa_common.s3 import get_s3_client, read_file_bytes, upload_json
@@ -110,14 +110,14 @@ _ns_dao: DynamoDBDAO | None = None
 def _get_ds_dao() -> DynamoDBDAO:
     global _ds_dao
     if _ds_dao is None:
-        _ds_dao = DynamoDBDAO(DATASOURCES_TABLE, region=AWS_REGION)
+        _ds_dao = make_dao(DATASOURCES_TABLE, region=AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _ds_dao
 
 
 def _get_scan_dao() -> DynamoDBDAO:
     global _scan_dao
     if _scan_dao is None:
-        _scan_dao = DynamoDBDAO(SCAN_JOBS_TABLE, region=AWS_REGION)
+        _scan_dao = make_dao(SCAN_JOBS_TABLE, region=AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _scan_dao
 
 
@@ -127,7 +127,7 @@ def _get_ns_dao() -> DynamoDBDAO:
         table_name = os.environ.get("NAMESPACES_TABLE", "")
         if not table_name:
             raise RuntimeError("NAMESPACES_TABLE environment variable not set")
-        _ns_dao = DynamoDBDAO(table_name, region=AWS_REGION)
+        _ns_dao = make_dao(table_name, region=AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _ns_dao
 
 

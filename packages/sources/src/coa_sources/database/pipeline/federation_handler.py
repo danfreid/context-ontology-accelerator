@@ -33,7 +33,7 @@ import boto3
 from botocore.exceptions import BotoCoreError, ClientError
 from coa_common import async_boto_config
 from coa_common.constants import namespace_tag_condition_patterns, namespace_tag_key
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_control_plane_server.models.source_sub_type import SourceSubType
 
 from coa_sources.database.connectors.glue_connection_provisioner import (
@@ -103,7 +103,7 @@ _UNHANDLED_DATABASE_SUB_TYPES = frozenset(m.value for m in SourceSubType) - _HAN
 def _get_dao() -> DynamoDBDAO:
     global _dao
     if _dao is None:
-        _dao = DynamoDBDAO(SOURCES_TABLE, region=AWS_REGION)
+        _dao = make_dao(SOURCES_TABLE, region=AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _dao
 
 

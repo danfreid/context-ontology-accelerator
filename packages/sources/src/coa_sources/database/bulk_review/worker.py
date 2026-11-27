@@ -25,7 +25,7 @@ from typing import Any
 import boto3
 from botocore.exceptions import ClientError
 from coa_common import resolve_region
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.datazone_forms import FORM_TYPE_NAME, build_forms_input, deserialize_form
 from coa_common.domain_models import Table
 from coa_common.metadata_store import SMUSClient
@@ -306,7 +306,7 @@ def _write_review_scan_job(
         return
     now = datetime.now(tz=UTC).isoformat()
     try:
-        DynamoDBDAO(scan_jobs_table, region=region).put(
+        make_dao(scan_jobs_table, region=region, dynamodb_cls=DynamoDBDAO).put(
             {
                 "PK": f"SRC#{source_id}",
                 "SK": now,
@@ -353,7 +353,7 @@ def _persist_terminal_state(
     fields: dict[str, Any] = {"status": new_status, "tablesApproved": tables_approved}
     if extra_fields:
         fields.update(extra_fields)
-    DynamoDBDAO(sources_table, region=region).update(
+    make_dao(sources_table, region=region, dynamodb_cls=DynamoDBDAO).update(
         {"PK": f"NS#{namespace_id}", "SK": f"SRC#{source_id}"},
         fields,
         raise_on_error=False,
@@ -383,7 +383,7 @@ def _verify_in_transient(
     Worker idempotency guard: if the source has already advanced to a terminal
     state (an earlier worker invocation finished) we skip the duplicate.
     """
-    item = DynamoDBDAO(sources_table, region=region).get(
+    item = make_dao(sources_table, region=region, dynamodb_cls=DynamoDBDAO).get(
         {"PK": f"NS#{namespace_id}", "SK": f"SRC#{source_id}"},
         projection=["status"],
     )
@@ -873,7 +873,9 @@ def _build_smus_client() -> SMUSClient:
 
 
 def _resolve_project_id(namespace_id: str) -> str | None:
-    item = DynamoDBDAO(_NAMESPACES_TABLE, region=_AWS_REGION).get({"PK": f"NS#{namespace_id}", "SK": "METADATA"})
+    item = make_dao(_NAMESPACES_TABLE, region=_AWS_REGION, dynamodb_cls=DynamoDBDAO).get(
+        {"PK": f"NS#{namespace_id}", "SK": "METADATA"}
+    )
     return item.get("dataZoneProjectId") if item else None
 
 
@@ -885,7 +887,7 @@ def _mark_failed(namespace_id: str, source_id: str, decision: str | None) -> Non
         # Default to APPROVAL_FAILED when decision is unknown/missing.
         failure_status = SourceStatus.APPROVAL_FAILED
     try:
-        DynamoDBDAO(_SOURCES_TABLE, region=_AWS_REGION).update(
+        make_dao(_SOURCES_TABLE, region=_AWS_REGION, dynamodb_cls=DynamoDBDAO).update(
             {"PK": f"NS#{namespace_id}", "SK": f"SRC#{source_id}"},
             {"status": failure_status},
             raise_on_error=False,

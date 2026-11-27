@@ -14,7 +14,7 @@ import os
 from typing import Any
 
 import structlog
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.idempotency import idempotent_create
 from coa_common.language_tags import LanguageTagError
 from coa_common.logging import setup_logging
@@ -38,9 +38,9 @@ def _get_service() -> NamespaceService:
         return _service
     region = os.environ["AWS_REGION"]
     _service = NamespaceService(
-        namespaces_dao=DynamoDBDAO(os.environ["NAMESPACES_TABLE"], region=region),
-        roles_dao=DynamoDBDAO(os.environ["ROLES_TABLE"], region=region),
-        mappings_dao=DynamoDBDAO(os.environ["RESOURCE_ROLE_MAPPINGS_TABLE"], region=region),
+        namespaces_dao=make_dao(os.environ["NAMESPACES_TABLE"], region=region, dynamodb_cls=DynamoDBDAO),
+        roles_dao=make_dao(os.environ["ROLES_TABLE"], region=region, dynamodb_cls=DynamoDBDAO),
+        mappings_dao=make_dao(os.environ["RESOURCE_ROLE_MAPPINGS_TABLE"], region=region, dynamodb_cls=DynamoDBDAO),
         metadata_store=SMUSClient(domain_id=os.environ["DATAZONE_DOMAIN_ID"], region_name=region),
         project_profile_id=os.environ.get("DATAZONE_PROJECT_PROFILE_ID", ""),
     )

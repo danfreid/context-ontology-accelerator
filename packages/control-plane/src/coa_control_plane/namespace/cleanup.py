@@ -23,7 +23,7 @@ from coa_common import async_boto_config
 from coa_common.aurora_data_api import build_client_from_env
 from coa_common.aurora_search import AuroraSearchIndex, SearchBackend, resolve_search_backend
 from coa_common.constants import graphrag_index_names
-from coa_common.dao import DynamoDBDAO, QueryParams
+from coa_common.dao import DynamoDBDAO, QueryParams, make_dao
 from coa_common.opensearch import AossVectorClient
 
 logger = structlog.get_logger(__name__)
@@ -118,8 +118,19 @@ def delete_namespace_records(namespace_id: str, namespace_name: str | None) -> N
     Step Functions succeed silently if the records were already removed.
     """
     region = os.environ["AWS_REGION"]
-    dynamodb = boto3.client("dynamodb", region_name=region, config=async_boto_config())
     table_name = os.environ["NAMESPACES_TABLE"]
+    if os.environ.get("METADATA_BACKEND", "").strip().lower() == "aurora":
+        aurora_items: list[dict[str, Any]] = [
+            {"Delete": {"TableName": table_name, "Key": {"PK": f"NS#{namespace_id}", "SK": "METADATA"}}}
+        ]
+        if namespace_name:
+            aurora_items.append(
+                {"Delete": {"TableName": table_name, "Key": {"PK": f"NS_NAME#{namespace_name}", "SK": "RESERVATION"}}}
+            )
+        make_dao(table_name, region=region).transact_write(aurora_items)
+        logger.info("namespace_records_deleted", namespace_id=namespace_id, name=namespace_name)
+        return
+    dynamodb = boto3.client("dynamodb", region_name=region, config=async_boto_config())
 
     transact_items = [
         {
@@ -153,7 +164,7 @@ def delete_namespace_records(namespace_id: str, namespace_name: str | None) -> N
 def _delete_all_by_index(table_name: str, index_name: str, pk_attr: str, pk_value: str) -> None:
     """Query all items from a GSI and batch-delete them."""
     region = os.environ["AWS_REGION"]
-    dao = DynamoDBDAO(table_name, region=region)
+    dao = make_dao(table_name, region=region, dynamodb_cls=DynamoDBDAO)
     items = dao.query_all(
         QueryParams(
             key_condition="#pk = :val",
@@ -171,7 +182,7 @@ def _delete_all_by_index(table_name: str, index_name: str, pk_attr: str, pk_valu
 def _delete_all_by_pk(table_name: str, pk_value: str) -> None:
     """Query all items by PK and batch-delete them."""
     region = os.environ["AWS_REGION"]
-    dao = DynamoDBDAO(table_name, region=region)
+    dao = make_dao(table_name, region=region, dynamodb_cls=DynamoDBDAO)
     items = dao.query_all(
         QueryParams(
             key_condition="PK = :pk",

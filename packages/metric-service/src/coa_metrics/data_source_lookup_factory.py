@@ -23,7 +23,7 @@ import os
 
 import structlog
 from botocore.exceptions import ClientError
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 
 from coa_metrics.lookups import DataSourceLookup, SmusCatalogDataSourceLookup
 
@@ -38,7 +38,7 @@ def _resolve_project_id(namespace_id: str, namespaces_table: str, region: str) -
     propagate so callers can distinguish an outage from that state.
     """
     try:
-        dao = DynamoDBDAO(namespaces_table, region=region)
+        dao = make_dao(namespaces_table, region=region, dynamodb_cls=DynamoDBDAO)
         item = dao.get({"PK": f"NS#{namespace_id}", "SK": "METADATA"})
     except ClientError as exc:
         error_code = exc.response.get("Error", {}).get("Code", "Unknown")

@@ -32,7 +32,7 @@ from typing import Any
 import structlog
 from coa_common import sanitize_principal_key
 from coa_common.constants import PAGINATION_TOKEN_MAX_LENGTH
-from coa_common.dao import DynamoDBDAO, PaginatedResult, QueryParams
+from coa_common.dao import DynamoDBDAO, PaginatedResult, QueryParams, make_dao
 from coa_common.logging import setup_logging
 from coa_common.response import api_response
 
@@ -138,7 +138,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:  # noqa: ARG
         return api_response(400, {"message": str(exc)})
 
     try:
-        mappings_dao = DynamoDBDAO(mappings_table, region=region)
+        mappings_dao = make_dao(mappings_table, region=region, dynamodb_cls=DynamoDBDAO)
 
         def _query_key(pk: str, limit: int, start_key: dict[str, Any] | None) -> PaginatedResult:
             return mappings_dao.query(

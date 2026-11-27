@@ -25,7 +25,7 @@ from typing import Any
 
 import structlog
 from coa_common.constants import DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE
-from coa_common.dao import DynamoDBDAO, QueryParams
+from coa_common.dao import DynamoDBDAO, QueryParams, make_dao
 from coa_common.logging import setup_logging
 from coa_common.pagination import check_start_key, is_rejected_start_key
 from coa_common.response import api_response
@@ -119,7 +119,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:  # noqa: ARG
         return api_response(500, {"message": "Internal server error"})
 
     try:
-        mappings_dao = DynamoDBDAO(mappings_table, region=region)
+        mappings_dao = make_dao(mappings_table, region=region, dynamodb_cls=DynamoDBDAO)
 
         if principal:
             # Query PrincipalIndex GSI, scoped to the platform resource.

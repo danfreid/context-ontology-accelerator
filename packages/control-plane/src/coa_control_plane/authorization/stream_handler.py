@@ -14,7 +14,7 @@ import os
 from typing import Any
 
 import structlog
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 
 logger = structlog.get_logger(__name__)
 
@@ -34,7 +34,7 @@ def handler(event: dict[str, Any], context: Any) -> None:  # noqa: ARG001
 
     logger.info("Processing stream records", count=len(records))
 
-    dao = DynamoDBDAO(table_name, region=region)
+    dao = make_dao(table_name, region=region, dynamodb_cls=DynamoDBDAO)
 
     dao.atomic_increment(
         key={"PK": "CACHE_VERSION", "SK": "CURRENT"},

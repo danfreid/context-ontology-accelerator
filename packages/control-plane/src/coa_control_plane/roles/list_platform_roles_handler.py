@@ -13,7 +13,7 @@ from typing import Any
 
 import structlog
 from coa_common.authnz_types import NON_ASSIGNABLE_ROLE_IDS
-from coa_common.dao import DynamoDBDAO, QueryParams
+from coa_common.dao import DynamoDBDAO, QueryParams, make_dao
 from coa_common.logging import setup_logging
 from coa_common.response import api_response
 from coa_control_plane_server.models.role_scope import RoleScope
@@ -44,7 +44,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:  # noqa: ARG
         logger.error("missing_env_vars", region=bool(region), roles_table=bool(roles_table))
         return api_response(500, {"message": "Internal server error"})
 
-    roles_dao = DynamoDBDAO(roles_table, region=region)
+    roles_dao = make_dao(roles_table, region=region, dynamodb_cls=DynamoDBDAO)
 
     try:
         result = roles_dao.query(

@@ -19,6 +19,7 @@ from typing import Any
 import boto3
 import structlog
 from botocore.exceptions import BotoCoreError, ClientError
+from coa_common.dao import aurora_metadata_enabled, metadata_resource
 
 logger = structlog.get_logger(__name__)
 
@@ -358,7 +359,10 @@ class OffsetClaim:
 def _get_table():
     global _dynamodb  # noqa: PLW0603
     if _dynamodb is None:
-        _dynamodb = boto3.resource("dynamodb", region_name=os.environ.get("AWS_REGION", "us-east-1"))
+        if aurora_metadata_enabled():
+            _dynamodb = metadata_resource()
+        else:
+            _dynamodb = boto3.resource("dynamodb", region_name=os.environ.get("AWS_REGION", "us-east-1"))
     return _dynamodb.Table(_TABLE_NAME)
 
 

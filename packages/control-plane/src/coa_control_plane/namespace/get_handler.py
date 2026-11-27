@@ -9,7 +9,7 @@ import os
 from typing import Any
 
 from coa_common.constants import datasource_external_id, validate_namespace_id
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.language_tags import effective_namespace_language
 from coa_common.response import api_response
 
@@ -21,7 +21,7 @@ _ns_dao: DynamoDBDAO | None = None
 def _get_ns_dao() -> DynamoDBDAO:
     global _ns_dao
     if _ns_dao is None:
-        _ns_dao = DynamoDBDAO(os.environ["NAMESPACES_TABLE"], region=os.environ["AWS_REGION"])
+        _ns_dao = make_dao(os.environ["NAMESPACES_TABLE"], region=os.environ["AWS_REGION"], dynamodb_cls=DynamoDBDAO)
     return _ns_dao
 
 

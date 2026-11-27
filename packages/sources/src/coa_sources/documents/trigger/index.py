@@ -18,7 +18,7 @@ import structlog
 from botocore.exceptions import ClientError
 from coa_common.config import resolve_region
 from coa_common.constants import EXTRACTION_DEFAULTS
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.language_tags import LanguageTagError, canonicalize_language_tag, effective_namespace_language
 from coa_common.logging import setup_logging
 
@@ -79,7 +79,9 @@ def _legacy_namespace_language(namespace_id: str, message_id: str) -> str:
     if not _NAMESPACES_TABLE:
         logger.error("namespace_language_unresolvable", reason="NAMESPACES_TABLE not set", message_id=message_id)
         return ""
-    item = DynamoDBDAO(_NAMESPACES_TABLE, region=resolve_region()).get({"PK": f"NS#{namespace_id}", "SK": "METADATA"})
+    item = make_dao(_NAMESPACES_TABLE, region=resolve_region(), dynamodb_cls=DynamoDBDAO).get(
+        {"PK": f"NS#{namespace_id}", "SK": "METADATA"}
+    )
     if not item:
         logger.error("namespace_language_unresolvable", reason="namespace not found", message_id=message_id)
         return ""

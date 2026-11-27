@@ -50,7 +50,7 @@ from coa_common.auth import (
     TokenValidationResult,
     build_token_authorizer,
 )
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.dao.base import QueryParams
 
 from coa_control_plane.authorization.metrics import emit_authorization_deny, emit_authorizer_error
@@ -139,7 +139,9 @@ def _get_cache_invalidation_dao() -> DynamoDBDAO | None:
         return None
     # The authorizer runs on every gated request (result caching is disabled).
     # Fail fast instead of inheriting the DAO's 30-second/three-attempt default.
-    _cache_invalidation_dao = DynamoDBDAO(table, region=os.environ["AWS_REGION"], config=sync_boto_config())
+    _cache_invalidation_dao = make_dao(
+        table, region=os.environ["AWS_REGION"], config=sync_boto_config(), dynamodb_cls=DynamoDBDAO
+    )
     return _cache_invalidation_dao
 
 
@@ -189,7 +191,7 @@ def _get_namespaces_dao() -> DynamoDBDAO:
             "NAMESPACES_TABLE_NAME and AWS_REGION must be configured to evaluate the ARCHIVED namespace mutation guard"
         )
     # Same synchronous-authorizer rationale as _get_cache_invalidation_dao above.
-    _namespaces_dao = DynamoDBDAO(table, region=region, config=sync_boto_config())
+    _namespaces_dao = make_dao(table, region=region, config=sync_boto_config(), dynamodb_cls=DynamoDBDAO)
     return _namespaces_dao
 
 
@@ -843,7 +845,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:  # noqa: ARG
     if rrm_table:
         # Role resolution runs on every gated request. Fail fast instead of
         # inheriting the DAO's background 30-second/three-attempt default.
-        rrm_dao = DynamoDBDAO(rrm_table, region=region, config=sync_boto_config())
+        rrm_dao = make_dao(rrm_table, region=region, config=sync_boto_config(), dynamodb_cls=DynamoDBDAO)
         try:
             global_roles, resource_roles = _resolve_roles(principal_id, result.groups, rrm_dao)
         except Exception:
@@ -881,7 +883,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:  # noqa: ARG
     if roles_table:
         # Cedar evaluation runs on every gated request. Same fail-fast
         # rationale as rrm_dao above.
-        roles_dao = DynamoDBDAO(roles_table, region=region, config=sync_boto_config())
+        roles_dao = make_dao(roles_table, region=region, config=sync_boto_config(), dynamodb_cls=DynamoDBDAO)
 
         try:
             # One policy load per invocation, reused below for every

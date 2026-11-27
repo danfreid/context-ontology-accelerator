@@ -24,7 +24,7 @@ from typing import cast
 
 import structlog
 from botocore.exceptions import BotoCoreError, ClientError
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_control_plane_server.models.source_status import SourceStatus
 
 from coa_metrics import data_source_lookup_factory
@@ -92,7 +92,9 @@ def check_source_approved(namespace: str, data_source_id: str) -> str | None:
 
     region = os.environ.get("AWS_REGION", "us-east-1")
     try:
-        item = DynamoDBDAO(table, region=region).get({"PK": f"NS#{namespace}", "SK": f"SRC#{data_source_id}"})
+        item = make_dao(table, region=region, dynamodb_cls=DynamoDBDAO).get(
+            {"PK": f"NS#{namespace}", "SK": f"SRC#{data_source_id}"}
+        )
     except ClientError as exc:
         # Surface the specific AWS error code (ResourceNotFoundException,
         # AccessDeniedException, ProvisionedThroughputExceededException, …)

@@ -21,7 +21,7 @@ import structlog
 from coa_common import sanitize_principal_key
 from coa_common.authnz_types import PrincipalType, ResourceType
 from coa_common.constants import DEFAULT_PAGE_SIZE, MAX_PAGE_SIZE, PAGINATION_TOKEN_MAX_LENGTH
-from coa_common.dao import DynamoDBDAO, QueryParams
+from coa_common.dao import DynamoDBDAO, QueryParams, make_dao
 from coa_common.language_tags import effective_namespace_language
 from coa_common.logging import setup_logging
 from coa_common.pagination import check_start_key, is_rejected_start_key
@@ -95,8 +95,8 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:  # noqa: ARG
         return api_response(405, {"message": "Method not allowed"}, {"Allow": "GET"})
 
     region = os.environ["AWS_REGION"]
-    ns_dao = DynamoDBDAO(os.environ["NAMESPACES_TABLE"], region=region)
-    mappings_dao = DynamoDBDAO(os.environ["RESOURCE_ROLE_MAPPINGS_TABLE"], region=region)
+    ns_dao = make_dao(os.environ["NAMESPACES_TABLE"], region=region, dynamodb_cls=DynamoDBDAO)
+    mappings_dao = make_dao(os.environ["RESOURCE_ROLE_MAPPINGS_TABLE"], region=region, dynamodb_cls=DynamoDBDAO)
 
     # Validate authorizer context
     authorizer_ctx = (event.get("requestContext") or {}).get("authorizer") or {}

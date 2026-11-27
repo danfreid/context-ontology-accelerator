@@ -17,7 +17,7 @@ import os
 from typing import Any
 
 import structlog
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_control_plane_server.models.namespace_status import NamespaceStatus
 
 from coa_control_plane.namespace.cleanup import (
@@ -36,7 +36,7 @@ _ns_dao: DynamoDBDAO | None = None
 def _get_ns_dao() -> DynamoDBDAO:
     global _ns_dao  # noqa: PLW0603
     if _ns_dao is None:
-        _ns_dao = DynamoDBDAO(os.environ["NAMESPACES_TABLE"], region=os.environ["AWS_REGION"])
+        _ns_dao = make_dao(os.environ["NAMESPACES_TABLE"], region=os.environ["AWS_REGION"], dynamodb_cls=DynamoDBDAO)
     return _ns_dao
 
 

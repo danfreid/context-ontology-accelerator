@@ -104,7 +104,7 @@ from coa_common.constants import (
     ExtractionMode,
     validate_id,
 )
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.embeddings import make_llama_index_embedding
 from coa_common.language_tags import describe_language, needs_language_instruction
 from coa_common.logging import setup_logging
@@ -1419,7 +1419,7 @@ def main() -> None:
         logger.error("Input validation failed", error=str(exc))
         sys.exit(1)
 
-    ddb = DynamoDBDAO(ddb_table, region=AWS_REGION)
+    ddb = make_dao(ddb_table, region=AWS_REGION, dynamodb_cls=DynamoDBDAO)
     ddb_key = {"PK": f"NS#{namespace_id}", "SK": f"SRC#{doc_source_id}"}
 
     # Idempotency check

@@ -31,7 +31,7 @@ from urllib.error import HTTPError, URLError
 import boto3
 import structlog
 from coa_common.constants import SOURCE_ACTIVE_STATUSES, validate_namespace_id
-from coa_common.dao import DynamoDBDAO, QueryParams
+from coa_common.dao import DynamoDBDAO, QueryParams, make_dao
 from coa_common.response import api_response
 from coa_control_plane_server.models.namespace_status import NamespaceStatus
 
@@ -56,7 +56,7 @@ _BLOCKING_SOURCE_STATUSES = SOURCE_ACTIVE_STATUSES - {"DELETING"}
 def _get_ns_dao() -> DynamoDBDAO:
     global _ns_dao  # noqa: PLW0603
     if _ns_dao is None:
-        _ns_dao = DynamoDBDAO(os.environ["NAMESPACES_TABLE"], region=os.environ["AWS_REGION"])
+        _ns_dao = make_dao(os.environ["NAMESPACES_TABLE"], region=os.environ["AWS_REGION"], dynamodb_cls=DynamoDBDAO)
     return _ns_dao
 
 
@@ -201,7 +201,7 @@ def _check_active_sources(namespace_id: str) -> list[str]:
         return []
 
     region = os.environ["AWS_REGION"]
-    dao = DynamoDBDAO(table, region=region)
+    dao = make_dao(table, region=region, dynamodb_cls=DynamoDBDAO)
     count = 0
     last_key = None
     for _ in range(1000):
@@ -298,7 +298,7 @@ def _check_active_import_jobs(namespace_id: str) -> list[str]:
         return []
 
     region = os.environ["AWS_REGION"]
-    dao = DynamoDBDAO(table, region=region)
+    dao = make_dao(table, region=region, dynamodb_cls=DynamoDBDAO)
     count = 0
     last_key = None
     for _ in range(1000):

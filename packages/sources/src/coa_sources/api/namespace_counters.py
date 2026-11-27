@@ -15,7 +15,7 @@ import os
 import structlog
 from botocore.exceptions import ClientError
 from coa_common import resolve_region
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 
 logger = structlog.get_logger(__name__)
 
@@ -35,7 +35,7 @@ def _get_ns_dao() -> DynamoDBDAO | None:
         table_name = os.environ.get("NAMESPACES_TABLE", _NAMESPACES_TABLE)
         if not table_name:
             return None
-        _ns_dao = DynamoDBDAO(table_name, region=_AWS_REGION)
+        _ns_dao = make_dao(table_name, region=_AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _ns_dao
 
 

@@ -317,8 +317,12 @@ def _resolve_datazone_project_id(namespace_id: str, namespaces_table: str, regio
     """
     import boto3
     from coa_common import resolve_namespace_id
+    from coa_common.dao import aurora_metadata_enabled, metadata_resource
 
-    table = boto3.resource("dynamodb", region_name=region).Table(namespaces_table)
+    if aurora_metadata_enabled():
+        table = metadata_resource().Table(namespaces_table)
+    else:
+        table = boto3.resource("dynamodb", region_name=region).Table(namespaces_table)
     try:
         namespace_id = resolve_namespace_id(namespace_id, table)
     except ValueError as e:
@@ -1711,7 +1715,12 @@ def list_datasources(request: Request, namespace: str):
     if not table_name:
         return []
     region = config.get("smus_region") or os.environ.get("AWS_REGION", "us-east-1")
-    table = boto3.resource("dynamodb", region_name=region).Table(table_name)
+    from coa_common.dao import aurora_metadata_enabled, metadata_resource
+
+    if aurora_metadata_enabled():
+        table = metadata_resource().Table(table_name)
+    else:
+        table = boto3.resource("dynamodb", region_name=region).Table(table_name)
     # Filter to the caller's namespace — never return another tenant's rows.
     resp = table.scan(
         ProjectionExpression="PK,SK,#n,#s,sourceType,sourceSubType,tablesDiscovered,tablesApproved,namespaceId",
@@ -1816,7 +1825,14 @@ def list_induced_datasources(
     # Resolve source names from the sources table
     sources_table = os.environ.get("SOURCES_TABLE", "")
     if sources_table and page:
-        table = boto3.resource("dynamodb", region_name=os.environ.get("AWS_REGION", "us-east-1")).Table(sources_table)
+        from coa_common.dao import aurora_metadata_enabled, metadata_resource
+
+        if aurora_metadata_enabled():
+            table = metadata_resource().Table(sources_table)
+        else:
+            table = boto3.resource("dynamodb", region_name=os.environ.get("AWS_REGION", "us-east-1")).Table(
+                sources_table
+            )
         for entry in page:
             ds_id = entry["datasourceId"]
             try:

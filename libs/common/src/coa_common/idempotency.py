@@ -71,8 +71,10 @@ import structlog
 from botocore.exceptions import BotoCoreError, ClientError
 from structlog.typing import FilteringBoundLogger
 
+from coa_common.aurora_data_api import AuroraDataApiError
 from coa_common.aws_config import sync_boto_config
 from coa_common.config import resolve_region
+from coa_common.dao import aurora_metadata_enabled, metadata_resource
 from coa_common.response import UNKNOWN_CALLER, cors_headers, get_caller_identity
 
 logger = structlog.get_logger(__name__)
@@ -154,7 +156,10 @@ class IdempotencyStore:
         """Bind to ``table_name``; ``table`` injects a boto3 Table resource (tests)."""
         self.table_name = table_name
         if table is None:
-            resource = boto3.resource("dynamodb", region_name=resolve_region(), config=sync_boto_config())
+            if aurora_metadata_enabled():
+                resource = metadata_resource()
+            else:
+                resource = boto3.resource("dynamodb", region_name=resolve_region(), config=sync_boto_config())
             table = resource.Table(table_name)
         self._table = table
 
@@ -172,7 +177,7 @@ class IdempotencyStore:
             if _is_conditional_failure(exc):
                 return None
             raise IdempotencyStoreError(str(exc)) from exc
-        except BotoCoreError as exc:
+        except (BotoCoreError, AuroraDataApiError) as exc:
             raise IdempotencyStoreError(str(exc)) from exc
 
     def get(self, key: str) -> dict[str, Any] | None:

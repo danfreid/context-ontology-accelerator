@@ -81,9 +81,13 @@ def resolve_namespace_language(namespace: str, config: dict[str, Any]) -> str:
 
     import boto3
     from coa_common import resolve_namespace_id
+    from coa_common.dao import aurora_metadata_enabled, metadata_resource
 
     region = config.get("smus_region") or os.environ.get("AWS_REGION", "us-east-1")
-    table = boto3.resource("dynamodb", region_name=region).Table(table_name)
+    if aurora_metadata_enabled():
+        table = metadata_resource().Table(table_name)
+    else:
+        table = boto3.resource("dynamodb", region_name=region).Table(table_name)
     try:
         namespace_id = resolve_namespace_id(namespace, table)
     except ValueError as e:

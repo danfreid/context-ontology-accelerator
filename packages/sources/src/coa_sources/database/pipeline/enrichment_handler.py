@@ -95,13 +95,13 @@ def handler() -> None:
     scan_job_key = {"PK": f"SRC#{source_id}", "SK": scan_job_sk}
 
     # Resolve DataZone project ID from namespace
-    from coa_common.dao import DynamoDBDAO
+    from coa_common.dao import DynamoDBDAO, make_dao
 
     region = os.environ.get("AWS_REGION", "us-east-1")
     namespaces_table = os.environ.get("NAMESPACES_TABLE")
     if not namespaces_table:
         raise ValueError("NAMESPACES_TABLE environment variable is required")
-    ns_dao = DynamoDBDAO(namespaces_table, region=region)
+    ns_dao = make_dao(namespaces_table, region=region, dynamodb_cls=DynamoDBDAO)
     ns_item = ns_dao.get({"PK": f"NS#{namespace_id}", "SK": "METADATA"})
     if not ns_item or "dataZoneProjectId" not in ns_item:
         raise ValueError(f"Namespace {namespace_id} not found or missing dataZoneProjectId")
@@ -113,7 +113,7 @@ def handler() -> None:
         # missing item has already failed) and record it on the scan-job row,
         # before any asset is written, as this job's immutable language.
         namespace_language = namespace_language_from_item(ns_item, namespace_id)
-        DynamoDBDAO(os.environ["SOURCE_SCAN_JOBS_TABLE"], region=region).update(
+        make_dao(os.environ["SOURCE_SCAN_JOBS_TABLE"], region=region, dynamodb_cls=DynamoDBDAO).update(
             key=scan_job_key,
             update_fields={"namespaceLanguage": namespace_language},
             condition="attribute_exists(PK)",
@@ -129,7 +129,7 @@ def handler() -> None:
         language_source,
     )
 
-    ds_dao = DynamoDBDAO(os.environ["SOURCES_TABLE"], region=region)
+    ds_dao = make_dao(os.environ["SOURCES_TABLE"], region=region, dynamodb_cls=DynamoDBDAO)
 
     # Read source record so we can honour the per-source metadata enrichment
     # toggle. The discovery step requires the source to exist before this
@@ -170,7 +170,7 @@ def handler() -> None:
 
     ctx = EnrichmentContext(source_item=source_item, namespace_id=namespace_id)
     emitter = EnrichmentMetricEmitter(ctx)
-    scan_dao = DynamoDBDAO(os.environ["SOURCE_SCAN_JOBS_TABLE"], region=region)
+    scan_dao = make_dao(os.environ["SOURCE_SCAN_JOBS_TABLE"], region=region, dynamodb_cls=DynamoDBDAO)
 
     def publish_progress(processed: int, total: int) -> None:
         # raise_on_error=False: a progress write must never fail the enrichment.

@@ -24,6 +24,7 @@ import threading
 
 import boto3
 from coa_common import resolve_namespace_id, resolve_region
+from coa_common.dao import aurora_metadata_enabled, metadata_resource
 from coa_common.label_language import LabelPreference
 from coa_common.language_tags import LanguageTagError, canonicalize_language_tag, effective_namespace_language
 from fastapi import HTTPException
@@ -42,6 +43,8 @@ def _namespaces_table():
     if not table_name:
         return None
     region = os.environ.get("DYNAMODB_REGION") or resolve_region()
+    if aurora_metadata_enabled():
+        return metadata_resource().Table(table_name)
     return boto3.resource("dynamodb", region_name=region).Table(table_name)
 
 

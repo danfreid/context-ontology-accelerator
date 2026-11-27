@@ -13,7 +13,7 @@ import logging
 import os
 from typing import Any
 
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.domain_models import ReviewStatus, Table
 from coa_common.metadata_store.reader import read_assets_for_datasource
 
@@ -47,7 +47,7 @@ def read_approved_catalog(
     }
     """
     resolved_region: str = region if region else os.environ.get("AWS_REGION", "us-east-1")
-    ds_dao = DynamoDBDAO(datasources_table, region=resolved_region)
+    ds_dao = make_dao(datasources_table, region=resolved_region, dynamodb_cls=DynamoDBDAO)
 
     sources: list[dict[str, Any]] = []
 

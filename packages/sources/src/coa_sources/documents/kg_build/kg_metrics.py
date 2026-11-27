@@ -184,7 +184,7 @@ def make_progress_monitor(*, table: str, region: str, namespace_id: str, doc_sou
         logger.debug("kg_metrics: graphrag ProgressMonitor not importable — using no-op monitor")
         return NoOpProgressMonitor()
 
-    from coa_common.dao import DynamoDBDAO
+    from coa_common.dao import DynamoDBDAO, make_dao
 
     key = _metrics_key(namespace_id, doc_source_id)
 
@@ -197,7 +197,7 @@ def make_progress_monitor(*, table: str, region: str, namespace_id: str, doc_sou
         """
 
         def __init__(self) -> None:
-            self._dao = DynamoDBDAO(table, region=region)
+            self._dao = make_dao(table, region=region, dynamodb_cls=DynamoDBDAO)
 
         def _add(self, field: str, count: int) -> None:
             if count <= 0:
@@ -257,9 +257,9 @@ def write_record_metadata(
     if not METRICS_ENABLED:
         return
     try:
-        from coa_common.dao import DynamoDBDAO
+        from coa_common.dao import DynamoDBDAO, make_dao
 
-        dao = DynamoDBDAO(table, region=region)
+        dao = make_dao(table, region=region, dynamodb_cls=DynamoDBDAO)
         fields: dict[str, Any] = {
             "recordType": "KG_BUILD_METRICS",
             "namespaceId": namespace_id,
@@ -284,9 +284,9 @@ def reset_metrics(*, table: str, region: str, namespace_id: str, doc_source_id: 
     if not METRICS_ENABLED:
         return
     try:
-        from coa_common.dao import DynamoDBDAO
+        from coa_common.dao import DynamoDBDAO, make_dao
 
-        dao = DynamoDBDAO(table, region=region)
+        dao = make_dao(table, region=region, dynamodb_cls=DynamoDBDAO)
         dao.delete(_metrics_key(namespace_id, doc_source_id))
     except Exception as e:  # noqa: BLE001 — best-effort
         logger.debug("kg_metrics: reset failed (non-fatal)", error=repr(e))

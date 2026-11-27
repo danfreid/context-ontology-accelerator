@@ -13,7 +13,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 
 from coa_common.aws_config import sync_boto_config
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 
 # Partition keys where role definitions live in the Roles table.
 # GLOBAL: built-in roles seeded at deploy time (platform-admin, default, etc.)
@@ -53,7 +53,7 @@ def load_policies_for_roles(
         # server grant resolver) are on a synchronous request path. Fail fast
         # instead of inheriting the DAO's background 30-second/three-attempt
         # default.
-        dao = DynamoDBDAO(table_name, region=region, config=sync_boto_config())
+        dao = make_dao(table_name, region=region, config=sync_boto_config(), dynamodb_cls=DynamoDBDAO)
     policies = ""
 
     for role_id in role_ids:

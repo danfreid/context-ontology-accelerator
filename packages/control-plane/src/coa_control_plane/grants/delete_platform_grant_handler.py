@@ -16,7 +16,7 @@ import os
 from typing import Any
 
 import structlog
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.logging import setup_logging
 from coa_common.response import api_response
 
@@ -59,7 +59,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:  # noqa: ARG
         return api_response(500, {"message": "Internal server error"})
 
     try:
-        mappings_dao = DynamoDBDAO(mappings_table, region=region)
+        mappings_dao = make_dao(mappings_table, region=region, dynamodb_cls=DynamoDBDAO)
         # Verify the grant exists first. DynamoDB DeleteItem is idempotent and
         # succeeds even when the item is absent, which would otherwise return a
         # misleading 200 for a non-existent grant. Return 404 instead.

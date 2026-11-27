@@ -20,6 +20,7 @@ from datetime import UTC, datetime
 import boto3
 import structlog
 from coa_common import sync_boto_config
+from coa_common.dao import aurora_metadata_enabled, metadata_resource
 from ulid import ULID
 
 logger = structlog.get_logger(__name__)
@@ -56,7 +57,11 @@ class SessionMetadataStore:
     def __init__(self, table_name: str, region: str | None = None, ttl_days: int = _DEFAULT_TTL_DAYS):
         """Bind the DynamoDB session-metadata table and TTL policy."""
         self._ttl_days = ttl_days
-        self._ddb = boto3.resource("dynamodb", region_name=region, config=sync_boto_config())
+        self._ddb = (
+            metadata_resource()
+            if aurora_metadata_enabled()
+            else boto3.resource("dynamodb", region_name=region, config=sync_boto_config())
+        )
         self._table = self._ddb.Table(table_name)
 
     def _compute_ttl(self) -> int:

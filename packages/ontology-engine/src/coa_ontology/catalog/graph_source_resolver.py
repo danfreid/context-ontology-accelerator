@@ -29,6 +29,7 @@ import boto3
 from boto3.dynamodb.conditions import Key
 from botocore.exceptions import BotoCoreError, ClientError
 from coa_common.constants import GRAPH_BACKED_SUB_TYPES
+from coa_common.dao import aurora_metadata_enabled, metadata_resource
 
 # A source on its way out still has a row; binding a class to it would route serve at an
 # endpoint that is about to stop being one, and counting it would make a re-registered
@@ -61,6 +62,8 @@ def _sources_table() -> Any:
     name = os.getenv("SOURCES_TABLE", "").strip()
     if not name:
         raise GraphSourceLookupError("SOURCES_TABLE is not set; graph source names cannot be resolved")
+    if aurora_metadata_enabled():
+        return metadata_resource().Table(name)
     return boto3.resource("dynamodb", region_name=os.getenv("AWS_REGION", "us-east-1")).Table(name)
 
 
@@ -72,6 +75,9 @@ def _namespace_sources(namespace_id: str) -> list[dict[str, Any]]:
         "ExpressionAttributeNames": {"#n": "name", "#s": "status"},
         "ConsistentRead": True,
     }
+    if aurora_metadata_enabled():  # the Aurora table takes string expressions, not condition objects
+        kwargs["KeyConditionExpression"] = "PK = :pk AND begins_with(SK, :prefix)"
+        kwargs["ExpressionAttributeValues"] = {":pk": f"NS#{namespace_id}", ":prefix": "SRC#"}
     items: list[dict[str, Any]] = []
     try:
         while True:

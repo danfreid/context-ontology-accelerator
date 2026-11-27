@@ -44,7 +44,7 @@ from coa_common.constants import (
     validate_namespace_id,
     validate_source_id,
 )
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, aurora_metadata_enabled, make_dao
 from coa_common.dao.base import QueryParams
 from coa_common.idempotency import idempotent_create
 from coa_common.language_tags import LanguageTagError
@@ -190,7 +190,7 @@ def _get_dao() -> DynamoDBDAO:
     if _dao is None:
         if not _SOURCES_TABLE:
             raise RuntimeError("SOURCES_TABLE env var not set")
-        _dao = DynamoDBDAO(_SOURCES_TABLE, region=_AWS_REGION)
+        _dao = make_dao(_SOURCES_TABLE, region=_AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _dao
 
 
@@ -199,7 +199,7 @@ def _get_scan_dao() -> DynamoDBDAO:
     if _scan_dao is None:
         if not _SOURCE_SCAN_JOBS_TABLE:
             raise RuntimeError("SOURCE_SCAN_JOBS_TABLE env var not set")
-        _scan_dao = DynamoDBDAO(_SOURCE_SCAN_JOBS_TABLE, region=_AWS_REGION)
+        _scan_dao = make_dao(_SOURCE_SCAN_JOBS_TABLE, region=_AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _scan_dao
 
 
@@ -208,7 +208,7 @@ def _get_ns_dao() -> DynamoDBDAO:
     if _ns_dao is None:
         if not _NAMESPACES_TABLE:
             raise RuntimeError("NAMESPACES_TABLE env var not set")
-        _ns_dao = DynamoDBDAO(_NAMESPACES_TABLE, region=_AWS_REGION)
+        _ns_dao = make_dao(_NAMESPACES_TABLE, region=_AWS_REGION, dynamodb_cls=DynamoDBDAO)
     return _ns_dao
 
 
@@ -1686,10 +1686,18 @@ def _handle_rescan(
         for stale_field in PIPELINE_RUN_FIELDS:
             updated_item.pop(stale_field, None)
         try:
-            _get_dao().put(
-                updated_item,
-                condition=Attr("status").is_in([SourceStatus.COMPLETED, SourceStatus.SCAN_FAILED]),
-            )
+            if aurora_metadata_enabled():
+                _get_dao().put(
+                    updated_item,
+                    condition="#st = :completed OR #st = :scan_failed",
+                    condition_names={"#st": "status"},
+                    condition_values={":completed": SourceStatus.COMPLETED, ":scan_failed": SourceStatus.SCAN_FAILED},
+                )
+            else:
+                _get_dao().put(
+                    updated_item,
+                    condition=Attr("status").is_in([SourceStatus.COMPLETED, SourceStatus.SCAN_FAILED]),
+                )
         except ClientError as exc:
             if exc.response.get("Error", {}).get("Code") == "ConditionalCheckFailedException":
                 return api_response(

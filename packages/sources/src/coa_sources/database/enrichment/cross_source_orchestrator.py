@@ -23,7 +23,7 @@ import time
 from collections.abc import Callable
 
 from botocore.exceptions import ClientError
-from coa_common.dao import DynamoDBDAO, QueryParams
+from coa_common.dao import DynamoDBDAO, QueryParams, make_dao
 from coa_common.domain_models import Table
 from coa_control_plane_server.models.source_status import SourceStatus
 
@@ -167,7 +167,7 @@ def enriched_datasource_ids(
     Queries the sources table (PK=``NS#{namespace_id}``, SK begins_with ``SRC#``)
     and keeps sources whose status is enriched. ``dao`` is injectable for tests.
     """
-    dao = dao or DynamoDBDAO(sources_table, region=region)
+    dao = dao or make_dao(sources_table, region=region, dynamodb_cls=DynamoDBDAO)
     ids: list[str] = []
     start: dict | None = None
     while True:
@@ -212,7 +212,7 @@ def run_for_namespace(
 
     Serialised per namespace by the ``_LOCK_SK`` lock; a pass that does not win it skips.
     """
-    lock_dao = dao or DynamoDBDAO(sources_table, region=region)
+    lock_dao = dao or make_dao(sources_table, region=region, dynamodb_cls=DynamoDBDAO)
     if not _acquire_namespace_lock(lock_dao, namespace_id):
         logger.info("cross-source inference skipped: another pass holds the namespace lock (ns=%s)", namespace_id)
         return {"sources": 0, "relationships_written": 0, "tables_updated": 0, "skipped": "locked"}

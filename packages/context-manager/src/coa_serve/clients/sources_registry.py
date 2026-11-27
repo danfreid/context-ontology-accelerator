@@ -24,6 +24,7 @@ import boto3
 import structlog
 from coa_common import resolve_namespace_id, resolve_region, sync_boto_config
 from coa_common.constants import GRAPH_BACKED_SUB_TYPES, StructuredBackend
+from coa_common.dao import aurora_metadata_enabled, metadata_resource
 from coa_common.language_tags import LanguageTagError, canonicalize_language_tag, effective_namespace_language
 from coa_common.neptune_endpoints import GRAPH_CLUSTER_CLAIM_SK, is_graph_cluster_claim_pk
 
@@ -192,7 +193,11 @@ class SourcesRegistry:
         self._region = region or resolve_region()
         self._executor = executor
         if self._table_name or self._namespaces_table:
-            self._dynamodb = boto3.resource("dynamodb", region_name=self._region, config=sync_boto_config())
+            self._dynamodb = (
+                metadata_resource()
+                if aurora_metadata_enabled()
+                else boto3.resource("dynamodb", region_name=self._region, config=sync_boto_config())
+            )
         else:
             self._dynamodb = None
         self._ns_cache: dict[str, tuple[str, float]] = {}

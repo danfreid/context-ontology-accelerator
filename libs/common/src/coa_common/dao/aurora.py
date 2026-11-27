@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 import threading
 import time
@@ -78,6 +79,8 @@ KEY_SCHEMAS: dict[str, tuple[str, str | None]] = {
     "idempotency": ("PK", None),
 }
 _DEFAULT_KEYS: tuple[str, str | None] = ("PK", "SK")
+# Writes to these logical tables bump the authorizer cache version (the DynamoDB stream's job on that backend).
+CACHE_INVALIDATING_TABLES = ("roles", "resource-role-mappings")
 
 _ATTR = re.compile(r"[A-Za-z_][A-Za-z0-9_-]*")
 _PAGE_BYTES = 1_000_000
@@ -220,7 +223,21 @@ class AuroraMetadataDao(DatastoreDAO):
             return True
         if not isinstance(condition, str):
             raise NotImplementedError("only string condition expressions are supported on the Aurora backend")
-        return evaluate(parse_condition(condition), item, names or {}, values or {})
+        return evaluate(parse_condition(condition, nested_paths=True), item, names or {}, values or {})
+
+    def _bump_cache(self, *tables: str) -> None:
+        """Bump the authorizer's cache version after a write to the roles or resource-role-mappings table.
+
+        DynamoDB drives this from a table stream (``stream_handler.py``); Aurora has none, so the write path
+        does the same ``atomic_increment`` on the cache-invalidation table. The version is bumped after the
+        write commits, so a reader that sees the old version cannot also see the new data.
+        """
+        if not any(t == s or t.endswith(f"-{s}") for t in tables for s in CACHE_INVALIDATING_TABLES):
+            return
+        cache_table = os.environ.get("CACHE_INVALIDATION_TABLE_NAME", "cache-invalidation")
+        AuroraMetadataDao(cache_table, client=self._db()).atomic_increment(
+            {"PK": "CACHE_VERSION", "SK": "CURRENT"}, "version"
+        )
 
     # ── single item ─────────────────────────────────────────────────
 
@@ -247,8 +264,20 @@ class AuroraMetadataDao(DatastoreDAO):
         item = self.get(key, projection=[attribute])
         return item.get(attribute) if item else None
 
-    def put(self, item: dict[str, Any], *, condition: str | None = None, auto_timestamp: bool = True) -> None:
-        """Create or replace an item, optionally under a condition (``ConditionalCheckFailedException``)."""
+    def put(
+        self,
+        item: dict[str, Any],
+        *,
+        condition: str | None = None,
+        auto_timestamp: bool = True,
+        condition_names: dict[str, str] | None = None,
+        condition_values: dict[str, Any] | None = None,
+    ) -> None:
+        """Create or replace an item, optionally under a condition (``ConditionalCheckFailedException``).
+
+        ``condition_names``/``condition_values`` bind the ``#alias``/``:value`` placeholders of ``condition``;
+        DynamoDBDAO takes a ``boto3.dynamodb.conditions`` object for that, which this backend does not support.
+        """
         if auto_timestamp:
             now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
             item.setdefault("createdAt", now)
@@ -256,12 +285,14 @@ class AuroraMetadataDao(DatastoreDAO):
         pk, sk = self._split_item(self._table_name, item)
         if not condition:
             self._write(self._db(), self._table_name, pk, sk, item)
+            self._bump_cache(self._table_name)
             return
         with self._db().transaction() as tx:
             current = self._lock_item(tx, self._table_name, pk, sk)
-            if not self._check(condition, current, None, None):
+            if not self._check(condition, current, condition_names, condition_values):
                 raise _conflict("PutItem")
             self._write(tx, self._table_name, pk, sk, item)
+        self._bump_cache(self._table_name)
 
     def update(
         self,
@@ -301,7 +332,7 @@ class AuroraMetadataDao(DatastoreDAO):
                 raise ValueError(f"condition_values placeholder '{name}' collides with SET placeholder")
             values[name] = value
         try:
-            self._apply(key, expr, condition, names, values)
+            self.update_expression(key, expr, condition, names, values)
             return True
         except (ClientError, AuroraDataApiError):
             logger.warning(
@@ -313,14 +344,15 @@ class AuroraMetadataDao(DatastoreDAO):
                 raise
             return False
 
-    def _apply(
+    def update_expression(
         self,
         key: Mapping[str, Any],
         update_expression: str,
         condition: str | None,
         names: Mapping[str, str],
         values: Mapping[str, Any],
-    ) -> None:
+    ) -> dict[str, Any]:
+        """Apply a raw ``UpdateExpression`` under a condition, creating the item when absent; returns the new item."""
         pk, sk = self._split(self._table_name, key)
         actions = parse_update(update_expression)
         with self._db().transaction() as tx:
@@ -331,6 +363,27 @@ class AuroraMetadataDao(DatastoreDAO):
             updated = apply_update(base, actions, names, values)
             updated.update(key)
             self._write(tx, self._table_name, pk, sk, updated)
+        self._bump_cache(self._table_name)
+        return updated
+
+    def delete_if(
+        self,
+        key: Mapping[str, Any],
+        condition: str,
+        names: Mapping[str, str] | None = None,
+        values: Mapping[str, Any] | None = None,
+    ) -> None:
+        """Delete an item only if ``condition`` holds (``ConditionalCheckFailedException`` otherwise)."""
+        pk, sk = self._split(self._table_name, key)
+        with self._db().transaction() as tx:
+            current = self._lock_item(tx, self._table_name, pk, sk)
+            if not self._check(condition, current, names, values):
+                raise _conflict("DeleteItem")
+            tx.execute(
+                f"DELETE FROM {TABLE} WHERE table_name = :t AND pk = :pk AND sk = :sk",
+                {"t": self._table_name, "pk": pk, "sk": sk},
+            )
+        self._bump_cache(self._table_name)
 
     def delete(self, key: dict[str, Any]) -> None:
         """Delete a single item by primary key."""
@@ -339,6 +392,7 @@ class AuroraMetadataDao(DatastoreDAO):
             f"DELETE FROM {TABLE} WHERE table_name = :t AND pk = :pk AND sk = :sk",
             {"t": self._table_name, "pk": pk, "sk": sk},
         )
+        self._bump_cache(self._table_name)
 
     # ── counters ────────────────────────────────────────────────────
 
@@ -402,6 +456,8 @@ class AuroraMetadataDao(DatastoreDAO):
                 "WHERE m.table_name = :t AND m.pk = k.pk AND m.sk = k.sk",
                 {"t": self._table_name, "keys": json.dumps(pairs)},
             )
+        if keys:
+            self._bump_cache(self._table_name)
 
     def _read(
         self,
@@ -566,6 +622,7 @@ class AuroraMetadataDao(DatastoreDAO):
         expression_values: dict[str, Any] | None = None,
         limit: int | None = None,
         exclusive_start_key: dict[str, Any] | None = None,
+        expression_names: dict[str, str] | None = None,
     ) -> PaginatedResult:
         """Scan the table in primary-key order. ``limit`` counts rows evaluated, like DynamoDB; the filter runs here."""
         ast = parse_condition(filter_expression) if filter_expression else None
@@ -581,7 +638,7 @@ class AuroraMetadataDao(DatastoreDAO):
             forward=True,
             cursor=cursor,
             limit=limit or None,
-            evaluated_only=(lambda item: evaluate(ast, item, {}, values)) if ast else None,
+            evaluated_only=(lambda item: evaluate(ast, item, expression_names or {}, values)) if ast else None,
             last_key=lambda row, _item: self._key_attrs(self._table_name, row["pk"], row["sk"]),
             cursor_of=lambda row: [row["pk"], row["sk"]],
         )
@@ -655,3 +712,116 @@ class AuroraMetadataDao(DatastoreDAO):
                     )
                     updated.update(spec["Key"])
                     self._write(tx, table, pk, sk, updated)
+        self._bump_cache(*{table for _kind, table, _pk, _sk, _spec in ops})
+
+
+def _project(item: dict[str, Any], expression: str | None, names: Mapping[str, str] | None) -> dict[str, Any]:
+    """Apply a comma-separated ``ProjectionExpression`` (top-level attributes only)."""
+    if not expression:
+        return item
+    wanted = [attr_name(part.strip(), names or {}) for part in expression.split(",") if part.strip()]
+    return {k: item[k] for k in wanted if k in item}
+
+
+class AuroraMetadataTable:
+    """The boto3 ``Table`` calls services make, served by :class:`AuroraMetadataDao`.
+
+    For callers that use ``get_item``/``put_item``/``update_item``/``delete_item``/``query``/``scan`` directly
+    (session metadata, idempotency, import jobs, the sources registry). Expressions must be strings; the
+    ``boto3.dynamodb.conditions`` objects are not supported. ``FilterExpression`` on ``query`` is not supported.
+    """
+
+    def __init__(self, table_name: str, *, dao: AuroraMetadataDao | None = None) -> None:
+        """Bind to the logical table ``table_name`` (``dao`` injects a DAO, for tests)."""
+        self.name = table_name
+        self._dao = dao or AuroraMetadataDao(table_name)
+
+    def get_item(self, **kwargs: Any) -> dict[str, Any]:
+        """``{"Item": ...}`` for a live item, ``{}`` when absent."""
+        item = self._dao.get(kwargs["Key"])
+        if item is None:
+            return {}
+        return {"Item": _project(item, kwargs.get("ProjectionExpression"), kwargs.get("ExpressionAttributeNames"))}
+
+    def put_item(self, **kwargs: Any) -> dict[str, Any]:
+        """Create or replace an item, optionally under ``ConditionExpression`` (no timestamps are added)."""
+        self._dao.put(
+            kwargs["Item"],
+            condition=kwargs.get("ConditionExpression"),
+            auto_timestamp=False,
+            condition_names=kwargs.get("ExpressionAttributeNames"),
+            condition_values=kwargs.get("ExpressionAttributeValues"),
+        )
+        return {}
+
+    def update_item(self, **kwargs: Any) -> dict[str, Any]:
+        """Apply ``UpdateExpression`` under ``ConditionExpression``; ``ReturnValues="ALL_NEW"`` returns the item."""
+        updated = self._dao.update_expression(
+            kwargs["Key"],
+            kwargs["UpdateExpression"],
+            kwargs.get("ConditionExpression"),
+            kwargs.get("ExpressionAttributeNames") or {},
+            kwargs.get("ExpressionAttributeValues") or {},
+        )
+        return {"Attributes": updated} if kwargs.get("ReturnValues") == "ALL_NEW" else {}
+
+    def delete_item(self, **kwargs: Any) -> dict[str, Any]:
+        """Delete an item, optionally under ``ConditionExpression``."""
+        condition = kwargs.get("ConditionExpression")
+        if condition:
+            self._dao.delete_if(
+                kwargs["Key"],
+                condition,
+                kwargs.get("ExpressionAttributeNames"),
+                kwargs.get("ExpressionAttributeValues"),
+            )
+        else:
+            self._dao.delete(kwargs["Key"])
+        return {}
+
+    def query(self, **kwargs: Any) -> dict[str, Any]:
+        """``{"Items": [...], "LastEvaluatedKey": ...}`` for a partition or a GSI of the table."""
+        expression = kwargs.get("KeyConditionExpression")
+        if not isinstance(expression, str):
+            raise NotImplementedError("only string KeyConditionExpression is supported on the Aurora backend")
+        if kwargs.get("FilterExpression"):
+            raise NotImplementedError("FilterExpression on query is not supported on the Aurora backend")
+        names = kwargs.get("ExpressionAttributeNames")
+        page = self._dao.query(
+            QueryParams(
+                key_condition=expression,
+                expression_values=kwargs.get("ExpressionAttributeValues") or {},
+                expression_names=names,
+                index_name=kwargs.get("IndexName"),
+                limit=kwargs.get("Limit"),
+                exclusive_start_key=kwargs.get("ExclusiveStartKey"),
+                scan_forward=kwargs.get("ScanIndexForward", True),
+            )
+        )
+        out: dict[str, Any] = {"Items": [_project(i, kwargs.get("ProjectionExpression"), names) for i in page.items]}
+        if page.last_evaluated_key:
+            out["LastEvaluatedKey"] = page.last_evaluated_key
+        return out
+
+    def scan(self, **kwargs: Any) -> dict[str, Any]:
+        """``{"Items": [...], "LastEvaluatedKey": ...}`` for a (filtered) scan of the table."""
+        names = kwargs.get("ExpressionAttributeNames")
+        page = self._dao.scan(
+            filter_expression=kwargs.get("FilterExpression"),
+            expression_values=kwargs.get("ExpressionAttributeValues"),
+            expression_names=names,
+            limit=kwargs.get("Limit"),
+            exclusive_start_key=kwargs.get("ExclusiveStartKey"),
+        )
+        out: dict[str, Any] = {"Items": [_project(i, kwargs.get("ProjectionExpression"), names) for i in page.items]}
+        if page.last_evaluated_key:
+            out["LastEvaluatedKey"] = page.last_evaluated_key
+        return out
+
+
+class AuroraMetadataResource:
+    """Stands in for ``boto3.resource("dynamodb")`` where code only calls ``.Table(name)``."""
+
+    def Table(self, name: str) -> AuroraMetadataTable:  # noqa: N802 - boto3 method name
+        """The Aurora-backed table ``name``."""
+        return AuroraMetadataTable(name)

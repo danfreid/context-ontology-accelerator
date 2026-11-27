@@ -49,7 +49,9 @@ def decode_value(value: Any) -> Any:
 
 # ── expressions ─────────────────────────────────────────────────────────
 
-_TOKEN = re.compile(r"\s*(?:(<>|<=|>=|=|<|>|\(|\)|,|\+|-)|(:[A-Za-z0-9_]+)|(#[A-Za-z0-9_]+)|([A-Za-z_][A-Za-z0-9_]*))")
+_TOKEN = re.compile(
+    r"\s*(?:(<>|<=|>=|=|<|>|\(|\)|,|\+|-|\.)|(:[A-Za-z0-9_]+)|(#[A-Za-z0-9_]+)|([A-Za-z_][A-Za-z0-9_]*))"
+)
 
 
 def _tokenize(text: str) -> list[tuple[str, str]]:
@@ -74,8 +76,9 @@ def _tokenize(text: str) -> list[tuple[str, str]]:
 
 
 class _Parser:
-    def __init__(self, text: str):
+    def __init__(self, text: str, nested_paths: bool = False):
         self.text = text
+        self.nested_paths = nested_paths
         self.tokens = _tokenize(text)
         self.i = 0
 
@@ -164,23 +167,28 @@ class _Parser:
         kind, value = self.take()
         if kind == "val":
             return ("val", value)
-        if kind == "name":
-            return ("path", value)
-        if kind == "word":
-            if self.at_op("(", ".") or value.upper() in {"AND", "OR", "NOT"}:
+        if kind in ("name", "word"):
+            if kind == "word" and (self.at_op("(") or value.upper() in {"AND", "OR", "NOT"}):
                 raise NotImplementedError(f"unsupported expression near {value!r} in {self.text!r}")
-            return ("path", value)
+            segments = [value]
+            while self.nested_paths and self.at_op("."):  # nested map path, e.g. ``#plan.#offset``
+                self.take()
+                seg_kind, seg = self.take()
+                if seg_kind not in ("name", "word"):
+                    raise NotImplementedError(f"unsupported token {seg!r} after '.' in {self.text!r}")
+                segments.append(seg)
+            return ("path", ".".join(segments))
         raise NotImplementedError(f"unsupported token {value!r} in {self.text!r}")
 
 
-def parse_condition(text: str) -> tuple:
+def parse_condition(text: str, *, nested_paths: bool = False) -> tuple:
     """Parse a Condition/Filter/KeyCondition expression into a tuple AST.
 
     Supported: ``AND``/``OR``/``NOT``, parentheses, ``= <> < <= > >=``, ``attribute_exists``,
     ``attribute_not_exists``, ``begins_with`` and ``contains``, over attribute names (``#alias`` or plain)
-    and ``:value`` placeholders.
+    and ``:value`` placeholders. ``nested_paths=True`` also accepts ``#map.#key`` paths.
     """
-    parser = _Parser(text)
+    parser = _Parser(text, nested_paths)
     ast = parser.or_expr()
     if not parser.done():
         raise NotImplementedError(f"unsupported token {parser.peek()[1]!r} in {text!r}")  # type: ignore[index]
@@ -207,6 +215,14 @@ def _operand_value(operand: tuple, item: Mapping[str, Any], names: Mapping[str, 
         if ref not in values:
             raise KeyError(f"expression attribute value {ref} is not defined")
         return True, values[ref]
+    if "." in ref:
+        current: Any = item
+        for segment in ref.split("."):
+            key = attr_name(segment, names)
+            if not isinstance(current, Mapping) or key not in current:
+                return False, None
+            current = current[key]
+        return True, current
     attr = attr_name(ref, names)
     return (attr in item), item.get(attr)
 
