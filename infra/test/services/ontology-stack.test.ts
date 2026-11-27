@@ -833,23 +833,25 @@ describe("OntologyStack Aurora search backend", () => {
     expect(envValue(t, "HYBRID_SEARCH_BACKEND")).toBe("pgvector+tsvector");
     expect(envValue(t, "AURORA_SSM_PREFIX")).toBe("/coa");
     expect(envValue(t, "AURORA_SECRET_ARN")).toBe(
-      "/coa/aurora/search-rw-secret-arn",
+      "/coa/aurora/engine-rw-secret-arn",
     );
+    expect(envValue(t, "METADATA_BACKEND")).toBe("aurora");
     expect(envValue(t, "OSS_DIMENSIONS")).toBeDefined();
   });
 
-  test("full Aurora set: grants the rw secret and exact SSM parameters, no wildcard", () => {
+  test("full Aurora set: grants the engine-rw secret and exact SSM parameters, no wildcard", () => {
     const t = renderOntology({}, "AuroraSearchFullIam", FULL);
     const s = json(t);
     expect(s).toContain("rds-data:ExecuteStatement");
     expect(s).toContain("rds-data:BatchExecuteStatement");
     expect(s).toContain("secretsmanager:GetSecretValue");
     expect(s).toContain("/coa/aurora/cluster-arn");
-    expect(s).toContain("/coa/aurora/search-rw-secret-arn");
+    expect(s).toContain("/coa/aurora/engine-rw-secret-arn");
+    expect(s).not.toContain("search-rw-secret-arn");
     expect(s).not.toContain("parameter/coa/aurora/*");
   });
 
-  test("full Aurora set on the Lambda path: rw secret env and cluster endpoint grant", () => {
+  test("full Aurora set on the Lambda path: engine-rw secret env and cluster endpoint grant", () => {
     const t = renderOntology({}, "AuroraSearchLambda", {
       ...FULL,
       compute_backend: "lambda",
@@ -861,7 +863,8 @@ describe("OntologyStack Aurora search backend", () => {
           WORKBENCH_BACKEND: "aurora_pgvector",
           HYBRID_SEARCH_BACKEND: "pgvector+tsvector",
           AURORA_SSM_PREFIX: "/coa",
-          AURORA_SECRET_ARN: "/coa/aurora/search-rw-secret-arn",
+          AURORA_SECRET_ARN: "/coa/aurora/engine-rw-secret-arn",
+          METADATA_BACKEND: "aurora",
           AURORA_CLUSTER_ENDPOINT: "/coa/aurora/cluster-endpoint",
         }),
       },

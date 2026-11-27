@@ -17,7 +17,11 @@ PROPS = {
     "ClusterArn": "arn:aws:rds:us-east-1:111122223333:cluster:c",
     "AdminSecretArn": "arn:aws:secretsmanager:us-east-1:111122223333:secret:admin",
     "Database": "postgres",
-    "Roles": [{"Name": "coa_search_rw", "SecretArn": "arn:rw"}, {"Name": "coa_search_ro", "SecretArn": "arn:ro"}],
+    "Roles": [
+        {"Name": "coa_search_rw", "SecretArn": "arn:rw"},
+        {"Name": "coa_search_ro", "SecretArn": "arn:ro"},
+        {"Name": "coa_engine_rw", "SecretArn": "arn:engine"},
+    ],
 }
 
 
@@ -50,10 +54,12 @@ def test_init_sql_splits_without_empty_statements(index):
     assert statements
     assert all(s.strip() for s in statements)
     assert any("coa_search_rw" in s and s.startswith("DO $$") for s in statements)
+    assert any("coa_engine_rw" in s and s.startswith("DO $$") for s in statements)
+    assert any(s.startswith("CREATE TABLE IF NOT EXISTS coa_triple") for s in statements)
     assert any(s.startswith("GRANT SELECT ON") or s.startswith("GRANT SELECT\n") for s in statements)
 
 
-def test_create_applies_sql_then_sets_both_role_passwords(index):
+def test_create_applies_sql_then_sets_all_role_passwords(index):
     out = index.handler({"RequestType": "Create", "ResourceProperties": PROPS}, None)
     assert out["PhysicalResourceId"] == "aurora-search-migration"
     calls = index._rds.execute_statement.call_args_list
@@ -61,6 +67,7 @@ def test_create_applies_sql_then_sets_both_role_passwords(index):
     assert [c.kwargs["parameters"][0]["value"]["stringValue"] for c in password_calls] == [
         "coa_search_rw",
         "coa_search_ro",
+        "coa_engine_rw",
     ]
     # The password is bound as a parameter, never concatenated into SQL text.
     assert all("pw'1" not in c.kwargs["sql"] for c in calls)

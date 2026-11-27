@@ -25,6 +25,32 @@ CREATE TABLE IF NOT EXISTS ontology_engine (
     PRIMARY KEY (pk, sk)
 );
 
+CREATE INDEX IF NOT EXISTS ontology_engine_pk_prefix ON ontology_engine (pk text_pattern_ops);
+-- Triple store for the Aurora graph backend (one row per RDF quad). Terms are stored
+-- flat: o_kind is iri | bnode | literal. md5(o) keeps long literals out of the btree
+-- key (about 2.7 KB limit) and still gives set semantics.
+CREATE TABLE IF NOT EXISTS coa_triple (
+    id          BIGSERIAL PRIMARY KEY,
+    namespace   TEXT NOT NULL,
+    graph_uri   TEXT NOT NULL,
+    s           TEXT NOT NULL,
+    s_kind      TEXT NOT NULL DEFAULT 'iri',
+    p           TEXT NOT NULL,
+    o           TEXT NOT NULL,
+    o_kind      TEXT NOT NULL,
+    o_lang      TEXT NOT NULL DEFAULT '',
+    o_datatype  TEXT NOT NULL DEFAULT ''
+);
+CREATE UNIQUE INDEX IF NOT EXISTS coa_triple_uq
+    ON coa_triple (graph_uri, s, p, o_kind, md5(o), o_lang, o_datatype);
+-- Traversal: covering indexes over IRI-to-IRI edges, namespace first because every read is namespace scoped.
+CREATE INDEX IF NOT EXISTS coa_triple_fwd
+    ON coa_triple (namespace, s, p) INCLUDE (o, graph_uri) WHERE o_kind = 'iri';
+CREATE INDEX IF NOT EXISTS coa_triple_rev
+    ON coa_triple (namespace, o, p) INCLUDE (s, graph_uri) WHERE o_kind = 'iri';
+CREATE INDEX IF NOT EXISTS coa_triple_ns_p ON coa_triple (namespace, p, s);
+CREATE INDEX IF NOT EXISTS coa_triple_label_trgm
+    ON coa_triple USING GIN (lower(o) gin_trgm_ops) WHERE o_kind = 'literal';
 -- ── Graph traversal notes (recursive CTEs) ─────────────────────────────────
 -- Neptune follows edges by index-free adjacency; Postgres does a B-tree lookup
 -- per hop, so traversal queries need these precautions.
@@ -143,6 +169,8 @@ CREATE INDEX IF NOT EXISTS entity_label_trgm_idx
 -- ── Search roles (least privilege) ─────────────────────────────────────────
 -- coa_search_rw: ingest, metric API, import worker, ontology, namespace deletion.
 -- coa_search_ro: serve (read-only search).
+-- coa_engine_rw: ontology engine (triples, metadata mirror) and namespace deletion. Member of coa_search_rw,
+-- so it also reads and writes the search tables.
 -- Passwords are set by the migrator custom resource from each role's Secrets
 -- Manager secret, never from this file.
 DO $$
@@ -153,10 +181,18 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'coa_search_ro') THEN
         CREATE ROLE coa_search_ro LOGIN;
     END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'coa_engine_rw') THEN
+        CREATE ROLE coa_engine_rw LOGIN;
+    END IF;
 END
 $$;
-GRANT USAGE ON SCHEMA public TO coa_search_rw, coa_search_ro;
+GRANT USAGE ON SCHEMA public TO coa_search_rw, coa_search_ro, coa_engine_rw;
 GRANT SELECT, INSERT, UPDATE, DELETE
     ON search_doc, search_corpus_stats, search_term_stats, entity_label TO coa_search_rw;
 GRANT SELECT
     ON search_doc, search_corpus_stats, search_term_stats, entity_label TO coa_search_ro;
+GRANT coa_search_rw TO coa_engine_rw;
+GRANT SELECT, INSERT, UPDATE, DELETE ON coa_triple, ontology_engine TO coa_engine_rw;
+-- bigserial columns need USAGE on the sequence for INSERT. Default privileges cover tables created later.
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO coa_search_rw, coa_search_ro, coa_engine_rw;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO coa_search_rw, coa_search_ro, coa_engine_rw;

@@ -220,6 +220,7 @@ export class OntologyStack extends SCLStack {
 
     const engineEnvironment = {
       WORKBENCH_BACKEND: useAurora ? "aurora_pgvector" : "opensearch_neptune",
+      ...(useAurora && { METADATA_BACKEND: "aurora" }),
       NDB_ENDPOINT: `https://${props.neptuneClusterEndpoint}:8182`,
       NDB_IAM_AUTH: "true",
       NDB_REGION: cdk.Aws.REGION,
@@ -228,7 +229,7 @@ export class OntologyStack extends SCLStack {
       OSS_INDEX: opensearchCollectionName,
       OSS_DIMENSIONS: embedDimensions,
       // Aurora search backend config; empty unless vector_backend=pgvector.
-      ...auroraSearchEnv(ssmPrefix, flags),
+      ...auroraSearchEnv(ssmPrefix, flags, "engine-rw"),
       ONTOLOGY_ARTIFACTS_BUCKET: props.ontologyArtifactsBucket.bucketName,
       DYNAMODB_TABLE: this.table.tableName,
       DYNAMODB_REGION: cdk.Aws.REGION,
@@ -382,9 +383,10 @@ export class OntologyStack extends SCLStack {
         environment: {
           ...engineEnvironment,
           // The cluster endpoint is read from this SSM parameter at runtime; the search
-          // secret comes from auroraSearchEnv (AURORA_SECRET_ARN, read-write role).
+          // secret comes from auroraSearchEnv (AURORA_SECRET_ARN, engine role).
           ...(useAurora && {
             WORKBENCH_BACKEND: "aurora_pgvector",
+            METADATA_BACKEND: "aurora",
             AURORA_CLUSTER_ENDPOINT: `${ssmPrefix}/aurora/cluster-endpoint`,
           }),
         },
@@ -457,7 +459,7 @@ export class OntologyStack extends SCLStack {
         },
       );
     } else {
-      // Aurora path: RDS Data API plus the admin secret replace neptune-db and aoss.
+      // Aurora path: RDS Data API replaces neptune-db and aoss.
       workloadRole.addToPrincipalPolicy(
         new iam.PolicyStatement({
           actions: [
@@ -471,24 +473,13 @@ export class OntologyStack extends SCLStack {
           resources: [props.neptuneClusterArn],
         }),
       );
-      workloadRole.addToPrincipalPolicy(
-        new iam.PolicyStatement({
-          actions: ["secretsmanager:GetSecretValue"],
-          resources: [
-            ssm.StringParameter.valueForStringParameter(
-              this,
-              `${ssmPrefix}/aurora/secret-arn`,
-            ),
-          ],
-        }),
-      );
     }
 
-    // Full Aurora flag set: the search code calls the Data API as the read-write role.
+    // Full Aurora flag set: the search code calls the Data API as the engine role (coa_engine_rw).
     // The Lambda also reads the cluster endpoint from the SSM parameter its env names.
     // Nothing is granted for vector_backend=pgvector alone: that path has no cluster.
     if (useAurora) {
-      grantAuroraDataApi(this, workloadRole, ssmPrefix, "rw");
+      grantAuroraDataApi(this, workloadRole, ssmPrefix, "engine-rw");
       if (useLambda) {
         workloadRole.addToPrincipalPolicy(
           new iam.PolicyStatement({
