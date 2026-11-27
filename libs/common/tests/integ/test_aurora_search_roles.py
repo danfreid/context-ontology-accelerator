@@ -20,6 +20,8 @@ from typing import Any
 from urllib.parse import quote, urlsplit, urlunsplit
 
 import pytest
+from coa_common.aurora_search import index as index_mod
+from coa_common.aurora_search.data_api import AuroraQueryError
 from coa_common.aurora_search.index import AuroraSearchIndex, SearchDoc
 
 pytestmark = pytest.mark.integ
@@ -152,3 +154,42 @@ def test_roles_cannot_touch_tables_outside_search(role_conn: str, request: pytes
     _denied(conn, "INSERT INTO graph_node VALUES ('n2', 'x')")
     _denied(conn, "UPDATE graph_node SET label = 'x'")
     _denied(conn, "DELETE FROM graph_node")
+
+
+class _MappedErrorsPgDataApi(PgDataApi):
+    """Maps psycopg errors to AuroraQueryError the way the Data API reports a rejected statement."""
+
+    def execute(self, sql: str, params: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+        try:
+            return super().execute(sql, params)
+        except psycopg.Error as exc:
+            self.conn.rollback()
+            raise AuroraQueryError(f"BadRequestException: {exc}") from exc
+
+
+def test_rw_ensure_vector_index_logs_error_when_index_missing_and_does_not_cache(
+    rw_conn: Any, caplog: pytest.LogCaptureFixture
+) -> None:
+    dim = DIMENSIONS
+    index = AuroraSearchIndex(_MappedErrorsPgDataApi(rw_conn), dim)  # type: ignore[arg-type]
+    key = ("local-pg", dim)
+    name = f"search_doc_embedding_hnsw_{dim}"
+    create = (
+        f"CREATE INDEX IF NOT EXISTS {name} ON search_doc "
+        f"USING hnsw (CAST(embedding AS vector({dim})) vector_cosine_ops) WHERE embedding IS NOT NULL"
+    )
+    with psycopg.connect(DSN, autocommit=True) as admin:
+        admin.execute(f"DROP INDEX IF EXISTS {name}")
+        try:
+            index_mod._ENSURED_INDEXES.discard(key)
+            with caplog.at_level("ERROR", logger=index_mod.logger.name):
+                index.ensure_vector_index()  # does not raise
+            assert any("aurora_hnsw_index_missing" in r.getMessage() for r in caplog.records)
+            assert key not in index_mod._ENSURED_INDEXES
+            admin.execute(create)
+            caplog.clear()
+            index.ensure_vector_index()  # now present: found by the pg_indexes probe, cached, no error
+            assert not [r for r in caplog.records if r.levelname == "ERROR"]
+            assert key in index_mod._ENSURED_INDEXES
+        finally:
+            admin.execute(create)  # later tests expect the owner-built index

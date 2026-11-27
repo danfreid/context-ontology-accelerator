@@ -15,13 +15,14 @@ import os
 import re
 import threading
 import uuid
-from collections.abc import Iterator
+from collections.abc import Iterator, Sequence
 from contextlib import contextmanager
 from pathlib import Path
 from typing import Any
 
 import pytest
-from coa_common.aurora_search.data_api import AuroraDataApiClient
+from coa_common.aurora_search import index as index_mod
+from coa_common.aurora_search.data_api import AuroraDataApiClient, AuroraResponseTooLargeError
 from coa_common.aurora_search.index import AuroraSearchIndex, SearchDoc
 
 pytestmark = pytest.mark.integ
@@ -72,9 +73,13 @@ class PgDataApi:
         return len(param_sets)
 
     def iter_pages(
-        self, sql: str, params: dict[str, Any] | None = None, page_size: int = 500
+        self,
+        sql: str,
+        params: dict[str, Any] | None = None,
+        page_size: int = 500,
+        key_columns: Sequence[str] = ("doc_id",),
     ) -> Iterator[list[dict[str, Any]]]:
-        return AuroraDataApiClient.iter_pages(self, sql, params, page_size)  # type: ignore[arg-type]
+        return AuroraDataApiClient.iter_pages(self, sql, params, page_size, key_columns)  # type: ignore[arg-type]
 
     @contextmanager
     def transaction(self) -> Iterator[None]:
@@ -90,6 +95,22 @@ class PgDataApi:
             raise
         finally:
             self._depth -= 1
+
+
+class SizeLimitedPgDataApi(PgDataApi):
+    """Raises AuroraResponseTooLargeError when a result set exceeds ``limit`` JSON bytes, like the Data API."""
+
+    def __init__(self, conn: Any, limit: int) -> None:
+        super().__init__(conn)
+        self.limit = limit
+        self.statements: list[tuple[str, dict[str, Any]]] = []
+
+    def execute(self, sql: str, params: dict[str, Any] | None = None) -> list[dict[str, Any]]:
+        self.statements.append((sql, dict(params or {})))
+        rows = super().execute(sql, params)
+        if len(json.dumps(rows, default=str)) > self.limit:
+            raise AuroraResponseTooLargeError("Database response exceeded size limit")
+        return rows
 
 
 @pytest.fixture(scope="module")
@@ -314,3 +335,113 @@ def test_fuzzy_labels_are_namespace_keyed_and_rename_removes_old_label() -> None
         assert index.fuzzy_entities(ns_a, "Glencore") == []
         assert [h.label for h in index.fuzzy_entities(ns_a, "Vitol")] == ["Vitol"]
         assert {h.label for h in index.fuzzy_entities(ns_b, "Glencore")} == {"Glencore International"}
+
+
+# ── third fix pass: size-limited reads, keyset paging, chunked scope delete, labels, lock ──────
+
+
+def _bulk_docs(n: int, repeat: int = 60, pad: int = 1500) -> list[SearchDoc]:
+    return [
+        SearchDoc(
+            body="alpha " + "lorem " * repeat + f"doc{i}", entity_uri=f"urn:b{i:02d}", metadata={"pad": "x" * pad}
+        )
+        for i in range(n)
+    ]
+
+
+def test_keyword_search_recall_and_detail_fetch_survive_the_response_limit() -> None:
+    with _fresh_scope() as (scope, setup_index), psycopg.connect(DSN) as conn:
+        setup_index.upsert_docs(scope, _bulk_docs(30))
+        limited = SizeLimitedPgDataApi(conn, limit=6000)
+        hits = AuroraSearchIndex(limited, DIMENSIONS).keyword_search(scope, "alpha", top_k=5, recall=40)  # type: ignore[arg-type]
+        assert len(hits) == 5
+        assert all(h.body.startswith("alpha lorem") and h.metadata["entity_uri"] == h.key for h in hits)
+        recalls = [p["recall"] for sql, p in limited.statements if "ts_rank" in sql and "recall" in p]
+        assert recalls == [40, 20, 10]  # stage 1 never selected body or metadata, and halved to fit
+        stage1 = next(sql for sql, _ in limited.statements if "ts_rank" in sql and "recall" in _)
+        assert "body" not in stage1.split(" FROM search_doc")[0]
+        detail_sizes = [
+            len(p["ids"]) for sql, p in limited.statements if sql.startswith("SELECT doc_id, doc_kind, body")
+        ]
+        assert detail_sizes[0] == 5 and detail_sizes[-1] == 1  # halved until each batch fit
+
+
+def test_delete_docs_halves_batches_under_the_response_limit_and_keeps_stats_exact() -> None:
+    with _fresh_scope() as (scope, setup_index), psycopg.connect(DSN) as conn:
+        setup_index.upsert_docs(scope, _bulk_docs(30, repeat=3, pad=0))
+        limited = SizeLimitedPgDataApi(conn, limit=2500)
+        deleter = AuroraSearchIndex(limited, DIMENSIONS)  # type: ignore[arg-type]
+        assert deleter.delete_docs(scope, filter_metadata={"ontology_id": "none"}) == 0
+        assert (
+            deleter.delete_docs(
+                scope, doc_ids=[index_mod.doc_id_for(scope, d) for d in _bulk_docs(30, repeat=3, pad=0)]
+            )
+            == 30
+        )
+        limits = [p["lim"] for sql, p in limited.statements if "FOR UPDATE" in sql]
+        assert limits[0] == 1000 and min(limits) < 1000
+        assert not any("RETURNING" in sql for sql, _ in limited.statements)
+        _assert_stats_equal_recount(setup_index, scope)
+        remaining = setup_index._client.execute(
+            "SELECT count(*) AS n FROM search_doc WHERE namespace = :ns", {"ns": scope}
+        )
+        assert remaining[0]["n"] == 0
+
+
+def test_iter_pages_keyset_is_stable_under_concurrent_insert_and_delete() -> None:
+    with _fresh_scope() as (scope, index):
+        index.upsert_docs(scope, [SearchDoc(body=f"paged row {i}", entity_uri=f"urn:p{i:02d}") for i in range(20)])
+        sql = (
+            "SELECT metadata ->> 'entity_uri' AS uri FROM search_doc WHERE namespace = :ns "
+            "ORDER BY metadata ->> 'entity_uri'"
+        )
+        seen: list[str] = []
+        for page_no, page in enumerate(index._client.iter_pages(sql, {"ns": scope}, page_size=5, key_columns=("uri",))):  # type: ignore[attr-defined]
+            seen.extend(r["uri"] for r in page)
+            if page_no == 0:
+                # behind the cursor: one new row sorting first and one removed row; ahead: one removed, one added
+                index.upsert_docs(scope, [SearchDoc(body="behind", entity_uri="urn:a-new")])
+                assert index.delete_docs(scope, filter_metadata={"entity_uri": "urn:p01"}) == 1
+                assert index.delete_docs(scope, filter_metadata={"entity_uri": "urn:p07"}) == 1
+                index.upsert_docs(scope, [SearchDoc(body="ahead", entity_uri="urn:p075")])
+        expected = [f"urn:p{i:02d}" for i in range(5)] + ["urn:p05", "urn:p06", "urn:p075"]
+        expected += [f"urn:p{i:02d}" for i in range(8, 20)]
+        assert seen == expected
+        assert len(seen) == len(set(seen))
+
+
+def test_delete_scope_in_chunks_leaves_no_rows_or_stats(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(index_mod, "SCOPE_DELETE_CHUNK", 2)
+    with _fresh_scope() as (scope, setup_index), psycopg.connect(DSN) as conn:
+        setup_index.upsert_docs(
+            scope, [SearchDoc(body=f"chunked {i}", entity_uri=f"urn:c{i}", label=f"Chunk {i}") for i in range(7)]
+        )
+        counting = SizeLimitedPgDataApi(conn, limit=10**9)
+        assert AuroraSearchIndex(counting, DIMENSIONS).delete_scope(scope) == 7  # type: ignore[arg-type]
+        assert len([1 for sql, _ in counting.statements if sql.startswith("WITH d AS")]) == 5  # 2+2+2+1, then empty
+        c = setup_index._client
+        params = {"ns": scope}
+        for table in ("search_doc", "entity_label", "search_term_stats", "search_corpus_stats"):
+            assert c.execute(f"SELECT 1 AS x FROM {table} WHERE namespace = :ns", params) == [], table
+
+
+def test_empty_authoritative_label_set_clears_labels_and_unlabelled_docs_keep_them() -> None:
+    with _fresh_scope() as (scope, index):
+        index.upsert_docs(
+            scope, [SearchDoc(body="trader", entity_uri="urn:t", label="Glencore", aliases=["Glencor Intl"])]
+        )
+        assert {h.label for h in index.fuzzy_entities(scope, "Glencore")} >= {"Glencore"}
+        index.upsert_docs(scope, [SearchDoc(body="trader updated", entity_uri="urn:t")])  # no label information
+        assert {h.label for h in index.fuzzy_entities(scope, "Glencore")} >= {"Glencore"}
+        index.upsert_docs(scope, [SearchDoc(body="trader again", entity_uri="urn:t", aliases=())])
+        assert index.fuzzy_entities(scope, "Glencore") == []
+        assert index._client.execute("SELECT 1 AS x FROM entity_label WHERE namespace = :ns", {"ns": scope}) == []
+
+
+def test_lock_scope_statement_executes_and_returns_a_typed_column() -> None:
+    with _fresh_scope() as (scope, index), index._client.transaction():  # type: ignore[attr-defined]
+        index._lock_scope(scope)
+        rows = index._client.execute(
+            "SELECT 1 AS locked FROM (SELECT pg_advisory_xact_lock(hashtextextended(:scope, 0))) AS l", {"scope": scope}
+        )
+        assert rows == [{"locked": 1}]
