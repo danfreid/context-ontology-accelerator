@@ -27,6 +27,7 @@ pytestmark = pytest.mark.unit
 
 _ROOT = Path(__file__).resolve().parents[2]
 _SCRIPT = _ROOT / "scripts" / "smithy-fingerprint.sh"
+_BASH = shutil.which("bash") or "/bin/bash"  # Windows has no /bin/bash outside Git Bash
 _MODEL = "models/src/main/smithy/sources.smithy"
 
 
@@ -48,7 +49,7 @@ def _repo(tmp_path: Path, name: str = "repo") -> Path:
 
 def _run(root: Path, mode: str) -> str:
     result = subprocess.run(
-        ["/bin/bash", str(root / "scripts" / "smithy-fingerprint.sh"), mode, str(root)],
+        [_BASH, str(root / "scripts" / "smithy-fingerprint.sh"), mode, str(root)],
         capture_output=True,
         text=True,
         check=True,
@@ -123,13 +124,38 @@ def test_generate_script_stamps_after_all_generation() -> None:
     stamp = text.index('> "$GENERATED_DIR/.inputs.sha256"')
     assert stamp > text.rindex("java -jar")
     assert stamp > text.rindex("cat >")
-    assert text.index('smithy-fingerprint.sh" hash') < text.index('rm -rf "$GENERATED_DIR"')
+    # Hashed after the Gradle build (which runs smithyFormat) and before any later codegen step.
+    hashed = text.index('smithy-fingerprint.sh" hash')
+    assert text.index("./gradlew clean build") < hashed < text.index("Copying TypeScript clients")
+
+
+def test_crlf_rewrite_of_a_model_stays_current(tmp_path: Path) -> None:
+    """On Windows the Gradle smithyFormat task rewrites the models with CRLF; the text is unchanged."""
+    root = _repo(tmp_path)
+    _generate(root)
+    (root / _MODEL).write_bytes(b"enum SourceSubType { CUSTOM_CONNECTOR }\r\n")
+    assert _run(root, "state") == "current"
+
+
+def test_hash_is_the_same_for_lf_and_crlf_checkouts(tmp_path: Path) -> None:
+    lf, crlf = _repo(tmp_path, "lf"), _repo(tmp_path, "crlf")
+    for rel in (_MODEL, "models/build.gradle.kts", "models/smithy-build.json", "scripts/smithy-generate.sh"):
+        data = (crlf / rel).read_bytes()
+        (crlf / rel).write_bytes(data.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n"))
+    assert _run(lf, "hash") == _run(crlf, "hash")
+
+
+def test_crlf_does_not_hide_a_real_change(tmp_path: Path) -> None:
+    root = _repo(tmp_path)
+    _generate(root)
+    (root / _MODEL).write_bytes(b"enum SourceSubType { ATHENA_CONNECTOR }\r\n")
+    assert _run(root, "state") == "stale"
 
 
 def test_unknown_mode_is_rejected(tmp_path: Path) -> None:
     root = _repo(tmp_path)
     result = subprocess.run(
-        ["/bin/bash", str(root / "scripts" / "smithy-fingerprint.sh"), "bogus", str(root)],
+        [_BASH, str(root / "scripts" / "smithy-fingerprint.sh"), "bogus", str(root)],
         capture_output=True,
         text=True,
         check=False,

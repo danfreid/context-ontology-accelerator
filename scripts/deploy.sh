@@ -115,7 +115,10 @@ pnpm nx run-many -t build
 # ── CDK synth + deploy ───────────────────────────────────────────────────
 echo ""
 echo "Synthesizing CDK stacks..."
-pnpm --filter coa-infra exec cdk synth "${CONTEXT[@]}" >/dev/null
+# Retries only the Windows asset-staging EPERM rename; one plain run elsewhere.
+# shellcheck source=lib/cdk-synth.sh source-path=SCRIPTDIR
+source "$REPO_ROOT/scripts/lib/cdk-synth.sh"
+coa_cdk_synth pnpm --filter coa-infra exec cdk synth "${CONTEXT[@]}" >/dev/null
 
 echo ""
 echo "Deploying all stacks..."
