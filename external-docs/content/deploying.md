@@ -1442,11 +1442,11 @@ Nothing here is required or on by default. The CodeBuild project is not a CDK st
 
 One CloudFormation template, `infra/codebuild/coa-deploy-project.yaml`, creates three things: a CodeBuild project, its IAM role and a CloudWatch log group. A plain template was chosen over a second CDK app so that setting it up needs only the AWS CLI, with no Node, no `make setup` and no CDK bootstrap on the machine you are trying to avoid.
 
-The build runs on a native arm64 host (`ARM_CONTAINER`, image `aws/codebuild/amazonlinux-aarch64-standard:3.0`) with privileged mode so Docker works. The vkg, serve and mcp images are linux/arm64, so they build natively and no emulation is needed. The build:
+The build runs on a native arm64 host (`ARM_CONTAINER`, image `aws/codebuild/amazonlinux-aarch64-standard:3.0`) with privileged mode so Docker works. The vkg, serve and mcp images are linux/arm64 and build natively. The ontology engine image and two of the three `sources` images are `linux/amd64`, so the build first registers QEMU emulation for amd64 (from an ECR Public mirror, see "Docker Hub rate limit" below) and fails before `make setup` if it cannot. The build:
 
 1. clones the repository and ref you configured (a plain `git fetch` of a public HTTPS URL; no credentials are stored or used),
 2. installs what is missing: Node.js at the version in `.mise.toml`, uv, pnpm at the `.mise.toml` version, Java 17 to 24 (Corretto 21 if the image has none). The existing `check-*-version.sh` scripts decide what counts as present. The Gradle wrapper downloads its own Gradle.
-3. runs `make setup`, then `./scripts/deploy.sh <env>`, the same platform deploy `make deploy-dev` runs.
+3. runs `make setup`, then `./scripts/deploy.sh <env>`, the same platform deploy `make deploy-dev` runs (or, in batched mode, `scripts/codebuild/deploy-stacks.sh`, below).
 
 It does not run `scripts/deploy-all.sh`, so the Databricks SQL Warehouse connector (which needs Maven and a second set of permissions) is not deployed by CodeBuild. If you use that connector, run `make deploy-databricks-connector` from a machine that has Maven after the CodeBuild deploy.
 
@@ -1490,13 +1490,15 @@ The command starts a build, passes the deploy environment and every `SCL_*` vari
 
 Settings travel as plain environment variables and show up in the build's configuration and log, so put only non-secret values in `SCL_*` (ARNs, IDs, numbers). None of the deploy settings is a secret. The build gets AWS access from its IAM role, not from keys.
 
-Ctrl-C stops only the display; the build keeps running. To stop it, use the `aws codebuild stop-build` command the script prints (stopping a deploy partway can leave a stack rolling back). To run the command, your own credentials need `cloudformation:DescribeStacks`, `codebuild:StartBuild`, `codebuild:BatchGetBuilds` and `logs:FilterLogEvents`.
+Ctrl-C stops only the display; the build keeps running. To stop it, use the `aws codebuild stop-build` command the script prints (stopping a deploy partway can leave a stack rolling back). To run the commands, your own credentials need `cloudformation:DescribeStacks`, `codebuild:StartBuild`, `codebuild:BatchGetBuilds`, `codebuild:StopBuild` and `logs:FilterLogEvents`. Batched mode also needs `codebuild:BatchGetProjects`.
+
+`COA_CODEBUILD_DRY_RUN=1` (with or without batched mode) prints the planned build or batches and the settings that would be passed, without any AWS call and without starting a build. A dry run cannot read the project, so it assumes prefix `coa` and environment `dev` unless `SCL_PREFIX` and `COA_DEPLOY_ENV` are set.
 
 ### When builds stop at 45 minutes (batched mode)
 
-New AWS accounts cap every CodeBuild build at 45 minutes, whatever the project's timeout says. You can tell from the build: it fails with `Build has timed out` and `aws codebuild batch-get-builds --ids <id> --query 'builds[0].timeoutInMinutes'` prints `45` although the project is set to 120. The cap is not in Service Quotas; only AWS Support can raise it. A full first deploy does not fit in 45 minutes: CDK builds every container image before it publishes any, so a timed-out run publishes nothing and the next run starts again from zero.
+New AWS accounts cap every CodeBuild build at 45 minutes, whatever the project's timeout says. You can tell from the build: it fails with `Build has timed out` and `aws codebuild batch-get-builds --ids <id> --query 'builds[0].timeoutInMinutes'` prints `45` although the project is set to 120. The cap is not in Service Quotas; only AWS Support can raise it. A full first deploy does not fit in 45 minutes. A stack publishes its images as part of deploying it, so what a timed-out build already published is reused by the next build, and rerunning makes progress.
 
-Batched mode splits the deploy into one build per group of stacks, in dependency order. Each build deploys only its own stacks (`cdk deploy <stacks> --exclusively`, through `scripts/codebuild/deploy-stacks.sh`, after the same preflight, context and build steps as `scripts/deploy.sh`):
+Batched mode splits the deploy into one build per group of stacks, in dependency order. The run resolves the ref (a branch, a tag or a full commit SHA) to one commit SHA before the first build, using `git ls-remote` on the project's repository URL from your machine, and passes that SHA to every batch and retry, so one run deploys one revision even if the branch moves meanwhile. Each build deploys only its own stacks (`cdk deploy <stacks> --exclusively`, through `scripts/codebuild/deploy-stacks.sh`, after the same preflight, context and build steps as `scripts/deploy.sh`):
 
 ```bash
 COA_CODEBUILD_BATCHED=1 \
@@ -1513,19 +1515,21 @@ SCL_SMUS_ADMIN_ARNS=arn:aws:iam::123456789012:role/<your-admin-role> \
 | 4 | `ontology serve mcp` | The ontology engine image is `linux/amd64` (emulated); serve and MCP images are arm64 |
 | 5 | `metric-service data-layer api web` | No images; the web stack carries the UI |
 
-On a LARGE arm host, batches took between 11 and 40 minutes in a first deploy. A batch that times out is rerun automatically (`COA_CODEBUILD_BATCH_RETRIES`, default 2): images a timed-out build managed to publish are reused, so each rerun builds less. Any other failure stops the run and prints the command to resume once the cause is fixed:
+On a `BUILD_GENERAL1_LARGE` arm host, batches took between 11 and 40 minutes in a first deploy (17 minutes for batch 2, 26 for batch 4, 11 for batch 5; batch 3, `sources`, timed out once at 45 minutes after publishing two of its three images and finished in 40 minutes on the rerun). `sources` is one stack and cannot be split further. Smaller compute types are slower and may not fit. The build host runs two image builds at once on LARGE (12 GiB of memory or more) and one on smaller hosts; set `SCL_ASSET_BUILD_CONCURRENCY` to change it. The project also asks CodeBuild for a local Docker layer cache, which helps only when a build lands on a recently used host.
+
+A batch that times out is rerun automatically (`COA_CODEBUILD_BATCH_RETRIES`, default 2). Before the rerun the script waits (up to `COA_CODEBUILD_SETTLE_MINUTES`, default 30) until CloudFormation has finished the stack operations the killed build started, and it stops instead when a stack is in a failed or rolled-back state that a rerun cannot fix. Images a timed-out build managed to publish are reused, so each rerun builds less. Any other failure, Ctrl-C or a lost connection stops the run and prints the batch number and the command to resume once the cause is fixed (it includes the pinned commit):
 
 ```bash
 COA_CODEBUILD_BATCHED=1 COA_CODEBUILD_FROM_BATCH=3 make deploy-dev-codebuild
 ```
 
-`COA_CODEBUILD_DRY_RUN=1` prints the planned batches without calling AWS. `COA_CODEBUILD_BATCHES="a b;c d"` replaces the list (full stack names, `;` between batches), for example after adding a stack. Stacks a deployment does not define (`edge-waf` exists only with some WAF settings) are skipped. Batched mode also needs `codebuild:BatchGetProjects` on your own credentials, to read the project's default prefix and environment.
+`COA_CODEBUILD_BATCHES="a b;c d"` replaces the list (full stack names, `;` between batches), for example after adding a stack. The names are checked before any build starts. In the build, only a `*-edge-waf` stack that the deployment does not define (it exists only with some WAF settings) is skipped; any other name the CDK app does not define fails the batch. `deploy-stacks.sh` is for the CodeBuild host (Docker, no Finch support); do not use it as a local deploy path.
 
 To lift the cap instead, open an AWS Support case asking to raise the CodeBuild build timeout for the account; once builds run longer than 45 minutes, plain `make deploy-dev-codebuild` works.
 
 #### Docker Hub rate limit
 
-The build registers QEMU emulation for the `linux/amd64` images (the host is arm64). CodeBuild hosts share IP addresses and often hit Docker Hub's unauthenticated pull rate limit (`toomanyrequests`), so the buildspec pulls the emulation image from ECR Public (`public.ecr.aws/eks-distro-build-tooling/binfmt-misc`) first, falls back to `tonistiigi/binfmt` on Docker Hub with retries, and fails before setup if `linux/amd64` containers still cannot run.
+The build registers QEMU emulation for the `linux/amd64` images (the host is arm64). CodeBuild hosts share IP addresses and often hit Docker Hub's unauthenticated pull rate limit (`toomanyrequests`), so the buildspec logs in to ECR Public, pulls the emulation image from there (`public.ecr.aws/eks-distro-build-tooling/binfmt-misc`) first, falls back to `tonistiigi/binfmt` on Docker Hub, and fails before setup if `linux/amd64` containers still cannot run. It tells a failed image pull apart from missing emulation in the error text. Because the emulation image runs with `--privileged`, all three images (the two emulation images and the Alpine image that checks emulation) are pinned by digest in the buildspec. To update them, look up the new digest with `docker buildx imagetools inspect <image:tag>` and change it in `infra/codebuild/coa-deploy-project.yaml`.
 
 ### What it costs
 
@@ -1644,7 +1648,7 @@ The full policy document the template attaches (`<account>`, `<region>`, `<prefi
 }
 ```
 
-The role's trust policy lets only `codebuild.amazonaws.com` assume it, and only for builds in your account (`aws:SourceAccount`).
+The role's trust policy lets only `codebuild.amazonaws.com` assume it, and only for builds of this project (`aws:SourceAccount` and `aws:SourceArn`).
 
 ### Removing it
 

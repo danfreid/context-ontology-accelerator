@@ -94,6 +94,9 @@ Resources:
             Condition:
               StringEquals:
                 aws:SourceAccount: !Ref AWS::AccountId
+              # Only this project, not any CodeBuild project in the account.
+              ArnLike:
+                aws:SourceArn: !Sub "arn:${AWS::Partition}:codebuild:${AWS::Region}:${AWS::AccountId}:project/${ProjectName}"
       Policies:
         - PolicyName: coa-codebuild-deploy
           PolicyDocument:
@@ -214,6 +217,12 @@ Resources:
           - Name: SCL_PREFIX
             Type: PLAINTEXT
             Value: !Ref ResourcePrefix
+      # Best effort: reuses Docker image layers between builds on the same host, which helps
+      # the repeated image builds of a batched deploy. CodeBuild may or may not hit it.
+      Cache:
+        Type: LOCAL
+        Modes:
+          - LOCAL_DOCKER_LAYER_CACHE
       LogsConfig:
         CloudWatchLogs:
           Status: ENABLED
@@ -234,6 +243,8 @@ Resources:
                   [[ "$COA_REPO_URL" =~ ^https://[A-Za-z0-9._~/:-]+$ ]] || { echo "COA_REPO_URL must be an https:// URL without credentials" >&2; exit 1; }
                   [[ "$COA_REPO_REF" =~ ^[A-Za-z0-9][A-Za-z0-9._/-]{0,199}$ ]] || { echo "COA_REPO_REF is not a valid branch, tag or commit" >&2; exit 1; }
                   [[ "$COA_DEPLOY_ENV" =~ ^[A-Za-z0-9][A-Za-z0-9-]{0,19}$ ]] || { echo "COA_DEPLOY_ENV is not a valid environment name" >&2; exit 1; }
+                  # Optional: stack names separated by single spaces (a batched deploy).
+                  [[ -z "${COA_CDK_STACKS:-}" || "${COA_CDK_STACKS:-}" =~ ^[A-Za-z][A-Za-z0-9-]*( [A-Za-z][A-Za-z0-9-]*)*$ ]] || { echo "COA_CDK_STACKS may only hold stack names separated by single spaces" >&2; exit 1; }
                   command -v git >/dev/null 2>&1 || dnf install -y git
                   mkdir -p /tmp/coa && cd /tmp/coa
                   git init -q .
@@ -252,20 +263,40 @@ Resources:
                   # Some stacks pin linux/amd64 images (ontology engine, sources tasks) while
                   # others are arm64; this arm64 host needs QEMU emulation for the amd64 ones.
                   # The ECR Public mirror comes first: CodeBuild hosts share IP addresses and
-                  # often hit Docker Hub's unauthenticated pull rate limit.
-                  amd64_emulation() { [ "$(docker run --rm --platform linux/amd64 public.ecr.aws/docker/library/alpine:latest uname -m 2>/dev/null)" = "x86_64" ]; }
-                  for binfmt in public.ecr.aws/eks-distro-build-tooling/binfmt-misc:qemu-v7.0.0 tonistiigi/binfmt tonistiigi/binfmt tonistiigi/binfmt; do
-                    amd64_emulation && break
+                  # often hit Docker Hub's unauthenticated pull rate limit. All three images
+                  # are pinned by digest, because the binfmt image runs --privileged.
+                  MIRROR=public.ecr.aws/eks-distro-build-tooling/binfmt-misc:qemu-v7.0.0@sha256:15bc9bf955d590e55884aaae2f8c54f2fe7b12b5db5b4601bc1403c2105a11a7
+                  HUB=tonistiigi/binfmt:qemu-v8.1.5@sha256:2d2918e86e5327d0661f7083d67a95280b0f7be8f77ed79a8418f81d7d90ce6f
+                  PROBE=public.ecr.aws/docker/library/alpine:3.20@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc
+                  # Log in to ECR Public first (the role may), so these pulls are authenticated.
+                  if aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws; then
+                    echo "Logged in to ECR Public"
+                  else
+                    echo "ECR Public login failed; pulling anonymously" >&2
+                  fi
+                  pull_image() {
+                    local attempt
+                    for attempt in 1 2 3; do
+                      docker pull "$@" && return 0
+                      echo "docker pull $* failed (attempt $attempt of 3)" >&2
+                      sleep $((attempt * 15))
+                    done
+                    return 1
+                  }
+                  amd64_emulation() { [ "$(docker run --rm --platform linux/amd64 "$PROBE" uname -m)" = "x86_64" ]; }
+                  # A failed pull is a registry problem, not missing emulation: report it as such.
+                  pull_image --platform linux/amd64 "$PROBE" || { echo "could not pull the emulation check image $PROBE (a registry problem, not missing emulation)" >&2; exit 1; }
+                  for binfmt in "$MIRROR" "$HUB" "$MIRROR"; do
+                    amd64_emulation 2>/dev/null && break
                     echo "Registering amd64 emulation with $binfmt"
-                    docker run --privileged --rm "$binfmt" --install amd64 || sleep 30
+                    { pull_image "$binfmt" && docker run --privileged --rm "$binfmt" --install amd64; } || sleep 30
                   done
-                  amd64_emulation || { echo "linux/amd64 emulation could not be registered on this build host" >&2; exit 1; }
+                  amd64_emulation || { echo "linux/amd64 emulation could not be registered on this build host (the images pulled, but amd64 containers do not run)" >&2; exit 1; }
                   make setup
                   # COA_CDK_STACKS (optional, space-separated) deploys only those stacks with
                   # --exclusively, so a deploy can be split across builds; unset deploys all.
                   STACKS="${COA_CDK_STACKS:-}"
                   if [ -n "$STACKS" ]; then
-                    [[ "$STACKS" =~ ^[A-Za-z0-9\ -]+$ ]] || { echo "COA_CDK_STACKS may only hold stack names separated by spaces" >&2; exit 1; }
                     read -r -a STACK_LIST <<< "$STACKS"
                     ./scripts/codebuild/deploy-stacks.sh "$COA_DEPLOY_ENV" "${STACK_LIST[@]}"
                   else

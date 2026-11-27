@@ -164,8 +164,9 @@ vkg-dev:
 ## deploy-dev or any other target; see "Optional: deploy from AWS CodeBuild" in
 ## external-docs/content/deploying.md. codebuild-setup creates the project once (a CloudFormation
 ## stack, infra/codebuild/coa-deploy-project.yaml); deploy-dev-codebuild starts a platform deploy
-## (scripts/deploy.sh, not the Databricks connector) on it and follows the log; codebuild-remove
-## deletes the project again.
+## (scripts/deploy.sh, not the Databricks connector; with COA_CODEBUILD_BATCHED=1, one build per
+## group of stacks through scripts/codebuild/deploy-stacks.sh) on it and follows the log;
+## codebuild-remove deletes the project again.
 codebuild-setup:
 	./scripts/codebuild/setup.sh
 deploy-dev-codebuild:

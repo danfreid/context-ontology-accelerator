@@ -11,6 +11,10 @@
 #
 # Usage: ./scripts/codebuild/deploy-stacks.sh <env> <stack> [<stack> ...]
 # Every stack's dependencies must already be deployed (--exclusively skips them).
+# A requested stack the CDK app does not define fails the run, except "<...>-edge-waf",
+# which exists only with some WAF settings and is skipped when absent.
+# Docker only: it does not reproduce deploy.sh's Finch selection, and it is meant for the
+# CodeBuild host (arm64 Linux, Docker), not for local use. Plain bash 3.2 syntax.
 set -euo pipefail
 ENV="${1:?usage: deploy-stacks.sh <env> <stack> [<stack> ...]}"
 shift
@@ -24,7 +28,12 @@ cd "$REPO_ROOT"
 CONTEXT=(--context "env=$ENV")
 # shellcheck source=../lib/cdk-context.sh source-path=SCRIPTDIR
 source "$REPO_ROOT/scripts/lib/cdk-context.sh"
-ASSET_BUILD_CONCURRENCY="${SCL_ASSET_BUILD_CONCURRENCY:-2}"
+# Parallel image builds each need their own memory (deploy.sh defaults to 1). The default is 2
+# only on a host with at least 12 GiB, which the LARGE compute size has; SMALL and MEDIUM get 1.
+DEFAULT_CONCURRENCY=1
+MEM_KB="$(awk '/^MemTotal:/ {print $2}' /proc/meminfo 2>/dev/null || true)"
+if [[ "$MEM_KB" =~ ^[0-9]+$ ]] && [ "$MEM_KB" -ge 12582912 ]; then DEFAULT_CONCURRENCY=2; fi
+ASSET_BUILD_CONCURRENCY="${SCL_ASSET_BUILD_CONCURRENCY:-$DEFAULT_CONCURRENCY}"
 [[ "$ASSET_BUILD_CONCURRENCY" =~ ^[1-9][0-9]*$ ]] || {
   echo "deploy-stacks.sh: SCL_ASSET_BUILD_CONCURRENCY must be a positive integer (got '$ASSET_BUILD_CONCURRENCY')" >&2
   exit 1
@@ -45,17 +54,28 @@ LISTED="$(pnpm --silent --filter coa-infra exec cdk list "${CONTEXT[@]}")" || {
   echo "deploy-stacks.sh: cdk list failed" >&2
   exit 1
 }
-mapfile -t DEFINED < <(tr -d '\r' <<< "$LISTED" | grep -E '^[A-Za-z][A-Za-z0-9-]*$')
+DEFINED=()
+while IFS= read -r line; do
+  DEFINED+=("$line")
+done < <(tr -d '\r' <<< "$LISTED" | grep -E '^[A-Za-z][A-Za-z0-9-]*$' || true)
 [ "${#DEFINED[@]}" -gt 0 ] || { echo "deploy-stacks.sh: cdk list returned no stacks" >&2; exit 1; }
 STACKS=()
+MISSING=()
 for s in "$@"; do
   if printf '%s\n' "${DEFINED[@]}" | grep -qx -- "$s"; then
     STACKS+=("$s")
-  else
+  elif [[ "$s" == *-edge-waf ]]; then
     echo "Skipping $s: this deployment's CDK app does not define it."
+  else
+    MISSING+=("$s")
   fi
 done
-[ "${#STACKS[@]}" -gt 0 ] || { echo "None of [$*] is defined by the CDK app; nothing to deploy."; exit 0; }
+if [ "${#MISSING[@]}" -gt 0 ]; then
+  echo "deploy-stacks.sh: the CDK app does not define: ${MISSING[*]}" >&2
+  echo "Defined stacks: ${DEFINED[*]}" >&2
+  exit 1
+fi
+[ "${#STACKS[@]}" -gt 0 ] || { echo "Only skipped stacks were requested; nothing to deploy."; exit 0; }
 set -- "${STACKS[@]}"
 pnpm --filter coa-infra exec cdk deploy "$@" --exclusively "${CONTEXT[@]}" \
   --require-approval=never \

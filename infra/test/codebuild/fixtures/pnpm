@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Test double for pnpm as deploy-stacks.sh uses it.
+case "$*" in
+  # shellcheck disable=SC2086
+  *"exec cdk list"*) printf '%s\n' $FAKE_CDK_LIST ;;
+  *"exec cdk deploy"*) echo "$*" > "$FAKE_AWS_DIR/deploy.args" ;;
+  *) : ;;
+esac
