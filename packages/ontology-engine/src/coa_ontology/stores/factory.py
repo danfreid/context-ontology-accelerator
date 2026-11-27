@@ -10,8 +10,9 @@ Valid values:
   - ``opensearch_neptune`` (default) — OpenSearch Serverless vector +
     Neptune DB graph.
   - ``na_only``                      — Neptune Analytics for both.
-  - ``aurora_pgvector``              — Neptune DB graph + Aurora PostgreSQL
-    (pgvector + tsvector) vector store. Graph traversal moves later.
+  - ``aurora_pgvector``              — Aurora PostgreSQL (RDF quad table with
+    recursive-CTE traversal for the graph; pgvector + tsvector ``search_doc``
+    for vectors) over the RDS Data API for both.
 
 Callers should prefer :func:`build_stores` and accept whatever they get;
 if a caller genuinely needs a specific backend it should not go through
@@ -61,10 +62,10 @@ def build_stores(namespace: str | None = None) -> tuple[GraphStore, VectorStore]
         pair = (NeptuneDBGraphStore(namespace=namespace), OpenSearchVectorStore(namespace=namespace))
 
     elif backend == "aurora_pgvector":
+        from coa_ontology.stores.aurora.graph import AuroraGraphStore
         from coa_ontology.stores.aurora_vector import AuroraVectorStore
-        from coa_ontology.stores.neptune_db_graph import NeptuneDBGraphStore
 
-        pair = (NeptuneDBGraphStore(namespace=namespace), AuroraVectorStore(namespace=namespace))
+        pair = (AuroraGraphStore(namespace=namespace), AuroraVectorStore(namespace=namespace))
 
     else:
         raise ValueError(
