@@ -27,7 +27,38 @@ CREATE TABLE IF NOT EXISTS ontology_engine (
 );
 
 CREATE INDEX IF NOT EXISTS ontology_engine_pk_prefix ON ontology_engine (pk text_pattern_ops);
--- Triple store for the Aurora graph backend (one row per RDF quad). Terms are stored
+
+-- Shared metadata store for the DynamoDB tables that move to Aurora (METADATA_BACKEND=aurora).
+-- One row per item of any logical table: table_name is the DynamoDB table name, pk/sk are its key
+-- values (sk is '' for a partition-key-only table), attributes holds the whole item including the
+-- key attributes, and ttl is the item's expiry (NULL = never; readers skip expired rows).
+-- pk/sk use the C collation so ORDER BY and begins_with match DynamoDB's byte ordering.
+CREATE TABLE IF NOT EXISTS coa_metadata (
+    table_name TEXT  NOT NULL,
+    pk         TEXT  COLLATE "C" NOT NULL,
+    sk         TEXT  COLLATE "C" NOT NULL DEFAULT '',
+    attributes JSONB NOT NULL DEFAULT '{}'::jsonb,
+    ttl        TIMESTAMPTZ,
+    PRIMARY KEY (table_name, pk, sk)
+);
+CREATE INDEX IF NOT EXISTS coa_metadata_ttl ON coa_metadata (ttl) WHERE ttl IS NOT NULL;
+-- One expression index per DynamoDB GSI in use (coa_common.dao.aurora.GSI_REGISTRY lists them).
+CREATE INDEX IF NOT EXISTS coa_metadata_gsi_principal
+    ON coa_metadata (table_name, (attributes->>'principalKey') COLLATE "C", (attributes->>'resourceRoleKey') COLLATE "C");
+CREATE INDEX IF NOT EXISTS coa_metadata_gsi_namespace_grants
+    ON coa_metadata (table_name, (attributes->>'namespaceKey') COLLATE "C", (attributes->>'principalRoleKey') COLLATE "C");
+CREATE INDEX IF NOT EXISTS coa_metadata_gsi_by_namespace
+    ON coa_metadata (table_name, (attributes->>'namespaceId') COLLATE "C", (attributes->>'createdAt') COLLATE "C");
+CREATE INDEX IF NOT EXISTS coa_metadata_gsi_by_source_type
+    ON coa_metadata (table_name, (attributes->>'namespaceId') COLLATE "C", (attributes->>'sourceTypeCreatedAt') COLLATE "C");
+CREATE INDEX IF NOT EXISTS coa_metadata_gsi_by_name
+    ON coa_metadata (table_name, (attributes->>'namespaceId') COLLATE "C", (attributes->>'name') COLLATE "C");
+CREATE INDEX IF NOT EXISTS coa_metadata_gsi_name_by
+    ON coa_metadata (table_name, (attributes->>'name') COLLATE "C");
+CREATE INDEX IF NOT EXISTS coa_metadata_gsi_session_last_active
+    ON coa_metadata (table_name, (attributes->>'userId') COLLATE "C", (attributes->>'lastActiveAt') COLLATE "C");
+CREATE INDEX IF NOT EXISTS coa_metadata_gsi_session_ns_last_active
+    ON coa_metadata (table_name, (attributes->>'userId') COLLATE "C", (attributes->>'nsLastActiveAt') COLLATE "C");-- Triple store for the Aurora graph backend (one row per RDF quad). Terms are stored
 -- flat: o_kind is iri | bnode | literal. md5(o) keeps long literals out of the btree
 -- key (about 2.7 KB limit) and still gives set semantics.
 CREATE TABLE IF NOT EXISTS coa_triple (
@@ -214,7 +245,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE
 GRANT SELECT
     ON search_doc, search_corpus_stats, search_term_stats, entity_label TO coa_search_ro;
 GRANT coa_search_rw TO coa_engine_rw;
-GRANT SELECT, INSERT, UPDATE, DELETE ON coa_triple, ontology_engine TO coa_engine_rw;
+GRANT SELECT, INSERT, UPDATE, DELETE ON coa_triple, ontology_engine, coa_metadata TO coa_engine_rw;
 -- bigserial columns need USAGE on the sequence for INSERT. Default privileges cover tables created later.
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO coa_search_rw, coa_search_ro, coa_engine_rw;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO coa_search_rw, coa_search_ro, coa_engine_rw;

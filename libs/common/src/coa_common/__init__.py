@@ -58,7 +58,7 @@ from coa_common.constants import (
     validate_namespace_name,
     validate_s3_prefix,
 )
-from coa_common.dao import DynamoDBDAO
+from coa_common.dao import DynamoDBDAO, make_dao
 from coa_common.datazone_forms import (
     ASSET_TYPE_NAME,
     FORM_TYPE_NAME,
@@ -146,6 +146,7 @@ __all__ = [
     "DEFAULT_USE_BATCH_INFERENCE",
     "DiscoveredMetadata",
     "DynamoDBDAO",
+    "make_dao",
     "EnrichmentSource",
     "EXTRACTION_BATCH_SIZE",
     "EXTRACTION_DEFAULTS",
