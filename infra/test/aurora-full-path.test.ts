@@ -295,6 +295,9 @@ describe("Full Aurora path: metadata and graph in Aurora", () => {
     expect(authnz).toContain("coa_metadata");
     expect(authnz).toContain("executeStatement");
     expect(authnz).not.toContain("putItem");
+    // Without a database the Data API connects to one named after the user, which
+    // does not exist (seen on the first real deploy).
+    expect(authnz).toMatch(/\\"database\\":\\"postgres\\"/);
     expect(aurora["authnz"].match(/seed-role-/g)?.length ?? 0).toBeGreaterThan(
       0,
     );

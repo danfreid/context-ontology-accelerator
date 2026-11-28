@@ -376,6 +376,10 @@ export class AuthnzStack extends SCLStack {
         parameters: {
           resourceArn: clusterArn,
           secretArn,
+          // Without it Postgres connects to a database named after the user
+          // (coa_engine_rw), which does not exist. The schema lives in "postgres",
+          // as for the migrator and coa_common.aurora (DEFAULT_DATABASE).
+          database: "postgres",
           sql:
             "INSERT INTO coa_metadata (table_name, pk, sk, attributes) " +
             "VALUES (:t, :pk, :sk, CAST(:a AS jsonb)) " +
