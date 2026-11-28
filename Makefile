@@ -102,9 +102,11 @@ deploy-dev:
 deploy-dev-neptune:
 	SCL_GRAPH_BACKEND=neptune SCL_VECTOR_BACKEND=aoss SCL_METADATA_BACKEND=dynamodb SCL_COMPUTE_BACKEND=fargate ./scripts/deploy-all.sh dev
 
-## Deploy dev with the lower-cost Aurora/pgvector/Aurora/Lambda backends.
+## Deploy dev with the lower-cost Aurora/pgvector/Aurora backends. Compute stays on Fargate:
+## the Lambda ontology engine is only a proxy with no backend (api_proxy_handler.py needs
+## ONTOLOGY_ENGINE_ENDPOINT, which only the Fargate-mode proxy gets).
 deploy-dev-aurora:
-	SCL_GRAPH_BACKEND=aurora SCL_VECTOR_BACKEND=pgvector SCL_METADATA_BACKEND=aurora SCL_COMPUTE_BACKEND=lambda ./scripts/deploy-all.sh dev
+	SCL_GRAPH_BACKEND=aurora SCL_VECTOR_BACKEND=pgvector SCL_METADATA_BACKEND=aurora SCL_COMPUTE_BACKEND=fargate ./scripts/deploy-all.sh dev
 
 deploy-serve:
 	./scripts/deploy-serve.sh dev

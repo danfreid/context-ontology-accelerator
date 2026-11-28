@@ -88,6 +88,7 @@ zero, so the first GraphRAG query after an idle period is slower.
 Later phase: GraphRAG chunk ingestion to Aurora. Once the toolkit writes chunks
 to Aurora, the AOSS collection and endpoint on this path can be removed.
 
+Metadata: `AuroraTable` / `AuroraDao` (`coa_ontology/aurora_metadata.py`) emulate the boto3 `Table` calls the engine uses over `ontology_engine(pk, sk, attributes jsonb)`, with their own condition and update-expression parser, through the shared Data API client. Reads through a SPARQL adapter run against the Aurora graph store, and the serve-side cache invalidation runs inline after a write instead of through a DynamoDB stream. Compute must be `fargate` on this path; the Lambda ontology engine is a proxy with no backend.
 Services wired: ontology (ECS task, engine Lambda, task role; role
 `engine-rw`, plus `WORKBENCH_BACKEND=aurora_pgvector` and
 `METADATA_BACKEND=aurora`), serve (AgentCore runtime; role `ro`),
@@ -352,6 +353,12 @@ From the repo root, with `PYTHONUTF8=1`:
 - **Search integration** (`libs/common/tests/integ`) needs a Postgres you start yourself (`docker run -d -p 5432:5432 -e POSTGRES_PASSWORD=pw pgvector/pgvector:pg16`) and `COA_PG_TEST_DSN` for the admin user. It applies `aurora-init.sql`, then tests the `coa_search_rw` and `coa_search_ro` roles, concurrent writers, statistics against a recount, paging and namespace-keyed labels. The tests cover concurrent writers, statistics against a recount, keyset paging, phrase recall over the cap, namespace-keyed and authoritative labels, scope deletion, the HNSW index probe, the per-role grants, `coa_set_role_password` and the `entity_label` re-key. Use `127.0.0.1` rather than `localhost` on Windows.
 
 ## 13. Follow-ups
+Out of scope for the Aurora port (these still use Neptune or AOSS, or are not supported on this path):
+- GraphRAG document ingestion and retrieval.
+- Unstructured induction.
+- External Neptune graph sources.
+- Neptune Analytics.
+
 
 Not done, by decision:
 

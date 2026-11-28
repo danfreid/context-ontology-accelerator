@@ -13,6 +13,8 @@
 #                            "origin" remote, when it is a public https/ssh GitHub-style URL.
 #   COA_CODEBUILD_REF        Default branch, tag or commit (default: main)
 #   COA_CODEBUILD_STACK      CloudFormation stack name (default: coa-codebuild-deploy)
+#   COA_CODEBUILD_PROJECT    CodeBuild project name (default: the template's, coa-deploy). Set it
+#                            with a different COA_CODEBUILD_STACK to run a second project.
 #   COA_CODEBUILD_COMPUTE    BUILD_GENERAL1_SMALL|MEDIUM|LARGE|XLARGE|2XLARGE (default LARGE)
 #   COA_CODEBUILD_TIMEOUT    Build timeout in minutes, 5-480 (default 120)
 #   COA_CODEBUILD_LOG_DAYS   CloudWatch Logs retention in days (default 30)
@@ -28,6 +30,14 @@ source "$REPO_ROOT/scripts/lib/resolve-region.sh"
 REGION="$(coa_resolve_region)"
 STACK="${COA_CODEBUILD_STACK:-coa-codebuild-deploy}"
 TEMPLATE="$REPO_ROOT/infra/codebuild/coa-deploy-project.yaml"
+PROJECT_OVERRIDE=()
+if [ -n "${COA_CODEBUILD_PROJECT:-}" ]; then
+  if ! [[ "$COA_CODEBUILD_PROJECT" =~ ^[A-Za-z][A-Za-z0-9_-]{1,60}$ ]]; then
+    echo "ERROR: COA_CODEBUILD_PROJECT must match ^[A-Za-z][A-Za-z0-9_-]{1,60}\$" >&2
+    exit 1
+  fi
+  PROJECT_OVERRIDE=("ProjectName=$COA_CODEBUILD_PROJECT")
+fi
 REPO_URL="${COA_CODEBUILD_REPO_URL:-}"
 if [ -z "$REPO_URL" ]; then
   ORIGIN="$(git -C "$REPO_ROOT" remote get-url origin 2>/dev/null || true)"
@@ -71,7 +81,8 @@ aws cloudformation deploy \
     "BootstrapQualifier=${COA_CODEBUILD_QUALIFIER:-hnb659fds}" \
     "ComputeType=${COA_CODEBUILD_COMPUTE:-BUILD_GENERAL1_LARGE}" \
     "TimeoutInMinutes=${COA_CODEBUILD_TIMEOUT:-120}" \
-    "LogRetentionInDays=${COA_CODEBUILD_LOG_DAYS:-30}"
+    "LogRetentionInDays=${COA_CODEBUILD_LOG_DAYS:-30}" \
+    ${PROJECT_OVERRIDE[@]+"${PROJECT_OVERRIDE[@]}"}
 echo ""
 echo "Project ready. Run a deploy with: make deploy-dev-codebuild"
 echo "Remove it with:                    make codebuild-remove"

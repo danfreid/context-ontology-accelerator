@@ -1529,6 +1529,7 @@ SCL_PREFIX=coa \
 | `COA_DEPLOY_ENV` | `dev` | Default deploy environment. |
 | `SCL_PREFIX` | `coa` | The prefix your deployment uses. It scopes the role's read access to your stacks, so set the same value on every deploy. |
 | `COA_CODEBUILD_STACK` | `coa-codebuild-deploy` | Name of the CloudFormation stack that holds the project. |
+| `COA_CODEBUILD_PROJECT` | the template's `coa-deploy` | CodeBuild project name (`^[A-Za-z][A-Za-z0-9_-]{1,60}$`). Pass it only when you run a second project next to the first. |
 
 The project deploys into the region it was created in (resolved like the deploy scripts do: `AWS_REGION`, `AWS_DEFAULT_REGION`, then your profile). Run the setup again with new values to update the project.
 
@@ -1578,6 +1579,32 @@ COA_CODEBUILD_BATCHED=1 COA_CODEBUILD_FROM_BATCH=3 make deploy-dev-codebuild
 ```
 
 `COA_CODEBUILD_BATCHES="a b;c d"` replaces the list (full stack names, `;` between batches), for example after adding a stack. The names are checked before any build starts. In the build, only a `*-edge-waf` stack that the deployment does not define (it exists only with some WAF settings) is skipped; any other name the CDK app does not define fails the batch. `deploy-stacks.sh` is for the CodeBuild host (Docker, no Finch support); do not use it as a local deploy path.
+
+#### Example: the ckg (Aurora) deployment
+
+The Aurora/pgvector backends deploy from their own project and stack, so they do not touch an existing `coa-deploy` project. Create it with:
+
+```bash
+COA_CODEBUILD_STACK=ckg-codebuild-deploy \
+COA_CODEBUILD_PROJECT=ckg-deploy \
+SCL_PREFIX=ckg \
+COA_CODEBUILD_REF=feature/ckg-integration \
+  make codebuild-setup
+```
+
+The flag set for this deployment is graph `aurora`, vector `pgvector`, metadata `aurora` and compute `fargate`; `make deploy-dev-aurora` sets exactly these. Compute must be `fargate`: the Lambda ontology engine is only a proxy and needs the `ONTOLOGY_ENGINE_ENDPOINT` that only the Fargate-mode proxy gets. Pass the same `SCL_*` flags (and `COA_CODEBUILD_STACK`) to `make deploy-dev-codebuild`.
+
+Use this batch list. The storage stack gets a batch of its own because it creates Aurora, the AOSS collection and the migrator:
+
+```bash
+COA_CODEBUILD_BATCHED=1 \
+COA_CODEBUILD_STACK=ckg-codebuild-deploy \
+SCL_PREFIX=ckg \
+COA_CODEBUILD_BATCHES="ckg-dev-network ckg-dev-eni-warm ckg-dev-auth ckg-dev-guardrail;ckg-dev-storage;ckg-dev-authnz ckg-dev-edge-waf ckg-dev-vkg ckg-dev-namespace;ckg-dev-sources;ckg-dev-ontology ckg-dev-serve ckg-dev-mcp;ckg-dev-metric-service ckg-dev-data-layer ckg-dev-api ckg-dev-web" \
+  make deploy-dev-codebuild
+```
+
+Limits of this path are listed in `packages/ontology-engine/docs/aurora-search.md` (section 13): GraphRAG document ingestion and retrieval, unstructured induction, external Neptune graph sources and Neptune Analytics are not ported.
 
 To lift the cap instead, open an AWS Support case asking to raise the CodeBuild build timeout for the account; once builds run longer than 45 minutes, plain `make deploy-dev-codebuild` works.
 
