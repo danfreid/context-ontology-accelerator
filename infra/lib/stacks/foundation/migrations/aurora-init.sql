@@ -9,7 +9,9 @@
 CREATE EXTENSION IF NOT EXISTS vector;     -- pgvector: embedding similarity search
 -- Keyword search uses built-in tsvector + ts_rank (GIN index); merge with pgvector
 -- results by reciprocal rank fusion in SQL. ParadeDB pg_search is not supported on Aurora.
-CREATE EXTENSION IF NOT EXISTS pgrouting;  -- shortest-path / Dijkstra graph traversal
+-- pgrouting is not created: no code uses it (graph traversal is recursive SQL), and on
+-- Aurora it requires postgis, so CREATE EXTENSION pgrouting fails with
+-- "required extension postgis is not installed" (first real deploy, 2026-11-28).
 CREATE EXTENSION IF NOT EXISTS pg_trgm;       -- trigram similarity: typo-tolerant entity-name matching
 CREATE EXTENSION IF NOT EXISTS fuzzystrmatch; -- levenshtein / soundex, for re-checking close trigram matches
 
