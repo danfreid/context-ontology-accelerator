@@ -266,3 +266,6 @@ tests/benchmark/results/*
 
 # ASH scan output
 .ash/ash_output/
+
+# Third-party contract originals (fetched by fetch.py, not committed)
+tests/benchmark/fsi_commodity/contracts/originals/

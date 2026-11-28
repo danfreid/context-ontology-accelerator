@@ -1,0 +1,363 @@
+{
+  "//format": "Same entry shape as ../golden_answers.json plus doc (document id) and origin (as_is or derivative). Do not edit by hand; derive.py writes it.",
+  "d-isda-master-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which party is Party B in the NewCo New York ISDA-style master agreement?",
+    "answer": "Concord Reserve Bank plc",
+    "doc": "d-isda-master",
+    "origin": "derivative"
+  },
+  "d-isda-master-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the Threshold Amount for Party A under Cross Default in the NewCo New York master agreement?",
+    "answer": 25000000,
+    "doc": "d-isda-master",
+    "origin": "derivative"
+  },
+  "d-isda-master-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What law governs the NewCo New York and Concord Reserve master agreement?",
+    "answer": "New York",
+    "doc": "d-isda-master",
+    "origin": "derivative"
+  },
+  "d-csa-ny-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the Minimum Transfer Amount in the NewCo New York and Concord Reserve credit support annex?",
+    "answer": 500000,
+    "doc": "d-csa-ny",
+    "origin": "derivative"
+  },
+  "d-csa-ny-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What valuation percentage applies to US Treasuries of 1 to 5 years under the NewCo New York credit support annex?",
+    "answer": 97,
+    "doc": "d-csa-ny",
+    "origin": "derivative"
+  },
+  "d-csa-ny-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "Which master agreement does the NewCo New York credit support annex supplement, by date?",
+    "answer": "February 10, 2026",
+    "doc": "d-csa-ny",
+    "origin": "derivative"
+  },
+  "d-eei-master-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the Collateral Threshold for Glencore Ltd. under the NewCo Houston EEI master agreement?",
+    "answer": 10000000,
+    "doc": "d-eei-master",
+    "origin": "derivative"
+  },
+  "d-eei-master-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "How many days' notice of non-renewal does the NewCo Houston and Glencore EEI master agreement require?",
+    "answer": 60,
+    "doc": "d-eei-master",
+    "origin": "derivative"
+  },
+  "d-eei-master-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "On which day of the following month are invoices due under the NewCo Houston and Glencore EEI master agreement?",
+    "answer": 20,
+    "doc": "d-eei-master",
+    "origin": "derivative"
+  },
+  "d-eei-collateral-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What Minimum Transfer Amount applies in the NewCo Houston and Glencore collateral annex?",
+    "answer": 250000,
+    "doc": "d-eei-collateral",
+    "origin": "derivative"
+  },
+  "d-eei-collateral-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which bank is named as an acceptable letter of credit issuer in the NewCo Houston and Glencore collateral annex?",
+    "answer": "Hudson Meridian Trust Company",
+    "doc": "d-eei-collateral",
+    "origin": "derivative"
+  },
+  "d-eei-gas-annex-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "At which hub does the NewCo Houston and Glencore gas annex deliver gas?",
+    "answer": "Houston Ship Channel",
+    "doc": "d-eei-gas-annex",
+    "origin": "derivative"
+  },
+  "d-eei-rec-annex-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Within how many business days must certificates be transferred under the NewCo Houston and Glencore REC annex?",
+    "answer": 10,
+    "doc": "d-eei-rec-annex",
+    "origin": "derivative"
+  },
+  "d-eei-ab32-annex-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Within how many business days must compliance instruments be transferred under the NewCo Houston and Glencore California annex?",
+    "answer": 3,
+    "doc": "d-eei-ab32-annex",
+    "origin": "derivative"
+  },
+  "d-naesb-canada-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the delivery point in the NewCo Houston and Vitol Canadian addendum?",
+    "answer": "AECO-C hub, Alberta",
+    "doc": "d-naesb-canada",
+    "origin": "derivative"
+  },
+  "d-naesb-canada-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which province's law governs the NewCo Houston and Vitol Canadian gas base contract?",
+    "answer": "Alberta",
+    "doc": "d-naesb-canada",
+    "origin": "derivative"
+  },
+  "d-coal-confirm-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What quantity of coal does the NewCo London and BP confirmation cover?",
+    "answer": 150000,
+    "doc": "d-coal-confirm",
+    "origin": "derivative"
+  },
+  "d-coal-confirm-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "At which port is the NewCo London and BP coal delivered?",
+    "answer": "Richards Bay",
+    "doc": "d-coal-confirm",
+    "origin": "derivative"
+  },
+  "d-coal-confirm-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Who is the buyer in the NewCo London and BP coal confirmation?",
+    "answer": "NewCo Trading London Limited",
+    "doc": "d-coal-confirm",
+    "origin": "derivative"
+  },
+  "d-credit-agreement-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What are the total revolving commitments under the NewCo Global Holdings credit agreement?",
+    "answer": 150000000,
+    "doc": "d-credit-agreement",
+    "origin": "derivative"
+  },
+  "d-credit-agreement-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Who is the Administrative Agent under the NewCo Global Holdings credit agreement?",
+    "answer": "Hudson Meridian Trust Company",
+    "doc": "d-credit-agreement",
+    "origin": "derivative"
+  },
+  "d-credit-agreement-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the maximum leverage ratio in the NewCo Global Holdings credit agreement?",
+    "answer": 3.5,
+    "doc": "d-credit-agreement",
+    "origin": "derivative"
+  },
+  "d-credit-agreement-q4": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is Northgate Bank plc's commitment under the NewCo Global Holdings credit agreement?",
+    "answer": 60000000,
+    "doc": "d-credit-agreement",
+    "origin": "derivative"
+  },
+  "d-8k-credit-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "hybrid_retrieval",
+    "question": "Which agent is named in the NewCo Global Holdings current report on the credit agreement?",
+    "answer": "Hudson Meridian Trust Company",
+    "doc": "d-8k-credit",
+    "origin": "derivative"
+  },
+  "src01-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which bank is the administrative agent under the Chrysler Group LLC Senior Credit Agreement of May 24, 2011?",
+    "answer": "Citibank, N.A.",
+    "doc": "src01",
+    "origin": "as_is"
+  },
+  "src01-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What principal amount is the Chrysler Tranche B term facility, in billions of dollars?",
+    "answer": 3.0,
+    "doc": "src01",
+    "origin": "as_is"
+  },
+  "src01-q3": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the size of the Chrysler Group LLC revolving credit facility, in billions of dollars?",
+    "answer": 1.3,
+    "doc": "src01",
+    "origin": "as_is"
+  },
+  "src02-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Who is the borrower under the June 2, 2006 First Amended and Restated Credit Agreement?",
+    "answer": "Cleco Corporation",
+    "doc": "src02",
+    "origin": "as_is"
+  },
+  "src02-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Who is the administrative agent under the Cleco Corporation credit agreement?",
+    "answer": "The Bank of New York",
+    "doc": "src02",
+    "origin": "as_is"
+  },
+  "src03-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Who is the borrower under the April 25, 2005 credit agreement?",
+    "answer": "Cleco Power LLC",
+    "doc": "src03",
+    "origin": "as_is"
+  },
+  "src12-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Who is Party A under the April 6, 2006 master agreement for Long Beach Mortgage Loan Supplemental Interest Trust Series 2006-3?",
+    "answer": "Bear Stearns Financial Products Inc.",
+    "doc": "src12",
+    "origin": "as_is"
+  },
+  "src12-q2": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Which trust is Party B in the April 6, 2006 Bear Stearns Financial Products master agreement?",
+    "answer": "Long Beach Mortgage Loan Supplemental Interest Trust Series 2006-3",
+    "doc": "src12",
+    "origin": "as_is"
+  },
+  "src05-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What version and date does the EEI California AB32 Product Annex carry?",
+    "answer": "Version 1.0, 7/16/12",
+    "doc": "src05",
+    "origin": "as_is"
+  },
+  "src06-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What version and date does the EEI Renewable Energy Certificates Annex carry?",
+    "answer": "Version 1.0, 11/4/10",
+    "doc": "src06",
+    "origin": "as_is"
+  },
+  "src08-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "What is the title of the NAEMA and IECA 2019 model form?",
+    "answer": "2019 Power and Gas Master Agreement",
+    "doc": "src08",
+    "origin": "as_is"
+  },
+  "src13-q1": {
+    "expected": 1,
+    "tolerance_pct": 0,
+    "tolerance": 0,
+    "type": "metadata",
+    "question": "Under which ISDA protocol is the NY-NEW exhibit applicable?",
+    "answer": "ISDA 2016 Variation Margin Protocol",
+    "doc": "src13",
+    "origin": "as_is"
+  }
+}

@@ -1,0 +1,428 @@
+{
+  "documents": [
+    {
+      "id": "src01",
+      "kind": "as_is",
+      "local_name": "Chrysler_docs.pdf",
+      "match": "Substitute",
+      "status": "ok",
+      "url": "https://www.sec.gov/Archives/edgar/data/1513153/000119312511148779/d8k.htm",
+      "resolved_url": "https://www.sec.gov/Archives/edgar/data/1513153/000119312511148779/d8k.htm",
+      "sha256": "80074feaffcd5cf220c10c66d8384a2d720678602cd8ef58286f0144c9f582a6",
+      "bytes": 36263,
+      "pages": 6,
+      "pages_estimated": true,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "src02",
+      "kind": "as_is",
+      "local_name": "Credit Agreement.pdf",
+      "match": "Substitute",
+      "status": "ok",
+      "url": "https://www.sec.gov/Archives/edgar/data/18672/000108981906000025/exhibit101.pdf",
+      "resolved_url": "https://www.sec.gov/Archives/edgar/data/18672/000108981906000025/exhibit101.pdf",
+      "sha256": "0e06c30ffaec7326c9248a7d29ee4253e563d2b98f55ce9da5ca819a29dca1eb",
+      "bytes": 360161,
+      "pages": 91,
+      "pages_estimated": false,
+      "size_class": "large",
+      "local_pages": 287,
+      "size_note": "user's local copy is 287 pages; tagged large",
+      "ingest": "deferred"
+    },
+    {
+      "id": "src03",
+      "kind": "as_is",
+      "local_name": "CREDIT AGREEMENT2.pdf",
+      "match": "Substitute",
+      "status": "ok",
+      "url": "https://www.sec.gov/Archives/edgar/data/18672/000108981905000020/exhibit102.pdf",
+      "resolved_url": "https://www.sec.gov/Archives/edgar/data/18672/000108981905000020/exhibit102.pdf",
+      "sha256": "5971c64559a06400f8287f817d3b20721d0a8dcc67bb94e093a3b935e53ddcdc",
+      "bytes": 307007,
+      "pages": 84,
+      "pages_estimated": false,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "src04",
+      "kind": "as_is",
+      "local_name": "DRAFT_Energy_AIC_Exhibit-D_Collateral-Annex_22-JAN-2026.pdf",
+      "match": "Substitute",
+      "status": "failed",
+      "url": "https://contracts.justia.com/companies/par-pacific-holdings-inc-1019/contract/1342899/",
+      "resolved_url": null,
+      "sha256": null,
+      "bytes": null,
+      "pages": null,
+      "pages_estimated": false,
+      "size_class": null,
+      "error": "HTTPError: HTTP Error 403: Forbidden",
+      "ingest": "deferred"
+    },
+    {
+      "id": "src05",
+      "kind": "as_is",
+      "local_name": "EEI AB32 Products Annex 1 0.pdf",
+      "match": "Exact",
+      "status": "ok",
+      "url": "https://www.eei.org/-/media/Project/EEI/Documents/Resources-and-Media/Master-Contract/EEI-AB32-Products-Annex-1-0.pdf",
+      "resolved_url": "https://www.eei.org/-/media/Project/EEI/Documents/Resources-and-Media/Master-Contract/EEI-AB32-Products-Annex-1-0.pdf",
+      "sha256": "46ce10bbfa624dac98bff917e31fbd4dc6ff8f83c6e2be1ad3998baa6b20148a",
+      "bytes": 228027,
+      "pages": 20,
+      "pages_estimated": false,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "src06",
+      "kind": "as_is",
+      "local_name": "EEI RECs Annex v1.pdf",
+      "match": "Exact",
+      "status": "ok",
+      "url": "https://www.eei.org/-/media/Project/EEI/Documents/Resources-and-Media/Master-Contract/EEI-RECs-Annex-v1.pdf",
+      "resolved_url": "https://www.eei.org/-/media/Project/EEI/Documents/Resources-and-Media/Master-Contract/EEI-RECs-Annex-v1.pdf",
+      "sha256": "2203eb79eec005219088748c7bbd87693994c0b803da89c8a6ca7659a0919a25",
+      "bytes": 256426,
+      "pages": 23,
+      "pages_estimated": false,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "src07",
+      "kind": "as_is",
+      "local_name": "EEICoalAnnex.pdf",
+      "match": "Substitute",
+      "status": "failed",
+      "url": "https://contracts.justia.com/companies/westmoreland-resource-partners-lp-3339/contract/435103/",
+      "resolved_url": null,
+      "sha256": null,
+      "bytes": null,
+      "pages": null,
+      "pages_estimated": false,
+      "size_class": null,
+      "error": "HTTPError: HTTP Error 403: Forbidden",
+      "ingest": "deferred"
+    },
+    {
+      "id": "src08",
+      "kind": "as_is",
+      "local_name": "EEIGasAnnexEXHIBITAConfirmationFinal11813.docx",
+      "match": "Substitute",
+      "status": "ok",
+      "url": "https://ieca.net/wp-content/uploads/2026/02/NAEMA-IECA-2019-Power-and-Gas-Master-Agreement-.pdf",
+      "resolved_url": "https://ieca.net/wp-content/uploads/2026/02/NAEMA-IECA-2019-Power-and-Gas-Master-Agreement-.pdf",
+      "sha256": "1c0acf189bc0996b58c4258a5a1dbae84e06fc01eb1c22e44a8cad58a7e5f02c",
+      "bytes": 232914,
+      "pages": 55,
+      "pages_estimated": false,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "src09",
+      "kind": "as_is",
+      "local_name": "EEIGasAnnexv20Final101613withCorrections73014.docx",
+      "match": "Close",
+      "status": "ok",
+      "url": "https://cms.eei.org/-/media/Project/EEI/Documents/Resources-and-Media/Master-Contract/EEI_Gas_Annex_Cover_Sheet_v2-0_redline_7-30-14.pdf",
+      "resolved_url": "https://cms.eei.org/-/media/Project/EEI/Documents/Resources-and-Media/Master-Contract/EEI_Gas_Annex_Cover_Sheet_v2-0_redline_7-30-14.pdf",
+      "sha256": "071e04d3b65cede68dfee45c450d8276897b73ea5d93b1e6cf1e7a7b35a743e8",
+      "bytes": 25121,
+      "pages": 5,
+      "pages_estimated": false,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "src10",
+      "kind": "as_is",
+      "local_name": "eei_contract0004Doc.doc / eei_contract0004Doc.pdf",
+      "match": "Close",
+      "status": "failed",
+      "url": "https://www.sanjoseca.gov/home/showpublisheddocument/75551/637628913544470000",
+      "resolved_url": null,
+      "sha256": null,
+      "bytes": null,
+      "pages": null,
+      "pages_estimated": false,
+      "size_class": null,
+      "error": "HTTPError: HTTP Error 403: Forbidden",
+      "ingest": "deferred"
+    },
+    {
+      "id": "src11",
+      "kind": "as_is",
+      "local_name": "ISDA-Oil-Annex-Revised-Publication-Version-11-May-10-CLEAN.doc / .pdf",
+      "match": "Substitute (weak)",
+      "status": "ok",
+      "url": "https://www.isda.org/a/c1IDE/Coal_Confirms_for_ISDA_Global_Physical_Coal_Annex.pdf",
+      "resolved_url": "https://www.isda.org/a/c1IDE/Coal_Confirms_for_ISDA_Global_Physical_Coal_Annex.pdf",
+      "sha256": "239b889a04bb25f81ec9a3f1ac9c68baf6b6a543b8d76bb642ff0a009bbd50a6",
+      "bytes": 98141,
+      "pages": 19,
+      "pages_estimated": false,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "src12",
+      "kind": "as_is",
+      "local_name": "isda_exh43to8kpsa_lb20063.pdf",
+      "match": "Exact",
+      "status": "ok",
+      "url": "https://www.sec.gov/Archives/edgar/data/1355515/000127727706000388/exh43to8kpsa_lb20063.pdf",
+      "resolved_url": "https://www.sec.gov/Archives/edgar/data/1355515/000127727706000388/exh43to8kpsa_lb20063.pdf",
+      "sha256": "2b16ad27a97d7c1851c3142d7a3518ba3636f6a293403ba7b634a39220e1a941",
+      "bytes": 52028,
+      "pages": 16,
+      "pages_estimated": false,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "src13",
+      "kind": "as_is",
+      "local_name": "ISDA_New_York_Law_CSA_Example.docx",
+      "match": "Close",
+      "status": "ok",
+      "url": "https://www.isda.org/a/qDKDE/3ny-new-new-csa-exhibit.pdf",
+      "resolved_url": "https://www.isda.org/a/qDKDE/3ny-new-new-csa-exhibit.pdf",
+      "sha256": "2a6cc89f5557eb58b391e1af5db4482e51786f1c3cac016a4ba74c1593688bf4",
+      "bytes": 447710,
+      "pages": 25,
+      "pages_estimated": false,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "src14",
+      "kind": "as_is",
+      "local_name": "naesb_canada_cs090501w2.pdf",
+      "match": "Exact",
+      "status": "ok",
+      "url": "http://www.naesb.org/pdf/cs090501w2.pdf",
+      "resolved_url": "http://www.naesb.org/pdf/cs090501w2.pdf",
+      "sha256": "215e154052c341e5a621ec75582a11f4ae8a59eef477065e9278c38e2e672781",
+      "bytes": 36821,
+      "pages": 6,
+      "pages_estimated": false,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-isda-master",
+      "kind": "derivative",
+      "title": "ISDA-style Master Agreement and Schedule",
+      "file": "derivatives/isda_master_nyc_concord.pdf",
+      "modelled_on": [
+        "src12"
+      ],
+      "parties": [
+        "newco-nyc",
+        "bank-concord"
+      ],
+      "sha256": "067c15b8c866f1b743a82e5678afb7bc09971a98a91f6a1c06e486bb5dcbce27",
+      "bytes": 7456,
+      "pages": 2,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-csa-ny",
+      "kind": "derivative",
+      "title": "Credit Support Annex for Variation Margin (New York law style)",
+      "file": "derivatives/csa_ny_nyc_concord.pdf",
+      "modelled_on": [
+        "src13",
+        "src12"
+      ],
+      "parties": [
+        "newco-nyc",
+        "bank-concord"
+      ],
+      "sha256": "c8fd88b8b9200e965b96313593f16fff45938c9f9ba867c2be3405da250f4aa9",
+      "bytes": 6214,
+      "pages": 2,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-eei-master",
+      "kind": "derivative",
+      "title": "Master Power Purchase and Sale Agreement Cover Sheet",
+      "file": "derivatives/eei_master_houston_glencore.pdf",
+      "modelled_on": [
+        "src10",
+        "src09",
+        "src05"
+      ],
+      "parties": [
+        "newco-hou",
+        "cp-glencore"
+      ],
+      "sha256": "9a4d40e9447f052f4c93c30f450fb0a3780bd178ed7b671e19df5d2f25c0a4df",
+      "bytes": 5918,
+      "pages": 1,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-eei-collateral",
+      "kind": "derivative",
+      "title": "Collateral Annex (Exhibit D) to the Master Power Purchase and Sale Agreement",
+      "file": "derivatives/eei_collateral_annex_houston_glencore.pdf",
+      "modelled_on": [
+        "src04",
+        "src10"
+      ],
+      "parties": [
+        "newco-hou",
+        "cp-glencore",
+        "bank-hudson"
+      ],
+      "sha256": "285229a442cd52f5dab0fc7f1c3cde64894a3685763b41e855be554857d52682",
+      "bytes": 4712,
+      "pages": 1,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-eei-gas-annex",
+      "kind": "derivative",
+      "title": "Gas Annex to the Master Power Purchase and Sale Agreement",
+      "file": "derivatives/eei_gas_annex_houston_glencore.pdf",
+      "modelled_on": [
+        "src09",
+        "src08"
+      ],
+      "parties": [
+        "newco-hou",
+        "cp-glencore"
+      ],
+      "sha256": "8f782e6ac433774de988013224f92bb8ff27e1c5ce81bd7ee18f43046ebaf8c0",
+      "bytes": 4230,
+      "pages": 1,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-eei-rec-annex",
+      "kind": "derivative",
+      "title": "Renewable Energy Certificates Annex",
+      "file": "derivatives/eei_rec_annex_houston_glencore.pdf",
+      "modelled_on": [
+        "src06"
+      ],
+      "parties": [
+        "newco-hou",
+        "cp-glencore"
+      ],
+      "sha256": "7c0aad4ee8d6ae2accbdd40890abb3dc1fb7865bb9d87eb9950be35827fc7488",
+      "bytes": 3747,
+      "pages": 1,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-eei-ab32-annex",
+      "kind": "derivative",
+      "title": "California Compliance Products Annex",
+      "file": "derivatives/eei_ab32_annex_houston_glencore.pdf",
+      "modelled_on": [
+        "src05"
+      ],
+      "parties": [
+        "newco-hou",
+        "cp-glencore"
+      ],
+      "sha256": "a8506b0e0907b2afc2b9ad4b901cbfba5c6298a8901343904da40dcd3cefe1c0",
+      "bytes": 3804,
+      "pages": 1,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-naesb-canada",
+      "kind": "derivative",
+      "title": "Base Contract for Short-Term Sale and Purchase of Natural Gas, Canadian Addendum",
+      "file": "derivatives/naesb_canada_houston_vitol.pdf",
+      "modelled_on": [
+        "src14"
+      ],
+      "parties": [
+        "newco-hou",
+        "cp-vitol"
+      ],
+      "sha256": "b7cdc1044356a96ca19865aba3cf77302a0aeeb8762c90c2048c5d84cbd161c7",
+      "bytes": 4273,
+      "pages": 1,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-coal-confirm",
+      "kind": "derivative",
+      "title": "Physical Coal Transaction Confirmation",
+      "file": "derivatives/isda_coal_confirm_london_bp.pdf",
+      "modelled_on": [
+        "src11"
+      ],
+      "parties": [
+        "newco-lon",
+        "cp-bp"
+      ],
+      "sha256": "6d0e9d4601d14a851959da599a96d3c8f5fc0783fd078448c0cb36ba7618aa6a",
+      "bytes": 4890,
+      "pages": 1,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-credit-agreement",
+      "kind": "derivative",
+      "title": "Revolving Credit Agreement",
+      "file": "derivatives/credit_agreement_newco_global.pdf",
+      "modelled_on": [
+        "src02",
+        "src03",
+        "src01"
+      ],
+      "parties": [
+        "newco-hldg",
+        "bank-lonestar",
+        "bank-northgate",
+        "bank-hudson"
+      ],
+      "sha256": "c7ef4bb257ad0c904dd94dfa7e52dda97220809c95232de13374ce9e400595db",
+      "bytes": 5714,
+      "pages": 1,
+      "size_class": "small",
+      "ingest": "eligible"
+    },
+    {
+      "id": "d-8k-credit",
+      "kind": "derivative",
+      "title": "Current Report: Entry into a Material Definitive Agreement",
+      "file": "derivatives/form_8k_newco_global_credit.pdf",
+      "modelled_on": [
+        "src01",
+        "src02"
+      ],
+      "parties": [
+        "newco-hldg",
+        "bank-hudson"
+      ],
+      "sha256": "821effcc3b6b7de00d6ca898380f2c744364fca246f7b084b5bb42cca0277014",
+      "bytes": 3254,
+      "pages": 1,
+      "size_class": "small",
+      "ingest": "eligible"
+    }
+  ]
+}

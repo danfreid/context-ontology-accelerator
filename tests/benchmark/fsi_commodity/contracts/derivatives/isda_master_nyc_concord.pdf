@@ -1,0 +1,407 @@
+%PDF-1.4
+%“Œ‹ž ReportLab Generated PDF document (opensource)
+1 0 obj
+<<
+/F1 2 0 R /F2 3 0 R
+>>
+endobj
+2 0 obj
+<<
+/BaseFont /Helvetica /Encoding /WinAnsiEncoding /Name /F1 /Subtype /Type1 /Type /Font
+>>
+endobj
+3 0 obj
+<<
+/BaseFont /Helvetica-Bold /Encoding /WinAnsiEncoding /Name /F2 /Subtype /Type1 /Type /Font
+>>
+endobj
+4 0 obj
+<<
+/Contents 9 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 8 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+5 0 obj
+<<
+/Contents 10 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 8 0 R /Resources <<
+/Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>> /Rotate 0 /Trans <<
+
+>> 
+  /Type /Page
+>>
+endobj
+6 0 obj
+<<
+/PageMode /UseNone /Pages 8 0 R /Type /Catalog
+>>
+endobj
+7 0 obj
+<<
+/Author (NewCo synthetic contract corpus) /CreationDate (D:20000101000000+00'00') /Creator (fsi_commodity generator) /Keywords () /ModDate (D:20000101000000+00'00') /Producer (ReportLab PDF Library - \(opensource\)) 
+  /Subject (\(unspecified\)) /Title (ISDA-style Master Agreement and Schedule) /Trapped /False
+>>
+endobj
+8 0 obj
+<<
+/Count 2 /Kids [ 4 0 R 5 0 R ] /Type /Pages
+>>
+endobj
+9 0 obj
+<<
+/Length 4490
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 57.02362 762.8661 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 18 Tf 22 TL 53.56717 0 Td (ISDA-style Master Agreement and Schedule) Tj T* -53.56717 0 Td ET
+Q
+Q
+q
+1 0 0 1 57.02362 745.5276 cm
+Q
+q
+1 0 0 1 56.69291 709.5276 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Party 1) Tj T* ET
+Q
+Q
+q
+1 0 0 1 161.9055 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (NewCo Derivatives New York, Inc. \(LEI SYNT000DMWJ652W3DD97\)) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Party 2) Tj T* ET
+Q
+Q
+q
+1 0 0 1 161.9055 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Concord Reserve Bank plc \(LEI SYNT00Q4GEU742JDVF76\)) Tj T* ET
+Q
+Q
+q
+Q
+Q
+Q
+q
+1 0 0 1 57.02362 701.0236 cm
+Q
+q
+1 0 0 1 57.02362 671.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 14 Tf 18 TL (Parties) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 656.5197 cm
+Q
+q
+1 0 0 1 57.02362 614.5197 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL (This Master Agreement is dated February 10, 2026 between NewCo Derivatives New York, Inc. \(Party A\)) Tj T* (and Concord Reserve Bank plc \(Party B\). It governs every derivative transaction the parties enter into, and) Tj T* (each confirmation forms part of it. Synthetic test document. Not a real agreement.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 606.0157 cm
+Q
+q
+1 0 0 1 57.02362 576.0157 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 14 Tf 18 TL (1. Interpretation) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 561.5118 cm
+Q
+q
+1 0 0 1 57.02362 531.5118 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL (All transactions and confirmations form one single agreement. If a confirmation conflicts with the Schedule,) Tj T* (the confirmation prevails for that transaction only.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 523.0079 cm
+Q
+q
+1 0 0 1 57.02362 493.0079 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 14 Tf 18 TL (2. Payments) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 478.5039 cm
+Q
+q
+1 0 0 1 57.02362 448.5039 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL (Payments are due on the settlement date in freely transferable funds. Amounts owed in the same currency) Tj T* (on the same date are netted into a single payment.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 440 cm
+Q
+q
+1 0 0 1 57.02362 410 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 14 Tf 18 TL (5. Events of Default) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 395.4961 cm
+Q
+q
+1 0 0 1 57.02362 353.4961 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL (Failure to pay is an Event of Default if not cured within one Local Business Day of notice. Cross Default) Tj T* (applies to both parties. The Threshold Amount is USD 25,000,000 for Party A and USD 50,000,000 for Party) Tj T* (B.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 344.9921 cm
+Q
+q
+1 0 0 1 57.02362 314.9921 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 14 Tf 18 TL (6. Early Termination) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 300.4882 cm
+Q
+q
+1 0 0 1 57.02362 258.4882 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL (On an Event of Default the non-defaulting party may designate an Early Termination Date on at least 20) Tj T* (days' notice. Automatic Early Termination does not apply to either party. Close-out uses the Close-out) Tj T* (Amount method.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 249.9843 cm
+Q
+q
+1 0 0 1 57.02362 219.9843 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 14 Tf 18 TL (Part 1 of the Schedule) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 205.4803 cm
+Q
+q
+1 0 0 1 57.02362 163.4803 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL (Termination Currency is United States Dollars. The Agreement is governed by the laws of the State of New) Tj T* (York. Credit Support Document: the Credit Support Annex dated February 10, 2026. Process agent for each) Tj T* (party: none.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 154.9764 cm
+Q
+q
+1 0 0 1 57.02362 124.9764 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 4 Tm /F2 14 Tf 18 TL (Schedule) Tj T* ET
+Q
+Q
+q
+1 0 0 1 57.02362 110.4724 cm
+Q
+q
+1 0 0 1 57.02362 74.47244 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Term) Tj T* ET
+Q
+Q
+q
+1 0 0 1 246.6142 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Value) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Termination Currency) Tj T* ET
+Q
+Q
+q
+1 0 0 1 246.6142 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (USD) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.501961 .501961 .501961 RG
+.4 w
+n 0 36 m 481.2283 36 l S
+n 0 0 m 0 36 l S
+n 481.2283 0 m 481.2283 36 l S
+n 0 0 m 481.2283 0 l S
+n 0 18 m 481.2283 18 l S
+n 240.6142 0 m 240.6142 36 l S
+Q
+Q
+Q
+ 
+endstream
+endobj
+10 0 obj
+<<
+/Length 1236
+>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 57.02362 712.8661 cm
+q
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+q
+1 0 0 1 6 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Term) Tj T* ET
+Q
+Q
+q
+1 0 0 1 246.6142 57 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F2 10 Tf 12 TL (Value) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Governing law) Tj T* ET
+Q
+Q
+q
+1 0 0 1 246.6142 39 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (New York) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Cross Default) Tj T* ET
+Q
+Q
+q
+1 0 0 1 246.6142 21 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Applies to both parties) Tj T* ET
+Q
+Q
+q
+1 0 0 1 6 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Automatic Early Termination) Tj T* ET
+Q
+Q
+q
+1 0 0 1 246.6142 3 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Not applicable) Tj T* ET
+Q
+Q
+q
+1 J
+1 j
+.501961 .501961 .501961 RG
+.4 w
+n 0 72 m 481.2283 72 l S
+n 0 54 m 0 72 l S
+n 0 0 m 0 54 l S
+n 481.2283 54 m 481.2283 72 l S
+n 481.2283 0 m 481.2283 54 l S
+n 0 0 m 481.2283 0 l S
+n 0 54 m 481.2283 54 l S
+n 240.6142 54 m 240.6142 72 l S
+n 0 36 m 481.2283 36 l S
+n 0 18 m 481.2283 18 l S
+n 240.6142 0 m 240.6142 54 l S
+Q
+Q
+Q
+q
+1 0 0 1 57.02362 704.3622 cm
+Q
+ 
+endstream
+endobj
+xref
+0 11
+0000000000 65535 f 
+0000000061 00000 n 
+0000000102 00000 n 
+0000000209 00000 n 
+0000000321 00000 n 
+0000000524 00000 n 
+0000000728 00000 n 
+0000000796 00000 n 
+0000001129 00000 n 
+0000001194 00000 n 
+0000005735 00000 n 
+trailer
+<<
+/ID 
+[<5656ad3c07bb090ab8593f404c821f1b><5656ad3c07bb090ab8593f404c821f1b>]
+% ReportLab generated PDF document -- digest (opensource)
+
+/Info 7 0 R
+/Root 6 0 R
+/Size 11
+>>
+startxref
+7023
+%%EOF
