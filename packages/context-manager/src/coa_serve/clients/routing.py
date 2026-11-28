@@ -6,6 +6,9 @@ On the Aurora path ontology and entity documents live in Aurora, but the
 GraphRAG toolkit still writes its ``chunk_*``, ``topic_*`` and ``statement_*``
 indexes to OpenSearch Serverless. This client sends reads for those scopes to
 AOSS and every other scope to Aurora.
+
+On the ckg path (Aurora document graph + S3 Vectors) the GraphRAG scopes are in an S3 vector bucket, so
+the factory passes an ``s3vectors`` client and those scopes go there instead of AOSS.
 """
 
 from __future__ import annotations
@@ -27,15 +30,22 @@ def _is_graphrag_index(index: str | None) -> bool:
 
 
 class RoutingVectorClient(VectorClient):
-    """Send GraphRAG index scopes to AOSS and all other scopes to Aurora."""
+    """Send GraphRAG index scopes to AOSS (or S3 Vectors on the ckg path) and all other scopes to Aurora."""
 
-    def __init__(self, aurora: Any, aoss: Any):
-        """Wrap the Aurora client (default route) and the AOSS client (GraphRAG scopes)."""
+    def __init__(self, aurora: Any, aoss: Any, s3vectors: Any | None = None):
+        """Wrap the Aurora client (default route) and the client for the GraphRAG scopes.
+
+        ``s3vectors`` replaces ``aoss`` for the GraphRAG scopes when given (ckg path); ``aoss`` may then be ``None``.
+        """
         self._aurora = aurora
         self._aoss = aoss
+        self._s3vectors = s3vectors
+
+    def _graphrag(self) -> Any:
+        return self._s3vectors if self._s3vectors is not None else self._aoss
 
     def _route(self, index: str | None) -> Any:
-        return self._aoss if _is_graphrag_index(index) else self._aurora
+        return self._graphrag() if _is_graphrag_index(index) else self._aurora
 
     async def search(
         self,
@@ -63,8 +73,10 @@ class RoutingVectorClient(VectorClient):
         return result
 
     async def search_hybrid(self, *args: Any, **kwargs: Any) -> list[VectorHit]:
-        """Hybrid (vector + BM25 + trigram) search; only Aurora implements it."""
-        result: list[VectorHit] = await self._aurora.search_hybrid(*args, **kwargs)
+        """Hybrid (vector + BM25 + trigram) search; Aurora implements it, or S3 Vectors for its scopes (vector-only)."""
+        index = kwargs.get("index")
+        target = self._s3vectors if self._s3vectors is not None and _is_graphrag_index(index) else self._aurora
+        result: list[VectorHit] = await target.search_hybrid(*args, **kwargs)
         return result
 
     async def phrase_search(self, phrases: list[str], *, index: str, size: int = 50) -> list[dict[str, Any]]:
@@ -73,13 +85,14 @@ class RoutingVectorClient(VectorClient):
         return result
 
     async def health_check(self) -> dict[str, Any]:
-        """Aurora's health result plus an ``aoss`` sub-status; AOSS never changes the top-level status."""
+        """Aurora's health result plus an ``aoss`` (or ``s3vectors``) sub-status; never changes the top-level one."""
         result = dict(await self._aurora.health_check())
+        key = "s3vectors" if self._s3vectors is not None else "aoss"
         try:
-            result["aoss"] = await self._aoss.health_check()
+            result[key] = await self._graphrag().health_check()
         except Exception as e:  # noqa: BLE001 — health probe must not raise
-            logger.warning("aoss_health_check_failed", error=str(e))
-            result["aoss"] = {
+            logger.warning(f"{key}_health_check_failed", error=str(e))
+            result[key] = {
                 "status": "unhealthy",
                 "error": "connectivity check failed",
             }
@@ -90,4 +103,4 @@ class RoutingVectorClient(VectorClient):
         try:
             await self._aurora.close()
         finally:
-            await self._aoss.close()
+            await self._graphrag().close()

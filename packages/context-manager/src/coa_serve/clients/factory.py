@@ -109,6 +109,13 @@ def build_vector_client(opensearch_endpoint: str | None = None) -> VectorClient:
     if resolve_search_backend() == SearchBackend.PGVECTOR:
         from .aurora import AuroraVectorClient
 
+        if ckg_path_enabled():
+            # Aurora document graph + S3 Vectors: GraphRAG scopes live in the S3 vector bucket, not AOSS.
+            from .routing import RoutingVectorClient
+            from .s3vectors import S3VectorsClient
+
+            return RoutingVectorClient(AuroraVectorClient(), None, s3vectors=S3VectorsClient())
+
         endpoint = opensearch_endpoint or os.environ.get("OPENSEARCH_ENDPOINT", "")
         if endpoint:
             from .opensearch import OpenSearchVectorClient

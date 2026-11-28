@@ -45,6 +45,7 @@ from concurrent.futures import ThreadPoolExecutor
 from typing import Any
 
 import structlog
+from coa_common.constants import ckg_path_enabled
 
 from ...vector_retriever import ChunkResult
 from ..templates import (
@@ -57,6 +58,7 @@ from ..templates import (
     MIN_CHUNK_IDS,
     bounded_limit,
 )
+from ..templates_sql import SQL_TEMPLATES, sql_schema
 from .base import ToolResult
 
 logger = structlog.get_logger(__name__)
@@ -124,6 +126,8 @@ class ChunkExpansionTool:
         self._query_timeout_s = query_timeout_s
         self._store: Any = None
         self._store_lock = threading.Lock()
+        # ckg path: the chunk sequence lives in Aurora, so the window template runs as SQL (see templates_sql).
+        self._ckg = ckg_path_enabled()
 
     def _get_store(self) -> Any:
         """Build (once) and return the toolkit ``GraphStore``; lazy toolkit import.
@@ -143,6 +147,10 @@ class ChunkExpansionTool:
 
                 from graphrag_toolkit.lexical_graph.storage import GraphStoreFactory  # lazy
 
+                if self._ckg:
+                    from coa_common.graphrag_pg.store import register as register_aurora_graph_store
+
+                    register_aurora_graph_store()
                 self._store = GraphStoreFactory.for_graph_store(self._graph_store_uri)
                 logger.info("agentic_chunk_store_built", uri=self._graph_store_uri)
         return self._store
@@ -183,6 +191,19 @@ class ChunkExpansionTool:
         rows = await asyncio.wait_for(asyncio.shield(fut), timeout=self._query_timeout_s)
         return list(rows or [])
 
+    async def _run_sql(self, sql_template: str, namespace: str, params: dict, **fmt: int) -> list[dict]:
+        """Run the SQL variant of a template on the Aurora document graph (ckg path) under the query timeout."""
+        store = await self._ensure_store()
+        from coa_common.graphrag_pg.store import split_label
+
+        parts = split_label(self._format_label(namespace, "__Chunk__").strip("`"))
+        sql = sql_template.format(schema=sql_schema(store.schema_name), **fmt)
+        bound = {**params, "tenant": parts[1] if parts else ""}
+        loop = asyncio.get_running_loop()
+        fut = loop.run_in_executor(_EXECUTOR, lambda: store.client.execute(sql, bound))
+        rows = await asyncio.wait_for(asyncio.shield(fut), timeout=self._query_timeout_s)
+        return list(rows or [])
+
     async def invoke(
         self,
         *,
@@ -209,13 +230,19 @@ class ChunkExpansionTool:
         try:
             # Off-loop first-use toolkit import, before _format_label needs the toolkit.
             await self._ensure_store()
-            cypher = CHUNK_WINDOW_EXPANSION.format(
-                chunk_label=self._chunk_label(namespace),
-                source_label=self._source_label(namespace),
-                hops=hops,
-                limit=bounded_limit(limit, default=DEFAULT_CHUNK_WINDOW_LIMIT, ceiling=MAX_CHUNK_WINDOW_LIMIT),
-            )
-            rows = await self._run_cypher(cypher, {"chunk_ids": ids})
+            row_limit = bounded_limit(limit, default=DEFAULT_CHUNK_WINDOW_LIMIT, ceiling=MAX_CHUNK_WINDOW_LIMIT)
+            if self._ckg:
+                rows = await self._run_sql(
+                    SQL_TEMPLATES["CHUNK_WINDOW_EXPANSION"], namespace, {"chunk_ids": ids}, hops=hops, limit=row_limit
+                )
+            else:
+                cypher = CHUNK_WINDOW_EXPANSION.format(
+                    chunk_label=self._chunk_label(namespace),
+                    source_label=self._source_label(namespace),
+                    hops=hops,
+                    limit=row_limit,
+                )
+                rows = await self._run_cypher(cypher, {"chunk_ids": ids})
         except TimeoutError:
             logger.warning("chunk_tool_timeout", tool=self.name)
             return ToolResult(detail=f"{self.name} timeout")

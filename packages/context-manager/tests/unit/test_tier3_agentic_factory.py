@@ -181,7 +181,7 @@ class TestFullRegistration:
         monkeypatch.setenv("GRAPHRAG_S3_VECTOR_BUCKET", "vb")
         names = build_tool_registry(make_config(), make_clients()).names()
         assert len([n for n in names if n.startswith("strategy:")]) == 8, names
-        assert GRAPH_TOOL not in names  # Cypher templates still need Neptune on this path
+        assert GRAPH_TOOL in names  # the templates run as SQL on the Aurora document graph (FEAT-003)
 
     def test_chunk_window_registered_when_enabled(self, monkeypatch):
         """AGENTIC_ENABLE_CHUNK_WINDOW=1 + neptune → chunk_window is registered."""

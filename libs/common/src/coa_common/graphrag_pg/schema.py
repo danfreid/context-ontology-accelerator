@@ -53,6 +53,11 @@ def ddl(schema: str = "lg") -> list[str]:
         "WHERE label = '__Entity__'",
         f"CREATE INDEX IF NOT EXISTS node_search_str_trgm_idx ON {s}.node USING gin (search_str gin_trgm_ops) "
         "WHERE label = '__Entity__'",
+        # Exact-phrase search over chunk text (phrase_search): tsvector for Latin scripts, trigram for CJK/Thai.
+        f"CREATE INDEX IF NOT EXISTS node_chunk_tsv_idx ON {s}.node USING gin (to_tsvector('simple', value)) "
+        "WHERE label = '__Chunk__'",
+        f"CREATE INDEX IF NOT EXISTS node_chunk_trgm_idx ON {s}.node USING gin (value gin_trgm_ops) "
+        "WHERE label = '__Chunk__'",
     ]
 
 

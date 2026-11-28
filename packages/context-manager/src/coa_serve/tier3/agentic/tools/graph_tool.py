@@ -54,6 +54,7 @@ from hashlib import sha1, sha256
 from typing import Any
 
 import structlog
+from coa_common.constants import ckg_path_enabled
 
 from ....graph_context import (
     MAX_SUPPORTING_STATEMENTS_BYTES,
@@ -82,6 +83,7 @@ from ..templates import (
     URI_EXPANSION,
     normalize_edge_type,
 )
+from ..templates_sql import SQL_TEMPLATES, sql_schema
 from .base import ToolResult
 
 logger = structlog.get_logger(__name__)
@@ -248,6 +250,8 @@ class GraphTraversalTool:
         self._query_timeout_s = query_timeout_s
         self._store: Any = None
         self._store_lock = threading.Lock()
+        # ckg path: the lexical graph lives in Aurora, so the templates run as SQL (see templates_sql).
+        self._ckg = ckg_path_enabled()
 
     def _get_store(self) -> Any:
         """Build (once) and return the toolkit ``GraphStore``; lazy toolkit import.
@@ -267,6 +271,10 @@ class GraphTraversalTool:
 
                 from graphrag_toolkit.lexical_graph.storage import GraphStoreFactory  # lazy
 
+                if self._ckg:
+                    from coa_common.graphrag_pg.store import register as register_aurora_graph_store
+
+                    register_aurora_graph_store()
                 self._store = GraphStoreFactory.for_graph_store(self._graph_store_uri)
                 logger.info("agentic_graph_store_built", uri=self._graph_store_uri)
         return self._store
@@ -335,12 +343,18 @@ class GraphTraversalTool:
                 originals[norm] = term
         if not originals:
             return []
-        cypher = ENTITY_MENTIONS.format(
-            entity_label=self._entity_label(namespace),
-            entity_limit=int(entity_limit),
-            row_limit=int(row_limit),
-        )
-        rows = await self._run_cypher(cypher, {"terms": list(originals), "entity_class": entity_class or ""})
+        params = {"terms": list(originals), "entity_class": entity_class or ""}
+        if self._ckg:
+            rows = await self._run_sql_template(
+                "ENTITY_MENTIONS", namespace, params, entity_limit=int(entity_limit), row_limit=int(row_limit)
+            )
+        else:
+            cypher = ENTITY_MENTIONS.format(
+                entity_label=self._entity_label(namespace),
+                entity_limit=int(entity_limit),
+                row_limit=int(row_limit),
+            )
+            rows = await self._run_cypher(cypher, params)
         out = []
         for row in rows:
             if not isinstance(row, dict):
@@ -360,8 +374,11 @@ class GraphTraversalTool:
         """
         if not isinstance(source_id, str) or not _SOURCE_ID_PATTERN.match(source_id):
             return ""
-        cypher = SOURCE_KEY_LOOKUP.format(source_label=self._format_label(namespace, "__Source__"))
-        rows = await self._run_cypher(cypher, {"source_id": source_id})
+        if self._ckg:
+            rows = await self._run_sql_template("SOURCE_KEY_LOOKUP", namespace, {"source_id": source_id})
+        else:
+            cypher = SOURCE_KEY_LOOKUP.format(source_label=self._format_label(namespace, "__Source__"))
+            rows = await self._run_cypher(cypher, {"source_id": source_id})
         for row in rows:
             key = row.get("key") if isinstance(row, dict) else None
             if isinstance(key, str) and key:
@@ -379,6 +396,25 @@ class GraphTraversalTool:
         store = await self._ensure_store()
         loop = asyncio.get_running_loop()
         fut = loop.run_in_executor(_EXECUTOR, lambda: store.execute_query_with_retry(cypher, params))
+        rows = await asyncio.wait_for(asyncio.shield(fut), timeout=self._query_timeout_s)
+        return list(rows or [])
+
+    async def _run_sql_template(self, name: str, namespace: str, params: dict, **fmt: int) -> list[dict]:
+        """Run the SQL variant ``name`` of a template on the Aurora document graph (ckg path).
+
+        ``tenant`` is added as a bound parameter; only the validated schema name and the clamped integers in
+        ``fmt`` are formatted into the text. Runs on the bounded worker pool under the query timeout, like
+        :meth:`_run_cypher`.
+        """
+        store = await self._ensure_store()
+        from coa_common.graphrag_pg.store import split_label
+
+        parts = split_label(self._format_label(namespace, "__Source__").strip("`"))
+        tenant = parts[1] if parts else ""
+        sql = SQL_TEMPLATES[name].format(schema=sql_schema(store.schema_name), **fmt)
+        bound = {**params, "tenant": tenant}
+        loop = asyncio.get_running_loop()
+        fut = loop.run_in_executor(_EXECUTOR, lambda: store.client.execute(sql, bound))
         rows = await asyncio.wait_for(asyncio.shield(fut), timeout=self._query_timeout_s)
         return list(rows or [])
 
@@ -465,9 +501,22 @@ class GraphTraversalTool:
         probes = list(dict.fromkeys(terms + containers))
         if not probes:
             return ToolResult(detail=f"{self.name}[keyword]: no usable terms in query")
-        template = KEYWORD_ENTITY_SEARCH_WITH_CONTAINERS if containers else KEYWORD_ENTITY_SEARCH
-        cypher = template.format(entity_label=self._entity_label(namespace), limit=validated_limit)
-        rows = await self._run_cypher(cypher, {"probes": probes, "terms": terms, "containers": containers})
+        if self._ckg:
+            if containers:
+                rows = await self._run_sql_template(
+                    "KEYWORD_ENTITY_SEARCH_WITH_CONTAINERS",
+                    namespace,
+                    {"terms": terms, "containers": containers},
+                    limit=validated_limit,
+                )
+            else:
+                rows = await self._run_sql_template(
+                    "KEYWORD_ENTITY_SEARCH", namespace, {"terms": terms}, limit=validated_limit
+                )
+        else:
+            template = KEYWORD_ENTITY_SEARCH_WITH_CONTAINERS if containers else KEYWORD_ENTITY_SEARCH
+            cypher = template.format(entity_label=self._entity_label(namespace), limit=validated_limit)
+            rows = await self._run_cypher(cypher, {"probes": probes, "terms": terms, "containers": containers})
         entities = [
             GraphEntity(uri=row.get("uri", ""), label=row.get("label", ""), type=row.get("class", ""))
             for row in rows
@@ -489,8 +538,13 @@ class GraphTraversalTool:
                     f"{self.name}[uris]: entity count {len(entity_ids)} out of bounds [{MIN_ENTITIES}, {MAX_ENTITIES}]"
                 )
             )
-        cypher = URI_EXPANSION.format(entity_label=self._entity_label(namespace), limit=validated_limit)
-        rows = await self._run_cypher(cypher, {"entity_ids": entity_ids})
+        if self._ckg:
+            rows = await self._run_sql_template(
+                "URI_EXPANSION", namespace, {"entity_ids": entity_ids}, limit=validated_limit
+            )
+        else:
+            cypher = URI_EXPANSION.format(entity_label=self._entity_label(namespace), limit=validated_limit)
+            rows = await self._run_cypher(cypher, {"entity_ids": entity_ids})
         entities = self._connected_entities(rows, namespace)
         return self._entities_result(entities, f"{self.name}[uris]: {len(entities)} connected entities")
 
@@ -519,8 +573,13 @@ class GraphTraversalTool:
                     f"{self.name}[edge_types]: entity count {len(ids)} out of bounds [{MIN_ENTITIES}, {MAX_ENTITIES}]"
                 )
             )
-        cypher = ENTITY_EDGE_TYPES.format(entity_label=self._entity_label(namespace), limit=validated_limit)
-        rows = await self._run_cypher(cypher, {"entity_ids": ids})
+        if self._ckg:
+            rows = await self._run_sql_template(
+                "ENTITY_EDGE_TYPES", namespace, {"entity_ids": ids}, limit=validated_limit
+            )
+        else:
+            cypher = ENTITY_EDGE_TYPES.format(entity_label=self._entity_label(namespace), limit=validated_limit)
+            rows = await self._run_cypher(cypher, {"entity_ids": ids})
         items = tuple(
             {"type": "edge_type", "edge": row.get("edge", ""), "freq": row.get("freq", 0)}
             for row in rows
@@ -570,14 +629,17 @@ class GraphTraversalTool:
         # Normalize requested edge types to match stored r.value.
         edge_types_norm = sorted({normalize_edge_type(e) for e in edge_types})
 
-        cypher = EDGE_TYPED_TRAVERSAL.format(
-            entity_label=self._entity_label(namespace),
-            limit=validated_limit,
-        )
-        relationship_rows = await self._run_cypher(
-            cypher,
-            {"entity_ids": entity_ids, "edge_types_norm": edge_types_norm},
-        )
+        edge_params = {"entity_ids": entity_ids, "edge_types_norm": edge_types_norm}
+        if self._ckg:
+            relationship_rows = await self._run_sql_template(
+                "EDGE_TYPED_TRAVERSAL", namespace, edge_params, limit=validated_limit
+            )
+        else:
+            cypher = EDGE_TYPED_TRAVERSAL.format(
+                entity_label=self._entity_label(namespace),
+                limit=validated_limit,
+            )
+            relationship_rows = await self._run_cypher(cypher, edge_params)
         connected_ids = list(
             dict.fromkeys(
                 connected
@@ -589,13 +651,21 @@ class GraphTraversalTool:
         text_rows: list[dict] = []
         text_degraded_reason = ""
         if connected_ids:
-            text_cypher = CONNECTED_TEXT_RETRIEVAL.format(
-                entity_label=self._entity_label(namespace),
-                statement_label=self._statement_label(namespace),
-                limit=CONNECTED_TEXT_QUERY_LIMIT,
-            )
             try:
-                text_rows = await self._run_cypher(text_cypher, {"connected_ids": connected_ids})
+                if self._ckg:
+                    text_rows = await self._run_sql_template(
+                        "CONNECTED_TEXT_RETRIEVAL",
+                        namespace,
+                        {"connected_ids": connected_ids},
+                        limit=CONNECTED_TEXT_QUERY_LIMIT,
+                    )
+                else:
+                    text_cypher = CONNECTED_TEXT_RETRIEVAL.format(
+                        entity_label=self._entity_label(namespace),
+                        statement_label=self._statement_label(namespace),
+                        limit=CONNECTED_TEXT_QUERY_LIMIT,
+                    )
+                    text_rows = await self._run_cypher(text_cypher, {"connected_ids": connected_ids})
             except TimeoutError:
                 logger.warning(
                     "graph_tool_connected_text_timeout",

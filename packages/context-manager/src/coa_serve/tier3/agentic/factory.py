@@ -38,6 +38,7 @@ from collections.abc import Callable
 from typing import TYPE_CHECKING, Any
 
 import structlog
+from coa_common.constants import ckg_path_enabled, graphrag_aurora_graph_uri
 
 from ...clients.factory import _graph_store_uri, build_lexical_retriever
 from ..vector_retriever import VectorRetriever
@@ -178,9 +179,10 @@ def build_tool_registry(
             reason="required Knowledge_Graph endpoints unconfigured",
         )
 
-    # ── Graph_Traversal_Tool — neptune ───────────────────────
-    if has_neptune:
-        build_graph_tool(registry, _graph_store_uri(config.neptune_endpoint))
+    # ── Graph_Traversal_Tool — neptune (or the Aurora document graph on the ckg path) ──
+    ckg = ckg_path_enabled()
+    if has_neptune or ckg:
+        build_graph_tool(registry, graphrag_aurora_graph_uri() if ckg else _graph_store_uri(config.neptune_endpoint))
     else:
         logger.warning(
             "agentic_tool_omitted",
@@ -192,9 +194,11 @@ def build_tool_registry(
     # ── Chunk_Expansion_Tool — neptune + opt-in flag (DISABLED by default) ──
     # Chunk-window expansion did not improve accuracy in benchmarks, so it is off by
     # default. Set AGENTIC_ENABLE_CHUNK_WINDOW=1 to enable it.
-    if has_neptune and os.getenv("AGENTIC_ENABLE_CHUNK_WINDOW", "") == "1":
-        build_chunk_expansion_tool(registry, _graph_store_uri(config.neptune_endpoint))
-    elif has_neptune:
+    if (has_neptune or ckg) and os.getenv("AGENTIC_ENABLE_CHUNK_WINDOW", "") == "1":
+        build_chunk_expansion_tool(
+            registry, graphrag_aurora_graph_uri() if ckg else _graph_store_uri(config.neptune_endpoint)
+        )
+    elif has_neptune or ckg:
         logger.info(
             "agentic_tool_disabled",
             tool="chunk_window",
@@ -202,11 +206,11 @@ def build_tool_registry(
         )
 
     # ── Vector_Search_Tool — opensearch + embed client ───────
-    if has_opensearch and embed_client is not None:
+    if (has_opensearch or ckg) and embed_client is not None:
         vr = vector_retriever if vector_retriever is not None else VectorRetriever(clients.vector)
         build_vector_tool(registry, vr, embed_client)
     else:
-        missing = [] if has_opensearch else ["opensearch_endpoint"]
+        missing = [] if (has_opensearch or ckg) else ["opensearch_endpoint"]
         if embed_client is None:
             missing.append("embed_client")
         logger.warning(
@@ -254,7 +258,7 @@ def build_tool_registry(
             registry,
             sources_registry,
             graph_tool=graph_tool,
-            vector_client=clients.vector if has_opensearch else None,
+            vector_client=clients.vector if (has_opensearch or ckg) else None,
             chunk_index_for=graphrag_chunk_index_name,
         )
     else:

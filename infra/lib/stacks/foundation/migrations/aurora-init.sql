@@ -230,7 +230,11 @@ CREATE INDEX IF NOT EXISTS edge_dst_idx ON lg.edge (type, dst, src);
 CREATE INDEX IF NOT EXISTS edge_mentioned_in_dst_idx ON lg.edge (dst, src) WHERE type = '__MENTIONED_IN__';
 CREATE INDEX IF NOT EXISTS node_label_idx ON lg.node (label, tenant);
 CREATE INDEX IF NOT EXISTS node_search_str_idx ON lg.node (tenant, search_str text_pattern_ops) WHERE label = '__Entity__';
-CREATE INDEX IF NOT EXISTS node_search_str_trgm_idx ON lg.node USING gin (search_str gin_trgm_ops) WHERE label = '__Entity__';-- ── Search roles (least privilege) ─────────────────────────────────────────
+CREATE INDEX IF NOT EXISTS node_search_str_trgm_idx ON lg.node USING gin (search_str gin_trgm_ops) WHERE label = '__Entity__';
+CREATE INDEX IF NOT EXISTS node_chunk_tsv_idx ON lg.node USING gin (to_tsvector('simple', value)) WHERE label = '__Chunk__';
+CREATE INDEX IF NOT EXISTS node_chunk_trgm_idx ON lg.node USING gin (value gin_trgm_ops) WHERE label = '__Chunk__';
+
+-- ── Search roles (least privilege) ─────────────────────────────────────────
 -- coa_search_rw: ingest, metric API, import worker, ontology, namespace deletion.
 -- coa_search_ro: serve (read-only search).
 -- coa_engine_rw: ontology engine (triples, metadata mirror) and namespace deletion. Member of coa_search_rw,

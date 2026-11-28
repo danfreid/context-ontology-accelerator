@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import contextlib
 import logging
+import os
 import uuid
 from datetime import UTC, datetime
 from threading import Event, Thread
@@ -231,6 +232,15 @@ def _build_lexical_store(graph_arn: str, region: str, app_config: dict, namespac
     from coa_common import to_graphrag_tenant_id
 
     tenant_id = to_graphrag_tenant_id(namespace) if namespace else ""
+
+    # Aurora document graph: the lexical graph lives in Aurora, not Neptune (GRAPH_BACKEND=aurora).
+    if os.environ.get("GRAPH_BACKEND", "").strip().lower() == "aurora":
+        from coa_common.constants import GRAPHRAG_AURORA_SCHEMA_ENV
+
+        from coa_ontology.inducer.unstructured.stores.pg_lexical import AuroraLexicalStore
+
+        schema = os.environ.get(GRAPHRAG_AURORA_SCHEMA_ENV, "").strip() or "lg"
+        return AuroraLexicalStore(schema=schema, tenant_id=tenant_id)
 
     # Strict ARN validation — only accept canonical Neptune Analytics ARN format
     _VALID_ARN_PREFIX = "arn:aws:neptune-graph:"
