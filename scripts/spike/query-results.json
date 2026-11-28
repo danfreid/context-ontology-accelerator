@@ -1,0 +1,2435 @@
+[
+  {
+    "i": 1,
+    "question": "What is the payment term for invoices under the NewCo and Shell master physical trading agreement?",
+    "seconds": 3.12,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 23,
+        "top_statements": [
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice.",
+          "Payment is made in USD."
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 24,
+        "top_statements": [
+          "[The agreement is a Master Physical Trading Agreement.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]",
+          "[The agreement is described as round 1.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 20,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The document is a late payment interest invoice.]",
+          "[The invoice is billed to Shell Trading International Ltd.]",
+          "[The invoice is issued by NewCo Trading London Limited.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]",
+          "[The single net amount resulting from close-out netting is payable by one party under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited.]",
+          "[NewCo Derivatives New York, Inc. is a party to the ISDA Schedule.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The margin call is issued to Shell Trading International Ltd.]",
+          "[Shell Trading International Ltd is a named entity.]",
+          "[The document type is a margin call.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The agreement governing trade NC-LON-26-0201 is the NewCo / Shell Master Purchase and Trade Agreement.]",
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]",
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]",
+          "[NewCo Derivatives New York, Inc. is a party to the ISDA Schedule.]",
+          "[The ISDA Schedule is between NewCo Derivatives New York, Inc. and Glencore Limited.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The booking entity in the credit approval memo is NewCo Derivatives New York, Inc.]",
+          "[The parent guarantee amount for Glencore Ltd. is USD 0.]",
+          "[NewCo Derivatives New York, Inc. is a named entity in the credit approval memo.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 6,
+        "top_statements": [
+          "[A qualification exists that enforceability of close-out netting is not covered where a party is a bank branch in an unlisted state.]",
+          "[The conclusion of the netting opinion is that close-out netting is enforceable, subject to qualifications.]",
+          "[A qualification exists that netting of collateral is excluded in a bankruptcy of the counterparty's guarantor.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 2,
+    "question": "What interest rate applies to late payments in the Shell agreement?",
+    "seconds": 1.33,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The interest rate applied is 2.5% per year.]",
+          "[The document is a late payment interest invoice.]",
+          "[The invoice is billed to Shell Trading International Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 20,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 24,
+        "top_statements": [
+          "[The agreement is a Master Physical Trading Agreement.]",
+          "[The agreement is described as round 1.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 23,
+        "top_statements": [
+          "Payment is made to the account the Seller names on the invoice.",
+          "An overdue amount bears interest at 4% a year above the Seller's cost of funds.",
+          "Payment is made in USD."
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The margin call is issued to Shell Trading International Ltd.]",
+          "[Shell Trading International Ltd is a named entity.]",
+          "[The valuation date of the margin call is 2026-10-30.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 8,
+        "top_statements": [
+          "[The agreement governing trade NC-LON-26-0201 is the NewCo / Shell Master Purchase and Trade Agreement.]",
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]",
+          "[Shell Trading International Ltd is a company.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 6,
+        "top_statements": [
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]",
+          "[The ISDA Schedule and any dispute arising from the ISDA Schedule are governed by the law of the State of New York.]",
+          "[Open transactions run to completion upon termination of the ISDA Schedule.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The counterparty in the credit approval memo is Glencore Ltd.]",
+          "[Glencore Ltd. is a named entity in the credit approval memo.]",
+          "[NewCo Derivatives New York, Inc. is a named entity in the credit approval memo.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Any dispute arising from the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited is governed by the law of the State of New York.]",
+          "[The single net amount resulting from close-out netting is payable by one party under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited.]",
+          "[The ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited is governed by the law of the State of New York.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 5,
+        "top_statements": [
+          "[A qualification exists that netting of collateral is excluded in a bankruptcy of the counterparty's guarantor.]",
+          "[A qualification exists that enforceability of close-out netting is not covered where a party is a bank branch in an unlisted state.]",
+          "[The conclusion of the netting opinion is that close-out netting is enforceable, subject to qualifications.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 3,
+    "question": "What is the credit support threshold in the legal-reviewed NewCo Shell terms?",
+    "seconds": 1.33,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 19,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[Each party's threshold is USD 7,500,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 22,
+        "top_statements": [
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice.",
+          "Payment is made in USD."
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 23,
+        "top_statements": [
+          "[Shell Trading International Ltd is a company.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]",
+          "[NewCo Trading London Limited is a company.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[A condition of the credit approval for Glencore Ltd. is the execution of an International Swaps and Derivatives Association Schedule and Credit Support Annex.]",
+          "[Glencore Ltd. is a named entity in the credit approval memo.]",
+          "[NewCo Derivatives New York, Inc. is a named entity in the credit approval memo.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The threshold amount is 7,500,000 USD.]",
+          "[The amount called of 2,312,400.00 USD represents the exposure of 9,812,400.00 USD minus the threshold of 7,500,000 USD.]",
+          "[The margin call is issued to Shell Trading International Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]",
+          "[The ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited is governed by the law of the State of New York.]",
+          "[Upon termination of the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, open transactions run to completion.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]",
+          "[NewCo Derivatives New York, Inc. is a party to the ISDA Schedule.]",
+          "[Open transactions run to completion upon termination of the ISDA Schedule.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]",
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]",
+          "[The agreement governing trade NC-LON-26-0201 is the NewCo / Shell Master Purchase and Trade Agreement.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[The counterparty in the netting opinion is Glencore Ltd.]",
+          "[A qualification exists that netting of collateral is excluded in a bankruptcy of the counterparty's guarantor.]",
+          "[The conclusion of the netting opinion is that close-out netting is enforceable, subject to qualifications.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The invoice is billed to Shell Trading International Ltd.]",
+          "[Shell Trading International Ltd is a trading company.]",
+          "[The invoice is issued by NewCo Trading London Limited.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 4,
+    "question": "Which law governs the ISDA schedule between NewCo Derivatives New York and Glencore?",
+    "seconds": 1.25,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The ISDA Schedule is between NewCo Derivatives New York, Inc. and Glencore Limited.]",
+          "[The ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited is governed by the law of the State of New York.]",
+          "[The ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited is round 1.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The ISDA Schedule is between NewCo Derivatives New York, Inc. and Glencore Limited.]",
+          "[NewCo Derivatives New York, Inc. is a party to the ISDA Schedule.]",
+          "[The ISDA Schedule and any dispute arising from the ISDA Schedule are governed by the law of the State of New York.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The booking entity in the credit approval memo is NewCo Derivatives New York, Inc.]",
+          "[NewCo Derivatives New York, Inc. is a named entity in the credit approval memo.]",
+          "[The parent guarantee amount for Glencore Ltd. is USD 0.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 16,
+        "top_statements": [
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]",
+          "[NewCo Trading London Limited is a company.]",
+          "[The agreement is described as round 1.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 18,
+        "top_statements": [
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice.",
+          "Payment is made to the account the Seller names on the invoice.",
+          "Interest on an overdue amount accrues until the overdue amount is paid."
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing",
+          "Early Termination and Netting"
+        ],
+        "n_statements": 16,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[Any dispute arising from this agreement is governed by the law of England and Wales.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[The counterparty in the netting opinion is Glencore Ltd.]",
+          "[Glencore Ltd. is a counterparty.]",
+          "[The counterparty's guarantor refers to the guarantor of Glencore Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 6,
+        "top_statements": [
+          "[The agreement governing trade NC-LON-26-0201 is the NewCo / Shell Master Purchase and Trade Agreement.]",
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]",
+          "[NewCo Trading London Limited is a company.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 4,
+        "top_statements": [
+          "[The principal amount on which interest is calculated is USD 9,720,608.25.]",
+          "[The invoice is issued by NewCo Trading London Limited.]",
+          "[The bank account number is 19276547.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 5,
+    "question": "What is the cross default threshold in the Glencore ISDA schedule?",
+    "seconds": 1.34,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[A default on borrowed money above USD 25,000,000 by either party is an event of default under the ISDA Schedule.]",
+          "[A default on borrowed money above USD 25,000,000 by either party's guarantor is an event of default under the ISDA Schedule.]",
+          "[Glencore Limited is a party to the ISDA Schedule.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Glencore Limited is a party to the ISDA Schedule.]",
+          "[A default on borrowed money above USD 5,000,000 to USD 10,000,000 by either party is an event of default under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited.]",
+          "[A default on borrowed money above USD 5,000,000 to USD 10,000,000 by either party's guarantor is an event of default under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Delivery Quantity and Pricing",
+          "Early Termination and Netting"
+        ],
+        "n_statements": 16,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[Each party's threshold is USD 7,500,000.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction",
+          "Delivery Terms"
+        ],
+        "n_statements": 18,
+        "top_statements": [
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice.",
+          "Payment is made in USD."
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 17,
+        "top_statements": [
+          "[The agreement is described as round 1.]",
+          "[The Seller may deliver up to 5% less than the contract quantity.]",
+          "[The Seller may deliver up to 5% more than the contract quantity.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The counterparty in the credit approval memo is Glencore Ltd.]",
+          "[Glencore Ltd. is a named entity in the credit approval memo.]",
+          "[The current exposure for Glencore Ltd. is USD 0.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[The counterparty in the netting opinion is Glencore Ltd.]",
+          "[Glencore Ltd. is a counterparty.]",
+          "[The counterparty's guarantor refers to the guarantor of Glencore Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 8,
+        "top_statements": [
+          "[The threshold amount is 7,500,000 USD.]",
+          "[The amount called of 2,312,400.00 USD represents the exposure of 9,812,400.00 USD minus the threshold of 7,500,000 USD.]",
+          "[The document type is a margin call.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The invoice currency is USD.]",
+          "[The total due on the invoice is USD 2,700.17.]",
+          "[The amount for the interest line item is USD 2,700.17.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]",
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]",
+          "[The trade has the trade ID NC-LON-26-0201.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 6,
+    "question": "What is the approved credit limit for Glencore Ltd?",
+    "seconds": 1.33,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The approved credit limit for Glencore Ltd. is USD 20,000,000.]",
+          "[The approved credit limit of USD 20,000,000 for Glencore Ltd. is unsecured.]",
+          "[A condition of the credit approval for Glencore Ltd. is a netting opinion.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Payment Terms",
+          "Governing Law and Jurisdiction",
+          "Credit Support Terms"
+        ],
+        "n_statements": 18,
+        "top_statements": [
+          "[NewCo Trading London Limited is a company.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]",
+          "[The agreement is described as round 1.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction",
+          "Delivery Terms"
+        ],
+        "n_statements": 20,
+        "top_statements": [
+          "Interest on an overdue amount accrues until the overdue amount is paid.",
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice."
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 11,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[Credit support is due only for exposure above USD 7,500,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[Glencore Ltd. is a counterparty.]",
+          "[The counterparty in the netting opinion is Glencore Ltd.]",
+          "[The counterparty's guarantor refers to the guarantor of Glencore Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Glencore Limited is a party to the ISDA Schedule.]",
+          "[The ISDA Schedule is between NewCo Derivatives New York, Inc. and Glencore Limited.]",
+          "[The ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited is governed by the law of the State of New York.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Glencore Limited is a party to the ISDA Schedule.]",
+          "[The ISDA Schedule is between NewCo Derivatives New York, Inc. and Glencore Limited.]",
+          "[The ISDA Schedule and any dispute arising from the ISDA Schedule are governed by the law of the State of New York.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The unit price for the interest line item is USD 2,700.17.]",
+          "[The amount for the interest line item is USD 2,700.17.]",
+          "[NewCo Trading London Limited is a trading company.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 3,
+        "top_statements": [
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]",
+          "[NewCo Trading London Limited is a company.]",
+          "[The agreement governing trade NC-LON-26-0201 is the NewCo / Shell Master Purchase and Trade Agreement.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 3,
+        "top_statements": [
+          "[The margin call is issued to Shell Trading International Ltd.]",
+          "[Shell Trading International Ltd is a named entity.]",
+          "[The exposure amount is 9,812,400.00 USD.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 7,
+    "question": "What qualifications apply to the Glencore netting opinion?",
+    "seconds": 1.36,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[The conclusion of the netting opinion is that close-out netting is enforceable, subject to qualifications.]",
+          "[The document is a netting opinion.]",
+          "[The counterparty in the netting opinion is Glencore Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 19,
+        "top_statements": [
+          "[Shell Trading International Ltd is a company.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]",
+          "[NewCo Trading London Limited is a company.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 22,
+        "top_statements": [
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice.",
+          "Interest on an overdue amount accrues until the overdue amount is paid."
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 12,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[A condition of the credit approval for Glencore Ltd. is a netting opinion.]",
+          "[The counterparty in the credit approval memo is Glencore Ltd.]",
+          "[Glencore Ltd. is a named entity in the credit approval memo.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]",
+          "[Glencore Limited is a party to the ISDA Schedule.]",
+          "[Upon termination of the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, open transactions run to completion.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Glencore Limited is a party to the ISDA Schedule.]",
+          "[Open transactions run to completion upon termination of the ISDA Schedule.]",
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The quantity in trade NC-LON-26-0201 is 25,118.412 metric tonnes on a Bill of Lading basis.]",
+          "[Shell Trading International Ltd is a company.]",
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 9,
+        "top_statements": [
+          "[The invoice is billed to Shell Trading International Ltd.]",
+          "[The quantity for the interest line item is 1.]",
+          "[Shell Trading International Ltd is a trading company.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 5,
+        "top_statements": [
+          "[The margin call is issued to Shell Trading International Ltd.]",
+          "[Shell Trading International Ltd is a named entity.]",
+          "[The valuation date of the margin call is 2026-10-30.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 8,
+    "question": "What was the amount called in the margin call on 2026-10-30?",
+    "seconds": 1.33,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The amount called is 2,312,400.00 USD.]",
+          "[The document type is a margin call.]",
+          "[The valuation date of the margin call is 2026-10-30.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 23,
+        "top_statements": [
+          "Interest on an overdue amount accrues until the overdue amount is paid.",
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice."
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 24,
+        "top_statements": [
+          "[The agreement is described as round 1.]",
+          "[The agreement is a Master Physical Trading Agreement.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 19,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The invoice date is 2026-10-30.]",
+          "[The principal amount on which interest is calculated is USD 9,720,608.25.]",
+          "[The amount for the interest line item is USD 2,700.17.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 9,
+        "top_statements": [
+          "[The Bill of Lading date in trade NC-LON-26-0201 is 2026-10-05.]",
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]",
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 8,
+        "top_statements": [
+          "[The parent guarantee amount for Glencore Ltd. is USD 0.]",
+          "[The counterparty in the credit approval memo is Glencore Ltd.]",
+          "[The confirmed Standby Letter of Credit amount for Glencore Ltd. is USD 0.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 6,
+        "top_statements": [
+          "[A qualification exists that netting of collateral is excluded in a bankruptcy of the counterparty's guarantor.]",
+          "[A qualification exists that enforceability of close-out netting is not covered where a party is a bank branch in an unlisted state.]",
+          "[The conclusion of the netting opinion is that close-out netting is enforceable, subject to qualifications.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 9,
+        "top_statements": [
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]",
+          "[The single net amount resulting from close-out netting is payable by one party under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited.]",
+          "[Upon termination of the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, open transactions run to completion.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 9,
+        "top_statements": [
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]",
+          "[Open transactions run to completion upon termination of the ISDA Schedule.]",
+          "[The ISDA Schedule and any dispute arising from the ISDA Schedule are governed by the law of the State of New York.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 9,
+    "question": "What is the minimum transfer amount for credit support?",
+    "seconds": 1.29,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Delivery Terms"
+        ],
+        "n_statements": 17,
+        "top_statements": [
+          "Interest on an overdue amount accrues until the overdue amount is paid.",
+          "An overdue amount bears interest at 4% a year above the Seller's cost of funds.",
+          "Payment is made to the account the Seller names on the invoice."
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing",
+          "Early Termination and Netting"
+        ],
+        "n_statements": 15,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Credit Support Terms"
+        ],
+        "n_statements": 19,
+        "top_statements": [
+          "[The agreement is a Master Physical Trading Agreement.]",
+          "[The agreement is described as round 1.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 5,
+        "top_statements": [
+          "[The minimum transfer amount is 250,000 USD.]",
+          "[The amount called of 2,312,400.00 USD represents the exposure of 9,812,400.00 USD minus the threshold of 7,500,000 USD.]",
+          "[The threshold amount is 7,500,000 USD.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[A condition of the credit approval for Glencore Ltd. is the execution of an International Swaps and Derivatives Association Schedule and Credit Support Annex.]",
+          "[The confirmed Standby Letter of Credit amount for Glencore Ltd. is USD 0.]",
+          "[The parent guarantee amount for Glencore Ltd. is USD 0.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 2,
+        "top_statements": [
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]",
+          "[Open transactions run to completion upon termination of the ISDA Schedule.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 3,
+        "top_statements": [
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]",
+          "[Upon termination of the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, open transactions run to completion.]",
+          "[The single net amount resulting from close-out netting is payable by one party under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[The counterparty's guarantor refers to the guarantor of Glencore Ltd.]",
+          "[The conclusion of the netting opinion is that close-out netting is enforceable, subject to qualifications.]",
+          "[The counterparty in the netting opinion is Glencore Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The amount for the interest line item is USD 2,700.17.]",
+          "[The principal amount on which interest is calculated is USD 9,720,608.25.]",
+          "[The unit price for the interest line item is USD 2,700.17.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 4,
+        "top_statements": [
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]",
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]",
+          "[The agreement governing trade NC-LON-26-0201 is the NewCo / Shell Master Purchase and Trade Agreement.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 10,
+    "question": "How much notice is needed to end or renew the Shell agreement term?",
+    "seconds": 1.43,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 24,
+        "top_statements": [
+          "[The agreement is a Master Physical Trading Agreement.]",
+          "[The agreement is described as round 1.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 20,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 23,
+        "top_statements": [
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice.",
+          "Payment is made in USD."
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Either party may end the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited on 30 days' written notice.]",
+          "[NewCo Derivatives New York, Inc. is a party to the ISDA Schedule.]",
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Either party may end the ISDA Schedule on 30 days' written notice.]",
+          "[NewCo Derivatives New York, Inc. is a party to the ISDA Schedule.]",
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The margin call is issued to Shell Trading International Ltd.]",
+          "[Shell Trading International Ltd is a named entity.]",
+          "[The source document is associated with the spike/l1-london-shell-mpta/ file path.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The invoice is billed to Shell Trading International Ltd.]",
+          "[The invoice currency is USD.]",
+          "[The invoice is issued by NewCo Trading London Limited.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 9,
+        "top_statements": [
+          "[The agreement governing trade NC-LON-26-0201 is the NewCo / Shell Master Purchase and Trade Agreement.]",
+          "[Shell Trading International Ltd is a company.]",
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 6,
+        "top_statements": [
+          "[A qualification exists that enforceability of close-out netting is not covered where a party is a bank branch in an unlisted state.]",
+          "[The counterparty's guarantor refers to the guarantor of Glencore Ltd.]",
+          "[A qualification exists that netting of collateral is excluded in a bankruptcy of the counterparty's guarantor.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The booking entity in the credit approval memo is NewCo Derivatives New York, Inc.]",
+          "[The parent guarantee amount for Glencore Ltd. is USD 0.]",
+          "[The current exposure for Glencore Ltd. is USD 0.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 11,
+    "question": "Which product and quantity are in trade NC-LON-26-0201?",
+    "seconds": 1.59,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The product in trade NC-LON-26-0201 is Gasoil 0.1%.]",
+          "[The quantity in trade NC-LON-26-0201 is 25,118.412 metric tonnes on a Bill of Lading basis.]",
+          "[The trade has the trade ID NC-LON-26-0201.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Delivery Quantity and Pricing",
+          "Early Termination and Netting"
+        ],
+        "n_statements": 12,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 20,
+        "top_statements": [
+          "Payment is made in USD.",
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice."
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 19,
+        "top_statements": [
+          "[NewCo Trading London Limited is a company.]",
+          "[Shell Trading International Ltd is a company.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The trade identifier is NC-LON-26-0201.]",
+          "[The quantity for the interest line item is 1.]",
+          "[The principal amount on which interest is calculated is USD 9,720,608.25.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Glencore Ltd. is a named entity in the credit approval memo.]",
+          "[The booking entity in the credit approval memo is NewCo Derivatives New York, Inc.]",
+          "[The parent guarantee amount for Glencore Ltd. is USD 0.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]",
+          "[The ISDA Schedule and any dispute arising from the ISDA Schedule are governed by the law of the State of New York.]",
+          "[Open transactions run to completion upon termination of the ISDA Schedule.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 5,
+        "top_statements": [
+          "[A qualification exists that enforceability of close-out netting is not covered where a party is a bank branch in an unlisted state.]",
+          "[The conclusion of the netting opinion is that close-out netting is enforceable, subject to qualifications.]",
+          "[The counterparty in the netting opinion is Glencore Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 5,
+        "top_statements": [
+          "[Shell Trading International Ltd is a named entity.]",
+          "[The margin call is issued to Shell Trading International Ltd.]",
+          "[The document type is a margin call.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Upon termination of the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, open transactions run to completion.]",
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]",
+          "[The single net amount resulting from close-out netting is payable by one party under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 12,
+    "question": "Who is the buyer and who is the seller in trade confirmation NC-LON-26-0201?",
+    "seconds": 1.3,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]",
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]",
+          "[The trade has the trade ID NC-LON-26-0201.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 18,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 21,
+        "top_statements": [
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]",
+          "[Shell Trading International Ltd is a company.]",
+          "[NewCo Trading London Limited is a company.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 22,
+        "top_statements": [
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice.",
+          "An overdue amount bears interest at 4% a year above the Seller's cost of funds."
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 5,
+        "top_statements": [
+          "[A qualification exists that enforceability of close-out netting is not covered where a party is a bank branch in an unlisted state.]",
+          "[The conclusion of the netting opinion is that close-out netting is enforceable, subject to qualifications.]",
+          "[A qualification exists that netting of collateral is excluded in a bankruptcy of the counterparty's guarantor.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[A condition of the credit approval for Glencore Ltd. is the execution of an International Swaps and Derivatives Association Schedule and Credit Support Annex.]",
+          "[The counterparty in the credit approval memo is Glencore Ltd.]",
+          "[The confirmed Standby Letter of Credit amount for Glencore Ltd. is USD 0.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Upon termination of the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, open transactions run to completion.]",
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]",
+          "[The courts of New York County have jurisdiction over the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The trade identifier is NC-LON-26-0201.]",
+          "[The invoice is billed to Shell Trading International Ltd.]",
+          "[Shell Trading International Ltd is a trading company.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The minimum transfer amount is 250,000 USD.]",
+          "[The margin call is issued to Shell Trading International Ltd.]",
+          "[The valuation date of the margin call is 2026-10-30.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Open transactions run to completion upon termination of the ISDA Schedule.]",
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]",
+          "[Glencore Limited is a party to the ISDA Schedule.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 13,
+    "question": "What conditions attach to the Glencore credit approval?",
+    "seconds": 1.32,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[A condition of the credit approval for Glencore Ltd. is a netting opinion.]",
+          "[A condition of the credit approval for Glencore Ltd. is the execution of an International Swaps and Derivatives Association Schedule and Credit Support Annex.]",
+          "[Glencore Ltd. is a named entity in the credit approval memo.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 18,
+        "top_statements": [
+          "[NewCo Trading London Limited is a company.]",
+          "[Shell Trading International Ltd is a company.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Delivery Quantity and Pricing",
+          "Early Termination and Netting"
+        ],
+        "n_statements": 14,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[Each party's threshold is USD 7,500,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 21,
+        "top_statements": [
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice.",
+          "Payment is made in USD."
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[Glencore Ltd. is a counterparty.]",
+          "[The counterparty in the netting opinion is Glencore Ltd.]",
+          "[The counterparty's guarantor refers to the guarantor of Glencore Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Glencore Limited is a party to the ISDA Schedule.]",
+          "[Upon termination of the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, open transactions run to completion.]",
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Glencore Limited is a party to the ISDA Schedule.]",
+          "[Open transactions run to completion upon termination of the ISDA Schedule.]",
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[NewCo Trading London Limited is a company.]",
+          "[The document is a trade confirmation.]",
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 5,
+        "top_statements": [
+          "[The source document is associated with the spike/l1-london-shell-mpta/ file path.]",
+          "[The margin call is issued to Shell Trading International Ltd.]",
+          "[The valuation date of the margin call is 2026-10-30.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 6,
+        "top_statements": [
+          "[The interest is calculated over 4 days using an actual/360 day count convention.]",
+          "[NewCo Trading London Limited is a trading company.]",
+          "[The invoice is billed to Shell Trading International Ltd.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 14,
+    "question": "How is close-out netting calculated under the ISDA schedule?",
+    "seconds": 1.42,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The single net amount resulting from close-out netting is payable by one party under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited.]",
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]",
+          "[Glencore Limited is a party to the ISDA Schedule.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The ISDA Schedule is in round 2.]",
+          "[The ISDA Schedule and any dispute arising from the ISDA Schedule are governed by the law of the State of New York.]",
+          "[Glencore Limited is a party to the ISDA Schedule.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[The conclusion of the netting opinion is that close-out netting is enforceable, subject to qualifications.]",
+          "[A qualification exists that enforceability of close-out netting is not covered where a party is a bank branch in an unlisted state.]",
+          "[The document is a netting opinion.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 20,
+        "top_statements": [
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice.",
+          "An overdue amount bears interest at 4% a year above the Seller's cost of funds."
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 15,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[Each party's threshold is USD 7,500,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 21,
+        "top_statements": [
+          "[The agreement is described as round 1.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]",
+          "[NewCo Trading London Limited is a company.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The invoice line item description is interest on USD 9,720,608.25 at 2.5% per year for 4 days calculated on an actual/360 basis.]",
+          "[The principal amount on which interest is calculated is USD 9,720,608.25.]",
+          "[The interest is calculated over 4 days using an actual/360 day count convention.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The document type is a margin call.]",
+          "[The amount called is 2,312,400.00 USD.]",
+          "[The margin call is issued to Shell Trading International Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 6,
+        "top_statements": [
+          "[A condition of the credit approval for Glencore Ltd. is a netting opinion.]",
+          "[A condition of the credit approval for Glencore Ltd. is the execution of an International Swaps and Derivatives Association Schedule and Credit Support Annex.]",
+          "[The booking entity in the credit approval memo is NewCo Derivatives New York, Inc.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]",
+          "[The Bill of Lading date in trade NC-LON-26-0201 is 2026-10-05.]",
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 15,
+    "question": "How much late payment interest was invoiced and on what principal amount?",
+    "seconds": 1.55,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The principal amount on which interest is calculated is USD 9,720,608.25.]",
+          "[The document is a late payment interest invoice.]",
+          "[The unit price for the interest line item is USD 2,700.17.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 21,
+        "top_statements": [
+          "[The agreement is described as round 1.]",
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]",
+          "[The agreement is a Master Physical Trading Agreement.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 18,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 20,
+        "top_statements": [
+          "Interest on an overdue amount accrues until the overdue amount is paid.",
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice."
+        ]
+      },
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The threshold amount is 7,500,000 USD.]",
+          "[The amount called of 2,312,400.00 USD represents the exposure of 9,812,400.00 USD minus the threshold of 7,500,000 USD.]",
+          "[The amount called is 2,312,400.00 USD.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The single net amount resulting from close-out netting is payable by one party under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited.]",
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]",
+          "[Either party may end the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited on 30 days' written notice.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 5,
+        "top_statements": [
+          "[A qualification exists that enforceability of close-out netting is not covered where a party is a bank branch in an unlisted state.]",
+          "[A qualification exists that netting of collateral is excluded in a bankruptcy of the counterparty's guarantor.]",
+          "[The counterparty's guarantor refers to the guarantor of Glencore Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The parent guarantee amount for Glencore Ltd. is USD 0.]",
+          "[The confirmed Standby Letter of Credit amount for Glencore Ltd. is USD 0.]",
+          "[A condition of the credit approval for Glencore Ltd. is the execution of an International Swaps and Derivatives Association Schedule and Credit Support Annex.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]",
+          "[The ISDA Schedule is in round 2.]",
+          "[The ISDA Schedule and any dispute arising from the ISDA Schedule are governed by the law of the State of New York.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[The price in trade NC-LON-26-0201 is USD 712.400 per metric tonne.]",
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]",
+          "[The product in trade NC-LON-26-0201 is Gasoil 0.1%.]"
+        ]
+      }
+    ]
+  },
+  {
+    "i": 16,
+    "question": "What is the valuation time for the Glencore margin call process?",
+    "seconds": 1.36,
+    "error": "",
+    "results": [
+      {
+        "score": null,
+        "source": "025-margin-call-2026-10-30.pdf",
+        "topics": [
+          "Margin Call Details Shell Trading International Ltd \u2013 2026-10-30"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The valuation date of the margin call is 2026-10-30.]",
+          "[The document type is a margin call.]",
+          "[The margin call is issued to Shell Trading International Ltd.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "008-glencore-ltd-credit-memo.pdf",
+        "topics": [
+          "Credit Approval Memo Glencore Ltd. and NewCo Derivatives New York, Inc"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The counterparty in the credit approval memo is Glencore Ltd.]",
+          "[The current exposure for Glencore Ltd. is USD 0.]",
+          "[Glencore Ltd. is a named entity in the credit approval memo.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "001-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Payment Terms",
+          "Early Termination and Netting",
+          "Credit Support Thresholds and Transfer Minimums",
+          "Master Physical Trading Agreement between NewCo Trading London Limited and Shell Trading International Ltd",
+          "Governing Law of the Master Physical Trading Agreement",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 21,
+        "top_statements": [
+          "Payment is made to the account the Seller names on the invoice.",
+          "The Buyer pays each invoice in full within 30 days after the Buyer receives the invoice.",
+          "Payment is made in USD."
+        ]
+      },
+      {
+        "score": null,
+        "source": "002-MPTA_NewCo_Shell.docx",
+        "topics": [
+          "Master Physical Trading Agreement NewCo Trading London Limited and Shell Trading International Ltd (Round 1) Key Terms",
+          "Delivery Terms",
+          "Agreement Term and Renewal",
+          "Early Termination and Netting",
+          "Payment Terms",
+          "Governing Law and Jurisdiction"
+        ],
+        "n_statements": 24,
+        "top_statements": [
+          "[The agreement is between NewCo Trading London Limited and Shell Trading International Ltd.]",
+          "[The agreement is a Master Physical Trading Agreement.]",
+          "[The agreement is described as round 1.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "016-glencore-netting-opinion.pdf",
+        "topics": [
+          "Glencore Ltd. Netting Opinion Key Details"
+        ],
+        "n_statements": 7,
+        "top_statements": [
+          "[The counterparty in the netting opinion is Glencore Ltd.]",
+          "[The counterparty's guarantor refers to the guarantor of Glencore Ltd.]",
+          "[Glencore Ltd. is a counterparty.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-mpta-legal-review.pdf",
+        "topics": [
+          "Agreement Term and Renewal",
+          "Credit Support and Thresholds",
+          "Governing Law and Jurisdiction",
+          "Payment Terms",
+          "Legal Review of NewCo / Shell Master Petroleum Trading Agreement (MPTA) \u2013 Final Negotiated Terms",
+          "Delivery Quantity and Pricing"
+        ],
+        "n_statements": 16,
+        "top_statements": [
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) renews for further periods of 12 months unless a party gives notice at least 45 days before a term ends.]",
+          "[The NewCo / Shell Master Petroleum Trading Agreement (MPTA) runs for 12 months from the date the agreement is signed by both parties.]",
+          "[No transfer of credit support is made unless the transfer is at least USD 250,000.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "011-isda-schedule-round-1.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 1)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[On an early termination under the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, every transaction under the agreement is valued and netted into a single net amount.]",
+          "[Glencore Limited is a party to the ISDA Schedule.]",
+          "[Upon termination of the ISDA Schedule between NewCo Derivatives New York, Inc. and Glencore Limited, open transactions run to completion.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "012-isda-schedule-round-2.docx",
+        "topics": [
+          "ISDA Schedule NewCo Derivatives New York, Inc. and Glencore Limited (Round 2)"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[On an early termination, every transaction under the ISDA Schedule is valued and netted into separate net amounts payable for each product group.]",
+          "[Glencore Limited is a party to the ISDA Schedule.]",
+          "[Open transactions run to completion upon termination of the ISDA Schedule.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "020-NC-LON-26-0201-confirmation.pdf",
+        "topics": [
+          "Trade Confirmation NC-LON-26-0201 Details"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[Shell Trading International Ltd is the Buyer in trade NC-LON-26-0201.]",
+          "[The product in trade NC-LON-26-0201 is Gasoil 0.1%.]",
+          "[NewCo Trading London Limited is the Seller in trade NC-LON-26-0201.]"
+        ]
+      },
+      {
+        "score": null,
+        "source": "024-late-interest-invoice.pdf",
+        "topics": [
+          "Late Payment Interest Invoice - NCL-INT-2026-10-26"
+        ],
+        "n_statements": 10,
+        "top_statements": [
+          "[The unit price for the interest line item is USD 2,700.17.]",
+          "[The invoice line item description is interest on USD 9,720,608.25 at 2.5% per year for 4 days calculated on an actual/360 basis.]",
+          "[The quantity for the interest line item is 1.]"
+        ]
+      }
+    ]
+  }
+]
