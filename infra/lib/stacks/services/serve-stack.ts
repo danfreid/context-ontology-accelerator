@@ -20,10 +20,10 @@ import {
   resolveBackendFlags,
 } from "../../context";
 import {
-  auroraSearchEnv,
   grantAuroraDataApi,
-  isAuroraSearchEnabled,
+  isAuroraMetadataEnabled,
 } from "../../utils/aurora-search";
+import { auroraBackendEnv } from "../../utils/aurora-metadata";
 import { agentCoreSupportedSubnets } from "../../utils/agentcore-az";
 import { retainAgentCoreSecurityGroup } from "../../utils/agentcore-teardown";
 import { brandEnv } from "../../utils/brand-env";
@@ -221,11 +221,14 @@ export class ServeStack extends SCLStack {
       ec2.Port.tcp(443),
       "HTTPS to external services via NAT",
     );
-    agentCoreSg.addEgressRule(
-      ec2.Peer.ipv4(props.vpc.vpcCidrBlock),
-      ec2.Port.tcp(8182),
-      "Neptune within VPC",
-    );
+    // No Neptune on the full Aurora path: the graph is read through the Data API (443).
+    if (!isAuroraMetadataEnabled(flags)) {
+      agentCoreSg.addEgressRule(
+        ec2.Peer.ipv4(props.vpc.vpcCidrBlock),
+        ec2.Port.tcp(8182),
+        "Neptune within VPC",
+      );
+    }
     agentCoreSg.addEgressRule(
       ec2.Peer.ipv4(props.vpc.vpcCidrBlock),
       ec2.Port.tcp(8080),
@@ -310,14 +313,16 @@ export class ServeStack extends SCLStack {
     // Neptune's own SG only allowed ingress from the ECS and Lambda SGs, so
     // every Gremlin/SPARQL call from the AgentCore runtime hung until
     // ConnectTimeout (~30s) and Tier-1/Tier-2 resolution never completed.
-    new ec2.CfnSecurityGroupIngress(this, "NeptuneIngress", {
-      groupId: props.neptuneSecurityGroup.securityGroupId,
-      ipProtocol: "tcp",
-      fromPort: 8182,
-      toPort: 8182,
-      sourceSecurityGroupId: agentCoreSg.securityGroupId,
-      description: "Allow Neptune Gremlin/SPARQL from AgentCore runtime",
-    });
+    if (!isAuroraMetadataEnabled(flags)) {
+      new ec2.CfnSecurityGroupIngress(this, "NeptuneIngress", {
+        groupId: props.neptuneSecurityGroup.securityGroupId,
+        ipProtocol: "tcp",
+        fromPort: 8182,
+        toPort: 8182,
+        sourceSecurityGroupId: agentCoreSg.securityGroupId,
+        description: "Allow Neptune Gremlin/SPARQL from AgentCore runtime",
+      });
+    }
 
     // ── AOSS Search Proxy Lambda ──────────────────────────────────────
     // AgentCore containers cannot access AOSS data plane directly (service
@@ -537,15 +542,20 @@ export class ServeStack extends SCLStack {
           SSM_PREFIX: ssmPrefix,
           LOG_LEVEL: "INFO",
           AWS_REGION: region,
-          NEPTUNE_ENDPOINT: props.neptuneEndpoint,
+          // Empty on the Aurora path: the graph is in Aurora (GRAPH_BACKEND), and an empty
+          // endpoint is what makes serve skip its Neptune-only tools.
+          NEPTUNE_ENDPOINT: isAuroraMetadataEnabled(flags)
+            ? ""
+            : props.neptuneEndpoint,
           VKG_ENDPOINT: props.vkgEndpoint,
           OPENSEARCH_ENDPOINT: opensearchEndpoint,
           // TODO(aoss-proxy): Remove when AgentCore supports AOSS directly
           OPENSEARCH_PROXY_LAMBDA_ARN: aossProxyFn.functionArn,
-          ...auroraSearchEnv(
+          // The engine role: serve also writes session metadata, which the read-only
+          // search role cannot do.
+          ...auroraBackendEnv(
             ssmPrefix,
             flags,
-            "ro",
             props.bedrockEmbedDimensions ?? 1024,
           ),
           ATHENA_OUTPUT_S3: `s3://${props.athenaResultsBucketName ?? this.prefixed("athena-results")}/`,
@@ -774,8 +784,8 @@ export class ServeStack extends SCLStack {
 
       // ── Add service-specific IAM policies to the L2's auto-created role ──
 
-      if (isAuroraSearchEnabled(flags)) {
-        grantAuroraDataApi(this, runtime.role!, ssmPrefix, "ro");
+      if (isAuroraMetadataEnabled(flags)) {
+        grantAuroraDataApi(this, runtime.role!, ssmPrefix, "engine-rw");
       }
 
       // ECR image pull
@@ -839,13 +849,16 @@ export class ServeStack extends SCLStack {
       //      Cross-account Neptune is out of scope. The SPARQL firewall keeps every
       //      such query read-only.
       // Off, only the first exists, without a sid, so the deployed policy is unchanged.
-      runtime.addToRolePolicy(
-        new iam.PolicyStatement({
-          ...(graphSources && { sid: "ServeNeptuneOntologyRead" }),
-          actions: ["neptune-db:ReadDataViaQuery"],
-          resources: [props.neptuneClusterArn],
-        }),
-      );
+      // Not on the Aurora path: the shared ontology graph is in Aurora there.
+      if (!isAuroraMetadataEnabled(flags)) {
+        runtime.addToRolePolicy(
+          new iam.PolicyStatement({
+            ...(graphSources && { sid: "ServeNeptuneOntologyRead" }),
+            actions: ["neptune-db:ReadDataViaQuery"],
+            resources: [props.neptuneClusterArn],
+          }),
+        );
+      }
       if (graphSources) {
         runtime.addToRolePolicy(
           new iam.PolicyStatement({
@@ -858,43 +871,46 @@ export class ServeStack extends SCLStack {
         );
       }
 
-      // DynamoDB — data sources registry (read-only)
-      runtime.addToRolePolicy(
-        new iam.PolicyStatement({
-          actions: [
-            "dynamodb:GetItem",
-            "dynamodb:Query",
-            "dynamodb:BatchGetItem",
-          ],
-          resources: [
-            dataSourcesTableArn,
-            dataSourcesTableArn + "/index/*",
-            namespacesTableArn,
-            // Roles table (Cedar role policies) — read-only.
-            props.rolesTable.tableArn,
-            // RRM table (role resolution via PrincipalIndex GSI) — read-only.
-            props.resourceRoleMappingsTable.tableArn,
-            props.resourceRoleMappingsTable.tableArn + "/index/*",
-          ],
-        }),
-      );
+      // DynamoDB — data sources registry (read-only). On the Aurora path these tables
+      // are coa_metadata rows reached through the Data API grant above.
+      if (!isAuroraMetadataEnabled(flags)) {
+        runtime.addToRolePolicy(
+          new iam.PolicyStatement({
+            actions: [
+              "dynamodb:GetItem",
+              "dynamodb:Query",
+              "dynamodb:BatchGetItem",
+            ],
+            resources: [
+              dataSourcesTableArn,
+              dataSourcesTableArn + "/index/*",
+              namespacesTableArn,
+              // Roles table (Cedar role policies) — read-only.
+              props.rolesTable.tableArn,
+              // RRM table (role resolution via PrincipalIndex GSI) — read-only.
+              props.resourceRoleMappingsTable.tableArn,
+              props.resourceRoleMappingsTable.tableArn + "/index/*",
+            ],
+          }),
+        );
 
-      // DynamoDB — session metadata (read-write for session lifecycle)
-      runtime.addToRolePolicy(
-        new iam.PolicyStatement({
-          actions: [
-            "dynamodb:PutItem",
-            "dynamodb:GetItem",
-            "dynamodb:Query",
-            "dynamodb:DeleteItem",
-            "dynamodb:UpdateItem",
-          ],
-          resources: [
-            sessionMetadataTableArn,
-            sessionMetadataTableArn + "/index/*",
-          ],
-        }),
-      );
+        // DynamoDB — session metadata (read-write for session lifecycle)
+        runtime.addToRolePolicy(
+          new iam.PolicyStatement({
+            actions: [
+              "dynamodb:PutItem",
+              "dynamodb:GetItem",
+              "dynamodb:Query",
+              "dynamodb:DeleteItem",
+              "dynamodb:UpdateItem",
+            ],
+            resources: [
+              sessionMetadataTableArn,
+              sessionMetadataTableArn + "/index/*",
+            ],
+          }),
+        );
+      }
 
       // S3 — ontology bucket + Athena results + data buckets
       const athenaResultsBucket =

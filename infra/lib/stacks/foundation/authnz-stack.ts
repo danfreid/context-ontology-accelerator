@@ -4,6 +4,7 @@
 import * as cdk from "aws-cdk-lib";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as cr from "aws-cdk-lib/custom-resources";
+import * as iam from "aws-cdk-lib/aws-iam";
 import * as ssm from "aws-cdk-lib/aws-ssm";
 import { Construct } from "constructs";
 import * as fs from "fs";
@@ -12,7 +13,8 @@ import * as path from "path";
 import { SCLStack } from "../../constructs/scl-stack";
 import { DynamoDBTable } from "../../constructs/dynamodb-table";
 import { Paths } from "../../paths";
-import { resolveContext } from "../../context";
+import { resolveBackendFlags, resolveContext } from "../../context";
+import { isAuroraMetadataEnabled } from "../../utils/aurora-search";
 import { IDEMPOTENCY_TABLE_SSM_SUFFIX } from "../../utils/idempotency";
 import { ClaimMapping } from "../../types";
 import {
@@ -33,26 +35,33 @@ export interface AuthnzStackProps extends cdk.StackProps {
  * The Idempotency table (clientToken records, PK only, TTL on `ttl`) is shared with the
  * namespace, sources, metric and ontology stacks via SSM.
  *
+ * With the full Aurora flag set no table is created. The metadata lives in the Aurora
+ * `coa_metadata` table under the same logical table names, and the built-in roles and
+ * group mappings are seeded with RDS Data API calls instead of DynamoDB putItem.
+ *
  * IdP group → role mappings live in ResourceRoleMappings with principalType "Group"
  * and the IdP group name as principalId; the authorizer queries the PrincipalIndex GSI
  * directly from the JWT group claims.
  */
 export class AuthnzStack extends SCLStack {
   /** Roles table. */
-  public readonly rolesTable: dynamodb.Table;
+  public readonly rolesTable: dynamodb.ITable;
 
   /** ResourceRoleMappings table. */
-  public readonly resourceRoleMappingsTable: dynamodb.Table;
+  public readonly resourceRoleMappingsTable: dynamodb.ITable;
 
   /** CacheInvalidation table. */
-  public readonly cacheInvalidationTable: dynamodb.Table;
+  public readonly cacheInvalidationTable: dynamodb.ITable;
 
   /** Idempotency-record table for retry-safe create operations. */
-  public readonly idempotencyTable: dynamodb.Table;
+  public readonly idempotencyTable: dynamodb.ITable;
+
+  private readonly useAurora: boolean;
 
   constructor(scope: Construct, id: string, props?: AuthnzStackProps) {
     super(scope, id, props);
     this.addComponentTag("authnz");
+    this.useAurora = isAuroraMetadataEnabled(resolveBackendFlags(this.node));
 
     const PK = { name: "PK", type: dynamodb.AttributeType.STRING };
     const SK = { name: "SK", type: dynamodb.AttributeType.STRING };
@@ -129,6 +138,30 @@ export class AuthnzStack extends SCLStack {
         // Key attributes carry the encoded form; principalId stays raw, and the
         // construct/physical ids stay raw to avoid logical-id churn on upgrade.
         const groupKey = sanitizePrincipalKey(group);
+        const mappingItem = {
+          PK: `${ResourceType.PLATFORM}::GLOBAL#${PrincipalType.GROUP}::${groupKey}`,
+          SK: `ROLE#${roleId}`,
+          resourceType: ResourceType.PLATFORM,
+          resourceId: "GLOBAL",
+          principalType: PrincipalType.GROUP,
+          principalId: group,
+          role: roleId,
+          principalKey: `${PrincipalType.GROUP}::${groupKey}`,
+          resourceRoleKey: `${ResourceType.PLATFORM}::GLOBAL#ROLE#${roleId}`,
+          namespaceKey: "NS#GLOBAL",
+          principalRoleKey: `${PrincipalType.GROUP}::${groupKey}#ROLE#${roleId}`,
+          grantedBy: "system",
+          grantedAt: new Date().toISOString(),
+        };
+        if (this.useAurora) {
+          this.seedAuroraItem(
+            `SeedGroupMapping-${group}-${roleId}`,
+            rrm.table.tableName,
+            mappingItem,
+            `seed-group-mapping-${group}-${roleId}`,
+          );
+          continue;
+        }
         new cr.AwsCustomResource(this, `SeedGroupMapping-${group}-${roleId}`, {
           onUpdate: {
             service: "DynamoDB",
@@ -174,7 +207,7 @@ export class AuthnzStack extends SCLStack {
    * Uses AwsCustomResource (SDK call) so roles are created/updated on
    * every deployment without a Lambda function.
    */
-  private seedBuiltInRoles(rolesTable: dynamodb.Table): void {
+  private seedBuiltInRoles(rolesTable: dynamodb.ITable): void {
     const seedDir = Paths.authorizationSeed;
 
     const builtInRoles: {
@@ -243,6 +276,27 @@ export class AuthnzStack extends SCLStack {
       );
       const pk = role.scope === "GLOBAL" ? "GLOBAL" : "NAMESPACE_TEMPLATE";
 
+      if (this.useAurora) {
+        const now = new Date().toISOString();
+        this.seedAuroraItem(
+          `SeedRole-${role.roleId}`,
+          rolesTable.tableName,
+          {
+            PK: pk,
+            SK: `ROLE#${role.roleId}`,
+            name: role.name,
+            description: role.description,
+            isBuiltIn: true,
+            cedarPolicy,
+            scope: role.scope,
+            createdAt: now,
+            updatedAt: now,
+          },
+          `seed-role-${role.roleId}`,
+        );
+        continue;
+      }
+
       new cr.AwsCustomResource(this, `SeedRole-${role.roleId}`, {
         onCreate: {
           service: "DynamoDB",
@@ -291,5 +345,61 @@ export class AuthnzStack extends SCLStack {
         }),
       });
     }
+  }
+
+  /**
+   * Upserts one item into the Aurora `coa_metadata` table with an RDS Data API call, the
+   * Aurora-path counterpart of the DynamoDB putItem seeds. The row has the shape
+   * coa_common.dao.aurora writes: the whole item (key attributes included) in
+   * `attributes`, the logical table name in `table_name`, and an empty `sk` when the
+   * item has none. Runs as the engine role, the only role with access to `coa_metadata`.
+   */
+  private seedAuroraItem(
+    id: string,
+    tableName: string,
+    item: { PK: string; SK: string } & Record<string, unknown>,
+    physicalId: string,
+  ): void {
+    const { ssmPrefix } = resolveContext(this.node);
+    const clusterArn = ssm.StringParameter.valueForStringParameter(
+      this,
+      `${ssmPrefix}/aurora/cluster-arn`,
+    );
+    const secretArn = ssm.StringParameter.valueForStringParameter(
+      this,
+      `${ssmPrefix}/aurora/engine-rw-secret-arn`,
+    );
+    new cr.AwsCustomResource(this, id, {
+      onUpdate: {
+        service: "RDSDataService",
+        action: "executeStatement",
+        parameters: {
+          resourceArn: clusterArn,
+          secretArn,
+          sql:
+            "INSERT INTO coa_metadata (table_name, pk, sk, attributes) " +
+            "VALUES (:t, :pk, :sk, CAST(:a AS jsonb)) " +
+            "ON CONFLICT (table_name, pk, sk) DO UPDATE SET attributes = EXCLUDED.attributes",
+          parameters: [
+            { name: "t", value: { stringValue: tableName } },
+            { name: "pk", value: { stringValue: item.PK } },
+            { name: "sk", value: { stringValue: item.SK } },
+            { name: "a", value: { stringValue: JSON.stringify(item) } },
+          ],
+        },
+        physicalResourceId: cr.PhysicalResourceId.of(physicalId),
+        outputPaths: ["numberOfRecordsUpdated"],
+      },
+      policy: cr.AwsCustomResourcePolicy.fromStatements([
+        new iam.PolicyStatement({
+          actions: ["rds-data:ExecuteStatement"],
+          resources: [clusterArn],
+        }),
+        new iam.PolicyStatement({
+          actions: ["secretsmanager:GetSecretValue"],
+          resources: [secretArn],
+        }),
+      ]),
+    });
   }
 }

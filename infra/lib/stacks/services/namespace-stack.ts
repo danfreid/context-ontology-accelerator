@@ -15,7 +15,9 @@ import { Construct } from "constructs";
 import { SCLStack } from "../../constructs/scl-stack";
 import { DynamoDBTable } from "../../constructs/dynamodb-table";
 import { Paths, fromRoot } from "../../paths";
-import { resolveContext } from "../../context";
+import { resolveBackendFlags, resolveContext } from "../../context";
+import { isAuroraMetadataEnabled } from "../../utils/aurora-search";
+import { wireAuroraBackend } from "../../utils/aurora-metadata";
 import { bundlePython } from "../../utils/python-bundling";
 import { grantIdempotencyTable } from "../../utils/idempotency";
 import { NamespaceDeletionPipeline } from "./namespace-deletion-pipeline";
@@ -65,7 +67,7 @@ export class NamespaceStack extends SCLStack {
   public readonly domainId: string;
 
   /** Namespaces table. */
-  public readonly namespacesTable: dynamodb.Table;
+  public readonly namespacesTable: dynamodb.ITable;
 
   /** Namespace API Lambda — handles create + list. */
   public readonly namespaceApiFn: lambda.IFunction;
@@ -84,6 +86,7 @@ export class NamespaceStack extends SCLStack {
     this.addComponentTag("namespace");
 
     const { ssmPrefix } = resolveContext(this.node);
+    const useAurora = isAuroraMetadataEnabled(resolveBackendFlags(this.node));
     const allowedOrigin = props.allowedOrigin ?? "*";
 
     const PK = { name: "PK", type: dynamodb.AttributeType.STRING };
@@ -770,26 +773,32 @@ export class NamespaceStack extends SCLStack {
     // Ontology induction jobs are checked via an HTTP call to the
     // ontology-engine (see delete_handler._check_active_induction_jobs) —
     // no DynamoDB grant needed for that check.
-    namespaceApiFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["dynamodb:Query"],
-        resources: [
-          `arn:aws:dynamodb:${this.region}:${this.account}:table/${this.prefixed(TABLE_NAMES.SOURCES)}/index/ByNamespace`,
-          `arn:aws:dynamodb:${this.region}:${this.account}:table/${this.prefixed(TABLE_NAMES.METRIC_IMPORT_JOBS)}`,
-        ],
-      }),
-    );
+    // On the full Aurora path every table above is a set of coa_metadata rows, read and
+    // written through the Data API, so no dynamodb statement is added.
+    if (useAurora) {
+      wireAuroraBackend(this, namespaceApiFn);
+    } else {
+      namespaceApiFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["dynamodb:Query"],
+          resources: [
+            `arn:aws:dynamodb:${this.region}:${this.account}:table/${this.prefixed(TABLE_NAMES.SOURCES)}/index/ByNamespace`,
+            `arn:aws:dynamodb:${this.region}:${this.account}:table/${this.prefixed(TABLE_NAMES.METRIC_IMPORT_JOBS)}`,
+          ],
+        }),
+      );
 
-    namespaceApiFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["dynamodb:TransactWriteItems"],
-        resources: [
-          namespaces.table.tableArn,
-          props.rolesTable.tableArn,
-          props.resourceRoleMappingsTable.tableArn,
-        ],
-      }),
-    );
+      namespaceApiFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["dynamodb:TransactWriteItems"],
+          resources: [
+            namespaces.table.tableArn,
+            props.rolesTable.tableArn,
+            props.resourceRoleMappingsTable.tableArn,
+          ],
+        }),
+      );
+    }
     namespaceApiFn.addToRolePolicy(
       new iam.PolicyStatement({
         actions: [
@@ -941,6 +950,7 @@ export class NamespaceStack extends SCLStack {
       },
     });
     props.rolesTable.grantReadData(rolesApiFn);
+    wireAuroraBackend(this, rolesApiFn);
 
     const platformRolesApiFn = new lambda.Function(this, "PlatformRolesApiFn", {
       functionName: this.prefixed("platform-roles-api"),
@@ -958,6 +968,7 @@ export class NamespaceStack extends SCLStack {
       },
     });
     props.rolesTable.grantReadData(platformRolesApiFn);
+    wireAuroraBackend(this, platformRolesApiFn);
 
     this.rolesApiFn = rolesApiFn;
     this.platformRolesApiFn = platformRolesApiFn;
@@ -981,6 +992,7 @@ export class NamespaceStack extends SCLStack {
     });
     props.rolesTable.grantReadData(grantsApiFn);
     props.resourceRoleMappingsTable.grantReadWriteData(grantsApiFn);
+    wireAuroraBackend(this, grantsApiFn);
     // CreateGrant / CreatePlatformGrant are retry-safe with a clientToken.
     grantIdempotencyTable(this, grantsApiFn);
 

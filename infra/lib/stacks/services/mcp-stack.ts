@@ -11,11 +11,17 @@ import { DockerImageAsset, Platform } from "aws-cdk-lib/aws-ecr-assets";
 import { Construct } from "constructs";
 import {
   prefixedLambdaArn,
+  resolveBackendFlags,
   resolveContext,
   resolvePreferIpv4BuildArgs,
 } from "../../context";
 import { agentCoreSupportedSubnets } from "../../utils/agentcore-az";
 import { retainAgentCoreSecurityGroup } from "../../utils/agentcore-teardown";
+import { auroraBackendEnv } from "../../utils/aurora-metadata";
+import {
+  grantAuroraDataApi,
+  isAuroraMetadataEnabled,
+} from "../../utils/aurora-search";
 import { brandEnv } from "../../utils/brand-env";
 import { parseEcrImageUri } from "../../utils/ecr-utils";
 import { Paths } from "../../paths";
@@ -51,6 +57,8 @@ export class McpStack extends SCLStack {
     const region = cdk.Stack.of(this).region;
     const account = cdk.Stack.of(this).account;
     const { ssmPrefix } = resolveContext(this.node);
+    const flags = resolveBackendFlags(this.node);
+    const useAurora = isAuroraMetadataEnabled(flags);
 
     const runtimeName = this.prefixed("mcp-server").replace(/-/g, "_");
 
@@ -179,6 +187,7 @@ export class McpStack extends SCLStack {
         // Grant resolver needs roles/RRM tables
         ROLES_TABLE_NAME: props.rolesTable.tableName,
         RRM_TABLE_NAME: props.resourceRoleMappingsTable.tableName,
+        ...auroraBackendEnv(ssmPrefix, flags),
         GROUP_CLAIM_NAME: groupClaimName,
         // Execution tools forward to Context Manager via HTTP
         CM_RUNTIME_ARN: cmRuntimeArn,
@@ -251,21 +260,26 @@ export class McpStack extends SCLStack {
       }),
     );
 
-    // DynamoDB read (grant resolver needs roles + resource-role-mappings)
-    runtime.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: [
-          "dynamodb:GetItem",
-          "dynamodb:Query",
-          "dynamodb:BatchGetItem",
-        ],
-        resources: [
-          props.rolesTable.tableArn,
-          props.resourceRoleMappingsTable.tableArn,
-          props.resourceRoleMappingsTable.tableArn + "/index/*",
-        ],
-      }),
-    );
+    // Grant resolver needs roles + resource-role-mappings: DynamoDB read, or the
+    // Aurora Data API (coa_metadata) on the full Aurora path.
+    if (useAurora) {
+      grantAuroraDataApi(this, runtime.role!, ssmPrefix, "engine-rw");
+    } else {
+      runtime.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: [
+            "dynamodb:GetItem",
+            "dynamodb:Query",
+            "dynamodb:BatchGetItem",
+          ],
+          resources: [
+            props.rolesTable.tableArn,
+            props.resourceRoleMappingsTable.tableArn,
+            props.resourceRoleMappingsTable.tableArn + "/index/*",
+          ],
+        }),
+      );
+    }
 
     // ── SSM Parameters ────────────────────────────────────────────────
     new ssm.StringParameter(this, "McpRuntimeArnParam", {

@@ -737,8 +737,11 @@ describe("MetricServiceStack - Aurora search backend", () => {
       vector_backend: "pgvector",
       metadata_backend: "aurora",
     });
-    expect(s.split("HYBRID_SEARCH_BACKEND").length - 1).toBe(2);
-    expect(s).toContain("/coa/aurora/search-rw-secret-arn");
+    // API, import worker, and the DLQ recovery Lambda (it reads import jobs from Aurora).
+    expect(s.split("HYBRID_SEARCH_BACKEND").length - 1).toBe(3);
+    // The engine role: it is the only one that can read and write coa_metadata.
+    expect(s).toContain("/coa/aurora/engine-rw-secret-arn");
+    expect(s).not.toContain("search-rw-secret-arn");
     expect(s).not.toContain("search-ro-secret-arn");
     expect(s).toContain("rds-data:ExecuteStatement");
     expect(s).toContain("rds-data:BatchExecuteStatement");

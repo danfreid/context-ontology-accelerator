@@ -1169,7 +1169,10 @@ describe("ServeStack - Aurora search backend", () => {
         metadata_backend: "aurora",
       }),
     );
-    expect(s).toContain("/coa/aurora/search-ro-secret-arn");
+    // Serve also writes session metadata, so it connects as the engine role, not the
+    // read-only search role.
+    expect(s).toContain("/coa/aurora/engine-rw-secret-arn");
+    expect(s).not.toContain("search-ro-secret-arn");
     expect(s).not.toContain("search-rw-secret-arn");
     expect(s).toContain("HYBRID_SEARCH_BACKEND");
     expect(s).toContain("pgvector+tsvector");

@@ -10,6 +10,7 @@ import { MetricServiceStack } from "../lib/stacks/services/metric-service-stack"
 import { OntologyStack } from "../lib/stacks/services/ontology-stack";
 import { ServeStack } from "../lib/stacks/services/serve-stack";
 import { DEFAULT_RESOURCE_PREFIX, DEFAULT_ENV } from "../lib/constants";
+import { buildAllTemplates } from "./helpers/default-templates";
 
 jest.mock("../lib/utils/python-bundling", () => ({
   bundlePython: () =>
@@ -143,5 +144,165 @@ describe("Full Aurora path with a non-default embedding dimension", () => {
 
   test("no ontology policy references the admin secret", () => {
     expect(built.ontology).not.toContain("/aurora/secret-arn");
+  });
+});
+
+type Json = Record<string, unknown>;
+
+/** Walks a parsed template and calls `visit` on every object. */
+function walk(node: unknown, visit: (o: Json) => void): void {
+  if (Array.isArray(node)) {
+    node.forEach((n) => walk(n, visit));
+  } else if (node !== null && typeof node === "object") {
+    visit(node as Json);
+    Object.values(node as Json).forEach((n) => walk(n, visit));
+  }
+}
+
+const NEPTUNE_ENDPOINT_NAMES = /^(NEPTUNE_ENDPOINT|NDB_ENDPOINT)$/;
+/**
+ * `NEPTUNE_ENDPOINT` / `NDB_ENDPOINT` values in a serialized template: Lambda and runtime
+ * maps, ECS `{Name, Value}` pairs, and the `{"name":..,"value":..}` overrides inside a
+ * Step Functions definition string.
+ */
+function neptuneEndpointValues(templateJson: string): string[] {
+  const values: string[] = [];
+  walk(JSON.parse(templateJson), (o) => {
+    for (const [k, v] of Object.entries(o)) {
+      if (NEPTUNE_ENDPOINT_NAMES.test(k) && typeof v !== "object") {
+        values.push(JSON.stringify(v));
+      }
+    }
+    if (typeof o.Name === "string" && NEPTUNE_ENDPOINT_NAMES.test(o.Name)) {
+      values.push(JSON.stringify(o.Value));
+    }
+  });
+  const sfn =
+    /(?:NEPTUNE_ENDPOINT|NDB_ENDPOINT)\\*"\s*,\s*\\*"value\\*"\s*:\s*\\*"([^"\\]*)/g;
+  for (const m of templateJson.matchAll(sfn)) {
+    values.push(JSON.stringify(m[1]));
+  }
+  return values;
+}
+
+const AURORA_FLAGS = {
+  graph_backend: "aurora",
+  vector_backend: "pgvector",
+  metadata_backend: "aurora",
+};
+
+describe("Full Aurora path: metadata and graph in Aurora", () => {
+  const aurora = buildAllTemplates({ context: AURORA_FLAGS });
+  const defaults = buildAllTemplates();
+  const resources = (json: string): Json[] =>
+    Object.values(
+      (JSON.parse(json) as { Resources?: Record<string, Json> }).Resources ??
+        {},
+    );
+  const ofType = (json: string, type: string): Json[] =>
+    resources(json).filter((r) => r.Type === type);
+
+  test("no stack creates a DynamoDB table", () => {
+    for (const [name, json] of Object.entries(aurora)) {
+      expect({
+        name,
+        tables: ofType(json, "AWS::DynamoDB::Table").length,
+      }).toEqual({ name, tables: 0 });
+    }
+    // The guard is not vacuous: default flags create tables.
+    expect(
+      Object.values(defaults).some(
+        (j) => ofType(j, "AWS::DynamoDB::Table").length > 0,
+      ),
+    ).toBe(true);
+  });
+
+  test("no DynamoDB stream event source and no neptune-db or dynamodb IAM action", () => {
+    for (const [name, json] of Object.entries(aurora)) {
+      expect({
+        name,
+        mappings: ofType(json, "AWS::Lambda::EventSourceMapping").filter((m) =>
+          /dynamodb/i.test(JSON.stringify(m)),
+        ).length,
+        neptune: json.includes("neptune-db:"),
+        dynamodb: json.includes("dynamodb:"),
+      }).toEqual({ name, mappings: 0, neptune: false, dynamodb: false });
+    }
+    expect(Object.values(defaults).some((j) => j.includes("neptune-db:"))).toBe(
+      true,
+    );
+  });
+
+  test("no non-empty NEPTUNE_ENDPOINT or NDB_ENDPOINT", () => {
+    const defaultValues = Object.values(defaults).flatMap(
+      neptuneEndpointValues,
+    );
+    expect(defaultValues.some((v) => v !== '""')).toBe(true);
+    const found = Object.entries(aurora).flatMap(([name, json]) =>
+      neptuneEndpointValues(json).map((value) => ({ name, value })),
+    );
+    expect(found.length).toBeGreaterThan(0);
+    expect(found.filter((f) => f.value !== '""')).toEqual([]);
+  });
+
+  test("every Lambda, task and runtime that names a metadata table has the Aurora env", () => {
+    const missing: string[] = [];
+    const check = (where: string, env: Record<string, unknown>): void => {
+      if (!Object.keys(env).some((k) => /TABLE/.test(k))) return;
+      for (const key of [
+        "METADATA_BACKEND",
+        "GRAPH_BACKEND",
+        "AURORA_SECRET_ARN",
+        "AURORA_SSM_PREFIX",
+      ]) {
+        if (!(key in env)) missing.push(`${where}: ${key}`);
+      }
+      if (env.METADATA_BACKEND !== "aurora") missing.push(`${where}: value`);
+    };
+    for (const [name, json] of Object.entries(aurora)) {
+      for (const r of resources(json)) {
+        const props = (r.Properties ?? {}) as Json;
+        if (r.Type === "AWS::Lambda::Function") {
+          const vars = (props.Environment as Json | undefined)?.Variables;
+          if (vars) check(`${name} lambda`, vars as Record<string, unknown>);
+        } else if (r.Type === "AWS::BedrockAgentCore::Runtime") {
+          const vars = props.EnvironmentVariables;
+          if (vars) check(`${name} runtime`, vars as Record<string, unknown>);
+        } else if (r.Type === "AWS::ECS::TaskDefinition") {
+          for (const c of (props.ContainerDefinitions ?? []) as Json[]) {
+            const env: Record<string, unknown> = {};
+            for (const e of (c.Environment ?? []) as Json[]) {
+              env[String(e.Name)] = e.Value;
+            }
+            check(`${name} task`, env);
+          }
+        }
+      }
+    }
+    expect(missing).toEqual([]);
+  });
+
+  test("workloads that use Aurora can call the Data API as the engine role", () => {
+    for (const name of ["serve", "sources", "namespace", "ontology", "mcp"]) {
+      expect(aurora[name]).toContain("rds-data:ExecuteStatement");
+      expect(aurora[name]).toContain("engine-rw-secret-arn");
+    }
+    expect(aurora["metric-service"]).toContain("rds-data:ExecuteStatement");
+  });
+
+  test("the metadata seeds go through the Data API instead of DynamoDB putItem", () => {
+    const authnz = aurora["authnz"];
+    expect(authnz).toContain("coa_metadata");
+    expect(authnz).toContain("executeStatement");
+    expect(authnz).not.toContain("putItem");
+    expect(aurora["authnz"].match(/seed-role-/g)?.length ?? 0).toBeGreaterThan(
+      0,
+    );
+  });
+
+  test("Step Functions status updates go through the Data API, not DynamoDB", () => {
+    expect(aurora["sources"]).toContain("aws-sdk:rdsdata:executeStatement");
+    expect(aurora["sources"]).not.toContain("states:::dynamodb");
+    expect(defaults["sources"]).toContain("states:::dynamodb:updateItem");
   });
 });

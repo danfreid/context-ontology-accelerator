@@ -39,10 +39,13 @@ import { Construct } from "constructs";
 
 import { resolveBackendFlags, resolveContext } from "../../context";
 import {
-  auroraSearchEnv,
   grantAuroraDataApi,
-  isAuroraSearchEnabled,
+  isAuroraMetadataEnabled,
 } from "../../utils/aurora-search";
+import {
+  auroraBackendEnv,
+  wireAuroraBackend,
+} from "../../utils/aurora-metadata";
 
 export interface NamespaceDeletionPipelineProps {
   /** Prefixed name helper from SCLStack. */
@@ -119,6 +122,7 @@ export class NamespaceDeletionPipeline extends Construct {
     const account = cdk.Stack.of(this).account;
     const { ssmPrefix } = resolveContext(this.node);
     const flags = resolveBackendFlags(this.node);
+    const useAurora = isAuroraMetadataEnabled(flags);
 
     const commonLambdaProps = {
       runtime: lambda.Runtime.PYTHON_3_12,
@@ -141,11 +145,11 @@ export class NamespaceDeletionPipeline extends Construct {
         ...(props.opensearchEndpoint && {
           OSS_ENDPOINT: props.opensearchEndpoint,
         }),
-        ...auroraSearchEnv(ssmPrefix, flags, "engine-rw"),
+        ...auroraBackendEnv(ssmPrefix, flags),
       },
     });
     // Aurora scope deletion (coa_control_plane cleanup) runs in this Lambda.
-    if (isAuroraSearchEnabled(flags)) {
+    if (useAurora) {
       grantAuroraDataApi(this, deleteSourcesFn, ssmPrefix, "engine-rw");
     }
     deleteSourcesFn.addToRolePolicy(
@@ -278,12 +282,16 @@ export class NamespaceDeletionPipeline extends Construct {
     props.rolesTable.grantReadWriteData(deletePlatformFn);
     // DeletePlatform acts only on a namespace whose record says DELETING, and takes
     // the workgroup and DataZone project ids from that record.
-    deletePlatformFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["dynamodb:GetItem"],
-        resources: [props.namespacesTable.tableArn],
-      }),
-    );
+    if (useAurora) {
+      wireAuroraBackend(this, deletePlatformFn);
+    } else {
+      deletePlatformFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["dynamodb:GetItem"],
+          resources: [props.namespacesTable.tableArn],
+        }),
+      );
+    }
     deletePlatformFn.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ["athena:DeleteWorkGroup", "athena:GetWorkGroup"],
@@ -360,12 +368,16 @@ export class NamespaceDeletionPipeline extends Construct {
       timeout: cdk.Duration.seconds(30),
       environment: { NAMESPACES_TABLE: props.namespacesTable.tableName },
     });
-    finalizeFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["dynamodb:TransactWriteItems", "dynamodb:DeleteItem"],
-        resources: [props.namespacesTable.tableArn],
-      }),
-    );
+    if (useAurora) {
+      wireAuroraBackend(this, finalizeFn);
+    } else {
+      finalizeFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["dynamodb:TransactWriteItems", "dynamodb:DeleteItem"],
+          resources: [props.namespacesTable.tableArn],
+        }),
+      );
+    }
 
     // ── MarkFailed (error path: status -> DELETE_FAILED) ─────────────
     const markFailedFn = new lambda.Function(this, "MarkFailedFn", {
@@ -378,6 +390,7 @@ export class NamespaceDeletionPipeline extends Construct {
       environment: { NAMESPACES_TABLE: props.namespacesTable.tableName },
     });
     props.namespacesTable.grantWriteData(markFailedFn);
+    wireAuroraBackend(this, markFailedFn);
 
     // ── Step Functions definition ─────────────────────────────────────
     const deleteSources = new tasks.LambdaInvoke(this, "DeleteSources", {

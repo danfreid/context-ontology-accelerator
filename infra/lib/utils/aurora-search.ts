@@ -23,6 +23,15 @@ export function isAuroraSearchEnabled(flags: BackendFlags): boolean {
 }
 
 /**
+ * True when metadata (the DynamoDB tables) and the graph (Neptune) are served from the
+ * Aurora cluster too. Alias of {@link isAuroraSearchEnabled}: the three flags are only
+ * accepted as one set, so there is no metadata-only Aurora path.
+ */
+export function isAuroraMetadataEnabled(flags: BackendFlags): boolean {
+  return isAuroraSearchEnabled(flags);
+}
+
+/**
  * Warns when `vector_backend=pgvector` is set without the other two Aurora flags.
  * No cluster exists on that path, so the search layer emits nothing.
  */

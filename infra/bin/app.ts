@@ -251,6 +251,12 @@ async function deploy(): Promise<void> {
   const authnz = new AuthnzStack(app, `${stackPrefix}-authnz`, {
     claimsMappings: auth.initialClaimsMappings,
   });
+  // Full Aurora path: the authnz stack seeds roles and group mappings into the Aurora
+  // coa_metadata table with RDS Data API calls, so the cluster, its SSM parameters and
+  // the migrated schema (storage stack) must exist first. No dependency otherwise.
+  if (isAuroraSearchEnabled(flags)) {
+    authnz.addDependency(storage);
+  }
   const vkg = new VkgStack(app, `${stackPrefix}-vkg`, {
     network,
     serviceNamespace: network.serviceNamespace,

@@ -20,7 +20,9 @@ import { SCLStack } from "../../constructs/scl-stack";
 import { SclMonitoring } from "../../constructs";
 import type { IAlarmActionStrategy } from "cdk-monitoring-constructs/lib/common/alarm/action";
 import { CustomDomainConfig } from "../../types";
-import { resolveContext } from "../../context";
+import { resolveBackendFlags, resolveContext } from "../../context";
+import { isAuroraMetadataEnabled } from "../../utils/aurora-search";
+import { wireAuroraBackend } from "../../utils/aurora-metadata";
 import {
   DEFAULT_THROTTLE_RATE_LIMIT,
   DEFAULT_THROTTLE_BURST_LIMIT,
@@ -211,101 +213,116 @@ export class ApiStack extends SCLStack {
     props.resourceRoleMappingsTable.grantReadData(authorizerFn);
     props.cacheInvalidationTable.grantReadData(authorizerFn);
 
-    // Least-privilege read of namespace status for the ARCHIVED mutation guard.
-    authorizerFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["dynamodb:GetItem"],
-        resources: [namespacesTableArn],
-      }),
-    );
+    // Roles, mappings, the cache version and namespace status are rows of the Aurora
+    // coa_metadata table on the full Aurora path, read through the Data API.
+    const useAurora = isAuroraMetadataEnabled(resolveBackendFlags(this.node));
+    if (useAurora) {
+      wireAuroraBackend(this, authorizerFn);
+    } else {
+      // Least-privilege read of namespace status for the ARCHIVED mutation guard.
+      authorizerFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["dynamodb:GetItem"],
+          resources: [namespacesTableArn],
+        }),
+      );
+    }
 
     // ── Cache Invalidation Stream Handler ──────────────────────────
+    // Not deployed on the full Aurora path: there are no DynamoDB streams, and the
+    // Aurora DAO bumps the version counter in coa_metadata itself after every write
+    // to a roles or mappings table.
+    //
     // Triggered by DynamoDB Streams on Roles and ResourceRoleMappings
     // tables. On any change, bumps the version counter in the
     // CacheInvalidation table so the authorizer clears its local cache.
-    const cacheInvalidationFn = new lambda.Function(
-      this,
-      "CacheInvalidationFn",
-      {
-        functionName: this.prefixed("cache-invalidation"),
-        runtime: lambda.Runtime.PYTHON_3_12,
-        handler: "coa_control_plane.authorization.stream_handler.handler",
-        code: bundlePython({
-          srcDirs: [Paths.controlPlaneSrc, Paths.commonLib],
-          requirementsFile: fromRoot(
-            "packages/control-plane/requirements.lock.txt",
-          ),
-        }),
-        timeout: cdk.Duration.seconds(10),
-        memorySize: 128,
-        // Same subnets as the authorizer, but on the shared Lambda SG: DynamoDB
-        // is reached over the VPC's gateway endpoint, no public egress needed.
-        vpc: props.vpc,
-        vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
-        securityGroups: [props.lambdaSecurityGroup],
-        logRetention: logs.RetentionDays.ONE_MONTH,
-        environment: {
-          CACHE_INVALIDATION_TABLE_NAME: props.cacheInvalidationTable.tableName,
+    if (!useAurora) {
+      const cacheInvalidationFn = new lambda.Function(
+        this,
+        "CacheInvalidationFn",
+        {
+          functionName: this.prefixed("cache-invalidation"),
+          runtime: lambda.Runtime.PYTHON_3_12,
+          handler: "coa_control_plane.authorization.stream_handler.handler",
+          code: bundlePython({
+            srcDirs: [Paths.controlPlaneSrc, Paths.commonLib],
+            requirementsFile: fromRoot(
+              "packages/control-plane/requirements.lock.txt",
+            ),
+          }),
+          timeout: cdk.Duration.seconds(10),
+          memorySize: 128,
+          // Same subnets as the authorizer, but on the shared Lambda SG: DynamoDB
+          // is reached over the VPC's gateway endpoint, no public egress needed.
+          vpc: props.vpc,
+          vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+          securityGroups: [props.lambdaSecurityGroup],
+          logRetention: logs.RetentionDays.ONE_MONTH,
+          environment: {
+            CACHE_INVALIDATION_TABLE_NAME:
+              props.cacheInvalidationTable.tableName,
+          },
         },
-      },
-    );
+      );
 
-    // Grant write to the CacheInvalidation table (atomic_increment).
-    props.cacheInvalidationTable.grantReadWriteData(cacheInvalidationFn);
+      // Grant write to the CacheInvalidation table (atomic_increment).
+      props.cacheInvalidationTable.grantReadWriteData(cacheInvalidationFn);
 
-    // A dropped stream record means the authorizer's version counter never
-    // moves for that grant change, so a revoked role stays cached until the
-    // container recycles — the exact gap this wiring exists to close. So:
-    // retry indefinitely within the records' 24h stream retention, and park
-    // anything still failing at the end of it in a DLQ for replay instead of
-    // discarding it silently.
-    const cacheInvalidationDlq = new sqs.Queue(this, "CacheInvalidationDlq", {
-      queueName: this.prefixed("cache-invalidation-dlq"),
-      encryption: sqs.QueueEncryption.SQS_MANAGED,
-      enforceSSL: true,
-      retentionPeriod: cdk.Duration.days(14),
-    });
+      // A dropped stream record means the authorizer's version counter never
+      // moves for that grant change, so a revoked role stays cached until the
+      // container recycles — the exact gap this wiring exists to close. So:
+      // retry indefinitely within the records' 24h stream retention, and park
+      // anything still failing at the end of it in a DLQ for replay instead of
+      // discarding it silently.
+      const cacheInvalidationDlq = new sqs.Queue(this, "CacheInvalidationDlq", {
+        queueName: this.prefixed("cache-invalidation-dlq"),
+        encryption: sqs.QueueEncryption.SQS_MANAGED,
+        enforceSSL: true,
+        retentionPeriod: cdk.Duration.days(14),
+      });
 
-    // Wire DynamoDB Streams from Roles and ResourceRoleMappings tables.
-    const streamSourceProps = {
-      startingPosition: lambda.StartingPosition.LATEST,
-      batchSize: 10,
-      maxBatchingWindow: cdk.Duration.seconds(5),
-      // -1 = retry until the record ages out of the 24h stream retention.
-      retryAttempts: -1,
-      onFailure: new lambdaEventSources.SqsDlq(cacheInvalidationDlq),
-      // No partial-batch reporting: the handler collapses a whole batch into a
-      // single version-counter bump (that bump clears the authorizer's entire
-      // local cache, so the exact count is irrelevant — only that it moved).
-      // There are no per-record operations to fail independently, so a whole-
-      // batch retry on error is both correct and cheap.
-    };
-    cacheInvalidationFn.addEventSource(
-      new lambdaEventSources.DynamoEventSource(
-        props.rolesTable,
-        streamSourceProps,
-      ),
-    );
-    cacheInvalidationFn.addEventSource(
-      new lambdaEventSources.DynamoEventSource(
-        props.resourceRoleMappingsTable,
-        streamSourceProps,
-      ),
-    );
+      // Wire DynamoDB Streams from Roles and ResourceRoleMappings tables.
+      const streamSourceProps = {
+        startingPosition: lambda.StartingPosition.LATEST,
+        batchSize: 10,
+        maxBatchingWindow: cdk.Duration.seconds(5),
+        // -1 = retry until the record ages out of the 24h stream retention.
+        retryAttempts: -1,
+        onFailure: new lambdaEventSources.SqsDlq(cacheInvalidationDlq),
+        // No partial-batch reporting: the handler collapses a whole batch into a
+        // single version-counter bump (that bump clears the authorizer's entire
+        // local cache, so the exact count is irrelevant — only that it moved).
+        // There are no per-record operations to fail independently, so a whole-
+        // batch retry on error is both correct and cheap.
+      };
+      cacheInvalidationFn.addEventSource(
+        new lambdaEventSources.DynamoEventSource(
+          props.rolesTable,
+          streamSourceProps,
+        ),
+      );
+      cacheInvalidationFn.addEventSource(
+        new lambdaEventSources.DynamoEventSource(
+          props.resourceRoleMappingsTable,
+          streamSourceProps,
+        ),
+      );
 
-    new cloudwatch.Alarm(this, "CacheInvalidationDlqAlarm", {
-      alarmName: this.prefixed("cache-invalidation-dlq"),
-      alarmDescription:
-        "Cache-invalidation records landed in the DLQ — authorizer role cache may be serving revoked roles until TTL expiry",
-      metric: cacheInvalidationDlq.metricApproximateNumberOfMessagesVisible({
-        statistic: "Maximum",
-        period: cdk.Duration.minutes(5),
-      }),
-      threshold: 0,
-      comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
-      evaluationPeriods: 1,
-      treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
-    });
+      new cloudwatch.Alarm(this, "CacheInvalidationDlqAlarm", {
+        alarmName: this.prefixed("cache-invalidation-dlq"),
+        alarmDescription:
+          "Cache-invalidation records landed in the DLQ — authorizer role cache may be serving revoked roles until TTL expiry",
+        metric: cacheInvalidationDlq.metricApproximateNumberOfMessagesVisible({
+          statistic: "Maximum",
+          period: cdk.Duration.minutes(5),
+        }),
+        threshold: 0,
+        comparisonOperator:
+          cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
+        evaluationPeriods: 1,
+        treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
+      });
+    }
 
     // ── IAM role for API Gateway to invoke the authorizer Lambda ───
     const authorizerRole = new iam.Role(this, "AuthorizerRole", {

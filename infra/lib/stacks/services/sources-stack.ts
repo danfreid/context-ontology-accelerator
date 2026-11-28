@@ -32,6 +32,7 @@ import { LakeFormationAdmin } from "../../constructs/lakeformation-admin";
 import { SclMonitoring } from "../../constructs";
 import {
   namespaceTagKey,
+  resolveBackendFlags,
   resolveContext,
   resolveLambdaReservedConcurrency,
   guardrailProfileResources,
@@ -44,6 +45,15 @@ import {
   graphSourcesEnabled,
 } from "../../utils/graph-sources";
 import { grantIdempotencyTable } from "../../utils/idempotency";
+import {
+  grantAuroraDataApi,
+  isAuroraMetadataEnabled,
+} from "../../utils/aurora-search";
+import {
+  auroraBackendEnv,
+  logicalTable,
+  wireAuroraBackend,
+} from "../../utils/aurora-metadata";
 import { bedrockModelArn } from "../../utils/bedrock-utils";
 import { grantGuardDutyAgentPull } from "../../utils/guardduty-agent";
 import { NetworkStack } from "../foundation/network-stack";
@@ -79,10 +89,10 @@ export interface SourcesStackProps extends cdk.StackProps {
 /** Service stack: unified source registry for database and document sources. */
 export class SourcesStack extends SCLStack {
   /** Unified sources DynamoDB table. */
-  public readonly sourcesTable: dynamodb.Table;
+  public readonly sourcesTable: dynamodb.ITable;
 
   /** Source scan jobs DynamoDB table. */
-  public readonly sourceScanJobsTable: dynamodb.Table;
+  public readonly sourceScanJobsTable: dynamodb.ITable;
 
   constructor(scope: Construct, id: string, props: SourcesStackProps) {
     super(scope, id, props);
@@ -130,7 +140,15 @@ export class SourcesStack extends SCLStack {
     const vpc = props.network.vpc;
     const lambdaSecurityGroup = props.network.lambdaSecurityGroup;
     const ecsSecurityGroup = props.network.ecsSecurityGroup;
-    const neptuneEndpoint = props.storage.neptuneClusterEndpoint;
+    const flags = resolveBackendFlags(this.node);
+    // Full Aurora path: metadata and graph are in Aurora. No DynamoDB tables and no
+    // Neptune endpoint (the storage stack aliases that prop to the Aurora hostname,
+    // which a consumer would try to use as a Neptune endpoint).
+    const useAurora = isAuroraMetadataEnabled(flags);
+    const auroraDims = props.bedrockEmbedDimensions ?? 1024;
+    const neptuneEndpoint = useAurora
+      ? ""
+      : props.storage.neptuneClusterEndpoint;
     const neptuneClusterArn = props.storage.neptuneClusterArn;
     const opensearchEndpoint = ssm.StringParameter.valueForStringParameter(
       this,
@@ -164,11 +182,13 @@ export class SourcesStack extends SCLStack {
       "ProjectAccessRole",
       projectAccessRoleArn,
     );
-    const namespacesTable = dynamodb.Table.fromTableName(
-      this,
-      "NamespacesTable",
-      namespacesTableName,
-    );
+    const namespacesTable = useAurora
+      ? logicalTable(this, "NamespacesTable", namespacesTableName)
+      : dynamodb.Table.fromTableName(
+          this,
+          "NamespacesTable",
+          namespacesTableName,
+        );
 
     // DynamoDB Tables
 
@@ -605,6 +625,7 @@ export class SourcesStack extends SCLStack {
     dbConnectorFn.node.addDependency(discoveryWorkgroup);
 
     this.sourcesTable.grantReadWriteData(dbConnectorFn);
+    wireAuroraBackend(this, dbConnectorFn, auroraDims);
     this.sourceScanJobsTable.grantReadWriteData(dbConnectorFn);
     // Read-only: the db-connector (discovery/scan pipeline) only reads
     // dataZoneProjectId from namespace records. The sourceCount counter is
@@ -813,6 +834,7 @@ export class SourcesStack extends SCLStack {
     );
     const fedFnRole = federationProvisionerFn.role!;
     this.sourcesTable.grantReadWriteData(federationProvisionerFn);
+    wireAuroraBackend(this, federationProvisionerFn, auroraDims);
     // create_connection validation checks the caller can access the spill bucket.
     props.storage.athenaSpillBucket.grantReadWrite(federationProvisionerFn);
 
@@ -1195,6 +1217,7 @@ export class SourcesStack extends SCLStack {
         SOURCES_TABLE: this.sourcesTable.tableName,
         SOURCE_SCAN_JOBS_TABLE: this.sourceScanJobsTable.tableName,
         NAMESPACES_TABLE: namespacesTableName,
+        ...auroraBackendEnv(ssmPrefix, flags, auroraDims),
         SMUS_DOMAIN_ID: domainId,
         PROJECT_ACCESS_ROLE_ARN: projectAccessRoleArn,
         // ECS does not inject a region into task containers, so without this
@@ -1221,6 +1244,14 @@ export class SourcesStack extends SCLStack {
 
     this.sourcesTable.grantReadWriteData(dbEnrichmentTaskDef.taskRole);
     this.sourceScanJobsTable.grantReadWriteData(dbEnrichmentTaskDef.taskRole);
+    if (useAurora) {
+      grantAuroraDataApi(
+        this,
+        dbEnrichmentTaskDef.taskRole,
+        ssmPrefix,
+        "engine-rw",
+      );
+    }
     namespacesTable.grantReadData(dbEnrichmentTaskDef.taskRole);
     projectAccessRole.grantAssumeRole(dbEnrichmentTaskDef.taskRole);
 
@@ -1315,27 +1346,41 @@ export class SourcesStack extends SCLStack {
     const makeDbStatusUpdate = (
       stepId: string,
       status: string,
-    ): tasks.DynamoUpdateItem =>
-      new tasks.DynamoUpdateItem(this, stepId, {
-        table: this.sourceScanJobsTable,
-        key: {
-          PK: tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.stringAt("$.scanJobPK"),
-          ),
-          SK: tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.stringAt("$.scanJobSK"),
-          ),
-        },
-        updateExpression: "SET #s = :s, #u = :u",
-        expressionAttributeNames: { "#s": "status", "#u": "updatedAt" },
-        expressionAttributeValues: {
-          ":s": tasks.DynamoAttributeValue.fromString(status),
-          ":u": tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.stringAt("$$.State.EnteredTime"),
-          ),
-        },
-        resultPath: sfn.JsonPath.DISCARD,
-      });
+    ): sfn.TaskStateBase =>
+      useAurora
+        ? this.auroraStatement(
+            stepId,
+            "UPDATE coa_metadata SET attributes = attributes || jsonb_build_object(" +
+              "'status', CAST(:s AS text), 'updatedAt', CAST(:u AS text)) " +
+              "WHERE table_name = :t AND pk = :pk AND sk = :sk",
+            {
+              t: this.sourceScanJobsTable.tableName,
+              pk: sfn.JsonPath.stringAt("$.scanJobPK"),
+              sk: sfn.JsonPath.stringAt("$.scanJobSK"),
+              s: status,
+              u: sfn.JsonPath.stringAt("$$.State.EnteredTime"),
+            },
+          )
+        : new tasks.DynamoUpdateItem(this, stepId, {
+            table: this.sourceScanJobsTable,
+            key: {
+              PK: tasks.DynamoAttributeValue.fromString(
+                sfn.JsonPath.stringAt("$.scanJobPK"),
+              ),
+              SK: tasks.DynamoAttributeValue.fromString(
+                sfn.JsonPath.stringAt("$.scanJobSK"),
+              ),
+            },
+            updateExpression: "SET #s = :s, #u = :u",
+            expressionAttributeNames: { "#s": "status", "#u": "updatedAt" },
+            expressionAttributeValues: {
+              ":s": tasks.DynamoAttributeValue.fromString(status),
+              ":u": tasks.DynamoAttributeValue.fromString(
+                sfn.JsonPath.stringAt("$$.State.EnteredTime"),
+              ),
+            },
+            resultPath: sfn.JsonPath.DISCARD,
+          });
 
     // Source record status update goes to sources table
     // PK = NS#{namespaceId}, SK = SRC#{sourceId}
@@ -1345,46 +1390,70 @@ export class SourcesStack extends SCLStack {
     // run has recorded itself in currentScanJobId; same expression as SCAN_RUN_FENCE
     // in coa_sources/database/scan_run.py. A failed condition is caught below, so the
     // execution still ends in DbScanFailed without writing the source.
-    const dbUpdateSourceScanFailed = new tasks.DynamoUpdateItem(
-      this,
-      "DbUpdateSourceStatusScanFailed",
-      {
-        table: this.sourcesTable,
-        key: {
-          PK: tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.format(
+    const dbUpdateSourceScanFailed: sfn.TaskStateBase = useAurora
+      ? this.auroraStatement(
+          "DbUpdateSourceStatusScanFailed",
+          "UPDATE coa_metadata SET attributes = attributes || jsonb_build_object(" +
+            "'status', CAST(:s AS text), 'updatedAt', CAST(:u AS text), " +
+            "'lastScanJobId', CAST(:l AS text)) " +
+            "WHERE table_name = :t AND pk = :pk AND sk = :sk " +
+            "AND (attributes->>'currentScanJobId' IS NULL " +
+            'OR (attributes->>\'currentScanJobId\') COLLATE "C" <= CAST(:run AS text) COLLATE "C")',
+          {
+            t: this.sourcesTable.tableName,
+            pk: sfn.JsonPath.format(
               "NS#{}",
               sfn.JsonPath.stringAt("$.namespaceId"),
             ),
-          ),
-          SK: tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.format("SRC#{}", sfn.JsonPath.stringAt("$.sourceId")),
-          ),
-        },
-        updateExpression: "SET #s = :s, #u = :u, #l = :l",
-        conditionExpression:
-          "attribute_exists(PK) AND (attribute_not_exists(#run) OR #run <= :run)",
-        expressionAttributeNames: {
-          "#s": "status",
-          "#u": "updatedAt",
-          "#l": "lastScanJobId",
-          "#run": "currentScanJobId",
-        },
-        expressionAttributeValues: {
-          ":s": tasks.DynamoAttributeValue.fromString("SCAN_FAILED"),
-          ":u": tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.stringAt("$$.State.EnteredTime"),
-          ),
-          ":l": tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.stringAt("$.scanJobSK"),
-          ),
-          ":run": tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.stringAt("$.scanJobSK"),
-          ),
-        },
-        resultPath: sfn.JsonPath.DISCARD,
-      },
-    );
+            sk: sfn.JsonPath.format(
+              "SRC#{}",
+              sfn.JsonPath.stringAt("$.sourceId"),
+            ),
+            s: "SCAN_FAILED",
+            u: sfn.JsonPath.stringAt("$$.State.EnteredTime"),
+            l: sfn.JsonPath.stringAt("$.scanJobSK"),
+            run: sfn.JsonPath.stringAt("$.scanJobSK"),
+          },
+        )
+      : new tasks.DynamoUpdateItem(this, "DbUpdateSourceStatusScanFailed", {
+          table: this.sourcesTable,
+          key: {
+            PK: tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.format(
+                "NS#{}",
+                sfn.JsonPath.stringAt("$.namespaceId"),
+              ),
+            ),
+            SK: tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.format(
+                "SRC#{}",
+                sfn.JsonPath.stringAt("$.sourceId"),
+              ),
+            ),
+          },
+          updateExpression: "SET #s = :s, #u = :u, #l = :l",
+          conditionExpression:
+            "attribute_exists(PK) AND (attribute_not_exists(#run) OR #run <= :run)",
+          expressionAttributeNames: {
+            "#s": "status",
+            "#u": "updatedAt",
+            "#l": "lastScanJobId",
+            "#run": "currentScanJobId",
+          },
+          expressionAttributeValues: {
+            ":s": tasks.DynamoAttributeValue.fromString("SCAN_FAILED"),
+            ":u": tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.stringAt("$$.State.EnteredTime"),
+            ),
+            ":l": tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.stringAt("$.scanJobSK"),
+            ),
+            ":run": tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.stringAt("$.scanJobSK"),
+            ),
+          },
+          resultPath: sfn.JsonPath.DISCARD,
+        });
 
     const dbUpdateDiscovering = makeDbStatusUpdate(
       "DbUpdateStatusDiscovering",
@@ -1406,8 +1475,12 @@ export class SourcesStack extends SCLStack {
     // Error chain: mark scan job FAILED + mark source SCAN_FAILED, then enter terminal Fail state.
     // This ensures the source status is always updated even when the ECS task is killed externally
     // (OOM, Fargate preemption, timeout) and the Python exception handler never runs.
+    // On Aurora a refused condition updates no row rather than raising, and both
+    // outcomes lead to dbFailState; the catch covers any other error the same way.
     dbUpdateSourceScanFailed.addCatch(dbFailState, {
-      errors: ["DynamoDB.ConditionalCheckFailedException"],
+      errors: useAurora
+        ? ["States.ALL"]
+        : ["DynamoDB.ConditionalCheckFailedException"],
       resultPath: "$.sourceStatusSkipped",
     });
     const dbErrorChain = dbUpdateFailed
@@ -1619,6 +1692,7 @@ export class SourcesStack extends SCLStack {
       },
     });
     this.sourcesTable.grantReadWriteData(dbScanReaperFn);
+    wireAuroraBackend(this, dbScanReaperFn, auroraDims);
 
     new events.Rule(this, "DbScanReaperRule", {
       eventPattern: {
@@ -1738,6 +1812,7 @@ export class SourcesStack extends SCLStack {
       });
       // Reads the source record; writes its status/queryable/errorMessage.
       this.sourcesTable.grantReadWriteData(graphVerifyFn);
+      wireAuroraBackend(this, graphVerifyFn, auroraDims);
       // Closes the Scan History row the API opened.
       this.sourceScanJobsTable.grantReadWriteData(graphVerifyFn);
       // GetEngineStatus is the whole probe: no data read, write or delete. The
@@ -1869,6 +1944,7 @@ export class SourcesStack extends SCLStack {
     );
 
     this.sourcesTable.grantReadWriteData(bulkReviewWorkerFn);
+    wireAuroraBackend(this, bulkReviewWorkerFn, auroraDims);
     // Append a REVIEW audit row to the scan-jobs table on each terminal
     // approve/reject so the console's Scan History tab shows real events.
     this.sourceScanJobsTable.grantReadWriteData(bulkReviewWorkerFn);
@@ -1968,6 +2044,7 @@ export class SourcesStack extends SCLStack {
 
     // - Assume the shared project access role for DataZone delete_asset
     this.sourcesTable.grantReadWriteData(sourceDeleteWorkerFn);
+    wireAuroraBackend(this, sourceDeleteWorkerFn, auroraDims);
     namespacesTable.grantReadData(sourceDeleteWorkerFn);
     this.sourceScanJobsTable.grantReadWriteData(sourceDeleteWorkerFn);
     projectAccessRole.grantAssumeRole(sourceDeleteWorkerFn.role!);
@@ -2021,6 +2098,7 @@ export class SourcesStack extends SCLStack {
     );
     sourcesBucket.grantReadWrite(preprocessingFn);
     this.sourcesTable.grantReadWriteData(preprocessingFn);
+    wireAuroraBackend(this, preprocessingFn, auroraDims);
     preprocessingFn.addToRolePolicy(
       new iam.PolicyStatement({
         sid: "ReadCustomerSourceBuckets",
@@ -2175,6 +2253,7 @@ export class SourcesStack extends SCLStack {
         BUCKET_NAME: sourcesBucket.bucketName,
         DOC_SOURCES_TABLE: this.sourcesTable.tableName,
         NEPTUNE_ENDPOINT: neptuneEndpoint,
+        ...auroraBackendEnv(ssmPrefix, flags, auroraDims),
         OPENSEARCH_ENDPOINT: opensearchEndpoint,
         BATCH_INFERENCE_ROLE_ARN: batchInferenceRole.roleArn,
         // ECS does not inject a region into task containers, so without this
@@ -2230,18 +2309,22 @@ export class SourcesStack extends SCLStack {
 
     sourcesBucket.grantReadWrite(kgBuildTaskDef.taskRole);
     this.sourcesTable.grantReadWriteData(kgBuildTaskDef.taskRole);
-    kgBuildTaskDef.taskRole.addToPrincipalPolicy(
-      new iam.PolicyStatement({
-        actions: [
-          "neptune-db:ReadDataViaQuery",
-          "neptune-db:WriteDataViaQuery",
-          "neptune-db:DeleteDataViaQuery",
-          "neptune-db:GetQueryStatus",
-          "neptune-db:CancelQuery",
-        ],
-        resources: [neptuneClusterArn],
-      }),
-    );
+    if (useAurora) {
+      grantAuroraDataApi(this, kgBuildTaskDef.taskRole, ssmPrefix, "engine-rw");
+    } else {
+      kgBuildTaskDef.taskRole.addToPrincipalPolicy(
+        new iam.PolicyStatement({
+          actions: [
+            "neptune-db:ReadDataViaQuery",
+            "neptune-db:WriteDataViaQuery",
+            "neptune-db:DeleteDataViaQuery",
+            "neptune-db:GetQueryStatus",
+            "neptune-db:CancelQuery",
+          ],
+          resources: [neptuneClusterArn],
+        }),
+      );
+    }
     kgBuildTaskDef.taskRole.addToPrincipalPolicy(
       new iam.PolicyStatement({
         actions: ["aoss:APIAccessAll"],
@@ -2353,7 +2436,40 @@ export class SourcesStack extends SCLStack {
       id: string,
       status: string,
       opts?: { includeError?: boolean; conditionExpression?: string },
-    ): tasks.DynamoUpdateItem => {
+    ): sfn.TaskStateBase => {
+      if (useAurora) {
+        const patch = [
+          "'status', CAST(:s AS text)",
+          "'updatedAt', CAST(:u AS text)",
+          ...(opts?.includeError ? ["'errorMessage', CAST(:e AS text)"] : []),
+        ].join(", ");
+        // Same guard as the DynamoDB condition: the row exists and is not already in the
+        // status being written (the KG-build task may have recorded its own reason).
+        const guard = opts?.conditionExpression
+          ? " AND attributes->>'status' IS DISTINCT FROM CAST(:s AS text)"
+          : "";
+        return this.auroraStatement(
+          id,
+          `UPDATE coa_metadata SET attributes = attributes || jsonb_build_object(${patch}) ` +
+            `WHERE table_name = :t AND pk = :pk AND sk = :sk${guard}`,
+          {
+            t: this.sourcesTable.tableName,
+            pk: sfn.JsonPath.format(
+              "NS#{}",
+              sfn.JsonPath.stringAt("$.namespace_id"),
+            ),
+            sk: sfn.JsonPath.format(
+              "SRC#{}",
+              sfn.JsonPath.stringAt("$.doc_source_id"),
+            ),
+            s: status,
+            u: sfn.JsonPath.stringAt("$$.State.EnteredTime"),
+            ...(opts?.includeError && {
+              e: sfn.JsonPath.stringAt("$.error.Cause"),
+            }),
+          },
+        );
+      }
       const exprNames: Record<string, string> = {
         "#s": "status",
         "#u": "updatedAt",
@@ -2430,19 +2546,23 @@ export class SourcesStack extends SCLStack {
     // condition is the expected outcome and is never retried. The condition
     // also makes a retry safe: if an attempt wrote and still returned an error,
     // the retry finds SCAN_FAILED and is refused.
-    docUpdateFailed.addRetry({
-      errors: ["DynamoDB.ConditionalCheckFailedException"],
-      maxAttempts: 0,
-    });
+    if (!useAurora) {
+      docUpdateFailed.addRetry({
+        errors: ["DynamoDB.ConditionalCheckFailedException"],
+        maxAttempts: 0,
+      });
+    }
     docUpdateFailed.addRetry({
       maxAttempts: 3,
       backoffRate: 2,
       interval: cdk.Duration.seconds(2),
     });
-    docUpdateFailed.addCatch(docFailState, {
-      errors: ["DynamoDB.ConditionalCheckFailedException"],
-      resultPath: "$.failureReasonKept",
-    });
+    if (!useAurora) {
+      docUpdateFailed.addCatch(docFailState, {
+        errors: ["DynamoDB.ConditionalCheckFailedException"],
+        resultPath: "$.failureReasonKept",
+      });
+    }
     const docErrorChain = docUpdateFailed.next(docFailState);
 
     const preprocessTask = new tasks.LambdaInvoke(
@@ -2617,85 +2737,125 @@ export class SourcesStack extends SCLStack {
     });
     kgBuildTask.addCatch(docErrorChain, { resultPath: "$.error" });
 
-    const savePreprocessingResults = new tasks.DynamoUpdateItem(
-      this,
-      "SourcesSavePreprocessingResults",
-      {
-        table: this.sourcesTable,
-        key: {
-          PK: tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.format(
+    const savePreprocessingResults: sfn.TaskStateBase = useAurora
+      ? this.auroraStatement(
+          "SourcesSavePreprocessingResults",
+          "UPDATE coa_metadata SET attributes = attributes || jsonb_build_object(" +
+            "'status', CAST(:s AS text), 'filesTotal', CAST(:ft AS bigint), " +
+            "'filesPreprocessed', CAST(:fp AS bigint), 'filesSkipped', CAST(:fs AS bigint), " +
+            "'filesErrored', CAST(:fe AS bigint), 'preprocessingIssues', CAST(:pi AS text), " +
+            "'preprocessingIssuesS3Key', CAST(:pik AS text), " +
+            "'preprocessingIssuesTruncated', CAST(:pit AS boolean), " +
+            "'updatedAt', CAST(:u AS text)) " +
+            "WHERE table_name = :t AND pk = :pk AND sk = :sk",
+          {
+            t: this.sourcesTable.tableName,
+            pk: sfn.JsonPath.format(
               "NS#{}",
               sfn.JsonPath.stringAt("$.namespace_id"),
             ),
-          ),
-          SK: tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.format(
+            sk: sfn.JsonPath.format(
               "SRC#{}",
               sfn.JsonPath.stringAt("$.doc_source_id"),
             ),
-          ),
-        },
-        updateExpression:
-          "SET #s = :s, #ft = :ft, #fp = :fp, #fs = :fs, #fe = :fe, #pi = :pi, #pik = :pik, #pit = :pit, #u = :u",
-        expressionAttributeNames: {
-          "#s": "status",
-          "#ft": "filesTotal",
-          "#fp": "filesPreprocessed",
-          "#fs": "filesSkipped",
-          "#fe": "filesErrored",
-          "#pi": "preprocessingIssues",
-          "#pik": "preprocessingIssuesS3Key",
-          "#pit": "preprocessingIssuesTruncated",
-          "#u": "updatedAt",
-        },
-        expressionAttributeValues: {
-          ":s": tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.stringAt("$.preprocessResult.status"),
-          ),
-          ":ft": tasks.DynamoAttributeValue.numberFromString(
-            sfn.JsonPath.stringAt(
+            s: sfn.JsonPath.stringAt("$.preprocessResult.status"),
+            ft: sfn.JsonPath.stringAt(
               "States.Format('{}', $.preprocessResult.files_total)",
             ),
-          ),
-          ":fp": tasks.DynamoAttributeValue.numberFromString(
-            sfn.JsonPath.stringAt(
+            fp: sfn.JsonPath.stringAt(
               "States.Format('{}', $.preprocessResult.files_preprocessed)",
             ),
-          ),
-          ":fs": tasks.DynamoAttributeValue.numberFromString(
-            sfn.JsonPath.stringAt(
+            fs: sfn.JsonPath.stringAt(
               "States.Format('{}', $.preprocessResult.files_skipped)",
             ),
-          ),
-          ":fe": tasks.DynamoAttributeValue.numberFromString(
-            sfn.JsonPath.stringAt(
+            fe: sfn.JsonPath.stringAt(
               "States.Format('{}', $.preprocessResult.files_errored)",
             ),
-          ),
-          ":pi": tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.stringAt(
+            pi: sfn.JsonPath.stringAt(
               "States.JsonToString($.preprocessResult.issues_preview)",
             ),
-          ),
-          ":pik": tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.stringAt("$.preprocessResult.issues_s3_key"),
-          ),
-          ":pit": tasks.DynamoAttributeValue.booleanFromJsonPath(
-            // stringAt() is REQUIRED: given a raw "$.x" string this helper emits
-            // {"BOOL": "$.x"} with no ".$", so the path is never substituted and
-            // CreateStateMachine rejects the literal string as a boolean
-            // (aws-cdk-lib 2.260.0). A token value makes the renderer emit
-            // "BOOL.$", substituting the path. Pinned by the synth test below.
-            sfn.JsonPath.stringAt("$.preprocessResult.issues_truncated"),
-          ),
-          ":u": tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.stringAt("$$.State.EnteredTime"),
-          ),
-        },
-        resultPath: sfn.JsonPath.DISCARD,
-      },
-    );
+            pik: sfn.JsonPath.stringAt("$.preprocessResult.issues_s3_key"),
+            pit: sfn.JsonPath.stringAt(
+              "States.Format('{}', $.preprocessResult.issues_truncated)",
+            ),
+            u: sfn.JsonPath.stringAt("$$.State.EnteredTime"),
+          },
+        )
+      : new tasks.DynamoUpdateItem(this, "SourcesSavePreprocessingResults", {
+          table: this.sourcesTable,
+          key: {
+            PK: tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.format(
+                "NS#{}",
+                sfn.JsonPath.stringAt("$.namespace_id"),
+              ),
+            ),
+            SK: tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.format(
+                "SRC#{}",
+                sfn.JsonPath.stringAt("$.doc_source_id"),
+              ),
+            ),
+          },
+          updateExpression:
+            "SET #s = :s, #ft = :ft, #fp = :fp, #fs = :fs, #fe = :fe, #pi = :pi, #pik = :pik, #pit = :pit, #u = :u",
+          expressionAttributeNames: {
+            "#s": "status",
+            "#ft": "filesTotal",
+            "#fp": "filesPreprocessed",
+            "#fs": "filesSkipped",
+            "#fe": "filesErrored",
+            "#pi": "preprocessingIssues",
+            "#pik": "preprocessingIssuesS3Key",
+            "#pit": "preprocessingIssuesTruncated",
+            "#u": "updatedAt",
+          },
+          expressionAttributeValues: {
+            ":s": tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.stringAt("$.preprocessResult.status"),
+            ),
+            ":ft": tasks.DynamoAttributeValue.numberFromString(
+              sfn.JsonPath.stringAt(
+                "States.Format('{}', $.preprocessResult.files_total)",
+              ),
+            ),
+            ":fp": tasks.DynamoAttributeValue.numberFromString(
+              sfn.JsonPath.stringAt(
+                "States.Format('{}', $.preprocessResult.files_preprocessed)",
+              ),
+            ),
+            ":fs": tasks.DynamoAttributeValue.numberFromString(
+              sfn.JsonPath.stringAt(
+                "States.Format('{}', $.preprocessResult.files_skipped)",
+              ),
+            ),
+            ":fe": tasks.DynamoAttributeValue.numberFromString(
+              sfn.JsonPath.stringAt(
+                "States.Format('{}', $.preprocessResult.files_errored)",
+              ),
+            ),
+            ":pi": tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.stringAt(
+                "States.JsonToString($.preprocessResult.issues_preview)",
+              ),
+            ),
+            ":pik": tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.stringAt("$.preprocessResult.issues_s3_key"),
+            ),
+            ":pit": tasks.DynamoAttributeValue.booleanFromJsonPath(
+              // stringAt() is REQUIRED: given a raw "$.x" string this helper emits
+              // {"BOOL": "$.x"} with no ".$", so the path is never substituted and
+              // CreateStateMachine rejects the literal string as a boolean
+              // (aws-cdk-lib 2.260.0). A token value makes the renderer emit
+              // "BOOL.$", substituting the path. Pinned by the synth test below.
+              sfn.JsonPath.stringAt("$.preprocessResult.issues_truncated"),
+            ),
+            ":u": tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.stringAt("$$.State.EnteredTime"),
+            ),
+          },
+          resultPath: sfn.JsonPath.DISCARD,
+        });
     savePreprocessingResults.addCatch(docErrorChain, { resultPath: "$.error" });
 
     const checkPreprocessResult = new sfn.Choice(
@@ -2754,6 +2914,7 @@ export class SourcesStack extends SCLStack {
       },
     );
     this.sourcesTable.grantReadWriteData(docCleanupFn);
+    wireAuroraBackend(this, docCleanupFn, auroraDims);
     sourcesBucket.grantDelete(docCleanupFn);
     sourcesBucket.grantRead(docCleanupFn);
 
@@ -2836,28 +2997,40 @@ export class SourcesStack extends SCLStack {
       resultPath: "$.error",
     });
 
-    const docDeleteDdbRecord = new tasks.DynamoDeleteItem(
-      this,
-      "SourcesDocDeleteDdbRecord",
-      {
-        table: this.sourcesTable,
-        key: {
-          PK: tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.format(
+    const docDeleteDdbRecord: sfn.TaskStateBase = useAurora
+      ? this.auroraStatement(
+          "SourcesDocDeleteDdbRecord",
+          "DELETE FROM coa_metadata WHERE table_name = :t AND pk = :pk AND sk = :sk",
+          {
+            t: this.sourcesTable.tableName,
+            pk: sfn.JsonPath.format(
               "NS#{}",
               sfn.JsonPath.stringAt("$.namespace_id"),
             ),
-          ),
-          SK: tasks.DynamoAttributeValue.fromString(
-            sfn.JsonPath.format(
+            sk: sfn.JsonPath.format(
               "SRC#{}",
               sfn.JsonPath.stringAt("$.doc_source_id"),
             ),
-          ),
-        },
-        resultPath: sfn.JsonPath.DISCARD,
-      },
-    );
+          },
+        )
+      : new tasks.DynamoDeleteItem(this, "SourcesDocDeleteDdbRecord", {
+          table: this.sourcesTable,
+          key: {
+            PK: tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.format(
+                "NS#{}",
+                sfn.JsonPath.stringAt("$.namespace_id"),
+              ),
+            ),
+            SK: tasks.DynamoAttributeValue.fromString(
+              sfn.JsonPath.format(
+                "SRC#{}",
+                sfn.JsonPath.stringAt("$.doc_source_id"),
+              ),
+            ),
+          },
+          resultPath: sfn.JsonPath.DISCARD,
+        });
     docDeleteDdbRecord.addCatch(docDeletionErrorChain, {
       resultPath: "$.error",
     });
@@ -2932,13 +3105,17 @@ export class SourcesStack extends SCLStack {
     docIngestionStateMachine.grantStartExecution(docTriggerFn);
     // Minimal read of the namespace metadata item for pre-snapshot messages;
     // deliberately GetItem only, not grantReadData (Query/Scan/Batch).
-    docTriggerFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        sid: "ReadNamespaceLanguage",
-        actions: ["dynamodb:GetItem"],
-        resources: [namespacesTable.tableArn],
-      }),
-    );
+    if (useAurora) {
+      wireAuroraBackend(this, docTriggerFn, auroraDims);
+    } else {
+      docTriggerFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          sid: "ReadNamespaceLanguage",
+          actions: ["dynamodb:GetItem"],
+          resources: [namespacesTable.tableArn],
+        }),
+      );
+    }
     docTriggerFn.addEventSource(
       new lambdaEventSources.SqsEventSource(docIngestionQueue, {
         batchSize: 1,
@@ -3025,6 +3202,7 @@ export class SourcesStack extends SCLStack {
     });
 
     this.sourcesTable.grantReadWriteData(sourcesApiFn);
+    wireAuroraBackend(this, sourcesApiFn, auroraDims);
     // CreateSource is retry-safe with a caller-supplied clientToken.
     grantIdempotencyTable(this, sourcesApiFn);
     // Registration verifies that a caller-named bucket carries the
@@ -3437,15 +3615,17 @@ export class SourcesStack extends SCLStack {
       }
     }
     // Explicit TransactWriteItems grant (grantReadWriteData covers it but be explicit for audit)
-    sourcesApiFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["dynamodb:TransactWriteItems"],
-        resources: [
-          this.sourcesTable.tableArn,
-          this.sourceScanJobsTable.tableArn,
-        ],
-      }),
-    );
+    if (!useAurora) {
+      sourcesApiFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["dynamodb:TransactWriteItems"],
+          resources: [
+            this.sourcesTable.tableArn,
+            this.sourceScanJobsTable.tableArn,
+          ],
+        }),
+      );
+    }
 
     // Pre-signed PUT URLs for document uploads
     sourcesApiFn.addToRolePolicy(
@@ -3652,16 +3832,19 @@ export class SourcesStack extends SCLStack {
       },
     });
     this.sourcesTable.grantReadWriteData(glueEventRescanFn);
+    wireAuroraBackend(this, glueEventRescanFn, auroraDims);
     this.sourceScanJobsTable.grantReadWriteData(glueEventRescanFn);
     // Reads only the namespace metadata item for the language snapshot;
     // deliberately GetItem only, not grantReadData (Query/Scan/Batch).
-    glueEventRescanFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        sid: "ReadNamespaceLanguage",
-        actions: ["dynamodb:GetItem"],
-        resources: [namespacesTable.tableArn],
-      }),
-    );
+    if (!useAurora) {
+      glueEventRescanFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          sid: "ReadNamespaceLanguage",
+          actions: ["dynamodb:GetItem"],
+          resources: [namespacesTable.tableArn],
+        }),
+      );
+    }
     dbScanQueue.grantSendMessages(glueEventRescanFn);
     glueEventRescanFn.addEventSource(
       new lambdaEventSources.SqsEventSource(glueEventQueue, {
@@ -4167,6 +4350,54 @@ export class SourcesStack extends SCLStack {
       conditions: {
         Null: { "sts:ExternalId": "false" },
       },
+    });
+  }
+
+  /**
+   * Step Functions task that runs one RDS Data API statement as the engine role
+   * (coa_engine_rw). It is the Aurora-path replacement for the direct DynamoDB
+   * UpdateItem/DeleteItem tasks that update the `coa_metadata` rows holding the
+   * sources and scan-job records.
+   *
+   * @param params Named SQL parameters, passed as string values. A value that is a
+   *   JsonPath token is resolved from the state input; cast it in the SQL.
+   */
+  private auroraStatement(
+    id: string,
+    sql: string,
+    params: Record<string, string>,
+  ): tasks.CallAwsService {
+    const { ssmPrefix } = resolveContext(this.node);
+    const clusterArn = ssm.StringParameter.valueForStringParameter(
+      this,
+      `${ssmPrefix}/aurora/cluster-arn`,
+    );
+    const secretArn = ssm.StringParameter.valueForStringParameter(
+      this,
+      `${ssmPrefix}/aurora/engine-rw-secret-arn`,
+    );
+    return new tasks.CallAwsService(this, id, {
+      service: "rdsdata",
+      action: "executeStatement",
+      iamAction: "rds-data:ExecuteStatement",
+      iamResources: [clusterArn],
+      additionalIamStatements: [
+        new iam.PolicyStatement({
+          actions: ["secretsmanager:GetSecretValue"],
+          resources: [secretArn],
+        }),
+      ],
+      parameters: {
+        ResourceArn: clusterArn,
+        SecretArn: secretArn,
+        Database: "postgres",
+        Sql: sql,
+        Parameters: Object.entries(params).map(([name, value]) => ({
+          Name: name,
+          Value: { StringValue: value },
+        })),
+      },
+      resultPath: sfn.JsonPath.DISCARD,
     });
   }
 }

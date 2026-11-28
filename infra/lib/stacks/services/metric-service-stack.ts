@@ -26,10 +26,14 @@ import { Paths, fromRoot } from "../../paths";
 import type { IAlarmActionStrategy } from "cdk-monitoring-constructs/lib/common/alarm/action";
 import { resolveBackendFlags, resolveContext } from "../../context";
 import {
-  auroraSearchEnv,
   grantAuroraDataApi,
-  isAuroraSearchEnabled,
+  isAuroraMetadataEnabled,
 } from "../../utils/aurora-search";
+import {
+  auroraBackendEnv,
+  logicalTable,
+  wireAuroraBackend,
+} from "../../utils/aurora-metadata";
 import {
   DEFAULT_EVENT_BUS_NAME,
   DEFAULT_BEDROCK_MODEL_ID,
@@ -81,6 +85,12 @@ export class MetricServiceStack extends SCLStack {
 
     const { ssmPrefix } = resolveContext(this.node);
     const flags = resolveBackendFlags(this.node);
+    // Full Aurora path: metadata and graph live in Aurora, so there is no import-jobs
+    // table, no Neptune endpoint and no neptune-db or dynamodb permission.
+    const useAurora = isAuroraMetadataEnabled(flags);
+    const neptuneEndpointEnv = useAurora
+      ? ""
+      : `https://${props.neptuneEndpoint}:8182`;
     const eventBusName = props.eventBusName ?? DEFAULT_EVENT_BUS_NAME;
     const bedrockModelId = props.bedrockModelId ?? DEFAULT_BEDROCK_MODEL_ID;
     const embedDimensions = props.bedrockEmbedDimensions ?? 1024;
@@ -178,11 +188,11 @@ export class MetricServiceStack extends SCLStack {
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
       securityGroups: [props.lambdaSecurityGroup],
       environment: {
-        NEPTUNE_ENDPOINT: `https://${props.neptuneEndpoint}:8182`,
+        NEPTUNE_ENDPOINT: neptuneEndpointEnv,
         NDB_GRAPH_URI_BASE: DEFAULT_GRAPH_URI_BASE,
         OPENSEARCH_ENDPOINT: opensearchEndpoint,
         OSS_INDEX_PREFIX: opensearchCollectionName,
-        ...auroraSearchEnv(ssmPrefix, flags, "rw", embedDimensions),
+        ...auroraBackendEnv(ssmPrefix, flags, embedDimensions),
         EVENTBRIDGE_BUS_NAME: eventBusName,
         BEDROCK_MODEL_ID: bedrockModelId,
         BEDROCK_REGION: this.region,
@@ -196,8 +206,8 @@ export class MetricServiceStack extends SCLStack {
       },
     });
 
-    if (isAuroraSearchEnabled(flags)) {
-      grantAuroraDataApi(this, this.metricApiFn, ssmPrefix, "rw");
+    if (useAurora) {
+      grantAuroraDataApi(this, this.metricApiFn, ssmPrefix, "engine-rw");
     }
 
     // CreateMetric / ImportOsi are retry-safe with a caller-supplied clientToken.
@@ -212,16 +222,18 @@ export class MetricServiceStack extends SCLStack {
     );
 
     // ── IAM: Neptune (SPARQL read/write/delete) ──────────────────
-    this.metricApiFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: [
-          "neptune-db:ReadDataViaQuery",
-          "neptune-db:WriteDataViaQuery",
-          "neptune-db:DeleteDataViaQuery",
-        ],
-        resources: [props.neptuneClusterArn],
-      }),
-    );
+    if (!useAurora) {
+      this.metricApiFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: [
+            "neptune-db:ReadDataViaQuery",
+            "neptune-db:WriteDataViaQuery",
+            "neptune-db:DeleteDataViaQuery",
+          ],
+          resources: [props.neptuneClusterArn],
+        }),
+      );
+    }
 
     // ── IAM: OpenSearch Serverless ─────────────────────────────────
     this.metricApiFn.addToRolePolicy(
@@ -259,15 +271,14 @@ export class MetricServiceStack extends SCLStack {
     );
 
     // ── IAM: SMUS catalog access (metric validation Checks 2-5) ───
-    const sourcesTable = dynamodb.Table.fromTableName(
-      this,
-      "SourcesTable",
-      sourcesTableName,
-    );
+    const catalogTable = (id: string, name: string): dynamodb.ITable =>
+      useAurora
+        ? logicalTable(this, id, name)
+        : dynamodb.Table.fromTableName(this, id, name);
+    const sourcesTable = catalogTable("SourcesTable", sourcesTableName);
     sourcesTable.grantReadData(this.metricApiFn);
 
-    const namespacesTable = dynamodb.Table.fromTableName(
-      this,
+    const namespacesTable = catalogTable(
       "NamespacesTable",
       namespacesTableName,
     );
@@ -295,15 +306,21 @@ export class MetricServiceStack extends SCLStack {
     });
 
     // ── DynamoDB: Import Jobs table ────────────────────────────────
-    const importJobsTable = new dynamodb.Table(this, "ImportJobsTable", {
-      tableName: this.prefixed("metric-import-jobs"),
-      partitionKey: { name: "PK", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "SK", type: dynamodb.AttributeType.STRING },
-      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      encryption: dynamodb.TableEncryption.AWS_MANAGED,
-      removalPolicy: cdk.RemovalPolicy.DESTROY,
-      timeToLiveAttribute: "ttl",
-    });
+    const importJobsTable: dynamodb.ITable = useAurora
+      ? logicalTable(
+          this,
+          "ImportJobsTable",
+          this.prefixed("metric-import-jobs"),
+        )
+      : new dynamodb.Table(this, "ImportJobsTable", {
+          tableName: this.prefixed("metric-import-jobs"),
+          partitionKey: { name: "PK", type: dynamodb.AttributeType.STRING },
+          sortKey: { name: "SK", type: dynamodb.AttributeType.STRING },
+          billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+          encryption: dynamodb.TableEncryption.AWS_MANAGED,
+          removalPolicy: cdk.RemovalPolicy.DESTROY,
+          timeToLiveAttribute: "ttl",
+        });
 
     // ── SQS: Import queue + DLQ ────────────────────────────────────
     const importDlq = new sqs.Queue(this, "ImportDLQ", {
@@ -340,11 +357,11 @@ export class MetricServiceStack extends SCLStack {
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
       securityGroups: [props.lambdaSecurityGroup],
       environment: {
-        NEPTUNE_ENDPOINT: `https://${props.neptuneEndpoint}:8182`,
+        NEPTUNE_ENDPOINT: neptuneEndpointEnv,
         NDB_GRAPH_URI_BASE: DEFAULT_GRAPH_URI_BASE,
         OPENSEARCH_ENDPOINT: opensearchEndpoint,
         OSS_INDEX_PREFIX: opensearchCollectionName,
-        ...auroraSearchEnv(ssmPrefix, flags, "rw", embedDimensions),
+        ...auroraBackendEnv(ssmPrefix, flags, embedDimensions),
         BEDROCK_MODEL_ID: bedrockModelId,
         BEDROCK_REGION: this.region,
         OSI_BUCKET_NAME: osiBucket.bucketName,
@@ -401,8 +418,9 @@ export class MetricServiceStack extends SCLStack {
     // Read only namespace-scoped import sources and checkpoints. The broader
     // imports prefix is retained for in-flight legacy jobs whose source keys
     // predate the dedicated imports/jobs sub-prefix.
-    if (isAuroraSearchEnabled(flags)) {
-      grantAuroraDataApi(this, importWorkerFn, ssmPrefix, "rw");
+    if (useAurora) {
+      grantAuroraDataApi(this, importWorkerFn, ssmPrefix, "engine-rw");
+      wireAuroraBackend(this, importDlqRecoveryFn);
     }
     importWorkerFn.addToRolePolicy(
       new iam.PolicyStatement({
@@ -416,12 +434,14 @@ export class MetricServiceStack extends SCLStack {
         resources: [`${osiBucket.bucketArn}/*/imports/checkpoints/*`],
       }),
     );
-    importDlqRecoveryFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["dynamodb:GetItem", "dynamodb:UpdateItem"],
-        resources: [importJobsTable.tableArn],
-      }),
-    );
+    if (!useAurora) {
+      importDlqRecoveryFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["dynamodb:GetItem", "dynamodb:UpdateItem"],
+          resources: [importJobsTable.tableArn],
+        }),
+      );
+    }
     importQueue.grantSendMessages(importDlqRecoveryFn);
 
     // SMUS catalog access — same grants as the API Lambda
@@ -434,17 +454,19 @@ export class MetricServiceStack extends SCLStack {
       }),
     );
 
-    importWorkerFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: [
-          "neptune-db:ReadDataViaQuery",
-          "neptune-db:WriteDataViaQuery",
-          "neptune-db:DeleteDataViaQuery",
-          "neptune-db:connect",
-        ],
-        resources: [props.neptuneClusterArn],
-      }),
-    );
+    if (!useAurora) {
+      importWorkerFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: [
+            "neptune-db:ReadDataViaQuery",
+            "neptune-db:WriteDataViaQuery",
+            "neptune-db:DeleteDataViaQuery",
+            "neptune-db:connect",
+          ],
+          resources: [props.neptuneClusterArn],
+        }),
+      );
+    }
 
     importWorkerFn.addToRolePolicy(
       new iam.PolicyStatement({
@@ -518,15 +540,17 @@ export class MetricServiceStack extends SCLStack {
     // ================================================================
     // OE monitoring (cdk-monitoring-constructs)
     // ================================================================
-    new SclMonitoring(this, "Monitoring", {
+    const monitoring = new SclMonitoring(this, "Monitoring", {
       alarmNamePrefix: this.prefixed("metric-service"),
       alarmAction: props.alarmAction,
     })
       .monitorLambda(this.metricApiFn)
       .monitorLambda(importWorkerFn)
       .monitorLambda(importDlqRecoveryFn)
-      .monitorQueueWithDlq(importQueue, importDlq)
-      .monitorTable(importJobsTable);
+      .monitorQueueWithDlq(importQueue, importDlq);
+    if (!useAurora) {
+      monitoring.monitorTable(importJobsTable);
+    }
 
     // ── Outputs ────────────────────────────────────────────────────
     new cdk.CfnOutput(this, "MetricApiFnArn", {

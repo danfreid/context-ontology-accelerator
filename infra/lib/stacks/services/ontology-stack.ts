@@ -33,10 +33,10 @@ import {
   graphSourcesEnabled,
 } from "../../utils/graph-sources";
 import {
-  auroraSearchEnv,
   grantAuroraDataApi,
   isAuroraSearchEnabled,
 } from "../../utils/aurora-search";
+import { auroraBackendEnv, logicalTable } from "../../utils/aurora-metadata";
 import { grantIdempotencyTable } from "../../utils/idempotency";
 import { grantGuardDutyAgentPull } from "../../utils/guardduty-agent";
 import { NetworkStack } from "../foundation/network-stack";
@@ -106,7 +106,7 @@ export class OntologyStack extends SCLStack {
   public readonly cluster?: ecs.Cluster;
   /** ECS service. Undefined when `compute_backend=lambda`. */
   public readonly service?: ecs.FargateService;
-  public readonly table: dynamodb.Table;
+  public readonly table: dynamodb.ITable;
   public readonly containerPort: number;
 
   constructor(scope: Construct, id: string, props: OntologyStackProps) {
@@ -193,18 +193,28 @@ export class OntologyStack extends SCLStack {
     );
 
     // DynamoDB Table (single-table PK/SK design)
-    this.table = new dynamodb.Table(this, "OntologyEngineTable", {
-      tableName: this.prefixed("ontology-engine"),
-      partitionKey: { name: "PK", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "SK", type: dynamodb.AttributeType.STRING },
-      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
-      encryption: dynamodb.TableEncryption.AWS_MANAGED,
-      pointInTimeRecoverySpecification: { pointInTimeRecoveryEnabled: true },
-      removalPolicy:
-        this.envName === "prod"
-          ? cdk.RemovalPolicy.RETAIN
-          : cdk.RemovalPolicy.DESTROY,
-    });
+    // Full Aurora path: no table. The store is the ontology_engine table in Aurora and
+    // the name stays as its logical table name (DYNAMODB_TABLE).
+    this.table = useAurora
+      ? logicalTable(
+          this,
+          "OntologyEngineTable",
+          this.prefixed("ontology-engine"),
+        )
+      : new dynamodb.Table(this, "OntologyEngineTable", {
+          tableName: this.prefixed("ontology-engine"),
+          partitionKey: { name: "PK", type: dynamodb.AttributeType.STRING },
+          sortKey: { name: "SK", type: dynamodb.AttributeType.STRING },
+          billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+          encryption: dynamodb.TableEncryption.AWS_MANAGED,
+          pointInTimeRecoverySpecification: {
+            pointInTimeRecoveryEnabled: true,
+          },
+          removalPolicy:
+            this.envName === "prod"
+              ? cdk.RemovalPolicy.RETAIN
+              : cdk.RemovalPolicy.DESTROY,
+        });
 
     // String(): context from cdk.json may be a non-string; CLI values always are.
     const oopsEndpoint = String(
@@ -220,8 +230,11 @@ export class OntologyStack extends SCLStack {
 
     const engineEnvironment = {
       WORKBENCH_BACKEND: useAurora ? "aurora_pgvector" : "opensearch_neptune",
-      ...(useAurora && { METADATA_BACKEND: "aurora" }),
-      NDB_ENDPOINT: `https://${props.neptuneClusterEndpoint}:8182`,
+      // Empty on the Aurora path: the graph is in Aurora (GRAPH_BACKEND), and a non-empty
+      // endpoint would make callers try Neptune over HTTP.
+      NDB_ENDPOINT: useAurora
+        ? ""
+        : `https://${props.neptuneClusterEndpoint}:8182`,
       NDB_IAM_AUTH: "true",
       NDB_REGION: cdk.Aws.REGION,
       OSS_ENDPOINT: opensearchEndpoint,
@@ -229,10 +242,9 @@ export class OntologyStack extends SCLStack {
       OSS_INDEX: opensearchCollectionName,
       OSS_DIMENSIONS: embedDimensions,
       // Aurora search backend config; empty unless vector_backend=pgvector.
-      ...auroraSearchEnv(
+      ...auroraBackendEnv(
         ssmPrefix,
         flags,
-        "engine-rw",
         props.bedrockEmbedDimensions ?? 1024,
       ),
       ONTOLOGY_ARTIFACTS_BUCKET: props.ontologyArtifactsBucket.bucketName,
@@ -494,22 +506,22 @@ export class OntologyStack extends SCLStack {
 
     // DynamoDB — read access to the namespaces table so the catalog reader
     // can look up ``dataZoneProjectId`` per namespace.
-    const nsTable = dynamodb.Table.fromTableName(
-      this,
-      "NamespacesTable",
-      namespacesTableName,
-    );
+    const nsTable = useAurora
+      ? logicalTable(this, "NamespacesTable", namespacesTableName)
+      : dynamodb.Table.fromTableName(
+          this,
+          "NamespacesTable",
+          namespacesTableName,
+        );
     nsTable.grantReadData(workloadRole);
 
     // DynamoDB — read access to the unified sources table so the catalog
     // reader can verify a sourceId is registered before fetching DataZone
     // assets. Replaces the legacy datasourcesTable lookup that only knew
     // about JDBC sources.
-    const srcTable = dynamodb.Table.fromTableName(
-      this,
-      "SourcesTable",
-      sourcesTableName,
-    );
+    const srcTable = useAurora
+      ? logicalTable(this, "SourcesTable", sourcesTableName)
+      : dynamodb.Table.fromTableName(this, "SourcesTable", sourcesTableName);
     srcTable.grantReadData(workloadRole);
 
     // Bedrock — LLM (Converse) + Embeddings (InvokeModel)
@@ -661,12 +673,13 @@ export class OntologyStack extends SCLStack {
       );
 
       // OE monitoring (cdk-monitoring-constructs)
-      new SclMonitoring(this, "Monitoring", {
+      const ontologyMonitoring = new SclMonitoring(this, "Monitoring", {
         alarmNamePrefix: this.prefixed("ontology"),
         alarmAction: props.alarmAction,
-      })
-        .monitorFargateService(service)
-        .monitorTable(this.table);
+      }).monitorFargateService(service);
+      if (!useAurora) {
+        ontologyMonitoring.monitorTable(this.table);
+      }
 
       // Out-of-process OOM observability: a SIGKILL runs neither `except` nor `finally`, so the
       // app's terminal PutMetricData never fires; an EventBridge rule and a memory alarm cover it.
@@ -771,10 +784,13 @@ export class OntologyStack extends SCLStack {
         action: props.alarmAction,
       });
     } else {
-      new SclMonitoring(this, "Monitoring", {
+      const ontologyMonitoring = new SclMonitoring(this, "Monitoring", {
         alarmNamePrefix: this.prefixed("ontology"),
         alarmAction: props.alarmAction,
-      }).monitorTable(this.table);
+      });
+      if (!useAurora) {
+        ontologyMonitoring.monitorTable(this.table);
+      }
     }
 
     // CloudWatch Dashboard — Induction Performance, Load & Cost. The container emits all
@@ -1215,28 +1231,41 @@ export class OntologyStack extends SCLStack {
           // resolver requires the fully-qualified name.
           ONTOLOGY_ENGINE_ENDPOINT: `http://ontology-engine.${namespace.namespaceName}:${this.containerPort}`,
           SOURCES_TABLE: sourcesTableName,
-          NEPTUNE_ENDPOINT: props.neptuneClusterEndpoint,
+          NEPTUNE_ENDPOINT: useAurora ? "" : props.neptuneClusterEndpoint,
           OPENSEARCH_ENDPOINT: opensearchEndpoint,
           ALLOWED_ORIGIN: props.allowedOrigin,
+          ...auroraBackendEnv(
+            ssmPrefix,
+            flags,
+            props.bedrockEmbedDimensions ?? 1024,
+          ),
         },
       });
+      if (useAurora) {
+        grantAuroraDataApi(this, apiProxyFn, ssmPrefix, "engine-rw");
+      }
       // StartInduction is retry-safe with a clientToken; the proxy (not the ECS
       // service) enforces it because only it sees the caller identity.
       grantIdempotencyTable(this, apiProxyFn);
-      // System-health check describes only the sources table (SOURCES_TABLE).
-      apiProxyFn.addToRolePolicy(
-        new iam.PolicyStatement({
-          sid: "HealthCheckDescribeSourcesTable",
-          actions: ["dynamodb:DescribeTable"],
-          resources: [srcTable.tableArn],
-        }),
-      );
-      apiProxyFn.addToRolePolicy(
-        new iam.PolicyStatement({
-          actions: ["neptune-db:ReadDataViaQuery", "neptune-db:GetQueryStatus"],
-          resources: [props.neptuneClusterArn],
-        }),
-      );
+      if (!useAurora) {
+        // System-health check describes only the sources table (SOURCES_TABLE).
+        apiProxyFn.addToRolePolicy(
+          new iam.PolicyStatement({
+            sid: "HealthCheckDescribeSourcesTable",
+            actions: ["dynamodb:DescribeTable"],
+            resources: [srcTable.tableArn],
+          }),
+        );
+        apiProxyFn.addToRolePolicy(
+          new iam.PolicyStatement({
+            actions: [
+              "neptune-db:ReadDataViaQuery",
+              "neptune-db:GetQueryStatus",
+            ],
+            resources: [props.neptuneClusterArn],
+          }),
+        );
+      }
       // aoss:BatchGetCollection does not support resource-level permissions
       // (AWS limitation — no resource type in the Service Authorization
       // Reference), so it must use "*". It is a read-only control-plane call
