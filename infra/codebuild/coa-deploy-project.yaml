@@ -201,10 +201,12 @@ Resources:
       Environment:
         Type: ARM_CONTAINER
         Image: aws/codebuild/amazonlinux-aarch64-standard:3.0
-        # Amazon Linux 2023 host (kernel 6.x). Unset defaults to Amazon Linux 2 (kernel 4.x),
-        # which reached end of life on 2026-06-30. Pinned rather than LINUX_KERNEL_LATEST so
-        # the host changes only with this template. The build image above is separate.
-        HostKernel: LINUX_KERNEL_6
+        # Amazon Linux 2 host (kernel 4.x), set explicitly although the console recommends
+        # Amazon Linux 2023. On the LINUX_KERNEL_6 host the QEMU binfmt registration reports
+        # success but linux/amd64 containers still fail with "exec format error", so the
+        # amd64 image assets cannot be built (seen 2026-11-27). Explicit, so an update moves
+        # a project that was on kernel 6 back. The build image above is Amazon Linux 2023.
+        HostKernel: LINUX_KERNEL_4
         ComputeType: !Ref ComputeType
         # Docker for CDK asset bundling and image builds.
         PrivilegedMode: true
