@@ -104,22 +104,35 @@ const READ_WRITE_ACTIONS = [
   "s3vectors:ListVectors",
 ];
 
+/** The serve runtime only queries existing indexes. */
+const READ_ACTIONS = [
+  "s3vectors:GetVectorBucket",
+  "s3vectors:GetIndex",
+  "s3vectors:QueryVectors",
+  "s3vectors:GetVectors",
+];
+
 /** Namespace deletion drops whole indexes (`DeleteIndex`) and probes them first. */
 const DELETE_ACTIONS = ["s3vectors:GetIndex", "s3vectors:DeleteIndex"];
 
 /**
  * Grants S3 Vectors access on the platform bucket and its `graphrag.*` indexes only.
- * `build` serves the KG-build and graph-cleanup task and the serve runtime; `delete` is
+ * `build` serves the KG-build and graph-cleanup task, `read` the serve runtime (query only); `delete` is
  * the namespace-deletion Lambda. Callers apply it only when {@link isCkgPathEnabled}.
  */
 export function grantGraphragS3Vectors(
   scope: Construct,
   grantee: iam.IGrantable,
-  access: "build" | "delete",
+  access: "build" | "read" | "delete",
 ): void {
   grantee.grantPrincipal.addToPrincipalPolicy(
     new iam.PolicyStatement({
-      actions: access === "build" ? READ_WRITE_ACTIONS : DELETE_ACTIONS,
+      actions:
+        access === "build"
+          ? READ_WRITE_ACTIONS
+          : access === "read"
+            ? READ_ACTIONS
+            : DELETE_ACTIONS,
       resources: [
         graphragVectorBucketArn(scope),
         graphragVectorIndexArn(scope),

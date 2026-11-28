@@ -825,7 +825,7 @@ export class ServeStack extends SCLStack {
         grantAuroraDataApi(this, runtime.role!, ssmPrefix, "engine-rw");
       }
       if (useCkg) {
-        grantGraphragS3Vectors(this, runtime, "build");
+        grantGraphragS3Vectors(this, runtime, "read");
       }
 
       // ECR image pull

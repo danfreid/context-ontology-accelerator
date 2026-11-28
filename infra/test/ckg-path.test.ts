@@ -273,7 +273,25 @@ describe("ckg path: S3 Vectors instead of AOSS", () => {
     }
     const actions = (name: string) =>
       s3vectorsStatements(ckg[name]).flatMap(actionsOf);
-    for (const name of ["sources", "serve"]) {
+    // Serve only queries: it gets no write or index-management action.
+    expect(actions("serve")).toEqual(
+      expect.arrayContaining([
+        "s3vectors:GetVectorBucket",
+        "s3vectors:GetIndex",
+        "s3vectors:QueryVectors",
+        "s3vectors:GetVectors",
+      ]),
+    );
+    for (const a of [
+      "CreateIndex",
+      "PutVectors",
+      "DeleteVectors",
+      "ListVectors",
+      "DeleteIndex",
+    ]) {
+      expect(actions("serve")).not.toContain(`s3vectors:${a}`);
+    }
+    for (const name of ["sources"]) {
       for (const a of [
         "CreateIndex",
         "PutVectors",
