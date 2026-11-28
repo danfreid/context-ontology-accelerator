@@ -109,8 +109,11 @@ export class AuroraPg extends SCLConstruct {
       removalPolicy: isProd
         ? cdk.RemovalPolicy.RETAIN
         : cdk.RemovalPolicy.DESTROY,
+      // RDS master usernames allow only letters, digits and underscores
+      // (^[a-zA-Z][a-zA-Z0-9_]*$), so the hyphenated prefix cannot be used.
+      // The cluster belongs to one deployment, so a fixed name cannot collide.
       credentials: rds.Credentials.fromGeneratedSecret(
-        this.prefixed("aurora-admin"),
+        "coa_admin",
         { secretName: this.prefixed("aurora-secret") },
       ),
     });

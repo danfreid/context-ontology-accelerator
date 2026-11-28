@@ -606,6 +606,25 @@ describe("StorageStack Aurora path", () => {
     });
   });
 
+  it("uses a master username RDS accepts (letters, digits, underscores)", () => {
+    const clusters = Object.values(
+      buildAurora().findResources("AWS::RDS::DBCluster"),
+    );
+    for (const c of clusters) {
+      const user = JSON.stringify(c.Properties.MasterUsername);
+      // The generated-secret reference holds the username in the template.
+      expect(user).not.toMatch(/aurora-admin/);
+    }
+    const secrets = Object.values(
+      buildAurora().findResources("AWS::SecretsManager::Secret"),
+    ).map((s) => JSON.stringify(s.Properties.GenerateSecretString ?? {}));
+    const admin = secrets.find((s) => s.includes("coa_admin"));
+    expect(admin).toBeDefined();
+    expect(JSON.parse(admin!).SecretStringTemplate).toMatch(
+      /"username":"[a-zA-Z][a-zA-Z0-9_]*"/,
+    );
+  });
+
   it("preloads only pg_stat_statements (vector/pgrouting need no preload)", () => {
     buildAurora().hasResourceProperties("AWS::RDS::DBClusterParameterGroup", {
       Parameters: Match.objectLike({
