@@ -23,6 +23,11 @@ import {
   grantAuroraDataApi,
   isAuroraMetadataEnabled,
 } from "../../utils/aurora-search";
+import {
+  ckgGraphragEnv,
+  grantGraphragS3Vectors,
+  isCkgPathEnabled,
+} from "../../utils/graphrag-s3vectors";
 import { auroraBackendEnv } from "../../utils/aurora-metadata";
 import { agentCoreSupportedSubnets } from "../../utils/agentcore-az";
 import { retainAgentCoreSecurityGroup } from "../../utils/agentcore-teardown";
@@ -52,6 +57,8 @@ export interface ServeStackProps extends cdk.StackProps {
   readonly vpc: ec2.IVpc;
   /** Security group attached to the AOSS VPC endpoint — AgentCore SG needs ingress here. */
   readonly aossSecurityGroup: ec2.ISecurityGroup;
+  /** S3 Vectors endpoint security group (ckg path) — AgentCore SG needs ingress here. */
+  readonly s3VectorsEndpointSecurityGroup?: ec2.ISecurityGroup;
   /** Neptune cluster security group — AgentCore SG needs ingress here (Gremlin/SPARQL). */
   readonly neptuneSecurityGroup: ec2.ISecurityGroup;
   /** Lambda security group (allowAllOutbound) for AOSS proxy. TODO(aoss-proxy): remove */
@@ -145,21 +152,29 @@ export class ServeStack extends SCLStack {
     const account = cdk.Stack.of(this).account;
     const { prefix, ssmPrefix } = resolveContext(this.node);
     const flags = resolveBackendFlags(this.node);
+    // ckg path: no AOSS collection (the GraphRAG vectors are in S3 Vectors), so no
+    // OpenSearch parameters to read, no search proxy Lambda and no aoss: grants.
+    const useCkg = isCkgPathEnabled(flags);
 
     // ── Resolve OpenSearch config via SSM (decoupled from storage stack exports) ──
-    const opensearchEndpoint = ssm.StringParameter.valueForStringParameter(
-      this,
-      `${ssmPrefix}/opensearch/endpoint`,
-    );
-    const opensearchCollectionName =
-      ssm.StringParameter.valueForStringParameter(
-        this,
-        `${ssmPrefix}/opensearch/collection-name`,
-      );
-    const opensearchCollectionArn = ssm.StringParameter.valueForStringParameter(
-      this,
-      `${ssmPrefix}/opensearch/collection-arn`,
-    );
+    const opensearchEndpoint = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/endpoint`,
+        );
+    const opensearchCollectionName = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/collection-name`,
+        );
+    const opensearchCollectionArn = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/collection-arn`,
+        );
 
     // ── Construct sources table name deterministically ─────────────────
     // Avoids an SSM cross-stack read from SourcesStack (which would create a
@@ -298,15 +313,29 @@ export class ServeStack extends SCLStack {
       }
     }
 
-    // Allow AgentCore → AOSS VPC endpoint (L1 to avoid cross-stack cycle)
-    new ec2.CfnSecurityGroupIngress(this, "AossVpceIngress", {
-      groupId: props.aossSecurityGroup.securityGroupId,
-      ipProtocol: "tcp",
-      fromPort: 443,
-      toPort: 443,
-      sourceSecurityGroupId: agentCoreSg.securityGroupId,
-      description: "Allow HTTPS from AgentCore to AOSS VPC endpoint",
-    });
+    if (useCkg) {
+      // Allow AgentCore → S3 Vectors VPC endpoint (L1 to avoid cross-stack cycle)
+      if (props.s3VectorsEndpointSecurityGroup) {
+        new ec2.CfnSecurityGroupIngress(this, "S3VectorsVpceIngress", {
+          groupId: props.s3VectorsEndpointSecurityGroup.securityGroupId,
+          ipProtocol: "tcp",
+          fromPort: 443,
+          toPort: 443,
+          sourceSecurityGroupId: agentCoreSg.securityGroupId,
+          description: "Allow HTTPS from AgentCore to S3 Vectors VPC endpoint",
+        });
+      }
+    } else {
+      // Allow AgentCore → AOSS VPC endpoint (L1 to avoid cross-stack cycle)
+      new ec2.CfnSecurityGroupIngress(this, "AossVpceIngress", {
+        groupId: props.aossSecurityGroup.securityGroupId,
+        ipProtocol: "tcp",
+        fromPort: 443,
+        toPort: 443,
+        sourceSecurityGroupId: agentCoreSg.securityGroupId,
+        description: "Allow HTTPS from AgentCore to AOSS VPC endpoint",
+      });
+    }
 
     // Allow AgentCore → Neptune (L1 to avoid cross-stack cycle). Without this,
     // agentCoreSg's egress rule on 8182 is necessary but not sufficient —
@@ -324,93 +353,98 @@ export class ServeStack extends SCLStack {
       });
     }
 
-    // ── AOSS Search Proxy Lambda ──────────────────────────────────────
-    // AgentCore containers cannot access AOSS data plane directly (service
-    // principal not recognized). Route vector search through a Lambda proxy
-    // whose role IS recognized by AOSS. Remove when AWS fixes this.
+    let aossProxyFnRef: lambda.Function | undefined;
+    this.aossProxyLambdaArn = "";
+    if (!useCkg) {
+      // ── AOSS Search Proxy Lambda ──────────────────────────────────────
+      // AgentCore containers cannot access AOSS data plane directly (service
+      // principal not recognized). Route vector search through a Lambda proxy
+      // whose role IS recognized by AOSS. Remove when AWS fixes this.
 
-    const proxyCode = bundlePython({
-      srcDirs: [
-        fromRoot("packages/context-manager/lambda/aoss-search-proxy"),
-        // index.py imports coa_common (resolve_region); include
-        // libs/common/src + its runtime deps or the Lambda fails at import
-        // with Runtime.ImportModuleError: No module named
-        // 'coa_common'.
-        fromRoot("libs/common/src"),
-      ],
-      requirementsFile: fromRoot(
-        "packages/context-manager/lambda/aoss-search-proxy/requirements.lock.txt",
-      ),
-      architecture: "arm64",
-    });
+      const proxyCode = bundlePython({
+        srcDirs: [
+          fromRoot("packages/context-manager/lambda/aoss-search-proxy"),
+          // index.py imports coa_common (resolve_region); include
+          // libs/common/src + its runtime deps or the Lambda fails at import
+          // with Runtime.ImportModuleError: No module named
+          // 'coa_common'.
+          fromRoot("libs/common/src"),
+        ],
+        requirementsFile: fromRoot(
+          "packages/context-manager/lambda/aoss-search-proxy/requirements.lock.txt",
+        ),
+        architecture: "arm64",
+      });
 
-    const aossProxyFn = new lambda.Function(this, "AossSearchProxyFn", {
-      functionName: this.prefixed("aoss-search-proxy"),
-      runtime: lambda.Runtime.PYTHON_3_12,
-      architecture: lambda.Architecture.ARM_64,
-      handler: "index.handler",
-      code: proxyCode,
-      timeout: cdk.Duration.seconds(30),
-      memorySize: 512,
-      environment: {
-        OPENSEARCH_ENDPOINT: opensearchEndpoint,
-      },
-      vpc: props.vpc,
-      vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
-      securityGroups: [props.lambdaSecurityGroup],
-    });
-
-    // Expose for MCP stack to share the same proxy
-    this.aossProxyLambdaArn = aossProxyFn.functionArn;
-
-    // Write to SSM so other stacks can read without cross-stack exports
-    new ssm.StringParameter(this, "AossProxyArnParam", {
-      parameterName: `${ssmPrefix}/serve/aoss-proxy-lambda-arn`,
-      stringValue: aossProxyFn.functionArn,
-      description: "AOSS search proxy Lambda ARN (shared with MCP stack)",
-    });
-
-    aossProxyFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["aoss:APIAccessAll"],
-        resources: [opensearchCollectionArn],
-      }),
-    );
-
-    new opensearchserverless.CfnAccessPolicy(this, "OSSProxyDataAccess", {
-      name: this.aossName("proxy-read-only"),
-      type: "data",
-      // NOTE: keep this description in sync with the deployed policy. AOSS's
-      // UpdateAccessPolicy API rejects an update that only removes the
-      // description (InvalidRequest), which would fail the whole stack update,
-      // so it must be preserved rather than dropped.
-      description: "Read-only data access for AOSS search proxy Lambda",
-      policy: JSON.stringify([
-        {
-          Rules: [
-            {
-              ResourceType: "index",
-              Resource: [`index/${opensearchCollectionName}/*`],
-              Permission: ["aoss:DescribeIndex", "aoss:ReadDocument"],
-            },
-            {
-              ResourceType: "collection",
-              Resource: [`collection/${opensearchCollectionName}`],
-              Permission: ["aoss:DescribeCollectionItems"],
-            },
-          ],
-          Principal: [aossProxyFn.role!.roleArn],
+      const aossProxyFn = new lambda.Function(this, "AossSearchProxyFn", {
+        functionName: this.prefixed("aoss-search-proxy"),
+        runtime: lambda.Runtime.PYTHON_3_12,
+        architecture: lambda.Architecture.ARM_64,
+        handler: "index.handler",
+        code: proxyCode,
+        timeout: cdk.Duration.seconds(30),
+        memorySize: 512,
+        environment: {
+          OPENSEARCH_ENDPOINT: opensearchEndpoint,
         },
-      ]),
-    });
+        vpc: props.vpc,
+        vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS },
+        securityGroups: [props.lambdaSecurityGroup],
+      });
 
-    // OE monitoring (cdk-monitoring-constructs). Covers the AOSS search
-    // proxy Lambda; AgentCore Runtime internal health is not monitored (no native facade support).
-    const monitoring = new SclMonitoring(this, "Monitoring", {
-      alarmNamePrefix: this.prefixed("serve"),
-      alarmAction: props.alarmAction,
-    });
-    monitoring.monitorLambda(aossProxyFn);
+      // Expose for MCP stack to share the same proxy
+      this.aossProxyLambdaArn = aossProxyFn.functionArn;
+
+      // Write to SSM so other stacks can read without cross-stack exports
+      new ssm.StringParameter(this, "AossProxyArnParam", {
+        parameterName: `${ssmPrefix}/serve/aoss-proxy-lambda-arn`,
+        stringValue: aossProxyFn.functionArn,
+        description: "AOSS search proxy Lambda ARN (shared with MCP stack)",
+      });
+
+      aossProxyFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["aoss:APIAccessAll"],
+          resources: [opensearchCollectionArn],
+        }),
+      );
+
+      new opensearchserverless.CfnAccessPolicy(this, "OSSProxyDataAccess", {
+        name: this.aossName("proxy-read-only"),
+        type: "data",
+        // NOTE: keep this description in sync with the deployed policy. AOSS's
+        // UpdateAccessPolicy API rejects an update that only removes the
+        // description (InvalidRequest), which would fail the whole stack update,
+        // so it must be preserved rather than dropped.
+        description: "Read-only data access for AOSS search proxy Lambda",
+        policy: JSON.stringify([
+          {
+            Rules: [
+              {
+                ResourceType: "index",
+                Resource: [`index/${opensearchCollectionName}/*`],
+                Permission: ["aoss:DescribeIndex", "aoss:ReadDocument"],
+              },
+              {
+                ResourceType: "collection",
+                Resource: [`collection/${opensearchCollectionName}`],
+                Permission: ["aoss:DescribeCollectionItems"],
+              },
+            ],
+            Principal: [aossProxyFn.role!.roleArn],
+          },
+        ]),
+      });
+
+      // OE monitoring (cdk-monitoring-constructs). Covers the AOSS search
+      // proxy Lambda; AgentCore Runtime internal health is not monitored (no native facade support).
+      const monitoring = new SclMonitoring(this, "Monitoring", {
+        alarmNamePrefix: this.prefixed("serve"),
+        alarmAction: props.alarmAction,
+      });
+      monitoring.monitorLambda(aossProxyFn);
+      aossProxyFnRef = aossProxyFn;
+    }
 
     // ── Session Metadata Table (DynamoDB) ────────────────────────────────
     // Lightweight index for session discovery (most-recent lookup).
@@ -550,7 +584,9 @@ export class ServeStack extends SCLStack {
           VKG_ENDPOINT: props.vkgEndpoint,
           OPENSEARCH_ENDPOINT: opensearchEndpoint,
           // TODO(aoss-proxy): Remove when AgentCore supports AOSS directly
-          OPENSEARCH_PROXY_LAMBDA_ARN: aossProxyFn.functionArn,
+          ...(aossProxyFnRef && {
+            OPENSEARCH_PROXY_LAMBDA_ARN: aossProxyFnRef.functionArn,
+          }),
           // The engine role: serve also writes session metadata, which the read-only
           // search role cannot do.
           ...auroraBackendEnv(
@@ -558,6 +594,7 @@ export class ServeStack extends SCLStack {
             flags,
             props.bedrockEmbedDimensions ?? 1024,
           ),
+          ...ckgGraphragEnv(this, flags),
           ATHENA_OUTPUT_S3: `s3://${props.athenaResultsBucketName ?? this.prefixed("athena-results")}/`,
           // Platform bucket that holds UPLOADED documents (<namespaceId>/raw/<uploadId>/...).
           // Upload sources carry no bucket of their own, so Deep Reasoning's document
@@ -786,6 +823,9 @@ export class ServeStack extends SCLStack {
 
       if (isAuroraMetadataEnabled(flags)) {
         grantAuroraDataApi(this, runtime.role!, ssmPrefix, "engine-rw");
+      }
+      if (useCkg) {
+        grantGraphragS3Vectors(this, runtime, "build");
       }
 
       // ECR image pull
@@ -1286,50 +1326,53 @@ export class ServeStack extends SCLStack {
         }),
       );
 
-      // Grant AgentCore → Lambda proxy invoke
-      // TODO(aoss-proxy): Remove when AgentCore supports AOSS directly
-      aossProxyFn.grantInvoke(runtime.grantPrincipal);
+      // No AOSS on the ckg path: no proxy Lambda to invoke, no aoss: grant or data-access policy.
+      if (!useCkg) {
+        // Grant AgentCore → Lambda proxy invoke
+        // TODO(aoss-proxy): Remove when AgentCore supports AOSS directly
+        aossProxyFnRef!.grantInvoke(runtime.grantPrincipal);
 
-      // ── Direct AOSS access for the graphrag lexical-baseline retriever ──
-      // The hand-rolled vector_search path reaches AOSS through the proxy Lambda
-      // above, but the graphrag retrievers (the `traversal` and
-      // `topic-beam-chunk_only` strategies selected via options.retrieverStrategy)
-      // open their own SigV4 connection straight to the AOSS collection. That
-      // requires BOTH an IAM grant (aoss:APIAccessAll) and an AOSS data-access
-      // policy naming the runtime role as a principal — without the data-access
-      // policy the collection returns AuthorizationException(403). The network
-      // path already exists (AgentCore SG → AOSS VPC endpoint, see AossVpceIngress).
-      runtime.addToRolePolicy(
-        new iam.PolicyStatement({
-          actions: ["aoss:APIAccessAll"],
-          resources: [opensearchCollectionArn],
-        }),
-      );
+        // ── Direct AOSS access for the graphrag lexical-baseline retriever ──
+        // The hand-rolled vector_search path reaches AOSS through the proxy Lambda
+        // above, but the graphrag retrievers (the `traversal` and
+        // `topic-beam-chunk_only` strategies selected via options.retrieverStrategy)
+        // open their own SigV4 connection straight to the AOSS collection. That
+        // requires BOTH an IAM grant (aoss:APIAccessAll) and an AOSS data-access
+        // policy naming the runtime role as a principal — without the data-access
+        // policy the collection returns AuthorizationException(403). The network
+        // path already exists (AgentCore SG → AOSS VPC endpoint, see AossVpceIngress).
+        runtime.addToRolePolicy(
+          new iam.PolicyStatement({
+            actions: ["aoss:APIAccessAll"],
+            resources: [opensearchCollectionArn],
+          }),
+        );
 
-      new opensearchserverless.CfnAccessPolicy(this, "OSSServeDataAccess", {
-        name: this.aossName("serve-read-only"),
-        type: "data",
-        // Keep in sync with the deployed policy — AOSS rejects a description-only
-        // removal on update (see OSSProxyDataAccess note above).
-        description: "Read-only data access for AgentCore runtime task",
-        policy: JSON.stringify([
-          {
-            Rules: [
-              {
-                ResourceType: "index",
-                Resource: [`index/${opensearchCollectionName}/*`],
-                Permission: ["aoss:DescribeIndex", "aoss:ReadDocument"],
-              },
-              {
-                ResourceType: "collection",
-                Resource: [`collection/${opensearchCollectionName}`],
-                Permission: ["aoss:DescribeCollectionItems"],
-              },
-            ],
-            Principal: [runtime.role!.roleArn],
-          },
-        ]),
-      });
+        new opensearchserverless.CfnAccessPolicy(this, "OSSServeDataAccess", {
+          name: this.aossName("serve-read-only"),
+          type: "data",
+          // Keep in sync with the deployed policy — AOSS rejects a description-only
+          // removal on update (see OSSProxyDataAccess note above).
+          description: "Read-only data access for AgentCore runtime task",
+          policy: JSON.stringify([
+            {
+              Rules: [
+                {
+                  ResourceType: "index",
+                  Resource: [`index/${opensearchCollectionName}/*`],
+                  Permission: ["aoss:DescribeIndex", "aoss:ReadDocument"],
+                },
+                {
+                  ResourceType: "collection",
+                  Resource: [`collection/${opensearchCollectionName}`],
+                  Permission: ["aoss:DescribeCollectionItems"],
+                },
+              ],
+              Principal: [runtime.role!.roleArn],
+            },
+          ]),
+        });
+      }
 
       // ── SSM Parameter for auto-discovery ─────────────────────────────
       new ssm.StringParameter(this, "AgentRuntimeArnParam", {

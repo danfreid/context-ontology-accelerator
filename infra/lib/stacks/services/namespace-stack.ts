@@ -17,6 +17,7 @@ import { DynamoDBTable } from "../../constructs/dynamodb-table";
 import { Paths, fromRoot } from "../../paths";
 import { resolveBackendFlags, resolveContext } from "../../context";
 import { isAuroraMetadataEnabled } from "../../utils/aurora-search";
+import { isCkgPathEnabled } from "../../utils/graphrag-s3vectors";
 import { wireAuroraBackend } from "../../utils/aurora-metadata";
 import { bundlePython } from "../../utils/python-bundling";
 import { grantIdempotencyTable } from "../../utils/idempotency";
@@ -871,15 +872,21 @@ export class NamespaceStack extends SCLStack {
     // written by the storage stack; the read requires an explicit
     // addDependency() in bin/app.ts because CDK cannot infer ordering from
     // valueForStringParameter.
-    const opensearchEndpoint = ssm.StringParameter.valueForStringParameter(
-      this,
-      `${ssmPrefix}/opensearch/endpoint`,
-    );
-    const opensearchCollectionName =
-      ssm.StringParameter.valueForStringParameter(
-        this,
-        `${ssmPrefix}/opensearch/collection-name`,
-      );
+    // ckg path: the vectors are in S3 Vectors, so there is no collection to read; the
+    // pipeline then drops the S3 Vectors indexes and the Aurora rows instead.
+    const useCkg = isCkgPathEnabled(resolveBackendFlags(this.node));
+    const opensearchEndpoint = useCkg
+      ? undefined
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/endpoint`,
+        );
+    const opensearchCollectionName = useCkg
+      ? undefined
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/collection-name`,
+        );
 
     const deletionPipeline: NamespaceDeletionPipeline =
       new NamespaceDeletionPipeline(this, "DeletionPipeline", {

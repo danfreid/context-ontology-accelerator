@@ -3,6 +3,7 @@
 
 import * as cdk from "aws-cdk-lib";
 import * as ec2 from "aws-cdk-lib/aws-ec2";
+import * as iam from "aws-cdk-lib/aws-iam";
 import * as servicediscovery from "aws-cdk-lib/aws-servicediscovery";
 import * as ssm from "aws-cdk-lib/aws-ssm";
 import { Construct } from "constructs";
@@ -10,6 +11,12 @@ import { Construct } from "constructs";
 import { SCLStack } from "../../constructs";
 import { resolveBackendFlags, resolveContext } from "../../context";
 import { graphSourcesEnabled } from "../../utils/graph-sources";
+import {
+  graphragVectorBucketArn,
+  graphragVectorIndexArn,
+  isCkgPathEnabled,
+  warnIfCkgPathIncomplete,
+} from "../../utils/graphrag-s3vectors";
 import {
   JdbcConnectivity,
   type PeeringConfig,
@@ -104,6 +111,13 @@ export class NetworkStack extends SCLStack {
    */
   public readonly auroraSecurityGroup?: ec2.SecurityGroup;
 
+  /**
+   * Security group of the `s3vectors` interface endpoint (HTTPS from the ECS and Lambda
+   * SGs; the serve stack adds the AgentCore SG). Undefined unless the ckg path is on and
+   * the VPC is created by this stack.
+   */
+  public readonly s3VectorsEndpointSecurityGroup?: ec2.SecurityGroup;
+
   /** Shared Cloud Map private DNS namespace for service discovery. */
   public readonly serviceNamespace: servicediscovery.PrivateDnsNamespace;
 
@@ -119,6 +133,10 @@ export class NetworkStack extends SCLStack {
       flags.graphBackend === "aurora" &&
       flags.vectorBackend === "pgvector" &&
       flags.metadataBackend === "aurora";
+    // ckg path: GraphRAG vectors live in S3 Vectors, so there is no AOSS collection and
+    // no aoss-data endpoint.
+    const useCkg = isCkgPathEnabled(flags);
+    warnIfCkgPathIncomplete(this, flags);
 
     const existingVpcId = this.node.tryGetContext("vpc_id") as
       | string
@@ -145,7 +163,7 @@ export class NetworkStack extends SCLStack {
         vpcId: existingVpcId,
       });
       const aossVpcEndpointId = this.ctxString("aoss_vpc_endpoint_id");
-      if (!aossVpcEndpointId) {
+      if (!aossVpcEndpointId && !useCkg) {
         throw new Error(
           "vpc_id requires aoss_vpc_endpoint_id (SCL_AOSS_VPC_ENDPOINT_ID): the ID " +
             `of the com.amazonaws.${cdk.Stack.of(this).region}.aoss-data interface ` +
@@ -154,12 +172,15 @@ export class NetworkStack extends SCLStack {
             "policy allows only this endpoint.",
         );
       }
-      if (!/^vpce-[0-9a-f]{8,17}$/.test(aossVpcEndpointId)) {
+      if (
+        aossVpcEndpointId &&
+        !/^vpce-[0-9a-f]{8,17}$/.test(aossVpcEndpointId)
+      ) {
         throw new Error(
           `aoss_vpc_endpoint_id must be a VPC endpoint ID (vpce-...), got "${aossVpcEndpointId}"`,
         );
       }
-      this.aossVpcEndpointId = aossVpcEndpointId;
+      this.aossVpcEndpointId = aossVpcEndpointId ?? "";
     } else {
       // Fail rather than ignore it: an endpoint without vpc_id means the
       // operator meant an existing VPC, and would silently get a new one.
@@ -269,15 +290,20 @@ export class NetworkStack extends SCLStack {
           privateDnsEnabled: true,
         });
       }
-      // The AOSS collection exists on both paths (on the Aurora path it holds the
-      // GraphRAG indexes), so the aoss-data endpoint is always created.
-      const aossEndpoint = createdVpc.addInterfaceEndpoint("AossEndpoint", {
-        service: new ec2.InterfaceVpcEndpointService(
-          `com.amazonaws.${cdk.Stack.of(this).region}.aoss-data`,
-        ),
-        privateDnsEnabled: true,
-      });
-      this.aossVpcEndpointId = aossEndpoint.vpcEndpointId;
+      // The AOSS collection exists on both the default and the Aurora path (on the
+      // Aurora path it holds the GraphRAG indexes), so the aoss-data endpoint is
+      // created on both. The ckg path keeps those vectors in S3 Vectors instead.
+      if (useCkg) {
+        this.aossVpcEndpointId = "";
+      } else {
+        const aossEndpoint = createdVpc.addInterfaceEndpoint("AossEndpoint", {
+          service: new ec2.InterfaceVpcEndpointService(
+            `com.amazonaws.${cdk.Stack.of(this).region}.aoss-data`,
+          ),
+          privateDnsEnabled: true,
+        });
+        this.aossVpcEndpointId = aossEndpoint.vpcEndpointId;
+      }
 
       // Additional interface endpoints: keep AWS API traffic private so
       // egress can be scoped away from the public internet. These cover the
@@ -548,6 +574,49 @@ export class NetworkStack extends SCLStack {
           "Aurora PostgreSQL",
         );
       }
+    }
+
+    // ckg path: S3 Vectors interface endpoint (private DNS on, like rds-data above).
+    // Its own security group admits HTTPS from the ECS tasks (KG build, graph cleanup)
+    // and Lambda functions (namespace deletion); the serve stack adds the AgentCore
+    // runtime SG. The endpoint policy limits it to the platform vector bucket.
+    // An imported VPC brings its own endpoints, as for rds-data.
+    if (useCkg && !existingVpcId) {
+      const s3VectorsSg = new ec2.SecurityGroup(this, "S3VectorsEndpointSG", {
+        vpc: this.vpc,
+        securityGroupName: this.prefixed("s3vectors-vpce-sg"),
+        description: "S3 Vectors VPC endpoint - accept HTTPS from workloads",
+        allowAllOutbound: false,
+      });
+      for (const [peer, label] of [
+        [this.ecsSecurityGroup, "ECS tasks"],
+        [this.lambdaSecurityGroup, "Lambda functions"],
+      ] as const) {
+        s3VectorsSg.addIngressRule(
+          peer,
+          ec2.Port.tcp(443),
+          `Allow HTTPS from ${label}`,
+        );
+      }
+      const s3VectorsEndpoint = (this.vpc as ec2.Vpc).addInterfaceEndpoint(
+        "S3VectorsEndpoint",
+        {
+          service: ec2.InterfaceVpcEndpointAwsService.S3_VECTORS,
+          privateDnsEnabled: true,
+          securityGroups: [s3VectorsSg],
+        },
+      );
+      s3VectorsEndpoint.addToPolicy(
+        new iam.PolicyStatement({
+          principals: [new iam.AnyPrincipal()],
+          actions: ["s3vectors:*"],
+          resources: [
+            graphragVectorBucketArn(this),
+            graphragVectorIndexArn(this),
+          ],
+        }),
+      );
+      this.s3VectorsEndpointSecurityGroup = s3VectorsSg;
     }
 
     // Not attached to the aoss-data endpoint in either mode, so its ingress

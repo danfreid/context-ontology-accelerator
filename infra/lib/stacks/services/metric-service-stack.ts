@@ -29,6 +29,7 @@ import {
   grantAuroraDataApi,
   isAuroraMetadataEnabled,
 } from "../../utils/aurora-search";
+import { isCkgPathEnabled } from "../../utils/graphrag-s3vectors";
 import {
   auroraBackendEnv,
   logicalTable,
@@ -96,19 +97,27 @@ export class MetricServiceStack extends SCLStack {
     const embedDimensions = props.bedrockEmbedDimensions ?? 1024;
 
     // ── OpenSearch config via SSM ──────────────────────────────────────
-    const opensearchEndpoint = ssm.StringParameter.valueForStringParameter(
-      this,
-      `${ssmPrefix}/opensearch/endpoint`,
-    );
-    const opensearchCollectionName =
-      ssm.StringParameter.valueForStringParameter(
-        this,
-        `${ssmPrefix}/opensearch/collection-name`,
-      );
-    const opensearchCollectionArn = ssm.StringParameter.valueForStringParameter(
-      this,
-      `${ssmPrefix}/opensearch/collection-arn`,
-    );
+    // ckg path: no AOSS collection (GraphRAG vectors are in S3 Vectors and metrics
+    // search through Aurora), so no OpenSearch parameters, aoss: grants or data policy.
+    const useCkg = isCkgPathEnabled(flags);
+    const opensearchEndpoint = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/endpoint`,
+        );
+    const opensearchCollectionName = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/collection-name`,
+        );
+    const opensearchCollectionArn = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/collection-arn`,
+        );
 
     // ── SMUS catalog access (metric validation Checks 2-5) ─────────
     // Resolved via SSM dynamic refs to avoid direct stack dependencies.
@@ -236,12 +245,14 @@ export class MetricServiceStack extends SCLStack {
     }
 
     // ── IAM: OpenSearch Serverless ─────────────────────────────────
-    this.metricApiFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["aoss:APIAccessAll"],
-        resources: [opensearchCollectionArn],
-      }),
-    );
+    if (!useCkg) {
+      this.metricApiFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["aoss:APIAccessAll"],
+          resources: [opensearchCollectionArn],
+        }),
+      );
+    }
 
     // ── IAM: Bedrock (embedding generation) ────────────────────────
     // The embed model is an inference profile (e.g. us.cohere.embed-v4:0) — grant
@@ -468,51 +479,55 @@ export class MetricServiceStack extends SCLStack {
       );
     }
 
-    importWorkerFn.addToRolePolicy(
-      new iam.PolicyStatement({
-        actions: ["aoss:APIAccessAll"],
-        resources: [opensearchCollectionArn],
-      }),
-    );
+    if (!useCkg) {
+      importWorkerFn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["aoss:APIAccessAll"],
+          resources: [opensearchCollectionArn],
+        }),
+      );
+    }
 
-    // ── AOSS Data Access Policy ───────────────────────────────────
-    // OpenSearch Serverless requires a data access policy in addition
-    // to IAM permissions. Without this, the role cannot read/write documents.
-    new opensearchserverless.CfnAccessPolicy(this, "OSSDataAccessPolicy", {
-      name: this.aossName("metric-data-access"),
-      type: "data",
-      policy: JSON.stringify([
-        {
-          Rules: [
-            {
-              ResourceType: "index",
-              Resource: [`index/${opensearchCollectionName}/*`],
-              Permission: [
-                "aoss:CreateIndex",
-                "aoss:UpdateIndex",
-                "aoss:DescribeIndex",
-                "aoss:ReadDocument",
-                "aoss:WriteDocument",
-              ],
-            },
-            {
-              ResourceType: "collection",
-              Resource: [`collection/${opensearchCollectionName}`],
-              Permission: [
-                "aoss:CreateCollectionItems",
-                "aoss:DescribeCollectionItems",
-                "aoss:UpdateCollectionItems",
-              ],
-            },
-          ],
-          // Every role granted aoss:APIAccessAll in this stack.
-          Principal: [
-            this.metricApiFn.role!.roleArn,
-            importWorkerFn.role!.roleArn,
-          ],
-        },
-      ]),
-    });
+    if (!useCkg) {
+      // ── AOSS Data Access Policy ───────────────────────────────────
+      // OpenSearch Serverless requires a data access policy in addition
+      // to IAM permissions. Without this, the role cannot read/write documents.
+      new opensearchserverless.CfnAccessPolicy(this, "OSSDataAccessPolicy", {
+        name: this.aossName("metric-data-access"),
+        type: "data",
+        policy: JSON.stringify([
+          {
+            Rules: [
+              {
+                ResourceType: "index",
+                Resource: [`index/${opensearchCollectionName}/*`],
+                Permission: [
+                  "aoss:CreateIndex",
+                  "aoss:UpdateIndex",
+                  "aoss:DescribeIndex",
+                  "aoss:ReadDocument",
+                  "aoss:WriteDocument",
+                ],
+              },
+              {
+                ResourceType: "collection",
+                Resource: [`collection/${opensearchCollectionName}`],
+                Permission: [
+                  "aoss:CreateCollectionItems",
+                  "aoss:DescribeCollectionItems",
+                  "aoss:UpdateCollectionItems",
+                ],
+              },
+            ],
+            // Every role granted aoss:APIAccessAll in this stack.
+            Principal: [
+              this.metricApiFn.role!.roleArn,
+              importWorkerFn.role!.roleArn,
+            ],
+          },
+        ]),
+      });
+    }
 
     importWorkerFn.addToRolePolicy(
       new iam.PolicyStatement({

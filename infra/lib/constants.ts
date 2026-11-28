@@ -43,6 +43,8 @@ export const CTX_GRAPH_BACKEND = "graph_backend";
 export const CTX_VECTOR_BACKEND = "vector_backend";
 /** Switchable-backends: metadata store backend — "dynamodb" (default) or "aurora". */
 export const CTX_METADATA_BACKEND = "metadata_backend";
+/** GraphRAG vector store — "aoss" (default) or "s3vectors" (needs the full Aurora flag set). */
+export const CTX_GRAPHRAG_VECTOR_BACKEND = "graphrag_vector_backend";
 /** Switchable-backends: compute backend — "fargate" (default) or "lambda". */
 export const CTX_COMPUTE_BACKEND = "compute_backend";
 

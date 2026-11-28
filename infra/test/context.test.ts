@@ -15,6 +15,7 @@ describe("resolveBackendFlags", () => {
       graphBackend: "neptune",
       vectorBackend: "aoss",
       metadataBackend: "dynamodb",
+      graphragVectorBackend: "aoss",
       computeBackend: "fargate",
     });
   });
@@ -24,12 +25,14 @@ describe("resolveBackendFlags", () => {
       graph_backend: "aurora",
       vector_backend: "pgvector",
       metadata_backend: "aurora",
+      graphrag_vector_backend: "s3vectors",
       compute_backend: "lambda",
     });
     expect(resolveBackendFlags(app.node)).toEqual({
       graphBackend: "aurora",
       vectorBackend: "pgvector",
       metadataBackend: "aurora",
+      graphragVectorBackend: "s3vectors",
       computeBackend: "lambda",
     });
   });
@@ -55,6 +58,12 @@ describe("resolveBackendFlags", () => {
     );
   });
 
+  it("throws at synth when graphrag_vector_backend is unknown", () => {
+    const app = nodeWithContext({ graphrag_vector_backend: "pinecone" });
+    expect(() => resolveBackendFlags(app.node)).toThrow(
+      /graphrag_vector_backend.*must be.*aoss.*s3vectors/i,
+    );
+  });
   it("throws at synth when compute_backend is unknown", () => {
     const app = nodeWithContext({ compute_backend: "ec2" });
     expect(() => resolveBackendFlags(app.node)).toThrow(

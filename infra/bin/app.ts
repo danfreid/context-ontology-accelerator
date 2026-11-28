@@ -420,6 +420,7 @@ async function deploy(): Promise<void> {
     rolesTable: authnz.rolesTable,
     resourceRoleMappingsTable: authnz.resourceRoleMappingsTable,
     aossSecurityGroup: network.aossSecurityGroup,
+    s3VectorsEndpointSecurityGroup: network.s3VectorsEndpointSecurityGroup,
     neptuneSecurityGroup: network.neptuneSecurityGroup,
     lambdaSecurityGroup: network.lambdaSecurityGroup,
     neptuneClusterArn: storage.neptuneClusterArn,

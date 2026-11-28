@@ -54,6 +54,11 @@ import {
   logicalTable,
   wireAuroraBackend,
 } from "../../utils/aurora-metadata";
+import {
+  ckgGraphragEnv,
+  grantGraphragS3Vectors,
+  isCkgPathEnabled,
+} from "../../utils/graphrag-s3vectors";
 import { bedrockModelArn } from "../../utils/bedrock-utils";
 import { grantGuardDutyAgentPull } from "../../utils/guardduty-agent";
 import { NetworkStack } from "../foundation/network-stack";
@@ -150,19 +155,27 @@ export class SourcesStack extends SCLStack {
       ? ""
       : props.storage.neptuneClusterEndpoint;
     const neptuneClusterArn = props.storage.neptuneClusterArn;
-    const opensearchEndpoint = ssm.StringParameter.valueForStringParameter(
-      this,
-      `${ssmPrefix}/opensearch/endpoint`,
-    );
-    const opensearchCollectionArn = ssm.StringParameter.valueForStringParameter(
-      this,
-      `${ssmPrefix}/opensearch/collection-arn`,
-    );
-    const opensearchCollectionName =
-      ssm.StringParameter.valueForStringParameter(
-        this,
-        `${ssmPrefix}/opensearch/collection-name`,
-      );
+    // ckg path: GraphRAG vectors are in S3 Vectors, so there is no AOSS collection to
+    // read, grant or write a data-access policy for.
+    const useCkg = isCkgPathEnabled(flags);
+    const opensearchEndpoint = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/endpoint`,
+        );
+    const opensearchCollectionArn = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/collection-arn`,
+        );
+    const opensearchCollectionName = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/collection-name`,
+        );
 
     // ── Resolve namespace resources via SSM ──────────────────────────
     const domainId = ssm.StringParameter.valueForStringParameter(
@@ -2254,6 +2267,7 @@ export class SourcesStack extends SCLStack {
         DOC_SOURCES_TABLE: this.sourcesTable.tableName,
         NEPTUNE_ENDPOINT: neptuneEndpoint,
         ...auroraBackendEnv(ssmPrefix, flags, auroraDims),
+        ...ckgGraphragEnv(this, flags),
         OPENSEARCH_ENDPOINT: opensearchEndpoint,
         BATCH_INFERENCE_ROLE_ARN: batchInferenceRole.roleArn,
         // ECS does not inject a region into task containers, so without this
@@ -2286,7 +2300,9 @@ export class SourcesStack extends SCLStack {
         // JVM heap — avoids tripping the NEXTGEN parent circuit breaker
         // (429 circuit_breaking_exception) on large doc corpora at low OCU.
         // graphrag default is 25; read via os.environ["BUILD_BATCH_WRITE_SIZE"].
-        BUILD_BATCH_WRITE_SIZE: "5",
+        // Not set on the ckg path: there is no AOSS to protect, and the build then uses
+        // its own Aurora/S3 Vectors default.
+        ...(!useCkg && { BUILD_BATCH_WRITE_SIZE: "5" }),
         // GraphRAG toolkit parallelism tuning (read by GraphRAGConfig from env).
         // Task is 4 vCPU / 16 GB; the toolkit caps num_workers at cpu_count(),
         // so 4 workers fully uses the box. Extraction is LLM-I/O-bound, so
@@ -2325,12 +2341,16 @@ export class SourcesStack extends SCLStack {
         }),
       );
     }
-    kgBuildTaskDef.taskRole.addToPrincipalPolicy(
-      new iam.PolicyStatement({
-        actions: ["aoss:APIAccessAll"],
-        resources: [opensearchCollectionArn],
-      }),
-    );
+    if (useCkg) {
+      grantGraphragS3Vectors(this, kgBuildTaskDef.taskRole, "build");
+    } else {
+      kgBuildTaskDef.taskRole.addToPrincipalPolicy(
+        new iam.PolicyStatement({
+          actions: ["aoss:APIAccessAll"],
+          resources: [opensearchCollectionArn],
+        }),
+      );
+    }
     kgBuildTaskDef.taskRole.addToPrincipalPolicy(
       new iam.PolicyStatement({
         actions: ["bedrock:InvokeModel"],
@@ -2391,45 +2411,47 @@ export class SourcesStack extends SCLStack {
       }),
     );
 
-    // ── AOSS Data Access Policy ──────────────────────────────────────
-    new opensearchserverless.CfnAccessPolicy(
-      this,
-      "SourcesOSSDataAccessPolicy",
-      {
-        name: this.aossName("src-ingestion-access"),
-        type: "data",
-        policy: JSON.stringify([
-          {
-            Rules: [
-              {
-                ResourceType: "index",
-                Resource: [`index/${opensearchCollectionName}/*`],
-                Permission: [
-                  "aoss:CreateIndex",
-                  "aoss:UpdateIndex",
-                  "aoss:DescribeIndex",
-                  "aoss:DeleteIndex",
-                  "aoss:ReadDocument",
-                  "aoss:WriteDocument",
-                ],
-              },
-              {
-                ResourceType: "collection",
-                Resource: [`collection/${opensearchCollectionName}`],
-                Permission: [
-                  "aoss:CreateCollectionItems",
-                  "aoss:DescribeCollectionItems",
-                  "aoss:UpdateCollectionItems",
-                ],
-              },
-            ],
-            // Named roles only: an account-root principal would admit every
-            // in-account role with aoss:APIAccessAll.
-            Principal: [kgBuildTaskDef.taskRole.roleArn],
-          },
-        ]),
-      },
-    );
+    if (!useCkg) {
+      // ── AOSS Data Access Policy ──────────────────────────────────────
+      new opensearchserverless.CfnAccessPolicy(
+        this,
+        "SourcesOSSDataAccessPolicy",
+        {
+          name: this.aossName("src-ingestion-access"),
+          type: "data",
+          policy: JSON.stringify([
+            {
+              Rules: [
+                {
+                  ResourceType: "index",
+                  Resource: [`index/${opensearchCollectionName}/*`],
+                  Permission: [
+                    "aoss:CreateIndex",
+                    "aoss:UpdateIndex",
+                    "aoss:DescribeIndex",
+                    "aoss:DeleteIndex",
+                    "aoss:ReadDocument",
+                    "aoss:WriteDocument",
+                  ],
+                },
+                {
+                  ResourceType: "collection",
+                  Resource: [`collection/${opensearchCollectionName}`],
+                  Permission: [
+                    "aoss:CreateCollectionItems",
+                    "aoss:DescribeCollectionItems",
+                    "aoss:UpdateCollectionItems",
+                  ],
+                },
+              ],
+              // Named roles only: an account-root principal would admit every
+              // in-account role with aoss:APIAccessAll.
+              Principal: [kgBuildTaskDef.taskRole.roleArn],
+            },
+          ]),
+        },
+      );
+    }
 
     // ── Documents Ingestion Step Functions ───────────────────────────
     const makeDocStatusUpdate = (

@@ -18,6 +18,7 @@ import {
   CTX_GRAPH_BACKEND,
   CTX_VECTOR_BACKEND,
   CTX_METADATA_BACKEND,
+  CTX_GRAPHRAG_VECTOR_BACKEND,
   CTX_COMPUTE_BACKEND,
   DEFAULT_RESOURCE_PREFIX,
   DEFAULT_ENV,
@@ -253,12 +254,14 @@ export interface BackendFlags {
   readonly vectorBackend: "aoss" | "pgvector";
   /** Metadata store: "dynamodb" (default) | "aurora". */
   readonly metadataBackend: "dynamodb" | "aurora";
+  /** GraphRAG vector store: "aoss" (default) | "s3vectors". */
+  readonly graphragVectorBackend: "aoss" | "s3vectors";
   /** Compute: "fargate" (default) | "lambda". */
   readonly computeBackend: "fargate" | "lambda";
 }
 
 /**
- * Resolve the four switchable-backend context flags.
+ * Resolve the five switchable-backend context flags.
  *
  * Returns BackendFlags with defaults matching the original COA services
  * (neptune/aoss/dynamodb/fargate). Throws at synth time when any flag is set
@@ -269,6 +272,9 @@ export function resolveBackendFlags(node: Node): BackendFlags {
   const rawGraph: unknown = node.tryGetContext(CTX_GRAPH_BACKEND);
   const rawVector: unknown = node.tryGetContext(CTX_VECTOR_BACKEND);
   const rawMetadata: unknown = node.tryGetContext(CTX_METADATA_BACKEND);
+  const rawGraphragVector: unknown = node.tryGetContext(
+    CTX_GRAPHRAG_VECTOR_BACKEND,
+  );
   const rawCompute: unknown = node.tryGetContext(CTX_COMPUTE_BACKEND);
 
   const graphBackend = String(rawGraph ?? "neptune")
@@ -278,6 +284,9 @@ export function resolveBackendFlags(node: Node): BackendFlags {
     .trim()
     .toLowerCase();
   const metadataBackend = String(rawMetadata ?? "dynamodb")
+    .trim()
+    .toLowerCase();
+  const graphragVectorBackend = String(rawGraphragVector ?? "aoss")
     .trim()
     .toLowerCase();
   const computeBackend = String(rawCompute ?? "fargate")
@@ -299,6 +308,14 @@ export function resolveBackendFlags(node: Node): BackendFlags {
       `${CTX_METADATA_BACKEND} must be "dynamodb" or "aurora", got: ${String(rawMetadata)}`,
     );
   }
+  if (
+    graphragVectorBackend !== "aoss" &&
+    graphragVectorBackend !== "s3vectors"
+  ) {
+    throw new Error(
+      `${CTX_GRAPHRAG_VECTOR_BACKEND} must be "aoss" or "s3vectors", got: ${String(rawGraphragVector)}`,
+    );
+  }
   if (computeBackend !== "fargate" && computeBackend !== "lambda") {
     throw new Error(
       `${CTX_COMPUTE_BACKEND} must be "fargate" or "lambda", got: ${String(rawCompute)}`,
@@ -309,6 +326,7 @@ export function resolveBackendFlags(node: Node): BackendFlags {
     graphBackend: graphBackend as "neptune" | "aurora",
     vectorBackend: vectorBackend as "aoss" | "pgvector",
     metadataBackend: metadataBackend as "dynamodb" | "aurora",
+    graphragVectorBackend: graphragVectorBackend as "aoss" | "s3vectors",
     computeBackend: computeBackend as "fargate" | "lambda",
   };
 }

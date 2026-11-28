@@ -37,6 +37,10 @@ import {
   isAuroraSearchEnabled,
 } from "../../utils/aurora-search";
 import { auroraBackendEnv, logicalTable } from "../../utils/aurora-metadata";
+import {
+  ckgGraphragEnv,
+  isCkgPathEnabled,
+} from "../../utils/graphrag-s3vectors";
 import { grantIdempotencyTable } from "../../utils/idempotency";
 import { grantGuardDutyAgentPull } from "../../utils/guardduty-agent";
 import { NetworkStack } from "../foundation/network-stack";
@@ -122,6 +126,9 @@ export class OntologyStack extends SCLStack {
     const flags = resolveBackendFlags(this.node);
     const useLambda = flags.computeBackend === "lambda";
     const useAurora = isAuroraSearchEnabled(flags);
+    // ckg path: no AOSS collection, so no OpenSearch parameters to read and no
+    // aoss: health-check grant.
+    const useCkg = isCkgPathEnabled(flags);
     const vpc = props.network.vpc;
     const ecsSecurityGroup = props.network.ecsSecurityGroup;
 
@@ -137,19 +144,24 @@ export class OntologyStack extends SCLStack {
     // reranker — matching the ontology-engine GROUNDING_LLM_MODEL_ID default.
     const groundingModelId = props.bedrockGroundingLlmModelId ?? chatModelId;
 
-    const opensearchEndpoint = ssm.StringParameter.valueForStringParameter(
-      this,
-      `${ssmPrefix}/opensearch/endpoint`,
-    );
-    const opensearchCollectionName =
-      ssm.StringParameter.valueForStringParameter(
-        this,
-        `${ssmPrefix}/opensearch/collection-name`,
-      );
-    const opensearchCollectionArn = ssm.StringParameter.valueForStringParameter(
-      this,
-      `${ssmPrefix}/opensearch/collection-arn`,
-    );
+    const opensearchEndpoint = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/endpoint`,
+        );
+    const opensearchCollectionName = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/collection-name`,
+        );
+    const opensearchCollectionArn = useCkg
+      ? ""
+      : ssm.StringParameter.valueForStringParameter(
+          this,
+          `${ssmPrefix}/opensearch/collection-arn`,
+        );
 
     // 8 vCPU / 32 GB. Induction + accept (Bedrock embeds) and async ontology
     // teardown (Neptune DROP + AOSS drain) share this single task; 2 vCPU
@@ -247,6 +259,7 @@ export class OntologyStack extends SCLStack {
         flags,
         props.bedrockEmbedDimensions ?? 1024,
       ),
+      ...ckgGraphragEnv(this, flags),
       ONTOLOGY_ARTIFACTS_BUCKET: props.ontologyArtifactsBucket.bucketName,
       DYNAMODB_TABLE: this.table.tableName,
       DYNAMODB_REGION: cdk.Aws.REGION,
@@ -1270,13 +1283,15 @@ export class OntologyStack extends SCLStack {
       // (AWS limitation — no resource type in the Service Authorization
       // Reference), so it must use "*". It is a read-only control-plane call
       // returning collection metadata (status, endpoints), never index data.
-      apiProxyFn.addToRolePolicy(
-        new iam.PolicyStatement({
-          sid: "HealthCheckBatchGetCollection",
-          actions: ["aoss:BatchGetCollection"],
-          resources: ["*"],
-        }),
-      );
+      if (!useCkg) {
+        apiProxyFn.addToRolePolicy(
+          new iam.PolicyStatement({
+            sid: "HealthCheckBatchGetCollection",
+            actions: ["aoss:BatchGetCollection"],
+            resources: ["*"],
+          }),
+        );
+      }
 
       new ssm.StringParameter(this, "SsmOntologyApiFnArn", {
         parameterName: `${ssmPrefix}/ontology-engine/api-fn-arn`,

@@ -46,6 +46,11 @@ import {
   auroraBackendEnv,
   wireAuroraBackend,
 } from "../../utils/aurora-metadata";
+import {
+  ckgGraphragEnv,
+  grantGraphragS3Vectors,
+  isCkgPathEnabled,
+} from "../../utils/graphrag-s3vectors";
 
 export interface NamespaceDeletionPipelineProps {
   /** Prefixed name helper from SCLStack. */
@@ -123,6 +128,7 @@ export class NamespaceDeletionPipeline extends Construct {
     const { ssmPrefix } = resolveContext(this.node);
     const flags = resolveBackendFlags(this.node);
     const useAurora = isAuroraMetadataEnabled(flags);
+    const useCkg = isCkgPathEnabled(flags);
 
     const commonLambdaProps = {
       runtime: lambda.Runtime.PYTHON_3_12,
@@ -146,11 +152,16 @@ export class NamespaceDeletionPipeline extends Construct {
           OSS_ENDPOINT: props.opensearchEndpoint,
         }),
         ...auroraBackendEnv(ssmPrefix, flags),
+        ...ckgGraphragEnv(this, flags),
       },
     });
     // Aurora scope deletion (coa_control_plane cleanup) runs in this Lambda.
     if (useAurora) {
       grantAuroraDataApi(this, deleteSourcesFn, ssmPrefix, "engine-rw");
+    }
+    // ckg path: it also drops the namespace's S3 Vectors indexes (DeleteIndex).
+    if (useCkg) {
+      grantGraphragS3Vectors(this, deleteSourcesFn, "delete");
     }
     deleteSourcesFn.addToRolePolicy(
       new iam.PolicyStatement({
