@@ -28,6 +28,13 @@ import os
 
 import structlog
 from coa_common import resolve_region
+from coa_common.constants import (
+    GRAPHRAG_S3_VECTOR_BUCKET_ENV,
+    GRAPHRAG_S3_VECTOR_PREFIX_ENV,
+    ckg_path_enabled,
+    graphrag_aurora_graph_uri,
+    graphrag_s3_vector_uri,
+)
 from coa_common.logging import setup_logging
 from coa_common.opensearch import AossVectorClient
 
@@ -64,6 +71,9 @@ def _existing_embedding_indexes(prefixes: list[str], tenant_id: str) -> list[str
     if not prefixes:
         return []
 
+    if ckg_path_enabled():
+        return _existing_s3_vector_prefixes(prefixes, tenant_id)
+
     client = AossVectorClient(endpoint=OPENSEARCH_ENDPOINT, region=resolve_region()).raw_client()
     kept: list[str] = []
     for prefix in prefixes:
@@ -79,6 +89,18 @@ def _existing_embedding_indexes(prefixes: list[str], tenant_id: str) -> list[str
     return kept
 
 
+def _existing_s3_vector_prefixes(prefixes: list[str], tenant_id: str) -> list[str]:
+    """On the ckg path, return the ``prefixes`` whose S3 Vectors index exists (a failed probe keeps the prefix)."""
+    import boto3
+    from coa_common.graphrag_pg.teardown import existing_s3_vector_indexes
+
+    bucket = os.environ.get(GRAPHRAG_S3_VECTOR_BUCKET_ENV, "").strip()
+    index_prefix = os.environ.get(GRAPHRAG_S3_VECTOR_PREFIX_ENV, "").strip().strip("/") or "graphrag"
+    s3vectors = boto3.client("s3vectors", region_name=resolve_region())
+    names = {f"{prefix}_{tenant_id}": prefix for prefix in prefixes}
+    return [names[n] for n in existing_s3_vector_indexes(s3vectors, bucket, index_prefix, list(names))]
+
+
 def main() -> None:
     """Run the graph-cleanup task (ECS Fargate entrypoint).
 
@@ -90,34 +112,40 @@ def main() -> None:
     Raises:
         RuntimeError: If any required environment variable is missing.
     """
-    missing = [
-        name
-        for name, val in [
-            ("NAMESPACE_ID", NAMESPACE_ID),
-            ("DOC_SOURCE_ID", DOC_SOURCE_ID),
-            ("TENANT_ID", TENANT_ID),
-            ("NEPTUNE_ENDPOINT", NEPTUNE_ENDPOINT),
-            ("OPENSEARCH_ENDPOINT", OPENSEARCH_ENDPOINT),
-        ]
-        if not val
+    ckg = ckg_path_enabled()
+    required = [
+        ("NAMESPACE_ID", NAMESPACE_ID),
+        ("DOC_SOURCE_ID", DOC_SOURCE_ID),
+        ("TENANT_ID", TENANT_ID),
     ]
+    if not ckg:
+        required += [("NEPTUNE_ENDPOINT", NEPTUNE_ENDPOINT), ("OPENSEARCH_ENDPOINT", OPENSEARCH_ENDPOINT)]
+    missing = [name for name, val in required if not val]
     if missing:
         raise RuntimeError(f"Missing required environment variables: {', '.join(missing)}")
 
     # Patch BEFORE importing graphrag (see module docstring). allow_create=False
     # because this is the deletion path and must never create an index.
-    _patch_graphrag_toolkit_for_aoss_nextgen(allow_create=False)
-    _patch_graphrag_paginated_search_retry()
-    _patch_graphrag_bulk_ingest_retry()
+    if not ckg:
+        _patch_graphrag_toolkit_for_aoss_nextgen(allow_create=False)
+        _patch_graphrag_paginated_search_retry()
+        _patch_graphrag_bulk_ingest_retry()
 
     from graphrag_toolkit.lexical_graph import LexicalGraphIndex
     from graphrag_toolkit.lexical_graph.indexing.build.delete_sources import DeleteSources
     from graphrag_toolkit.lexical_graph.storage import GraphStoreFactory, VectorStoreFactory
 
-    neptune_host = NEPTUNE_ENDPOINT.replace("wss://", "").replace("https://", "").rstrip("/")
-    opensearch_host = OPENSEARCH_ENDPOINT.replace("https://", "").replace("http://", "").rstrip("/")
-    graph_store_uri = f"neptune-db://{neptune_host}:8182"
-    vector_store_uri = f"aoss://{opensearch_host}:443"
+    if ckg:
+        from coa_common.graphrag_pg.store import register as register_aurora_graph_store
+
+        register_aurora_graph_store()
+        graph_store_uri = graphrag_aurora_graph_uri()
+        vector_store_uri = graphrag_s3_vector_uri()
+    else:
+        neptune_host = NEPTUNE_ENDPOINT.replace("wss://", "").replace("https://", "").rstrip("/")
+        opensearch_host = OPENSEARCH_ENDPOINT.replace("https://", "").replace("http://", "").rstrip("/")
+        graph_store_uri = f"neptune-db://{neptune_host}:8182"
+        vector_store_uri = f"aoss://{opensearch_host}:443"
 
     logger.info(
         "graph_cleanup_started",

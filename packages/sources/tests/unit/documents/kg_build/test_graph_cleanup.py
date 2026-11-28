@@ -20,6 +20,7 @@ import types
 from unittest.mock import MagicMock, patch
 
 import pytest
+from botocore.exceptions import ClientError
 
 pytestmark = pytest.mark.unit
 
@@ -555,3 +556,76 @@ class TestMainPassesOnlyExistingIndexes:
         kwargs = mock_vsf.for_vector_store.call_args.kwargs
         assert uri and uri[0] == "dummy://"
         assert kwargs["index_names"], "index_names must be NON-empty even when EMBEDDING_INDEXES is empty"
+
+
+# ---------------------------------------------------------------------------
+# ckg path (Aurora document graph + S3 Vectors)
+# ---------------------------------------------------------------------------
+class TestCkgPath:
+    @pytest.fixture()
+    def ckg_mod(self, monkeypatch, mod):
+        monkeypatch.setenv("GRAPH_BACKEND", "aurora")
+        monkeypatch.setenv("GRAPHRAG_VECTOR_BACKEND", "s3vectors")
+        monkeypatch.setenv("GRAPHRAG_S3_VECTOR_BUCKET", "vb")
+        monkeypatch.delenv("NEPTUNE_ENDPOINT")
+        monkeypatch.delenv("OPENSEARCH_ENDPOINT")
+        _evict_graph_cleanup()
+        from coa_sources.documents.kg_build import graph_cleanup
+
+        monkeypatch.setitem(sys.modules, "coa_common.graphrag_pg.store", types.SimpleNamespace(register=MagicMock()))
+        for name in (
+            "_patch_graphrag_toolkit_for_aoss_nextgen",
+            "_patch_graphrag_paginated_search_retry",
+            "_patch_graphrag_bulk_ingest_retry",
+        ):
+            monkeypatch.setattr(graph_cleanup, name, MagicMock(name=name))
+        return graph_cleanup
+
+    @patch(_P_DS)
+    @patch(_P_IDX)
+    @patch(_P_GSF)
+    @patch(_P_VSF)
+    def test_ckg_uses_aurora_and_s3_vectors_uris_without_aoss_patches(
+        self, mock_vsf, mock_gsf, mock_idx_cls, mock_ds, ckg_mod
+    ):
+        _make_store_mocks(mock_gsf, mock_vsf)
+        _make_graph_index(mock_idx_cls, [])
+        with patch("boto3.client") as boto_client:
+            ckg_mod.main()
+        mock_gsf.for_graph_store.assert_called_once_with("aurora-pg://?schema=lg")
+        mock_vsf.for_vector_store.assert_called_once_with(
+            "s3vectors://vb/graphrag", index_names=ckg_mod.EMBEDDING_INDEXES
+        )
+        ckg_mod._patch_graphrag_toolkit_for_aoss_nextgen.assert_not_called()
+        ckg_mod._patch_graphrag_paginated_search_retry.assert_not_called()
+        ckg_mod._patch_graphrag_bulk_ingest_retry.assert_not_called()
+        probed = [c.kwargs["indexName"] for c in boto_client.return_value.get_index.call_args_list]
+        assert probed == [f"graphrag.{p}-{_BASE_ENV['TENANT_ID']}" for p in ckg_mod.EMBEDDING_INDEXES]
+
+    @patch(_P_IDX)
+    @patch(_P_GSF)
+    @patch(_P_VSF)
+    def test_ckg_skips_absent_s3_vectors_indexes(self, mock_vsf, mock_gsf, mock_idx_cls, ckg_mod):
+        _make_store_mocks(mock_gsf, mock_vsf)
+        _make_graph_index(mock_idx_cls, [])
+        missing = ClientError({"Error": {"Code": "NotFoundException", "Message": "x"}}, "GetIndex")
+        with patch("boto3.client") as boto_client:
+            boto_client.return_value.get_index.side_effect = missing
+            ckg_mod.main()
+        mock_vsf.for_vector_store.assert_called_once_with("dummy://", index_names=ckg_mod.EMBEDDING_INDEXES)
+
+    @patch(_P_DS)
+    @patch(_P_IDX)
+    @patch(_P_GSF)
+    @patch(_P_VSF)
+    def test_ckg_keeps_single_worker_delete(self, mock_vsf, mock_gsf, mock_idx_cls, mock_ds, ckg_mod):
+        _make_store_mocks(mock_gsf, mock_vsf)
+        _make_graph_index(mock_idx_cls, [{"sourceId": "s1"}])
+        with patch("boto3.client"):
+            ckg_mod.main()
+        assert mock_ds.call_args.kwargs["num_workers"] == 1
+
+    def test_ckg_still_requires_the_ids(self, ckg_mod, monkeypatch):
+        monkeypatch.setattr(ckg_mod, "TENANT_ID", "")
+        with pytest.raises(RuntimeError, match="TENANT_ID"):
+            ckg_mod.main()

@@ -102,6 +102,9 @@ from coa_common.constants import (
     MAX_VOCABULARY_ENTRIES,
     STAGED_TEXT_EXTENSIONS,
     ExtractionMode,
+    ckg_path_enabled,
+    graphrag_aurora_graph_uri,
+    graphrag_s3_vector_uri,
     validate_id,
 )
 from coa_common.dao import DynamoDBDAO, make_dao
@@ -891,13 +894,94 @@ def _patch_graphrag_bulk_ingest_retry() -> None:
     _graphrag_bulk_ingest_patched = True
 
 
+# S3 Vectors limits per vector: 50 metadata keys, 40 KB total, 2 KB of filterable metadata.
+_S3V_MAX_KEYS = 50
+_S3V_MAX_BYTES = 40 * 1024
+_S3V_MAX_FILTERABLE_BYTES = 2048
+_S3V_SOURCE_PREFIX = "source.metadata."
+_S3V_MAX_KEY_LENGTH = 63
+# graphrag_toolkit.lexical_graph.storage.vector.s3_vector_indexes.NON_FILTERABLE_FIELDS
+_S3V_NON_FILTERABLE = ("value", "metadata")
+# Default writes per batch on the ckg path (the toolkit default is 25; Aurora and S3 Vectors take larger batches).
+CKG_BUILD_BATCH_WRITE_SIZE = 100
+
+_graphrag_s3v_guard_patched = False
+
+
+def _s3_vectors_metadata_fits(metadata: dict) -> bool:
+    """True when ``metadata`` is within the S3 Vectors key-count, total-size and filterable-size limits."""
+    if len(metadata) + len(_S3V_NON_FILTERABLE) > _S3V_MAX_KEYS:
+        return False
+    if len(json.dumps(metadata, default=str).encode("utf-8")) > _S3V_MAX_BYTES:
+        return False
+    filterable = {k: v for k, v in metadata.items() if k not in _S3V_NON_FILTERABLE}
+    return len(json.dumps(filterable, default=str).encode("utf-8")) <= _S3V_MAX_FILTERABLE_BYTES
+
+
+def _guard_s3_vectors_metadata(metadata: dict) -> list[str]:
+    """Drop user-supplied ``source.metadata.*`` keys from ``metadata`` (in place) until it fits S3 Vectors limits.
+
+    Returns the dropped keys. Keys too long for S3 Vectors are dropped first. Only user metadata is dropped;
+    ``value`` and ``metadata`` (the chunk text and node JSON) are never touched, so an oversized vector still
+    fails in the toolkit's own check rather than being silently truncated.
+    """
+    dropped = [
+        k
+        for k in metadata
+        if k.startswith(_S3V_SOURCE_PREFIX) and len(k) + len(_S3V_SOURCE_PREFIX) > _S3V_MAX_KEY_LENGTH
+    ]
+    for key in dropped:
+        del metadata[key]
+    # Largest last, so each pop removes the most bytes.
+    candidates = sorted(
+        (k for k in metadata if k.startswith(_S3V_SOURCE_PREFIX)),
+        key=lambda k: len(json.dumps(metadata[k], default=str)),
+    )
+    while candidates and not _s3_vectors_metadata_fits(metadata):
+        key = candidates.pop()
+        del metadata[key]
+        dropped.append(key)
+    return dropped
+
+
+def _patch_graphrag_s3_vectors_metadata_guard() -> None:
+    """Make the toolkit's S3 Vectors writes drop over-limit user metadata instead of failing the build.
+
+    ``ingest_vectors`` calls the module-level ``validate_metadata_limits`` per vector, which raises when a
+    chunk carries too many ``source.metadata.*`` keys. Wrap it to trim first (see ``_guard_s3_vectors_metadata``).
+    Idempotent. Parent process only: embeddings are written from the build stage, not the extraction workers.
+    """
+    global _graphrag_s3v_guard_patched
+    if _graphrag_s3v_guard_patched:
+        return
+    try:
+        import graphrag_toolkit.lexical_graph.storage.vector.s3_vector_indexes as _s3vi
+    except ImportError:
+        logger.debug("graphrag S3 Vectors metadata guard skipped (module not available)")
+        return
+    original = _s3vi.validate_metadata_limits
+
+    def _guarded_validate_metadata_limits(metadata, max_tags, vector_id):
+        if isinstance(metadata, dict):
+            dropped = _guard_s3_vectors_metadata(metadata)
+            if dropped:
+                logger.warning("s3_vectors_metadata_trimmed", vector_id=vector_id, dropped_keys=dropped)
+        return original(metadata, max_tags, vector_id)
+
+    _s3vi.validate_metadata_limits = _guarded_validate_metadata_limits
+    _graphrag_s3v_guard_patched = True
+
+
 def _setup_graphrag(tenant_id: str):
     """Configure GraphRAG and return (graph_store_uri, vector_store_uri)."""
+    ckg = ckg_path_enabled()
     # Patch BEFORE importing graphrag — the monkey-patch must replace index_exists
     # in the module namespace before LexicalGraphIndex/VectorStoreFactory load and
     # bind their own references to it. Importing GraphRAGConfig triggers those loads.
-    _patch_graphrag_toolkit_for_aoss_nextgen()
-    _patch_graphrag_paginated_search_retry()
+    # The three AOSS patches are skipped on the ckg path (Aurora + S3 Vectors).
+    if not ckg:
+        _patch_graphrag_toolkit_for_aoss_nextgen()
+        _patch_graphrag_paginated_search_retry()
     _patch_graphrag_llm_cache_client_config()
 
     from graphrag_toolkit.lexical_graph import GraphRAGConfig
@@ -905,7 +989,8 @@ def _setup_graphrag(tenant_id: str):
     # AFTER the import: graphrag binds its own _bulk_ingest_embeddings onto
     # llama_index's OpensearchVectorClient at import time, so our retry wrapper
     # must be assigned last to win.
-    _patch_graphrag_bulk_ingest_retry()
+    if not ckg:
+        _patch_graphrag_bulk_ingest_retry()
     # AFTER the import: wraps get_request_body in every module that binds it so
     # batch serialization omits temperature for models that reject it (default is
     # Sonnet 5). Safe to run post-import — the serializer is read at job build.
@@ -977,13 +1062,23 @@ def _setup_graphrag(tenant_id: str):
     if USE_BATCH_INFERENCE:
         GraphRAGConfig.extraction_batch_size = EXTRACTION_BATCH_SIZE
 
-    neptune_endpoint = _require_env("NEPTUNE_ENDPOINT")
-    opensearch_endpoint = _require_env("OPENSEARCH_ENDPOINT")
+    if ckg:
+        from coa_common.graphrag_pg.store import register as register_aurora_graph_store
 
-    neptune_host = neptune_endpoint.replace("wss://", "").replace("https://", "").rstrip("/")
-    opensearch_host = opensearch_endpoint.replace("https://", "").replace("http://", "").rstrip("/")
-    graph_store_uri = f"neptune-db://{neptune_host}:8182"
-    vector_store_uri = f"aoss://{opensearch_host}:443"
+        register_aurora_graph_store()
+        _patch_graphrag_s3_vectors_metadata_guard()
+        if "BUILD_BATCH_WRITE_SIZE" not in os.environ:
+            GraphRAGConfig.build_batch_write_size = CKG_BUILD_BATCH_WRITE_SIZE
+        graph_store_uri = graphrag_aurora_graph_uri()
+        vector_store_uri = graphrag_s3_vector_uri()
+    else:
+        neptune_endpoint = _require_env("NEPTUNE_ENDPOINT")
+        opensearch_endpoint = _require_env("OPENSEARCH_ENDPOINT")
+
+        neptune_host = neptune_endpoint.replace("wss://", "").replace("https://", "").rstrip("/")
+        opensearch_host = opensearch_endpoint.replace("https://", "").replace("http://", "").rstrip("/")
+        graph_store_uri = f"neptune-db://{neptune_host}:8182"
+        vector_store_uri = f"aoss://{opensearch_host}:443"
 
     logger.info(
         "GraphRAG config",
@@ -1230,9 +1325,14 @@ def _check_backend_health(
     from graphrag_toolkit.lexical_graph.storage import GraphStoreFactory
 
     # --- Graph store (Neptune) health check ---
+    ckg = ckg_path_enabled()
     try:
         with GraphStoreFactory.for_graph_store(graph_store_uri) as graph_store:
-            graph_store.execute_query("RETURN 1 AS health")
+            if ckg:
+                # The Aurora store is not a Cypher engine: probe the Data API connection directly.
+                graph_store.client.execute("SELECT 1 AS health")
+            else:
+                graph_store.execute_query("RETURN 1 AS health")
         logger.info("Graph store health check passed")
     except Exception:
         tb = traceback.format_exc()
@@ -1248,16 +1348,24 @@ def _check_backend_health(
 
     # --- Vector store (AOSS) health check ---
     try:
-        from graphrag_toolkit.lexical_graph.storage.vector.opensearch_vector_indexes import (
-            create_os_client,
-        )
+        if ckg:
+            from urllib.parse import urlparse
 
-        vector_endpoint = vector_store_uri.replace("aoss://", "")
-        client = create_os_client(vector_endpoint, pool_maxsize=1)
-        try:
-            client.cat.indices(format="json")
-        finally:
-            client.close()
+            import boto3
+
+            bucket_name = urlparse(vector_store_uri).hostname
+            boto3.client("s3vectors", region_name=AWS_REGION).get_vector_bucket(vectorBucketName=bucket_name)
+        else:
+            from graphrag_toolkit.lexical_graph.storage.vector.opensearch_vector_indexes import (
+                create_os_client,
+            )
+
+            vector_endpoint = vector_store_uri.replace("aoss://", "")
+            client = create_os_client(vector_endpoint, pool_maxsize=1)
+            try:
+                client.cat.indices(format="json")
+            finally:
+                client.close()
         logger.info("Vector store health check passed")
     except Exception:
         tb = traceback.format_exc()

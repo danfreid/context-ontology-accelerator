@@ -22,7 +22,14 @@ import structlog
 from coa_common import async_boto_config
 from coa_common.aurora_data_api import build_client_from_env
 from coa_common.aurora_search import AuroraSearchIndex, SearchBackend, resolve_search_backend
-from coa_common.constants import graphrag_index_names
+from coa_common.constants import (
+    GRAPHRAG_AURORA_SCHEMA_ENV,
+    GRAPHRAG_S3_VECTOR_BUCKET_ENV,
+    GRAPHRAG_S3_VECTOR_PREFIX_ENV,
+    ckg_path_enabled,
+    graphrag_index_names,
+    to_graphrag_tenant_id,
+)
 from coa_common.dao import DynamoDBDAO, QueryParams, make_dao
 from coa_common.opensearch import AossVectorClient
 
@@ -401,6 +408,26 @@ def _delete_aurora_namespace_rows(namespace_id: str) -> dict[str, int]:
     return deleted
 
 
+def _delete_ckg_graphrag(namespace_id: str) -> list[str]:
+    """On the ckg path, delete the namespace tenant's document-graph rows and its S3 Vectors indexes. Raises on failure.
+
+    Returns the S3 Vectors indexes removed (named ``chunk_<tenant>`` etc., as on the AOSS path).
+    """
+    from coa_common.graphrag_pg.teardown import delete_s3_vector_indexes, delete_tenant_rows
+
+    tenant = to_graphrag_tenant_id(namespace_id)
+    schema = os.environ.get(GRAPHRAG_AURORA_SCHEMA_ENV, "").strip() or "lg"
+    bucket = os.environ.get(GRAPHRAG_S3_VECTOR_BUCKET_ENV, "").strip()
+    if not bucket:
+        raise RuntimeError(f"{GRAPHRAG_S3_VECTOR_BUCKET_ENV} is required on the ckg path")
+    prefix = os.environ.get(GRAPHRAG_S3_VECTOR_PREFIX_ENV, "").strip().strip("/") or "graphrag"
+    rows = delete_tenant_rows(build_client_from_env(), schema, tenant)
+    s3vectors = boto3.client("s3vectors", region_name=os.environ.get("AWS_REGION", "us-east-1"))
+    removed = delete_s3_vector_indexes(s3vectors, bucket, prefix, graphrag_index_names(namespace_id))
+    logger.info("ckg_graphrag_deleted", namespace_id=namespace_id, rows=rows, indexes=removed)
+    return removed
+
+
 def delete_graphrag_indexes(namespace_id: str) -> list[str]:
     """Delete the namespace's GraphRAG doc-KG vector indexes. Returns those removed.
 
@@ -423,6 +450,11 @@ def delete_graphrag_indexes(namespace_id: str) -> list[str]:
     if resolve_search_backend() == SearchBackend.PGVECTOR:
         removed.extend(_delete_aurora_scopes(namespace_id, graphrag_index_names(namespace_id)))
         _delete_aurora_namespace_rows(namespace_id)
+    if ckg_path_enabled():
+        for index in _delete_ckg_graphrag(namespace_id):
+            if index not in removed:
+                removed.append(index)
+        return removed
     endpoint = os.environ.get("OSS_ENDPOINT", "")
     if not endpoint:
         logger.warning("oss_endpoint_not_configured", namespace_id=namespace_id)

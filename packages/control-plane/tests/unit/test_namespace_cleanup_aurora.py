@@ -149,3 +149,45 @@ def test_default_backend_still_uses_aoss(monkeypatch):
 
     assert cleanup.delete_graphrag_indexes(NS) == graphrag_index_names(NS)
     aurora.assert_not_called()
+
+
+@pytest.mark.unit
+class TestDeleteGraphragIndexesCkg:
+    @pytest.fixture
+    def ckg(self, aurora_index, monkeypatch):
+        from coa_control_plane.namespace import cleanup
+
+        monkeypatch.setenv("GRAPH_BACKEND", "aurora")
+        monkeypatch.setenv("GRAPHRAG_VECTOR_BACKEND", "s3vectors")
+        monkeypatch.setenv("GRAPHRAG_S3_VECTOR_BUCKET", "vb")
+        monkeypatch.setenv("OSS_ENDPOINT", "abc.us-east-1.aoss.amazonaws.com")
+        s3 = MagicMock()
+        monkeypatch.setattr(cleanup.boto3, "client", lambda *a, **k: s3)
+        return aurora_index, s3
+
+    def test_deletes_graph_rows_and_the_three_s3_vectors_indexes_without_touching_aoss(self, ckg):
+        from coa_common.constants import to_graphrag_tenant_id
+        from coa_control_plane.namespace import cleanup
+
+        (index, aoss), s3 = ckg
+        removed = cleanup.delete_graphrag_indexes(NS)
+        expected = graphrag_index_names(NS)
+        assert removed == expected
+        assert len(expected) == 3
+        deleted = [c.kwargs["indexName"] for c in s3.delete_index.call_args_list]
+        assert deleted == [f"graphrag.{n.replace('_', '-')}" for n in expected]
+        aoss.assert_not_called()
+        client = cleanup.build_client_from_env()
+        sqls = [c.args[0] for c in client.execute.call_args_list]
+        assert any("DELETE FROM lg.node" in s for s in sqls)
+        tenant = to_graphrag_tenant_id(NS)
+        assert any(c.args[1].get("t") == tenant for c in client.execute.call_args_list)
+
+    def test_default_flags_still_use_aoss(self, aurora_index, monkeypatch):
+        from coa_control_plane.namespace import cleanup
+
+        _, aoss = aurora_index
+        monkeypatch.setenv("OSS_ENDPOINT", "abc.us-east-1.aoss.amazonaws.com")
+        aoss.return_value.delete_index.return_value = True
+        cleanup.delete_graphrag_indexes(NS)
+        assert aoss.return_value.delete_index.call_count == 3

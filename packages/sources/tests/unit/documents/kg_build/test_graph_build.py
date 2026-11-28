@@ -2298,3 +2298,112 @@ class TestScreeningWindows:
             {"PK": "NS#tenant-a", "SK": "SRC#ds-001"},
             {"status": SourceStatus.SCAN_FAILED, "errorMessage": "All documents quarantined"},
         )
+
+
+# ===================================================================
+# ckg path (Aurora document graph + S3 Vectors)
+# ===================================================================
+class TestCkgPath:
+    @pytest.fixture()
+    def ckg_env(self, monkeypatch):
+        monkeypatch.setenv("GRAPH_BACKEND", "aurora")
+        monkeypatch.setenv("GRAPHRAG_VECTOR_BACKEND", "s3vectors")
+        monkeypatch.setenv("GRAPHRAG_S3_VECTOR_BUCKET", "vb")
+        monkeypatch.delenv("NEPTUNE_ENDPOINT")
+        monkeypatch.delenv("OPENSEARCH_ENDPOINT")
+
+    @staticmethod
+    def _spy_patches(monkeypatch, mod):
+        calls: list[str] = []
+        for name in (
+            "_patch_graphrag_toolkit_for_aoss_nextgen",
+            "_patch_graphrag_paginated_search_retry",
+            "_patch_graphrag_bulk_ingest_retry",
+            "_patch_graphrag_s3_vectors_metadata_guard",
+        ):
+            monkeypatch.setattr(mod, name, lambda *a, _n=name, **k: calls.append(_n))
+        monkeypatch.setattr(mod, "BEDROCK_MODEL_ARN", "")
+        return calls
+
+    def test_ckg_setup_needs_no_neptune_or_opensearch_and_skips_aoss_patches(self, ckg_env, monkeypatch, mod):
+        calls = self._spy_patches(monkeypatch, mod)
+        register = MagicMock()
+        monkeypatch.setitem(sys.modules, "coa_common.graphrag_pg.store", types.SimpleNamespace(register=register))
+        with patch("graphrag_toolkit.lexical_graph.GraphRAGConfig") as cfg:
+            uris = mod._setup_graphrag("tenant-x")
+        assert uris == ("aurora-pg://?schema=lg", "s3vectors://vb/graphrag")
+        assert calls == ["_patch_graphrag_s3_vectors_metadata_guard"]
+        register.assert_called_once_with()
+        assert cfg.build_batch_write_size == mod.CKG_BUILD_BATCH_WRITE_SIZE
+
+    def test_ckg_keeps_an_explicit_batch_write_size(self, ckg_env, monkeypatch, mod):
+        self._spy_patches(monkeypatch, mod)
+        monkeypatch.setenv("BUILD_BATCH_WRITE_SIZE", "10")
+        monkeypatch.setitem(sys.modules, "coa_common.graphrag_pg.store", types.SimpleNamespace(register=MagicMock()))
+        cfg = MagicMock(spec=["aws_region"])
+        with patch("graphrag_toolkit.lexical_graph.GraphRAGConfig", cfg):
+            mod._setup_graphrag("tenant-x")
+        assert not hasattr(cfg, "build_batch_write_size")
+
+    def test_default_flags_apply_the_aoss_patches_and_neptune_uris(self, monkeypatch, mod):
+        calls = self._spy_patches(monkeypatch, mod)
+        with patch("graphrag_toolkit.lexical_graph.GraphRAGConfig") as cfg:
+            uris = mod._setup_graphrag("tenant-x")
+        assert uris == (
+            f"neptune-db://{_BASE_ENV['NEPTUNE_ENDPOINT']}:8182",
+            f"aoss://{_BASE_ENV['OPENSEARCH_ENDPOINT']}:443",
+        )
+        assert calls == [
+            "_patch_graphrag_toolkit_for_aoss_nextgen",
+            "_patch_graphrag_paginated_search_retry",
+            "_patch_graphrag_bulk_ingest_retry",
+        ]
+        assert cfg.build_batch_write_size is not mod.CKG_BUILD_BATCH_WRITE_SIZE
+
+    def test_metadata_guard_drops_excess_source_metadata_keys(self, mod):
+        metadata = {"value": "v", "metadata": "{}", **{f"source.metadata.k{i:02d}": "x" for i in range(60)}}
+        dropped = mod._guard_s3_vectors_metadata(metadata)
+        assert len(metadata) <= 50
+        assert len(dropped) == 60 - (len(metadata) - 2)
+        assert "value" in metadata and "metadata" in metadata
+
+    def test_metadata_guard_drops_overlong_keys_and_oversized_values(self, mod):
+        metadata = {
+            "value": "v",
+            "source.metadata." + "k" * 60: "x",
+            "source.metadata.big": "y" * 5000,
+            "source.metadata.ok": "z",
+        }
+        dropped = mod._guard_s3_vectors_metadata(metadata)
+        assert "source.metadata." + "k" * 60 in dropped
+        assert "source.metadata.big" in dropped
+        assert "source.metadata.ok" in metadata
+
+    def test_metadata_guard_leaves_a_fitting_vector_untouched(self, mod):
+        metadata = {"value": "v", "metadata": "{}", "source.metadata.a": "1"}
+        assert mod._guard_s3_vectors_metadata(metadata) == []
+        assert len(metadata) == 3
+
+    def test_metadata_guard_patch_wraps_validate_metadata_limits(self, monkeypatch, mod):
+        s3vi = types.ModuleType("graphrag_toolkit.lexical_graph.storage.vector.s3_vector_indexes")
+        seen: list[dict] = []
+        s3vi.validate_metadata_limits = lambda metadata, max_tags, vector_id: seen.append(dict(metadata))
+        monkeypatch.setitem(sys.modules, s3vi.__name__, s3vi)
+        monkeypatch.setattr(mod, "_graphrag_s3v_guard_patched", False)
+        mod._patch_graphrag_s3_vectors_metadata_guard()
+        s3vi.validate_metadata_limits({"value": "v", **{f"source.metadata.k{i}": "x" for i in range(70)}}, 50, "id")
+        assert len(seen[0]) <= 50
+
+    def test_ckg_health_check_uses_data_api_and_s3_vectors(self, ckg_env, mod):
+        graph_store = MagicMock()
+        with (
+            patch("graphrag_toolkit.lexical_graph.storage.GraphStoreFactory") as gsf,
+            patch("boto3.client") as boto_client,
+        ):
+            gsf.for_graph_store.return_value.__enter__.return_value = graph_store
+            ok = mod._check_backend_health("aurora-pg://?schema=lg", "s3vectors://vb/graphrag", MagicMock(), {})
+        assert ok is True
+        graph_store.client.execute.assert_called_once_with("SELECT 1 AS health")
+        graph_store.execute_query.assert_not_called()
+        boto_client.assert_called_once_with("s3vectors", region_name=mod.AWS_REGION)
+        boto_client.return_value.get_vector_bucket.assert_called_once_with(vectorBucketName="vb")
