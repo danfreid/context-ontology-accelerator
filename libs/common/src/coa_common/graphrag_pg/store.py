@@ -1189,6 +1189,663 @@ def _h_chunks_with_source(store: AuroraGraphStore, flat: str, tenant: str, param
     return out
 
 
+# ── remaining retrieval strategies, entity providers, utils, get_sources ─────────────────────────
+# Each fixed-shape query is matched by exact text (after tenant-label canonicalisation and whitespace
+# folding). A reworded or extended query therefore falls through to UnsupportedGraphQueryError.
+_Q_CHUNK_VALUES = (
+    "MATCH (chunk:`__Chunk__`) WHERE chunk.chunkId in $chunk_ids RETURN { chunk: chunk{.chunkId, .value} } AS result"
+)
+_Q_DEL_CHUNKS = "// delete chunks (delete source) MATCH (c) WHERE c.chunkId IN $chunkIds DELETE c"
+_Q_DEL_CHUNK_RELS = (
+    "// delete chunk relationships (delete source) MATCH (c)-[r]-() WHERE c.chunkId IN $chunkIds DELETE r"
+)
+_Q_DEL_ENTITIES = "// delete entities (delete source) MATCH (e) WHERE e.entityId IN $entityIds DELETE e"
+_Q_DEL_ENTITY_RELS = (
+    "// delete entity relationships (delete source) MATCH (e)-[r]-() WHERE e.entityId IN $entityIds DELETE r"
+)
+_Q_DEL_FACTS = "// delete facts (delete source) MATCH (f) WHERE f.factId IN $factIds DELETE f"
+_Q_DEL_FACT_RELS = "// delete fact relationships (delete source) MATCH (f)-[r]-() WHERE f.factId IN $factIds DELETE r"
+_Q_DEL_SOURCE = "// delete source (delete source) MATCH (s) WHERE s.sourceId = $sourceId DELETE s"
+_Q_DEL_SOURCE_RELS = (
+    "// delete source relationships (delete source) MATCH (s)-[r]-() WHERE s.sourceId = $sourceId DELETE r"
+)
+_Q_DEL_STATEMENTS = "// delete statements (delete source) MATCH (l) WHERE l.statementId IN $statementIds DELETE l"
+_Q_DEL_STATEMENT_RELS = (
+    "// delete statement relationships (delete source) MATCH (l)-[r]-() WHERE l.statementId IN $statementIds DELETE r"
+)
+_Q_DEL_TOPICS = "// delete topics (delete source) MATCH (t) WHERE t.topicId IN $topicIds DELETE t"
+_Q_DEL_TOPIC_RELS = (
+    "// delete topic relationships (delete source) MATCH (t)-[r]-() WHERE t.topicId IN $topicIds DELETE r"
+)
+_Q_ENTITIES_FOR_CHUNKS = "// get entities for chunk ids MATCH (c:`__Chunk__`)<-[:`__MENTIONED_IN__`]-(:`__Statement__`) <-[:`__SUPPORTS__`]-()<-[:`__SUBJECT__`|`__OBJECT__`]-(entity) WHERE c.chunkId in $nodeIds AND entity.class <> '__Local_Entity__' WITH DISTINCT entity MATCH (entity)-[r:`__SUBJECT__`|`__OBJECT__`]->() WITH entity, count(r) AS score ORDER BY score DESC LIMIT $limit RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+_Q_ENTITIES_FOR_STATEMENT = "// Get entities for statement MATCH (s)<-[:`__SUPPORTS__`]-(f)<-[:`__SUBJECT__`|`__OBJECT__`]-(entity) WHERE s.statementId in $statementIds AND entity.class <> '__Local_Entity__' WITH DISTINCT entity OPTIONAL MATCH (entity)-[r:`__SUBJECT__`|`__OBJECT__`]->() WITH entity, count(r) AS score ORDER BY score DESC RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+_Q_ENTITIES_FOR_TOPICS = "// get entities for topic ids MATCH (t:`__Topic__`)<-[:`__BELONGS_TO__`]-(:`__Statement__`) <-[:`__SUPPORTS__`]-()<-[:`__SUBJECT__`|`__OBJECT__`]-(entity) WHERE t.topicId in $nodeIds AND entity.class <> '__Local_Entity__' WITH DISTINCT entity MATCH (entity)-[r:`__SUBJECT__`|`__OBJECT__`]->() WITH entity, count(r) AS score ORDER BY score DESC LIMIT $limit RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+_Q_ENTITY_MULTI = "// multiple entity-based graph search MATCH p=(e1:`__Entity__`{entityId:$startId})-[:`__RELATION__`*1..2]-(e2:`__Entity__`) WHERE e2.entityId in $endIds UNWIND nodes(p) AS n WITH DISTINCT COLLECT(n) AS entities MATCH (s)-[:`__SUBJECT__`]->(f)<-[:`__OBJECT__`]-(o), (f)-[:`__SUPPORTS__`]->()-[:`__PREVIOUS__`*0..1]-(l) WHERE s in entities and o in entities RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+_Q_ENTITY_SINGLE = "// single entity-based graph search MATCH (:`__Entity__`{entityId:$startId}) -[:`__SUBJECT__`]->() -[:`__SUPPORTS__`]->() -[:`__PREVIOUS__`*0..1]-(l) RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+_Q_EXPAND_ENTITIES = "// expand entities: score entities by number of relations MATCH (entity:`__Entity__`)-[r:`__SUBJECT__`|`__OBJECT__`]->() WHERE entity.entityId IN $entityIds WITH entity, count(r) AS score RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+_Q_GET_CHUNK_IDS = "// get chunk ids (delete source) MATCH (s)<-[:`__EXTRACTED_FROM__`]-(c) WHERE s.sourceId = $sourceId RETURN DISTINCT c.chunkId AS chunkId LIMIT $batchSize"
+_Q_GET_ENTITY_IDS = "// get entity ids (delete source) MATCH (f)<-[:`__SUBJECT__`|`__OBJECT__`]-(e) WHERE f.factId IN $factIds RETURN DISTINCT e.entityId AS entityId"
+_Q_GET_FACT_IDS = "// get fact ids (delete source) MATCH (l)<-[:`__SUPPORTS__`]-(f) WHERE l.statementId IN $statementIds RETURN DISTINCT f.factId AS factId"
+_Q_GET_ORPHAN_ENTITIES = "// get orphaned entity ids (delete source) MATCH (e) WHERE e.entityId IN $entityIds AND NOT (e)-[:`__SUBJECT__`|`__OBJECT__`]->() RETURN DISTINCT e.entityId AS entityId"
+_Q_GET_ORPHAN_FACTS = "// get orphaned fact ids (delete source) MATCH (f) WHERE f.factId IN $factIds AND NOT (f)-[:`__SUPPORTS__`]->() RETURN DISTINCT f.factId AS factId"
+_Q_GET_STATEMENT_IDS = "// get statement ids (delete source) MATCH (s)<-[:`__EXTRACTED_FROM__`]-()<-[:`__MENTIONED_IN__`]-(l:`__Statement__`) WHERE s.sourceId = $sourceId RETURN DISTINCT l.statementId AS statementId LIMIT $batchSize"
+_Q_GET_TOPIC_IDS = "// get topic ids (delete source) MATCH (s)<-[:`__EXTRACTED_FROM__`]-()<-[:`__MENTIONED_IN__`]-(t:`__Topic__`) WHERE s.sourceId = $sourceId RETURN DISTINCT t.topicId AS topicId LIMIT $batchSize"
+_Q_NETWORK_CHUNK = "// chunk-based entity network search MATCH (l)-[:`__BELONGS_TO__`]->()-[:`__MENTIONED_IN__`]->(c:`__Chunk__`) WHERE c.chunkId = $nodeId RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+_Q_NETWORK_TOPIC = "// topic-based entity network search MATCH (l)-[:`__BELONGS_TO__`]->(t:`__Topic__`) WHERE t.topicId = $nodeId RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+_Q_STATEMENTS_WITH_SOURCE = "MATCH (statement:`__Statement__`)-[:`__MENTIONED_IN__`]->(chunk:`__Chunk__`)-[:`__EXTRACTED_FROM__`]->(source:`__Source__`) WHERE statement.statementId in $statement_ids RETURN { statement: statement{.*}, source: { sourceId: source.sourceId, metadata: source{.*} }, chunk: chunk{.*} } AS result"
+_Q_TOPIC_BASED = "// topic-based graph search MATCH (f)-[:`__SUPPORTS__`]->()-[:`__BELONGS_TO__`]->(tt:`__Topic__`) WHERE tt.topicId = $topicId WITH f LIMIT $statementLimit MATCH (f)-[:`__SUPPORTS__`]->(l) RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+_Q_TOPIC_CONTENT = "// get topic content MATCH (t:`__Topic__`)<-[:`__BELONGS_TO__`]-(s)<-[r:`__SUPPORTS__`]-() WHERE t.topicId = $topicId WITH s, count(r) AS score ORDER BY score DESC RETURN s.value AS statement, s.details AS details LIMIT $statementLimit"
+_Q_TOPIC_SOURCES = "MATCH (t:`__Topic__`)-[:`__MENTIONED_IN__`]->(c:`__Chunk__`)-[:`__EXTRACTED_FROM__`]->(s:`__Source__`) WHERE t.topicId IN $topicIds RETURN DISTINCT t.topicId AS topicId, s.sourceId AS sourceId"
+_Q_TOP_STATEMENTS_CHUNK = "// Get statements for top chunk MATCH (c:`__Chunk__`)<-[:`__MENTIONED_IN__`]-(s:`__Statement__`) WHERE c.chunkId in $nodeIds RETURN { statement: s.value, statementId: id(s) } AS result"
+_Q_TOP_STATEMENTS_TOPIC = "// Get statements for top chunk MATCH (t:`__Topic__`)<-[:`__MENTIONED_IN__`]-(s:`__Statement__`) WHERE t.topicId in $nodeIds RETURN { statement: s.value, statementId: id(s) } AS result"
+_Q_TREE_LEVEL = "// get next level in tree MATCH (entity:`__Entity__`)-[:`__RELATION__`]->(other) -[r:`__SUBJECT__`|`__OBJECT__`]->() WHERE entity.entityId IN $entityIds AND NOT other.entityId IN $excludeEntityIds AND other.class <> '__Local_Entity__' WITH entity, other, count(r) AS score ORDER BY score DESC WITH entity, collect(DISTINCT other.entityId)[0..$numNeighbours] AS others RETURN { entity: entity{.entityId, .value, .class}, others: others } AS result"
+
+_LOCAL = "'__Local_Entity__'"
+_EDGE_TYPES = (
+    "__BELONGS_TO__",
+    "__CHILD__",
+    "__EXTRACTED_FROM__",
+    "__MENTIONED_IN__",
+    "__NEXT__",
+    "__OBJECT__",
+    "__PARENT__",
+    "__PREVIOUS__",
+    "__RELATION__",
+    "__SUBJECT__",
+    "__SUPPORTS__",
+    "__SYS_RELATION__",
+)
+_EDGE_TYPES_SQL = ", ".join(f"'{t}'" for t in _EDGE_TYPES)
+
+
+def _exact(text: str) -> Any:
+    return lambda flat: flat == text
+
+
+def _ids_cte(name: str = "q") -> str:
+    return f"jsonb_array_elements_text(CAST(:ids AS jsonb)) AS {name}(id)"
+
+
+def _previous_expansion(src_cte: str) -> str:
+    """Statement ids in ``src_cte(sid)`` plus their ``PREVIOUS`` neighbours in either direction (``*0..1``)."""
+    return f"""SELECT sid AS l FROM {src_cte}
+              UNION SELECT p.dst FROM {src_cte} JOIN {{s}}.edge p ON p.type = '__PREVIOUS__' AND p.src = {src_cte}.sid
+              UNION SELECT p.src FROM {src_cte} JOIN {{s}}.edge p ON p.type = '__PREVIOUS__' AND p.dst = {src_cte}.sid"""
+
+
+def _ids_rows(rows: list[dict[str, Any]], key: str) -> list[dict[str, Any]]:
+    return [{key: r[key]} for r in rows]
+
+
+# entity_based ----------------------------------------------------------------------------------
+def _h_entity_multi(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    """Statements joining entities on any ``RELATION*1..2`` path between ``startId`` and ``endIds``."""
+    end_ids = list(params.get("endIds") or [])
+    if not end_ids:
+        return []
+    s = store._s
+    prev = _previous_expansion("st").format(s=s)
+    sql = f"""WITH nb AS (
+              SELECT e.dst AS n FROM {s}.edge e WHERE e.type = '__RELATION__' AND e.src = :start
+              UNION SELECT e.src FROM {s}.edge e WHERE e.type = '__RELATION__' AND e.dst = :start),
+            ends AS (SELECT q.id FROM {_ids_cte()} JOIN {s}.node en ON en.id = q.id AND en.label = '__Entity__'),
+            p1 AS (SELECT nb.n AS e2 FROM nb JOIN ends ON ends.id = nb.n),
+            nb2 AS (
+              SELECT nb.n AS mid, x.n FROM nb CROSS JOIN LATERAL (
+                SELECT e.dst AS n FROM {s}.edge e WHERE e.type = '__RELATION__' AND e.src = nb.n
+                UNION SELECT e.src FROM {s}.edge e WHERE e.type = '__RELATION__' AND e.dst = nb.n) x),
+            p2 AS (SELECT nb2.mid, nb2.n AS e2 FROM nb2 JOIN ends ON ends.id = nb2.n),
+            ent AS (
+              SELECT CAST(:start AS text) AS id
+                WHERE EXISTS (SELECT 1 FROM {s}.node st WHERE st.id = :start AND st.label = '__Entity__')
+                  AND (EXISTS (SELECT 1 FROM p1) OR EXISTS (SELECT 1 FROM p2))
+              UNION SELECT e2 FROM p1
+              UNION SELECT e2 FROM p2
+              UNION SELECT mid FROM p2),
+            st AS (
+              SELECT DISTINCT su.dst AS sid
+              FROM ent a
+              JOIN {s}.edge sj ON sj.type = '__SUBJECT__' AND sj.src = a.id
+              JOIN {s}.edge oj ON oj.type = '__OBJECT__' AND oj.dst = sj.dst
+              JOIN ent b ON b.id = oj.src
+              JOIN {s}.edge su ON su.type = '__SUPPORTS__' AND su.src = sj.dst),
+            x AS ({prev})
+            SELECT l FROM x ORDER BY l LIMIT {_limit(params, "statementLimit", 10)}"""
+    rows = store._q("read:entity_multi", sql, {"start": params["startId"], "ids": _ids_param(end_ids)})
+    return _ids_rows(rows, "l")
+
+
+def _h_entity_single(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    """Statements supported by facts the entity is the subject of, plus ``PREVIOUS`` neighbours."""
+    s = store._s
+    prev = _previous_expansion("st").format(s=s)
+    sql = f"""WITH st AS (
+              SELECT DISTINCT su.dst AS sid
+              FROM {s}.node en
+              JOIN {s}.edge sj ON sj.type = '__SUBJECT__' AND sj.src = en.id
+              JOIN {s}.edge su ON su.type = '__SUPPORTS__' AND su.src = sj.dst
+              WHERE en.id = :start AND en.label = '__Entity__'),
+            x AS ({prev})
+            SELECT l FROM x ORDER BY l LIMIT {_limit(params, "statementLimit", 10)}"""
+    return _ids_rows(store._q("read:entity_single", sql, {"start": params["startId"]}), "l")
+
+
+# entity_network, topic_based -------------------------------------------------------------------
+def _h_network_topic(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    rows = store._q(
+        "read:network_topic",
+        f"""SELECT DISTINCT bt.src AS l FROM {store._s}.edge bt
+            WHERE bt.type = '__BELONGS_TO__' AND bt.dst = :nid
+            ORDER BY bt.src LIMIT {_limit(params, "statementLimit", 10)}""",
+        {"nid": params["nodeId"]},
+    )
+    return _ids_rows(rows, "l")
+
+
+def _h_network_chunk(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    rows = store._q(
+        "read:network_chunk",
+        f"""SELECT DISTINCT bt.src AS l
+            FROM {store._s}.edge mi
+            JOIN {store._s}.edge bt ON bt.type = '__BELONGS_TO__' AND bt.dst = mi.src
+            WHERE mi.type = '__MENTIONED_IN__' AND mi.dst = :cid
+            ORDER BY bt.src LIMIT {_limit(params, "statementLimit", 10)}""",
+        {"cid": params["nodeId"]},
+    )
+    return _ids_rows(rows, "l")
+
+
+def _h_topic_based(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    """The first ``statementLimit`` (fact, statement) rows of a topic, then every statement each fact supports."""
+    s = store._s
+    n = _limit(params, "statementLimit", 10)
+    rows = store._q(
+        "read:topic_based",
+        f"""WITH f AS (
+              SELECT su.src AS fid
+              FROM {s}.edge bt JOIN {s}.edge su ON su.type = '__SUPPORTS__' AND su.dst = bt.src
+              WHERE bt.type = '__BELONGS_TO__' AND bt.dst = :tid
+              ORDER BY su.src, bt.src LIMIT {n})
+            SELECT DISTINCT su2.dst AS l
+            FROM f JOIN {s}.edge su2 ON su2.type = '__SUPPORTS__' AND su2.src = f.fid
+            ORDER BY l LIMIT {n}""",
+        {"tid": params["topicId"]},
+    )
+    return _ids_rows(rows, "l")
+
+
+# entity providers ------------------------------------------------------------------------------
+_ENT_KEYWORDS = re.compile(
+    r"^// get entities for keywords MATCH \(entity:`__Entity__`\)-\[r:`__SUBJECT__`\|`__OBJECT__`\]->\(\) "
+    r"WHERE entity\.search_str (?P<op>=|STARTS WITH) \$keyword "
+    r"(?:and entity\.class (?P<cop>=|STARTS WITH) \$classification|AND entity\.class <> '__Local_Entity__') "
+    r"WITH entity, count\(r\) AS score ORDER BY score DESC "
+    r"RETURN \{ entity: entity\{\.entityId, \.value, \.class\}, score: score \} AS result$"
+)
+
+
+def _entity_results(rows: list[dict[str, Any]]) -> list[Any]:
+    return [
+        {
+            "result": {
+                "entity": {"entityId": r["entityId"], "value": r["value"], "class": r["cls"]},
+                "score": int(r["score"]),
+            }
+        }
+        for r in rows
+    ]
+
+
+def _like_prefix(value: str) -> str:
+    return value.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
+
+
+def _is_entities_for_keywords(flat: str) -> bool:
+    return bool(_ENT_KEYWORDS.match(flat))
+
+
+def _h_entities_for_keywords(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    m = _ENT_KEYWORDS.match(flat)
+    if not m:
+        raise UnsupportedGraphQueryError(f"entity keyword shape changed: {flat[:300]}")
+    bind: dict[str, Any] = {"tenant": tenant}
+    where = ["n.label = '__Entity__'", "n.tenant = :tenant"]
+    if m.group("op") == "=":
+        where.append("n.search_str = :kw")
+        bind["kw"] = params["keyword"]
+    else:
+        where.append("n.search_str LIKE :kw")
+        bind["kw"] = _like_prefix(params["keyword"])
+    if m.group("cop") is None:
+        where.append(f"n.class <> {_LOCAL}")
+    elif m.group("cop") == "=":
+        where.append("n.class = :cls")
+        bind["cls"] = params["classification"]
+    else:
+        where.append("n.class LIKE :cls")
+        bind["cls"] = _like_prefix(params["classification"])
+    s = store._s
+    rows = store._q(
+        "read:entities_for_keywords",
+        f"""SELECT n.id AS "entityId", n.value AS value, n.class AS cls, count(*) AS score
+            FROM {s}.node n JOIN {s}.edge r ON r.type IN {_SPO} AND r.src = n.id
+            WHERE {" AND ".join(where)}
+            GROUP BY n.id, n.value, n.class ORDER BY score DESC, n.id""",
+        bind,
+    )
+    return _entity_results(rows)
+
+
+def _h_entities_for_nodes(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    """Entities behind the statements of topics (or chunks), scored by their subject/object edge count."""
+    ids = list(params.get("nodeIds") or [])
+    if not ids:
+        return []
+    s = store._s
+    if flat == _Q_ENTITIES_FOR_TOPICS:
+        hop = f"""JOIN {s}.node t ON t.id = q.id AND t.label = '__Topic__'
+              JOIN {s}.edge e1 ON e1.type = '__BELONGS_TO__' AND e1.dst = t.id
+              JOIN {s}.node st ON st.id = e1.src AND st.label = '__Statement__'"""
+    else:
+        hop = f"""JOIN {s}.node c ON c.id = q.id AND c.label = '__Chunk__'
+              JOIN {s}.edge e1 ON e1.type = '__MENTIONED_IN__' AND e1.dst = c.id
+              JOIN {s}.node st ON st.id = e1.src AND st.label = '__Statement__'"""
+    rows = store._q(
+        "read:entities_for_nodes",
+        f"""WITH ents AS (
+              SELECT DISTINCT sj.src AS eid
+              FROM {_ids_cte()} {hop}
+              JOIN {s}.edge su ON su.type = '__SUPPORTS__' AND su.dst = st.id
+              JOIN {s}.edge sj ON sj.type IN {_SPO} AND sj.dst = su.src
+              JOIN {s}.node en ON en.id = sj.src AND en.class <> {_LOCAL})
+            SELECT en.id AS "entityId", en.value AS value, en.class AS cls, count(*) AS score
+            FROM ents JOIN {s}.node en ON en.id = ents.eid
+            JOIN {s}.edge r ON r.type IN {_SPO} AND r.src = en.id
+            GROUP BY en.id, en.value, en.class ORDER BY score DESC, en.id LIMIT {_limit(params, "limit", 10)}""",
+        {"ids": _ids_param(ids)},
+    )
+    return _entity_results(rows)
+
+
+def _h_entities_for_statement(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    ids = list(params.get("statementIds") or [])
+    if not ids:
+        return []
+    s = store._s
+    rows = store._q(
+        "read:entities_for_statement",
+        f"""WITH ents AS (
+              SELECT DISTINCT sj.src AS eid
+              FROM {_ids_cte()}
+              JOIN {s}.edge su ON su.type = '__SUPPORTS__' AND su.dst = q.id
+              JOIN {s}.edge sj ON sj.type IN {_SPO} AND sj.dst = su.src
+              JOIN {s}.node en ON en.id = sj.src AND en.class <> {_LOCAL})
+            SELECT en.id AS "entityId", en.value AS value, en.class AS cls, count(r.dst) AS score
+            FROM ents JOIN {s}.node en ON en.id = ents.eid
+            LEFT JOIN {s}.edge r ON r.type IN {_SPO} AND r.src = en.id
+            GROUP BY en.id, en.value, en.class ORDER BY score DESC, en.id""",
+        {"ids": _ids_param(ids)},
+    )
+    return _entity_results(rows)
+
+
+def _h_expand_entities(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    ids = list(params.get("entityIds") or [])
+    if not ids:
+        return []
+    s = store._s
+    rows = store._q(
+        "read:expand_entities",
+        f"""SELECT en.id AS "entityId", en.value AS value, en.class AS cls, count(*) AS score
+            FROM {_ids_cte()}
+            JOIN {s}.node en ON en.id = q.id AND en.label = '__Entity__'
+            JOIN {s}.edge r ON r.type IN {_SPO} AND r.src = en.id
+            GROUP BY en.id, en.value, en.class ORDER BY en.id""",
+        {"ids": _ids_param(ids)},
+    )
+    return _entity_results(rows)
+
+
+def _h_tree_level(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    """Per entity, the ``numNeighbours`` most connected ``RELATION`` neighbours outside the excluded set."""
+    ids = list(params.get("entityIds") or [])
+    if not ids:
+        return []
+    s = store._s
+    n = max(0, int(params.get("numNeighbours") or 0))
+    rows = store._q(
+        "read:tree_level",
+        f"""WITH pairs AS (
+              SELECT rel.src AS eid, rel.dst AS oid, count(*) AS score
+              FROM {_ids_cte()}
+              JOIN {s}.edge rel ON rel.type = '__RELATION__' AND rel.src = q.id
+              JOIN {s}.node o ON o.id = rel.dst AND o.class <> {_LOCAL}
+              JOIN {s}.edge r ON r.type IN {_SPO} AND r.src = rel.dst
+              WHERE rel.dst NOT IN (SELECT x.id FROM jsonb_array_elements_text(CAST(:excl AS jsonb)) AS x(id))
+              GROUP BY rel.src, rel.dst),
+            ranked AS (
+              SELECT eid, oid, row_number() OVER (PARTITION BY eid ORDER BY score DESC, oid) AS rn FROM pairs)
+            SELECT e.id AS "entityId", e.value AS value, e.class AS cls,
+                   jsonb_agg(ranked.oid ORDER BY ranked.rn)::text AS others
+            FROM ranked JOIN {s}.node e ON e.id = ranked.eid AND e.label = '__Entity__'
+            WHERE ranked.rn <= {n}
+            GROUP BY e.id, e.value, e.class ORDER BY e.id""",
+        {"ids": _ids_param(ids), "excl": _ids_param(params.get("excludeEntityIds") or [])},
+    )
+    return [
+        {
+            "result": {
+                "entity": {"entityId": r["entityId"], "value": r["value"], "class": r["cls"]},
+                "others": json.loads(r["others"]),
+            }
+        }
+        for r in rows
+    ]
+
+
+def _h_top_statements(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    """Statements ``MENTIONED_IN`` the given topics (or chunks), as ``{statement, statementId}`` maps."""
+    ids = list(params.get("nodeIds") or [])
+    if not ids:
+        return []
+    s = store._s
+    label = "__Topic__" if flat == _Q_TOP_STATEMENTS_TOPIC else "__Chunk__"
+    rows = store._q(
+        "read:top_statements",
+        f"""SELECT st.id AS "statementId", st.value AS statement
+            FROM {_ids_cte()}
+            JOIN {s}.node t ON t.id = q.id AND t.label = '{label}'
+            JOIN {s}.edge mi ON mi.type = '__MENTIONED_IN__' AND mi.dst = t.id
+            JOIN {s}.node st ON st.id = mi.src AND st.label = '__Statement__'
+            ORDER BY st.id""",
+        {"ids": _ids_param(ids)},
+    )
+    return [{"result": {"statement": r["statement"], "statementId": r["statementId"]}} for r in rows]
+
+
+def _h_topic_content(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    s = store._s
+    return store._q(
+        "read:topic_content",
+        f"""SELECT st.value AS statement, COALESCE(st.props ->> 'details', '') AS details
+            FROM {s}.edge bt
+            JOIN {s}.node st ON st.id = bt.src
+            JOIN {s}.edge su ON su.type = '__SUPPORTS__' AND su.dst = bt.src
+            WHERE bt.type = '__BELONGS_TO__' AND bt.dst = :tid
+            GROUP BY st.id, st.value, st.props ->> 'details'
+            ORDER BY count(*) DESC, st.id LIMIT {_limit(params, "statementLimit", 10)}""",
+        {"tid": params["topicId"]},
+    )
+
+
+# utils (chunk_utils, statement_utils, vector_utils, in_graph_chunk_store) ------------------------
+def _h_chunk_values(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    ids = list(params.get("chunk_ids") or [])
+    if not ids:
+        return []
+    rows = _q_adaptive(
+        store,
+        "read:chunk_values",
+        f"""SELECT c.id AS "chunkId", c.value AS value
+            FROM {_ids_cte()} JOIN {store._s}.node c ON c.id = q.id AND c.label = '__Chunk__'
+            ORDER BY c.id""",
+        ids,
+        size=50,
+    )
+    return [{"result": {"chunk": {"chunkId": r["chunkId"], "value": r["value"]}}} for r in rows]
+
+
+def _h_statements_with_source(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    ids = list(params.get("statement_ids") or [])
+    if not ids:
+        return []
+    s = store._s
+    rows = _q_adaptive(
+        store,
+        "read:statements_with_source",
+        f"""SELECT st.id AS stid, st.value AS stvalue, st.props::text AS stprops,
+                   c.id AS cid, c.value AS cvalue, c.search_str AS csearch, c.class AS cclass, c.props::text AS cprops,
+                   so.id AS sid, so.props::text AS sprops
+            FROM {_ids_cte()}
+            JOIN {s}.node st ON st.id = q.id AND st.label = '__Statement__'
+            JOIN {s}.edge mi ON mi.type = '__MENTIONED_IN__' AND mi.src = st.id
+            JOIN {s}.node c ON c.id = mi.dst AND c.label = '__Chunk__'
+            JOIN {s}.edge ef ON ef.type = '__EXTRACTED_FROM__' AND ef.src = c.id
+            JOIN {s}.node so ON so.id = ef.dst AND so.label = '__Source__'
+            ORDER BY st.id, c.id, so.id""",
+        ids,
+        size=50,
+    )
+    out: list[Any] = []
+    for r in rows:
+        statement = _props_map({"id": r["stid"], "value": r["stvalue"], "props": r["stprops"]}, "__Statement__")
+        chunk = _props_map(
+            {
+                "id": r["cid"],
+                "value": r["cvalue"],
+                "search_str": r["csearch"],
+                "class": r["cclass"],
+                "props": r["cprops"],
+            },
+            "__Chunk__",
+        )
+        source = _props_map({"id": r["sid"], "props": r["sprops"]}, "__Source__", with_columns=False)
+        out.append(
+            {
+                "result": {
+                    "statement": statement,
+                    "source": {"sourceId": r["sid"], "metadata": source},
+                    "chunk": chunk,
+                }
+            }
+        )
+    return out
+
+
+def _h_topic_sources(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    ids = list(params.get("topicIds") or [])
+    if not ids:
+        return []
+    s = store._s
+    return _q_adaptive(
+        store,
+        "read:topic_sources",
+        f"""SELECT DISTINCT t.id AS "topicId", so.id AS "sourceId"
+            FROM {_ids_cte()}
+            JOIN {s}.node t ON t.id = q.id AND t.label = '__Topic__'
+            JOIN {s}.edge mi ON mi.type = '__MENTIONED_IN__' AND mi.src = t.id
+            JOIN {s}.node c ON c.id = mi.dst AND c.label = '__Chunk__'
+            JOIN {s}.edge ef ON ef.type = '__EXTRACTED_FROM__' AND ef.src = c.id
+            JOIN {s}.node so ON so.id = ef.dst AND so.label = '__Source__'
+            ORDER BY t.id, so.id""",
+        ids,
+    )
+
+
+# get_sources (LexicalGraphIndex.get_sources; used by graph cleanup and DeletePrevVersions) -----
+_GET_SOURCES = re.compile(
+    r"^// get source info from source ids MATCH \(source:`__Source__`\) (?:WHERE (?P<where>.+?) )?"
+    r"RETURN \{ sourceId: source\.sourceId, metadata: properties\(source\), versioning: \{ "
+    r"valid_from: coalesce\(source\.(?P<vf>\w+), (?P<vfd>-?\d+)\), valid_to: coalesce\(source\.(?P<vt>\w+), (?P<vtd>-?\d+)\), "
+    r"extract_timestamp: coalesce\(source\.(?P<et>\w+), (?P<etd>-?\d+)\), build_timestamp: coalesce\(source\.(?P<bt>\w+), (?P<btd>-?\d+)\), "
+    r'id_fields: split\(coalesce\(source\.(?P<idf>\w+), ""\), ";"\), prev_versions: split\(coalesce\(source\.(?P<pv>\w+), ""\), ";"\) '
+    r"\} \} AS result ORDER BY result\.versioning\.valid_from ASC$"
+)
+_SOURCE_IDS_CLAUSE = "(source.sourceId in $sourceIds)"
+
+
+def _is_get_sources(flat: str) -> bool:
+    return flat.startswith("// get source info from source ids")
+
+
+def _h_get_sources(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    m = _GET_SOURCES.match(flat)
+    if not m:  # includes ``order_by`` (extra sort keys), which COA never passes
+        raise UnsupportedGraphQueryError(f"get_sources shape changed: {flat[:300]}")
+    where = m.group("where") or ""
+    conditions = ["n.label = '__Source__'", "n.tenant = :tenant"]
+    bind: dict[str, Any] = {"tenant": tenant, "vf": m.group("vf")}
+    rest = where
+    if rest.startswith(_SOURCE_IDS_CLAUSE):
+        ids = list(params.get("sourceIds") or [])
+        if not ids:
+            return []
+        conditions.append("n.id IN (SELECT jsonb_array_elements_text(CAST(:ids AS jsonb)))")
+        bind["ids"] = _ids_param(ids)
+        rest = rest[len(_SOURCE_IDS_CLAUSE) :]
+        if rest and not rest.startswith(" AND "):
+            raise UnsupportedGraphQueryError(f"get_sources filter shape changed: {where[:300]}")
+        rest = rest[len(" AND ") :]
+    if rest:
+        sql_filter, fparams = translate_source_filter(rest)
+        conditions.append(sql_filter)
+        bind.update(fparams)
+    rows = store._q(
+        "read:get_sources",
+        f"""SELECT n.id AS "sourceId", n.props::text AS props
+            FROM {store._s}.node n WHERE {" AND ".join(conditions)}
+            ORDER BY COALESCE((n.props ->> :vf)::bigint, {int(m.group("vfd"))}) ASC, n.id""",
+        bind,
+    )
+    out = []
+    for r in rows:
+        meta = _props_map({"id": r["sourceId"], "props": r["props"]}, "__Source__", with_columns=False)
+        out.append(
+            {
+                "result": {
+                    "sourceId": r["sourceId"],
+                    "metadata": meta,
+                    "versioning": {
+                        "valid_from": meta.get(m.group("vf"), int(m.group("vfd"))),
+                        "valid_to": meta.get(m.group("vt"), int(m.group("vtd"))),
+                        "extract_timestamp": meta.get(m.group("et"), int(m.group("etd"))),
+                        "build_timestamp": meta.get(m.group("bt"), int(m.group("btd"))),
+                        "id_fields": str(meta.get(m.group("idf")) or "").split(";"),
+                        "prev_versions": str(meta.get(m.group("pv")) or "").split(";"),
+                    },
+                }
+            }
+        )
+    return out
+
+
+# DeleteSources -----------------------------------------------------------------------------------
+def _delete_get_chunk_ids(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    return _delete_source_children(store, params, label=None, key="chunkId")
+
+
+def _delete_get_topic_ids(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    return _delete_source_children(store, params, label="__Topic__", key="topicId")
+
+
+def _delete_get_statement_ids(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    return _delete_source_children(store, params, label="__Statement__", key="statementId")
+
+
+def _delete_source_children(store: AuroraGraphStore, params: dict[str, Any], label: str | None, key: str) -> list[Any]:
+    """Chunks of a source (``label`` None), or the topics/statements mentioned in those chunks."""
+    s = store._s
+    limit = _limit(params, "batchSize", 1000)
+    if label is None:
+        sql = f"""SELECT DISTINCT ef.src AS "{key}" FROM {s}.edge ef
+                  WHERE ef.type = '__EXTRACTED_FROM__' AND ef.dst = :sid ORDER BY 1 LIMIT {limit}"""
+    else:
+        sql = f"""SELECT DISTINCT mi.src AS "{key}"
+                  FROM {s}.edge ef
+                  JOIN {s}.edge mi ON mi.type = '__MENTIONED_IN__' AND mi.dst = ef.src
+                  JOIN {s}.node x ON x.id = mi.src AND x.label = '{label}'
+                  WHERE ef.type = '__EXTRACTED_FROM__' AND ef.dst = :sid ORDER BY 1 LIMIT {limit}"""
+    return _ids_rows(store._q("read:delete_ids", sql, {"sid": params["sourceId"]}), key)
+
+
+def _delete_get_fact_ids(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    ids = list(params.get("statementIds") or [])
+    if not ids:
+        return []
+    rows = _q_adaptive(
+        store,
+        "read:delete_ids",
+        f"""SELECT DISTINCT su.src AS "factId" FROM {_ids_cte()}
+            JOIN {store._s}.edge su ON su.type = '__SUPPORTS__' AND su.dst = q.id ORDER BY 1""",
+        ids,
+    )
+    return _ids_rows(rows, "factId")
+
+
+def _delete_get_entity_ids(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    ids = list(params.get("factIds") or [])
+    if not ids:
+        return []
+    rows = _q_adaptive(
+        store,
+        "read:delete_ids",
+        f"""SELECT DISTINCT sj.src AS "entityId" FROM {_ids_cte()}
+            JOIN {store._s}.edge sj ON sj.type IN {_SPO} AND sj.dst = q.id ORDER BY 1""",
+        ids,
+    )
+    return _ids_rows(rows, "entityId")
+
+
+def _delete_orphans(store: AuroraGraphStore, ids: list[str], label: str, edge_types: str, key: str) -> list[Any]:
+    """Ids among ``ids`` of ``label`` nodes with no outgoing edge of ``edge_types`` (``NOT (n)-[..]->()``)."""
+    if not ids:
+        return []
+    s = store._s
+    rows = _q_adaptive(
+        store,
+        "read:delete_ids",
+        f"""SELECT n.id AS "{key}" FROM {_ids_cte()}
+            JOIN {s}.node n ON n.id = q.id AND n.label = '{label}'
+            WHERE NOT EXISTS (SELECT 1 FROM {s}.edge e WHERE e.type IN {edge_types} AND e.src = n.id)
+            ORDER BY 1""",
+        ids,
+    )
+    return _ids_rows(rows, key)
+
+
+def _delete_get_orphan_facts(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    return _delete_orphans(store, list(params.get("factIds") or []), "__Fact__", "('__SUPPORTS__')", "factId")
+
+
+def _delete_get_orphan_entities(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    return _delete_orphans(store, list(params.get("entityIds") or []), "__Entity__", _SPO, "entityId")
+
+
+def _delete_edges(store: AuroraGraphStore, ids: list[str]) -> None:
+    """``MATCH (n)-[r]-() WHERE n.<id> IN $ids DELETE r``. The type filter lets Postgres use the edge indexes."""
+    if not ids:
+        return
+    s = store._s
+    store._q(
+        "write:delete_edges",
+        f"""DELETE FROM {s}.edge e USING {_ids_cte()}
+            WHERE e.type IN ({_EDGE_TYPES_SQL}) AND (e.src = q.id OR e.dst = q.id)""",
+        {"ids": _ids_param(ids)},
+    )
+
+
+def _delete_nodes(store: AuroraGraphStore, ids: list[str], label: str) -> None:
+    if not ids:
+        return
+    store._q(
+        "write:delete_nodes",
+        f"DELETE FROM {store._s}.node n USING {_ids_cte()} WHERE n.id = q.id AND n.label = '{label}'",
+        {"ids": _ids_param(ids)},
+    )
+
+
+def _make_delete(param: str, label: str, edges: bool) -> Any:
+    def handler(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+        ids = [params[param]] if param == "sourceId" else list(params.get(param) or [])
+        if edges:
+            _delete_edges(store, ids)
+        else:
+            _delete_nodes(store, ids, label)
+        return []
+
+    return handler
+
+
 _READ_HANDLERS: list[tuple[str, Any, Any]] = [
     ("statements_by_topic_and_source", _is_statements_by_topic, _h_statements_by_topic),
     ("facts_for_statements", lambda f: f.startswith("// get facts for statements"), _h_facts),
@@ -1209,7 +1866,59 @@ _READ_HANDLERS: list[tuple[str, Any, Any]] = [
     ("chunk_top_entities", _is_chunk_top_entities, _h_chunk_top_entities),
     ("chunk_neighbours", _is_chunk_neighbours, _h_chunk_neighbours),
     ("chunks_with_source", _is_chunks_with_source, _h_chunks_with_source),
+    ("entity_multi", _exact(_Q_ENTITY_MULTI), _h_entity_multi),
+    ("entity_single", _exact(_Q_ENTITY_SINGLE), _h_entity_single),
+    ("network_topic", _exact(_Q_NETWORK_TOPIC), _h_network_topic),
+    ("network_chunk", _exact(_Q_NETWORK_CHUNK), _h_network_chunk),
+    ("topic_based", _exact(_Q_TOPIC_BASED), _h_topic_based),
+    ("entities_for_keywords", _is_entities_for_keywords, _h_entities_for_keywords),
+    ("entities_for_topics", _exact(_Q_ENTITIES_FOR_TOPICS), _h_entities_for_nodes),
+    ("entities_for_chunks", _exact(_Q_ENTITIES_FOR_CHUNKS), _h_entities_for_nodes),
+    ("top_statements_topic", _exact(_Q_TOP_STATEMENTS_TOPIC), _h_top_statements),
+    ("top_statements_chunk", _exact(_Q_TOP_STATEMENTS_CHUNK), _h_top_statements),
+    ("entities_for_statement", _exact(_Q_ENTITIES_FOR_STATEMENT), _h_entities_for_statement),
+    ("expand_entities", _exact(_Q_EXPAND_ENTITIES), _h_expand_entities),
+    ("tree_level", _exact(_Q_TREE_LEVEL), _h_tree_level),
+    ("topic_content", _exact(_Q_TOPIC_CONTENT), _h_topic_content),
+    ("chunk_values", _exact(_Q_CHUNK_VALUES), _h_chunk_values),
+    ("statements_with_source", _exact(_Q_STATEMENTS_WITH_SOURCE), _h_statements_with_source),
+    ("topic_sources", _exact(_Q_TOPIC_SOURCES), _h_topic_sources),
+    ("get_sources", _is_get_sources, _h_get_sources),
+    ("delete_get_chunk_ids", _exact(_Q_GET_CHUNK_IDS), _delete_get_chunk_ids),
+    ("delete_get_topic_ids", _exact(_Q_GET_TOPIC_IDS), _delete_get_topic_ids),
+    ("delete_get_statement_ids", _exact(_Q_GET_STATEMENT_IDS), _delete_get_statement_ids),
+    ("delete_get_fact_ids", _exact(_Q_GET_FACT_IDS), _delete_get_fact_ids),
+    ("delete_get_entity_ids", _exact(_Q_GET_ENTITY_IDS), _delete_get_entity_ids),
+    ("delete_get_orphan_facts", _exact(_Q_GET_ORPHAN_FACTS), _delete_get_orphan_facts),
+    ("delete_get_orphan_entities", _exact(_Q_GET_ORPHAN_ENTITIES), _delete_get_orphan_entities),
+    ("delete_entity_edges", _exact(_Q_DEL_ENTITY_RELS), _make_delete("entityIds", "__Entity__", True)),
+    ("delete_entities", _exact(_Q_DEL_ENTITIES), _make_delete("entityIds", "__Entity__", False)),
+    ("delete_fact_edges", _exact(_Q_DEL_FACT_RELS), _make_delete("factIds", "__Fact__", True)),
+    ("delete_facts", _exact(_Q_DEL_FACTS), _make_delete("factIds", "__Fact__", False)),
+    ("delete_statement_edges", _exact(_Q_DEL_STATEMENT_RELS), _make_delete("statementIds", "__Statement__", True)),
+    ("delete_statements", _exact(_Q_DEL_STATEMENTS), _make_delete("statementIds", "__Statement__", False)),
+    ("delete_topic_edges", _exact(_Q_DEL_TOPIC_RELS), _make_delete("topicIds", "__Topic__", True)),
+    ("delete_topics", _exact(_Q_DEL_TOPICS), _make_delete("topicIds", "__Topic__", False)),
+    ("delete_chunk_edges", _exact(_Q_DEL_CHUNK_RELS), _make_delete("chunkIds", "__Chunk__", True)),
+    ("delete_chunks", _exact(_Q_DEL_CHUNKS), _make_delete("chunkIds", "__Chunk__", False)),
+    ("delete_source_edges", _exact(_Q_DEL_SOURCE_RELS), _make_delete("sourceId", "__Source__", True)),
+    ("delete_source", _exact(_Q_DEL_SOURCE), _make_delete("sourceId", "__Source__", False)),
 ]
+
+
+_WRITE_SHAPE = re.compile(r"UNWIND\s+\$params\s+AS\s+params")
+
+
+def classify(cypher: str) -> str | None:
+    """Name the handler a query reaches (``"write"`` for the write interpreter), or None when unsupported."""
+    canon, _tenant = canonicalize(cypher)
+    flat = " ".join(canon.split())
+    for name, pred, _handler in _READ_HANDLERS:
+        if pred(flat):
+            return name
+    if _WRITE_SHAPE.search(canon) and _MERGE_NODE.search(canon):
+        return "write"
+    return None
 
 
 # ── factory ──────────────────────────────────────────────────────────────────

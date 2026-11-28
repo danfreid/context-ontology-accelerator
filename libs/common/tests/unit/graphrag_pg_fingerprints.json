@@ -1,0 +1,378 @@
+{
+ "toolkit_version": "3.20.0",
+ "queries": [
+  {
+   "handler": "entities_for_statement",
+   "query": "// Get entities for statement MATCH (s)<-[:`__SUPPORTS__`]-(f)<-[:`__SUBJECT__`|`__OBJECT__`]-(entity) WHERE s.statementId in $statementIds AND entity.class <> '__Local_Entity__' WITH DISTINCT entity OPTIONAL MATCH (entity)-[r:`__SUBJECT__`|`__OBJECT__`]->() WITH entity, count(r) AS score ORDER BY score DESC RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+  },
+  {
+   "handler": "top_statements_chunk",
+   "query": "// Get statements for top chunk MATCH (c:`__Chunk__`)<-[:`__MENTIONED_IN__`]-(s:`__Statement__`) WHERE c.chunkId in $nodeIds RETURN { statement: s.value, statementId: id(s) } AS result"
+  },
+  {
+   "handler": "top_statements_topic",
+   "query": "// Get statements for top chunk MATCH (t:`__Topic__`)<-[:`__MENTIONED_IN__`]-(s:`__Statement__`) WHERE t.topicId in $nodeIds RETURN { statement: s.value, statementId: id(s) } AS result"
+  },
+  {
+   "handler": "network_chunk",
+   "query": "// chunk-based entity network search MATCH (l)-[:`__BELONGS_TO__`]->()-[:`__MENTIONED_IN__`]->(c:`__Chunk__`) WHERE c.chunkId = $nodeId RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+  },
+  {
+   "handler": "chunk_statements",
+   "query": "// chunk-based graph search MATCH (l)-[:`__BELONGS_TO__`]->()-[:`__MENTIONED_IN__`]->(c:`__Chunk__`) WHERE c.chunkId = $chunkId RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+  },
+  {
+   "handler": "chunk_statements",
+   "query": "// chunk-based semantic graph search MATCH (l)-[:`__BELONGS_TO__`]->()-[:`__MENTIONED_IN__`]->(c:`__Chunk__`) WHERE c.chunkId = $chunkId RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+  },
+  {
+   "handler": "local_copy",
+   "query": "// copy complement relationships to subject UNWIND $params AS params MATCH (n), (s)-[r:`__RELATION__`]->(c)-[:`__OBJECT__`]->(f) WHERE n.entityId = params.n_id AND c.entityId = params.c_id MERGE (s)-[:`__RELATION__`{value:r.value}]->(n) MERGE (n)-[:`__OBJECT__`]->(f)"
+  },
+  {
+   "handler": "delete_chunk_edges",
+   "query": "// delete chunk relationships (delete source) MATCH (c)-[r]-() WHERE c.chunkId IN $chunkIds DELETE r"
+  },
+  {
+   "handler": "delete_chunks",
+   "query": "// delete chunks (delete source) MATCH (c) WHERE c.chunkId IN $chunkIds DELETE c"
+  },
+  {
+   "handler": "local_delete",
+   "query": "// delete complement relationships UNWIND $params AS params MATCH (s)-[r1:`__RELATION__`]->(c)-[r2:`__OBJECT__`]->(f) WHERE c.entityId = params.c_id DELETE r1 DELETE r2 DETACH DELETE c"
+  },
+  {
+   "handler": "delete_entities",
+   "query": "// delete entities (delete source) MATCH (e) WHERE e.entityId IN $entityIds DELETE e"
+  },
+  {
+   "handler": "delete_entity_edges",
+   "query": "// delete entity relationships (delete source) MATCH (e)-[r]-() WHERE e.entityId IN $entityIds DELETE r"
+  },
+  {
+   "handler": "delete_fact_edges",
+   "query": "// delete fact relationships (delete source) MATCH (f)-[r]-() WHERE f.factId IN $factIds DELETE r"
+  },
+  {
+   "handler": "delete_facts",
+   "query": "// delete facts (delete source) MATCH (f) WHERE f.factId IN $factIds DELETE f"
+  },
+  {
+   "handler": "delete_source",
+   "query": "// delete source (delete source) MATCH (s) WHERE s.sourceId = $sourceId DELETE s"
+  },
+  {
+   "handler": "delete_source_edges",
+   "query": "// delete source relationships (delete source) MATCH (s)-[r]-() WHERE s.sourceId = $sourceId DELETE r"
+  },
+  {
+   "handler": "delete_statement_edges",
+   "query": "// delete statement relationships (delete source) MATCH (l)-[r]-() WHERE l.statementId IN $statementIds DELETE r"
+  },
+  {
+   "handler": "delete_statements",
+   "query": "// delete statements (delete source) MATCH (l) WHERE l.statementId IN $statementIds DELETE l"
+  },
+  {
+   "handler": "delete_topic_edges",
+   "query": "// delete topic relationships (delete source) MATCH (t)-[r]-() WHERE t.topicId IN $topicIds DELETE r"
+  },
+  {
+   "handler": "delete_topics",
+   "query": "// delete topics (delete source) MATCH (t) WHERE t.topicId IN $topicIds DELETE t"
+  },
+  {
+   "handler": "expand_entities",
+   "query": "// expand entities: score entities by number of relations MATCH (entity:`__Entity__`)-[r:`__SUBJECT__`|`__OBJECT__`]->() WHERE entity.entityId IN $entityIds WITH entity, count(r) AS score RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+  },
+  {
+   "handler": "version_find",
+   "query": "// find source nodes to be versioned MATCH (source:`__Source__`) WHERE ((source.`k` = 'v')) AND coalesce(source.__aws__versioning__id_fields__, 'k') = $versionIndependentIdFields RETURN { source_id: source.sourceId, valid_from: coalesce(source.__aws__versioning__valid_from__, -1), valid_to: coalesce(source.__aws__versioning__valid_to__, 10000000000000) } AS result ORDER BY result.valid_from DESC"
+  },
+  {
+   "handler": "delete_get_chunk_ids",
+   "query": "// get chunk ids (delete source) MATCH (s)<-[:`__EXTRACTED_FROM__`]-(c) WHERE s.sourceId = $sourceId RETURN DISTINCT c.chunkId AS chunkId LIMIT $batchSize"
+  },
+  {
+   "handler": "version_ids",
+   "query": "// get chunk ids to be versioned MATCH (s)<-[:`__EXTRACTED_FROM__`]-(c) WHERE s.sourceId IN $sourceIds WITH s.sourceId as source_id, collect(DISTINCT c.chunkId) as node_ids RETURN { sourceId: source_id, nodeIds: node_ids } AS result"
+  },
+  {
+   "handler": "local_subject_complements",
+   "query": "// get complements matching subject (fact.subject) UNWIND $params AS params MATCH (n), (c:`__Entity__`{search_str: n.search_str, class: '__Local_Entity__'}) WHERE n.entityId = params.nId AND n.class <> '__Local_Entity__' RETURN n.entityId AS n_id, c.entityId AS c_id"
+  },
+  {
+   "handler": "entities_for_chunks",
+   "query": "// get entities for chunk ids MATCH (c:`__Chunk__`)<-[:`__MENTIONED_IN__`]-(:`__Statement__`) <-[:`__SUPPORTS__`]-()<-[:`__SUBJECT__`|`__OBJECT__`]-(entity) WHERE c.chunkId in $nodeIds AND entity.class <> '__Local_Entity__' WITH DISTINCT entity MATCH (entity)-[r:`__SUBJECT__`|`__OBJECT__`]->() WITH entity, count(r) AS score ORDER BY score DESC LIMIT $limit RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+  },
+  {
+   "handler": "entities_for_keywords",
+   "query": "// get entities for keywords MATCH (entity:`__Entity__`)-[r:`__SUBJECT__`|`__OBJECT__`]->() WHERE entity.search_str = $keyword AND entity.class <> '__Local_Entity__' WITH entity, count(r) AS score ORDER BY score DESC RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+  },
+  {
+   "handler": "entities_for_keywords",
+   "query": "// get entities for keywords MATCH (entity:`__Entity__`)-[r:`__SUBJECT__`|`__OBJECT__`]->() WHERE entity.search_str = $keyword and entity.class = $classification WITH entity, count(r) AS score ORDER BY score DESC RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+  },
+  {
+   "handler": "entities_for_keywords",
+   "query": "// get entities for keywords MATCH (entity:`__Entity__`)-[r:`__SUBJECT__`|`__OBJECT__`]->() WHERE entity.search_str STARTS WITH $keyword AND entity.class <> '__Local_Entity__' WITH entity, count(r) AS score ORDER BY score DESC RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+  },
+  {
+   "handler": "entities_for_keywords",
+   "query": "// get entities for keywords MATCH (entity:`__Entity__`)-[r:`__SUBJECT__`|`__OBJECT__`]->() WHERE entity.search_str STARTS WITH $keyword and entity.class STARTS WITH $classification WITH entity, count(r) AS score ORDER BY score DESC RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+  },
+  {
+   "handler": "entities_for_topics",
+   "query": "// get entities for topic ids MATCH (t:`__Topic__`)<-[:`__BELONGS_TO__`]-(:`__Statement__`) <-[:`__SUPPORTS__`]-()<-[:`__SUBJECT__`|`__OBJECT__`]-(entity) WHERE t.topicId in $nodeIds AND entity.class <> '__Local_Entity__' WITH DISTINCT entity MATCH (entity)-[r:`__SUBJECT__`|`__OBJECT__`]->() WITH entity, count(r) AS score ORDER BY score DESC LIMIT $limit RETURN { entity: entity{.entityId, .value, .class}, score: score } AS result"
+  },
+  {
+   "handler": "delete_get_entity_ids",
+   "query": "// get entity ids (delete source) MATCH (f)<-[:`__SUBJECT__`|`__OBJECT__`]-(e) WHERE f.factId IN $factIds RETURN DISTINCT e.entityId AS entityId"
+  },
+  {
+   "handler": "delete_get_fact_ids",
+   "query": "// get fact ids (delete source) MATCH (l)<-[:`__SUPPORTS__`]-(f) WHERE l.statementId IN $statementIds RETURN DISTINCT f.factId AS factId"
+  },
+  {
+   "handler": "facts_for_statements",
+   "query": "// get facts for statements MATCH (f)-[:`__SUPPORTS__`]->(l:`__Statement__`) WHERE l.statementId in $statementIds RETURN l.statementId AS statementId, collect(distinct f.value) AS facts"
+  },
+  {
+   "handler": "chunk_neighbours",
+   "query": "// get neighboring chunks for common entities (semantic beam search) MATCH (entity)-[:`__SUBJECT__`|`__OBJECT__`]->()-[:`__SUPPORTS__`]->(`__Statement__`)-[:`__MENTIONED_IN__`]->(e_neighbors) WHERE entity.entityId IN $entityIds AND e_neighbors.chunkId <> $chunkId WITH DISTINCT e_neighbors AS neighbors, entity RETURN neighbors.chunkId as chunkId, count(entity) ORDER BY count(entity) DESC LIMIT $limit"
+  },
+  {
+   "handler": "tree_level",
+   "query": "// get next level in tree MATCH (entity:`__Entity__`)-[:`__RELATION__`]->(other) -[r:`__SUBJECT__`|`__OBJECT__`]->() WHERE entity.entityId IN $entityIds AND NOT other.entityId IN $excludeEntityIds AND other.class <> '__Local_Entity__' WITH entity, other, count(r) AS score ORDER BY score DESC WITH entity, collect(DISTINCT other.entityId)[0..$numNeighbours] AS others RETURN { entity: entity{.entityId, .value, .class}, others: others } AS result"
+  },
+  {
+   "handler": "delete_get_orphan_entities",
+   "query": "// get orphaned entity ids (delete source) MATCH (e) WHERE e.entityId IN $entityIds AND NOT (e)-[:`__SUBJECT__`|`__OBJECT__`]->() RETURN DISTINCT e.entityId AS entityId"
+  },
+  {
+   "handler": "delete_get_orphan_facts",
+   "query": "// get orphaned fact ids (delete source) MATCH (f) WHERE f.factId IN $factIds AND NOT (f)-[:`__SUPPORTS__`]->() RETURN DISTINCT f.factId AS factId"
+  },
+  {
+   "handler": "get_sources",
+   "query": "// get source info from source ids MATCH (source:`__Source__`) WHERE ((source.`doc_source_id` = 'ds1')) RETURN { sourceId: source.sourceId, metadata: properties(source), versioning: { valid_from: coalesce(source.__aws__versioning__valid_from__, -1), valid_to: coalesce(source.__aws__versioning__valid_to__, -1), extract_timestamp: coalesce(source.__aws__versioning__extract_timestamp__, -1), build_timestamp: coalesce(source.__aws__versioning__build_timestamp__, -1), id_fields: split(coalesce(source.__aws__versioning__id_fields__, \"\"), \";\"), prev_versions: split(coalesce(source.__aws__versioning__prev_versions__, \"\"), \";\") } } AS result ORDER BY result.versioning.valid_from ASC"
+  },
+  {
+   "handler": "get_sources",
+   "query": "// get source info from source ids MATCH (source:`__Source__`) WHERE (source.sourceId in $sourceIds) AND ((source.`doc_source_id` = 'ds1') AND (source.`k` = 4)) RETURN { sourceId: source.sourceId, metadata: properties(source), versioning: { valid_from: coalesce(source.__aws__versioning__valid_from__, -1), valid_to: coalesce(source.__aws__versioning__valid_to__, -1), extract_timestamp: coalesce(source.__aws__versioning__extract_timestamp__, -1), build_timestamp: coalesce(source.__aws__versioning__build_timestamp__, -1), id_fields: split(coalesce(source.__aws__versioning__id_fields__, \"\"), \";\"), prev_versions: split(coalesce(source.__aws__versioning__prev_versions__, \"\"), \";\") } } AS result ORDER BY result.versioning.valid_from ASC"
+  },
+  {
+   "handler": "get_sources",
+   "query": "// get source info from source ids MATCH (source:`__Source__`) WHERE (source.sourceId in $sourceIds) RETURN { sourceId: source.sourceId, metadata: properties(source), versioning: { valid_from: coalesce(source.__aws__versioning__valid_from__, -1), valid_to: coalesce(source.__aws__versioning__valid_to__, -1), extract_timestamp: coalesce(source.__aws__versioning__extract_timestamp__, -1), build_timestamp: coalesce(source.__aws__versioning__build_timestamp__, -1), id_fields: split(coalesce(source.__aws__versioning__id_fields__, \"\"), \";\"), prev_versions: split(coalesce(source.__aws__versioning__prev_versions__, \"\"), \";\") } } AS result ORDER BY result.versioning.valid_from ASC"
+  },
+  {
+   "handler": "delete_get_statement_ids",
+   "query": "// get statement ids (delete source) MATCH (s)<-[:`__EXTRACTED_FROM__`]-()<-[:`__MENTIONED_IN__`]-(l:`__Statement__`) WHERE s.sourceId = $sourceId RETURN DISTINCT l.statementId AS statementId LIMIT $batchSize"
+  },
+  {
+   "handler": "statements_by_topic_and_source",
+   "query": "// get statements grouped by topic and source MATCH (t)<-[:`__BELONGS_TO__`]-(l:`__Statement__`) -[:`__MENTIONED_IN__`]->(c) -[:`__EXTRACTED_FROM__`]->(s) WHERE l.statementId in $statementIds WITH { sourceId: s.sourceId, metadata: properties(s), versioning: { valid_from: coalesce(s.__aws__versioning__valid_from__, -1), valid_to: coalesce(s.__aws__versioning__valid_to__, 10000000000000), extract_timestamp: coalesce(s.__aws__versioning__extract_timestamp__, -1), build_timestamp: coalesce(s.__aws__versioning__build_timestamp__, -1), id_fields: split(coalesce(s.__aws__versioning__id_fields__, \"\"), \";\") } } AS source, t, l, c, { chunkId: c.chunkId, value: NULL, metadata: properties(c) } AS cc, { statementId: l.statementId, statement: l.value, facts: [], details: l.details, chunkId: c.chunkId, score: 0 } as ll WITH source, t, collect(distinct cc) as chunks, collect(ll) as statements WITH source, { topic: t.value, topicId: t.topicId, chunks: chunks, statements: statements } as topic WITH sum(size(topic.statements)/size(topic.chunks)) AS score, source, collect(topic) AS topics RETURN { score: score, source: source, topics: topics } as result ORDER BY result.score DESC LIMIT $limit"
+  },
+  {
+   "handler": "statements_by_topic_and_source",
+   "query": "// get statements grouped by topic and source MATCH (t)<-[:`__BELONGS_TO__`]-(l:`__Statement__`) -[:`__MENTIONED_IN__`]->(c) -[:`__EXTRACTED_FROM__`]->(s) WHERE l.statementId in $statementIds WITH { sourceId: s.sourceId, metadata: properties(s), versioning: { valid_from: coalesce(s.__aws__versioning__valid_from__, -1), valid_to: coalesce(s.__aws__versioning__valid_to__, 10000000000000), extract_timestamp: coalesce(s.__aws__versioning__extract_timestamp__, -1), build_timestamp: coalesce(s.__aws__versioning__build_timestamp__, -1), id_fields: split(coalesce(s.__aws__versioning__id_fields__, \"\"), \";\") } } AS source, t, l, c, { chunkId: c.chunkId, value: NULL, metadata: {} } AS cc, { statementId: l.statementId, statement: l.value, facts: [], details: l.details, chunkId: c.chunkId, score: 0 } as ll WITH source, t, collect(distinct cc) as chunks, collect(ll) as statements WITH source, { topic: t.value, topicId: t.topicId, chunks: chunks, statements: statements } as topic WITH sum(size(topic.statements)/size(topic.chunks)) AS score, source, collect(topic) AS topics RETURN { score: score, source: source, topics: topics } as result ORDER BY result.score DESC LIMIT $limit"
+  },
+  {
+   "handler": "local_complement_subjects",
+   "query": "// get subjects matching complement (fact.complement) UNWIND $params AS params MATCH (n), (c) WHERE n.entityId = params.nId AND c.entityId = params.cId RETURN n.entityId AS n_id, c.entityId AS c_id"
+  },
+  {
+   "handler": "chunk_top_entities",
+   "query": "// get top entities for chunk (semantic beam search) MATCH (e)-[:`__SUBJECT__`|`__OBJECT__`]->()-[:`__SUPPORTS__`]->(`__Statement__`)-[:`__MENTIONED_IN__`]->(c) WHERE c.chunkId = $chunkId WITH DISTINCT e AS entity MATCH (entity)-[r:`__SUBJECT__`|`__OBJECT__`]->() RETURN entity.entityId AS entityId, count(r) AS score ORDER BY score DESC LIMIT $limit"
+  },
+  {
+   "handler": "topic_content",
+   "query": "// get topic content MATCH (t:`__Topic__`)<-[:`__BELONGS_TO__`]-(s)<-[r:`__SUPPORTS__`]-() WHERE t.topicId = $topicId WITH s, count(r) AS score ORDER BY score DESC RETURN s.value AS statement, s.details AS details LIMIT $statementLimit"
+  },
+  {
+   "handler": "delete_get_topic_ids",
+   "query": "// get topic ids (delete source) MATCH (s)<-[:`__EXTRACTED_FROM__`]-()<-[:`__MENTIONED_IN__`]-(t:`__Topic__`) WHERE s.sourceId = $sourceId RETURN DISTINCT t.topicId AS topicId LIMIT $batchSize"
+  },
+  {
+   "handler": "version_ids",
+   "query": "// get topic ids to be versioned MATCH (s)<-[:`__EXTRACTED_FROM__`]-()<-[:`__MENTIONED_IN__`]-()<-[:`__BELONGS_TO__`]-(l) WHERE s.sourceId IN $sourceIds WITH s.sourceId as source_id, collect(DISTINCT l.statementId) as node_ids RETURN { sourceId: source_id, nodeIds: node_ids } AS result"
+  },
+  {
+   "handler": "version_ids",
+   "query": "// get topic ids to be versioned MATCH (s)<-[:`__EXTRACTED_FROM__`]-()<-[:`__MENTIONED_IN__`]-(t) WHERE s.sourceId IN $sourceIds WITH s.sourceId as source_id, collect(DISTINCT t.topicId) as node_ids RETURN { sourceId: source_id, nodeIds: node_ids } AS result"
+  },
+  {
+   "handler": "write",
+   "query": "// insert chunk metadata UNWIND $params AS params MERGE (chunk:`__Chunk__`{chunkId: params.chunk_id}) ON CREATE SET chunk.`page` = params.`page` ON MATCH SET chunk.`page` = params.`page`"
+  },
+  {
+   "handler": "write",
+   "query": "// insert chunk-chunk child relationships UNWIND $params AS params MERGE (chunk:`__Chunk__`{chunkId: params.chunk_id}) MERGE (target:`__Chunk__`{chunkId: params.target_id}) MERGE (chunk)-[:`__CHILD__`]->(target)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert chunk-chunk next relationships UNWIND $params AS params MERGE (chunk:`__Chunk__`{chunkId: params.chunk_id}) MERGE (target:`__Chunk__`{chunkId: params.target_id}) MERGE (chunk)-[:`__NEXT__`]->(target)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert chunk-chunk parent relationships UNWIND $params AS params MERGE (chunk:`__Chunk__`{chunkId: params.chunk_id}) MERGE (target:`__Chunk__`{chunkId: params.target_id}) MERGE (chunk)-[:`__PARENT__`]->(target)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert chunk-chunk previous relationships UNWIND $params AS params MERGE (chunk:`__Chunk__`{chunkId: params.chunk_id}) MERGE (target:`__Chunk__`{chunkId: params.target_id}) MERGE (chunk)-[:`__PREVIOUS__`]->(target)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert chunk-source relationships UNWIND $params AS params MERGE (chunk:`__Chunk__`{chunkId: params.chunk_id}) MERGE (source:`__Source__`{sourceId: params.source_id}) MERGE (chunk)-[:`__EXTRACTED_FROM__`]->(source)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert entities UNWIND $params AS params MERGE (entity:`__Entity__`{entityId: params.e_id}) ON CREATE SET entity.value = params.v, entity.search_str = params.e_search_str, entity.class = params.ec ON MATCH SET entity.value = params.v, entity.search_str = params.e_search_str, entity.class = params.ec"
+  },
+  {
+   "handler": "write",
+   "query": "// insert entity SPC relations UNWIND $params AS params MERGE (subject:`__Entity__`{entityId: params.s_id}) MERGE (complement:`__Entity__`{entityId: params.c_id}) MERGE (subject)-[r:`__RELATION__`{value: params.p}]->(complement)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert entity SPO relations UNWIND $params AS params MERGE (subject:`__Entity__`{entityId: params.s_id}) MERGE (object:`__Entity__`{entityId: params.o_id}) MERGE (subject)-[r:`__RELATION__`{value: params.p}]->(object)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert entity-fact object relationship UNWIND $params AS params MERGE (fact:`__Fact__`{factId: params.fact_id}) MERGE (entity:`__Entity__`{entityId: params.entity_id}) MERGE (entity)-[:`__OBJECT__`]->(fact)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert entity-fact subject relationship UNWIND $params AS params MERGE (fact:`__Fact__`{factId: params.fact_id}) MERGE (entity:`__Entity__`{entityId: params.entity_id}) MERGE (entity)-[:`__SUBJECT__`]->(fact)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert facts UNWIND $params AS params MERGE (statement:`__Statement__`{statementId: params.statement_id}) MERGE (fact:`__Fact__`{factId: params.fact_id}) ON CREATE SET fact.relation = params.p, fact.value = params.fact ON MATCH SET fact.relation = params.p, fact.value = params.fact MERGE (fact)-[:`__SUPPORTS__`]->(statement)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert graph summary UNWIND $params AS params MERGE (sc:`__SYS_Class__`{sysClassId: params.sc_id}) ON CREATE SET sc.value = params.sc, sc.count = 1 ON MATCH SET sc.count = sc.count + 1 MERGE (oc:`__SYS_Class__`{sysClassId: params.oc_id}) ON CREATE SET oc.value = params.oc, oc.count = 1 ON MATCH SET oc.count = oc.count + 1 MERGE (sc)-[r:`__SYS_RELATION__`{value: params.p}]->(oc) ON CREATE SET r.count = 1 ON MATCH SET r.count = r.count + 1"
+  },
+  {
+   "handler": "write",
+   "query": "// insert source UNWIND $params AS params MERGE (source:`__Source__`{sourceId: params.sourceId}) ON CREATE SET source.`filename` = params.`filename` ON MATCH SET source.`filename` = params.`filename`"
+  },
+  {
+   "handler": "write",
+   "query": "// insert source UNWIND $params AS params MERGE (source:`__Source__`{sourceId: params.sourceId}) WITH source, params, source.sourceHash AS owner WHERE owner IS NULL OR owner = params.`__source_hash__` SET source.`filename` = params.`filename`, source.`__aws__versioning__extract_timestamp__` = params.`__aws__versioning__extract_timestamp__`, source.`__aws__versioning__build_timestamp__` = params.`__aws__versioning__build_timestamp__`, source.`__aws__versioning__valid_from__` = params.`__aws__versioning__valid_from__`, source.`__aws__versioning__valid_to__` = params.`__aws__versioning__valid_to__`, source.`__aws__versioning__id_fields__` = params.`__aws__versioning__id_fields__`, source.`__aws__versioning__prev_versions__` = params.`__aws__versioning__prev_versions__` SET source.sourceHash = coalesce(owner, params.`__source_hash__`)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert statement-chunk relationships UNWIND $params AS params MERGE (statement:`__Statement__`{statementId: params.statement_id}) MERGE (chunk:`__Chunk__`{chunkId: params.chunk_id}) MERGE (statement)-[:`__MENTIONED_IN__`]->(chunk)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert statement-statement prev relationships UNWIND $params AS params MERGE (statement:`__Statement__`{statementId: params.statement_id}) MERGE (prev_statement:`__Statement__`{statementId: params.prev_statement_id}) MERGE (statement)-[:`__PREVIOUS__`]->(prev_statement)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert statement-topic relationships UNWIND $params AS params MERGE (statement:`__Statement__`{statementId: params.statement_id}) MERGE (topic:`__Topic__`{topicId: params.topic_id}) MERGE (statement)-[:`__BELONGS_TO__`]->(topic)"
+  },
+  {
+   "handler": "write",
+   "query": "// insert statements UNWIND $params AS params MERGE (statement:`__Statement__`{statementId: params.statement_id}) ON CREATE SET statement.value=params.value, statement.details=params.details ON MATCH SET statement.value=params.value, statement.details=params.details"
+  },
+  {
+   "handler": "write",
+   "query": "// insert topics UNWIND $params AS params MERGE (topic:`__Topic__`{topicId: params.topic_id}) ON CREATE SET topic.value=params.title ON MATCH SET topic.value=params.title WITH topic, params UNWIND params.chunk_ids as chunkIds MERGE (chunk:`__Chunk__`{chunkId: chunkIds.chunk_id}) MERGE (topic)-[:`__MENTIONED_IN__`]->(chunk)"
+  },
+  {
+   "handler": "entity_multi",
+   "query": "// multiple entity-based graph search MATCH p=(e1:`__Entity__`{entityId:$startId})-[:`__RELATION__`*1..2]-(e2:`__Entity__`) WHERE e2.entityId in $endIds UNWIND nodes(p) AS n WITH DISTINCT COLLECT(n) AS entities MATCH (s)-[:`__SUBJECT__`]->(f)<-[:`__OBJECT__`]-(o), (f)-[:`__SUPPORTS__`]->()-[:`__PREVIOUS__`*0..1]-(l) WHERE s in entities and o in entities RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+  },
+  {
+   "handler": "version_set",
+   "query": "// set version info for old source node MATCH (s:`__Source__`) WHERE s.sourceId = $sourceId SET s.__aws__versioning__valid_to__ = $versioningTimestamp, s.__aws__versioning__id_fields__ = $versionIndependentIdFields"
+  },
+  {
+   "handler": "entity_single",
+   "query": "// single entity-based graph search MATCH (:`__Entity__`{entityId:$startId}) -[:`__SUBJECT__`]->() -[:`__SUPPORTS__`]->() -[:`__PREVIOUS__`*0..1]-(l) RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+  },
+  {
+   "handler": "network_topic",
+   "query": "// topic-based entity network search MATCH (l)-[:`__BELONGS_TO__`]->(t:`__Topic__`) WHERE t.topicId = $nodeId RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+  },
+  {
+   "handler": "topic_based",
+   "query": "// topic-based graph search MATCH (f)-[:`__SUPPORTS__`]->()-[:`__BELONGS_TO__`]->(tt:`__Topic__`) WHERE tt.topicId = $topicId WITH f LIMIT $statementLimit MATCH (f)-[:`__SUPPORTS__`]->(l) RETURN DISTINCT l.statementId AS l LIMIT $statementLimit"
+  },
+  {
+   "handler": "write",
+   "query": "// write chunk value UNWIND $params AS params MERGE (chunk:`__Chunk__`{chunkId: params.chunk_id}) ON CREATE SET chunk.value = params.text ON MATCH SET chunk.value = params.text"
+  },
+  {
+   "handler": "source_id_width_read",
+   "query": "MATCH (c:`__SYS_Config__`) WHERE c.sourceIdWidth IS NOT NULL RETURN c.sourceIdWidth AS width"
+  },
+  {
+   "handler": "chunk_values",
+   "query": "MATCH (chunk:`__Chunk__`) WHERE chunk.chunkId in $chunk_ids RETURN { chunk: chunk{.chunkId, .value} } AS result"
+  },
+  {
+   "handler": "chunks_with_source",
+   "query": "MATCH (chunk:`__Chunk__`)-[:`__EXTRACTED_FROM__`]->(source:`__Source__`) WHERE chunk.chunkId in $chunk_ids RETURN { source: { sourceId: source.sourceId, metadata: source{.*} }, chunk: chunk{.*} } AS result"
+  },
+  {
+   "handler": "source_sample",
+   "query": "MATCH (s:`__Source__`) RETURN s.sourceId AS sourceId ORDER BY sourceId LIMIT 100"
+  },
+  {
+   "handler": "source_collision",
+   "query": "MATCH (s:`__Source__`) WHERE s.sourceId IN $sourceIds RETURN s.sourceId AS sourceId, s.sourceHash AS sourceHash, coalesce(s.`file_path`, s.`file_name`, s.`url`, s.`source`, s.`title`) AS name"
+  },
+  {
+   "handler": "topic_statements",
+   "query": "MATCH (s:`__Statement__`)-[:`__BELONGS_TO__`]->(t:`__Topic__`) WHERE t.topicId IN $topicIds RETURN t.topicId AS topicId, s.statementId AS statementId"
+  },
+  {
+   "handler": "statements_with_source",
+   "query": "MATCH (statement:`__Statement__`)-[:`__MENTIONED_IN__`]->(chunk:`__Chunk__`)-[:`__EXTRACTED_FROM__`]->(source:`__Source__`) WHERE statement.statementId in $statement_ids RETURN { statement: statement{.*}, source: { sourceId: source.sourceId, metadata: source{.*} }, chunk: chunk{.*} } AS result"
+  },
+  {
+   "handler": "topic_neighbors",
+   "query": "MATCH (t:`__Topic__`) WHERE t.topicId IN $topicIds OPTIONAL MATCH (t)<-[:`__BELONGS_TO__`]-(s:`__Statement__`)<-[:`__SUPPORTS__`]-(f:`__Fact__`)<-[:`__SUBJECT__`|`__OBJECT__`]-(e:`__Entity__`) WITH t, COLLECT(DISTINCT e) AS entities UNWIND CASE WHEN size(entities) = 0 THEN [null] ELSE entities END AS entity OPTIONAL MATCH (entity)-[:`__SUBJECT__`|`__OBJECT__`]->(f2:`__Fact__`)-[:`__SUPPORTS__`]->(s2:`__Statement__`)-[:`__BELONGS_TO__`]->(nt:`__Topic__`) WHERE entity IS NOT NULL AND nt <> t WITH t, nt.topicId AS ntid, count(f2) AS strength ORDER BY strength DESC WITH t, COLLECT(DISTINCT ntid)[..100] AS entity_neighbors OPTIONAL MATCH (t)-[:`__MENTIONED_IN__`]->(c:`__Chunk__`)<-[:`__MENTIONED_IN__`]-(ct:`__Topic__`) WHERE ct <> t WITH t, entity_neighbors, COLLECT(DISTINCT ct.topicId)[..100] AS chunk_neighbors OPTIONAL MATCH (t)-[:`__MENTIONED_IN__`]->(c:`__Chunk__`)-[:`__NEXT__`]->(adj:`__Chunk__`)<-[:`__MENTIONED_IN__`]-(at:`__Topic__`) WHERE at <> t WITH t.topicId AS sourceId, entity_neighbors, chunk_neighbors, COLLECT(DISTINCT at.topicId)[..100] AS adjacent_neighbors RETURN sourceId, entity_neighbors + chunk_neighbors + adjacent_neighbors AS neighborIds"
+  },
+  {
+   "handler": "topic_neighbors",
+   "query": "MATCH (t:`__Topic__`) WHERE t.topicId IN $topicIds OPTIONAL MATCH (t)<-[:`__BELONGS_TO__`]-(s:`__Statement__`)<-[:`__SUPPORTS__`]-(f:`__Fact__`)<-[:`__SUBJECT__`|`__OBJECT__`]-(e:`__Entity__`) WITH t, COLLECT(DISTINCT e) AS entities UNWIND CASE WHEN size(entities) = 0 THEN [null] ELSE entities END AS entity OPTIONAL MATCH (entity)-[:`__SUBJECT__`|`__OBJECT__`]->(f2:`__Fact__`)-[:`__SUPPORTS__`]->(s2:`__Statement__`)-[:`__BELONGS_TO__`]->(nt:`__Topic__`) WHERE entity IS NOT NULL AND nt <> t WITH t, nt.topicId AS ntid, count(f2) AS strength ORDER BY strength DESC WITH t, COLLECT(DISTINCT ntid)[..100] AS entity_neighbors WITH t, entity_neighbors, [] AS chunk_neighbors WITH t.topicId AS sourceId, entity_neighbors, chunk_neighbors, [] AS adjacent_neighbors RETURN sourceId, entity_neighbors + chunk_neighbors + adjacent_neighbors AS neighborIds"
+  },
+  {
+   "handler": "topic_neighbors",
+   "query": "MATCH (t:`__Topic__`) WHERE t.topicId IN $topicIds WITH t, [] AS entity_neighbors OPTIONAL MATCH (t)-[:`__MENTIONED_IN__`]->(c:`__Chunk__`)<-[:`__MENTIONED_IN__`]-(ct:`__Topic__`) WHERE ct <> t WITH t, entity_neighbors, COLLECT(DISTINCT ct.topicId)[..100] AS chunk_neighbors WITH t.topicId AS sourceId, entity_neighbors, chunk_neighbors, [] AS adjacent_neighbors RETURN sourceId, entity_neighbors + chunk_neighbors + adjacent_neighbors AS neighborIds"
+  },
+  {
+   "handler": "topic_neighbors",
+   "query": "MATCH (t:`__Topic__`) WHERE t.topicId IN $topicIds WITH t, [] AS entity_neighbors WITH t, entity_neighbors, [] AS chunk_neighbors OPTIONAL MATCH (t)-[:`__MENTIONED_IN__`]->(c:`__Chunk__`)-[:`__NEXT__`]->(adj:`__Chunk__`)<-[:`__MENTIONED_IN__`]-(at:`__Topic__`) WHERE at <> t WITH t.topicId AS sourceId, entity_neighbors, chunk_neighbors, COLLECT(DISTINCT at.topicId)[..100] AS adjacent_neighbors RETURN sourceId, entity_neighbors + chunk_neighbors + adjacent_neighbors AS neighborIds"
+  },
+  {
+   "handler": "topic_sources",
+   "query": "MATCH (t:`__Topic__`)-[:`__MENTIONED_IN__`]->(c:`__Chunk__`)-[:`__EXTRACTED_FROM__`]->(s:`__Source__`) WHERE t.topicId IN $topicIds RETURN DISTINCT t.topicId AS topicId, s.sourceId AS sourceId"
+  },
+  {
+   "handler": "source_id_width_write",
+   "query": "MERGE (c:`__SYS_Config__`{sysConfigId: $configId}) ON CREATE SET c.sourceIdWidth = $width RETURN c.sourceIdWidth AS width"
+  }
+ ],
+ "refused": [
+  "// get source info from source ids MATCH (source:`__Source__`) WHERE (source.sourceId in $sourceIds) RETURN { sourceId: source.sourceId, metadata: properties(source), versioning: { valid_from: coalesce(source.__aws__versioning__valid_from__, -1), valid_to: coalesce(source.__aws__versioning__valid_to__, -1), extract_timestamp: coalesce(source.__aws__versioning__extract_timestamp__, -1), build_timestamp: coalesce(source.__aws__versioning__build_timestamp__, -1), id_fields: split(coalesce(source.__aws__versioning__id_fields__, \"\"), \";\"), prev_versions: split(coalesce(source.__aws__versioning__prev_versions__, \"\"), \";\") } } AS result ORDER BY result.metadata.filename, result.versioning.valid_from ASC",
+  "MATCH (f:`__Fact__`)-[r:`__SUPPORTS__`]->() WITH f, count(r) AS connectingNumStatements WHERE connectingNumStatements > 1 RETURN count(f) AS numFacts, connectingNumStatements ORDER BY connectingNumStatements DESC",
+  "MATCH (n:`__Chunk__`) RETURN count(n) AS count",
+  "MATCH (n:`__Entity__`) RETURN count(n) AS count",
+  "MATCH (n:`__Entity__`)-[r:`__SUBJECT__`]->() WITH n, count(r) AS score ORDER BY score DESC LIMIT 100 RETURN n.value + ' [' + n.class + ']' as entity",
+  "MATCH (n:`__Fact__`) RETURN count(n) AS count",
+  "MATCH (n:`__SYS_Class__`) WITH n, n.count AS score ORDER BY score DESC LIMIT 10 MATCH p=(n)-[r]->() WITH nodes(p) AS nodes, relationships(p) AS rels, r.count AS score ORDER BY score DESC LIMIT 100 RETURN '(' + nodes[0].value + ')-[' + rels[0].value + ']->(' + nodes[1].value + ')' AS path",
+  "MATCH (n:`__SYS_Tenant__`) WHERE n.tenantId = $tenantId RETURN n.value AS summary, n.last_updated_datetime AS last_updated_datetime",
+  "MATCH (n:`__Source__`) RETURN count(n) AS count",
+  "MATCH (n:`__Statement__`) RETURN count(n) AS count",
+  "MATCH (n:`__Topic__`) RETURN count(n) AS count",
+  "MATCH (t:`__Topic__`)-[r:`__MENTIONED_IN__`]->() WITH t, count(r) AS connectingNumChunks WHERE connectingNumChunks > 1 RETURN count(t) AS numTopics, connectingNumChunks ORDER BY connectingNumChunks DESC",
+  "MERGE (n:`__SYS_Tenant__`{tenantId: $tenantId}) ON CREATE SET n.value = $summary, n.last_updated_datetime = $lastUpdatedDatetime ON MATCH SET n.value = $summary, n.last_updated_datetime = $lastUpdatedDatetime",
+  "UNWIND $params AS params MERGE (n<var>:`__Entity__`{entityId: params.entityId}) SET n<var> :`Company` // awsqid:e1-Company",
+  "UNWIND $params AS params MERGE (n<var>:`__Entity__`{entityId: params.entityId}) SET n<var> :`Lender` // awsqid:e2-Lender"
+ ]
+}
