@@ -39,6 +39,7 @@ from decimal import Decimal
 from typing import Any
 
 from botocore.exceptions import ClientError
+from coa_common.aurora_data_api import AuroraQueryError
 
 log = logging.getLogger(__name__)
 
@@ -778,7 +779,7 @@ class AuroraDao:
         try:
             self._table.update_item(**kwargs)
             return True
-        except ClientError:
+        except (ClientError, AuroraQueryError):
             log.warning("Aurora metadata update failed", exc_info=True)
             if raise_on_error:
                 raise

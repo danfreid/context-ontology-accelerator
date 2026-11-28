@@ -14,6 +14,9 @@ for the RDF/OWL terminology (including reification and RDF-star), how a
 relational schema is represented, where metadata lives, and the tradeoffs of
 that design.
 
+**Aurora backend:** see [`docs/aurora-backend.md`](docs/aurora-backend.md) for the
+`aurora_pgvector` backend (RDS Data API, schema, traversal, env vars, follow-ups).
+
 ## Layout
 
     packages/ontology-engine/

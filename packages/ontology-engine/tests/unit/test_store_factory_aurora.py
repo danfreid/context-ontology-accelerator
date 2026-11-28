@@ -8,7 +8,7 @@ from __future__ import annotations
 import pytest
 from coa_ontology.stores import factory
 from coa_ontology.stores.aurora.graph import AuroraGraphStore
-from coa_ontology.stores.aurora.vector import AuroraVectorStore
+from coa_ontology.stores.aurora_vector import AuroraVectorStore
 from coa_ontology.stores.base import GraphStore, VectorStore
 
 pytestmark = pytest.mark.unit

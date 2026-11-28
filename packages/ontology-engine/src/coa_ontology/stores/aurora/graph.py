@@ -17,7 +17,7 @@ Multi-hop questions use :meth:`AuroraGraphStore.traverse`: one ``WITH RECURSIVE`
 statement with a mandatory depth bound and cycle handling. pgRouting is not used.
 
 Data API constraints (1 MiB responses, 4 MiB requests, 45 s statements, no array
-parameters) are handled as described in :mod:`coa_ontology.stores.aurora.vector`.
+parameters) are handled by the shared client (:mod:`coa_common.aurora_data_api`).
 """
 
 from __future__ import annotations

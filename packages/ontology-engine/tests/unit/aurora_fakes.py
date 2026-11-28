@@ -10,10 +10,10 @@ from collections.abc import Callable
 from typing import Any
 
 from botocore.exceptions import ClientError
-from coa_common.aurora_data_api import AuroraConfig, DataApiClient
+from coa_common.aurora_data_api import AuroraConfig, AuroraDataApiClient
 
 CONFIG = AuroraConfig(resource_arn="arn:aws:rds:r:1:cluster:c", secret_arn="arn:aws:secretsmanager:r:1:secret:s")
-SCHEMA_ROW = {"version": "1", "pgvector": "0.8.0", "dimensions": 8}
+SCHEMA_ROW = {"has_triple": True, "has_engine": True, "has_search_doc": True}
 
 
 def too_large() -> ClientError:
@@ -33,12 +33,12 @@ class ScriptedRds:
     """Records every statement and answers from rules matched on a SQL substring (first match wins)."""
 
     def __init__(self, schema_row: dict | None = SCHEMA_ROW):
-        """Start with the schema check already answered as current."""
+        """Start with the read-only schema check already answered as current (tables present, no vectors stored)."""
         self.calls: list[dict[str, Any]] = []
         self.rules: list[tuple[str, Any]] = []
         self.events: list[str] = []
         if schema_row is not None:
-            self.when("FROM coa_schema_meta", [schema_row])
+            self.when("to_regclass", [schema_row])
 
     def when(self, needle: str, response: Any = None) -> None:
         """Answer statements containing ``needle`` with rows, an exception, or ``callable(sql, params)``."""
@@ -78,9 +78,9 @@ class ScriptedRds:
         self.events.append("rollback")
         return {}
 
-    def client(self) -> DataApiClient:
-        """A real ``DataApiClient`` over this script."""
-        return DataApiClient(CONFIG, rds_data=self, sleep=lambda s: None)
+    def client(self) -> AuroraDataApiClient:
+        """A real ``AuroraDataApiClient`` over this script."""
+        return AuroraDataApiClient(CONFIG, rds_data=self, sleep=lambda s: None)
 
 
 def once_then(first: Any, then: Callable[[str, dict], Any] | list) -> Callable[[str, dict], Any]:
