@@ -17,6 +17,7 @@ from urllib.parse import urlsplit
 import structlog
 from coa_common.aurora_search import SearchBackend, resolve_search_backend
 from coa_common.aurora_sparql import aurora_graph_enabled
+from coa_common.constants import ckg_path_enabled, graphrag_aurora_graph_uri, graphrag_s3_vector_uri
 
 from .base import ClientSet, GraphClient, VectorClient
 
@@ -159,9 +160,9 @@ def build_lexical_retriever(
 
     Returns None only when the required store endpoints are unset.
     """
-    if not config.neptune_endpoint or not config.opensearch_endpoint:
+    ckg = ckg_path_enabled()
+    if not ckg and (not config.neptune_endpoint or not config.opensearch_endpoint):
         return None
-
     if timeout_s is None:
         timeout_s = 45.0  # standard-mode default (see docstring); env var overrides below
         if env_timeout := os.environ.get("LEXICAL_RETRIEVER_TIMEOUT_S", "").strip():
@@ -179,8 +180,16 @@ def build_lexical_retriever(
     from ..lexical import BaselineLexicalRetriever
     from ..lexical.strategies import DEFAULT_SPEC
 
-    graph_uri = _graph_store_uri(config.neptune_endpoint)
-    vector_store_uri = f"aoss://{config.opensearch_endpoint}"
+    if ckg:
+        # Aurora document graph + S3 Vectors: no Neptune/OpenSearch endpoints needed.
+        from coa_common.graphrag_pg.store import register as register_aurora_graph_store
+
+        register_aurora_graph_store()
+        graph_uri = graphrag_aurora_graph_uri()
+        vector_store_uri = graphrag_s3_vector_uri()
+    else:
+        graph_uri = _graph_store_uri(config.neptune_endpoint)
+        vector_store_uri = f"aoss://{config.opensearch_endpoint}"
 
     logger.info(
         "building_lexical_retriever",

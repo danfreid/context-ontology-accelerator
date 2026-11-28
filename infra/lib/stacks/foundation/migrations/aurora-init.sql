@@ -203,7 +203,34 @@ CREATE INDEX IF NOT EXISTS entity_label_trgm_idx
 --           WHERE label % $1 AND namespace = $2 ORDER BY s DESC LIMIT 50;
 --   prefix: to_tsquery('english', 'harb:*') matches partial words in search_doc.tsv.
 
--- ── Search roles (least privilege) ─────────────────────────────────────────
+-- ── GraphRAG lexical graph (Aurora document graph, schema lg) ───────────────
+-- Used when GRAPH_BACKEND=aurora and GRAPHRAG_VECTOR_BACKEND=s3vectors
+-- (coa_common.graphrag_pg). Mirrors coa_common.graphrag_pg.schema.ddl("lg"); the tables
+-- are empty and unused on every other flag combination. node.id is globally unique
+-- because the toolkit embeds the tenant in every node id.
+CREATE SCHEMA IF NOT EXISTS lg;
+CREATE TABLE IF NOT EXISTS lg.node (
+    id text PRIMARY KEY,
+    label text NOT NULL,
+    tenant text NOT NULL DEFAULT '',
+    value text,
+    search_str text,
+    class text,
+    props jsonb NOT NULL DEFAULT '{}'::jsonb
+);
+CREATE TABLE IF NOT EXISTS lg.edge (
+    type text NOT NULL,
+    src text NOT NULL,
+    dst text NOT NULL,
+    value text NOT NULL DEFAULT '',
+    props jsonb NOT NULL DEFAULT '{}'::jsonb,
+    PRIMARY KEY (type, src, dst, value)
+);
+CREATE INDEX IF NOT EXISTS edge_dst_idx ON lg.edge (type, dst, src);
+CREATE INDEX IF NOT EXISTS edge_mentioned_in_dst_idx ON lg.edge (dst, src) WHERE type = '__MENTIONED_IN__';
+CREATE INDEX IF NOT EXISTS node_label_idx ON lg.node (label, tenant);
+CREATE INDEX IF NOT EXISTS node_search_str_idx ON lg.node (tenant, search_str text_pattern_ops) WHERE label = '__Entity__';
+CREATE INDEX IF NOT EXISTS node_search_str_trgm_idx ON lg.node USING gin (search_str gin_trgm_ops) WHERE label = '__Entity__';-- ── Search roles (least privilege) ─────────────────────────────────────────
 -- coa_search_rw: ingest, metric API, import worker, ontology, namespace deletion.
 -- coa_search_ro: serve (read-only search).
 -- coa_engine_rw: ontology engine (triples, metadata mirror) and namespace deletion. Member of coa_search_rw,
@@ -251,3 +278,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON coa_triple, ontology_engine, coa_metadat
 -- bigserial columns need USAGE on the sequence for INSERT. Default privileges cover tables created later.
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO coa_search_rw, coa_search_ro, coa_engine_rw;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT USAGE, SELECT ON SEQUENCES TO coa_search_rw, coa_search_ro, coa_engine_rw;
+-- GraphRAG lexical graph: serve reads, ingest/ontology roles write.
+GRANT USAGE ON SCHEMA lg TO coa_search_rw, coa_search_ro, coa_engine_rw;
+GRANT SELECT, INSERT, UPDATE, DELETE ON lg.node, lg.edge TO coa_search_rw, coa_engine_rw;
+GRANT SELECT ON lg.node, lg.edge TO coa_search_ro;

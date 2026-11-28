@@ -47,6 +47,7 @@ from enum import StrEnum
 from typing import Any, Literal
 
 import structlog
+from coa_common.constants import ckg_path_enabled
 
 logger = structlog.get_logger(__name__)
 
@@ -418,7 +419,13 @@ def _build_topic_beam_engine(graph_store, vector_store, *, tenant_id):
         max_statements_per_topic=10,
     )
 
-    topic_retriever = TopicBeamSearch(
+    topic_beam_cls = TopicBeamSearch
+    if ckg_path_enabled():
+        # S3 Vectors has no ``client.query``; seed through ``VectorIndex.top_k`` instead.
+        from .s3vectors_topic_beam import S3VectorsTopicBeamSearch
+
+        topic_beam_cls = S3VectorsTopicBeamSearch
+    topic_retriever = topic_beam_cls(
         graph_store=graph_store,
         vector_store=vector_store,
         processor_args=processor_args,

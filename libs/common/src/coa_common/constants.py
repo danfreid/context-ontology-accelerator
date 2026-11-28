@@ -1040,3 +1040,53 @@ def bucket_grants_namespace(tags: dict[str, str], namespace_id: str) -> bool:
     if not namespace_id:
         return False
     return namespace_id in tags.get(bucket_namespace_tag_key(), "").split()
+
+
+# ---------------------------------------------------------------------------
+# GraphRAG lexical-graph storage selection (Aurora document graph + S3 Vectors)
+# ---------------------------------------------------------------------------
+GRAPHRAG_VECTOR_BACKEND_ENV: str = "GRAPHRAG_VECTOR_BACKEND"
+"""Selects where the GraphRAG lexical-graph vector indexes live: ``aoss`` (default) or ``s3vectors``."""
+GRAPHRAG_VECTOR_BACKEND_AOSS: str = "aoss"
+GRAPHRAG_VECTOR_BACKEND_S3VECTORS: str = "s3vectors"
+GRAPHRAG_S3_VECTOR_BUCKET_ENV: str = "GRAPHRAG_S3_VECTOR_BUCKET"
+"""S3 vector bucket name used when ``GRAPHRAG_VECTOR_BACKEND=s3vectors``."""
+GRAPHRAG_S3_VECTOR_PREFIX_ENV: str = "GRAPHRAG_S3_VECTOR_PREFIX"
+"""Index-name prefix inside the S3 vector bucket (default ``graphrag``)."""
+GRAPHRAG_AURORA_SCHEMA_ENV: str = "GRAPHRAG_AURORA_SCHEMA"
+"""Aurora schema holding the lexical-graph node/edge tables (default ``lg``)."""
+_GRAPH_BACKEND_ENV = "GRAPH_BACKEND"
+
+
+def graphrag_vector_backend() -> str:
+    """The configured GraphRAG vector backend, lower-cased; unset means ``aoss``."""
+    return os.environ.get(GRAPHRAG_VECTOR_BACKEND_ENV, "").strip().lower() or GRAPHRAG_VECTOR_BACKEND_AOSS
+
+
+def ckg_path_enabled() -> bool:
+    """True on the Aurora document-graph path: ``GRAPH_BACKEND=aurora`` and ``GRAPHRAG_VECTOR_BACKEND=s3vectors``.
+
+    Every consumer that must choose between the Neptune+AOSS stores and the
+    Aurora+S3 Vectors stores calls this one predicate, so the two flags can never
+    be interpreted differently in two places. Both must be set; either one alone
+    leaves the default behaviour untouched.
+    """
+    return (
+        os.environ.get(_GRAPH_BACKEND_ENV, "").strip().lower() == "aurora"
+        and graphrag_vector_backend() == GRAPHRAG_VECTOR_BACKEND_S3VECTORS
+    )
+
+
+def graphrag_aurora_graph_uri() -> str:
+    """GraphRAG graph-store URI for the Aurora document graph (``aurora-pg://?schema=<schema>``)."""
+    schema = os.environ.get(GRAPHRAG_AURORA_SCHEMA_ENV, "").strip() or "lg"
+    return f"aurora-pg://?schema={schema}"
+
+
+def graphrag_s3_vector_uri() -> str:
+    """GraphRAG vector-store URI for S3 Vectors (``s3vectors://<bucket>/<prefix>``)."""
+    bucket = os.environ.get(GRAPHRAG_S3_VECTOR_BUCKET_ENV, "").strip()
+    if not bucket:
+        raise ValueError(f"{GRAPHRAG_S3_VECTOR_BUCKET_ENV} is required when {GRAPHRAG_VECTOR_BACKEND_ENV}=s3vectors")
+    prefix = os.environ.get(GRAPHRAG_S3_VECTOR_PREFIX_ENV, "").strip().strip("/") or "graphrag"
+    return f"s3vectors://{bucket}/{prefix}"

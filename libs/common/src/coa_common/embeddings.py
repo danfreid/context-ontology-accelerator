@@ -45,7 +45,7 @@ from botocore.exceptions import ClientError, ConnectTimeoutError, ReadTimeoutErr
 
 from coa_common.bedrock_metrics import CostTracker
 from coa_common.config import resolve_region
-from coa_common.constants import DEFAULT_EMBED_DIMENSIONS, DEFAULT_EMBED_MODEL_ID
+from coa_common.constants import DEFAULT_EMBED_DIMENSIONS, DEFAULT_EMBED_MODEL_ID, ckg_path_enabled
 from coa_common.metrics import emit_metric
 
 logger = structlog.get_logger(__name__)
@@ -82,6 +82,28 @@ _DEFAULT_EMBED_READ_TIMEOUT = 60
 _METRIC_NAMESPACE = "SemanticContext/Embeddings"
 
 InputType = Literal["document", "query"]
+
+
+# Throttling is retried at the application level for the llama-index batch path only. The Cohere
+# Embed quota can be as low as ~10-20 requests a minute, which exhausts botocore's 5 adaptive
+# attempts when several build workers embed at once. Bounded by a wall-clock deadline.
+_THROTTLE_CODES = frozenset({"ThrottlingException", "TooManyRequestsException", "ServiceQuotaExceededException"})
+_THROTTLE_DEADLINE_S = float(os.getenv("BEDROCK_EMBED_THROTTLE_DEADLINE_S", "900"))
+_THROTTLE_MAX_BACKOFF_S = 60.0
+
+
+def _with_throttle_backoff(fn: Any) -> Any:
+    """Call ``fn()``, sleeping and retrying while Bedrock throttles, until the deadline."""
+    deadline = time.monotonic() + _THROTTLE_DEADLINE_S
+    attempt = 0
+    while True:
+        try:
+            return fn()
+        except ClientError as exc:
+            if _error_code(exc) not in _THROTTLE_CODES or time.monotonic() > deadline:
+                raise
+            attempt += 1
+            time.sleep(min(_THROTTLE_MAX_BACKOFF_S, 3.0 * attempt) + random.uniform(0, 3))
 
 
 def _embed_backoff(attempt: int) -> float:
@@ -436,7 +458,9 @@ def make_llama_index_embedding(
     resolved_id = model_id or os.environ.get("BEDROCK_EMBED_MODEL_ID", DEFAULT_EMBED_MODEL_ID)
     return cls(
         model_name=resolved_id,
-        embed_batch_size=10,
+        # 96 = Cohere's per-InvokeModel cap. Only on the Aurora/S3 Vectors path; the default
+        # path keeps llama-index's 10-text slices so its request pattern is unchanged.
+        embed_batch_size=96 if ckg_path_enabled() else 10,
         embed_model_id=resolved_id,
         embed_dimensions=dimensions,
         embed_region=region,
@@ -489,6 +513,18 @@ def _bedrock_embedder_llama_index_cls() -> Any:
 
         async def _aget_text_embedding(self, text: str) -> list[float]:
             return self._get_embedder().embed_document(text)
+
+        def _get_text_embeddings(self, texts: list[str]) -> list[list[float]]:
+            # Aurora/S3 Vectors path only: one InvokeModel per <=96 texts (Cohere v4; other
+            # models fan out per text), with throttle backoff. Default path: llama-index's
+            # per-text loop, unchanged.
+            if not ckg_path_enabled():
+                return super()._get_text_embeddings(texts)
+            batch = list(texts)
+            return _with_throttle_backoff(lambda: self._get_embedder().embed_documents(batch))
+
+        async def _aget_text_embeddings(self, texts: list[str]) -> list[list[float]]:
+            return self._get_text_embeddings(texts)
 
     # Expose at module scope so pickle can resolve it by qualified name.
     BedrockEmbedderLlamaIndex.__module__ = __name__

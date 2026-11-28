@@ -83,3 +83,107 @@ def test_filter_translation_binds_every_value() -> None:
 def test_filter_translation_rejects_unsupported_syntax() -> None:
     with pytest.raises(UnsupportedGraphQueryError):
         translate_source_filter("(source.`k` = 'a'); DROP TABLE x")
+
+
+# ── chunk_based_semantic read shapes: every query the retriever sends must match a handler ──
+
+
+class _RecordingStore(AuroraGraphStore):
+    """Store whose SQL layer returns canned rows by statement kind and records what ran."""
+
+    def __init__(self, rows: dict[str, list[dict]] | None = None) -> None:
+        super().__init__()
+        object.__setattr__(self, "_canned", rows or {})
+        object.__setattr__(self, "_seen", [])
+
+    def _q(self, kind, sql, params=None):  # type: ignore[override]
+        self._seen.append((kind, sql, params))
+        return list(self._canned.get(kind, []))
+
+
+def _semantic(store: AuroraGraphStore, limit: int = 7):
+    from graphrag_toolkit.lexical_graph.retrieval.retrievers.chunk_based_semantic_search import (
+        ChunkBasedSemanticSearch,
+    )
+
+    class _Args:
+        intermediate_limit = limit
+
+    o = ChunkBasedSemanticSearch.__new__(ChunkBasedSemanticSearch)
+    o.graph_store = store
+    o.args = _Args()
+    return o
+
+
+def test_chunk_statement_lookup_has_a_handler() -> None:
+    store = _RecordingStore({"read:chunk_statements": [{"l": "s1"}, {"l": "s2"}]})
+    assert _semantic(store).chunk_based_graph_search("c1") == ["s1", "s2"]
+    kind, sql, params = store._seen[0]
+    assert kind == "read:chunk_statements"
+    assert params == {"cid": "c1"}
+    assert "LIMIT 7" in sql
+    assert "__BELONGS_TO__" in sql and "__MENTIONED_IN__" in sql
+
+
+def test_beam_neighbour_queries_have_handlers() -> None:
+    from graphrag_toolkit.lexical_graph.retrieval.retrievers.semantic_chunk_beam_search import (
+        SemanticChunkBeamGraphSearch,
+    )
+
+    store = _RecordingStore(
+        {
+            "read:chunk_top_entities": [{"entityId": "e1", "score": "3"}],
+            "read:chunk_neighbours": [{"chunkId": "c2", "shared": "2"}],
+        }
+    )
+    beam = SemanticChunkBeamGraphSearch.__new__(SemanticChunkBeamGraphSearch)
+    beam.graph_store = store
+    beam.beam_width = 3
+    assert beam.get_neighbors("c1") == ["c2"]
+    assert [k for k, _, _ in store._seen] == ["read:chunk_top_entities", "read:chunk_neighbours"]
+    assert store._seen[1][2]["ids"] == '["e1"]'
+    assert "LIMIT 6" in store._seen[1][1]
+
+
+def test_chunk_neighbours_with_no_entities_runs_no_sql() -> None:
+    store = _RecordingStore()
+    cypher = (
+        "// get neighboring chunks for common entities (semantic beam search) MATCH (entity) "
+        "WHERE entity.entityId IN $entityIds RETURN 1"
+    )
+    assert store._execute_query(cypher, {"entityIds": [], "chunkId": "c1", "limit": 6}) == []
+    assert store._seen == []
+
+
+def test_chunks_with_source_returns_property_maps() -> None:
+    from graphrag_toolkit.lexical_graph.retrieval.utils.chunk_utils import get_chunks_query
+
+    store = _RecordingStore(
+        {
+            "read:chunks_with_source": [
+                {
+                    "cid": "c1",
+                    "cvalue": "chunk text",
+                    "csearch": None,
+                    "cclass": None,
+                    "cprops": '{"page": 3}',
+                    "sid": "src1",
+                    "sprops": '{"filename": "a.docx"}',
+                }
+            ]
+        }
+    )
+    out = get_chunks_query(store, ["c1", "missing"])
+    assert out == [
+        {
+            "result": {
+                "source": {"sourceId": "src1", "metadata": {"sourceId": "src1", "filename": "a.docx"}},
+                "chunk": {"chunkId": "c1", "value": "chunk text", "page": 3},
+            }
+        }
+    ]
+
+
+def test_unrelated_chunk_query_is_still_unsupported() -> None:
+    with pytest.raises(UnsupportedGraphQueryError):
+        _RecordingStore()._execute_query("// chunk-based something else MATCH (n) RETURN n", {})

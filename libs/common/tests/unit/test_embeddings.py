@@ -731,3 +731,76 @@ def test_prep_logs_when_input_exceeds_the_char_cap():
     cuts = [e for e in logs if e["event"] == "embedding_input_truncated"]
     assert len(cuts) == 1
     assert cuts[0]["chars"] == embeddings._MAX_INPUT_CHARS + 5
+
+
+class TestLlamaIndexAdapterBatching:
+    """The llama-index adapter batches Cohere v4 texts and rides out throttling."""
+
+    @pytest.fixture(autouse=True)
+    def _ckg_path(self, monkeypatch: pytest.MonkeyPatch) -> None:
+        monkeypatch.setenv("GRAPH_BACKEND", "aurora")
+        monkeypatch.setenv("GRAPHRAG_VECTOR_BACKEND", "s3vectors")
+
+    @staticmethod
+    def _adapter(client: MagicMock):
+        adapter = make_llama_index_embedding(model_id="us.cohere.embed-v4:0", dimensions=4)
+        adapter._get_embedder()._client = client
+        return adapter
+
+    def test_text_embeddings_send_one_invoke_per_96_texts(self):
+        client = _mock_bedrock_batch_echo()
+        adapter = self._adapter(client)
+        vectors = adapter._get_text_embeddings([f"t{i}" for i in range(200)])
+        assert len(vectors) == 200
+        bodies = [json.loads(c.kwargs["body"]) for c in client.invoke_model.call_args_list]
+        assert sorted(len(b["texts"]) for b in bodies) == [8, 96, 96]
+        assert all(b["input_type"] == "search_document" for b in bodies)
+
+    def test_default_path_keeps_per_text_calls(self, monkeypatch: pytest.MonkeyPatch):
+        monkeypatch.delenv("GRAPHRAG_VECTOR_BACKEND")
+        client = _mock_bedrock_batch_echo()
+        adapter = self._adapter(client)
+        assert len(adapter._get_text_embeddings(["a", "b", "c"])) == 3
+        assert [len(json.loads(c.kwargs["body"])["texts"]) for c in client.invoke_model.call_args_list] == [1, 1, 1]
+
+    def test_single_text_path_unchanged(self):
+        client = _mock_bedrock({"embeddings": {"float": [[0.0] * 4]}})
+        adapter = self._adapter(client)
+        adapter._get_text_embedding("one")
+        assert client.invoke_model.call_count == 1
+        assert _sent_body(client)["texts"] == ["one"]
+
+    def test_throttle_is_retried_with_backoff(self, monkeypatch: pytest.MonkeyPatch):
+        monkeypatch.setattr(embeddings.time, "sleep", lambda _s: None)
+        ok = _mock_bedrock_batch_echo()
+        throttled = ClientError({"Error": {"Code": "ThrottlingException", "Message": "slow"}}, "InvokeModel")
+        calls = {"n": 0}
+
+        def _flaky(*, modelId, body):  # noqa: N803
+            calls["n"] += 1
+            if calls["n"] < 3:
+                raise throttled
+            return ok.invoke_model.side_effect(modelId=modelId, body=body)
+
+        client = MagicMock()
+        client.invoke_model.side_effect = _flaky
+        adapter = self._adapter(client)
+        assert len(adapter._get_text_embeddings(["a", "b"])) == 2
+        assert calls["n"] == 3
+
+    def test_non_throttle_error_is_not_retried(self, monkeypatch: pytest.MonkeyPatch):
+        monkeypatch.setattr(embeddings.time, "sleep", lambda _s: None)
+        client = MagicMock()
+        client.invoke_model.side_effect = ClientError({"Error": {"Code": "AccessDeniedException"}}, "InvokeModel")
+        adapter = self._adapter(client)
+        with pytest.raises(ClientError):
+            adapter._get_text_embeddings(["a"])
+        assert client.invoke_model.call_count == 1
+
+    def test_embed_batch_size_follows_ckg_flag(self, monkeypatch: pytest.MonkeyPatch):
+        monkeypatch.delenv("GRAPH_BACKEND", raising=False)
+        monkeypatch.delenv("GRAPHRAG_VECTOR_BACKEND", raising=False)
+        assert make_llama_index_embedding(model_id="us.cohere.embed-v4:0").embed_batch_size == 10
+        monkeypatch.setenv("GRAPH_BACKEND", "aurora")
+        monkeypatch.setenv("GRAPHRAG_VECTOR_BACKEND", "s3vectors")
+        assert make_llama_index_embedding(model_id="us.cohere.embed-v4:0").embed_batch_size == 96

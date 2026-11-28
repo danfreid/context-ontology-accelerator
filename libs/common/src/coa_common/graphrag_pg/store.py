@@ -1072,6 +1072,123 @@ def _h_source_collision(store: AuroraGraphStore, flat: str, tenant: str, params:
     return out
 
 
+# ── chunk-based search (chunk_based_semantic, chunk_based) ───────────────────
+_SPO = "('__SUBJECT__', '__OBJECT__')"
+
+
+def _limit(params: dict[str, Any], key: str, default: int) -> int:
+    return max(0, int(params.get(key) if params.get(key) is not None else default))
+
+
+def _is_chunk_statements(flat: str) -> bool:
+    return flat.startswith(("// chunk-based semantic graph search", "// chunk-based graph search"))
+
+
+def _h_chunk_statements(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    """Statements of the topics mentioned in one chunk: ``(l)-[BELONGS_TO]->()-[MENTIONED_IN]->(chunk)``."""
+    s = store._s
+    rows = store._q(
+        "read:chunk_statements",
+        f"""SELECT DISTINCT bt.src AS l
+            FROM {s}.edge mi
+            JOIN {s}.edge bt ON bt.type = '__BELONGS_TO__' AND bt.dst = mi.src
+            WHERE mi.type = '__MENTIONED_IN__' AND mi.dst = :cid
+            ORDER BY bt.src LIMIT {_limit(params, "statementLimit", 1000)}""",
+        {"cid": params["chunkId"]},
+    )
+    return [{"l": r["l"]} for r in rows]
+
+
+def _is_chunk_top_entities(flat: str) -> bool:
+    return flat.startswith("// get top entities for chunk (semantic beam search)")
+
+
+def _h_chunk_top_entities(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    """Entities supporting statements in a chunk, ranked by their total subject/object edge count."""
+    s = store._s
+    rows = store._q(
+        "read:chunk_top_entities",
+        f"""WITH ents AS (
+              SELECT DISTINCT sj.src AS eid
+              FROM {s}.edge mi
+              JOIN {s}.edge su ON su.type = '__SUPPORTS__' AND su.dst = mi.src
+              JOIN {s}.edge sj ON sj.type IN {_SPO} AND sj.dst = su.src
+              WHERE mi.type = '__MENTIONED_IN__' AND mi.dst = :cid)
+            SELECT e.eid AS "entityId", count(r.dst) AS score
+            FROM ents e JOIN {s}.edge r ON r.type IN {_SPO} AND r.src = e.eid
+            GROUP BY e.eid ORDER BY score DESC, e.eid LIMIT {_limit(params, "limit", 5)}""",
+        {"cid": params["chunkId"]},
+    )
+    return [{"entityId": r["entityId"], "score": int(r["score"])} for r in rows]
+
+
+def _is_chunk_neighbours(flat: str) -> bool:
+    return flat.startswith("// get neighboring chunks for common entities (semantic beam search)")
+
+
+def _h_chunk_neighbours(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    """Other chunks that mention the same entities, ranked by how many of those entities they share."""
+    entity_ids = list(params.get("entityIds") or [])
+    if not entity_ids:
+        return []
+    s = store._s
+    rows = store._q(
+        "read:chunk_neighbours",
+        f"""SELECT x.cid AS "chunkId", count(*) AS shared
+            FROM (SELECT DISTINCT mi.dst AS cid, sj.src AS eid
+                  FROM jsonb_array_elements_text(CAST(:ids AS jsonb)) AS q(id)
+                  JOIN {s}.edge sj ON sj.type IN {_SPO} AND sj.src = q.id
+                  JOIN {s}.edge su ON su.type = '__SUPPORTS__' AND su.src = sj.dst
+                  JOIN {s}.edge mi ON mi.type = '__MENTIONED_IN__' AND mi.src = su.dst
+                  WHERE mi.dst <> :cid) x
+            GROUP BY x.cid ORDER BY shared DESC, x.cid LIMIT {_limit(params, "limit", 10)}""",
+        {"ids": _ids_param(entity_ids), "cid": params["chunkId"]},
+    )
+    return [{"chunkId": r["chunkId"], "count(entity)": int(r["shared"])} for r in rows]
+
+
+def _is_chunks_with_source(flat: str) -> bool:
+    return flat.startswith(
+        "MATCH (chunk:`__Chunk__`)-[:`__EXTRACTED_FROM__`]->(source:`__Source__`) WHERE chunk.chunkId in $chunk_ids"
+    )
+
+
+def _h_chunks_with_source(store: AuroraGraphStore, flat: str, tenant: str, params: dict[str, Any]) -> list[Any]:
+    """Chunk and source property maps for chunk ids (``get_chunks_query``)."""
+    ids = list(params.get("chunk_ids") or [])
+    if not ids:
+        return []
+    s = store._s
+    rows = _q_adaptive(
+        store,
+        "read:chunks_with_source",
+        f"""SELECT c.id AS cid, c.value AS cvalue, c.search_str AS csearch, c.class AS cclass, c.props::text AS cprops,
+                   so.id AS sid, so.props::text AS sprops
+            FROM jsonb_array_elements_text(CAST(:ids AS jsonb)) AS q(id)
+            JOIN {s}.node c ON c.id = q.id AND c.label = '__Chunk__'
+            JOIN {s}.edge ef ON ef.type = '__EXTRACTED_FROM__' AND ef.src = c.id
+            JOIN {s}.node so ON so.id = ef.dst AND so.label = '__Source__'
+            ORDER BY c.id""",
+        ids,
+        size=50,
+    )
+    out: list[Any] = []
+    for r in rows:
+        chunk = _props_map(
+            {
+                "id": r["cid"],
+                "value": r["cvalue"],
+                "search_str": r["csearch"],
+                "class": r["cclass"],
+                "props": r["cprops"],
+            },
+            "__Chunk__",
+        )
+        source = _props_map({"id": r["sid"], "props": r["sprops"]}, "__Source__", with_columns=False)
+        out.append({"result": {"source": {"sourceId": r["sid"], "metadata": source}, "chunk": chunk}})
+    return out
+
+
 _READ_HANDLERS: list[tuple[str, Any, Any]] = [
     ("statements_by_topic_and_source", _is_statements_by_topic, _h_statements_by_topic),
     ("facts_for_statements", lambda f: f.startswith("// get facts for statements"), _h_facts),
@@ -1088,6 +1205,10 @@ _READ_HANDLERS: list[tuple[str, Any, Any]] = [
     ("local_copy", _is_local_copy, _h_local_copy),
     ("local_delete", _is_local_delete, _h_local_delete),
     ("source_collision", _is_source_collision, _h_source_collision),
+    ("chunk_statements", _is_chunk_statements, _h_chunk_statements),
+    ("chunk_top_entities", _is_chunk_top_entities, _h_chunk_top_entities),
+    ("chunk_neighbours", _is_chunk_neighbours, _h_chunk_neighbours),
+    ("chunks_with_source", _is_chunks_with_source, _h_chunks_with_source),
 ]
 
 

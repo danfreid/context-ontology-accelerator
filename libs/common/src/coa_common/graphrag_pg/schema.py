@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-"""Aurora PostgreSQL tables for the GraphRAG lexical graph (spike schema).
+"""Aurora PostgreSQL tables for the GraphRAG lexical graph (idempotent: every statement is IF NOT EXISTS).
 
 Two tables model the property graph the toolkit writes:
 
@@ -47,6 +47,8 @@ def ddl(schema: str = "lg") -> list[str]:
         )""",
         f"CREATE INDEX IF NOT EXISTS edge_dst_idx ON {s}.edge (type, dst, src)",
         f"CREATE INDEX IF NOT EXISTS node_label_idx ON {s}.node (label, tenant)",
+        # Topic neighbours walk chunk -> topics that mention it (MENTIONED_IN by dst); partial keeps it small.
+        f"CREATE INDEX IF NOT EXISTS edge_mentioned_in_dst_idx ON {s}.edge (dst, src) WHERE type = '__MENTIONED_IN__'",
         f"CREATE INDEX IF NOT EXISTS node_search_str_idx ON {s}.node (tenant, search_str text_pattern_ops) "
         "WHERE label = '__Entity__'",
         f"CREATE INDEX IF NOT EXISTS node_search_str_trgm_idx ON {s}.node USING gin (search_str gin_trgm_ops) "

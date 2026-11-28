@@ -160,7 +160,8 @@ def build_tool_registry(
     embed_client = clients.llm
 
     # ── Retrieval_Strategy_Tools × 7 — neptune + opensearch ──
-    # build_lexical_retriever returns None unless BOTH store endpoints are set;
+    # build_lexical_retriever returns None unless BOTH store endpoints are set
+    # (or the Aurora document graph + S3 Vectors path is on, which needs neither);
     # the strategy tools wrap that adapter, so they share its gating.
     #
     # The adapter's own 15s default is shorter than the per-tool budget, so pass the

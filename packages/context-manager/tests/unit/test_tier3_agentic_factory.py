@@ -174,6 +174,15 @@ class TestFullRegistration:
         # 8 strategy + graph + vector + ontology.
         assert len(names) == 11  # nl_to_sql/nl_to_sparql need a StructuredQueryTier (not supplied here)
 
+    def test_strategy_tools_registered_on_ckg_path_without_endpoints(self, monkeypatch):
+        """GRAPH_BACKEND=aurora + GRAPHRAG_VECTOR_BACKEND=s3vectors → strategy tools need no Neptune/AOSS."""
+        monkeypatch.setenv("GRAPH_BACKEND", "aurora")
+        monkeypatch.setenv("GRAPHRAG_VECTOR_BACKEND", "s3vectors")
+        monkeypatch.setenv("GRAPHRAG_S3_VECTOR_BUCKET", "vb")
+        names = build_tool_registry(make_config(), make_clients()).names()
+        assert len([n for n in names if n.startswith("strategy:")]) == 8, names
+        assert GRAPH_TOOL not in names  # Cypher templates still need Neptune on this path
+
     def test_chunk_window_registered_when_enabled(self, monkeypatch):
         """AGENTIC_ENABLE_CHUNK_WINDOW=1 + neptune → chunk_window is registered."""
         monkeypatch.setenv("AGENTIC_ENABLE_CHUNK_WINDOW", "1")
